@@ -18,13 +18,14 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 11. Scaffold wiring: new packet folders get generated `qa.md` + `research.md` without a second command — **done (Run 007)**
 12. Optional title/thumb brief at scaffold time when those files are still empty — **done (Run 008)**
 13. Publish metadata stub (`publish.md`: description, tags, pinned comment) from packet fields — **done (Run 009); no upload**
-14. Caption / narration path conventions (text first; no vendor lock-in)
+14. Caption / narration path conventions (text first; no vendor lock-in) — **done (Run 010)**
+15. Asset/card filename conventions from script VISUAL lines (no stock API)
 
 ## Later (automation)
-15. TTS narration path (optional; keep human VO compatible)
-16. Caption generation from narration text
-17. Render checklist / ffmpeg assembly for simple formats (talking-head-free explainers first)
-18. YouTube upload + metadata only after packet QA passes
+16. TTS narration path (optional; keep human VO compatible)
+17. Caption timing from a real selected take (not 150 wpm estimates)
+18. Render checklist / ffmpeg assembly for simple formats (talking-head-free explainers first)
+19. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Multi-platform posting
@@ -32,3 +33,4 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 - Analytics-driven topic selection (needs data)
 - Paid stock/API shopping
 - Web-scrape-as-research (explicitly rejected until a human verification step exists)
+- Whisper / invented SRT from estimates
