@@ -31,15 +31,21 @@ Digit notes belong to spoken WORDS only, not headings.
 Do not overwrite a filled `research.md` without `--force`.
 Do not invent sources for `videos/sample-001-*`.
 
+## Publish rule
+`publish_brief.py` writes description/tags/first comment. It must not call YouTube or invent analytics.
+Do not overwrite a filled `publish.md` without `--force`.
+Do not treat `publish.md` as proof a video went live.
+
 ## Scaffold rule
-`new_idea.py` / `new_packet.py` write generated titles/thumbs (empty titles.md only), `research.md`, then `qa.md` after copy unless `--no-generate`.
-Reuse `after_scaffold.py` and `title_thumb_brief` renderers; do not duplicate title banks.
-Never pass `--force` to title/thumb from scaffold.
+`new_idea.py` / `new_packet.py` write generated titles/thumbs (empty titles.md only), `publish.md` (empty only), `research.md`, then `qa.md` after copy unless `--no-generate`.
+Reuse `after_scaffold.py`, `title_thumb_brief` renderers, and `publish_brief.write_empty_publish`; do not duplicate title banks.
+Never pass `--force` to title/thumb or publish from scaffold.
 
 ## Fixture freeze
 Do not overwrite `videos/sample-001-*` titles or thumbnail unless the packet schema itself changed.
 `qa.md` on the fixture may be regenerated when the checklist schema changes; leave human ticks unchecked.
 `research.md` on the fixture may follow the stub schema; keep it source-free.
+`publish.md` on the fixture may follow the stub schema; it is not an upload.
 
 ## Private repo
 Push via GitHub file APIs. Do not retry HTTPS clone after it fails once in the run.
