@@ -14,14 +14,15 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 7. Title/thumbnail brief generator from packet fields — **done (Run 003)**
 8. Editor project conventions (naming, tracks, end screen) — **done as conventions (Run 004); no ffmpeg**
 9. Mechanical QA checklist writer for `qa.md` — **done (Run 005)**
-10. Research intake stub (source list + unsourced-stat reminder) — **done (Run 006)**
-11. Scaffold wiring: new packet folders get generated `qa.md` + `research.md` without a second command
+10. Research intake stub (source list + no unverifiable stats reminder) — **done (Run 006)**
+11. Scaffold wiring: new packet folders get generated `qa.md` + `research.md` without a second command — **done (Run 007)**
+12. Optional title/thumb brief at scaffold time when those files are still empty
 
 ## Later (automation)
-12. TTS narration path (optional; keep human VO compatible)
-13. Caption generation from narration text
-14. Render checklist / ffmpeg assembly for simple formats (talking-head-free explainers first)
-15. YouTube upload + metadata only after packet QA passes
+13. TTS narration path (optional; keep human VO compatible)
+14. Caption generation from narration text
+15. Render checklist / ffmpeg assembly for simple formats (talking-head-free explainers first)
+16. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Multi-platform posting
