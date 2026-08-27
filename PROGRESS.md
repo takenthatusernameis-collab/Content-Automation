@@ -11,6 +11,7 @@
 | 2026-08-27 Run 004   | ~245 estimate     | 5               | draft QA gate; empty-field parser fix |
 | 2026-08-27 Run 005   | ~240 estimate     | 6               | qa.md writer; editor human ticks listed |
 | 2026-08-27 Run 006   | ~235 estimate     | 7               | research.md stub; digit scan + overwrite guard |
+| 2026-08-27 Run 007   | ~230 estimate     | 8               | generate qa+research on scaffold; title-list newline fix |
 
 Estimate basis (generic 8-min explainer):
 - Research 30, idea lock 15, script 60, VO 25, assets 30, edit 90, captions 15, thumb/title 20, QA/upload 15
@@ -20,6 +21,7 @@ Estimate basis (generic 8-min explainer):
 - Run 004: -5 false-fail triage on intake packets + clearer edit naming
 - Run 005: -5 not rewriting qa boxes; human still does VO/cards/export ticks
 - Run 006: -5 research file structure + reminder; human still verifies any real source
+- Run 007: -5 no extra CLI after `new_idea`/`new_packet` for stubs; intake draft gate no longer false-fails empty `1.` title lines
 
 These numbers are **estimates**, not stopwatch data.
 
@@ -30,3 +32,4 @@ These numbers are **estimates**, not stopwatch data.
 - Run 004: `validate_packet.py --draft` intake gate; one-line field parser; `docs/editor.md` conventions.
 - Run 005: `tools/qa_checklist.py` writes mechanical + human `qa.md`; no scores.
 - Run 006: `tools/research_brief.py` writes `research.md` stub from idea/script; no scrape; filled-file guard.
+- Run 007: `tools/after_scaffold.py` + `--no-generate` opt-out on scaffold CLIs; `titles_from` ignores blank numbered lines.
