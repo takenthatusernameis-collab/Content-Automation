@@ -5,15 +5,19 @@ Apply to every video packet. QA checks what can be checked mechanically.
 ## Packet
 - One video = one folder `videos/NNN-slug/`
 - Required files: `packet.md`, `idea.md`, `script.md`, `titles.md`, `thumbnail.md`, `qa.md`
-- Optional: `research.md`, `assets.md`, `narration.md`, `publish.md`, `captions.md`
+- Optional: `research.md`, `assets.md`, `narration.md`, `publish.md`, `captions.md`, `render.md`
 - Status in `packet.md` must be one of: `draft`, `ready_for_vo`, `ready_for_edit`, `ready_to_publish`, `published`, `abandoned`
 - Field values stay on the same line as the key
-- `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `research.md`, and `qa.md` unless `--no-generate`
+- `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `render.md` (if empty), `research.md`, and `qa.md` unless `--no-generate`
 
 ## Format
 - Default packet format is `explainer-6-10min` (face-free).
 - Timing, holds, end-screen reserve, and named export paths: `docs/format.md`.
 - Editor tracks: `docs/editor.md`. Do not treat named paths as existing files.
+- `python3 tools/render_brief.py PATH` writes `render.md` exists-vs-missing for those names.
+- A `missing` row is the expected state until a human puts a file on disk. Do not invent media.
+- `--force` is required to replace a filled `render.md`.
+- Scaffold writes render.md only when empty.
 
 ## Script
 - Hook in the first 8–12 seconds of spoken words (about 20–35 words)
@@ -74,4 +78,5 @@ Editing conventions: `docs/editor.md`.
 Format timing: `docs/format.md`.
 Narration paths: `docs/narration.md`.
 Asset filenames: `docs/assets.md`.
+Render presence: packet `render.md`.
 Human visual/audio ticks live in `qa.md` under **Human**.

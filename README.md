@@ -16,6 +16,7 @@ Start here:
 python3 tools/new_packet.py "Working title here"
 python3 tools/new_idea.py "Stop deciding what to work on every morning"
 python3 tools/new_idea.py "Topic" --no-generate
+python3 tools/render_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/asset_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/caption_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/publish_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
@@ -24,7 +25,9 @@ python3 tools/validate_packet.py --all
 python3 tools/validate_packet.py videos/sample-001-why-systems-beat-motivation
 ```
 
-`new_idea.py` fills `idea.md` and names script beats. It does not write spoken WORDS. Default scaffold writes titles/thumbs when empty, then `publish.md`, `captions.md`, `assets.md`, `research.md`, then `qa.md` via `tools/after_scaffold.py`. Pass `--no-generate` to leave the template copies untouched.
+`new_idea.py` fills `idea.md` and names script beats. It does not write spoken WORDS. Default scaffold writes titles/thumbs when empty, then `publish.md`, `captions.md`, `assets.md`, `render.md`, `research.md`, then `qa.md` via `tools/after_scaffold.py`. Pass `--no-generate` to leave the template copies untouched.
+
+`render_brief.py` writes `render.md`: exists vs missing for named VO/card/export paths. It does not run ffmpeg or create media. Will not overwrite a filled render file unless `--force`.
 
 `asset_brief.py` writes `assets.md`: planned cards from script VISUAL lines. It does not download stock or write PNGs. Will not overwrite a filled assets file unless `--force`.
 

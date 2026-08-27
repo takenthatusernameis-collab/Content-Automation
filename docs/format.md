@@ -41,6 +41,7 @@ Paths live inside the packet folder `videos/NNN-slug/`.
 
 Export target (from `docs/editor.md`): 1920×1080, 30 fps, stereo 48 kHz.
 A path in this table is a name. It is not proof the file exists.
+Presence on disk is listed in packet `render.md` (`tools/render_brief.py`). That file is also not a recipe.
 
 ## Out of scope
 
