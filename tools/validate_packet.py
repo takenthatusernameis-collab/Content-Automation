@@ -62,7 +62,9 @@ def titles_from(text: str) -> list[str]:
     prim = re.search(r"^Primary:[ \t]*([^\n]*)$", text, re.M)
     if prim and prim.group(1).strip():
         found.append(prim.group(1).strip())
-    for m in re.finditer(r"^\d+\.\s+(.+)$", text, re.M):
+    # Spaces/tabs only after the number. `\s` includes newlines and would
+    # turn empty `1.\n2.` template lines into fake titles.
+    for m in re.finditer(r"^\d+\.[ \t]+(.+)$", text, re.M):
         found.append(m.group(1).strip())
     return [t for t in found if t]
 
