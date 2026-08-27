@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-08-27T23:10:00+03:00 (Run 010)
+Updated: 2026-08-28T00:15:00+03:00 (Run 011)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -14,7 +14,7 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 - No published videos
 - No YouTube / TTS / stock / render integrations configured
 
-## What exists now (after Run 010)
+## What exists now (after Run 011)
 - Operating memory files
 - Frozen original master prompt
 - Video packet standard + scaffold CLI + packet QA (publish gate + draft gate)
@@ -25,11 +25,13 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 - Title/thumbnail brief CLI `tools/title_thumb_brief.py` (scaffold reuses its renderers)
 - Editor naming/export conventions `docs/editor.md` (no ffmpeg)
 - Narration path conventions `docs/narration.md` (no TTS vendor)
+- Asset filename conventions `docs/assets.md` (no stock API)
 - QA checklist writer `tools/qa_checklist.py` (mechanical + human ticks)
 - Research intake stub CLI `tools/research_brief.py` (source list + unsourced-stat reminder; no scrape)
 - Publish metadata stub CLI `tools/publish_brief.py` (description / tags / first comment; no upload)
 - Caption intake stub CLI `tools/caption_brief.py` (cues from script WORDS at 150 wpm; no Whisper)
-- Scaffold post-step `tools/after_scaffold.py` writes titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `research.md`, then `qa.md` unless `--no-generate`
+- Asset intake stub CLI `tools/asset_brief.py` (card list from script VISUAL; no download)
+- Scaffold post-step `tools/after_scaffold.py` writes titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `research.md`, then `qa.md` unless `--no-generate`
 - Title-list parser treats empty `1.` / `2.` template lines as untitled
 
 ## Pipeline map
@@ -39,7 +41,7 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 | Ideas        | assisted    | `tools/new_idea.py` fills idea card        |
 | Scripts      | templated   | beats scaffolded; writer prompt exists     |
 | Narration    | templated   | path rules only; no VO file / TTS          |
-| Assets       | manual      | no asset library                           |
+| Assets       | assisted    | VISUAL -> planned card names; no binaries  |
 | Editing      | templated   | track/export names in `docs/editor.md`     |
 | Captions     | assisted    | cue list from WORDS; not timed to a take   |
 | Thumbnails   | assisted    | heuristic brief at scaffold if empty       |
@@ -53,9 +55,9 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 ## Metrics snapshot
 | Metric                         | Previous     | Current        | Notes                          |
 |--------------------------------|--------------|----------------|--------------------------------|
-| Estimated human min / video    | 220          | 215            | first caption cues from WORDS  |
-| Automated steps                | 10           | 11             | + empty-only captions.md       |
-| Remaining manual steps         | most         | most           | source check, script words, VO, edit, caption align, publish |
+| Estimated human min / video    | 215          | 210            | first card names from VISUAL   |
+| Automated steps                | 11           | 12             | + empty-only assets.md         |
+| Remaining manual steps         | most         | most           | source check, script words, VO, card build, edit, caption align, publish |
 | Videos produced by system      | 0            | 0              | sample packet is a fixture     |
 | Channel niche decided          | locked (temp)| locked (temp)  | `docs/channel.md`              |
 
@@ -68,7 +70,9 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 - sample-001 `research.md` follows the stub schema; do not invent external sources for the fixture
 - sample-001 `publish.md` is a schema fixture; do not treat it as a live upload
 - sample-001 `captions.md` is a schema fixture; estimated times are not a take
+- sample-001 `assets.md` is a schema fixture; planned filenames are not files on disk
 - New packets should use default scaffold generate; `--no-generate` is the opt-out
 - Title/thumb generate-on-scaffold is empty-file only (`write_empty_title_brief`); never `--force` sample-001
 - Publish generate-on-scaffold is empty-file only (`write_empty_publish`); never upload
 - Caption generate-on-scaffold is empty-file only (`write_empty_captions`); never Whisper
+- Asset generate-on-scaffold is empty-file only (`write_empty_assets`); never stock download
