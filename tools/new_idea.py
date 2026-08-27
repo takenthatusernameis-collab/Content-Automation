@@ -142,6 +142,11 @@ def main() -> int:
     parser.add_argument("topic", help="One-line topic or working title")
     parser.add_argument("--id", help="Numeric id like 002 (default: next)")
     parser.add_argument("--beats", type=int, default=4, help="Beat count 4–7 (default 4)")
+    parser.add_argument(
+        "--no-generate",
+        action="store_true",
+        help="Copy template only; do not write generated qa.md / research.md",
+    )
     args = parser.parse_args()
 
     if not 4 <= args.beats <= 7:
@@ -176,6 +181,12 @@ def main() -> int:
 
     print(dest.relative_to(ROOT))
     print(f"overlap={overlap} recommended={'skip' if overlap >= 4 else 'draft'}")
+
+    if not args.no_generate:
+        from after_scaffold import generate
+
+        for line in generate(dest, draft=True):
+            print(line)
     return 0
 
 
