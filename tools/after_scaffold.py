@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """Fill generated packet files after a folder is copied from template.
 
-Writes qa.md + research.md always (research keeps a filled file).
 Writes titles.md + thumbnail.md only when titles.md is still empty.
-Reuses title_thumb_brief.write_brief — not a second generator.
+Writes research.md (keeps a filled file) then qa.md.
+Reuses title_thumb_brief renderers — not a second title generator.
 
 Does not scrape, score, or invent sources. Intended for new_idea.py / new_packet.py.
 """
 
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -24,7 +25,41 @@ from research_brief import (  # noqa: E402
     render as render_research,
     research_is_filled,
 )
-from title_thumb_brief import write_brief  # noqa: E402
+from title_thumb_brief import (  # noqa: E402
+    candidate_titles,
+    load_packet_inputs,
+    render_thumb,
+    render_titles,
+    self_check,
+    thumb_line,
+)
+
+
+def titles_filled(text: str) -> bool:
+    """Same one-line rule as validate_packet.titles_from. Empty `1.` is not a title."""
+    prim = re.search(r"^Primary:[ \t]*([^\n]*)$", text, re.M)
+    if prim and prim.group(1).strip():
+        return True
+    return bool(re.search(r"^\d+\.[ \t]+\S", text, re.M))
+
+
+def write_empty_title_brief(dest: Path) -> str:
+    existing = dest / "titles.md"
+    cur = existing.read_text(encoding="utf-8") if existing.is_file() else ""
+    if titles_filled(cur):
+        return f"kept {dest.name}/titles.md+thumbnail.md (already filled)"
+
+    src = load_packet_inputs(dest)
+    titles = candidate_titles(src)
+    line = thumb_line(src)
+    titles_text = render_titles(titles)
+    thumb_text = render_thumb(src, line, titles[0])
+    errors = self_check(titles_text, thumb_text)
+    if errors:
+        return f"skipped {dest.name}/titles.md (self-check failed: {'; '.join(errors)})"
+    (dest / "titles.md").write_text(titles_text, encoding="utf-8")
+    (dest / "thumbnail.md").write_text(thumb_text, encoding="utf-8")
+    return f"wrote {dest.name}/titles.md+thumbnail.md"
 
 
 def generate(dest: Path, *, draft: bool = True) -> list[str]:
@@ -33,7 +68,7 @@ def generate(dest: Path, *, draft: bool = True) -> list[str]:
     notes: list[str] = []
 
     # Titles first so qa mechanical boxes see filled title/thumb fields.
-    notes.append(write_brief(dest, force=False))
+    notes.append(write_empty_title_brief(dest))
 
     existing = (dest / "research.md").read_text(encoding="utf-8") if (dest / "research.md").is_file() else ""
     if research_is_filled(existing):
