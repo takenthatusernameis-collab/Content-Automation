@@ -16,13 +16,14 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 9. Mechanical QA checklist writer for `qa.md` — **done (Run 005)**
 10. Research intake stub (source list + no unverifiable stats reminder) — **done (Run 006)**
 11. Scaffold wiring: new packet folders get generated `qa.md` + `research.md` without a second command — **done (Run 007)**
-12. Optional title/thumb brief at scaffold time when those files are still empty
+12. Optional title/thumb brief at scaffold time when those files are still empty — **done (Run 008)**
+13. Publish metadata stub (`publish.md`: description, tags, pinned comment) from packet fields — no upload
 
 ## Later (automation)
-13. TTS narration path (optional; keep human VO compatible)
-14. Caption generation from narration text
-15. Render checklist / ffmpeg assembly for simple formats (talking-head-free explainers first)
-16. YouTube upload + metadata only after packet QA passes
+14. TTS narration path (optional; keep human VO compatible)
+15. Caption generation from narration text
+16. Render checklist / ffmpeg assembly for simple formats (talking-head-free explainers first)
+17. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Multi-platform posting
