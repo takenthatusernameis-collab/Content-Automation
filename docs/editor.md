@@ -17,6 +17,7 @@ Face-free explainer. Naming and export only. No ffmpeg profile yet.
 - Hook card: same promise as script hook, not a new slogan
 - Beat cards: short label from the beat title, max 5 words
 - CTA card: the assignment, not “subscribe”
+- Planned names come from `assets.md` / `docs/assets.md` (`cards/{beat}-{slug}.png`)
 
 ## Timing
 - Cut on sentence ends from `script.md` WORDS
