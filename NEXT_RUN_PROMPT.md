@@ -23,7 +23,7 @@ Do not treat a partial hook (1–19 or 36+ words) as draft-incomplete; that is s
 Title numbered items must be on the same line as `N.`. Empty `1.` template lines are not titles.
 
 ## Checklist rule
-`qa_checklist.py` may mark mechanical boxes from files. It must not mark human VO/card/export boxes done and must not invent numeric quality scores.
+`qa_checklist.py` may mark mechanical boxes from files. It must not mark human VO/card/export/caption boxes done and must not invent numeric quality scores.
 Digit notes belong to spoken WORDS only, not headings.
 
 ## Research rule
@@ -36,16 +36,21 @@ Do not invent sources for `videos/sample-001-*`.
 Do not overwrite a filled `publish.md` without `--force`.
 Do not treat `publish.md` as proof a video went live.
 
+## Caption rule
+`caption_brief.py` writes cues from script WORDS at 150 wpm. It must not run Whisper, write `captions.srt`, or treat estimates as a take.
+Do not overwrite a filled `captions.md` without `--force`.
+
 ## Scaffold rule
-`new_idea.py` / `new_packet.py` write generated titles/thumbs (empty titles.md only), `publish.md` (empty only), `research.md`, then `qa.md` after copy unless `--no-generate`.
-Reuse `after_scaffold.py`, `title_thumb_brief` renderers, and `publish_brief.write_empty_publish`; do not duplicate title banks.
-Never pass `--force` to title/thumb or publish from scaffold.
+`new_idea.py` / `new_packet.py` write generated titles/thumbs (empty titles.md only), `publish.md` (empty only), `captions.md` (empty only), `research.md`, then `qa.md` after copy unless `--no-generate`.
+Reuse `after_scaffold.py`, `title_thumb_brief` renderers, `publish_brief.write_empty_publish`, and `caption_brief.write_empty_captions`; do not duplicate title banks.
+Never pass `--force` to title/thumb, publish, or captions from scaffold.
 
 ## Fixture freeze
 Do not overwrite `videos/sample-001-*` titles or thumbnail unless the packet schema itself changed.
 `qa.md` on the fixture may be regenerated when the checklist schema changes; leave human ticks unchecked.
 `research.md` on the fixture may follow the stub schema; keep it source-free.
 `publish.md` on the fixture may follow the stub schema; it is not an upload.
+`captions.md` on the fixture may follow the stub schema; estimated times are not a take.
 
 ## Private repo
 Push via GitHub file APIs. Do not retry HTTPS clone after it fails once in the run.

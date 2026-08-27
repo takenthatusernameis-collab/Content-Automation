@@ -21,3 +21,6 @@ Format: date | decision | why | revisit when
 - 2026-08-27 | after_scaffold writes titles before qa.md | Mechanical title/thumb boxes would stay unchecked if qa ran first | Keep this order
 - 2026-08-27 | publish.md is metadata only; no YouTube API | Recurring description/tags/comment labor can be drafted from packet fields | When OAuth exists and packet QA is PASS
 - 2026-08-27 | Scaffold writes publish.md only when empty | Same empty-only contract as titles | If a human-edited description should always win
+- 2026-08-27 | captions.md is a WORDS cue list at 150 wpm, not Whisper and not SRT | Recurring caption typing starts from the script the editor already has | When a selected VO take exists to time against
+- 2026-08-27 | Scaffold writes captions.md only when empty | Same empty-only contract as publish | If a human-aligned caption file should always win
+- 2026-08-27 | VO lives at `vo/NNN-slug-take-selected.wav` inside the packet | Stops "which take is the one" labor before any TTS choice | When a human adds a real take or a TTS CLI note

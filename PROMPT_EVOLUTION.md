@@ -29,8 +29,13 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 
 ## Observed issues (Run 006)
 - Research intake is a reminder + scan, not a researcher. Scraping would create fake certainty.
-- `\b` after an optional `%` can drop the percent sign (`87%` -> `87`). Keep `%` inside the match.
+- `\\b` after an optional `%` can drop the percent sign (`87%` -> `87`). Keep `%` inside the match.
 - Filled-file guards matter as much as generators; sample-001 already had a source line.
+
+## Observed issues (Run 010)
+- Caption intake must stay text-from-script. Estimated 150 wpm times look like real SRT if written to `.srt`.
+- Empty-script packets must stay `placeholder` / not-filled so scaffold can rewrite after WORDS exist.
+- Path conventions for VO unblocked naming without pretending audio exists.
 
 ## Allowed changes
 Recorded as proposals in `NEXT_RUN_PROMPT.md` only. Do not edit the original archive.

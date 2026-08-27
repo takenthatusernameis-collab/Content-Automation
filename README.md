@@ -22,6 +22,8 @@ python3 tools/research_brief.py videos/002-stop-deciding-what-to-work-on-every
 python3 tools/research_brief.py videos/002-stop-deciding-what-to-work-on-every --source "Human pointer: cite X before using a number"
 python3 tools/publish_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/publish_brief.py videos/002-stop-deciding-what-to-work-on-every
+python3 tools/caption_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
+python3 tools/caption_brief.py videos/002-stop-deciding-what-to-work-on-every
 python3 tools/qa_checklist.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/qa_checklist.py videos/sample-001-why-systems-beat-motivation
 python3 tools/validate_packet.py --all
@@ -29,7 +31,7 @@ python3 tools/validate_packet.py --draft videos/002-stop-deciding-what-to-work-o
 python3 tools/validate_packet.py videos/sample-001-why-systems-beat-motivation
 ```
 
-`new_idea.py` fills `idea.md` and names script beats. It does not write spoken WORDS. Use `prompts/script_writer.md` for that. After intake, `--draft` should be `DRAFT-INCOMPLETE` (structure ok, WORDS empty), not `FAIL`. Default scaffold writes titles/thumbs when empty, then `publish.md`, `research.md`, then `qa.md` via `tools/after_scaffold.py`. Pass `--no-generate` to leave the template copies untouched.
+`new_idea.py` fills `idea.md` and names script beats. It does not write spoken WORDS. Use `prompts/script_writer.md` for that. After intake, `--draft` should be `DRAFT-INCOMPLETE` (structure ok, WORDS empty), not `FAIL`. Default scaffold writes titles/thumbs when empty, then `publish.md`, `captions.md`, `research.md`, then `qa.md` via `tools/after_scaffold.py`. Pass `--no-generate` to leave the template copies untouched.
 
 `title_thumb_brief.py` writes five-plus titles and a ≤5-word on-image line from idea/packet fields. Heuristic only. Will not overwrite filled titles unless `--force`. Scaffold calls the same writer.
 
@@ -37,8 +39,10 @@ python3 tools/validate_packet.py videos/sample-001-why-systems-beat-motivation
 
 `publish_brief.py` writes `publish.md`: upload title, description, tags, first comment. It does not call YouTube. Will not overwrite a filled publish file unless `--force`.
 
+`caption_brief.py` writes `captions.md`: cue list from script WORDS at 150 wpm. It does not run Whisper or write SRT. Will not overwrite a filled captions file unless `--force`.
+
 `qa_checklist.py` rewrites `qa.md`: mechanical boxes from packet files, human ticks from `docs/editor.md`. It does not score taste or mark VO/cards done.
 
 Default `validate_packet.py` is the publish/completeness gate. `--draft` / `--incomplete` is the intake gate.
 
-Video packets live in `videos/`. The contract is described in `docs/production_rules.md`. Editor naming is in `docs/editor.md`.
+Video packets live in `videos/`. The contract is described in `docs/production_rules.md`. Editor naming is in `docs/editor.md`. VO paths are in `docs/narration.md`.
