@@ -13,13 +13,14 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 6. Script writer prompt + beat validator (hook length, promise, payoff) — **done (prompt Run 002; `--draft` gate Run 004)**
 7. Title/thumbnail brief generator from packet fields — **done (Run 003)**
 8. Editor project conventions (naming, tracks, end screen) — **done as conventions (Run 004); no ffmpeg**
-9. Mechanical QA checklist writer for `qa.md`
+9. Mechanical QA checklist writer for `qa.md` — **done (Run 005)**
+10. Research intake stub (source list + unsourced-stat reminder)
 
 ## Later (automation)
-10. TTS narration path (optional; keep human VO compatible)
-11. Caption generation from narration text
-12. Render checklist / ffmpeg assembly for simple formats (talking-head-free explainers first)
-13. YouTube upload + metadata only after packet QA passes
+11. TTS narration path (optional; keep human VO compatible)
+12. Caption generation from narration text
+13. Render checklist / ffmpeg assembly for simple formats (talking-head-free explainers first)
+14. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Multi-platform posting

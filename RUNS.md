@@ -2,6 +2,23 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-08-27T14:15:00+03:00 — Run 005
+
+- **Objective:** Add `tools/qa_checklist.py` that writes `qa.md` from production rules + editor conventions without inventing scores.
+- **Inspected:** STATE/NEXT/ROADMAP after Run 004. NEXT item 1 was the checklist writer. Read `docs/production_rules.md`, `docs/editor.md`, template + sample `qa.md`, `validate_packet.py`.
+- **Action taken:** Added `tools/qa_checklist.py`. Updated `_template/qa.md` and sample-001 `qa.md` to the new schema (titles/thumbs untouched). Documented the command in production rules and README. Did not add research CLI (left as next). Did not touch VO/TTS/ffmpeg.
+- **Result:** One command fills mechanical boxes from files and lists human ticks (VO take, card readability, CTA assignment, hold time, end screen, export name, unsourced stats, title lock, thumb design).
+- **Verification status:** completed (local reconstruction; live GitHub push of the tool). Commands:
+  - reconstructed sample-001: `validate_packet.py` -> `PASS` exit 0
+  - `qa_checklist.py --dry-run` on sample-001 -> exit 0, gate **PASS**, all mechanical `[x]`, all human `[ ]`, no digit tokens in WORDS
+  - empty hook/titles/thumb with `--draft`: validate `DRAFT-INCOMPLETE` exit 0; checklist mechanical hook/titles/thumb unchecked; gate **DRAFT-INCOMPLETE**
+  - same packet default validate -> `FAIL` exit 1
+  - existing human `[x]` on exact HUMAN_ITEMS label is preserved; old mechanical `[x]` labels are not treated as human ticks
+  - write path then `validate_packet.py` still `PASS` exit 0
+- **Important discovery:** A naive digit scan of `script.md` treats `0:00` and `Beat 1` as statistics. Restrict scans to `WORDS:` blocks.
+- **Blocker:** None for this step. Publishing/TTS/YouTube API remain in BLOCKED.md. HTTPS clone still not used.
+- **Recommended next action:** `research.md` intake stub CLI (source list + no unverifiable stats reminder).
+
 ## 2026-08-27T13:08:00+03:00 — Run 004
 
 - **Objective:** Add `validate_packet.py --draft` so intake packets with empty WORDS are not a publish-gate FAIL.

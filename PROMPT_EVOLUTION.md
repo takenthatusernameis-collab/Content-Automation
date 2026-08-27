@@ -22,5 +22,10 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 - Empty-field regexes looked fine until tested on intake packets. Always test the blank-value case.
 - Scope cap still holds: do not open TTS/ffmpeg because editor.md exists.
 
+## Observed issues (Run 005)
+- NEXT.md item 1 (`qa_checklist.py`) was specific. Digit scanners must ignore headings or they invent “stats” from `0:00` and `Beat 1`.
+- Regenerating sample-001 `qa.md` is allowed when the checklist schema changes; titles/thumbs stay frozen.
+- Do not auto-check human items just because mechanical QA passed.
+
 ## Allowed changes
 Recorded as proposals in `NEXT_RUN_PROMPT.md` only. Do not edit the original archive.

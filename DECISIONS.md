@@ -13,3 +13,4 @@ Format: date | decision | why | revisit when
 - 2026-08-27 | Title/thumb briefs are heuristic banks keyed off idea words, not an LLM | Same no-API constraint as intake; must pass validator field rules | If copy quality is the bottleneck after scripts exist
 - 2026-08-27 | Packet QA has two gates: default publish completeness, `--draft` intake | Empty WORDS must not pass publish QA and must not block intake | If a third status (ready_for_vo) needs its own gate
 - 2026-08-27 | Packet field values are single-line | Empty `id:` was swallowing the next line via `\\s*` | Keep one-line parsers
+- 2026-08-27 | qa.md is generated, not scored | Mechanical boxes come from files; human ticks stay human | If a later run can detect VO files or export paths on disk

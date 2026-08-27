@@ -30,8 +30,10 @@ Apply to every video packet. QA checks what can be checked mechanically.
 ## QA gates
 - `python3 tools/validate_packet.py PATH` — publish/completeness. Empty WORDS fail.
 - `python3 tools/validate_packet.py --draft PATH` — intake/structure. Empty WORDS/titles/thumb are incomplete, not fail.
-- A hook that has words but is outside 20–35 still fails in both gates.
+- `python3 tools/qa_checklist.py PATH` — writes `qa.md` mechanical boxes from files + human ticks from editor conventions. Never invents scores or auto-checks VO/cards/export.
+- A hook that has words but is outside 20–35 still fails in both validate gates.
 
 ## Human handoff
 Anything a human must still do is listed under `Remaining human work` in `packet.md`.
 Editing conventions: `docs/editor.md`.
+Human visual/audio ticks live in `qa.md` under **Human**.

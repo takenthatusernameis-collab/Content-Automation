@@ -21,8 +21,13 @@ Default `validate_packet.py` is the publish/completeness gate.
 Do not weaken hook 20–35 or title-count rules in default mode.
 Do not treat a partial hook (1–19 or 36+ words) as draft-incomplete; that is still FAIL.
 
+## Checklist rule
+`qa_checklist.py` may mark mechanical boxes from files. It must not mark human VO/card/export boxes done and must not invent numeric quality scores.
+Digit notes belong to spoken WORDS only, not headings.
+
 ## Fixture freeze
-Do not overwrite `videos/sample-001-*` unless the packet schema itself changed.
+Do not overwrite `videos/sample-001-*` titles or thumbnail unless the packet schema itself changed.
+`qa.md` on the fixture may be regenerated when the checklist schema changes; leave human ticks unchecked.
 
 ## Private repo
 Push via GitHub file APIs. Do not retry HTTPS clone after it fails once in the run.
