@@ -8,7 +8,7 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Optional: `research.md`, `assets.md`, `narration.md`, `publish.md`
 - Status in `packet.md` must be one of: `draft`, `ready_for_vo`, `ready_for_edit`, `ready_to_publish`, `published`, `abandoned`
 - Field values stay on the same line as the key
-- `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated `qa.md` + `research.md` unless `--no-generate`
+- `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated titles/thumbs (if empty), `research.md`, and `qa.md` unless `--no-generate`
 
 ## Script
 - Hook in the first 8–12 seconds of spoken words (about 20–35 words)
@@ -30,6 +30,7 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - One must be under 50 characters
 - No ALL CAPS words except a single acronym
 - Numbered options stay on the same line as `1.` — blank `1.` is not a title
+- Scaffold fills titles/thumbs from `title_thumb_brief.py` only when `titles.md` parses empty
 
 ## Thumbnail
 - One sentence of on-image text, max 5 words

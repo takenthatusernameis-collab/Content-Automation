@@ -32,9 +32,9 @@ Do not overwrite a filled `research.md` without `--force`.
 Do not invent sources for `videos/sample-001-*`.
 
 ## Scaffold rule
-`new_idea.py` / `new_packet.py` write generated `qa.md` + `research.md` after copy unless `--no-generate`.
-Reuse `after_scaffold.py`; do not duplicate render logic.
-Do not auto-call title/thumb brief unless NEXT.md says to and empty-file guards exist.
+`new_idea.py` / `new_packet.py` write generated titles/thumbs (empty titles.md only), `research.md`, then `qa.md` after copy unless `--no-generate`.
+Reuse `after_scaffold.py` and `title_thumb_brief` renderers; do not duplicate title banks.
+Never pass `--force` to title/thumb from scaffold.
 
 ## Fixture freeze
 Do not overwrite `videos/sample-001-*` titles or thumbnail unless the packet schema itself changed.
