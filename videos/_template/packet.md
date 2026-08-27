@@ -19,4 +19,5 @@ One sentence: after watching, the viewer can ___.
 - [ ] Edit
 - [ ] Captions
 - [ ] Thumbnail
+- [ ] Draft publish.md (description / tags / first comment)
 - [ ] Upload
