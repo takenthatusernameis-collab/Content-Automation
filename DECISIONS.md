@@ -14,3 +14,4 @@ Format: date | decision | why | revisit when
 - 2026-08-27 | Packet QA has two gates: default publish completeness, `--draft` intake | Empty WORDS must not pass publish QA and must not block intake | If a third status (ready_for_vo) needs its own gate
 - 2026-08-27 | Packet field values are single-line | Empty `id:` was swallowing the next line via `\\s*` | Keep one-line parsers
 - 2026-08-27 | qa.md is generated, not scored | Mechanical boxes come from files; human ticks stay human | If a later run can detect VO files or export paths on disk
+- 2026-08-27 | research.md is a stub + reminder, never a scrape dump | Unverified URLs look like facts if pasted in | When a human verification checklist exists

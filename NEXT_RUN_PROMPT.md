@@ -25,9 +25,15 @@ Do not treat a partial hook (1–19 or 36+ words) as draft-incomplete; that is s
 `qa_checklist.py` may mark mechanical boxes from files. It must not mark human VO/card/export boxes done and must not invent numeric quality scores.
 Digit notes belong to spoken WORDS only, not headings.
 
+## Research rule
+`research_brief.py` writes a stub and a WORDS digit scan. It must not scrape pages or treat `--source` lines as verified facts.
+Do not overwrite a filled `research.md` without `--force`.
+Do not invent sources for `videos/sample-001-*`.
+
 ## Fixture freeze
 Do not overwrite `videos/sample-001-*` titles or thumbnail unless the packet schema itself changed.
 `qa.md` on the fixture may be regenerated when the checklist schema changes; leave human ticks unchecked.
+`research.md` on the fixture may follow the stub schema; keep it source-free.
 
 ## Private repo
 Push via GitHub file APIs. Do not retry HTTPS clone after it fails once in the run.

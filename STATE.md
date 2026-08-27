@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-08-27T14:15:00+03:00 (Run 005)
+Updated: 2026-08-27T17:10:00+03:00 (Run 006)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -14,7 +14,7 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 - No published videos
 - No YouTube / TTS / stock / render integrations configured
 
-## What exists now (after Run 005)
+## What exists now (after Run 006)
 - Operating memory files
 - Frozen original master prompt
 - Video packet standard + scaffold CLI + packet QA (publish gate + draft gate)
@@ -25,11 +25,12 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 - Title/thumbnail brief CLI `tools/title_thumb_brief.py`
 - Editor naming/export conventions `docs/editor.md` (no ffmpeg)
 - QA checklist writer `tools/qa_checklist.py` (mechanical + human ticks)
+- Research intake stub CLI `tools/research_brief.py` (source list + unsourced-stat reminder; no scrape)
 
 ## Pipeline map
 | Stage        | Status      | Notes                                      |
 |--------------|-------------|--------------------------------------------|
-| Research     | manual      | no research brief automation yet           |
+| Research     | assisted    | stub CLI; human still verifies sources     |
 | Ideas        | assisted    | `tools/new_idea.py` fills idea card        |
 | Scripts      | templated   | beats scaffolded; writer prompt exists     |
 | Narration    | blocked     | needs TTS or human VO                      |
@@ -46,9 +47,9 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 ## Metrics snapshot
 | Metric                         | Previous     | Current        | Notes                          |
 |--------------------------------|--------------|----------------|--------------------------------|
-| Estimated human min / video    | 245          | 240            | checklist no longer rewritten by hand |
-| Automated steps                | 5            | 6              | + qa.md writer                 |
-| Remaining manual steps         | most         | most           | script words, VO, edit, publish |
+| Estimated human min / video    | 240          | 235            | research.md no longer blank page |
+| Automated steps                | 6            | 7              | + research stub writer         |
+| Remaining manual steps         | most         | most           | source check, script words, VO, edit, publish |
 | Videos produced by system      | 0            | 0              | sample packet is a fixture     |
 | Channel niche decided          | locked (temp)| locked (temp)  | `docs/channel.md`              |
 
@@ -58,3 +59,4 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 - Do not invent published videos or integrations
 - Do not overwrite sample-001 titles/thumbs unless the packet schema changes
 - sample-001 `qa.md` may be regenerated when the checklist schema changes; human ticks stay empty on the fixture
+- sample-001 `research.md` follows the stub schema; do not invent external sources for the fixture

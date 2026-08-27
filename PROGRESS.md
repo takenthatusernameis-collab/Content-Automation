@@ -10,6 +10,7 @@
 | 2026-08-27 Run 003   | ~250 estimate     | 4               | title/thumb brief; ~15 min off blank title/thumb start |
 | 2026-08-27 Run 004   | ~245 estimate     | 5               | draft QA gate; empty-field parser fix |
 | 2026-08-27 Run 005   | ~240 estimate     | 6               | qa.md writer; editor human ticks listed |
+| 2026-08-27 Run 006   | ~235 estimate     | 7               | research.md stub; digit scan + overwrite guard |
 
 Estimate basis (generic 8-min explainer):
 - Research 30, idea lock 15, script 60, VO 25, assets 30, edit 90, captions 15, thumb/title 20, QA/upload 15
@@ -18,6 +19,7 @@ Estimate basis (generic 8-min explainer):
 - Run 003: -15 first title/thumb draft (human still picks Primary and designs the image)
 - Run 004: -5 false-fail triage on intake packets + clearer edit naming
 - Run 005: -5 not rewriting qa boxes; human still does VO/cards/export ticks
+- Run 006: -5 research file structure + reminder; human still verifies any real source
 
 These numbers are **estimates**, not stopwatch data.
 
@@ -27,3 +29,4 @@ These numbers are **estimates**, not stopwatch data.
 - Run 003: heuristic title + thumbnail brief CLI with field self-check matching `validate_packet.py`.
 - Run 004: `validate_packet.py --draft` intake gate; one-line field parser; `docs/editor.md` conventions.
 - Run 005: `tools/qa_checklist.py` writes mechanical + human `qa.md`; no scores.
+- Run 006: `tools/research_brief.py` writes `research.md` stub from idea/script; no scrape; filled-file guard.

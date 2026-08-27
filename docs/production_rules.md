@@ -17,6 +17,12 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - No unverifiable statistics; if a number is used, cite source in `research.md`
 - Working-niche tone: specific, calm, operational. No hustle slogans.
 
+## Research
+- `python3 tools/research_brief.py PATH` writes the stub (topic seed, source slots, spoken-number scan).
+- Listing a URL is not verification. Do not scrape pages into Facts.
+- `--source "line"` adds a human-provided pointer. `--force` is required to replace a filled file.
+- Digit scan looks only at WORDS blocks (not `0:00` / `Beat 1` headings).
+
 ## Titles
 - Provide at least 5 options
 - One must be under 50 characters

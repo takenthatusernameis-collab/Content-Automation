@@ -27,5 +27,10 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 - Regenerating sample-001 `qa.md` is allowed when the checklist schema changes; titles/thumbs stay frozen.
 - Do not auto-check human items just because mechanical QA passed.
 
+## Observed issues (Run 006)
+- Research intake is a reminder + scan, not a researcher. Scraping would create fake certainty.
+- `\b` after an optional `%` can drop the percent sign (`87%` -> `87`). Keep `%` inside the match.
+- Filled-file guards matter as much as generators; sample-001 already had a source line.
+
 ## Allowed changes
 Recorded as proposals in `NEXT_RUN_PROMPT.md` only. Do not edit the original archive.
