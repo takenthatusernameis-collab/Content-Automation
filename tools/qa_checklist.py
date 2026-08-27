@@ -33,6 +33,7 @@ HUMAN_ITEMS = (
     "Hook card readable at 1920x1080 and matches the hook promise",
     "Beat cards max 5 words and taken from beat titles",
     "CTA card shows the assignment, not subscribe",
+    "Planned cards listed in assets.md match script VISUAL lines (files may still be missing)",
     "Cards held at least 1.5s; cuts on sentence ends",
     "Last 20s reserved for YouTube end screen; CTA still readable",
     "Export named exports/NNN-slug-vN.mp4 (1920x1080, 30fps, 48kHz)",
@@ -114,6 +115,7 @@ def render(path: Path, draft: bool, prior: set[str]) -> str:
     script = (path / "script.md").read_text(encoding="utf-8") if (path / "script.md").is_file() else ""
     research_exists = (path / "research.md").is_file()
     captions_exists = (path / "captions.md").is_file()
+    assets_exists = (path / "assets.md").is_file()
     nums = numbers_in_spoken_words(script)
 
     notes = [
@@ -122,6 +124,7 @@ def render(path: Path, draft: bool, prior: set[str]) -> str:
         f"- Structural gate (`validate_packet.py{' --draft' if draft else ''}`): **{gate}**",
         f"- research.md present: {'yes' if research_exists else 'no'}",
         f"- captions.md present: {'yes' if captions_exists else 'no'}",
+        f"- assets.md present: {'yes' if assets_exists else 'no'}",
     ]
     if nums:
         notes.append(
