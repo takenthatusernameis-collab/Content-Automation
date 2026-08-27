@@ -35,6 +35,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Scaffold a new video packet")
     parser.add_argument("title", help="Working title or topic")
     parser.add_argument("--id", help="Numeric id like 002 (default: next)")
+    parser.add_argument(
+        "--no-generate",
+        action="store_true",
+        help="Copy template only; do not write generated qa.md / research.md",
+    )
     args = parser.parse_args()
 
     if not TEMPLATE.is_dir():
@@ -60,6 +65,13 @@ def main() -> int:
     text = text.replace("- updated:", f"- updated: {today}", 1)
     packet.write_text(text, encoding="utf-8")
     print(dest.relative_to(ROOT))
+
+    if not args.no_generate:
+        sys.path.insert(0, str(ROOT / "tools"))
+        from after_scaffold import generate
+
+        for line in generate(dest, draft=True):
+            print(line)
     return 0
 
 
