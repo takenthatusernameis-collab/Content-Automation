@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Fill qa.md and research.md after a packet folder is copied from template.
+"""Fill generated packet files after a folder is copied from template.
+
+Writes qa.md + research.md always (research keeps a filled file).
+Writes titles.md + thumbnail.md only when titles.md is still empty.
+Reuses title_thumb_brief.write_brief — not a second generator.
 
 Does not scrape, score, or invent sources. Intended for new_idea.py / new_packet.py.
 """
@@ -20,16 +24,16 @@ from research_brief import (  # noqa: E402
     render as render_research,
     research_is_filled,
 )
+from title_thumb_brief import write_brief  # noqa: E402
 
 
 def generate(dest: Path, *, draft: bool = True) -> list[str]:
-    """Write generated qa.md + research.md. Returns human-readable lines."""
+    """Write generated qa/research and empty-only titles/thumbs. Returns notes."""
     dest = dest.resolve()
     notes: list[str] = []
 
-    qa_text = render_qa(dest, draft=draft, prior=set())
-    (dest / "qa.md").write_text(qa_text, encoding="utf-8")
-    notes.append(f"wrote {dest.name}/qa.md")
+    # Titles first so qa mechanical boxes see filled title/thumb fields.
+    notes.append(write_brief(dest, force=False))
 
     existing = (dest / "research.md").read_text(encoding="utf-8") if (dest / "research.md").is_file() else ""
     if research_is_filled(existing):
@@ -39,4 +43,8 @@ def generate(dest: Path, *, draft: bool = True) -> list[str]:
         research_text = render_research(dest, extra_sources=[], preserve_sources=preserve)
         (dest / "research.md").write_text(research_text, encoding="utf-8")
         notes.append(f"wrote {dest.name}/research.md")
+
+    qa_text = render_qa(dest, draft=draft, prior=set())
+    (dest / "qa.md").write_text(qa_text, encoding="utf-8")
+    notes.append(f"wrote {dest.name}/qa.md")
     return notes
