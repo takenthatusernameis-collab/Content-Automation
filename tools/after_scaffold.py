@@ -5,11 +5,13 @@ Writes titles.md + thumbnail.md only when titles.md is still empty.
 Writes publish.md only when it is still empty.
 Writes captions.md only when it is still empty.
 Writes assets.md only when it is still empty.
+Writes render.md only when it is still empty.
 Writes research.md (keeps a filled file) then qa.md.
 Reuses title_thumb_brief renderers — not a second title generator.
 Reuses publish_brief — not an uploader.
 Reuses caption_brief — not Whisper / SRT export.
 Reuses asset_brief — not stock shopping.
+Reuses render_brief — not ffmpeg.
 
 Does not scrape, score, invent sources, or call YouTube. Intended for
 new_idea.py / new_packet.py.
@@ -43,6 +45,7 @@ from title_thumb_brief import (  # noqa: E402
 from publish_brief import write_empty_publish  # noqa: E402
 from caption_brief import write_empty_captions  # noqa: E402
 from asset_brief import write_empty_assets  # noqa: E402
+from render_brief import write_empty_render  # noqa: E402
 
 
 def titles_filled(text: str) -> bool:
@@ -73,15 +76,15 @@ def write_empty_title_brief(dest: Path) -> str:
 
 
 def generate(dest: Path, *, draft: bool = True) -> list[str]:
-    """Write generated qa/research/publish/captions/assets and empty-only titles/thumbs."""
+    """Write generated qa/research/publish/captions/assets/render and empty-only titles/thumbs."""
     dest = dest.resolve()
     notes: list[str] = []
 
-    # Titles first so publish.md can use Primary and qa boxes see filled fields.
     notes.append(write_empty_title_brief(dest))
     notes.append(write_empty_publish(dest))
     notes.append(write_empty_captions(dest))
     notes.append(write_empty_assets(dest))
+    notes.append(write_empty_render(dest))
 
     existing = (dest / "research.md").read_text(encoding="utf-8") if (dest / "research.md").is_file() else ""
     if research_is_filled(existing):
