@@ -8,3 +8,5 @@ Format: date | decision | why | revisit when
 - 2026-08-27 | No publishing integrations in foundation phase | Missing credentials; would stall the run | When a human adds setup notes + keys elsewhere
 - 2026-08-27 | Temporary working niche: focused-work systems explainers | Unblocks template specialization without pretending the channel exists | Human override
 - 2026-08-27 | Sample video packet is a fixture, not a publish candidate | Need a validator target | Keep sample-001 frozen unless schema changes
+- 2026-08-27 | Idea intake is deterministic structure, not LLM generation | Runs must work with no model/API | If a writer model is later wired, keep structure CLI as fallback
+- 2026-08-27 | Working niche lives in `docs/channel.md` | Single place for prompts and tools to read | Human override via DECISIONS.md

@@ -5,12 +5,12 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 ## Now (foundation)
 1. Keep operating memory accurate after every run
 2. Freeze a video packet contract so every video uses the same folder and files
-3. Decide niche, audience, format, and length band (human input useful; agent can propose 2–3 options)
-4. Write a channel voice spec once it is chosen
+3. Working niche locked in `docs/channel.md` (human may override)
+4. Channel voice spec exists in the same file
 
 ## Next (assisted production)
-5. Idea intake: one research note -> scored idea card
-6. Script writer prompt + beat validator (hook length, promise, payoff)
+5. Idea intake: one-line topic -> idea card — **done (Run 002)**
+6. Script writer prompt + beat validator (hook length, promise, payoff) — prompt done; draft-incomplete validate mode still open
 7. Title/thumbnail brief generator from packet fields
 8. Editor project conventions (naming, tracks, end screen)
 

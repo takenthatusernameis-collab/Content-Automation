@@ -2,11 +2,8 @@
 
 Do these in order. Stop if a step needs a human decision that is not present.
 
-1. **Highest value:** Propose and lock a *temporary working niche* so templates can specialize. Until a human overrides it, use:
-   - Working niche: “systems for doing focused work” (productivity / process, not guru motivation)
-   - Format: 6–10 minute explainer with on-screen text + b-roll notes
-   - Cadence target: 1 video / week once production path exists
-2. Add a `tools/new_idea.py` that turns a one-line topic into a filled idea card + empty script beats using the packet schema (no LLM required for structure; optional later).
-3. Add `prompts/script_writer.md` bound to `docs/production_rules.md` so script drafts are consistent.
-4. Do **not** attempt YouTube OAuth, TTS vendors, or publishing in the next run unless credentials appear in-repo docs as available.
-5. Do **not** regenerate the foundation files unless they are wrong.
+1. **Highest value:** Add `tools/title_thumb_brief.py` that reads a packet’s idea + promise and writes 5 title options + a 5-word thumbnail line that already pass `validate_packet.py` field rules. Keep copy heuristic; no API.
+2. Optionally add a `validate_packet.py` mode that treats empty WORDS as `draft-incomplete` instead of FAIL, so idea-only packets are first-class.
+3. Do **not** rewrite `tools/new_idea.py` or `docs/channel.md` unless they are wrong.
+4. Do **not** attempt YouTube OAuth, TTS vendors, or publishing unless credentials appear in-repo docs as available.
+5. Do **not** produce a “real” video packet intended for upload; still no VO or assets path.
