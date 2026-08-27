@@ -2,6 +2,21 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-08-27T11:00:00+03:00 — Run 003
+
+- **Objective:** Add a reusable title/thumbnail brief generator from packet idea fields.
+- **Inspected:** STATE/NEXT/ROADMAP after Run 002. NEXT item 1 was `tools/title_thumb_brief.py`. Validator title/thumb rules read from `tools/validate_packet.py`.
+- **Action taken:** Added `tools/title_thumb_brief.py` (heuristic, no API). Refused to overwrite filled titles without `--force`. Did not touch sample-001 copy. Did not add draft-incomplete validate mode (left as next).
+- **Result:** CLI writes Primary + 5 alts and a ≤5-word on-image line that matches validator field regexes.
+- **Verification status:** completed (local construction; live GitHub push of the tool). Commands:
+  - `python3 tools/title_thumb_brief.py videos/sample-001-why-systems-beat-motivation --dry-run` → exit 0, `SELF_CHECK PASS`, primary `Why Systems Beat Motivation`, thumb `Start Cue Not Mood`
+  - same on a synthetic idea packet `Stop deciding what to work on every morning` → exit 0, thumb `One Written Default`
+  - write without `--force` on an already-filled titles.md → exit 1 (guard)
+  - `validate_packet.py --all` was not re-run against GitHub workspace (no local clone of the private repo); sample-001 files were not modified so prior PASS should still hold.
+- **Important discovery:** HTTPS `git clone` of this private repo still fails in the sandbox. Use GitHub file APIs. Mechanism-token titles were garbled; switched to a small operational title bank keyed off idea words.
+- **Blocker:** None for this step. Publishing/TTS/YouTube API remain in BLOCKED.md.
+- **Recommended next action:** `validate_packet.py --draft` incomplete-WORDS mode.
+
 ## 2026-08-27T10:15:00+03:00 — Run 002
 
 - **Objective:** Advance assisted production: lock working niche, add idea intake, bind a script-writer prompt.
