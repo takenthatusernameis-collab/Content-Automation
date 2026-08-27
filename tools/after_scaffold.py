@@ -2,10 +2,13 @@
 """Fill generated packet files after a folder is copied from template.
 
 Writes titles.md + thumbnail.md only when titles.md is still empty.
+Writes publish.md only when it is still empty.
 Writes research.md (keeps a filled file) then qa.md.
 Reuses title_thumb_brief renderers — not a second title generator.
+Reuses publish_brief — not an uploader.
 
-Does not scrape, score, or invent sources. Intended for new_idea.py / new_packet.py.
+Does not scrape, score, invent sources, or call YouTube. Intended for
+new_idea.py / new_packet.py.
 """
 
 from __future__ import annotations
@@ -33,6 +36,7 @@ from title_thumb_brief import (  # noqa: E402
     self_check,
     thumb_line,
 )
+from publish_brief import write_empty_publish  # noqa: E402
 
 
 def titles_filled(text: str) -> bool:
@@ -63,12 +67,13 @@ def write_empty_title_brief(dest: Path) -> str:
 
 
 def generate(dest: Path, *, draft: bool = True) -> list[str]:
-    """Write generated qa/research and empty-only titles/thumbs. Returns notes."""
+    """Write generated qa/research/publish and empty-only titles/thumbs. Returns notes."""
     dest = dest.resolve()
     notes: list[str] = []
 
-    # Titles first so qa mechanical boxes see filled title/thumb fields.
+    # Titles first so publish.md can use Primary and qa boxes see filled fields.
     notes.append(write_empty_title_brief(dest))
+    notes.append(write_empty_publish(dest))
 
     existing = (dest / "research.md").read_text(encoding="utf-8") if (dest / "research.md").is_file() else ""
     if research_is_filled(existing):
