@@ -10,3 +10,4 @@ Format: date | decision | why | revisit when
 - 2026-08-27 | Sample video packet is a fixture, not a publish candidate | Need a validator target | Keep sample-001 frozen unless schema changes
 - 2026-08-27 | Idea intake is deterministic structure, not LLM generation | Runs must work with no model/API | If a writer model is later wired, keep structure CLI as fallback
 - 2026-08-27 | Working niche lives in `docs/channel.md` | Single place for prompts and tools to read | Human override via DECISIONS.md
+- 2026-08-27 | Title/thumb briefs are heuristic banks keyed off idea words, not an LLM | Same no-API constraint as intake; must pass validator field rules | If copy quality is the bottleneck after scripts exist
