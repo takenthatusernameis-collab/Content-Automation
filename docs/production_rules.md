@@ -8,6 +8,7 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Optional: `research.md`, `assets.md`, `narration.md`, `publish.md`
 - Status in `packet.md` must be one of: `draft`, `ready_for_vo`, `ready_for_edit`, `ready_to_publish`, `published`, `abandoned`
 - Field values stay on the same line as the key
+- `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated `qa.md` + `research.md` unless `--no-generate`
 
 ## Script
 - Hook in the first 8–12 seconds of spoken words (about 20–35 words)
@@ -22,11 +23,13 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Listing a URL is not verification. Do not scrape pages into Facts.
 - `--source "line"` adds a human-provided pointer. `--force` is required to replace a filled file.
 - Digit scan looks only at WORDS blocks (not `0:00` / `Beat 1` headings).
+- Scaffold already runs this stub writer; do not treat the generated file as verified research.
 
 ## Titles
 - Provide at least 5 options
 - One must be under 50 characters
 - No ALL CAPS words except a single acronym
+- Numbered options stay on the same line as `1.` — blank `1.` is not a title
 
 ## Thumbnail
 - One sentence of on-image text, max 5 words

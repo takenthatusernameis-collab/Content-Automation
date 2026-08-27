@@ -15,3 +15,5 @@ Format: date | decision | why | revisit when
 - 2026-08-27 | Packet field values are single-line | Empty `id:` was swallowing the next line via `\\s*` | Keep one-line parsers
 - 2026-08-27 | qa.md is generated, not scored | Mechanical boxes come from files; human ticks stay human | If a later run can detect VO files or export paths on disk
 - 2026-08-27 | research.md is a stub + reminder, never a scrape dump | Unverified URLs look like facts if pasted in | When a human verification checklist exists
+- 2026-08-27 | Scaffold writes qa.md + research.md by default | A second command after every new folder is recurring labor | If generate-on-scaffold becomes too slow or surprising; use `--no-generate`
+- 2026-08-27 | Title numbered-list values stay on the same line | `\\s` after `1.` ate the next line and forged titles from empty template lists | Keep `[ \\t]+` after `N.`

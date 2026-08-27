@@ -20,6 +20,7 @@ Default `validate_packet.py` is the publish/completeness gate.
 `validate_packet.py --draft` (alias `--incomplete`) is the intake gate: empty WORDS/titles/thumb are `DRAFT-INCOMPLETE` (exit 0) unless structure/identity is broken.
 Do not weaken hook 20–35 or title-count rules in default mode.
 Do not treat a partial hook (1–19 or 36+ words) as draft-incomplete; that is still FAIL.
+Title numbered items must be on the same line as `N.`. Empty `1.` template lines are not titles.
 
 ## Checklist rule
 `qa_checklist.py` may mark mechanical boxes from files. It must not mark human VO/card/export boxes done and must not invent numeric quality scores.
@@ -29,6 +30,11 @@ Digit notes belong to spoken WORDS only, not headings.
 `research_brief.py` writes a stub and a WORDS digit scan. It must not scrape pages or treat `--source` lines as verified facts.
 Do not overwrite a filled `research.md` without `--force`.
 Do not invent sources for `videos/sample-001-*`.
+
+## Scaffold rule
+`new_idea.py` / `new_packet.py` write generated `qa.md` + `research.md` after copy unless `--no-generate`.
+Reuse `after_scaffold.py`; do not duplicate render logic.
+Do not auto-call title/thumb brief unless NEXT.md says to and empty-file guards exist.
 
 ## Fixture freeze
 Do not overwrite `videos/sample-001-*` titles or thumbnail unless the packet schema itself changed.

@@ -14,6 +14,7 @@ Start here:
 ```bash
 python3 tools/new_packet.py "Working title here"
 python3 tools/new_idea.py "Stop deciding what to work on every morning"
+python3 tools/new_idea.py "Topic" --no-generate
 python3 tools/title_thumb_brief.py videos/002-stop-deciding-what-to-work-on-every --dry-run
 python3 tools/title_thumb_brief.py videos/002-stop-deciding-what-to-work-on-every
 python3 tools/research_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
@@ -26,7 +27,7 @@ python3 tools/validate_packet.py --draft videos/002-stop-deciding-what-to-work-o
 python3 tools/validate_packet.py videos/sample-001-why-systems-beat-motivation
 ```
 
-`new_idea.py` fills `idea.md` and names script beats. It does not write spoken WORDS. Use `prompts/script_writer.md` for that. After intake, `--draft` should be `DRAFT-INCOMPLETE` (structure ok, WORDS empty), not `FAIL`.
+`new_idea.py` fills `idea.md` and names script beats. It does not write spoken WORDS. Use `prompts/script_writer.md` for that. After intake, `--draft` should be `DRAFT-INCOMPLETE` (structure ok, WORDS empty), not `FAIL`. Default scaffold also writes generated `qa.md` and `research.md` via `tools/after_scaffold.py`. Pass `--no-generate` to leave the template copies untouched.
 
 `title_thumb_brief.py` writes five-plus titles and a ≤5-word on-image line from idea/packet fields. Heuristic only. Will not overwrite filled titles unless `--force`.
 
