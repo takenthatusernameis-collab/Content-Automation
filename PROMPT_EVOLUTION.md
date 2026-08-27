@@ -12,5 +12,10 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 - Strip “plain text card:” prefixes before slugify or filenames get noisy.
 - Old two-column sample tables still count as filled; schema upgrades of the fixture are explicit, not scaffold `--force`.
 
+## Observed issues (Run 012)
+- Format lock belongs in docs, not in a new CLI, while no VO or cards exist.
+- Named export paths are the same contract class as planned card names: a plan, not a file.
+- ffmpeg recipe would be novelty; it cannot be verified without media on disk.
+
 ## Allowed changes
 Recorded as proposals in `NEXT_RUN_PROMPT.md` only. Do not edit the original archive.

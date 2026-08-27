@@ -1,6 +1,7 @@
 # Editor conventions
 
 Face-free explainer. Naming and export only. No ffmpeg profile yet.
+Timing lock: `docs/format.md`.
 
 ## Project name
 `NNN-slug` matching the packet folder.
@@ -20,9 +21,11 @@ Face-free explainer. Naming and export only. No ffmpeg profile yet.
 - Planned names come from `assets.md` / `docs/assets.md` (`cards/{beat}-{slug}.png`)
 
 ## Timing
+Follow `docs/format.md`.
 - Cut on sentence ends from `script.md` WORDS
 - Hold a card at least 1.5s
-- No jump-cut montage until a format lock exists
+- Hook 8–12s spoken; end-screen reserve last 20s of the export
+- No jump-cut montage as the default edit
 
 ## Export
 - File: `exports/NNN-slug-vN.mp4`

@@ -8,6 +8,7 @@ Start here:
 - `RUNS.md` — timestamped log
 - `ORIGINAL_MASTER_PROMPT.md` — frozen operating prompt
 - `docs/channel.md` — working niche lock
+- `docs/format.md` — face-free explainer timing and named outputs
 
 ## Local tools
 
@@ -31,4 +32,4 @@ python3 tools/validate_packet.py videos/sample-001-why-systems-beat-motivation
 `publish_brief.py` writes description/tags/first comment. Not YouTube.
 `qa_checklist.py` rewrites `qa.md` mechanical boxes from files. It does not mark VO/cards done.
 
-Video packets live in `videos/`. Contract: `docs/production_rules.md`. Editor: `docs/editor.md`. VO: `docs/narration.md`. Cards: `docs/assets.md`.
+Video packets live in `videos/`. Contract: `docs/production_rules.md`. Format: `docs/format.md`. Editor: `docs/editor.md`. VO: `docs/narration.md`. Cards: `docs/assets.md`.

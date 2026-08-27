@@ -2,8 +2,8 @@
 
 Do these in order. Stop if a step needs a human decision that is not present.
 
-1. **Highest value:** Add a one-page `docs/format.md` (face-free explainer timing: hook card, beat cards, CTA hold, end-screen reserve) *or* a render checklist that names ffmpeg outputs without writing a recipe. Do not start YouTube OAuth, TTS, stock shopping, or ffmpeg assembly.
-2. Do **not** rewrite `tools/asset_brief.py`, `tools/caption_brief.py`, `tools/publish_brief.py`, `tools/research_brief.py`, `tools/qa_checklist.py`, `tools/new_idea.py`, `tools/title_thumb_brief.py`, or `docs/channel.md` unless they are wrong.
+1. **Highest value:** Keep foundation closed. Do not add ffmpeg assembly, TTS, stock, or YouTube OAuth. Prefer a packet-local `render.md` checklist that only lists whether named outputs from `docs/format.md` exist on disk — or stop and wait for a human VO / card file. Do not invent those files.
+2. Do **not** rewrite `tools/asset_brief.py`, `tools/caption_brief.py`, `tools/publish_brief.py`, `tools/research_brief.py`, `tools/qa_checklist.py`, `tools/new_idea.py`, `tools/title_thumb_brief.py`, `docs/channel.md`, or `docs/format.md` unless they are wrong.
 3. Do **not** attempt YouTube OAuth, TTS vendors, ffmpeg assembly, or publishing unless credentials or a real VO file appear in-repo docs as available.
 4. Do **not** produce a “real” video packet intended for upload; still no VO or card binaries on disk.
 5. Do **not** `--force` overwrite `videos/sample-001-*` titles or thumbnail.
@@ -13,3 +13,4 @@ Do these in order. Stop if a step needs a human decision that is not present.
 9. Do **not** call Whisper or write a fake `captions.srt` from estimated times.
 10. Do **not** call the YouTube API from `publish_brief.py`.
 11. Do **not** download stock or commit card PNGs to make `assets.md` look ready.
+12. Do **not** write an ffmpeg recipe or concat list. Named paths in `docs/format.md` are enough until a selected take exists.

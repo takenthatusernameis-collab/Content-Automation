@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-08-28T00:15:00+03:00 (Run 011)
+Updated: 2026-08-28T01:12:00+03:00 (Run 012)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -14,7 +14,7 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 - No published videos
 - No YouTube / TTS / stock / render integrations configured
 
-## What exists now (after Run 011)
+## What exists now (after Run 012)
 - Operating memory files
 - Frozen original master prompt
 - Video packet standard + scaffold CLI + packet QA (publish gate + draft gate)
@@ -24,6 +24,7 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 - Script-writer prompt `prompts/script_writer.md`
 - Title/thumbnail brief CLI `tools/title_thumb_brief.py` (scaffold reuses its renderers)
 - Editor naming/export conventions `docs/editor.md` (no ffmpeg)
+- Face-free format timing + named outputs `docs/format.md` (no ffmpeg recipe)
 - Narration path conventions `docs/narration.md` (no TTS vendor)
 - Asset filename conventions `docs/assets.md` (no stock API)
 - QA checklist writer `tools/qa_checklist.py` (mechanical + human ticks)
@@ -42,21 +43,21 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 | Scripts      | templated   | beats scaffolded; writer prompt exists     |
 | Narration    | templated   | path rules only; no VO file / TTS          |
 | Assets       | assisted    | VISUAL -> planned card names; no binaries  |
-| Editing      | templated   | track/export names in `docs/editor.md`     |
+| Editing      | templated   | tracks in editor.md; timing in format.md   |
 | Captions     | assisted    | cue list from WORDS; not timed to a take   |
 | Thumbnails   | assisted    | heuristic brief at scaffold if empty       |
 | Titles       | assisted    | heuristic brief at scaffold if empty       |
 | QA           | assisted    | checklist written at scaffold after titles |
 | Publish meta | assisted    | `publish.md` stub; no API                  |
-| Rendering    | unbuilt     |                                            |
+| Rendering    | named only  | export path locked; no ffmpeg recipe       |
 | Publishing   | blocked     | YouTube API not configured                 |
 | Analytics    | unbuilt     |                                            |
 
 ## Metrics snapshot
 | Metric                         | Previous     | Current        | Notes                          |
 |--------------------------------|--------------|----------------|--------------------------------|
-| Estimated human min / video    | 215          | 210            | first card names from VISUAL   |
-| Automated steps                | 11           | 12             | + empty-only assets.md         |
+| Estimated human min / video    | 210          | 205            | format holds stop re-deciding  |
+| Automated steps                | 12           | 12             | docs-only this run             |
 | Remaining manual steps         | most         | most           | source check, script words, VO, card build, edit, caption align, publish |
 | Videos produced by system      | 0            | 0              | sample packet is a fixture     |
 | Channel niche decided          | locked (temp)| locked (temp)  | `docs/channel.md`              |
@@ -76,3 +77,4 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 - Publish generate-on-scaffold is empty-file only (`write_empty_publish`); never upload
 - Caption generate-on-scaffold is empty-file only (`write_empty_captions`); never Whisper
 - Asset generate-on-scaffold is empty-file only (`write_empty_assets`); never stock download
+- Format lock is `explainer-6-10min` only; no shorts split, no ffmpeg recipe

@@ -2,27 +2,25 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-08-28T01:12:00+03:00 — Run 012
+
+- **Objective:** Lock face-free explainer timing (hook card, beat holds, CTA, end-screen reserve) and name export/VO/card outputs. No ffmpeg recipe, no binaries, no OAuth.
+- **Inspected:** STATE/NEXT/ROADMAP after Run 011. NEXT item 1 was format.md or a names-only render checklist. Read editor.md, production_rules.md, assets.md, narration.md, packet template.
+- **Action taken:** Added `docs/format.md`. Pointed `docs/editor.md` timing at it. Added a Format section to `docs/production_rules.md`. Updated memory files. Did not add a new CLI. Did not write ffmpeg. Did not touch sample-001 titles/thumbs or generate media.
+- **Result:** Edit timing is no longer “until a format lock exists.” Export, VO, card, and caption paths are listed in one place.
+- **Verification status:** completed (GitHub push of docs + memory). No local clone; no tool run required (docs-only).
+- **Important discovery:** A named path (`exports/NNN-slug-vN.mp4`) is the same class of contract as `cards/{beat}-{slug}.png` — a plan, not a file.
+- **Blocker:** None for this step. ffmpeg recipe still parked until VO + cards exist. YouTube/TTS/stock remain in BLOCKED.md.
+- **Recommended next action:** Optional packet-local presence checklist for those named paths, or wait. Still no OAuth, TTS, stock, or ffmpeg recipe.
+
 ## 2026-08-28T00:15:00+03:00 — Run 011
 
 - **Objective:** Add asset/card filename stub from script VISUAL lines plus `docs/assets.md`. No stock shopping, no image download, no binaries.
-- **Inspected:** STATE/NEXT/ROADMAP after Run 010. NEXT item 1 was assets stub. Read after_scaffold, caption_brief, qa_checklist, sample script/assets, editor conventions.
-- **Action taken:** New `tools/asset_brief.py` builds planned card rows + suggested `cards/{beat}-{slug}.png` names from VISUAL blocks. Empty-file / `--force` guard. `docs/assets.md` names types and paths. Scaffold `after_scaffold.generate` writes assets after captions, before research/qa. Template `assets.md` is a placeholder. sample-001 got a schema fixture `assets.md`; titles/thumbs untouched. QA gained a human assets tick and a presence note. Did not download images. Did not call stock APIs.
-- **Result:** Card naming starts from existing script VISUAL lines. Empty-visual packets stay placeholders so later VISUAL can fill them. Card binaries stay out of git.
-- **Verification status:** completed (local reconstruction of sample script + tool; live GitHub push of tools/docs). Commands:
-  - `asset_brief.py sample-script --dry-run` -> Card count 5; hook `cards/hook-start-cue-problem.png` text-card; beat1/2/4 diagram; beat3 text-card; exit 0
-  - first write -> exit 0
-  - second write without `--force` -> exit 1 `already filled`
-  - empty VISUAL render -> Status placeholder; `assets_is_filled` False
-  - template empty table -> `assets_is_filled` False
-  - old two-row sample table -> `assets_is_filled` True (keep unless schema rewrite)
-- **Important discovery:** Do not commit `cards/*.png` to make Status look `ready`. A filename in `assets.md` is a plan, not a file.
-- **Blocker:** None for this step. Publishing/TTS/YouTube API/stock remain in BLOCKED.md. Stock row now points at the filename convention.
-- **Recommended next action:** Face-free format timing page or a render checklist that names outputs only. Still no OAuth, TTS, stock, or ffmpeg recipe.
+- **Recommended next action:** Face-free format timing page or a render checklist that names outputs only.
 
 ## 2026-08-27T23:10:00+03:00 — Run 010
 
 - **Objective:** Add caption intake stub from script WORDS plus narration path conventions. No Whisper, no SRT, no TTS vendor.
-- **Recommended next action:** Asset/card filename stub from script VISUAL lines. Still no OAuth or stock shopping.
 
 ## 2026-08-27T22:15:00+03:00 — Run 009
 

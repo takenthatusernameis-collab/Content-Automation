@@ -26,6 +26,10 @@ A suggested filename is not a file on disk.
 ## Publish rule
 `publish_brief.py` writes description/tags/first comment. It must not call YouTube or invent analytics.
 
+## Format rule
+`docs/format.md` is the timing lock for `explainer-6-10min`. Do not add an ffmpeg recipe or a second format unless DECISIONS.md says so.
+A named path (`exports/NNN-slug-vN.mp4`) is not proof the file exists.
+
 ## Scaffold rule
 `new_idea.py` / `new_packet.py` write generated titles/thumbs (empty titles.md only), `publish.md` (empty only), `captions.md` (empty only), `assets.md` (empty only), `research.md`, then `qa.md` after copy unless `--no-generate`.
 Reuse `after_scaffold.py` and `asset_brief.write_empty_assets`; never pass `--force` from scaffold.

@@ -10,6 +10,11 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Field values stay on the same line as the key
 - `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `research.md`, and `qa.md` unless `--no-generate`
 
+## Format
+- Default packet format is `explainer-6-10min` (face-free).
+- Timing, holds, end-screen reserve, and named export paths: `docs/format.md`.
+- Editor tracks: `docs/editor.md`. Do not treat named paths as existing files.
+
 ## Script
 - Hook in the first 8–12 seconds of spoken words (about 20–35 words)
 - State the viewer payoff before beat 2
@@ -66,6 +71,7 @@ Apply to every video packet. QA checks what can be checked mechanically.
 ## Human handoff
 Anything a human must still do is listed under `Remaining human work` in `packet.md`.
 Editing conventions: `docs/editor.md`.
+Format timing: `docs/format.md`.
 Narration paths: `docs/narration.md`.
 Asset filenames: `docs/assets.md`.
 Human visual/audio ticks live in `qa.md` under **Human**.
