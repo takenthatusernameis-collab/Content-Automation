@@ -2,6 +2,23 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-08-27T23:10:00+03:00 — Run 010
+
+- **Objective:** Add caption intake stub from script WORDS plus narration path conventions. No Whisper, no SRT, no TTS vendor.
+- **Inspected:** STATE/NEXT/ROADMAP after Run 009. NEXT item 1 was captions or `docs/narration.md`. Read after_scaffold, validate_packet, qa_checklist, publish_brief, sample script.
+- **Action taken:** New `tools/caption_brief.py` builds a cue list + 150 wpm estimates from WORDS blocks. Empty-file / `--force` guard. `docs/narration.md` names the selected take path. Scaffold `after_scaffold.generate` writes captions after publish, before research/qa. Template `captions.md` is a placeholder. sample-001 got a fixture `captions.md`; titles/thumbs untouched. QA gained a human caption tick and a presence note. Did not write `.srt`. Did not call Whisper or YouTube.
+- **Result:** Caption typing starts from existing script text. Empty-script packets stay placeholders so later WORDS can fill them. VO naming is documented without audio in git.
+- **Verification status:** completed (local reconstruction of sample script + tool; live GitHub push of tools/docs). Commands:
+  - `caption_brief.py sample-001 --dry-run` -> Cue count 7; Spoken words 153; Estimated speech 01:01; first cue `00:00–00:12` hook 29w; exit 0
+  - first write -> exit 0
+  - second write without `--force` -> exit 1 `already filled`
+  - `write_empty_captions` on filled sample -> `kept .../captions.md (already filled)`
+  - empty WORDS render -> Status placeholder; `captions_is_filled` False
+  - template `(add spoken lines...)` -> `captions_is_filled` False
+- **Important discovery:** Do not emit `captions.srt` from estimates. A `.srt` filename reads as aligned captions even with a disclaimer.
+- **Blocker:** None for this step. Publishing/TTS/YouTube API remain in BLOCKED.md. TTS row now points at the path convention.
+- **Recommended next action:** Asset/card filename stub from script VISUAL lines. Still no OAuth or stock shopping.
+
 ## 2026-08-27T22:15:00+03:00 — Run 009
 
 - **Objective:** Add `tools/publish_brief.py` that writes a `publish.md` stub (description, tags, first comment) from idea + primary title. Empty-file / `--force` guard. No YouTube API.
