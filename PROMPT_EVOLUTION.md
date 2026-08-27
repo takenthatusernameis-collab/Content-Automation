@@ -12,5 +12,10 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 - Private-repo clone over HTTPS failed in the agent sandbox (`could not read Username`). Use GitHub push tools, not `git clone`, for this repo.
 - Full packet QA and idea intake have different success criteria. The master prompt does not distinguish them.
 
+## Observed issues (Run 003)
+- NEXT.md item 1 was specific enough that the run did not drift.
+- Generating titles from raw mechanism tokens produced unreadable lines; prefer a constrained phrase bank.
+- Cannot re-run `validate_packet.py --all` inside a cloned copy of this private repo from the sandbox. Record that limitation instead of claiming a live `--all` PASS.
+
 ## Allowed changes
 Recorded as proposals in `NEXT_RUN_PROMPT.md` only. Do not edit the original archive.
