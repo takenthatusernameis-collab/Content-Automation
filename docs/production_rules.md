@@ -8,7 +8,7 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Optional: `research.md`, `assets.md`, `narration.md`, `publish.md`
 - Status in `packet.md` must be one of: `draft`, `ready_for_vo`, `ready_for_edit`, `ready_to_publish`, `published`, `abandoned`
 - Field values stay on the same line as the key
-- `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated titles/thumbs (if empty), `research.md`, and `qa.md` unless `--no-generate`
+- `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated titles/thumbs (if empty), `publish.md` (if empty), `research.md`, and `qa.md` unless `--no-generate`
 
 ## Script
 - Hook in the first 8–12 seconds of spoken words (about 20–35 words)
@@ -36,6 +36,12 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - One sentence of on-image text, max 5 words
 - Describe subject, contrast, and what *not* to include
 - Must match the chosen title promise
+
+## Publish metadata
+- `python3 tools/publish_brief.py PATH` writes `publish.md`: title to upload, description, tags, first comment.
+- No YouTube API call. A filled file is not a published video.
+- `--force` is required to replace a filled `publish.md`.
+- Scaffold writes publish.md after titles (so Primary exists) only when the file is still a placeholder.
 
 ## QA gates
 - `python3 tools/validate_packet.py PATH` — publish/completeness. Empty WORDS fail.

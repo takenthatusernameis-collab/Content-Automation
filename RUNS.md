@@ -2,22 +2,26 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-08-27T22:15:00+03:00 — Run 009
+
+- **Objective:** Add `tools/publish_brief.py` that writes a `publish.md` stub (description, tags, first comment) from idea + primary title. Empty-file / `--force` guard. No YouTube API.
+- **Inspected:** STATE/NEXT/ROADMAP after Run 008. NEXT item 1 was publish metadata stub. Read `after_scaffold.py`, `title_thumb_brief.py`, `research_brief.py`, `validate_packet.py`, sample titles/idea/packet.
+- **Action taken:** New `tools/publish_brief.py` reuses `load_packet_inputs` (not a second title bank). Primary comes from `titles.md` then `working_title`. Scaffold `after_scaffold.generate` writes publish after titles, before research/qa. Template `publish.md` is a placeholder. sample-001 got a fixture `publish.md`; titles/thumbs untouched. Did not rewrite idea/research/qa generators. Did not call YouTube.
+- **Result:** Description/tags/first-comment draft exists without an extra human blank page. Filled publish.md is kept.
+- **Verification status:** completed (local reconstruction of packet fields + tool; live GitHub push of tools/docs). Commands:
+  - `publish_brief.py sample-001 --dry-run` -> Title to upload `Why Systems Beat Motivation`; promise sentence present; exit 0
+  - first write -> exit 0
+  - second write without `--force` -> exit 1 `already filled`
+  - `write_empty_publish` on filled sample -> `kept .../publish.md (already filled)`
+  - template-style `(add YouTube description)` -> `publish_is_filled` False
+- **Important discovery:** Filled-file detection must key off Description length + Title to upload, not the word "locks" in the disclaimer, or every generated stub looks empty.
+- **Blocker:** None for this step. Publishing/TTS/YouTube API remain in BLOCKED.md.
+- **Recommended next action:** Caption/subtitle intake stub or narration path conventions. Still no OAuth.
+
 ## 2026-08-27T21:10:00+03:00 — Run 008
 
 - **Objective:** Optional title/thumb brief at scaffold time when those files are still empty, reusing `title_thumb_brief` (not a second generator).
-- **Inspected:** STATE/NEXT/ROADMAP after Run 007. NEXT item 1 was generate-on-scaffold for titles/thumbs. Read `after_scaffold.py`, `title_thumb_brief.py`, `new_idea.py`, `new_packet.py`.
-- **Action taken:** `after_scaffold.generate` writes titles/thumbs first via `write_empty_title_brief`, reusing `title_thumb_brief` renderers. Empty check uses the validate one-line parser so template `1.` lines are not “filled”. Then research, then qa. Did not `--force` sample-001. Did not scrape or add integrations. Did not rewrite idea/research/qa generators.
 - **Result:** Default intake writes heuristic titles + thumb when the template list is empty. Filled titles are kept. `--no-generate` still leaves template `1.` lines untitled.
-- **Verification status:** completed (local reconstruction of tools + template; live GitHub push of the tools). Commands:
-  - `new_idea.py "Stop deciding what to work on every morning" --id 002` -> exit 0; printed `wrote .../titles.md+thumbnail.md`, research, qa
-  - generated Primary starts with the topic; on-image text `One Written Default` (3 words)
-  - `validate_packet.py --draft` on that folder -> `DRAFT-INCOMPLETE` exit 0 for empty hook/CTA only (titles/thumb no longer incomplete)
-  - default `validate_packet.py` -> `FAIL` exit 1 (hook/CTA WORDS still empty; publish gate strict)
-  - `new_idea.py ... --no-generate` -> `titles_from` == `[]`
-  - second `generate()` on the filled packet -> `kept ... titles.md+thumbnail.md (already filled)`; primary unchanged
-  - template `titles_from` == `[]`
-- **Important discovery:** Running qa before titles left mechanical title boxes unchecked on a packet that already had titles. Order matters.
-- **Blocker:** None for this step. Publishing/TTS/YouTube API remain in BLOCKED.md.
 - **Recommended next action:** `tools/publish_brief.py` stub for description/tags/first comment. No upload.
 
 ## 2026-08-27T19:25:00+03:00 — Run 007
@@ -29,7 +33,6 @@ Permanent log. Newest first. If the same action repeats across runs with no prog
 ## 2026-08-27T17:10:00+03:00 — Run 006
 
 - **Objective:** Add `tools/research_brief.py` so packets get a research.md stub without scraping the web.
-- **Recommended next action:** Wire scaffold to generate `qa.md` + `research.md`.
 
 ## 2026-08-27T14:15:00+03:00 — Run 005
 
