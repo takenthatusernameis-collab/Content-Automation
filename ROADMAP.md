@@ -19,13 +19,14 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 12. Optional title/thumb brief at scaffold time when those files are still empty — **done (Run 008)**
 13. Publish metadata stub (`publish.md`: description, tags, pinned comment) from packet fields — **done (Run 009); no upload**
 14. Caption / narration path conventions (text first; no vendor lock-in) — **done (Run 010)**
-15. Asset/card filename conventions from script VISUAL lines (no stock API)
+15. Asset/card filename conventions from script VISUAL lines — **done (Run 011); no stock API**
+16. Face-free format timing page or render checklist (names only; no ffmpeg recipe)
 
 ## Later (automation)
-16. TTS narration path (optional; keep human VO compatible)
-17. Caption timing from a real selected take (not 150 wpm estimates)
-18. Render checklist / ffmpeg assembly for simple formats (talking-head-free explainers first)
-19. YouTube upload + metadata only after packet QA passes
+17. TTS narration path (optional; keep human VO compatible)
+18. Caption timing from a real selected take (not 150 wpm estimates)
+19. Render checklist / ffmpeg assembly for simple formats (talking-head-free explainers first)
+20. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Multi-platform posting
