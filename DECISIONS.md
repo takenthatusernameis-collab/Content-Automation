@@ -24,3 +24,6 @@ Format: date | decision | why | revisit when
 - 2026-08-27 | captions.md is a WORDS cue list at 150 wpm, not Whisper and not SRT | Recurring caption typing starts from the script the editor already has | When a selected VO take exists to time against
 - 2026-08-27 | Scaffold writes captions.md only when empty | Same empty-only contract as publish | If a human-aligned caption file should always win
 - 2026-08-27 | VO lives at `vo/NNN-slug-take-selected.wav` inside the packet | Stops "which take is the one" labor before any TTS choice | When a human adds a real take or a TTS CLI note
+- 2026-08-28 | assets.md is a VISUAL card plan, not a media library | Recurring "what cards do I need" labor starts from script notes already written | When a human has local card files or a stock policy
+- 2026-08-28 | Scaffold writes assets.md only when empty | Same empty-only contract as captions | If a human-edited card list should always win
+- 2026-08-28 | Card binaries stay out of git by default | A committed PNG reads as "ready" even when it is a placeholder | When a packet actually ships and needs locked stills

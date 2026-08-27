@@ -8,7 +8,7 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Optional: `research.md`, `assets.md`, `narration.md`, `publish.md`, `captions.md`
 - Status in `packet.md` must be one of: `draft`, `ready_for_vo`, `ready_for_edit`, `ready_to_publish`, `published`, `abandoned`
 - Field values stay on the same line as the key
-- `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `research.md`, and `qa.md` unless `--no-generate`
+- `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `research.md`, and `qa.md` unless `--no-generate`
 
 ## Script
 - Hook in the first 8–12 seconds of spoken words (about 20–35 words)
@@ -50,6 +50,13 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Scaffold writes captions.md only when empty.
 - VO file names live in `docs/narration.md`. Do not commit raw session dumps by default.
 
+## Assets
+- `python3 tools/asset_brief.py PATH` writes `assets.md` card rows from script VISUAL lines.
+- Suggested filenames only. Not stock shopping. Not a download. Status stays `planned`.
+- `--force` is required to replace a filled `assets.md`.
+- Scaffold writes assets.md only when empty.
+- Filename rules: `docs/assets.md`. Editor tracks: `docs/editor.md`.
+
 ## QA gates
 - `python3 tools/validate_packet.py PATH` — publish/completeness. Empty WORDS fail.
 - `python3 tools/validate_packet.py --draft PATH` — intake/structure. Empty WORDS/titles/thumb are incomplete, not fail.
@@ -60,4 +67,5 @@ Apply to every video packet. QA checks what can be checked mechanically.
 Anything a human must still do is listed under `Remaining human work` in `packet.md`.
 Editing conventions: `docs/editor.md`.
 Narration paths: `docs/narration.md`.
+Asset filenames: `docs/assets.md`.
 Human visual/audio ticks live in `qa.md` under **Human**.
