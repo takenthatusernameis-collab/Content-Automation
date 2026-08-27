@@ -17,3 +17,5 @@ Format: date | decision | why | revisit when
 - 2026-08-27 | research.md is a stub + reminder, never a scrape dump | Unverified URLs look like facts if pasted in | When a human verification checklist exists
 - 2026-08-27 | Scaffold writes qa.md + research.md by default | A second command after every new folder is recurring labor | If generate-on-scaffold becomes too slow or surprising; use `--no-generate`
 - 2026-08-27 | Title numbered-list values stay on the same line | `\\s` after `1.` ate the next line and forged titles from empty template lists | Keep `[ \\t]+` after `N.`
+- 2026-08-27 | Scaffold writes titles/thumbs only when titles.md parses empty | Avoids a second CLI and avoids clobbering human or fixture copy | If heuristic titles become noise; `--no-generate` or filled-file keep
+- 2026-08-27 | after_scaffold writes titles before qa.md | Mechanical title/thumb boxes would stay unchecked if qa ran first | Keep this order
