@@ -21,9 +21,9 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 14. Caption / narration path conventions (text first; no vendor lock-in) — **done (Run 010)**
 15. Asset/card filename conventions from script VISUAL lines — **done (Run 011); no stock API**
 16. Face-free format timing page + named export paths — **done (Run 012); no ffmpeg recipe**
+17. Packet-local render presence checklist — **done (Run 013); exists vs missing only**
 
 ## Later (automation)
-17. Optional packet-local render presence checklist (exists vs missing paths only)
 18. TTS narration path (optional; keep human VO compatible)
 19. Caption timing from a real selected take (not 150 wpm estimates)
 20. ffmpeg assembly for this one locked format after one packet has VO + cards

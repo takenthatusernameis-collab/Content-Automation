@@ -17,5 +17,10 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 - Named export paths are the same contract class as planned card names: a plan, not a file.
 - ffmpeg recipe would be novelty; it cannot be verified without media on disk.
 
+## Observed issues (Run 013)
+- Presence checks must not treat the word “placeholder” in human notes as an empty stub.
+- `all-missing` is the correct fixture state. Do not flip it with dummy files.
+- Filled detection should key off `Status: all-missing|partial|all-present`, not table-pipe regex.
+
 ## Allowed changes
 Recorded as proposals in `NEXT_RUN_PROMPT.md` only. Do not edit the original archive.

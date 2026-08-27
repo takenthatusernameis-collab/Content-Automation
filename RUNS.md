@@ -2,21 +2,26 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-08-28T02:12:00+03:00 — Run 013
+
+- **Objective:** Add packet-local `render.md` presence checklist for named outputs in `docs/format.md`. No ffmpeg recipe, no binaries, no OAuth.
+- **Inspected:** STATE/NEXT/ROADMAP after Run 012. NEXT item 1 was this checklist or wait. Read format.md, after_scaffold.py, asset_brief.py, sample assets.md.
+- **Action taken:** Added `tools/render_brief.py`. Wired empty-only write into `after_scaffold.py`. Added template + sample-001 `render.md` (all-missing fixture). Pointed format.md and production_rules.md at the stub. Updated memory files.
+- **Result:** New packets get a disk presence list without a second command. sample-001 lists VO, captions.srt, edit project, export, and five planned cards as missing.
+- **Verification status:** completed for the tool logic on a local copy of sample fields (dry-run + write_empty keep). GitHub push of tools/docs/memory. No media created. No ffmpeg invoked.
+- **Evidence (local copy, not a repo clone):** missing-only dry-run reported Status `all-missing`, Present 0. After creating a temp selected wav in the copy only, Status became `partial` / Present 1. `write_empty_render` wrote once then kept. Template `Status: placeholder` stays unfilled.
+- **Important discovery:** Filled detection cannot scan for the word “placeholder” anywhere in the file; human notes used that word and would have rewritten every scaffold.
+- **Blocker:** None for this step. ffmpeg recipe still parked until VO + cards exist. YouTube/TTS/stock remain in BLOCKED.md.
+- **Recommended next action:** Stop adding foundation CLIs. Wait for a real selected take or card file. Still no OAuth, TTS, stock, or ffmpeg recipe.
+
 ## 2026-08-28T01:12:00+03:00 — Run 012
 
 - **Objective:** Lock face-free explainer timing (hook card, beat holds, CTA, end-screen reserve) and name export/VO/card outputs. No ffmpeg recipe, no binaries, no OAuth.
-- **Inspected:** STATE/NEXT/ROADMAP after Run 011. NEXT item 1 was format.md or a names-only render checklist. Read editor.md, production_rules.md, assets.md, narration.md, packet template.
-- **Action taken:** Added `docs/format.md`. Pointed `docs/editor.md` timing at it. Added a Format section to `docs/production_rules.md`. Updated memory files. Did not add a new CLI. Did not write ffmpeg. Did not touch sample-001 titles/thumbs or generate media.
-- **Result:** Edit timing is no longer “until a format lock exists.” Export, VO, card, and caption paths are listed in one place.
-- **Verification status:** completed (GitHub push of docs + memory). No local clone; no tool run required (docs-only).
-- **Important discovery:** A named path (`exports/NNN-slug-vN.mp4`) is the same class of contract as `cards/{beat}-{slug}.png` — a plan, not a file.
-- **Blocker:** None for this step. ffmpeg recipe still parked until VO + cards exist. YouTube/TTS/stock remain in BLOCKED.md.
 - **Recommended next action:** Optional packet-local presence checklist for those named paths, or wait. Still no OAuth, TTS, stock, or ffmpeg recipe.
 
 ## 2026-08-28T00:15:00+03:00 — Run 011
 
 - **Objective:** Add asset/card filename stub from script VISUAL lines plus `docs/assets.md`. No stock shopping, no image download, no binaries.
-- **Recommended next action:** Face-free format timing page or a render checklist that names outputs only.
 
 ## 2026-08-27T23:10:00+03:00 — Run 010
 

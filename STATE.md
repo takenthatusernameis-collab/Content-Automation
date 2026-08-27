@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-08-28T01:12:00+03:00 (Run 012)
+Updated: 2026-08-28T02:12:00+03:00 (Run 013)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -14,7 +14,7 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 - No published videos
 - No YouTube / TTS / stock / render integrations configured
 
-## What exists now (after Run 012)
+## What exists now (after Run 013)
 - Operating memory files
 - Frozen original master prompt
 - Video packet standard + scaffold CLI + packet QA (publish gate + draft gate)
@@ -32,7 +32,8 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 - Publish metadata stub CLI `tools/publish_brief.py` (description / tags / first comment; no upload)
 - Caption intake stub CLI `tools/caption_brief.py` (cues from script WORDS at 150 wpm; no Whisper)
 - Asset intake stub CLI `tools/asset_brief.py` (card list from script VISUAL; no download)
-- Scaffold post-step `tools/after_scaffold.py` writes titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `research.md`, then `qa.md` unless `--no-generate`
+- Render presence stub CLI `tools/render_brief.py` (exists vs missing for named VO/card/export paths; no ffmpeg)
+- Scaffold post-step `tools/after_scaffold.py` writes titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `render.md` (if empty), `research.md`, then `qa.md` unless `--no-generate`
 - Title-list parser treats empty `1.` / `2.` template lines as untitled
 
 ## Pipeline map
@@ -49,15 +50,15 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 | Titles       | assisted    | heuristic brief at scaffold if empty       |
 | QA           | assisted    | checklist written at scaffold after titles |
 | Publish meta | assisted    | `publish.md` stub; no API                  |
-| Rendering    | named only  | export path locked; no ffmpeg recipe       |
+| Rendering    | assisted    | `render.md` presence only; no ffmpeg       |
 | Publishing   | blocked     | YouTube API not configured                 |
 | Analytics    | unbuilt     |                                            |
 
 ## Metrics snapshot
 | Metric                         | Previous     | Current        | Notes                          |
 |--------------------------------|--------------|----------------|--------------------------------|
-| Estimated human min / video    | 210          | 205            | format holds stop re-deciding  |
-| Automated steps                | 12           | 12             | docs-only this run             |
+| Estimated human min / video    | 205          | 200            | presence list stops “what file is missing” |
+| Automated steps                | 12           | 13             | empty-only render.md           |
 | Remaining manual steps         | most         | most           | source check, script words, VO, card build, edit, caption align, publish |
 | Videos produced by system      | 0            | 0              | sample packet is a fixture     |
 | Channel niche decided          | locked (temp)| locked (temp)  | `docs/channel.md`              |
@@ -72,9 +73,11 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 - sample-001 `publish.md` is a schema fixture; do not treat it as a live upload
 - sample-001 `captions.md` is a schema fixture; estimated times are not a take
 - sample-001 `assets.md` is a schema fixture; planned filenames are not files on disk
+- sample-001 `render.md` is a schema fixture; all-missing is correct; do not add fake media
 - New packets should use default scaffold generate; `--no-generate` is the opt-out
 - Title/thumb generate-on-scaffold is empty-file only (`write_empty_title_brief`); never `--force` sample-001
 - Publish generate-on-scaffold is empty-file only (`write_empty_publish`); never upload
 - Caption generate-on-scaffold is empty-file only (`write_empty_captions`); never Whisper
 - Asset generate-on-scaffold is empty-file only (`write_empty_assets`); never stock download
+- Render generate-on-scaffold is empty-file only (`write_empty_render`); never ffmpeg
 - Format lock is `explainer-6-10min` only; no shorts split, no ffmpeg recipe

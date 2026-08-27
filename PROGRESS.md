@@ -17,10 +17,11 @@
 | 2026-08-27 Run 010   | ~215 estimate     | 11              | empty-only captions.md cues from WORDS |
 | 2026-08-28 Run 011   | ~210 estimate     | 12              | empty-only assets.md cards from VISUAL |
 | 2026-08-28 Run 012   | ~205 estimate     | 12              | format lock; no new CLI |
+| 2026-08-28 Run 013   | ~200 estimate     | 13              | empty-only render.md presence |
 
 Estimate basis (generic 8-min explainer):
 - Research 30, idea lock 15, script 60, VO 25, assets 30, edit 90, captions 15, thumb/title 20, QA/upload 15
-- Run 012: -5 stop re-deciding hook length, card hold, and end-screen reserve during edit
+- Run 013: -5 stop hunting which named output is still missing before edit/export
 
 These numbers are **estimates**, not stopwatch data.
 
@@ -28,3 +29,4 @@ These numbers are **estimates**, not stopwatch data.
 - Run 010: `tools/caption_brief.py` writes `captions.md`; `docs/narration.md` path rules; scaffold empty-only; no Whisper.
 - Run 011: `tools/asset_brief.py` writes `assets.md`; `docs/assets.md` filename rules; scaffold empty-only; no stock.
 - Run 012: `docs/format.md` locks face-free explainer timing and names export/VO/card paths; no ffmpeg.
+- Run 013: `tools/render_brief.py` writes `render.md` exists-vs-missing; scaffold empty-only; no media created.

@@ -30,13 +30,18 @@ A suggested filename is not a file on disk.
 `docs/format.md` is the timing lock for `explainer-6-10min`. Do not add an ffmpeg recipe or a second format unless DECISIONS.md says so.
 A named path (`exports/NNN-slug-vN.mp4`) is not proof the file exists.
 
+## Render rule
+`render_brief.py` writes exists-vs-missing rows for named format outputs. It must not run ffmpeg, write wav/png/mp4, or treat `all-missing` as failure.
+Do not overwrite a filled `render.md` without `--force`.
+Do not commit fake media to flip rows to `present`.
+
 ## Scaffold rule
-`new_idea.py` / `new_packet.py` write generated titles/thumbs (empty titles.md only), `publish.md` (empty only), `captions.md` (empty only), `assets.md` (empty only), `research.md`, then `qa.md` after copy unless `--no-generate`.
-Reuse `after_scaffold.py` and `asset_brief.write_empty_assets`; never pass `--force` from scaffold.
+`new_idea.py` / `new_packet.py` write generated titles/thumbs (empty titles.md only), `publish.md` (empty only), `captions.md` (empty only), `assets.md` (empty only), `render.md` (empty only), `research.md`, then `qa.md` after copy unless `--no-generate`.
+Reuse `after_scaffold.py` and `render_brief.write_empty_render`; never pass `--force` from scaffold.
 
 ## Fixture freeze
 Do not overwrite `videos/sample-001-*` titles or thumbnail unless the packet schema itself changed.
-`assets.md` on the fixture may follow the stub schema; planned filenames are not binaries.
+`assets.md` and `render.md` on the fixture may follow the stub schema; planned filenames are not binaries.
 
 ## Private repo
 Push via GitHub file APIs. Do not retry HTTPS clone after it fails once in the run.

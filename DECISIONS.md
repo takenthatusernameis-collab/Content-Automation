@@ -29,3 +29,5 @@ Format: date | decision | why | revisit when
 - 2026-08-28 | Card binaries stay out of git by default | A committed PNG reads as "ready" even when it is a placeholder | When a packet actually ships and needs locked stills
 - 2026-08-28 | Only format in use is face-free `explainer-6-10min` | Stops per-video timing debate; matches packet field already on the template | Human adds a second format in DECISIONS.md
 - 2026-08-28 | Named export path is `exports/NNN-slug-vN.mp4`; no ffmpeg recipe yet | Recurring “what file do I hand to upload” labor is a name, not a build | When one packet has selected VO + ready cards
+- 2026-08-28 | render.md is presence only; missing is a valid result | Recurring “is the wav/export actually here” labor should not require opening Finder | When a packet has real media; then `--force` refresh is allowed
+- 2026-08-28 | Scaffold writes render.md only when empty | Same empty-only contract as assets | If a human-edited presence list should always win
