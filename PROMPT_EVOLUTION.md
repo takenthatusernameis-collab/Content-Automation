@@ -17,5 +17,10 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 - Generating titles from raw mechanism tokens produced unreadable lines; prefer a constrained phrase bank.
 - Cannot re-run `validate_packet.py --all` inside a cloned copy of this private repo from the sandbox. Record that limitation instead of claiming a live `--all` PASS.
 
+## Observed issues (Run 004)
+- NEXT.md item 1 (`--draft` mode) was the right lever; optional editor conventions were cheap to add beside it.
+- Empty-field regexes looked fine until tested on intake packets. Always test the blank-value case.
+- Scope cap still holds: do not open TTS/ffmpeg because editor.md exists.
+
 ## Allowed changes
 Recorded as proposals in `NEXT_RUN_PROMPT.md` only. Do not edit the original archive.

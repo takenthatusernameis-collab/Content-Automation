@@ -16,7 +16,10 @@ Do not claim `git clone` or `validate_packet.py --all` succeeded unless you actu
 Do not reopen niche debate unless a human changed DECISIONS.md. Specialize prompts toward `docs/channel.md`.
 
 ## Intake vs publish QA
-`validate_packet.py` is a publish/draft-completeness gate. Idea intake may create packets that fail hook/title checks. Do not weaken hook rules to make empty packets pass. Add a separate incomplete-draft mode if needed.
+Default `validate_packet.py` is the publish/completeness gate.
+`validate_packet.py --draft` (alias `--incomplete`) is the intake gate: empty WORDS/titles/thumb are `DRAFT-INCOMPLETE` (exit 0) unless structure/identity is broken.
+Do not weaken hook 20–35 or title-count rules in default mode.
+Do not treat a partial hook (1–19 or 36+ words) as draft-incomplete; that is still FAIL.
 
 ## Fixture freeze
 Do not overwrite `videos/sample-001-*` unless the packet schema itself changed.
