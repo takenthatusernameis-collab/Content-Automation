@@ -36,6 +36,7 @@ HUMAN_ITEMS = (
     "Cards held at least 1.5s; cuts on sentence ends",
     "Last 20s reserved for YouTube end screen; CTA still readable",
     "Export named exports/NNN-slug-vN.mp4 (1920x1080, 30fps, 48kHz)",
+    "Captions reviewed against selected VO (stub times are not final)",
     "No unsourced statistics in spoken WORDS (cite in research.md)",
     "Primary title locked for upload",
     "Thumbnail on-image text designed (contrast + subject + exclusions)",
@@ -112,6 +113,7 @@ def render(path: Path, draft: bool, prior: set[str]) -> str:
 
     script = (path / "script.md").read_text(encoding="utf-8") if (path / "script.md").is_file() else ""
     research_exists = (path / "research.md").is_file()
+    captions_exists = (path / "captions.md").is_file()
     nums = numbers_in_spoken_words(script)
 
     notes = [
@@ -119,6 +121,7 @@ def render(path: Path, draft: bool, prior: set[str]) -> str:
         f"- Status field: `{status or 'missing'}`",
         f"- Structural gate (`validate_packet.py{' --draft' if draft else ''}`): **{gate}**",
         f"- research.md present: {'yes' if research_exists else 'no'}",
+        f"- captions.md present: {'yes' if captions_exists else 'no'}",
     ]
     if nums:
         notes.append(
@@ -184,8 +187,6 @@ def main() -> int:
     prior: set[str] = set()
     if qa_path.is_file() and not args.reset_human:
         prior = existing_checked(qa_path.read_text(encoding="utf-8"))
-        # Only preserve labels that match current HUMAN_ITEMS, so old
-        # mechanical [x] lines cannot leak into human ticks.
         allowed = {h.lower() for h in HUMAN_ITEMS}
         prior = {p for p in prior if p in allowed}
 

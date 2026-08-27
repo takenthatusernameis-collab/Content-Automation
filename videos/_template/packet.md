@@ -14,10 +14,10 @@ One sentence: after watching, the viewer can ___.
 
 ## Remaining human work
 - [ ] Lock title
-- [ ] Record or generate VO
+- [ ] Record or generate VO (`docs/narration.md`)
 - [ ] Collect assets listed in assets.md
 - [ ] Edit
-- [ ] Captions
+- [ ] Review captions.md against VO
 - [ ] Thumbnail
 - [ ] Draft publish.md (description / tags / first comment)
 - [ ] Upload
