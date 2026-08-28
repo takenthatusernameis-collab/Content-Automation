@@ -7,40 +7,31 @@
 | Pre-repo (implied)   | ~290 estimate     | 0               | no process |
 | 2026-08-27 Run 001   | ~280 estimate     | 2               | packet scaffold + QA |
 | 2026-08-27 Run 002   | ~265 estimate     | 3               | idea card + beat titles + writer prompt |
-| 2026-08-27 Run 003   | ~250 estimate     | 4               | title/thumb brief; ~15 min off blank title/thumb start |
-| 2026-08-27 Run 004   | ~245 estimate     | 5               | draft QA gate; empty-field parser fix |
-| 2026-08-27 Run 005   | ~240 estimate     | 6               | qa.md writer; editor human ticks listed |
-| 2026-08-27 Run 006   | ~235 estimate     | 7               | research.md stub; digit scan + overwrite guard |
-| 2026-08-27 Run 007   | ~230 estimate     | 8               | generate qa+research on scaffold; title-list newline fix |
-| 2026-08-27 Run 008   | ~225 estimate     | 9               | empty-only titles/thumbs on scaffold; qa after titles |
-| 2026-08-27 Run 009   | ~220 estimate     | 10              | empty-only publish.md (description/tags/comment) |
-| 2026-08-27 Run 010   | ~215 estimate     | 11              | empty-only captions.md cues from WORDS |
-| 2026-08-28 Run 011   | ~210 estimate     | 12              | empty-only assets.md cards from VISUAL |
-| 2026-08-28 Run 012   | ~205 estimate     | 12              | format lock; no new CLI |
-| 2026-08-28 Run 013   | ~200 estimate     | 13              | empty-only render.md presence |
+| 2026-08-27 Run 003   | ~250 estimate     | 4               | title/thumb brief |
+| 2026-08-27 Run 004   | ~245 estimate     | 5               | draft QA gate |
+| 2026-08-27 Run 005   | ~240 estimate     | 6               | qa.md writer |
+| 2026-08-27 Run 006   | ~235 estimate     | 7               | research.md stub |
+| 2026-08-27 Run 007   | ~230 estimate     | 8               | generate qa+research on scaffold |
+| 2026-08-27 Run 008   | ~225 estimate     | 9               | empty-only titles/thumbs on scaffold |
+| 2026-08-27 Run 009   | ~220 estimate     | 10              | empty-only publish.md |
+| 2026-08-27 Run 010   | ~215 estimate     | 11              | empty-only captions.md |
+| 2026-08-28 Run 011   | ~210 estimate     | 12              | empty-only assets.md |
+| 2026-08-28 Run 012   | ~205 estimate     | 12              | format lock |
+| 2026-08-28 Run 013   | ~200 estimate     | 13              | empty-only render.md |
 | 2026-08-28 Run 014   | ~195 estimate     | 14              | read-only pipeline board |
 | 2026-08-28 Run 015   | ~192 estimate     | 15              | read-only next action |
 | 2026-08-28 Run 016   | ~187 estimate     | 16              | VO session reading card |
-| 2026-08-28 Run 017   | ~182 estimate     | 17              | duration WARN + expand-script before VO |
-| 2026-08-28 Run 018   | ~177 estimate     | 18              | expand.md beat budget; no WORDS rewrite |
+| 2026-08-28 Run 017   | ~182 estimate     | 17              | duration WARN + expand-script |
+| 2026-08-28 Run 018   | ~177 estimate     | 18              | expand.md beat budget |
+| 2026-08-28 Run 019   | ~172 estimate     | 19              | expand_prompt paste pack; no WORDS rewrite |
 
 Estimate basis (generic 8-min explainer):
 - Research 30, idea lock 15, script 60, VO 25, assets 30, edit 90, captions 15, thumb/title 20, QA/upload 15
-- Run 014: -5 stop opening every packet file to answer “where is this video”
-- Run 015: -3 stop ranking OPEN boxes by hand; one recommended next step
-- Run 016: -5 stop assembling a read-aloud sheet and take filename by hand
-- Run 017: -5 stop recording a ~1 min take against an 8 min format, then rewriting the script
 - Run 018: -5 stop guessing which beat to grow when next_action says expand-script
+- Run 019: -5 stop gathering channel + idea + rules + budget + script to brief a writer
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
-- Run 010: `tools/caption_brief.py` writes `captions.md`; `docs/narration.md` path rules; scaffold empty-only; no Whisper.
-- Run 011: `tools/asset_brief.py` writes `assets.md`; `docs/assets.md` filename rules; scaffold empty-only; no stock.
-- Run 012: `docs/format.md` locks face-free explainer timing and names export/VO/card paths; no ffmpeg.
-- Run 013: `tools/render_brief.py` writes `render.md` exists-vs-missing; scaffold empty-only; no media created.
-- Run 014: `tools/pipeline_status.py` read-only board (status, gate, disk, drift); `--strict` for FAIL/drift; no writes.
-- Run 015: `tools/next_action.py` read-only next human step from the same inspect data; no writes.
-- Run 016: `tools/vo_session.py` writes `vo_session.md` reading card from WORDS; empty-only on scaffold; no wav / no TTS.
-- Run 017: `validate_packet.py` spoken-duration WARN (900–1500 words); `--duration` FAIL; `next_action.py` `expand-script` before `record-vo`. Fixture WORDS left short.
 - Run 018: `tools/expand_brief.py` writes `expand.md` per-beat targets; empty-only on scaffold; does not rewrite script.md; sample WORDS unchanged.
+- Run 019: `tools/expand_prompt.py` prints a paste-ready expander pack; `prompts/script_expander.md` documents the human loop; does not write script.md; sample WORDS unchanged.

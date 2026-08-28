@@ -16,5 +16,6 @@ Format: date | decision | why | revisit when
 - 2026-08-28 | next_action routes `expand-script` before `record-vo` when duration WARN is present | Recording a 1-minute take for an 8-minute format is wasted labor | If a packet format other than explainer-6-10min is added
 - 2026-08-28 | expand.md is a beat budget, not a rewritten script | Recurring “which beat do I grow” labor should not require mental arithmetic | If a human wants a script-rewriter CLI with an explicit flag and a non-fixture packet
 - 2026-08-28 | Scaffold writes expand.md only when empty | Same empty-only contract as vo_session | If a human-edited budget should always win
+- 2026-08-28 | expand_prompt.py prints a paste pack and never writes script.md | Recurring “open six files to brief a writer” labor should be one command | If a human wants an in-repo rewriter with an explicit non-fixture flag
 
 Earlier 2026-08-27/28 decisions (empty-only scaffold, captions, assets, render, format lock) remain in force; see prior commits if a line was trimmed here.
