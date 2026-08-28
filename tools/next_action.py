@@ -18,6 +18,7 @@ if str(TOOLS) not in sys.path:
 
 from pipeline_status import inspect, packet_dirs  # noqa: E402
 from render_brief import packet_id_slug, planned_cards  # noqa: E402
+from validate_packet import packet_duration_warning  # noqa: E402
 
 
 def first_open(path: Path) -> str:
@@ -81,6 +82,15 @@ def recommend(path: Path, row: dict[str, object]) -> tuple[str, str]:
         if "thumbnail" in low:
             return "lock-thumb", f"Fill thumbnail on-image text next: {first}"
         return "complete-draft", f"Finish draft intake: {first}"
+
+    # Structural PASS can still be far under the locked runtime.
+    # Recording a 1-minute take for explainer-6-10min wastes the VO session.
+    dur = packet_duration_warning(path)
+    if dur and status in {"draft", "ready_for_vo"}:
+        return (
+            "expand-script",
+            f"Do not record yet. {dur}. Expand beats in script.md; do not pad the sample fixture.",
+        )
 
     if status in {"draft", "ready_for_vo"}:
         return (
