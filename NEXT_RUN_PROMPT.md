@@ -30,6 +30,9 @@ A suggested filename is not a file on disk.
 `docs/format.md` is the timing lock for `explainer-6-10min`. Do not add an ffmpeg recipe or a second format unless DECISIONS.md says so.
 A named path (`exports/NNN-slug-vN.mp4`) is not proof the file exists.
 
+## Duration rule
+Spoken WORDS for `explainer-6-10min` belong in 900–1500 at 150 wpm. Default validate prints WARN. `--duration` may FAIL. Do not pad sample-001. Do not make WARN the default FAIL.
+
 ## Render rule
 `render_brief.py` writes exists-vs-missing rows for named format outputs. It must not run ffmpeg, write wav/png/mp4, or treat `all-missing` as failure.
 Do not overwrite a filled `render.md` without `--force`.
@@ -38,10 +41,11 @@ Do not commit fake media to flip rows to `present`.
 ## Board rule
 `pipeline_status.py` is read-only. It must not rewrite `packet.md` status, render.md, or qa.md.
 `--strict` is for FAIL or drift only. `draft` + PASS + all-missing is a valid fixture state, not drift.
+Duration WARN is not FAIL and not drift.
 
 ## Next-action rule
 `next_action.py` is read-only. It must not rewrite `packet.md` status or create media.
-One recommended step per packet. Prefer gate FAIL, then drift, then the first real production file the human can add.
+One recommended step per packet. Prefer gate FAIL, then drift, then duration WARN (`expand-script`), then the first real production file the human can add.
 
 ## VO session rule
 `vo_session.py` writes a reading card from script WORDS. It must not run TTS, write wav/flac, or treat `ready-to-record` as a take.
@@ -55,6 +59,7 @@ Reuse `after_scaffold.py` and `vo_session.write_empty_session`; never pass `--fo
 ## Fixture freeze
 Do not overwrite `videos/sample-001-*` titles or thumbnail unless the packet schema itself changed.
 `assets.md`, `render.md`, and `vo_session.md` on the fixture may follow the stub schema; planned filenames and reading cards are not binaries.
+Do not expand sample-001 WORDS to clear duration WARN.
 
 ## Private repo
 Push via GitHub file APIs. Do not retry HTTPS clone after it fails once in the run.
