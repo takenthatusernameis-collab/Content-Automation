@@ -11,6 +11,8 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `render.md` (if empty), `vo_session.md` (if empty), `expand.md` (if empty), `research.md`, and `qa.md` unless `--no-generate`
 - `python3 tools/pipeline_status.py` is the read-only board across packets. It does not write files.
 - `python3 tools/next_action.py` is the read-only next human step. It does not write files.
+- `python3 tools/hint.py` is the read-only copy-paste CLI for that step. It does not write files. `--write` is never the first command.
+- `python3 tools/set_status.py PATH --to STATUS` is the only status writer. Dry-run default. `--write` required. Refuses fixture promote, skip-ahead, and evidence-free bumps.
 
 ## Format
 - Default packet format is `explainer-6-10min` (face-free).
@@ -92,12 +94,14 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - `python3 tools/qa_checklist.py PATH` — writes `qa.md` mechanical boxes from files + human ticks from editor conventions. Never invents scores or auto-checks VO/cards/export/captions.
 - `python3 tools/pipeline_status.py` — read-only: status + gate + disk + drift. `--strict` fails on FAIL/drift. Duration WARN is not FAIL and not drift.
 - `python3 tools/next_action.py` — read-only: one next human step. Routes `expand-script` before `record-vo` when duration WARN is present. Does not bump status.
+- `python3 tools/hint.py` — read-only: copy-paste CLI for that step. Does not bump status. Does not lead with `--write`.
 - A hook that has words but is outside 20-35 still fails in both validate gates.
 - Status drift: `ready_for_vo` needs a PASS script gate; `ready_for_edit` needs selected VO on disk; `ready_to_publish` / `published` need VO + export. Do not bump status to hide missing files.
 
 ## Human handoff
 Anything a human must still do is listed under `Remaining human work` in `packet.md`.
 `tools/next_action.py` picks one of those constraints from gate + drift + disk + duration band.
+`tools/hint.py` prints the matching dry-run command.
 Editing conventions: `docs/editor.md`.
 Format timing: `docs/format.md`.
 Narration paths: `docs/narration.md`.
@@ -107,4 +111,5 @@ VO reading card: packet `vo_session.md`.
 Beat budget: packet `expand.md`.
 Expand paste pack: `python3 tools/expand_prompt.py PATH`.
 Paste-back gate: `python3 tools/apply_script.py PATH --from FILE` (dry-run; `--write --refresh` on non-fixture only).
+Status gate: `python3 tools/set_status.py PATH --to STATUS` (dry-run; `--write` after evidence).
 Human visual/audio ticks live in `qa.md` under **Human**.
