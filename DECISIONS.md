@@ -14,5 +14,7 @@ Format: date | decision | why | revisit when
 - 2026-08-28 | Scaffold writes vo_session.md only when empty | Same empty-only contract as render | If a human-edited session card should always win
 - 2026-08-28 | Spoken duration is WARN on the default gate, FAIL only with `--duration` | sample-001 is a short fixture; making 900 words required would break PASS and `--strict` | When a second real packet exists and the fixture is no longer the board target
 - 2026-08-28 | next_action routes `expand-script` before `record-vo` when duration WARN is present | Recording a 1-minute take for an 8-minute format is wasted labor | If a packet format other than explainer-6-10min is added
+- 2026-08-28 | expand.md is a beat budget, not a rewritten script | Recurring “which beat do I grow” labor should not require mental arithmetic | If a human wants a script-rewriter CLI with an explicit flag and a non-fixture packet
+- 2026-08-28 | Scaffold writes expand.md only when empty | Same empty-only contract as vo_session | If a human-edited budget should always win
 
 Earlier 2026-08-27/28 decisions (empty-only scaffold, captions, assets, render, format lock) remain in force; see prior commits if a line was trimmed here.

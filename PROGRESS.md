@@ -22,6 +22,7 @@
 | 2026-08-28 Run 015   | ~192 estimate     | 15              | read-only next action |
 | 2026-08-28 Run 016   | ~187 estimate     | 16              | VO session reading card |
 | 2026-08-28 Run 017   | ~182 estimate     | 17              | duration WARN + expand-script before VO |
+| 2026-08-28 Run 018   | ~177 estimate     | 18              | expand.md beat budget; no WORDS rewrite |
 
 Estimate basis (generic 8-min explainer):
 - Research 30, idea lock 15, script 60, VO 25, assets 30, edit 90, captions 15, thumb/title 20, QA/upload 15
@@ -29,6 +30,7 @@ Estimate basis (generic 8-min explainer):
 - Run 015: -3 stop ranking OPEN boxes by hand; one recommended next step
 - Run 016: -5 stop assembling a read-aloud sheet and take filename by hand
 - Run 017: -5 stop recording a ~1 min take against an 8 min format, then rewriting the script
+- Run 018: -5 stop guessing which beat to grow when next_action says expand-script
 
 These numbers are **estimates**, not stopwatch data.
 
@@ -41,3 +43,4 @@ These numbers are **estimates**, not stopwatch data.
 - Run 015: `tools/next_action.py` read-only next human step from the same inspect data; no writes.
 - Run 016: `tools/vo_session.py` writes `vo_session.md` reading card from WORDS; empty-only on scaffold; no wav / no TTS.
 - Run 017: `validate_packet.py` spoken-duration WARN (900–1500 words); `--duration` FAIL; `next_action.py` `expand-script` before `record-vo`. Fixture WORDS left short.
+- Run 018: `tools/expand_brief.py` writes `expand.md` per-beat targets; empty-only on scaffold; does not rewrite script.md; sample WORDS unchanged.

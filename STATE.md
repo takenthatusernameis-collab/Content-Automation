@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-08-28T06:20:00+03:00 (Run 017)
+Updated: 2026-08-28T07:20:00+03:00 (Run 018)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -14,7 +14,7 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - No published videos
 - No YouTube / TTS / stock / render integrations configured
 
-## What exists now (after Run 017)
+## What exists now (after Run 018)
 - Operating memory files
 - Frozen original master prompt
 - Video packet standard + scaffold CLI + packet QA (publish gate + draft gate + optional duration gate)
@@ -34,9 +34,10 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - Asset intake stub CLI `tools/asset_brief.py` (card list from script VISUAL; no download)
 - Render presence stub CLI `tools/render_brief.py` (exists vs missing for named VO/card/export paths; no ffmpeg)
 - VO session card CLI `tools/vo_session.py` (read-aloud + named take path; no wav / no TTS)
+- Expand brief CLI `tools/expand_brief.py` (per-beat word budget; does not rewrite WORDS)
 - Read-only board `tools/pipeline_status.py` (status + gate + disk + drift; no writes)
 - Read-only next action `tools/next_action.py` (one recommended human step; duration WARN routes to expand-script)
-- Scaffold post-step `tools/after_scaffold.py` writes titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `render.md` (if empty), `vo_session.md` (if empty), `research.md`, then `qa.md` unless `--no-generate`
+- Scaffold post-step `tools/after_scaffold.py` writes titles/thumbs (if empty), `publish.md`, `captions.md`, `assets.md`, `render.md`, `vo_session.md`, `expand.md` (if empty), `research.md`, then `qa.md` unless `--no-generate`
 - Title-list parser treats empty `1.` / `2.` template lines as untitled
 - Spoken-duration band: 900–1500 words for `explainer-6-10min` at 150 wpm. Default validate WARNs; `--duration` FAILs. Sample fixture stays PASS + WARN.
 
@@ -45,7 +46,7 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 |--------------|-------------|--------------------------------------------|
 | Research     | assisted    | stub written at scaffold; human verifies   |
 | Ideas        | assisted    | `tools/new_idea.py` fills idea card        |
-| Scripts      | templated   | beats scaffolded; writer prompt + duration WARN |
+| Scripts      | assisted    | beats + duration WARN + expand.md budget   |
 | Narration    | assisted    | session card + path rules; no VO file / TTS|
 | Assets       | assisted    | VISUAL -> planned card names; no binaries  |
 | Editing      | templated   | tracks in editor.md; timing in format.md   |
@@ -62,8 +63,8 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 ## Metrics snapshot
 | Metric                         | Previous     | Current        | Notes                          |
 |--------------------------------|--------------|----------------|--------------------------------|
-| Estimated human min / video    | 187          | 182            | skip recording a too-short script |
-| Automated steps                | 16           | 17             | duration WARN + expand-script  |
+| Estimated human min / video    | 182          | 177            | skip guessing which beat to grow |
+| Automated steps                | 17           | 18             | expand.md beat budget          |
 | Remaining manual steps         | most         | most           | source check, script words, VO, card build, edit, caption align, publish |
 | Videos produced by system      | 0            | 0              | sample packet is a fixture     |
 | Channel niche decided          | locked (temp)| locked (temp)  | `docs/channel.md`              |
@@ -80,6 +81,7 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - sample-001 `assets.md` is a schema fixture; planned filenames are not files on disk
 - sample-001 `render.md` is a schema fixture; all-missing is correct; do not add fake media
 - sample-001 `vo_session.md` is a schema fixture; a reading card is not a wav
+- sample-001 `expand.md` is a schema fixture; a budget is not a rewritten script
 - Do not pad sample-001 WORDS to hit 900–1500
 - New packets should use default scaffold generate; `--no-generate` is the opt-out
 - Title/thumb generate-on-scaffold is empty-file only (`write_empty_title_brief`); never `--force` sample-001
@@ -88,6 +90,7 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - Asset generate-on-scaffold is empty-file only (`write_empty_assets`); never stock download
 - Render generate-on-scaffold is empty-file only (`write_empty_render`); never ffmpeg
 - VO session generate-on-scaffold is empty-file only (`write_empty_session`); never TTS / wav
+- Expand generate-on-scaffold is empty-file only (`write_empty_expand`); never rewrite script.md
 - Format lock is `explainer-6-10min` only; no shorts split, no ffmpeg recipe
 - `pipeline_status.py` and `next_action.py` must stay read-only; do not have them rewrite packet status
 - Default validate 2-tuple stays (errors, incompletes). Duration WARN must not become FAIL unless `--duration`.
