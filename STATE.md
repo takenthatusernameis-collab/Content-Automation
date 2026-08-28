@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-08-28T05:24:00+03:00 (Run 016)
+Updated: 2026-08-28T06:20:00+03:00 (Run 017)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -14,14 +14,14 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - No published videos
 - No YouTube / TTS / stock / render integrations configured
 
-## What exists now (after Run 016)
+## What exists now (after Run 017)
 - Operating memory files
 - Frozen original master prompt
-- Video packet standard + scaffold CLI + packet QA (publish gate + draft gate)
+- Video packet standard + scaffold CLI + packet QA (publish gate + draft gate + optional duration gate)
 - Sample packet fixture `videos/sample-001-why-systems-beat-motivation/`
 - Working niche locked in `docs/channel.md`
 - Idea intake CLI `tools/new_idea.py`
-- Script-writer prompt `prompts/script_writer.md`
+- Script-writer prompt `prompts/script_writer.md` (includes 900–1500 word band)
 - Title/thumbnail brief CLI `tools/title_thumb_brief.py` (scaffold reuses its renderers)
 - Editor naming/export conventions `docs/editor.md` (no ffmpeg)
 - Face-free format timing + named outputs `docs/format.md` (no ffmpeg recipe)
@@ -35,16 +35,17 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - Render presence stub CLI `tools/render_brief.py` (exists vs missing for named VO/card/export paths; no ffmpeg)
 - VO session card CLI `tools/vo_session.py` (read-aloud + named take path; no wav / no TTS)
 - Read-only board `tools/pipeline_status.py` (status + gate + disk + drift; no writes)
-- Read-only next action `tools/next_action.py` (one recommended human step; no writes)
+- Read-only next action `tools/next_action.py` (one recommended human step; duration WARN routes to expand-script)
 - Scaffold post-step `tools/after_scaffold.py` writes titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `render.md` (if empty), `vo_session.md` (if empty), `research.md`, then `qa.md` unless `--no-generate`
 - Title-list parser treats empty `1.` / `2.` template lines as untitled
+- Spoken-duration band: 900–1500 words for `explainer-6-10min` at 150 wpm. Default validate WARNs; `--duration` FAILs. Sample fixture stays PASS + WARN.
 
 ## Pipeline map
 | Stage        | Status      | Notes                                      |
 |--------------|-------------|--------------------------------------------|
 | Research     | assisted    | stub written at scaffold; human verifies   |
 | Ideas        | assisted    | `tools/new_idea.py` fills idea card        |
-| Scripts      | templated   | beats scaffolded; writer prompt exists     |
+| Scripts      | templated   | beats scaffolded; writer prompt + duration WARN |
 | Narration    | assisted    | session card + path rules; no VO file / TTS|
 | Assets       | assisted    | VISUAL -> planned card names; no binaries  |
 | Editing      | templated   | tracks in editor.md; timing in format.md   |
@@ -54,15 +55,15 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 | QA           | assisted    | checklist written at scaffold after titles |
 | Publish meta | assisted    | `publish.md` stub; no API                  |
 | Rendering    | assisted    | `render.md` presence only; no ffmpeg       |
-| Oversight    | monitored   | board + next-action; no writes             |
+| Oversight    | monitored   | board + next-action; duration routes expand|
 | Publishing   | blocked     | YouTube API not configured                 |
 | Analytics    | unbuilt     |                                            |
 
 ## Metrics snapshot
 | Metric                         | Previous     | Current        | Notes                          |
 |--------------------------------|--------------|----------------|--------------------------------|
-| Estimated human min / video    | 192          | 187            | session card replaces VO prep  |
-| Automated steps                | 15           | 16             | vo_session reading card        |
+| Estimated human min / video    | 187          | 182            | skip recording a too-short script |
+| Automated steps                | 16           | 17             | duration WARN + expand-script  |
 | Remaining manual steps         | most         | most           | source check, script words, VO, card build, edit, caption align, publish |
 | Videos produced by system      | 0            | 0              | sample packet is a fixture     |
 | Channel niche decided          | locked (temp)| locked (temp)  | `docs/channel.md`              |
@@ -79,6 +80,7 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - sample-001 `assets.md` is a schema fixture; planned filenames are not files on disk
 - sample-001 `render.md` is a schema fixture; all-missing is correct; do not add fake media
 - sample-001 `vo_session.md` is a schema fixture; a reading card is not a wav
+- Do not pad sample-001 WORDS to hit 900–1500
 - New packets should use default scaffold generate; `--no-generate` is the opt-out
 - Title/thumb generate-on-scaffold is empty-file only (`write_empty_title_brief`); never `--force` sample-001
 - Publish generate-on-scaffold is empty-file only (`write_empty_publish`); never upload
@@ -88,3 +90,4 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - VO session generate-on-scaffold is empty-file only (`write_empty_session`); never TTS / wav
 - Format lock is `explainer-6-10min` only; no shorts split, no ffmpeg recipe
 - `pipeline_status.py` and `next_action.py` must stay read-only; do not have them rewrite packet status
+- Default validate 2-tuple stays (errors, incompletes). Duration WARN must not become FAIL unless `--duration`.
