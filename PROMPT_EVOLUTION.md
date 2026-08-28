@@ -2,50 +2,17 @@
 
 Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 
-## Observed issues (Run 010)
-- Caption intake must stay text-from-script. Estimated 150 wpm times look like real SRT if written to `.srt`.
-- Empty-script packets must stay `placeholder` / not-filled so scaffold can rewrite after WORDS exist.
-- Path conventions for VO unblocked naming without pretending audio exists.
-
-## Observed issues (Run 011)
-- Asset intake must stay names-from-VISUAL. A `cards/*.png` commit reads as ready media.
-- Strip “plain text card:” prefixes before slugify or filenames get noisy.
-- Old two-column sample tables still count as filled; schema upgrades of the fixture are explicit, not scaffold `--force`.
-
-## Observed issues (Run 012)
-- Format lock belongs in docs, not in a new CLI, while no VO or cards exist.
-- Named export paths are the same contract class as planned card names: a plan, not a file.
-- ffmpeg recipe would be novelty; it cannot be verified without media on disk.
-
-## Observed issues (Run 013)
-- Presence checks must not treat the word “placeholder” in human notes as an empty stub.
-- `all-missing` is the correct fixture state. Do not flip it with dummy files.
-- Filled detection should key off `Status: all-missing|partial|all-present`, not table-pipe regex.
-
-## Observed issues (Run 014)
-- After named outputs exist, the recurring labor is “open eleven files.” A board is higher leverage than another stub writer.
-- Status labels ahead of disk evidence must surface as DRIFT, not be auto-corrected.
-- HTTPS clone of this private repo fails; push via GitHub file APIs and do not retry clone.
-
-## Observed issues (Run 015)
-- After a board exists, the remaining labor is ranking OPEN boxes. A single next-action line is higher leverage than another stub writer.
-- Publish-gate FAIL should outrank draft-incomplete when recommending a step, matching the board.
-- Do not rewrite `pipeline_status.py` to add this column; a separate read-only CLI keeps the freeze.
-
-## Observed issues (Run 016)
-- After next-action says `record-vo`, the remaining labor is assembling a read-aloud sheet and the take filename.
-- A session card with Status `ready-to-record` must not be treated as audio on disk.
-- sample-001 WORDS total ~1 minute at 150 wpm; report the estimate, do not invent extra lines to hit 8 minutes.
-
-## Observed issues (Run 017)
-- After the session card reports ~01:01, routing to `record-vo` is the next wasted step.
-- Duration cannot be a default FAIL while sample-001 remains the only packet and must stay PASS.
-- Keep `validate()` as a 2-tuple so `pipeline_status.gate_label` does not break.
-
 ## Observed issues (Run 018)
 - `expand-script` without a beat budget leaves the human doing arithmetic across seven headings.
 - Auto-writing WORDS from the budget would invent a draft and break the fixture freeze.
 - Hook must stay 20–35 even when the body needs ~1000 more words.
 
+## Observed issues (Run 019)
+- A budget without a paste pack still costs a human six file opens per expand pass.
+- Printing a full script-shaped prompt is easy to mistake for permission to write sample-001.
+- `--out script.md` must hard-refuse.
+
 ## Allowed changes
 Recorded as proposals in `NEXT_RUN_PROMPT.md` only. Do not edit the original archive.
+
+Earlier run observations 010–017 remain in prior commits.
