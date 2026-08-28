@@ -35,6 +35,15 @@ Refuse text that looks like expand_prompt stdout.
 Do not bump packet status.
 `--refresh` may rewrite expand/vo_session/captions only after a successful write on a non-fixture packet.
 
+## Status-write rule
+`set_status.py` dry-runs by default. `--write` is required.
+Refuse promoting `sample-001-*`.
+Refuse skip-ahead.
+Refuse `ready_for_vo` / `ready_for_edit` while duration WARN is present.
+Refuse later statuses without Selected VO / Master export on disk.
+Do not create media.
+`pipeline_status.py` and `next_action.py` stay read-only.
+
 ## Board rule
 `pipeline_status.py` is read-only. It must not rewrite `packet.md` status, render.md, or qa.md.
 Duration WARN is not FAIL and not drift.

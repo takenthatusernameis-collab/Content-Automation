@@ -17,6 +17,11 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 - apply_script must treat expand_prompt stdout as hostile input.
 - Dry-run default prevents a bad paste from landing during agent runs.
 
+## Observed issues (Run 021)
+- apply_script correctly leaves status alone, so humans still edit packet.md by hand and create drift.
+- Board auto-bump would hide a short fixture. A separate dry-run writer with evidence checks is the safer split.
+- `re.sub(rf"\\1 {value}")` can write a literal backslash-1; group replacement must be `r"\\1 " + value`.
+
 ## Allowed changes
 Recorded as proposals in `NEXT_RUN_PROMPT.md` only. Do not edit the original archive.
 
