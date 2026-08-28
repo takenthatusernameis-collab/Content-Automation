@@ -6,6 +6,9 @@ Default mode is a publish/completeness gate: empty spoken WORDS fail.
 (and empty title/thumb copy) are reported as draft-incomplete, not FAIL.
 Missing files, invalid status, beat-count, and empty packet identity
 still FAIL in both modes.
+
+Spoken duration vs the locked format is a warning by default so the
+sample fixture stays PASS. --duration promotes short/long scripts to FAIL.
 """
 
 from __future__ import annotations
@@ -32,6 +35,11 @@ VALID_STATUS = {
     "published",
     "abandoned",
 }
+WPM = 150
+# Spoken-word bands for locked formats. 6–10 min at 150 wpm = 900–1500 words.
+FORMAT_SPOKEN_WORDS = {
+    "explainer-6-10min": (900, 1500),
+}
 
 
 def field(text: str, name: str) -> str:
@@ -57,6 +65,52 @@ def spoken_words(block: str) -> list[str]:
     return words
 
 
+def all_spoken_words(script: str) -> list[str]:
+    words: list[str] = []
+    for m in re.finditer(r"^##\s+(.+)$", script, re.M):
+        words.extend(spoken_words(section(script, m.group(1).strip())))
+    return words
+
+
+def spoken_seconds(n_words: int, wpm: float = WPM) -> float:
+    if n_words <= 0:
+        return 0.0
+    return (n_words / wpm) * 60.0
+
+
+def fmt_mmss(seconds: float) -> str:
+    if seconds < 0:
+        seconds = 0
+    whole = int(round(seconds))
+    m, s = divmod(whole, 60)
+    return f"{m:02d}:{s:02d}"
+
+
+def duration_note(fmt: str, n_words: int) -> str | None:
+    """Human line when spoken length is off the locked format band.
+
+    Empty scripts are handled by the WORDS gates, not here.
+    """
+    if n_words <= 0:
+        return None
+    band = FORMAT_SPOKEN_WORDS.get(fmt)
+    if not band:
+        return None
+    lo, hi = band
+    if lo <= n_words <= hi:
+        return None
+    est = fmt_mmss(spoken_seconds(n_words))
+    if n_words < lo:
+        return (
+            f"spoken {n_words} words (~{est} at {int(WPM)} wpm) "
+            f"below {fmt} band {lo}–{hi}"
+        )
+    return (
+        f"spoken {n_words} words (~{est} at {int(WPM)} wpm) "
+        f"above {fmt} band {lo}–{hi}"
+    )
+
+
 def titles_from(text: str) -> list[str]:
     found: list[str] = []
     prim = re.search(r"^Primary:[ \t]*([^\n]*)$", text, re.M)
@@ -74,10 +128,18 @@ def on_image_text(thumb: str) -> str:
     return m.group(1).strip() if m else ""
 
 
-def validate(path: Path, draft: bool = False) -> tuple[list[str], list[str]]:
-    """Return (errors, incompletes). Errors fail both modes."""
+def validate(
+    path: Path, draft: bool = False, duration: bool = False
+) -> tuple[list[str], list[str]]:
+    """Return (errors, incompletes). Errors fail both modes.
+
+    Duration-band misses are warnings unless --duration, so existing
+    callers (pipeline_status) keep a 2-tuple and the sample fixture
+    stays PASS.
+    """
     errors: list[str] = []
     incompletes: list[str] = []
+    warnings: list[str] = []
     if not path.is_dir():
         return [f"not a directory: {path}"], incompletes
 
@@ -85,6 +147,8 @@ def validate(path: Path, draft: bool = False) -> tuple[list[str], list[str]]:
         if not (path / name).is_file():
             errors.append(f"missing {name}")
     if errors:
+        if duration:
+            errors.extend(warnings)
         return errors, incompletes
 
     packet = (path / "packet.md").read_text(encoding="utf-8")
@@ -150,7 +214,25 @@ def validate(path: Path, draft: bool = False) -> tuple[list[str], list[str]]:
     elif len(tw) > 5:
         errors.append(f"thumbnail text has {len(tw)} words, max 5")
 
+    fmt = field(packet, "format") or "explainer-6-10min"
+    note = duration_note(fmt, len(all_spoken_words(script)))
+    if note:
+        if duration:
+            errors.append(note)
+        else:
+            warnings.append(note)
     return errors, incompletes
+
+
+def packet_duration_warning(path: Path) -> str | None:
+    packet_path = path / "packet.md"
+    script_path = path / "script.md"
+    if not packet_path.is_file() or not script_path.is_file():
+        return None
+    packet = packet_path.read_text(encoding="utf-8")
+    script = script_path.read_text(encoding="utf-8")
+    fmt = field(packet, "format") or "explainer-6-10min"
+    return duration_note(fmt, len(all_spoken_words(script)))
 
 
 def main() -> int:
@@ -170,6 +252,11 @@ def main() -> int:
         action="store_true",
         help="Treat empty spoken WORDS / empty title-thumb copy as draft-incomplete, not FAIL",
     )
+    parser.add_argument(
+        "--duration",
+        action="store_true",
+        help="Treat spoken length outside the locked format band as FAIL",
+    )
     args = parser.parse_args()
 
     targets: list[Path] = []
@@ -186,7 +273,8 @@ def main() -> int:
 
     failed = 0
     for t in targets:
-        errs, incompletes = validate(t, draft=args.draft)
+        errs, incompletes = validate(t, draft=args.draft, duration=args.duration)
+        warn = None if args.duration else packet_duration_warning(t)
         rel = t.name if t.parent.name == "videos" else str(t)
         if errs:
             failed += 1
@@ -201,6 +289,8 @@ def main() -> int:
                 print(f"  - {i}")
         else:
             print(f"PASS {rel}")
+        if warn:
+            print(f"  WARN {warn}")
     return 1 if failed else 0
 
 
