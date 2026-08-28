@@ -31,7 +31,7 @@ PROMPT_MARKERS = (
 
 
 def headings(text: str) -> list[str]:
-    return [m.strip() for m in re.findall(r"^##\\s+(.+)$", text, re.M)]
+    return [m.strip() for m in re.findall(r"^##\s+(.+)$", text, re.M)]
 
 
 def heading_key(label: str) -> str:
@@ -40,7 +40,7 @@ def heading_key(label: str) -> str:
         return "hook"
     if "payoff" in low:
         return "payoff"
-    m = re.match(r"beat\\s+(\\d+)", low)
+    m = re.match(r"beat\s+(\d+)", low)
     if m:
         return f"beat-{m.group(1)}"
     if low.startswith("cta"):
@@ -55,19 +55,17 @@ def looks_like_expand_prompt(text: str) -> bool:
 
 def extract_script(text: str) -> str:
     """Take a pasted body; strip a wrapping fence if the model added one."""
-    raw = text.replace("\\r\\n", "\\n").strip()
-    fence = re.search(r"```(?:markdown|md)?\\n(# Script\\b.*?)```", raw, re.S)
+    raw = text.replace("\r\n", "\n").strip()
+    fence = re.search(r"```(?:markdown|md)?\n(# Script\b.*?)```", raw, re.S)
     if fence:
-        return fence.group(1).strip() + "\\n"
+        return fence.group(1).strip() + "\n"
     if raw.startswith("# Script"):
-        return raw + ("\\n" if not raw.endswith("\\n") else "")
-    if re.search(r"^##\\s+Hook", raw, re.M):
-        return (
-            "# Script\\n\\nSpoken words only under each beat. Visual notes in italics.\\n\\n"
-            + raw
-            + ("\\n" if not raw.endswith("\\n") else "")
+        return raw + ("\n" if not raw.endswith("\n") else "")
+    if re.search(r"^##\s+Hook", raw, re.M):
+        return "# Script\n\nSpoken words only under each beat. Visual notes in italics.\n\n" + raw + (
+            "\n" if not raw.endswith("\n") else ""
         )
-    return raw + ("\\n" if raw and not raw.endswith("\\n") else "")
+    return raw + ("\n" if raw and not raw.endswith("\n") else "")
 
 
 def spoken_total(script: str) -> int:
@@ -102,7 +100,7 @@ def check(packet: Path, incoming: str) -> list[str]:
             errors.append(f"incoming script missing sections: {', '.join(missing)}")
         beats = [k for k in new_keys if k.startswith("beat-")]
         if not (4 <= len(beats) <= 7):
-            errors.append(f"incoming beat count {len(beats)} not in 4–7")
+            errors.append(f"incoming beat count {len(beats)} not in 4-7")
         if cur_keys:
             cur_beats = [k for k in cur_keys if k.startswith("beat-")]
             if cur_beats and beats and cur_beats != beats:
@@ -113,16 +111,12 @@ def check(packet: Path, incoming: str) -> list[str]:
     if hook_cues:
         n = int(hook_cues[0]["words"])
         if n and (n < 20 or n > 35):
-            errors.append(f"hook word count {n} not in 20–35")
+            errors.append(f"hook word count {n} not in 20-35")
     return errors
 
 
 def report(packet: Path, current: str, incoming: str, errors: list[str]) -> str:
-    packet_text = (
-        (packet / "packet.md").read_text(encoding="utf-8")
-        if (packet / "packet.md").is_file()
-        else ""
-    )
+    packet_text = (packet / "packet.md").read_text(encoding="utf-8") if (packet / "packet.md").is_file() else ""
     fmt = field(packet_text, "format") or "explainer-6-10min"
     band = FORMAT_SPOKEN_WORDS.get(fmt, (900, 1500))
     before = spoken_total(current)
@@ -131,7 +125,7 @@ def report(packet: Path, current: str, incoming: str, errors: list[str]) -> str:
     after_note = duration_note(fmt, after) or "in band"
     lines = [
         f"Packet: {packet.name}",
-        f"Format: {fmt} band {band[0]}–{band[1]}",
+        f"Format: {fmt} band {band[0]}-{band[1]}",
         f"Spoken before: {before} (~{fmt_ts((before / WPM) * 60.0 if before else 0)} at {int(WPM)} wpm) {before_note}",
         f"Spoken after:  {after} (~{fmt_ts((after / WPM) * 60.0 if after else 0)} at {int(WPM)} wpm) {after_note}",
         f"Headings in: {', '.join(headings(incoming)) or '(none)'}",
@@ -141,11 +135,10 @@ def report(packet: Path, current: str, incoming: str, errors: list[str]) -> str:
         lines.extend(f"  - {e}" for e in errors)
     else:
         lines.append("Result: OK to write script.md (does not bump status)")
-    return "\\n".join(lines) + "\\n"
+    return "\n".join(lines) + "\n"
 
 
 def refresh_derived(packet: Path) -> list[str]:
-    """Rewrite expand / vo_session / captions from the new WORDS."""
     notes: list[str] = []
     from expand_brief import render as render_expand
     from vo_session import render as render_vo
@@ -168,21 +161,9 @@ def main() -> int:
         )
     )
     parser.add_argument("packet", help="Path to packet folder")
-    parser.add_argument(
-        "--from",
-        dest="source",
-        help="File with the new script body (default: stdin)",
-    )
-    parser.add_argument(
-        "--write",
-        action="store_true",
-        help="Write script.md. Without this flag, print a report only.",
-    )
-    parser.add_argument(
-        "--refresh",
-        action="store_true",
-        help="After --write, refresh expand.md, vo_session.md, captions.md",
-    )
+    parser.add_argument("--from", dest="source", help="File with the new script body (default: stdin)")
+    parser.add_argument("--write", action="store_true", help="Write script.md. Without this flag, print a report only.")
+    parser.add_argument("--refresh", action="store_true", help="After --write, refresh expand.md, vo_session.md, captions.md")
     args = parser.parse_args()
 
     path = Path(args.packet).resolve()
@@ -201,7 +182,7 @@ def main() -> int:
     if errors:
         return 1
     if not args.write:
-        sys.stdout.write("Dry-run only. Pass --write to replace script.md.\\n")
+        sys.stdout.write("Dry-run only. Pass --write to replace script.md.\n")
         return 0
 
     dest = path / "script.md"
