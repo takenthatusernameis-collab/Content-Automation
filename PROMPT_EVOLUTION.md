@@ -37,5 +37,10 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 - A session card with Status `ready-to-record` must not be treated as audio on disk.
 - sample-001 WORDS total ~1 minute at 150 wpm; report the estimate, do not invent extra lines to hit 8 minutes.
 
+## Observed issues (Run 017)
+- After the session card reports ~01:01, routing to `record-vo` is the next wasted step.
+- Duration cannot be a default FAIL while sample-001 remains the only packet and must stay PASS.
+- Keep `validate()` as a 2-tuple so `pipeline_status.gate_label` does not break.
+
 ## Allowed changes
 Recorded as proposals in `NEXT_RUN_PROMPT.md` only. Do not edit the original archive.
