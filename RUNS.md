@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-08-28T05:24:00+03:00 — Run 016
+
+- **Objective:** Cut recurring VO-prep labor: turn PASS script WORDS into a packet-local reading card and named take path. No wav, no TTS, no ffmpeg, no OAuth.
+- **Inspected:** STATE/NEXT/ROADMAP after Run 015. NEXT item 1 said wait for a take and not add media CLIs. Chose a text session card instead of a recipe.
+- **Action taken:** Added `tools/vo_session.py`. Wired empty-only write through `tools/after_scaffold.py`. Documented in README, `docs/narration.md`, `docs/production_rules.md`. Added fixture `videos/sample-001-why-systems-beat-motivation/vo_session.md` and template placeholder. Did not rewrite next_action/pipeline_status or sample titles/thumbs. Did not create media.
+- **Result:** Local field copy of sample-001 `--dry-run`: Status `ready-to-record`, 153 spoken words, estimated speech `01:01`, take path `vo/001-why-systems-beat-motivation-take-selected.wav`, disk `missing`, hook 29w. Empty-WORDS copy: Status `placeholder`. Write-then-rewrite without `--force` exited 1 (`already filled`). Fake wav + `--force` flipped on-disk to `present` / Status `recorded` in the local copy only; no wav was committed.
+- **Verification status:** completed for tool logic on a local copy of sample fields. GitHub push of tool + docs + memory + fixture card. No media created. No TTS invoked. HTTPS clone still blocked (private repo); not retried.
+- **Important discovery:** sample-001 spoken body is ~1 minute at 150 wpm against an 8-minute format target. The session card makes that length gap visible without pretending a take exists. Do not pad WORDS to fake duration.
+- **Blocker:** None for this step. ffmpeg recipe still parked until VO + cards exist. YouTube/TTS/stock remain in BLOCKED.md.
+- **Recommended next action:** Wait for a real selected take or card file. Still no OAuth, TTS, stock, ffmpeg recipe, or status auto-bump.
+
 ## 2026-08-28T05:12:00+03:00 — Run 015
 
 - **Objective:** Add a read-only next-action resolver so a human does not scan OPEN boxes + drift + disk to decide the single next step. No ffmpeg, no binaries, no OAuth, no status auto-bump.

@@ -33,3 +33,5 @@ Format: date | decision | why | revisit when
 - 2026-08-28 | Scaffold writes render.md only when empty | Same empty-only contract as assets | If a human-edited presence list should always win
 - 2026-08-28 | pipeline_status.py is read-only; it never writes packet status | Recurring “where is this video” labor should be one command; auto-bump would hide missing VO | When a human wants a promote CLI with an explicit flag
 - 2026-08-28 | next_action.py is read-only; one recommended step from inspect data | Recurring “which OPEN box first” labor should not require ranking seven checkboxes | When a human wants a promote CLI with an explicit flag
+- 2026-08-28 | vo_session.md is a reading card from WORDS, not a take | Recurring “what do I read and where do I save it” labor should not require opening script + narration docs | When a selected wav exists; then refresh with `--force`
+- 2026-08-28 | Scaffold writes vo_session.md only when empty | Same empty-only contract as render | If a human-edited session card should always win

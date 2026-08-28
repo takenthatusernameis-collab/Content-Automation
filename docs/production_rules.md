@@ -5,10 +5,10 @@ Apply to every video packet. QA checks what can be checked mechanically.
 ## Packet
 - One video = one folder `videos/NNN-slug/`
 - Required files: `packet.md`, `idea.md`, `script.md`, `titles.md`, `thumbnail.md`, `qa.md`
-- Optional: `research.md`, `assets.md`, `narration.md`, `publish.md`, `captions.md`, `render.md`
+- Optional: `research.md`, `assets.md`, `narration.md`, `publish.md`, `captions.md`, `render.md`, `vo_session.md`
 - Status in `packet.md` must be one of: `draft`, `ready_for_vo`, `ready_for_edit`, `ready_to_publish`, `published`, `abandoned`
 - Field values stay on the same line as the key
-- `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `render.md` (if empty), `research.md`, and `qa.md` unless `--no-generate`
+- `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `render.md` (if empty), `vo_session.md` (if empty), `research.md`, and `qa.md` unless `--no-generate`
 - `python3 tools/pipeline_status.py` is the read-only board across packets. It does not write files.
 - `python3 tools/next_action.py` is the read-only next human step. It does not write files.
 
@@ -59,6 +59,10 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Not Whisper. Not an SRT. Estimated times are not aligned to a take.
 - `--force` is required to replace a filled `captions.md`.
 - Scaffold writes captions.md only when empty.
+- `python3 tools/vo_session.py PATH` writes `vo_session.md` reading card + named take path.
+- Not TTS. Not a wav. Status `ready-to-record` is not a take.
+- `--force` is required to replace a filled `vo_session.md`.
+- Scaffold writes vo_session.md only when empty.
 - VO file names live in `docs/narration.md`. Do not commit raw session dumps by default.
 
 ## Assets
@@ -85,4 +89,5 @@ Format timing: `docs/format.md`.
 Narration paths: `docs/narration.md`.
 Asset filenames: `docs/assets.md`.
 Render presence: packet `render.md`.
+VO reading card: packet `vo_session.md`.
 Human visual/audio ticks live in `qa.md` under **Human**.
