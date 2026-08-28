@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-08-28T16:10:00+03:00 — Run 022
+
+- **Objective:** After set_status exists, stop leaving humans to scan 21 tools for the next safe command. Still no WORDS invention, no fixture pad, no wav, no TTS, no ffmpeg, no OAuth.
+- **Inspected:** STATE/NEXT/ROADMAP after Run 021. Sample still short + draft. Board tools must stay read-only. NEXT forbids rewriting set_status/apply_script/next_action unless wrong.
+- **Action taken:** Added `tools/hint.py` (read-only command map from next_action codes). Fixture expand-script prints expand_prompt plus a lock comment, never apply --write. Non-fixture record-vo prints set_status dry-run first; `--write` only as a comment after an unblocked check. Did not change sample-001. Did not rewrite next_action.py or set_status.py.
+- **Result:** Stub/local mapping test: fixture path prints expand_prompt + fixture lock, exit 0. record-vo on a non-fixture draft prints set_status dry-run. upload-blocked prints a no-API comment. GitHub push of tool + memory.
+- **Verification status:** completed for command mapping on stubs. Live import of next_action/inspect against the real fixture was not run in this sandbox (no full checkout). GitHub push to be verified by ref update. No media created. Sample status unchanged.
+- **Important discovery:** A 21-tool toolbox without a command map recreates the same lookup labor next_action was meant to remove. The sentence is not enough; the dry-run CLI is the unit of handoff.
+- **Blocker:** None for this step. Still waiting on a human-owned non-fixture draft in band. ffmpeg recipe parked until VO + cards exist.
+- **Recommended next action:** Wait for a human to apply expanded WORDS to a new non-fixture packet with apply_script, then dry-run set_status `--to ready_for_vo`. Still no OAuth, TTS, stock, ffmpeg recipe, fixture pad, WORDS autofill, or board auto-bump.
+
 ## 2026-08-28T14:15:00+03:00 — Run 021
 
 - **Objective:** After apply_script lands WORDS, stop leaving humans to hand-edit packet.md status (the main source of board drift). Still no WORDS invention, no fixture pad, no wav, no TTS, no ffmpeg, no OAuth.

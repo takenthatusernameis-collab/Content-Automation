@@ -30,12 +30,13 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 23. Paste-ready expand prompt assembler — **done (Run 019)**
 24. Paste-back script apply gate — **done (Run 020); refuses fixture; dry-run default**
 25. Evidence-gated status writer — **done (Run 021); board stays read-only**
+26. Read-only command hint from next-action codes — **done (Run 022)**
 
 ## Later (automation)
-26. TTS narration path (optional; keep human VO compatible)
-27. Caption timing from a real selected take (not 150 wpm estimates)
-28. ffmpeg assembly for this one locked format after one packet has VO + cards
-29. YouTube upload + metadata only after packet QA passes
+27. TTS narration path (optional; keep human VO compatible)
+28. Caption timing from a real selected take (not 150 wpm estimates)
+29. ffmpeg assembly for this one locked format after one packet has VO + cards
+30. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Multi-platform posting
@@ -50,3 +51,4 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 - Auto-writing spoken WORDS from expand.md budgets or expand_prompt stdout
 - Applying expand_prompt stdout onto sample-001 via apply_script
 - Promoting sample-001 with set_status
+- Printing `--write` as the first hint.py command
