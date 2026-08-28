@@ -25,14 +25,16 @@
 | 2026-08-28 Run 018   | ~177 estimate     | 18              | expand.md beat budget |
 | 2026-08-28 Run 019   | ~172 estimate     | 19              | expand_prompt paste pack; no WORDS rewrite |
 | 2026-08-28 Run 020   | ~167 estimate     | 20              | apply_script paste-back gate; no fixture write |
+| 2026-08-28 Run 021   | ~162 estimate     | 21              | set_status evidence gate; board stays read-only |
 
 Estimate basis (generic 8-min explainer):
 - Research 30, idea lock 15, script 60, VO 25, assets 30, edit 90, captions 15, thumb/title 20, QA/upload 15
-- Run 019: -5 stop gathering channel + idea + rules + budget + script to brief a writer
 - Run 020: -5 stop hand-swapping script.md and refreshing expand/vo/captions after a paste-back
+- Run 021: -5 stop hand-editing status and repairing board drift after a premature bump
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
 - Run 019: `tools/expand_prompt.py` prints a paste-ready expander pack; does not write script.md.
 - Run 020: `tools/apply_script.py` dry-runs then optionally writes a human-pasted script to a non-fixture packet; refuses sample-001 and expand_prompt stdout; optional derived refresh; no status bump.
+- Run 021: `tools/set_status.py` dry-runs then optionally writes packet.md status; refuses fixture promote, skip-ahead, duration-short ready_for_vo, and later statuses without disk evidence.

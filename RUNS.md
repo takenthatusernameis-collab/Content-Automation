@@ -2,21 +2,21 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-08-28T14:15:00+03:00 — Run 021
+
+- **Objective:** After apply_script lands WORDS, stop leaving humans to hand-edit packet.md status (the main source of board drift). Still no WORDS invention, no fixture pad, no wav, no TTS, no ffmpeg, no OAuth.
+- **Inspected:** STATE/NEXT/ROADMAP after Run 020. Sample still short + draft. apply_script does not bump status by design. Board tools must stay read-only.
+- **Action taken:** Added `tools/set_status.py` (dry-run default, `--to` required, `--write` to persist, fixture refuse except draft/abandon, skip-ahead refuse, duration WARN blocks ready_for_vo and ready_for_edit, VO/export presence required for later statuses). Did not change sample-001 packet.md. Did not rewrite pipeline_status.py or next_action.py.
+- **Result:** Local copy tests: fixture `--to ready_for_vo` exit 1; skip `draft -> published` exit 1; short non-fixture `--to ready_for_vo` exit 1 (duration WARN); `--to abandoned --write` rewrote only status + updated on a temp demo packet. GitHub push of tool + memory.
+- **Verification status:** completed for tool logic on a local copy. GitHub push to be verified by ref update. No media created. Sample status unchanged.
+- **Important discovery:** A replacement string written as `rf"\\1 value"` can land as a literal `\\1` instead of the captured field key. Use `r"\\1 " + value` with a non-raw interpretation that yields group 1.
+- **Blocker:** None for this step. Still waiting on a human-owned non-fixture draft in band. ffmpeg recipe parked until VO + cards exist.
+- **Recommended next action:** Wait for a human to apply expanded WORDS to a new non-fixture packet with apply_script, then dry-run set_status `--to ready_for_vo`. Still no OAuth, TTS, stock, ffmpeg recipe, fixture pad, WORDS autofill, or board auto-bump.
+
 ## 2026-08-28T11:05:00+03:00 — Run 020
 
 - **Objective:** After expand_prompt prints a pack, stop leaving the human to swap script.md and refresh three derived files by hand. Still no WORDS invention, no fixture pad, no wav, no TTS, no ffmpeg, no OAuth.
-- **Inspected:** STATE/NEXT/ROADMAP after Run 019. Sample still 153 spoken words. Paste pack exists. Missing piece was a gated paste-back.
-- **Action taken:** Added `tools/apply_script.py` (dry-run default, fixture refuse, expand-prompt refuse, heading/beat/hook checks, `--write`, optional `--refresh`). Did not change sample-001 script.md. Did not rewrite next_action.py, expand_prompt.py, or validate_packet.py.
-- **Result:** Local dry-run on a copy of sample fields: fixture refuse exit 1; expand-prompt refuse exit 1; extra-beat mismatch exit 1; non-fixture same-script dry-run OK; `--write --refresh` wrote script + expand + vo_session + captions on a temp demo packet. GitHub push of tool + memory.
-- **Verification status:** completed for tool logic on a local copy. GitHub push verified by ref update. No media created. Sample WORDS unchanged.
-- **Important discovery:** A printed expand pack looks like a script. apply_script must refuse that stdout and must refuse sample-001 even when headings match.
-- **Blocker:** None for this step. Still waiting on a human-owned non-fixture draft. ffmpeg recipe parked until VO + cards exist.
-- **Recommended next action:** Wait for a human to apply expanded WORDS to a new non-fixture packet with apply_script, or for a selected take / card file on a packet already in band. Still no OAuth, TTS, stock, ffmpeg recipe, fixture pad, WORDS autofill, or status auto-bump.
+- **Recommended next action:** Wait for a human to apply expanded WORDS to a new non-fixture packet with apply_script.
 
-## 2026-08-28T10:20:00+03:00 — Run 019
-
-- **Objective:** When next_action says `expand-script` and expand.md already has Add-column targets, stop making the human open six files to brief a writer.
-- **Recommended next action:** Wait for a human to paste expanded WORDS into a new non-fixture packet.
-
-## Earlier runs 001–018
+## Earlier runs 001–019
 See prior commits for full detail.

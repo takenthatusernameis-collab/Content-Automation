@@ -29,12 +29,13 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 22. Beat-budget expand brief — **done (Run 018)**
 23. Paste-ready expand prompt assembler — **done (Run 019)**
 24. Paste-back script apply gate — **done (Run 020); refuses fixture; dry-run default**
+25. Evidence-gated status writer — **done (Run 021); board stays read-only**
 
 ## Later (automation)
-25. TTS narration path (optional; keep human VO compatible)
-26. Caption timing from a real selected take (not 150 wpm estimates)
-27. ffmpeg assembly for this one locked format after one packet has VO + cards
-28. YouTube upload + metadata only after packet QA passes
+26. TTS narration path (optional; keep human VO compatible)
+27. Caption timing from a real selected take (not 150 wpm estimates)
+28. ffmpeg assembly for this one locked format after one packet has VO + cards
+29. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Multi-platform posting
@@ -48,3 +49,4 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 - Making duration WARN a default FAIL (would break sample-001 PASS)
 - Auto-writing spoken WORDS from expand.md budgets or expand_prompt stdout
 - Applying expand_prompt stdout onto sample-001 via apply_script
+- Promoting sample-001 with set_status
