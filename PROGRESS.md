@@ -20,11 +20,13 @@
 | 2026-08-28 Run 013   | ~200 estimate     | 13              | empty-only render.md presence |
 | 2026-08-28 Run 014   | ~195 estimate     | 14              | read-only pipeline board |
 | 2026-08-28 Run 015   | ~192 estimate     | 15              | read-only next action |
+| 2026-08-28 Run 016   | ~187 estimate     | 16              | VO session reading card |
 
 Estimate basis (generic 8-min explainer):
 - Research 30, idea lock 15, script 60, VO 25, assets 30, edit 90, captions 15, thumb/title 20, QA/upload 15
 - Run 014: -5 stop opening every packet file to answer “where is this video”
 - Run 015: -3 stop ranking OPEN boxes by hand; one recommended next step
+- Run 016: -5 stop assembling a read-aloud sheet and take filename by hand
 
 These numbers are **estimates**, not stopwatch data.
 
@@ -35,3 +37,4 @@ These numbers are **estimates**, not stopwatch data.
 - Run 013: `tools/render_brief.py` writes `render.md` exists-vs-missing; scaffold empty-only; no media created.
 - Run 014: `tools/pipeline_status.py` read-only board (status, gate, disk, drift); `--strict` for FAIL/drift; no writes.
 - Run 015: `tools/next_action.py` read-only next human step from the same inspect data; no writes.
+- Run 016: `tools/vo_session.py` writes `vo_session.md` reading card from WORDS; empty-only on scaffold; no wav / no TTS.

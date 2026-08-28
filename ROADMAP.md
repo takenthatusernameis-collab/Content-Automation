@@ -24,12 +24,13 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 17. Packet-local render presence checklist — **done (Run 013); exists vs missing only**
 18. Read-only multi-packet status board — **done (Run 014); no writes**
 19. Read-only next human action — **done (Run 015); no writes**
+20. VO session reading card from WORDS — **done (Run 016); no wav / no TTS**
 
 ## Later (automation)
-20. TTS narration path (optional; keep human VO compatible)
-21. Caption timing from a real selected take (not 150 wpm estimates)
-22. ffmpeg assembly for this one locked format after one packet has VO + cards
-23. YouTube upload + metadata only after packet QA passes
+21. TTS narration path (optional; keep human VO compatible)
+22. Caption timing from a real selected take (not 150 wpm estimates)
+23. ffmpeg assembly for this one locked format after one packet has VO + cards
+24. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Multi-platform posting
