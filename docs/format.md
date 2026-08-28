@@ -9,6 +9,7 @@ Clock source: selected VO take when it exists; otherwise script WORDS at ~150 wp
 Spoken-word band at 150 wpm: **900–1500 words**. Target ~1200.
 `tools/validate_packet.py` prints WARN when WORDS sit outside that band.
 `--duration` turns the same check into FAIL. The sample fixture is allowed to stay short.
+`tools/expand_brief.py` writes a per-beat budget into `expand.md`. It does not rewrite WORDS.
 
 ## Timeline
 
@@ -52,3 +53,4 @@ Presence on disk is listed in packet `render.md` (`tools/render_brief.py`). That
 - No ffmpeg filtergraph, CRF, or concat list.
 - No YouTube upload.
 - No second format (shorts) until a human changes DECISIONS.md.
+- No automatic rewrite of script WORDS from `expand.md`.

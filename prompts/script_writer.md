@@ -11,7 +11,8 @@ Read, in order:
 3. `docs/format.md`
 4. The packet `idea.md`
 5. The packet `research.md` if it has sources
-6. The empty beat skeleton in `script.md`
+6. The packet `expand.md` if it has a beat budget
+7. The empty beat skeleton in `script.md`
 
 ## Task
 
@@ -30,6 +31,7 @@ Keep VISUAL lines as short italic stage directions, not a second script.
 - Payoff promise is one sentence: what the viewer can *do* after watching.
 - 4–7 beats. Do not add extra `##` headings.
 - Total spoken WORDS for `explainer-6-10min` must land in 900–1500 words (~6–10 minutes at 150 wpm). Target ~1200 words / 8 minutes. Do not pad with slogans; add concrete steps inside existing beats.
+- Use `expand.md` Add column as a size hint only. Do not copy the budget table into WORDS.
 - One CTA. Assign a single next action that can be finished in under two minutes.
 - Tone: specific, calm, operational. No hustle slogans, no “unlock your potential,” no unverifiable statistics.
 - If a number is required, it must already appear in `research.md` with a source. Otherwise use qualitative language.
@@ -50,6 +52,7 @@ After writing, run:
 ```bash
 python3 tools/validate_packet.py videos/<id>-<slug>
 python3 tools/validate_packet.py --duration videos/<id>-<slug>
+python3 tools/expand_brief.py videos/<id>-<slug> --force
 ```
 
 Fix hook length, missing sections, and spoken-duration WARN before considering the draft ready to record.

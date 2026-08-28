@@ -33,6 +33,11 @@ A named path (`exports/NNN-slug-vN.mp4`) is not proof the file exists.
 ## Duration rule
 Spoken WORDS for `explainer-6-10min` belong in 900–1500 at 150 wpm. Default validate prints WARN. `--duration` may FAIL. Do not pad sample-001. Do not make WARN the default FAIL.
 
+## Expand rule
+`expand_brief.py` writes a beat budget. It must not rewrite `script.md` or invent spoken lines.
+Do not overwrite a filled `expand.md` without `--force`.
+A Status `short` budget is not a draft.
+
 ## Render rule
 `render_brief.py` writes exists-vs-missing rows for named format outputs. It must not run ffmpeg, write wav/png/mp4, or treat `all-missing` as failure.
 Do not overwrite a filled `render.md` without `--force`.
@@ -53,12 +58,12 @@ Do not overwrite a filled `vo_session.md` without `--force`.
 Do not commit fake audio to flip Status to `recorded`.
 
 ## Scaffold rule
-`new_idea.py` / `new_packet.py` write generated titles/thumbs (empty titles.md only), `publish.md` (empty only), `captions.md` (empty only), `assets.md` (empty only), `render.md` (empty only), `vo_session.md` (empty only), `research.md`, then `qa.md` after copy unless `--no-generate`.
-Reuse `after_scaffold.py` and `vo_session.write_empty_session`; never pass `--force` from scaffold.
+`new_idea.py` / `new_packet.py` write generated titles/thumbs (empty titles.md only), `publish.md` (empty only), `captions.md` (empty only), `assets.md` (empty only), `render.md` (empty only), `vo_session.md` (empty only), `expand.md` (empty only), `research.md`, then `qa.md` after copy unless `--no-generate`.
+Reuse `after_scaffold.py` and `write_empty_*`; never pass `--force` from scaffold.
 
 ## Fixture freeze
-Do not overwrite `videos/sample-001-*` titles or thumbnail unless the packet schema itself changed.
-`assets.md`, `render.md`, and `vo_session.md` on the fixture may follow the stub schema; planned filenames and reading cards are not binaries.
+Do not overwrite `videos/sample-001-*` titles, thumbnail, or script WORDS unless the packet schema itself changed.
+`assets.md`, `render.md`, `vo_session.md`, and `expand.md` on the fixture may follow the stub schema; planned filenames, reading cards, and budgets are not binaries or drafts.
 Do not expand sample-001 WORDS to clear duration WARN.
 
 ## Private repo

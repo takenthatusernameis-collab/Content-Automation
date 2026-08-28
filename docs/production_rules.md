@@ -5,10 +5,10 @@ Apply to every video packet. QA checks what can be checked mechanically.
 ## Packet
 - One video = one folder `videos/NNN-slug/`
 - Required files: `packet.md`, `idea.md`, `script.md`, `titles.md`, `thumbnail.md`, `qa.md`
-- Optional: `research.md`, `assets.md`, `narration.md`, `publish.md`, `captions.md`, `render.md`, `vo_session.md`
+- Optional: `research.md`, `assets.md`, `narration.md`, `publish.md`, `captions.md`, `render.md`, `vo_session.md`, `expand.md`
 - Status in `packet.md` must be one of: `draft`, `ready_for_vo`, `ready_for_edit`, `ready_to_publish`, `published`, `abandoned`
 - Field values stay on the same line as the key
-- `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `render.md` (if empty), `vo_session.md` (if empty), `research.md`, and `qa.md` unless `--no-generate`
+- `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `render.md` (if empty), `vo_session.md` (if empty), `expand.md` (if empty), `research.md`, and `qa.md` unless `--no-generate`
 - `python3 tools/pipeline_status.py` is the read-only board across packets. It does not write files.
 - `python3 tools/next_action.py` is the read-only next human step. It does not write files.
 
@@ -31,6 +31,10 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Default validate prints WARN when the band is missed; `--duration` fails
 - Do not record VO while the duration WARN is present on a real packet
 - Do not pad `videos/sample-001-*` to clear the WARN
+- `python3 tools/expand_brief.py PATH` writes `expand.md` per-beat Have/Target/Add from current WORDS
+- An expand.md budget is not a rewritten script. Do not autofill WORDS from it
+- `--force` is required to replace a filled `expand.md`
+- Scaffold writes expand.md only when empty
 - No unverifiable statistics; if a number is used, cite source in `research.md`
 - Working-niche tone: specific, calm, operational. No hustle slogans.
 
@@ -96,4 +100,5 @@ Narration paths: `docs/narration.md`.
 Asset filenames: `docs/assets.md`.
 Render presence: packet `render.md`.
 VO reading card: packet `vo_session.md`.
+Beat budget: packet `expand.md`.
 Human visual/audio ticks live in `qa.md` under **Human**.

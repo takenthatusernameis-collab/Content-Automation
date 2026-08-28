@@ -24,6 +24,7 @@ python3 tools/next_action.py videos/sample-001-why-systems-beat-motivation
 python3 tools/validate_packet.py --all
 python3 tools/validate_packet.py videos/sample-001-why-systems-beat-motivation
 python3 tools/validate_packet.py --duration videos/sample-001-why-systems-beat-motivation
+python3 tools/expand_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/vo_session.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/render_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/asset_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
@@ -38,9 +39,11 @@ python3 tools/qa_checklist.py videos/sample-001-why-systems-beat-motivation --dr
 
 `validate_packet.py` default publish gate stays structural. Duration misses print `WARN`. `--duration` promotes that WARN to FAIL. Do not pad the sample fixture to clear it.
 
+`expand_brief.py` writes `expand.md`: per-beat Have/Target/Add against the 900–1500 band. It does not rewrite `script.md`. Will not overwrite a filled expand file unless `--force`.
+
 `vo_session.py` writes `vo_session.md`: a reading card from script WORDS plus the named selected-take path. It does not run TTS or write wav/flac. Will not overwrite a filled session file unless `--force`.
 
-`new_idea.py` fills `idea.md` and names script beats. It does not write spoken WORDS. Default scaffold writes titles/thumbs when empty, then `publish.md`, `captions.md`, `assets.md`, `render.md`, `vo_session.md`, `research.md`, then `qa.md` via `tools/after_scaffold.py`. Pass `--no-generate` to leave the template copies untouched.
+`new_idea.py` fills `idea.md` and names script beats. It does not write spoken WORDS. Default scaffold writes titles/thumbs when empty, then `publish.md`, `captions.md`, `assets.md`, `render.md`, `vo_session.md`, `expand.md`, `research.md`, then `qa.md` via `tools/after_scaffold.py`. Pass `--no-generate` to leave the template copies untouched.
 
 `render_brief.py` writes `render.md`: exists vs missing for named VO/card/export paths. It does not run ffmpeg or create media. Will not overwrite a filled render file unless `--force`.
 

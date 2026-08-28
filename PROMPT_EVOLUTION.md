@@ -42,5 +42,10 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 - Duration cannot be a default FAIL while sample-001 remains the only packet and must stay PASS.
 - Keep `validate()` as a 2-tuple so `pipeline_status.gate_label` does not break.
 
+## Observed issues (Run 018)
+- `expand-script` without a beat budget leaves the human doing arithmetic across seven headings.
+- Auto-writing WORDS from the budget would invent a draft and break the fixture freeze.
+- Hook must stay 20–35 even when the body needs ~1000 more words.
+
 ## Allowed changes
 Recorded as proposals in `NEXT_RUN_PROMPT.md` only. Do not edit the original archive.
