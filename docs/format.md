@@ -6,6 +6,10 @@ Timing and named outputs only. No ffmpeg command line.
 Default target: 8 minutes. Allowed range: 6–10 minutes spoken plus holds.
 Clock source: selected VO take when it exists; otherwise script WORDS at ~150 wpm.
 
+Spoken-word band at 150 wpm: **900–1500 words**. Target ~1200.
+`tools/validate_packet.py` prints WARN when WORDS sit outside that band.
+`--duration` turns the same check into FAIL. The sample fixture is allowed to stay short.
+
 ## Timeline
 
 | Segment | Spoken target | On-screen | Rule |
