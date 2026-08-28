@@ -22,5 +22,10 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 - `all-missing` is the correct fixture state. Do not flip it with dummy files.
 - Filled detection should key off `Status: all-missing|partial|all-present`, not table-pipe regex.
 
+## Observed issues (Run 014)
+- After named outputs exist, the recurring labor is “open eleven files.” A board is higher leverage than another stub writer.
+- Status labels ahead of disk evidence must surface as DRIFT, not be auto-corrected.
+- HTTPS clone of this private repo fails; push via GitHub file APIs and do not retry clone.
+
 ## Allowed changes
 Recorded as proposals in `NEXT_RUN_PROMPT.md` only. Do not edit the original archive.

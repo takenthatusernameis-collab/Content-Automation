@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-08-28T02:12:00+03:00 (Run 013)
+Updated: 2026-08-28T04:08:00+03:00 (Run 014)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
+manual -> assisted scaffolding -> **monitored packets** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -14,7 +14,7 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 - No published videos
 - No YouTube / TTS / stock / render integrations configured
 
-## What exists now (after Run 013)
+## What exists now (after Run 014)
 - Operating memory files
 - Frozen original master prompt
 - Video packet standard + scaffold CLI + packet QA (publish gate + draft gate)
@@ -33,6 +33,7 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 - Caption intake stub CLI `tools/caption_brief.py` (cues from script WORDS at 150 wpm; no Whisper)
 - Asset intake stub CLI `tools/asset_brief.py` (card list from script VISUAL; no download)
 - Render presence stub CLI `tools/render_brief.py` (exists vs missing for named VO/card/export paths; no ffmpeg)
+- Read-only board `tools/pipeline_status.py` (status + gate + disk + drift; no writes)
 - Scaffold post-step `tools/after_scaffold.py` writes titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `render.md` (if empty), `research.md`, then `qa.md` unless `--no-generate`
 - Title-list parser treats empty `1.` / `2.` template lines as untitled
 
@@ -51,14 +52,15 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 | QA           | assisted    | checklist written at scaffold after titles |
 | Publish meta | assisted    | `publish.md` stub; no API                  |
 | Rendering    | assisted    | `render.md` presence only; no ffmpeg       |
+| Oversight    | monitored   | `pipeline_status.py` board; no writes      |
 | Publishing   | blocked     | YouTube API not configured                 |
 | Analytics    | unbuilt     |                                            |
 
 ## Metrics snapshot
 | Metric                         | Previous     | Current        | Notes                          |
 |--------------------------------|--------------|----------------|--------------------------------|
-| Estimated human min / video    | 205          | 200            | presence list stops “what file is missing” |
-| Automated steps                | 12           | 13             | empty-only render.md           |
+| Estimated human min / video    | 200          | 195            | board replaces multi-file peek |
+| Automated steps                | 13           | 14             | read-only status board         |
 | Remaining manual steps         | most         | most           | source check, script words, VO, card build, edit, caption align, publish |
 | Videos produced by system      | 0            | 0              | sample packet is a fixture     |
 | Channel niche decided          | locked (temp)| locked (temp)  | `docs/channel.md`              |
@@ -81,3 +83,4 @@ manual -> **assisted scaffolding** -> automated -> monitored -> self-improving
 - Asset generate-on-scaffold is empty-file only (`write_empty_assets`); never stock download
 - Render generate-on-scaffold is empty-file only (`write_empty_render`); never ffmpeg
 - Format lock is `explainer-6-10min` only; no shorts split, no ffmpeg recipe
+- `pipeline_status.py` must stay read-only; do not have it rewrite packet status

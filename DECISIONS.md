@@ -31,3 +31,4 @@ Format: date | decision | why | revisit when
 - 2026-08-28 | Named export path is `exports/NNN-slug-vN.mp4`; no ffmpeg recipe yet | Recurring “what file do I hand to upload” labor is a name, not a build | When one packet has selected VO + ready cards
 - 2026-08-28 | render.md is presence only; missing is a valid result | Recurring “is the wav/export actually here” labor should not require opening Finder | When a packet has real media; then `--force` refresh is allowed
 - 2026-08-28 | Scaffold writes render.md only when empty | Same empty-only contract as assets | If a human-edited presence list should always win
+- 2026-08-28 | pipeline_status.py is read-only; it never writes packet status | Recurring “where is this video” labor should be one command; auto-bump would hide missing VO | When a human wants a promote CLI with an explicit flag

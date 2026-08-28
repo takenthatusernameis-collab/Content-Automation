@@ -16,6 +16,9 @@ Start here:
 python3 tools/new_packet.py "Working title here"
 python3 tools/new_idea.py "Stop deciding what to work on every morning"
 python3 tools/new_idea.py "Topic" --no-generate
+python3 tools/pipeline_status.py
+python3 tools/pipeline_status.py videos/sample-001-why-systems-beat-motivation
+python3 tools/pipeline_status.py --strict
 python3 tools/render_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/asset_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/caption_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
@@ -24,6 +27,8 @@ python3 tools/qa_checklist.py videos/sample-001-why-systems-beat-motivation --dr
 python3 tools/validate_packet.py --all
 python3 tools/validate_packet.py videos/sample-001-why-systems-beat-motivation
 ```
+
+`pipeline_status.py` is a read-only board: declared status, validate gate, render presence, and status drift. It writes nothing and creates no media. `--strict` exits 1 on FAIL or drift.
 
 `new_idea.py` fills `idea.md` and names script beats. It does not write spoken WORDS. Default scaffold writes titles/thumbs when empty, then `publish.md`, `captions.md`, `assets.md`, `render.md`, `research.md`, then `qa.md` via `tools/after_scaffold.py`. Pass `--no-generate` to leave the template copies untouched.
 

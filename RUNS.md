@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-08-28T04:08:00+03:00 — Run 014
+
+- **Objective:** Add a read-only multi-packet status board so humans/agents do not open every packet file to see gate + disk + status drift. No ffmpeg, no binaries, no OAuth, no status auto-bump.
+- **Inspected:** STATE/NEXT/ROADMAP after Run 013. NEXT item 1 said stop foundation media CLIs and wait for a take. Chose monitoring instead of another stub writer.
+- **Action taken:** Added `tools/pipeline_status.py`. Documented in README + production_rules. Updated memory files. Did not rewrite sample-001 media files.
+- **Result:** One command prints STATUS / GATE / DISK / OPEN / DRIFT. sample-001 (local field copy): draft, PASS, all-missing 0/9, OPEN 7, no drift. A copy with status `ready_to_publish` and no media: DRIFT status-ahead-of-vo + status-ahead-of-export; `--strict` exit 1. Same copy with selected wav + status `ready_for_edit`: partial 1/9, no drift, `--strict` exit 0.
+- **Verification status:** completed for tool logic on a local copy of sample fields. GitHub push of tool + docs + memory. No media created. No ffmpeg invoked. HTTPS clone still blocked (private repo); not retried after first fail.
+- **Important discovery:** Card rows share role name `Card`, so drift keys only Selected VO and Master export. That is enough until a human has cards on disk.
+- **Blocker:** None for this step. ffmpeg recipe still parked until VO + cards exist. YouTube/TTS/stock remain in BLOCKED.md.
+- **Recommended next action:** Wait for a real selected take or card file. Still no OAuth, TTS, stock, ffmpeg recipe, or status auto-bump.
+
 ## 2026-08-28T02:12:00+03:00 — Run 013
 
 - **Objective:** Add packet-local `render.md` presence checklist for named outputs in `docs/format.md`. No ffmpeg recipe, no binaries, no OAuth.

@@ -22,12 +22,13 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 15. Asset/card filename conventions from script VISUAL lines — **done (Run 011); no stock API**
 16. Face-free format timing page + named export paths — **done (Run 012); no ffmpeg recipe**
 17. Packet-local render presence checklist — **done (Run 013); exists vs missing only**
+18. Read-only multi-packet status board — **done (Run 014); no writes**
 
 ## Later (automation)
-18. TTS narration path (optional; keep human VO compatible)
-19. Caption timing from a real selected take (not 150 wpm estimates)
-20. ffmpeg assembly for this one locked format after one packet has VO + cards
-21. YouTube upload + metadata only after packet QA passes
+19. TTS narration path (optional; keep human VO compatible)
+20. Caption timing from a real selected take (not 150 wpm estimates)
+21. ffmpeg assembly for this one locked format after one packet has VO + cards
+22. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Multi-platform posting
@@ -37,3 +38,4 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 - Web-scrape-as-research (explicitly rejected until a human verification step exists)
 - Whisper / invented SRT from estimates
 - Second format (shorts) until a human changes DECISIONS.md
+- Auto-advancing packet status from the board
