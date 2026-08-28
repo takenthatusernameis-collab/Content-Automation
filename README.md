@@ -21,19 +21,22 @@ python3 tools/pipeline_status.py videos/sample-001-why-systems-beat-motivation
 python3 tools/pipeline_status.py --strict
 python3 tools/next_action.py
 python3 tools/next_action.py videos/sample-001-why-systems-beat-motivation
+python3 tools/validate_packet.py --all
+python3 tools/validate_packet.py videos/sample-001-why-systems-beat-motivation
+python3 tools/validate_packet.py --duration videos/sample-001-why-systems-beat-motivation
 python3 tools/vo_session.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/render_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/asset_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/caption_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/publish_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/qa_checklist.py videos/sample-001-why-systems-beat-motivation --dry-run
-python3 tools/validate_packet.py --all
-python3 tools/validate_packet.py videos/sample-001-why-systems-beat-motivation
 ```
 
-`pipeline_status.py` is a read-only board: declared status, validate gate, render presence, and status drift. It writes nothing and creates no media. `--strict` exits 1 on FAIL or drift.
+`pipeline_status.py` is a read-only board: declared status, validate gate, render presence, and status drift. It writes nothing and creates no media. `--strict` exits 1 on FAIL or drift. Duration WARN is not FAIL.
 
-`next_action.py` is a read-only next-step list from the same inspect data. It writes nothing, does not bump status, and does not create media.
+`next_action.py` is a read-only next-step list from the same inspect data. It writes nothing, does not bump status, and does not create media. If spoken WORDS sit outside the format band, the code is `expand-script`, not `record-vo`.
+
+`validate_packet.py` default publish gate stays structural. Duration misses print `WARN`. `--duration` promotes that WARN to FAIL. Do not pad the sample fixture to clear it.
 
 `vo_session.py` writes `vo_session.md`: a reading card from script WORDS plus the named selected-take path. It does not run TTS or write wav/flac. Will not overwrite a filled session file unless `--force`.
 

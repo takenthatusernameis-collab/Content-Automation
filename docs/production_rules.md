@@ -15,6 +15,7 @@ Apply to every video packet. QA checks what can be checked mechanically.
 ## Format
 - Default packet format is `explainer-6-10min` (face-free).
 - Timing, holds, end-screen reserve, and named export paths: `docs/format.md`.
+- Spoken-word band at 150 wpm: 900–1500 words (target ~1200 / 8 min).
 - Editor tracks: `docs/editor.md`. Do not treat named paths as existing files.
 - `python3 tools/render_brief.py PATH` writes `render.md` exists-vs-missing for those names.
 - A `missing` row is the expected state until a human puts a file on disk. Do not invent media.
@@ -26,6 +27,10 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - State the viewer payoff before beat 2
 - 4–7 beats after the hook
 - One primary CTA
+- Total spoken WORDS should match the locked format band (900–1500 for `explainer-6-10min`)
+- Default validate prints WARN when the band is missed; `--duration` fails
+- Do not record VO while the duration WARN is present on a real packet
+- Do not pad `videos/sample-001-*` to clear the WARN
 - No unverifiable statistics; if a number is used, cite source in `research.md`
 - Working-niche tone: specific, calm, operational. No hustle slogans.
 
@@ -73,17 +78,18 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Filename rules: `docs/assets.md`. Editor tracks: `docs/editor.md`.
 
 ## QA gates
-- `python3 tools/validate_packet.py PATH` — publish/completeness. Empty WORDS fail.
+- `python3 tools/validate_packet.py PATH` — publish/completeness. Empty WORDS fail. Duration misses print WARN.
 - `python3 tools/validate_packet.py --draft PATH` — intake/structure. Empty WORDS/titles/thumb are incomplete, not fail.
+- `python3 tools/validate_packet.py --duration PATH` — same as publish gate plus spoken-length FAIL.
 - `python3 tools/qa_checklist.py PATH` — writes `qa.md` mechanical boxes from files + human ticks from editor conventions. Never invents scores or auto-checks VO/cards/export/captions.
-- `python3 tools/pipeline_status.py` — read-only: status + gate + disk + drift. `--strict` fails on FAIL or drift.
-- `python3 tools/next_action.py` — read-only: one next human step. Does not bump status.
+- `python3 tools/pipeline_status.py` — read-only: status + gate + disk + drift. `--strict` fails on FAIL/drift. Duration WARN is not FAIL and not drift.
+- `python3 tools/next_action.py` — read-only: one next human step. Routes `expand-script` before `record-vo` when duration WARN is present. Does not bump status.
 - A hook that has words but is outside 20–35 still fails in both validate gates.
 - Status drift: `ready_for_vo` needs a PASS script gate; `ready_for_edit` needs selected VO on disk; `ready_to_publish` / `published` need VO + export. Do not bump status to hide missing files.
 
 ## Human handoff
 Anything a human must still do is listed under `Remaining human work` in `packet.md`.
-`tools/next_action.py` picks one of those constraints from gate + drift + disk.
+`tools/next_action.py` picks one of those constraints from gate + drift + disk + duration band.
 Editing conventions: `docs/editor.md`.
 Format timing: `docs/format.md`.
 Narration paths: `docs/narration.md`.
