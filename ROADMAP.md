@@ -23,12 +23,13 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 16. Face-free format timing page + named export paths — **done (Run 012); no ffmpeg recipe**
 17. Packet-local render presence checklist — **done (Run 013); exists vs missing only**
 18. Read-only multi-packet status board — **done (Run 014); no writes**
+19. Read-only next human action — **done (Run 015); no writes**
 
 ## Later (automation)
-19. TTS narration path (optional; keep human VO compatible)
-20. Caption timing from a real selected take (not 150 wpm estimates)
-21. ffmpeg assembly for this one locked format after one packet has VO + cards
-22. YouTube upload + metadata only after packet QA passes
+20. TTS narration path (optional; keep human VO compatible)
+21. Caption timing from a real selected take (not 150 wpm estimates)
+22. ffmpeg assembly for this one locked format after one packet has VO + cards
+23. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Multi-platform posting

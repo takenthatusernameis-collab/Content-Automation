@@ -2,8 +2,8 @@
 
 Do these in order. Stop if a step needs a human decision that is not present.
 
-1. **Highest value:** Foundation naming and the packet board are closed. Do not add ffmpeg assembly, TTS, stock, or YouTube OAuth. Wait for a human selected VO or local card file before any recipe. Do not invent those files.
-2. Do **not** rewrite `tools/pipeline_status.py`, `tools/render_brief.py`, `tools/asset_brief.py`, `tools/caption_brief.py`, `tools/publish_brief.py`, `tools/research_brief.py`, `tools/qa_checklist.py`, `tools/new_idea.py`, `tools/title_thumb_brief.py`, `docs/channel.md`, or `docs/format.md` unless they are wrong.
+1. **Highest value:** Foundation naming, the packet board, and next-action routing are closed. Do not add ffmpeg assembly, TTS, stock, or YouTube OAuth. Wait for a human selected VO or local card file before any recipe. Do not invent those files.
+2. Do **not** rewrite `tools/next_action.py`, `tools/pipeline_status.py`, `tools/render_brief.py`, `tools/asset_brief.py`, `tools/caption_brief.py`, `tools/publish_brief.py`, `tools/research_brief.py`, `tools/qa_checklist.py`, `tools/new_idea.py`, `tools/title_thumb_brief.py`, `docs/channel.md`, or `docs/format.md` unless they are wrong.
 3. Do **not** attempt YouTube OAuth, TTS vendors, ffmpeg assembly, or publishing unless credentials or a real VO file appear in-repo docs as available.
 4. Do **not** produce a “real” video packet intended for upload; still no VO or card binaries on disk.
 5. Do **not** `--force` overwrite `videos/sample-001-*` titles or thumbnail.
@@ -14,4 +14,4 @@ Do these in order. Stop if a step needs a human decision that is not present.
 10. Do **not** call the YouTube API from `publish_brief.py`.
 11. Do **not** download stock or commit card PNGs to make `assets.md` or `render.md` look ready.
 12. Do **not** write an ffmpeg recipe or concat list. Named paths plus presence rows are enough until a selected take exists.
-13. Do **not** have `pipeline_status.py` mutate `packet.md` status to clear drift.
+13. Do **not** have `pipeline_status.py` or `next_action.py` mutate `packet.md` status to clear drift.
