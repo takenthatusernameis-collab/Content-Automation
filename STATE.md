@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-08-28T10:20:00+03:00 (Run 019)
+Updated: 2026-08-28T11:05:00+03:00 (Run 020)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -14,41 +14,22 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - No published videos
 - No YouTube / TTS / stock / render integrations configured
 
-## What exists now (after Run 019)
+## What exists now (after Run 020)
 - Operating memory files
 - Frozen original master prompt
 - Video packet standard + scaffold CLI + packet QA (publish gate + draft gate + optional duration gate)
 - Sample packet fixture `videos/sample-001-why-systems-beat-motivation/`
 - Working niche locked in `docs/channel.md`
-- Idea intake CLI `tools/new_idea.py`
-- Script-writer prompt `prompts/script_writer.md` (includes 900–1500 word band)
-- Script-expander prompt `prompts/script_expander.md`
-- Expand-prompt assembler `tools/expand_prompt.py` (stdout paste pack; does not write script.md)
-- Title/thumbnail brief CLI `tools/title_thumb_brief.py` (scaffold reuses its renderers)
-- Editor naming/export conventions `docs/editor.md` (no ffmpeg)
-- Face-free format timing + named outputs `docs/format.md` (no ffmpeg recipe)
-- Narration path conventions `docs/narration.md` (no TTS vendor)
-- Asset filename conventions `docs/assets.md` (no stock API)
-- QA checklist writer `tools/qa_checklist.py` (mechanical + human ticks)
-- Research intake stub CLI `tools/research_brief.py` (source list + unsourced-stat reminder; no scrape)
-- Publish metadata stub CLI `tools/publish_brief.py` (description / tags / first comment; no upload)
-- Caption intake stub CLI `tools/caption_brief.py` (cues from script WORDS at 150 wpm; no Whisper)
-- Asset intake stub CLI `tools/asset_brief.py` (card list from script VISUAL; no download)
-- Render presence stub CLI `tools/render_brief.py` (exists vs missing for named VO/card/export paths; no ffmpeg)
-- VO session card CLI `tools/vo_session.py` (read-aloud + named take path; no wav / no TTS)
-- Expand brief CLI `tools/expand_brief.py` (per-beat word budget; does not rewrite WORDS)
-- Read-only board `tools/pipeline_status.py` (status + gate + disk + drift; no writes)
-- Read-only next action `tools/next_action.py` (one recommended human step; duration WARN routes to expand-script)
-- Scaffold post-step `tools/after_scaffold.py` writes titles/thumbs (if empty), `publish.md`, `captions.md`, `assets.md`, `render.md`, `vo_session.md`, `expand.md` (if empty), `research.md`, then `qa.md` unless `--no-generate`
-- Title-list parser treats empty `1.` / `2.` template lines as untitled
-- Spoken-duration band: 900–1500 words for `explainer-6-10min` at 150 wpm. Default validate WARNs; `--duration` FAILs. Sample fixture stays PASS + WARN.
+- Idea / script / expand / title / QA / research / publish / caption / asset / render / VO / board / next-action tools as of Run 019
+- Paste-back gate `tools/apply_script.py` (dry-run default; refuses sample-001 and expand_prompt stdout; `--write` only on a non-fixture packet; optional `--refresh` of expand/vo_session/captions; no status bump)
+- Spoken-duration band: 900-1500 words for `explainer-6-10min` at 150 wpm. Default validate WARNs; `--duration` FAILs. Sample fixture stays PASS + WARN.
 
 ## Pipeline map
 | Stage        | Status      | Notes                                      |
 |--------------|-------------|--------------------------------------------|
 | Research     | assisted    | stub written at scaffold; human verifies   |
 | Ideas        | assisted    | `tools/new_idea.py` fills idea card        |
-| Scripts      | assisted    | beats + duration WARN + expand.md + paste prompt |
+| Scripts      | assisted    | beats + duration WARN + expand.md + paste prompt + paste-back gate |
 | Narration    | assisted    | session card + path rules; no VO file / TTS|
 | Assets       | assisted    | VISUAL -> planned card names; no binaries  |
 | Editing      | templated   | tracks in editor.md; timing in format.md   |
@@ -65,8 +46,8 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 ## Metrics snapshot
 | Metric                         | Previous     | Current        | Notes                          |
 |--------------------------------|--------------|----------------|--------------------------------|
-| Estimated human min / video    | 177          | 172            | skip gathering six files to expand |
-| Automated steps                | 18           | 19             | expand_prompt assembler        |
+| Estimated human min / video    | 172          | 167            | skip manual script.md swap + derived refresh |
+| Automated steps                | 19           | 20             | apply_script paste-back gate   |
 | Remaining manual steps         | most         | most           | source check, script words, VO, card build, edit, caption align, publish |
 | Videos produced by system      | 0            | 0              | sample packet is a fixture     |
 | Channel niche decided          | locked (temp)| locked (temp)  | `docs/channel.md`              |
@@ -75,25 +56,13 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - Niche lock is agent-chosen until a human overrides DECISIONS.md
 - No secrets or platform APIs
 - Do not invent published videos or integrations
-- Do not overwrite sample-001 titles/thumbs unless the packet schema changes
-- sample-001 `qa.md` may be regenerated when the checklist schema changes; human ticks stay empty on the fixture
-- sample-001 `research.md` follows the stub schema; do not invent external sources for the fixture
-- sample-001 `publish.md` is a schema fixture; do not treat it as a live upload
-- sample-001 `captions.md` is a schema fixture; estimated times are not a take
-- sample-001 `assets.md` is a schema fixture; planned filenames are not files on disk
-- sample-001 `render.md` is a schema fixture; all-missing is correct; do not add fake media
-- sample-001 `vo_session.md` is a schema fixture; a reading card is not a wav
-- sample-001 `expand.md` is a schema fixture; a budget is not a rewritten script
-- Do not pad sample-001 WORDS to hit 900–1500
-- `expand_prompt.py` may print a fixture lock banner for sample-001; that print is not a draft and must not be written back to script.md
+- Do not overwrite sample-001 titles/thumbs/script WORDS
+- `apply_script.py` must refuse sample-001 and expand_prompt stdout
+- Default apply is dry-run; `--write` is required to replace script.md
+- `--refresh` may rewrite expand.md / vo_session.md / captions.md only after a successful write on a non-fixture packet
+- apply_script does not bump packet.md status
+- `expand_prompt.py` may print a fixture lock banner; that print is not a draft
 - New packets should use default scaffold generate; `--no-generate` is the opt-out
-- Title/thumb generate-on-scaffold is empty-file only (`write_empty_title_brief`); never `--force` sample-001
-- Publish generate-on-scaffold is empty-file only (`write_empty_publish`); never upload
-- Caption generate-on-scaffold is empty-file only (`write_empty_captions`); never Whisper
-- Asset generate-on-scaffold is empty-file only (`write_empty_assets`); never stock download
-- Render generate-on-scaffold is empty-file only (`write_empty_render`); never ffmpeg
-- VO session generate-on-scaffold is empty-only (`write_empty_session`); never TTS / wav
-- Expand generate-on-scaffold is empty-file only (`write_empty_expand`); never rewrite script.md
 - Format lock is `explainer-6-10min` only; no shorts split, no ffmpeg recipe
-- `pipeline_status.py` and `next_action.py` must stay read-only; do not have them rewrite packet status
+- `pipeline_status.py` and `next_action.py` must stay read-only
 - Default validate 2-tuple stays (errors, incompletes). Duration WARN must not become FAIL unless `--duration`.

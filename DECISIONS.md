@@ -2,20 +2,16 @@
 
 Format: date | decision | why | revisit when
 
-- 2026-08-27 | Store system memory in markdown at repo root, not a database | Fast for agents; git is the log | If files become noisy
-- 2026-08-27 | One folder per video (`videos/<id>-<slug>/`) with a fixed file contract | Eliminates "where is the script" labor | If format splits (shorts vs long)
-- 2026-08-27 | QA is structural first (files + required fields), taste later | Reliability before aesthetics | After first real draft
-- 2026-08-27 | No publishing integrations in foundation phase | Missing credentials; would stall the run | When a human adds setup notes + keys elsewhere
-- 2026-08-27 | Temporary working niche: focused-work systems explainers | Unblocks template specialization without pretending the channel exists | Human override
-- 2026-08-27 | Sample video packet is a fixture, not a publish candidate | Need a validator target | Keep sample-001 frozen unless schema changes
-- 2026-08-28 | pipeline_status.py is read-only; it never writes packet status | Recurring “where is this video” labor should be one command; auto-bump would hide missing VO | When a human wants a promote CLI with an explicit flag
-- 2026-08-28 | next_action.py is read-only; one recommended step from inspect data | Recurring “which OPEN box first” labor should not require ranking seven checkboxes | When a human wants a promote CLI with an explicit flag
-- 2026-08-28 | vo_session.md is a reading card from WORDS, not a take | Recurring “what do I read and where do I save it” labor should not require opening script + narration docs | When a selected wav exists; then refresh with `--force`
-- 2026-08-28 | Scaffold writes vo_session.md only when empty | Same empty-only contract as render | If a human-edited session card should always win
-- 2026-08-28 | Spoken duration is WARN on the default gate, FAIL only with `--duration` | sample-001 is a short fixture; making 900 words required would break PASS and `--strict` | When a second real packet exists and the fixture is no longer the board target
-- 2026-08-28 | next_action routes `expand-script` before `record-vo` when duration WARN is present | Recording a 1-minute take for an 8-minute format is wasted labor | If a packet format other than explainer-6-10min is added
-- 2026-08-28 | expand.md is a beat budget, not a rewritten script | Recurring “which beat do I grow” labor should not require mental arithmetic | If a human wants a script-rewriter CLI with an explicit flag and a non-fixture packet
-- 2026-08-28 | Scaffold writes expand.md only when empty | Same empty-only contract as vo_session | If a human-edited budget should always win
+- 2026-08-28 | apply_script.py dry-runs by default and never writes sample-001 | Recurring paste-back labor should be one gated command; writing the fixture would destroy the QA target | If a human wants an explicit fixture-overwrite flag (do not add one without evidence)
+- 2026-08-28 | apply_script refuses expand_prompt stdout | A printed pack looks like a draft and must not land as WORDS | If prompt framing changes, update PROMPT_MARKERS
+- 2026-08-28 | apply_script --refresh may overwrite expand/vo_session/captions after a successful write | Derived files go stale the moment WORDS change | If a human-edited captions.md should always win, require a second flag
+- 2026-08-28 | apply_script does not bump packet status | Status drift is a human decision; auto-ready_for_vo would hide a short script | When a promote CLI exists with an explicit flag
 - 2026-08-28 | expand_prompt.py prints a paste pack and never writes script.md | Recurring “open six files to brief a writer” labor should be one command | If a human wants an in-repo rewriter with an explicit non-fixture flag
+- 2026-08-28 | Spoken duration is WARN on the default gate, FAIL only with `--duration` | sample-001 is a short fixture | When a second real packet exists and the fixture is no longer the board target
+- 2026-08-28 | next_action routes `expand-script` before `record-vo` when duration WARN is present | Recording a 1-minute take for an 8-minute format is wasted labor | If a packet format other than explainer-6-10min is added
+- 2026-08-27 | Store system memory in markdown at repo root, not a database | Fast for agents; git is the log | If files become noisy
+- 2026-08-27 | One folder per video with a fixed file contract | Eliminates “where is the script” labor | If format splits
+- 2026-08-27 | No publishing integrations in foundation phase | Missing credentials | When a human adds setup notes + keys elsewhere
+- 2026-08-27 | Sample video packet is a fixture, not a publish candidate | Need a validator target | Keep sample-001 frozen unless schema changes
 
-Earlier 2026-08-27/28 decisions (empty-only scaffold, captions, assets, render, format lock) remain in force; see prior commits if a line was trimmed here.
+Earlier empty-only scaffold and read-only board decisions remain in force.
