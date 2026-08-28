@@ -15,7 +15,7 @@ Apply to every video packet. QA checks what can be checked mechanically.
 ## Format
 - Default packet format is `explainer-6-10min` (face-free).
 - Timing, holds, end-screen reserve, and named export paths: `docs/format.md`.
-- Spoken-word band at 150 wpm: 900–1500 words (target ~1200 / 8 min).
+- Spoken-word band at 150 wpm: 900-1500 words (target ~1200 / 8 min).
 - Editor tracks: `docs/editor.md`. Do not treat named paths as existing files.
 - `python3 tools/render_brief.py PATH` writes `render.md` exists-vs-missing for those names.
 - A `missing` row is the expected state until a human puts a file on disk. Do not invent media.
@@ -23,11 +23,11 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Scaffold writes render.md only when empty.
 
 ## Script
-- Hook in the first 8–12 seconds of spoken words (about 20–35 words)
+- Hook in the first 8-12 seconds of spoken words (about 20-35 words)
 - State the viewer payoff before beat 2
-- 4–7 beats after the hook
+- 4-7 beats after the hook
 - One primary CTA
-- Total spoken WORDS should match the locked format band (900–1500 for `explainer-6-10min`)
+- Total spoken WORDS should match the locked format band (900-1500 for `explainer-6-10min`)
 - Default validate prints WARN when the band is missed; `--duration` fails
 - Do not record VO while the duration WARN is present on a real packet
 - Do not pad `videos/sample-001-*` to clear the WARN
@@ -37,6 +37,8 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Scaffold writes expand.md only when empty
 - `python3 tools/expand_prompt.py PATH` prints a paste-ready expander pack. It does not write `script.md`
 - A printed prompt is not a draft. Do not write it onto sample-001
+- `python3 tools/apply_script.py PATH --from FILE` dry-runs a pasted script body. Refuse sample-001 and expand_prompt stdout.
+- `--write` is required to replace script.md on a non-fixture packet. `--refresh` then rewrites expand.md, vo_session.md, and captions.md. No status bump.
 - No unverifiable statistics; if a number is used, cite source in `research.md`
 - Working-niche tone: specific, calm, operational. No hustle slogans.
 
@@ -90,7 +92,7 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - `python3 tools/qa_checklist.py PATH` — writes `qa.md` mechanical boxes from files + human ticks from editor conventions. Never invents scores or auto-checks VO/cards/export/captions.
 - `python3 tools/pipeline_status.py` — read-only: status + gate + disk + drift. `--strict` fails on FAIL/drift. Duration WARN is not FAIL and not drift.
 - `python3 tools/next_action.py` — read-only: one next human step. Routes `expand-script` before `record-vo` when duration WARN is present. Does not bump status.
-- A hook that has words but is outside 20–35 still fails in both validate gates.
+- A hook that has words but is outside 20-35 still fails in both validate gates.
 - Status drift: `ready_for_vo` needs a PASS script gate; `ready_for_edit` needs selected VO on disk; `ready_to_publish` / `published` need VO + export. Do not bump status to hide missing files.
 
 ## Human handoff
@@ -104,4 +106,5 @@ Render presence: packet `render.md`.
 VO reading card: packet `vo_session.md`.
 Beat budget: packet `expand.md`.
 Expand paste pack: `python3 tools/expand_prompt.py PATH`.
+Paste-back gate: `python3 tools/apply_script.py PATH --from FILE` (dry-run; `--write --refresh` on non-fixture only).
 Human visual/audio ticks live in `qa.md` under **Human**.
