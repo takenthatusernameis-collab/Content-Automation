@@ -43,13 +43,18 @@ Do not commit fake media to flip rows to `present`.
 `next_action.py` is read-only. It must not rewrite `packet.md` status or create media.
 One recommended step per packet. Prefer gate FAIL, then drift, then the first real production file the human can add.
 
+## VO session rule
+`vo_session.py` writes a reading card from script WORDS. It must not run TTS, write wav/flac, or treat `ready-to-record` as a take.
+Do not overwrite a filled `vo_session.md` without `--force`.
+Do not commit fake audio to flip Status to `recorded`.
+
 ## Scaffold rule
-`new_idea.py` / `new_packet.py` write generated titles/thumbs (empty titles.md only), `publish.md` (empty only), `captions.md` (empty only), `assets.md` (empty only), `render.md` (empty only), `research.md`, then `qa.md` after copy unless `--no-generate`.
-Reuse `after_scaffold.py` and `render_brief.write_empty_render`; never pass `--force` from scaffold.
+`new_idea.py` / `new_packet.py` write generated titles/thumbs (empty titles.md only), `publish.md` (empty only), `captions.md` (empty only), `assets.md` (empty only), `render.md` (empty only), `vo_session.md` (empty only), `research.md`, then `qa.md` after copy unless `--no-generate`.
+Reuse `after_scaffold.py` and `vo_session.write_empty_session`; never pass `--force` from scaffold.
 
 ## Fixture freeze
 Do not overwrite `videos/sample-001-*` titles or thumbnail unless the packet schema itself changed.
-`assets.md` and `render.md` on the fixture may follow the stub schema; planned filenames are not binaries.
+`assets.md`, `render.md`, and `vo_session.md` on the fixture may follow the stub schema; planned filenames and reading cards are not binaries.
 
 ## Private repo
 Push via GitHub file APIs. Do not retry HTTPS clone after it fails once in the run.

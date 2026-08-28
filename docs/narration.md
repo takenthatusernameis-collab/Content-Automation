@@ -8,6 +8,7 @@ Packet folder: `videos/NNN-slug/`
 | Role | Path | Notes |
 |------|------|-------|
 | Script (source of spoken words) | `script.md` | WORDS blocks only |
+| VO session card | `vo_session.md` | Reading order + named take path; not a wav |
 | Caption intake | `captions.md` | Generated from WORDS; estimated times |
 | Timed captions later | `captions.srt` | Human or tool after a real take; do not invent |
 | Selected voice take | `vo/NNN-slug-take-selected.wav` | One selected file; wav or flac |
@@ -23,8 +24,15 @@ Do not commit large raw session dumps.
 
 ## Timing
 - Cut the edit on sentence ends from `script.md` WORDS.
-- Caption stub times assume 150 words/minute and ignore pauses.
+- Caption stub times and `vo_session.md` estimates assume 150 words/minute and ignore pauses.
 - A selected take is the clock. The stub is not.
+
+## Session card
+- `python3 tools/vo_session.py PATH` writes the reading card.
+- Status `placeholder` means WORDS are empty.
+- Status `ready-to-record` means WORDS exist and the named take is missing.
+- Status `recorded` means the named take is on disk. It is not an upload.
+- Scaffold writes `vo_session.md` only when the file is still empty.
 
 ## Out of scope
 - No TTS CLI, API key, or voice id here.

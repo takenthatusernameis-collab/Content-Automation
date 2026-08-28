@@ -21,6 +21,7 @@ python3 tools/pipeline_status.py videos/sample-001-why-systems-beat-motivation
 python3 tools/pipeline_status.py --strict
 python3 tools/next_action.py
 python3 tools/next_action.py videos/sample-001-why-systems-beat-motivation
+python3 tools/vo_session.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/render_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/asset_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/caption_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
@@ -34,7 +35,9 @@ python3 tools/validate_packet.py videos/sample-001-why-systems-beat-motivation
 
 `next_action.py` is a read-only next-step list from the same inspect data. It writes nothing, does not bump status, and does not create media.
 
-`new_idea.py` fills `idea.md` and names script beats. It does not write spoken WORDS. Default scaffold writes titles/thumbs when empty, then `publish.md`, `captions.md`, `assets.md`, `render.md`, `research.md`, then `qa.md` via `tools/after_scaffold.py`. Pass `--no-generate` to leave the template copies untouched.
+`vo_session.py` writes `vo_session.md`: a reading card from script WORDS plus the named selected-take path. It does not run TTS or write wav/flac. Will not overwrite a filled session file unless `--force`.
+
+`new_idea.py` fills `idea.md` and names script beats. It does not write spoken WORDS. Default scaffold writes titles/thumbs when empty, then `publish.md`, `captions.md`, `assets.md`, `render.md`, `vo_session.md`, `research.md`, then `qa.md` via `tools/after_scaffold.py`. Pass `--no-generate` to leave the template copies untouched.
 
 `render_brief.py` writes `render.md`: exists vs missing for named VO/card/export paths. It does not run ffmpeg or create media. Will not overwrite a filled render file unless `--force`.
 

@@ -32,5 +32,10 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 - Publish-gate FAIL should outrank draft-incomplete when recommending a step, matching the board.
 - Do not rewrite `pipeline_status.py` to add this column; a separate read-only CLI keeps the freeze.
 
+## Observed issues (Run 016)
+- After next-action says `record-vo`, the remaining labor is assembling a read-aloud sheet and the take filename.
+- A session card with Status `ready-to-record` must not be treated as audio on disk.
+- sample-001 WORDS total ~1 minute at 150 wpm; report the estimate, do not invent extra lines to hit 8 minutes.
+
 ## Allowed changes
 Recorded as proposals in `NEXT_RUN_PROMPT.md` only. Do not edit the original archive.
