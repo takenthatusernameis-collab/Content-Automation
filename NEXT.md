@@ -2,8 +2,8 @@
 
 Do these in order. Stop if a step needs a human decision that is not present.
 
-1. **Highest value:** Expand routing now has a beat budget. Do not pad sample-001 to 900 words. Do not auto-write WORDS from expand.md. Do not add ffmpeg assembly, TTS, stock, or YouTube OAuth. Wait for a human selected VO or local card file on a packet whose WORDS already sit in band.
-2. Do **not** rewrite `tools/expand_brief.py`, `tools/vo_session.py`, `tools/pipeline_status.py`, `tools/render_brief.py`, `tools/asset_brief.py`, `tools/caption_brief.py`, `tools/publish_brief.py`, `tools/research_brief.py`, `tools/qa_checklist.py`, `tools/new_idea.py`, `tools/title_thumb_brief.py`, or `docs/channel.md` unless they are wrong.
+1. **Highest value:** Expand routing now has a beat budget and a paste-ready prompt assembler. Do not pad sample-001 to 900 words. Do not auto-write WORDS from expand.md or expand_prompt.py. Do not add ffmpeg assembly, TTS, stock, or YouTube OAuth. Wait for a human to paste expanded WORDS into a *new* non-fixture packet, or for a selected VO / local card file on a packet whose WORDS already sit in band.
+2. Do **not** rewrite `tools/expand_prompt.py`, `tools/expand_brief.py`, `tools/vo_session.py`, `tools/pipeline_status.py`, `tools/render_brief.py`, `tools/asset_brief.py`, `tools/caption_brief.py`, `tools/publish_brief.py`, `tools/research_brief.py`, `tools/qa_checklist.py`, `tools/new_idea.py`, `tools/title_thumb_brief.py`, or `docs/channel.md` unless they are wrong.
 3. Do **not** turn default duration WARN into FAIL. That would break the sample fixture PASS contract.
 4. Do **not** attempt YouTube OAuth, TTS vendors, ffmpeg assembly, or publishing unless credentials or a real VO file appear in-repo docs as available.
 5. Do **not** produce a “real” video packet intended for upload; still no VO or card binaries on disk.
@@ -18,3 +18,4 @@ Do these in order. Stop if a step needs a human decision that is not present.
 14. Do **not** have `pipeline_status.py` or `next_action.py` mutate `packet.md` status to clear drift.
 15. Do **not** treat `vo_session.md` as recorded audio. Status `ready-to-record` is a reading card only.
 16. Do **not** treat `expand.md` as a finished script. Status `short` is a budget only.
+17. Do **not** treat `expand_prompt.py` stdout as a rewritten script. Do not write that stdout onto sample-001 `script.md`.

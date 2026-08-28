@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-08-28T07:20:00+03:00 (Run 018)
+Updated: 2026-08-28T10:20:00+03:00 (Run 019)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -14,7 +14,7 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - No published videos
 - No YouTube / TTS / stock / render integrations configured
 
-## What exists now (after Run 018)
+## What exists now (after Run 019)
 - Operating memory files
 - Frozen original master prompt
 - Video packet standard + scaffold CLI + packet QA (publish gate + draft gate + optional duration gate)
@@ -22,6 +22,8 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - Working niche locked in `docs/channel.md`
 - Idea intake CLI `tools/new_idea.py`
 - Script-writer prompt `prompts/script_writer.md` (includes 900–1500 word band)
+- Script-expander prompt `prompts/script_expander.md`
+- Expand-prompt assembler `tools/expand_prompt.py` (stdout paste pack; does not write script.md)
 - Title/thumbnail brief CLI `tools/title_thumb_brief.py` (scaffold reuses its renderers)
 - Editor naming/export conventions `docs/editor.md` (no ffmpeg)
 - Face-free format timing + named outputs `docs/format.md` (no ffmpeg recipe)
@@ -46,7 +48,7 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 |--------------|-------------|--------------------------------------------|
 | Research     | assisted    | stub written at scaffold; human verifies   |
 | Ideas        | assisted    | `tools/new_idea.py` fills idea card        |
-| Scripts      | assisted    | beats + duration WARN + expand.md budget   |
+| Scripts      | assisted    | beats + duration WARN + expand.md + paste prompt |
 | Narration    | assisted    | session card + path rules; no VO file / TTS|
 | Assets       | assisted    | VISUAL -> planned card names; no binaries  |
 | Editing      | templated   | tracks in editor.md; timing in format.md   |
@@ -63,8 +65,8 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 ## Metrics snapshot
 | Metric                         | Previous     | Current        | Notes                          |
 |--------------------------------|--------------|----------------|--------------------------------|
-| Estimated human min / video    | 182          | 177            | skip guessing which beat to grow |
-| Automated steps                | 17           | 18             | expand.md beat budget          |
+| Estimated human min / video    | 177          | 172            | skip gathering six files to expand |
+| Automated steps                | 18           | 19             | expand_prompt assembler        |
 | Remaining manual steps         | most         | most           | source check, script words, VO, card build, edit, caption align, publish |
 | Videos produced by system      | 0            | 0              | sample packet is a fixture     |
 | Channel niche decided          | locked (temp)| locked (temp)  | `docs/channel.md`              |
@@ -83,13 +85,14 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - sample-001 `vo_session.md` is a schema fixture; a reading card is not a wav
 - sample-001 `expand.md` is a schema fixture; a budget is not a rewritten script
 - Do not pad sample-001 WORDS to hit 900–1500
+- `expand_prompt.py` may print a fixture lock banner for sample-001; that print is not a draft and must not be written back to script.md
 - New packets should use default scaffold generate; `--no-generate` is the opt-out
 - Title/thumb generate-on-scaffold is empty-file only (`write_empty_title_brief`); never `--force` sample-001
 - Publish generate-on-scaffold is empty-file only (`write_empty_publish`); never upload
 - Caption generate-on-scaffold is empty-file only (`write_empty_captions`); never Whisper
 - Asset generate-on-scaffold is empty-file only (`write_empty_assets`); never stock download
 - Render generate-on-scaffold is empty-file only (`write_empty_render`); never ffmpeg
-- VO session generate-on-scaffold is empty-file only (`write_empty_session`); never TTS / wav
+- VO session generate-on-scaffold is empty-only (`write_empty_session`); never TTS / wav
 - Expand generate-on-scaffold is empty-file only (`write_empty_expand`); never rewrite script.md
 - Format lock is `explainer-6-10min` only; no shorts split, no ffmpeg recipe
 - `pipeline_status.py` and `next_action.py` must stay read-only; do not have them rewrite packet status

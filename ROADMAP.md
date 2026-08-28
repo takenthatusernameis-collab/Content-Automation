@@ -27,12 +27,13 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 20. VO session reading card from WORDS — **done (Run 016); no wav / no TTS**
 21. Spoken-duration band vs locked format — **done (Run 017); WARN default, `--duration` FAIL, next-action expand-script**
 22. Beat-budget expand brief — **done (Run 018); does not rewrite WORDS**
+23. Paste-ready expand prompt assembler — **done (Run 019); does not write script.md**
 
 ## Later (automation)
-23. TTS narration path (optional; keep human VO compatible)
-24. Caption timing from a real selected take (not 150 wpm estimates)
-25. ffmpeg assembly for this one locked format after one packet has VO + cards
-26. YouTube upload + metadata only after packet QA passes
+24. TTS narration path (optional; keep human VO compatible)
+25. Caption timing from a real selected take (not 150 wpm estimates)
+26. ffmpeg assembly for this one locked format after one packet has VO + cards
+27. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Multi-platform posting
@@ -44,4 +45,4 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 - Second format (shorts) until a human changes DECISIONS.md
 - Auto-advancing packet status from the board
 - Making duration WARN a default FAIL (would break sample-001 PASS)
-- Auto-writing spoken WORDS from expand.md budgets
+- Auto-writing spoken WORDS from expand.md budgets or expand_prompt stdout
