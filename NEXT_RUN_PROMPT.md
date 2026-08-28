@@ -16,7 +16,7 @@ Do not claim `git clone` or `validate_packet.py --all` succeeded unless you actu
 Do not reopen niche debate unless a human changed DECISIONS.md. Specialize prompts toward `docs/channel.md`.
 
 ## Duration rule
-Spoken WORDS for `explainer-6-10min` belong in 900–1500 at 150 wpm. Default validate prints WARN. `--duration` may FAIL. Do not pad sample-001. Do not make WARN the default FAIL.
+Spoken WORDS for `explainer-6-10min` belong in 900-1500 at 150 wpm. Default validate prints WARN. `--duration` may FAIL. Do not pad sample-001. Do not make WARN the default FAIL.
 
 ## Expand rule
 `expand_brief.py` writes a beat budget. It must not rewrite `script.md` or invent spoken lines.
@@ -27,6 +27,13 @@ A Status `short` budget is not a draft.
 `expand_prompt.py` prints a paste pack. It must not write `script.md`.
 Refuse `--out` when the destination is `script.md`.
 On `sample-001-*` print the fixture lock banner. Do not paste the output back onto the fixture.
+
+## Apply-script rule
+`apply_script.py` dry-runs by default. `--write` is required.
+Refuse `sample-001-*`.
+Refuse text that looks like expand_prompt stdout.
+Do not bump packet status.
+`--refresh` may rewrite expand/vo_session/captions only after a successful write on a non-fixture packet.
 
 ## Board rule
 `pipeline_status.py` is read-only. It must not rewrite `packet.md` status, render.md, or qa.md.

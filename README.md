@@ -22,8 +22,11 @@ python3 tools/validate_packet.py videos/sample-001-why-systems-beat-motivation
 python3 tools/validate_packet.py --duration videos/sample-001-why-systems-beat-motivation
 python3 tools/expand_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
 python3 tools/expand_prompt.py videos/sample-001-why-systems-beat-motivation
+python3 tools/apply_script.py videos/sample-001-why-systems-beat-motivation --from /tmp/new-script.md
 python3 tools/vo_session.py videos/sample-001-why-systems-beat-motivation --dry-run
 ```
+
+`apply_script.py` dry-runs a pasted `script.md` body. It refuses `sample-001-*` and `expand_prompt.py` stdout. `--write` is required to replace `script.md` on a non-fixture packet. `--refresh` then rewrites `expand.md`, `vo_session.md`, and `captions.md`. It does not bump status and does not invent WORDS.
 
 `expand_prompt.py` prints a paste-ready expansion brief from channel + idea + budget + current WORDS. It does not write `script.md`. On `sample-001-*` it prints a fixture lock banner. Refuses `--out script.md`.
 
