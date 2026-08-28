@@ -27,5 +27,10 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 - Status labels ahead of disk evidence must surface as DRIFT, not be auto-corrected.
 - HTTPS clone of this private repo fails; push via GitHub file APIs and do not retry clone.
 
+## Observed issues (Run 015)
+- After a board exists, the remaining labor is ranking OPEN boxes. A single next-action line is higher leverage than another stub writer.
+- Publish-gate FAIL should outrank draft-incomplete when recommending a step, matching the board.
+- Do not rewrite `pipeline_status.py` to add this column; a separate read-only CLI keeps the freeze.
+
 ## Allowed changes
 Recorded as proposals in `NEXT_RUN_PROMPT.md` only. Do not edit the original archive.

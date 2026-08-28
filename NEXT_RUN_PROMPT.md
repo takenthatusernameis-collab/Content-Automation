@@ -39,6 +39,10 @@ Do not commit fake media to flip rows to `present`.
 `pipeline_status.py` is read-only. It must not rewrite `packet.md` status, render.md, or qa.md.
 `--strict` is for FAIL or drift only. `draft` + PASS + all-missing is a valid fixture state, not drift.
 
+## Next-action rule
+`next_action.py` is read-only. It must not rewrite `packet.md` status or create media.
+One recommended step per packet. Prefer gate FAIL, then drift, then the first real production file the human can add.
+
 ## Scaffold rule
 `new_idea.py` / `new_packet.py` write generated titles/thumbs (empty titles.md only), `publish.md` (empty only), `captions.md` (empty only), `assets.md` (empty only), `render.md` (empty only), `research.md`, then `qa.md` after copy unless `--no-generate`.
 Reuse `after_scaffold.py` and `render_brief.write_empty_render`; never pass `--force` from scaffold.
