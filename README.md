@@ -17,6 +17,7 @@ python3 tools/new_packet.py "Working title here"
 python3 tools/new_idea.py "Stop deciding what to work on every morning"
 python3 tools/pipeline_status.py
 python3 tools/next_action.py
+python3 tools/hint.py
 python3 tools/validate_packet.py --all
 python3 tools/validate_packet.py videos/sample-001-why-systems-beat-motivation
 python3 tools/validate_packet.py --duration videos/sample-001-why-systems-beat-motivation
@@ -27,7 +28,9 @@ python3 tools/set_status.py videos/sample-001-why-systems-beat-motivation --to r
 python3 tools/vo_session.py videos/sample-001-why-systems-beat-motivation --dry-run
 ```
 
-`set_status.py` dry-runs a status change. It refuses promoting `sample-001-*`, skip-ahead, `ready_for_vo` while duration WARN is present, and later statuses without Selected VO / Master export on disk. `--write` is required to change `packet.md`. It does not create media. `pipeline_status.py` and `next_action.py` stay read-only.
+`hint.py` is read-only. It turns the `next_action.py` code into a copy-paste CLI. It never writes files. `--write` appears only as a commented follow-up after a dry-run line. On `sample-001-*` it prints a fixture lock instead of apply_script --write.
+
+`set_status.py` dry-runs a status change. It refuses promoting `sample-001-*`, skip-ahead, `ready_for_vo` while duration WARN is present, and later statuses without Selected VO / Master export on disk. `--write` is required to change `packet.md`. It does not create media. `pipeline_status.py`, `next_action.py`, and `hint.py` stay read-only.
 
 `apply_script.py` dry-runs a pasted `script.md` body. It refuses `sample-001-*` and `expand_prompt.py` stdout. `--write` is required to replace `script.md` on a non-fixture packet. `--refresh` then rewrites `expand.md`, `vo_session.md`, and `captions.md`. It does not bump status and does not invent WORDS.
 

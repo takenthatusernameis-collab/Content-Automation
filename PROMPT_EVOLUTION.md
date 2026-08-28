@@ -22,6 +22,11 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 - Board auto-bump would hide a short fixture. A separate dry-run writer with evidence checks is the safer split.
 - `re.sub(rf"\\1 {value}")` can write a literal backslash-1; group replacement must be `r"\\1 " + value`.
 
+## Observed issues (Run 022)
+- next_action sentences still leave a human scanning 21 tools for the matching CLI.
+- A command map that leads with `--write` would be pasted onto sample-001.
+- hint.py must stay read-only like the board; it is not a second status writer.
+
 ## Allowed changes
 Recorded as proposals in `NEXT_RUN_PROMPT.md` only. Do not edit the original archive.
 

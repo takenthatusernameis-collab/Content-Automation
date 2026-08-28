@@ -42,7 +42,12 @@ Refuse skip-ahead.
 Refuse `ready_for_vo` / `ready_for_edit` while duration WARN is present.
 Refuse later statuses without Selected VO / Master export on disk.
 Do not create media.
-`pipeline_status.py` and `next_action.py` stay read-only.
+`pipeline_status.py`, `next_action.py`, and `hint.py` stay read-only.
+
+## Hint rule
+`hint.py` is read-only. Map next_action codes to copy-paste CLI.
+Never print `--write` as the first command.
+On `sample-001-*` print a fixture lock instead of apply_script --write.
 
 ## Board rule
 `pipeline_status.py` is read-only. It must not rewrite `packet.md` status, render.md, or qa.md.
