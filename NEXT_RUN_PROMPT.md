@@ -42,12 +42,18 @@ Refuse skip-ahead.
 Refuse `ready_for_vo` / `ready_for_edit` while duration WARN is present.
 Refuse later statuses without Selected VO / Master export on disk.
 Do not create media.
-`pipeline_status.py`, `next_action.py`, and `hint.py` stay read-only.
+`pipeline_status.py`, `next_action.py`, `hint.py`, and `doctor.py` stay read-only.
 
 ## Hint rule
 `hint.py` is read-only. Map next_action codes to copy-paste CLI.
 Never print `--write` as the first command.
 On `sample-001-*` print a fixture lock instead of apply_script --write.
+
+## Doctor rule
+`doctor.py` is read-only. One health block per packet.
+Reuse `hint.commands_for` so CLI text cannot drift.
+`--strict` may fail on FAIL gate or drift only. Duration WARN is not a strict failure.
+Never print `--write` as the first command.
 
 ## Board rule
 `pipeline_status.py` is read-only. It must not rewrite `packet.md` status, render.md, or qa.md.

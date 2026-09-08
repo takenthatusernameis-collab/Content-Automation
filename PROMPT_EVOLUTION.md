@@ -27,6 +27,11 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 - A command map that leads with `--write` would be pasted onto sample-001.
 - hint.py must stay read-only like the board; it is not a second status writer.
 
+## Observed issues (Run 023)
+- Four read-only oversight tools still cost a human a four-command session start.
+- doctor.py must not treat duration WARN as --strict failure or the fixture becomes a red board.
+- doctor.py must reuse hint.commands_for so the printed CLI cannot drift from hint.py.
+
 ## Allowed changes
 Recorded as proposals in `NEXT_RUN_PROMPT.md` only. Do not edit the original archive.
 

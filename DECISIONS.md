@@ -2,6 +2,8 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-08 | doctor.py is read-only and composes board + next_action + hint | Four oversight commands at session start recreate lookup labor | If a second format needs a different health block
+- 2026-09-08 | doctor --strict fails only on FAIL gate or drift, not duration WARN | Sample fixture must stay a non-failing health target | When a second real packet exists and the fixture is no longer the board target
 - 2026-08-28 | hint.py is read-only and prints dry-run CLI first | next_action sentences still leave humans hunting among 21 tools | If a second format needs different commands
 - 2026-08-28 | hint.py must not print --write as the first command | A default write line would land on sample-001 during hurried paste | Keep commented follow-up only
 - 2026-08-28 | set_status.py is the only writer of packet.md status; board tools stay read-only | Hand edits cause drift that next_action then has to unwind | If a human wants a --force skip flag (do not add without evidence)

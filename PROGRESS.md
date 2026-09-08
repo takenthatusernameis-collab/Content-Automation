@@ -27,12 +27,14 @@
 | 2026-08-28 Run 020   | ~167 estimate     | 20              | apply_script paste-back gate; no fixture write |
 | 2026-08-28 Run 021   | ~162 estimate     | 21              | set_status evidence gate; board stays read-only |
 | 2026-08-28 Run 022   | ~159 estimate     | 22              | hint.py maps next-action codes to copy-paste CLI |
+| 2026-09-08 Run 023   | ~156 estimate     | 23              | doctor.py one-command health check |
 
 Estimate basis (generic 8-min explainer):
 - Research 30, idea lock 15, script 60, VO 25, assets 30, edit 90, captions 15, thumb/title 20, QA/upload 15
 - Run 020: -5 stop hand-swapping script.md and refreshing expand/vo/captions after a paste-back
 - Run 021: -5 stop hand-editing status and repairing board drift after a premature bump
 - Run 022: -3 stop scanning 21 tools to find the next safe command
+- Run 023: -3 stop running board + next_action + hint + validate separately at the start of a session
 
 These numbers are **estimates**, not stopwatch data.
 
@@ -41,3 +43,4 @@ These numbers are **estimates**, not stopwatch data.
 - Run 020: `tools/apply_script.py` dry-runs then optionally writes a human-pasted script to a non-fixture packet; refuses sample-001 and expand_prompt stdout; optional derived refresh; no status bump.
 - Run 021: `tools/set_status.py` dry-runs then optionally writes packet.md status; refuses fixture promote, skip-ahead, duration-short ready_for_vo, and later statuses without disk evidence.
 - Run 022: `tools/hint.py` prints the copy-paste command for the current next_action code; read-only; `--write` only as a commented follow-up; fixture lock on sample-001.
+- Run 023: `tools/doctor.py` prints one health block per packet (gate, drift, duration WARN, next-action, hint CLI); read-only; `--strict` on FAIL/drift only.

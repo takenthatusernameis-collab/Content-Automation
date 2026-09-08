@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-08T21:26:00Z — Run 023
+
+- **Objective:** After hint exists, stop leaving humans to run board + next_action + hint + validate as four commands. Still no WORDS invention, no fixture pad, no wav, no TTS, no ffmpeg, no OAuth.
+- **Inspected:** STATE/NEXT/ROADMAP after Run 022. Sample still short + draft. Board tools must stay read-only. NEXT forbids rewriting hint/set_status/apply_script unless wrong.
+- **Action taken:** Added `tools/doctor.py` (read-only compose of inspect + recommend + commands_for + duration WARN). `--strict` exits 1 on FAIL gate or drift only. Duration WARN stays informational. Did not change sample-001. Did not rewrite hint.py or next_action.py.
+- **Result:** Tool added and documented. Live import against the real fixture was not run in this sandbox (HTTPS clone requires credentials). GitHub push of tool + memory.
+- **Verification status:** completed for file presence and composition design. Runtime against sample-001 unverified in this sandbox. No media created. Sample status unchanged.
+- **Important discovery:** Four read-only oversight tools without a single entry point recreate lookup labor. The health block is the unit of session start.
+- **Blocker:** None for this step. Still waiting on a human-owned non-fixture draft in band. ffmpeg recipe parked until VO + cards exist.
+- **Recommended next action:** Wait for a human to apply expanded WORDS to a new non-fixture packet with apply_script, then dry-run set_status `--to ready_for_vo`. Still no OAuth, TTS, stock, ffmpeg recipe, fixture pad, WORDS autofill, or board auto-bump.
+
 ## 2026-08-28T16:10:00+03:00 — Run 022
 
 - **Objective:** After set_status exists, stop leaving humans to scan 21 tools for the next safe command. Still no WORDS invention, no fixture pad, no wav, no TTS, no ffmpeg, no OAuth.
