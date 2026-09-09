@@ -19,7 +19,7 @@ Reconstruct the selftest tree per `docs/agent_session.md` using download_url tok
 Do not reopen niche debate unless a human changed DECISIONS.md. Specialize prompts toward `docs/channel.md`.
 
 ## Topic-queue rule
-`docs/topic_queue.md` holds working titles only. `tools/next_topic.py` is read-only and must not call `new_packet.py`.
+`docs/topic_queue.md` holds working titles only. `tools/next_topic.py` and `tools/queue_status.py` are read-only and must not call `new_packet.py`.
 `tools/mark_topic.py` is the only writer of queue status. Dry-run default. Refuse `used` without a matching non-fixture `videos/` folder. Refuse sample-001.
 Do not auto-scaffold a queued title without an explicit human instruction.
 Do not treat a queue row as spoken WORDS.
@@ -52,7 +52,7 @@ Refuse skip-ahead.
 Refuse `ready_for_vo` / `ready_for_edit` while duration WARN is present.
 Refuse later statuses without Selected VO / Master export on disk.
 Do not create media.
-`pipeline_status.py`, `next_action.py`, `hint.py`, `doctor.py`, `selftest.py`, and `next_topic.py` stay read-only.
+`pipeline_status.py`, `next_action.py`, `hint.py`, `doctor.py`, `selftest.py`, `next_topic.py`, and `queue_status.py` stay read-only.
 
 ## Hint rule
 `hint.py` is read-only. Map next_action codes to copy-paste CLI.
@@ -74,6 +74,7 @@ Never print `--write` as the first command.
 ## Board rule
 `pipeline_status.py` is read-only. It must not rewrite `packet.md` status, render.md, or qa.md.
 Duration WARN is not FAIL and not drift.
+`queue_status.py` is read-only. It must not rewrite `docs/topic_queue.md`.
 
 ## Next-action rule
 `next_action.py` is read-only. One recommended step per packet. Prefer gate FAIL, then drift, then duration WARN (`expand-script`), then the first real production file the human can add.

@@ -17,6 +17,7 @@ Start here:
 
 ```bash
 python3 tools/doctor.py
+python3 tools/queue_status.py
 python3 tools/next_topic.py
 ```
 
@@ -34,6 +35,7 @@ If there is no checkout, reconstruct the minimum tree in `docs/agent_session.md`
 
 ```bash
 python3 tools/doctor.py
+python3 tools/queue_status.py
 python3 tools/next_topic.py
 python3 tools/mark_topic.py --id Q1
 python3 tools/selftest.py
@@ -52,6 +54,8 @@ python3 tools/set_status.py videos/sample-001-why-systems-beat-motivation --to r
 python3 tools/vo_session.py videos/sample-001-why-systems-beat-motivation --dry-run
 ```
 
+`queue_status.py` is read-only. It classifies each `docs/topic_queue.md` row against `videos/` (ok-queued, mark-needed, missing-folder, ok-used, parked, fixture-refuse). It does not write the queue or scaffold packets.
+
 `next_topic.py` is read-only. It prints the first unused row in `docs/topic_queue.md`, a predicted `videos/NNN-slug`, and scaffold commands. It does not create packets or WORDS. Numeric ids treat `sample-001-*` as 001.
 
 `mark_topic.py` dry-runs a queue status change. It refuses `used` until a matching non-fixture `videos/` folder exists. `--write` is required to edit `docs/topic_queue.md`. It does not scaffold packets.
@@ -62,7 +66,7 @@ python3 tools/vo_session.py videos/sample-001-why-systems-beat-motivation --dry-
 
 `hint.py` is read-only. It turns the `next_action.py` code into a copy-paste CLI. It never writes files. `--write` appears only as a commented follow-up after a dry-run line. On `sample-001-*` it prints a fixture lock instead of apply_script --write.
 
-`set_status.py` dry-runs a status change. It refuses promoting `sample-001-*`, skip-ahead, `ready_for_vo` while duration WARN is present, and later statuses without Selected VO / Master export on disk. `--write` is required to change `packet.md`. It does not create media. `pipeline_status.py`, `next_action.py`, `hint.py`, `doctor.py`, `selftest.py`, and `next_topic.py` stay read-only.
+`set_status.py` dry-runs a status change. It refuses promoting `sample-001-*`, skip-ahead, `ready_for_vo` while duration WARN is present, and later statuses without Selected VO / Master export on disk. `--write` is required to change `packet.md`. It does not create media. `pipeline_status.py`, `next_action.py`, `hint.py`, `doctor.py`, `selftest.py`, `next_topic.py`, and `queue_status.py` stay read-only.
 
 `apply_script.py` dry-runs a pasted `script.md` body. It refuses `sample-001-*` and `expand_prompt.py` stdout. `--write` is required to replace `script.md` on a non-fixture packet. `--refresh` then rewrites `expand.md`, `vo_session.md`, and `captions.md`. It does not bump status and does not invent WORDS.
 
