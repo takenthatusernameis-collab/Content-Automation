@@ -32,11 +32,12 @@
 | 2026-09-09 Run 025   | ~152 estimate     | 24              | selftest.py fixture contract check |
 | 2026-09-09 Run 026   | ~151 estimate     | 24              | selftest runtime PASS via reconstruct; agent_session.md |
 | 2026-09-09 Run 027   | ~148 estimate     | 25              | topic queue + read-only next_topic.py |
+| 2026-09-09 Run 028   | ~146 estimate     | 26              | predicted path + mark_topic folder gate |
 
 Estimate basis (generic 8-min explainer):
 - Research 30, idea lock 15, script 60, VO 25, assets 30, edit 90, captions 15, thumb/title 20, QA/upload 15
-- Run 026: -1 stop treating fixture runtime as unverified when download_url reconstruct works
 - Run 027: -3 stop inventing the first working title from a blank page
+- Run 028: -2 stop guessing NNN-slug and hand-editing the queue status column
 
 These numbers are **estimates**, not stopwatch data.
 
@@ -50,3 +51,4 @@ These numbers are **estimates**, not stopwatch data.
 - Run 025: `tools/selftest.py` asserts sample-001 PASS + duration WARN + expand-script + no live `--write` + apply/set_status fixture refuse. Read-only. Not a second human start command.
 - Run 026: Reconstructed tools + sample-001 via GitHub download_url; `python3 tools/selftest.py` → SELFTEST PASS, exit 0, 153 words. `docs/agent_session.md` records the reconstruct list and last verified output.
 - Run 027: `docs/topic_queue.md` holds five on-niche working titles. `tools/next_topic.py` prints the first unused queued row and scaffold commands. Read-only. Does not create packets or WORDS.
+- Run 028: `tools/mark_topic.py` marks a queue row used only when a matching non-fixture folder exists. Dry-run default. `next_topic.py` prints predicted `videos/002-slug`. `new_packet.py` counts `sample-001-*` as id 001.

@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-09-09T13:04:00Z (Run 027)
+Updated: 2026-09-09T15:21:00Z (Run 028)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -16,21 +16,22 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - HTTPS clone from this agent sandbox still fails (private repo). Push via GitHub file API.
 - Reconstruct + selftest path: `docs/agent_session.md`
 
-## What exists now (after Run 027)
+## What exists now (after Run 028)
 - Operating memory files
 - Frozen original master prompt
 - Video packet standard + scaffold CLI + packet QA (publish gate + draft gate + optional duration gate)
 - Sample packet fixture `videos/sample-001-why-systems-beat-motivation/`
 - Working niche locked in `docs/channel.md`
 - Topic queue `docs/topic_queue.md` (five queued titles; not drafts)
-- Read-only next-topic printer `tools/next_topic.py`
-- Operator path `docs/human_session.md` (doctor first; fixture freeze; expand → apply → set_status dry-run)
-- Agent path `docs/agent_session.md` (clone-once, reconstruct selftest tree, record runtime)
+- Read-only next-topic printer `tools/next_topic.py` (prints predicted `videos/NNN-slug`)
+- Queue closer `tools/mark_topic.py` (dry-run default; folder evidence required; fixture refuse)
+- `new_packet.py` next_id treats `sample-001-*` as 001, so the next folder is `002-...`
+- Operator path `docs/human_session.md`
+- Agent path `docs/agent_session.md`
 - Fixture contract selftest `tools/selftest.py` (read-only; sample-001 only)
 - **Runtime verified 2026-09-09T12:22Z:** reconstructed `/tmp/ca`, `SELFTEST PASS`, exit 0, 153 words, code `expand-script`
-- Idea / script / expand / title / QA / research / publish / caption / asset / render / VO / board / next-action / apply-script / set-status / hint / doctor / next-topic tools
+- Idea / script / expand / title / QA / research / publish / caption / asset / render / VO / board / next-action / apply-script / set-status / hint / doctor / next-topic / mark-topic tools
 - Status writer `tools/set_status.py` (dry-run default; `--write` required; fixture and evidence gates unchanged)
-- Command map `tools/hint.py` and health check `tools/doctor.py` remain read-only
 - Spoken-duration band: 900-1500 words for `explainer-6-10min` at 150 wpm. Default validate WARNs; `--duration` FAILs. Sample fixture stays PASS + WARN.
 
 ## Pipeline map
@@ -49,7 +50,7 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 | Publish meta | assisted    | `publish.md` stub; no API                  |
 | Rendering    | assisted    | `render.md` presence only; no ffmpeg       |
 | Oversight    | monitored   | board + next-action + hint + doctor + gated status write + fixture selftest |
-| Topic pick   | templated   | `docs/topic_queue.md` + `next_topic.py`    |
+| Topic pick   | templated   | queue + next_topic + mark_topic            |
 | Operator path| templated   | `docs/human_session.md`                    |
 | Agent path   | templated   | `docs/agent_session.md`                    |
 | Publishing   | blocked     | YouTube API not configured                 |
@@ -58,8 +59,8 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 ## Metrics snapshot
 | Metric                         | Previous     | Current        | Notes                          |
 |--------------------------------|--------------|----------------|--------------------------------|
-| Estimated human min / video    | 151          | 148            | title pick no longer blank     |
-| Automated steps                | 24           | 25             | next_topic is read-only        |
+| Estimated human min / video    | 148          | 146            | predicted path + queue closer  |
+| Automated steps                | 25           | 26             | mark_topic dry-run default     |
 | Remaining manual steps         | most         | most           | source check, script words, VO, card build, edit, caption align, publish |
 | Videos produced by system      | 0            | 0              | sample packet is a fixture     |
 | Channel niche decided          | locked (temp)| locked (temp)  | `docs/channel.md`              |
@@ -69,6 +70,7 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - Niche lock is agent-chosen until a human overrides DECISIONS.md
 - Topic queue titles are working titles, not scripts
 - `next_topic.py` must stay read-only and must not call `new_packet.py`
+- `mark_topic.py` is the only queue-status writer; dry-run default; no used without folder
 - Do not auto-scaffold Q1 without a human instruction
 - No secrets or platform APIs
 - Do not invent published videos or integrations

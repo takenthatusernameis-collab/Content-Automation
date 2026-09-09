@@ -36,12 +36,13 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 29. Fixture contract selftest — **done (Run 025); read-only; sample-001 only**
 30. Clone-less reconstruct + selftest runtime — **done (Run 026); PASS; `docs/agent_session.md`**
 31. Working topic queue + read-only next-topic printer — **done (Run 027)**
+32. Predicted packet path + evidence-gated queue closer — **done (Run 028)**
 
 ## Later (automation)
-32. TTS narration path (optional; keep human VO compatible)
-33. Caption timing from a real selected take (not 150 wpm estimates)
-34. ffmpeg assembly for this one locked format after one packet has VO + cards
-35. YouTube upload + metadata only after packet QA passes
+33. TTS narration path (optional; keep human VO compatible)
+34. Caption timing from a real selected take (not 150 wpm estimates)
+35. ffmpeg assembly for this one locked format after one packet has VO + cards
+36. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Multi-platform posting
@@ -60,3 +61,4 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 - Wrapping doctor in a second start.py that only reprints the same block
 - Retrying HTTPS clone after one sandbox failure
 - Auto-scaffolding the next queued topic without a human instruction
+- Marking a queue row used without a matching videos/ folder
