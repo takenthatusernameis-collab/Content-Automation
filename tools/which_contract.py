@@ -57,6 +57,11 @@ MAP: list[tuple[tuple[str, ...], str, tuple[str, ...]]] = [
         "scaffold_contract.py",
         ("scaffold_contract.py", "new_packet.py", "queue_lib.py"),
     ),
+    (
+        ("which_contract.py", "router_contract.py"),
+        "router_contract.py",
+        ("router_contract.py", "which_contract.py"),
+    ),
 ]
 
 
@@ -101,6 +106,7 @@ def print_map() -> None:
     print("queue_contract.py may read docs/topic_queue.md.")
     print("scaffold_contract.py may read docs/topic_queue.md; uses tempfile only.")
     print("write_path_contract.py uses tempfile only; never writes videos/.")
+    print("router_contract.py uses tempfile only; never writes videos/.")
     print("This command writes nothing.")
 
 
