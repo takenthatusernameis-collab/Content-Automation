@@ -14,7 +14,15 @@ python3 tools/doctor.py
 
 Read the block. Run only the printed Command (dry-run first). Doctor writes nothing.
 
-Agents changing tools also run:
+If you still need a first real title:
+
+```bash
+python3 tools/next_topic.py
+```
+
+That command writes nothing. It prints a queued title from `docs/topic_queue.md`.
+
+Agents changing gated tools also run:
 
 ```bash
 python3 tools/selftest.py
@@ -24,9 +32,10 @@ That check is not a second human start command.
 
 ## First real video (not the fixture)
 
-1. Scaffold
+1. Scaffold the printed queue title (or your own)
 
 ```bash
+python3 tools/next_topic.py
 python3 tools/new_packet.py "Working title that states the viewer job"
 python3 tools/doctor.py videos/NNN-slug
 ```
@@ -72,6 +81,7 @@ python3 tools/set_status.py videos/NNN-slug --to ready_for_vo --write
 - Do not treat `vo_session.md` as recorded audio.
 - Do not run `--write` as the first command doctor/hint print.
 - Do not call YouTube, TTS, Whisper, stock, or ffmpeg from this page.
+- Do not treat the topic queue as a finished script.
 
 ## After a take exists
 
