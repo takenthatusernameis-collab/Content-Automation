@@ -6,6 +6,13 @@ When recording a failure:
 - Lesson
 - What to avoid
 
+## 2026-09-09 — treating clone failure as selftest unverified
+
+- **Tried:** Runs 023–025 left fixture runtime as unverified because `git clone` of the private repo fails in the agent sandbox.
+- **Evidence:** Run 026 reconstructed tools + sample-001 via GitHub `download_url` and `python3 tools/selftest.py` printed SELFTEST PASS, exit 0.
+- **Lesson:** Clone failure is an access constraint, not a contract failure. Reconstruct the minimum tree. Record the output. Do not spend another run restating unverified.
+- **Avoid:** Retrying HTTPS clone as the first action of a run.
+
 ## 2026-08-27 — empty packet fields swallowed the next line
 
 - **Tried:** matching `- id:` and `Primary:` with `\\s*` plus `(.*)$` / `(.+)$`
