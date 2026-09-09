@@ -62,6 +62,16 @@ python3 tools/queue_contract.py
 
 Expected: `QUEUE CONTRACT PASS`, exit 0, no writes to `docs/` or `videos/`.
 
+## Write-path contract
+
+After editing `apply_script.py` or `set_status.py`, reconstruct those two plus `validate_packet.py`, `pipeline_status.py`, `caption_brief.py`, `render_brief.py`, and `tools/write_path_contract.py`, then run:
+
+```bash
+python3 tools/write_path_contract.py
+```
+
+Expected: `WRITE PATH CONTRACT PASS`, exit 0, no writes to `docs/` or `videos/`.
+
 ## Last verified runtime
 
 - When: 2026-09-09T12:22:00Z (Run 026)
@@ -74,6 +84,12 @@ Queue contract:
 - When: 2026-09-09T19:20:00Z (Run 032)
 - How: `/tmp/ca/tools` with queue_lib + queue_status + mark_topic + queue_contract
 - Result: QUEUE CONTRACT PASS, exit 0
+
+Write-path contract:
+
+- When: 2026-09-09T20:06:00Z (Run 033)
+- How: `/tmp/ca/tools` with apply_script + set_status + pipeline_status + validate_packet + caption_brief + render_brief + write_path_contract
+- Result: WRITE PATH CONTRACT PASS, exit 0
 
 If a later run cannot reconstruct, record FAIL with the missing file. Do not leave runtime as "unverified" after a successful reconstruct.
 
