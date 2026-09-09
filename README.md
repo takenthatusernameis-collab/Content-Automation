@@ -39,6 +39,9 @@ python3 tools/queue_status.py
 python3 tools/next_topic.py
 python3 tools/mark_topic.py --id Q1
 python3 tools/selftest.py
+python3 tools/queue_contract.py
+python3 tools/write_path_contract.py
+python3 tools/scaffold_contract.py
 python3 tools/new_packet.py "Working title here"
 python3 tools/new_idea.py "Stop deciding what to work on every morning"
 python3 tools/pipeline_status.py
@@ -61,6 +64,8 @@ python3 tools/vo_session.py videos/sample-001-why-systems-beat-motivation --dry-
 `mark_topic.py` dry-runs a queue status change. It refuses `used` until a matching non-fixture `videos/` folder exists. `--write` is required to edit `docs/topic_queue.md`. It does not scaffold packets.
 
 `selftest.py` is read-only. It asserts the sample-001 contract (PASS + duration WARN + expand-script + fixture lock + apply/set_status refuse). Runtime PASS recorded 2026-09-09 (Run 026) on a reconstructed tree. It is for agents after tool edits, not a second human start command.
+
+`queue_contract.py`, `write_path_contract.py`, and `scaffold_contract.py` are read-only agent contracts. Queue: classify codes and `--strict` exits. Write-path: apply/set_status gates on a temp tree. Scaffold: new_packet reprints mark_topic dry-run and does not auto-write the queue.
 
 `doctor.py` is read-only. It prints gate, drift, duration WARN, next-action code, and the hint CLI in one block. It does not write files. `--strict` exits 1 on FAIL gate or status drift. Duration WARN is not FAIL.
 
