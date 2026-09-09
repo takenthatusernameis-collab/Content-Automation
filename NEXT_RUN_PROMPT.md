@@ -14,6 +14,7 @@ If you add a script, run it against a copy of `videos/sample-001-*` fields (dry-
 Do not claim `git clone` or `validate_packet.py --all` succeeded unless you actually have a local checkout.
 HTTPS clone of this private repo fails in the agent sandbox. Do not retry after the first failure in a run. Push via GitHub file APIs.
 Reconstruct the selftest tree per `docs/agent_session.md` using download_url tokens. After Run 026, fixture selftest runtime is PASS unless a later run prints SELFTEST FAIL.
+After apply_script or set_status edits, run `tools/write_path_contract.py` on a reconstructed tools tree.
 
 ## Niche rule
 Do not reopen niche debate unless a human changed DECISIONS.md. Specialize prompts toward `docs/channel.md`.
@@ -53,7 +54,7 @@ Refuse skip-ahead.
 Refuse `ready_for_vo` / `ready_for_edit` while duration WARN is present.
 Refuse later statuses without Selected VO / Master export on disk.
 Do not create media.
-`pipeline_status.py`, `next_action.py`, `hint.py`, `doctor.py`, `selftest.py`, `next_topic.py`, and `queue_status.py` stay read-only.
+`pipeline_status.py`, `next_action.py`, `hint.py`, `doctor.py`, `selftest.py`, `next_topic.py`, `queue_status.py`, `queue_contract.py`, and `write_path_contract.py` stay read-only.
 
 ## Hint rule
 `hint.py` is read-only. Map next_action codes to copy-paste CLI.
