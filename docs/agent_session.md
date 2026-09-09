@@ -18,6 +18,14 @@ python3 tools/which_contract.py --after EDITED_FILE.py
 
 Then run the printed command if the reconstructed tree has that contract's files. `--run` SKIP means deps were missing, not that the lock passed.
 
+After editing `which_contract.py` itself, run:
+
+```bash
+python3 tools/router_contract.py
+```
+
+Expected: `ROUTER CONTRACT PASS`, exit 0, no writes to `docs/` or `videos/`.
+
 ## Reconstruct and prove the fixture
 
 `tools/selftest.py` is the packet contract. Reconstruct only what it imports, plus the sample packet files the publish gate needs.
@@ -92,6 +100,17 @@ python3 tools/scaffold_contract.py
 
 Expected: `SCAFFOLD CONTRACT PASS`, exit 0, no writes to `videos/`, queue status unchanged.
 
+## Router contract
+
+After editing `which_contract.py`, reconstruct `which_contract.py` and `tools/router_contract.py`, then run:
+
+```bash
+python3 tools/router_contract.py
+```
+
+Expected: `ROUTER CONTRACT PASS`, exit 0, no writes to `docs/` or `videos/`.
+`doctor.py` and `expand_prompt.py` must stay unmapped.
+
 ## Last verified runtime
 
 - When: 2026-09-09T12:22:00Z (Run 026)
@@ -122,6 +141,12 @@ Contract router:
 - When: 2026-09-09T22:10:00Z (Run 035)
 - How: local `which_contract.py` map and `--after` checks (no videos/ writes)
 - Result: map exit 0; `--after new_packet.py` → scaffold_contract; `--after apply_script.py` → write_path_contract
+
+Router contract:
+
+- When: 2026-09-09T23:15:00Z (Run 036)
+- How: `/tmp/ca/tools` with which_contract + router_contract; tempfile for --after / --run SKIP
+- Result: ROUTER CONTRACT PASS, exit 0
 
 If a later run cannot reconstruct, record FAIL with the missing file. Do not leave runtime as "unverified" after a successful reconstruct.
 
