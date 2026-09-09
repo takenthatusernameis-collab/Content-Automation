@@ -7,10 +7,12 @@ If STATE.md exists, trust it over memory. If the repo only has a README, create 
 
 ## Scope cap
 Ship at most one new reusable capability per run after foundation exists. Prefer extending `tools/` and `videos/_template/` over new top-level concepts.
+Do not add a start.py that only reprints doctor.
 
 ## Evidence rule
 If you add a script, run it against a copy of `videos/sample-001-*` fields (dry-run is enough if write would mutate the fixture) and paste the command output into RUNS.md.
 Do not claim `git clone` or `validate_packet.py --all` succeeded unless you actually have a local checkout.
+HTTPS clone of this private repo fails in the agent sandbox. Do not retry after the first failure in a run. Push via GitHub file APIs.
 
 ## Niche rule
 Do not reopen niche debate unless a human changed DECISIONS.md. Specialize prompts toward `docs/channel.md`.
@@ -54,6 +56,9 @@ On `sample-001-*` print a fixture lock instead of apply_script --write.
 Reuse `hint.commands_for` so CLI text cannot drift.
 `--strict` may fail on FAIL gate or drift only. Duration WARN is not a strict failure.
 Never print `--write` as the first command.
+
+## Human-session rule
+`docs/human_session.md` is the operator path. Keep it short. Do not turn it into a second prompt or a wrapper tool.
 
 ## Board rule
 `pipeline_status.py` is read-only. It must not rewrite `packet.md` status, render.md, or qa.md.

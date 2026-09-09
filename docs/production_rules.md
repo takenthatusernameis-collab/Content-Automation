@@ -9,6 +9,7 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Status in `packet.md` must be one of: `draft`, `ready_for_vo`, `ready_for_edit`, `ready_to_publish`, `published`, `abandoned`
 - Field values stay on the same line as the key
 - `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `render.md` (if empty), `vo_session.md` (if empty), `expand.md` (if empty), `research.md`, and `qa.md` unless `--no-generate`
+- `python3 tools/doctor.py` is the session-start health check. It does not write files.
 - `python3 tools/pipeline_status.py` is the read-only board across packets. It does not write files.
 - `python3 tools/next_action.py` is the read-only next human step. It does not write files.
 - `python3 tools/hint.py` is the read-only copy-paste CLI for that step. It does not write files. `--write` is never the first command.
@@ -95,10 +96,12 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - `python3 tools/pipeline_status.py` — read-only: status + gate + disk + drift. `--strict` fails on FAIL/drift. Duration WARN is not FAIL and not drift.
 - `python3 tools/next_action.py` — read-only: one next human step. Routes `expand-script` before `record-vo` when duration WARN is present. Does not bump status.
 - `python3 tools/hint.py` — read-only: copy-paste CLI for that step. Does not bump status. Does not lead with `--write`.
+- `python3 tools/doctor.py` — read-only session start: gate, drift, duration WARN, next-action, hint CLI.
 - A hook that has words but is outside 20-35 still fails in both validate gates.
 - Status drift: `ready_for_vo` needs a PASS script gate; `ready_for_edit` needs selected VO on disk; `ready_to_publish` / `published` need VO + export. Do not bump status to hide missing files.
 
 ## Human handoff
+Operator path: `docs/human_session.md`. Start with `python3 tools/doctor.py`.
 Anything a human must still do is listed under `Remaining human work` in `packet.md`.
 `tools/next_action.py` picks one of those constraints from gate + drift + disk + duration band.
 `tools/hint.py` prints the matching dry-run command.
