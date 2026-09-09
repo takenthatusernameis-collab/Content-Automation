@@ -9,9 +9,11 @@ Status values:
 - used — a packet folder already exists for this slug or title
 - parked — keep, but do not scaffold yet
 
-`tools/next_topic.py` is read-only. It prints the first `queued` row that does not already match a `videos/` folder, plus a predicted `videos/NNN-slug` path. It does not create packets and does not invent WORDS.
+`tools/queue_lib.py` holds slugify, next_id, parse, and folder match. `tools/next_topic.py` is read-only. It prints the first `queued` row that does not already match a `videos/` folder, plus a predicted `videos/NNN-slug` path. It does not create packets and does not invent WORDS.
 
 `tools/mark_topic.py` is the only writer of this table. Dry-run default. `--write` is required. It refuses to mark a row `used` until a matching non-fixture `videos/` folder exists. It refuses the sample-001 fixture.
+
+`tools/new_packet.py` reprints the matching `mark_topic --id QN` dry-run after scaffold. It does not write this table.
 
 A human (or an agent with an explicit human instruction) scaffolds with the printed `new_packet.py` line. Do not scaffold `sample-001`. Do not mark a row `used` until the packet folder exists.
 
