@@ -5,30 +5,39 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
-import re
 import shutil
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+TOOLS = Path(__file__).resolve().parent
+if str(TOOLS) not in sys.path:
+    sys.path.insert(0, str(TOOLS))
+
+from queue_lib import matching_queue_row, next_id, parse_queue, slugify  # noqa: E402
+
 TEMPLATE = ROOT / "videos" / "_template"
+QUEUE = ROOT / "docs" / "topic_queue.md"
 
 
-def slugify(text: str) -> str:
-    s = text.lower().strip()
-    s = re.sub(r"[^a-z0-9]+", "-", s)
-    return s.strip("-")[:60] or "untitled"
-
-
-def next_id(videos_dir: Path) -> str:
-    highest = 0
-    for p in videos_dir.iterdir():
-        if not p.is_dir() or p.name.startswith("_"):
-            continue
-        m = re.match(r"^(?:sample-)?(\d+)", p.name)
-        if m:
-            highest = max(highest, int(m.group(1)))
-    return f"{highest + 1:03d}"
+def mark_followup(title: str) -> list[str]:
+    lines = [
+        "This command does not mark the topic queue used.",
+        "After the folder exists, dry-run mark_topic, then --write:",
+    ]
+    if not QUEUE.is_file():
+        lines.append("  python3 tools/mark_topic.py")
+        lines.append("  # python3 tools/mark_topic.py --write")
+        return lines
+    rows = parse_queue(QUEUE.read_text(encoding="utf-8"))
+    row = matching_queue_row(title, rows)
+    if row:
+        lines.append(f"  python3 tools/mark_topic.py --id {row['id']}")
+        lines.append(f"  # python3 tools/mark_topic.py --id {row['id']} --write")
+    else:
+        lines.append("  python3 tools/mark_topic.py")
+        lines.append("  # python3 tools/mark_topic.py --write")
+    return lines
 
 
 def main() -> int:
@@ -67,11 +76,13 @@ def main() -> int:
     print(dest.relative_to(ROOT))
 
     if not args.no_generate:
-        sys.path.insert(0, str(ROOT / "tools"))
         from after_scaffold import generate
 
         for line in generate(dest, draft=True):
             print(line)
+
+    for line in mark_followup(args.title):
+        print(line)
     return 0
 
 
