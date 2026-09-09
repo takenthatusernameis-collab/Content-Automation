@@ -30,6 +30,7 @@
 | 2026-09-08 Run 023   | ~156 estimate     | 23              | doctor.py one-command health check |
 | 2026-09-09 Run 024   | ~153 estimate     | 23              | human_session.md operator path; no new executable |
 | 2026-09-09 Run 025   | ~152 estimate     | 24              | selftest.py fixture contract check |
+| 2026-09-09 Run 026   | ~151 estimate     | 24              | selftest runtime PASS via reconstruct; agent_session.md |
 
 Estimate basis (generic 8-min explainer):
 - Research 30, idea lock 15, script 60, VO 25, assets 30, edit 90, captions 15, thumb/title 20, QA/upload 15
@@ -39,6 +40,7 @@ Estimate basis (generic 8-min explainer):
 - Run 023: -3 stop running board + next_action + hint + validate separately at the start of a session
 - Run 024: -3 stop rereading NEXT.md + README tool list to reconstruct the human path
 - Run 025: -1 stop re-deriving fixture contracts from memory files after each tool edit
+- Run 026: -1 stop treating fixture runtime as unverified when download_url reconstruct works
 
 These numbers are **estimates**, not stopwatch data.
 
@@ -50,3 +52,4 @@ These numbers are **estimates**, not stopwatch data.
 - Run 023: `tools/doctor.py` prints one health block per packet (gate, drift, duration WARN, next-action, hint CLI); read-only; `--strict` on FAIL/drift only.
 - Run 024: `docs/human_session.md` is the operator path; README and production rules point at it. No new writer. Fixture freeze restated in one place a human can follow without the agent prompt.
 - Run 025: `tools/selftest.py` asserts sample-001 PASS + duration WARN + expand-script + no live `--write` + apply/set_status fixture refuse. Read-only. Not a second human start command.
+- Run 026: Reconstructed tools + sample-001 via GitHub download_url; `python3 tools/selftest.py` → SELFTEST PASS, exit 0, 153 words. `docs/agent_session.md` records the reconstruct list and last verified output.
