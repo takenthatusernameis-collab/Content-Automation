@@ -24,6 +24,7 @@ Do not reopen niche debate unless a human changed DECISIONS.md. Specialize promp
 Do not auto-scaffold a queued title without an explicit human instruction.
 Do not treat a queue row as spoken WORDS.
 Numeric ids treat `sample-001-*` as 001, so the next scaffold is `002-...`.
+Default `queue_status.py` exit is 0. `--strict` may exit 2 on missing-folder and 1 on mark-needed. Do not make default exit non-zero.
 
 ## Duration rule
 Spoken WORDS for `explainer-6-10min` belong in 900-1500 at 150 wpm. Default validate prints WARN. `--duration` may FAIL. Do not pad sample-001. Do not make WARN the default FAIL.
@@ -75,6 +76,7 @@ Never print `--write` as the first command.
 `pipeline_status.py` is read-only. It must not rewrite `packet.md` status, render.md, or qa.md.
 Duration WARN is not FAIL and not drift.
 `queue_status.py` is read-only. It must not rewrite `docs/topic_queue.md`.
+`queue_status.py --strict` may exit non-zero on queue drift only.
 
 ## Next-action rule
 `next_action.py` is read-only. One recommended step per packet. Prefer gate FAIL, then drift, then duration WARN (`expand-script`), then the first real production file the human can add.

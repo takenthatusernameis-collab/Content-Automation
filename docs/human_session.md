@@ -13,7 +13,7 @@ python3 tools/doctor.py
 python3 tools/queue_status.py
 ```
 
-Read the doctor block. Run only the printed Command (dry-run first). Doctor writes nothing. queue_status writes nothing.
+Read the doctor block. Run only the printed Command (dry-run first). Doctor writes nothing. queue_status writes nothing. Default queue_status exit is 0. Use `--strict` only when you want a non-zero exit on mark-needed or missing-folder.
 
 If you still need a first real title:
 
@@ -35,7 +35,7 @@ python3 tools/doctor.py videos/002-slug
 python3 tools/queue_status.py
 ```
 
-`new_packet` reprints the matching `mark_topic --id QN` dry-run after the folder is created. It does not mark the row used. After scaffold, queue_status should show `mark-needed` for that id.
+`new_packet` reprints the matching `mark_topic --id QN` dry-run after the folder is created. It does not mark the row used. After scaffold, queue_status should show `mark-needed` for that id and the PACKET column from packet.md.
 
 ```bash
 python3 tools/mark_topic.py --id Q1
