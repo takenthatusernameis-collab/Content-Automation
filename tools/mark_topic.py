@@ -7,61 +7,18 @@ Dry-run by default. Does not scaffold packets. Does not invent WORDS.
 from __future__ import annotations
 
 import argparse
-import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+TOOLS = Path(__file__).resolve().parent
+if str(TOOLS) not in sys.path:
+    sys.path.insert(0, str(TOOLS))
+
+from queue_lib import existing_dirs, match_folder, parse_queue, slugify  # noqa: E402
+
 QUEUE = ROOT / "docs" / "topic_queue.md"
 VIDEOS = ROOT / "videos"
-
-
-def slugify(text: str) -> str:
-    s = text.lower().strip()
-    s = re.sub(r"[^a-z0-9]+", "-", s)
-    return s.strip("-")[:60] or "untitled"
-
-
-def existing_dirs() -> list[str]:
-    if not VIDEOS.is_dir():
-        return []
-    names: list[str] = []
-    for p in VIDEOS.iterdir():
-        if p.is_dir() and not p.name.startswith("_"):
-            names.append(p.name)
-    return sorted(names)
-
-
-def parse_queue(text: str) -> list[dict[str, str]]:
-    rows: list[dict[str, str]] = []
-    for line in text.splitlines():
-        if not line.startswith("| Q"):
-            continue
-        parts = [c.strip() for c in line.strip("|").split("|")]
-        if len(parts) < 4:
-            continue
-        rows.append(
-            {
-                "id": parts[0],
-                "status": parts[1].lower(),
-                "working_title": parts[2],
-                "one_line": parts[3],
-                "raw": line,
-            }
-        )
-    return rows
-
-
-def match_folder(title: str, folders: list[str]) -> str | None:
-    slug = slugify(title)
-    for name in folders:
-        lower = name.lower()
-        if lower == slug or lower.endswith("-" + slug):
-            return name
-        m = re.match(r"^(?:sample-)?\d+-(.+)$", lower)
-        if m and (m.group(1) == slug or slug in m.group(1)):
-            return name
-    return None
 
 
 def rewrite_status(line: str, new_status: str) -> str:
@@ -93,7 +50,7 @@ def main() -> int:
 
     text = QUEUE.read_text(encoding="utf-8")
     rows = parse_queue(text)
-    folders = existing_dirs()
+    folders = existing_dirs(VIDEOS)
 
     if args.id:
         target = [r for r in rows if r["id"].upper() == args.id.upper()]
