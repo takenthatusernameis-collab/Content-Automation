@@ -13,11 +13,12 @@
 | 2026-09-09 Run 033   | ~141 estimate     | 31              | write_path_contract locks apply/set_status gates |
 | 2026-09-09 Run 034   | ~140 estimate     | 32              | scaffold_contract locks new_packet mark-handoff |
 | 2026-09-09 Run 035   | ~139 estimate     | 33              | which_contract routes tool edits to the right lock |
+| 2026-09-09 Run 036   | ~138 estimate     | 34              | router_contract locks the tool→contract map |
 
 Earlier rows 001-026 remain in prior commits.
 
 Estimate basis (generic 8-min explainer):
-- Run 035: -1 stop scanning NEXT/agent_session for which contract to run after a tools/ edit
+- Run 036: -1 stop silent remap of which lock to run after a tools/ edit
 
 These numbers are **estimates**, not stopwatch data.
 
@@ -28,5 +29,6 @@ These numbers are **estimates**, not stopwatch data.
 - Run 031: same board prints packet.md status when a folder exists. `--strict` opt-in.
 - Run 032: `tools/queue_contract.py` is the queue equivalent of selftest. Temp tree only. Runtime PASS.
 - Run 033: `tools/write_path_contract.py` is the write-path equivalent of selftest. Temp tree only. Runtime PASS.
-- Run 034: `tools/scaffold_contract.py` locks new_packet mark_followup (dry-run then commented --write), no subprocess queue write, empty `1.` untitled, next_id sample-001 => 002. Runtime PASS on `/tmp/ca`.
+- Run 034: `tools/scaffold_contract.py` locks new_packet mark_followup. Runtime PASS on `/tmp/ca`.
 - Run 035: `tools/which_contract.py` maps edited tool basenames to the contract command. Read-only. `--run` SKIP if deps missing.
+- Run 036: `tools/router_contract.py` locks 18 expected mappings, unknown-tool exit 0, and `--run` SKIP on missing deps. Runtime PASS on `/tmp/ca/tools`.
