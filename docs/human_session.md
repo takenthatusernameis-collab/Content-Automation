@@ -10,9 +10,10 @@ Agents without a checkout: `docs/agent_session.md`.
 
 ```bash
 python3 tools/doctor.py
+python3 tools/queue_status.py
 ```
 
-Read the block. Run only the printed Command (dry-run first). Doctor writes nothing.
+Read the doctor block. Run only the printed Command (dry-run first). Doctor writes nothing. queue_status writes nothing.
 
 If you still need a first real title:
 
@@ -27,12 +28,14 @@ That command writes nothing. It prints a queued title, a predicted `videos/NNN-s
 1. Scaffold the printed queue title (or your own)
 
 ```bash
+python3 tools/queue_status.py
 python3 tools/next_topic.py
 python3 tools/new_packet.py "Working title that states the viewer job"
 python3 tools/doctor.py videos/002-slug
+python3 tools/queue_status.py
 ```
 
-`new_packet` reprints the matching `mark_topic --id QN` dry-run after the folder is created. It does not mark the row used.
+`new_packet` reprints the matching `mark_topic --id QN` dry-run after the folder is created. It does not mark the row used. After scaffold, queue_status should show `mark-needed` for that id.
 
 ```bash
 python3 tools/mark_topic.py --id Q1
@@ -48,4 +51,4 @@ Then follow expand_prompt -> apply_script (non-fixture) -> set_status dry-run as
 - Do not pad the fixture to clear Duration WARN.
 - Do not treat the topic queue as a finished script.
 - Do not mark a queue row used without a matching `videos/` folder.
-- Do not expect `new_packet.py` to write the queue.
+- Do not expect `new_packet.py` or `queue_status.py` to write the queue.

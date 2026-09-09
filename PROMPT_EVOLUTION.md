@@ -2,9 +2,14 @@
 
 Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 
+## Observed issues (Run 030)
+- After scaffold reprints the Q-id, humans still open topic_queue.md and videos/ to see whether the row should be marked.
+- A second writer (queue_status --write) would hide the same missing-folder mistake as auto-mark from new_packet.
+- pipeline_status already exists for packets; the queue needed the same shape: read-only codes, dry-run commands only when evidence exists.
+
 ## Observed issues (Run 028)
 - After a queue exists, humans still guess `videos/NNN-slug` and hand-edit the status column.
-- `new_packet.py` next_id used `^(\d+)`, which does not see `sample-001-*`.
+- `new_packet.py` next_id used `^(\\d+)`, which does not see `sample-001-*`.
 - A queue writer must require folder evidence and stay dry-run by default, same pattern as set_status / apply_script.
 
 ## Observed issues (Run 026)
@@ -30,7 +35,7 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 ## Observed issues (Run 021)
 - apply_script correctly leaves status alone, so humans still edit packet.md by hand and create drift.
 - Board auto-bump would hide a short fixture. A separate dry-run writer with evidence checks is the safer split.
-- `re.sub(rf"\\1 {value}")` can write a literal backslash-1; group replacement must be `r"\\1 " + value`.
+- `re.sub(rf"\\\\1 {value}")` can write a literal backslash-1; group replacement must be `r"\\\\1 " + value`.
 
 ## Observed issues (Run 022)
 - next_action sentences still leave a human scanning 21 tools for the matching CLI.
