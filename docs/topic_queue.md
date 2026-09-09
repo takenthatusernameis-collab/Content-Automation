@@ -1,0 +1,22 @@
+# Topic queue
+
+Working titles for the next non-fixture packets. Niche lock: `docs/channel.md`.
+
+This file is a list, not a draft. It does not contain spoken WORDS.
+
+Status values:
+- queued — available for `tools/new_packet.py`
+- used — a packet folder already exists for this slug or title
+- parked — keep, but do not scaffold yet
+
+`tools/next_topic.py` is read-only. It prints the first `queued` row that does not already match a `videos/` folder. It does not create packets and does not invent WORDS.
+
+A human (or an agent with an explicit human instruction) scaffolds with the printed `new_packet.py` line. Do not scaffold `sample-001`. Do not mark a row `used` until the packet folder exists.
+
+| id | status | working_title | one_line |
+|----|--------|---------------|----------|
+| Q1 | queued | Stop deciding what to work on every morning | Install a written next-action default so the morning does not reopen the whole list. |
+| Q2 | queued | Put the start cue on the work itself | Name one physical or file cue that means this is the first two minutes. |
+| Q3 | queued | One list, one next action | Collapse competing lists into a single next verb the viewer can do today. |
+| Q4 | queued | Close the extra tab before you open the work | A shutdown default that removes the stall of just checking one more thing. |
+| Q5 | queued | Keep the checklist where the stall happens | Put the constraint on the desk, file, or app that already absorbs the delay. |
