@@ -72,6 +72,16 @@ python3 tools/write_path_contract.py
 
 Expected: `WRITE PATH CONTRACT PASS`, exit 0, no writes to `docs/` or `videos/`.
 
+## Scaffold contract
+
+After editing `new_packet.py` or `after_scaffold.py`, reconstruct `new_packet.py`, `queue_lib.py`, `docs/topic_queue.md`, and `tools/scaffold_contract.py` (optional: `after_scaffold.py` for the titles_filled regex check), then run:
+
+```bash
+python3 tools/scaffold_contract.py
+```
+
+Expected: `SCAFFOLD CONTRACT PASS`, exit 0, no writes to `videos/`, queue status unchanged.
+
 ## Last verified runtime
 
 - When: 2026-09-09T12:22:00Z (Run 026)
@@ -90,6 +100,12 @@ Write-path contract:
 - When: 2026-09-09T20:06:00Z (Run 033)
 - How: `/tmp/ca/tools` with apply_script + set_status + pipeline_status + validate_packet + caption_brief + render_brief + write_path_contract
 - Result: WRITE PATH CONTRACT PASS, exit 0
+
+Scaffold contract:
+
+- When: 2026-09-09T21:12:00Z (Run 034)
+- How: `/tmp/ca` with new_packet + queue_lib + docs/topic_queue.md + scaffold_contract
+- Result: SCAFFOLD CONTRACT PASS, exit 0
 
 If a later run cannot reconstruct, record FAIL with the missing file. Do not leave runtime as "unverified" after a successful reconstruct.
 
