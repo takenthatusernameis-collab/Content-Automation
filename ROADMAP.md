@@ -32,12 +32,13 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 25. Evidence-gated status writer — **done (Run 021); board stays read-only**
 26. Read-only command hint from next-action codes — **done (Run 022)**
 27. Read-only one-command doctor / health check — **done (Run 023)**
+28. One-page human session playbook — **done (Run 024)**
 
 ## Later (automation)
-28. TTS narration path (optional; keep human VO compatible)
-29. Caption timing from a real selected take (not 150 wpm estimates)
-30. ffmpeg assembly for this one locked format after one packet has VO + cards
-31. YouTube upload + metadata only after packet QA passes
+29. TTS narration path (optional; keep human VO compatible)
+30. Caption timing from a real selected take (not 150 wpm estimates)
+31. ffmpeg assembly for this one locked format after one packet has VO + cards
+32. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Multi-platform posting
@@ -53,3 +54,4 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 - Applying expand_prompt stdout onto sample-001 via apply_script
 - Promoting sample-001 with set_status
 - Printing `--write` as the first hint.py or doctor.py command
+- Wrapping doctor in a second start.py that only reprints the same block

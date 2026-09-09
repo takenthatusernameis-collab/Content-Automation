@@ -2,7 +2,7 @@
 
 Do these in order. Stop if a step needs a human decision that is not present.
 
-1. **Highest value:** Script expand + paste-back + status gate + command hint + doctor exist. Do not pad sample-001 to 900 words. Do not auto-write WORDS. Do not add ffmpeg assembly, TTS, stock, or YouTube OAuth. Wait for a human to produce expanded WORDS for a *new* non-fixture packet and apply them with `python3 tools/apply_script.py PATH --from FILE --write --refresh`. Only then, if WORDS sit in band, `python3 tools/set_status.py PATH --to ready_for_vo` (dry-run first). Or wait for a selected VO / local card file on a packet already in band.
+1. **Highest value:** Script expand + paste-back + status gate + command hint + doctor + human session page exist. Do not pad sample-001 to 900 words. Do not auto-write WORDS. Do not add ffmpeg assembly, TTS, stock, or YouTube OAuth. A human follows `docs/human_session.md`: scaffold a *new* packet, expand off-repo, then `python3 tools/apply_script.py PATH --from FILE --write --refresh`. Only then, if WORDS sit in band, `python3 tools/set_status.py PATH --to ready_for_vo` (dry-run first). Or wait for a selected VO / local card file on a packet already in band.
 2. Do **not** rewrite `tools/doctor.py`, `tools/hint.py`, `tools/set_status.py`, `tools/apply_script.py`, `tools/expand_prompt.py`, `tools/expand_brief.py`, `tools/vo_session.py`, `tools/pipeline_status.py`, `tools/render_brief.py`, `tools/asset_brief.py`, `tools/caption_brief.py`, `tools/publish_brief.py`, `tools/research_brief.py`, `tools/qa_checklist.py`, `tools/new_idea.py`, `tools/title_thumb_brief.py`, or `docs/channel.md` unless they are wrong.
 3. Do **not** turn default duration WARN into FAIL. That would break the sample fixture PASS contract.
 4. Do **not** attempt YouTube OAuth, TTS vendors, ffmpeg assembly, or publishing unless credentials or a real VO file appear in-repo docs as available.
@@ -22,3 +22,4 @@ Do these in order. Stop if a step needs a human decision that is not present.
 18. Do **not** run `apply_script.py --write` against `videos/sample-001-*`.
 19. Do **not** run `set_status.py --write --to ready_for_vo` against `videos/sample-001-*`.
 20. Do **not** make `hint.py` or `doctor.py` print `--write` as the first command. Dry-run lines first; `--write` only as a commented follow-up.
+21. Do **not** replace `docs/human_session.md` with a new tool that wraps doctor. The page is the handoff.

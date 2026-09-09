@@ -3,12 +3,21 @@
 Recurring-agent workspace for a low-labor YouTube production system.
 
 Start here:
+- `docs/human_session.md` — operator path (doctor first; never write the fixture)
 - `STATE.md` — current reality
 - `NEXT.md` — what the next run should do
 - `RUNS.md` — timestamped log
 - `ORIGINAL_MASTER_PROMPT.md` — frozen operating prompt
 - `docs/channel.md` — working niche lock
 - `docs/format.md` — face-free explainer timing and named outputs
+
+## Human session
+
+```bash
+python3 tools/doctor.py
+```
+
+Then follow `docs/human_session.md`. Do not scan the tool list below unless doctor printed a command you do not recognize.
 
 ## Local tools
 
@@ -45,4 +54,4 @@ python3 tools/vo_session.py videos/sample-001-why-systems-beat-motivation --dry-
 
 `validate_packet.py` default publish gate stays structural. Duration misses print `WARN`. Do not pad the sample fixture.
 
-Video packets live in `videos/`. Contract: `docs/production_rules.md`. Format: `docs/format.md`.
+Video packets live in `videos/`. Contract: `docs/production_rules.md`. Format: `docs/format.md`. Operator path: `docs/human_session.md`.

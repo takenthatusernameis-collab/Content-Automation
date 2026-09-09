@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-09-08T21:26:00Z (Run 023)
+Updated: 2026-09-09T10:20:00Z (Run 024)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -13,13 +13,15 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - Default branch: `main`
 - No published videos
 - No YouTube / TTS / stock / render integrations configured
+- HTTPS clone from this agent sandbox still fails (private repo). Push via GitHub file API.
 
-## What exists now (after Run 023)
+## What exists now (after Run 024)
 - Operating memory files
 - Frozen original master prompt
 - Video packet standard + scaffold CLI + packet QA (publish gate + draft gate + optional duration gate)
 - Sample packet fixture `videos/sample-001-why-systems-beat-motivation/`
 - Working niche locked in `docs/channel.md`
+- Operator path `docs/human_session.md` (doctor first; fixture freeze; expand → apply → set_status dry-run)
 - Idea / script / expand / title / QA / research / publish / caption / asset / render / VO / board / next-action / apply-script / set-status / hint / doctor tools as of Run 023
 - Status writer `tools/set_status.py` (dry-run default; `--write` required; refuses sample-001 promote; refuses skip-ahead; refuses ready_for_vo on duration WARN; refuses ready_for_edit without Selected VO; refuses publish statuses without VO + export + PASS). Does not create media. Board tools stay read-only.
 - Command map `tools/hint.py` (read-only; prints copy-paste CLI from next_action codes; never includes `--write` as the default line; fixture lock banner on sample-001).
@@ -42,14 +44,15 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 | Publish meta | assisted    | `publish.md` stub; no API                  |
 | Rendering    | assisted    | `render.md` presence only; no ffmpeg       |
 | Oversight    | monitored   | board + next-action + hint + doctor + gated status write |
+| Operator path| templated   | `docs/human_session.md`                    |
 | Publishing   | blocked     | YouTube API not configured                 |
 | Analytics    | unbuilt     |                                            |
 
 ## Metrics snapshot
 | Metric                         | Previous     | Current        | Notes                          |
 |--------------------------------|--------------|----------------|--------------------------------|
-| Estimated human min / video    | 159          | 156            | one health-check instead of four oversight commands |
-| Automated steps                | 22           | 23             | read-only doctor               |
+| Estimated human min / video    | 156          | 153            | one playbook instead of rereading NEXT + 21 tools |
+| Automated steps                | 23           | 23             | no new executable              |
 | Remaining manual steps         | most         | most           | source check, script words, VO, card build, edit, caption align, publish |
 | Videos produced by system      | 0            | 0              | sample packet is a fixture     |
 | Channel niche decided          | locked (temp)| locked (temp)  | `docs/channel.md`              |
