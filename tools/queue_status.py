@@ -21,42 +21,68 @@ QUEUE = ROOT / "docs" / "topic_queue.md"
 VIDEOS = ROOT / "videos"
 
 
-def classify(row: dict[str, str], folders: list[str]) -> tuple[str, str]:
-    """Return (code, note). Never mutates."""
+def packet_status(videos: Path, folder: str | None) -> str:
+    """Read packet.md status only. Never mutates. Missing file is not invented ready."""
+    if not folder:
+        return "-"
+    path = videos / folder / "packet.md"
+    if not path.is_file():
+        return "no-packet"
+    for ln in path.read_text(encoding="utf-8").splitlines():
+        s = ln.strip()
+        if s.startswith("- status:"):
+            value = s.split(":", 1)[1].strip()
+            return value or "empty"
+    return "no-status"
+
+
+def classify(row: dict[str, str], folders: list[str]) -> tuple[str, str, str | None]:
+    """Return (code, note, folder). Never mutates."""
     folder = match_folder(row["working_title"], folders)
     status = row["status"]
     if folder and "sample-001" in folder:
-        return "fixture-refuse", f"matches fixture {folder}; do not mark used"
+        return "fixture-refuse", f"matches fixture {folder}; do not mark used", folder
     if status == "queued" and folder:
-        return "mark-needed", f"folder videos/{folder} exists; dry-run mark_topic"
+        return "mark-needed", f"folder videos/{folder} exists; dry-run mark_topic", folder
     if status == "used" and not folder:
-        return "missing-folder", "marked used but no matching videos/ folder"
+        return "missing-folder", "marked used but no matching videos/ folder", None
     if status == "used" and folder:
-        return "ok-used", f"videos/{folder}"
+        return "ok-used", f"videos/{folder}", folder
     if status == "parked":
         note = f"videos/{folder}" if folder else "no folder; stay parked"
-        return "parked", note
+        return "parked", note, folder
     if status == "queued":
-        return "ok-queued", "available to scaffold"
-    return "unknown-status", f"status {status!r} is not queued/used/parked"
+        return "ok-queued", "available to scaffold", None
+    return "unknown-status", f"status {status!r} is not queued/used/parked", folder
 
 
-def report(text: str, folders: list[str], predicted_id: str) -> str:
+def report(text: str, folders: list[str], predicted_id: str, videos: Path) -> tuple[str, dict[str, int]]:
     rows = parse_queue(text)
     lines = [
         "This command writes nothing.",
         "Queue file: docs/topic_queue.md",
         f"Packets: {', '.join(folders) or '(none besides template)'}",
-        f"{'ID':<4} {'STATUS':<8} {'CODE':<16} SLUG / NOTE",
-        "-" * 88,
+        f"{'ID':<4} {'STATUS':<8} {'CODE':<16} {'PACKET':<16} SLUG / NOTE",
+        "-" * 96,
     ]
-    counts = {"mark-needed": 0, "missing-folder": 0, "ok-queued": 0, "ok-used": 0, "parked": 0}
+    counts = {
+        "mark-needed": 0,
+        "missing-folder": 0,
+        "ok-queued": 0,
+        "ok-used": 0,
+        "parked": 0,
+        "fixture-refuse": 0,
+        "unknown-status": 0,
+    }
     first_queued: dict[str, str] | None = None
     mark_cmds: list[str] = []
     for row in rows:
-        code, note = classify(row, folders)
+        code, note, folder = classify(row, folders)
         slug = slugify(row["working_title"])
-        lines.append(f"{row['id']:<4} {row['status']:<8} {code:<16} {slug} — {note}")
+        pkt = packet_status(videos, folder)
+        lines.append(
+            f"{row['id']:<4} {row['status']:<8} {code:<16} {pkt:<16} {slug} — {note}"
+        )
         if code in counts:
             counts[code] += 1
         if code == "ok-queued" and first_queued is None:
@@ -84,21 +110,38 @@ def report(text: str, folders: list[str], predicted_id: str) -> str:
         lines.append("Close queue drift (dry-run first):")
         lines.extend(mark_cmds)
     lines.append("Do not treat this board as permission to write the queue or invent WORDS.")
-    return "\n".join(lines) + "\n"
+    return "\n".join(lines) + "\n", counts
+
+
+def exit_code(counts: dict[str, int], strict: bool) -> int:
+    """Default 0 so a clean human glance is not an error. --strict monitors drift."""
+    if not strict:
+        return 0
+    if counts.get("missing-folder", 0):
+        return 2
+    if counts.get("mark-needed", 0) or counts.get("unknown-status", 0):
+        return 1
+    return 0
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Read-only topic-queue vs videos/ board. No writes."
     )
-    parser.parse_args()
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="Exit 2 on missing-folder, 1 on mark-needed/unknown-status. Still writes nothing.",
+    )
+    args = parser.parse_args()
     if not QUEUE.is_file():
         print(f"Missing queue: {QUEUE}", file=sys.stderr)
         return 1
     text = QUEUE.read_text(encoding="utf-8")
     folders = existing_dirs(VIDEOS)
-    sys.stdout.write(report(text, folders, next_id(VIDEOS)))
-    return 0
+    body, counts = report(text, folders, next_id(VIDEOS), VIDEOS)
+    sys.stdout.write(body)
+    return exit_code(counts, args.strict)
 
 
 if __name__ == "__main__":

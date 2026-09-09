@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-09T18:10:00Z (Run 030)
+Updated: 2026-09-09T19:05:00Z (Run 031)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + monitored queue** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -16,16 +16,16 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - HTTPS clone from this agent sandbox still fails (private repo). Push via GitHub file API.
 - Reconstruct + selftest path: `docs/agent_session.md`
 
-## What exists now (after Run 030)
+## What exists now (after Run 031)
 - Operating memory files
 - Frozen original master prompt
 - Video packet standard + scaffold CLI + packet QA (publish gate + draft gate + optional duration gate)
 - Sample packet fixture `videos/sample-001-why-systems-beat-motivation/`
 - Working niche locked in `docs/channel.md`
 - Topic queue `docs/topic_queue.md` (five queued titles; not drafts)
-- Shared queue helpers `tools/queue_lib.py` (slugify, next_id, parse, match)
-- Read-only next-topic printer `tools/next_topic.py` (prints predicted `videos/NNN-slug`)
-- Read-only queue board `tools/queue_status.py` (queued vs used vs folder; mark-needed / missing-folder)
+- Shared queue helpers `tools/queue_lib.py`
+- Read-only next-topic printer `tools/next_topic.py`
+- Read-only queue board `tools/queue_status.py` (codes + packet status column; `--strict` exits 2/1 on missing-folder / mark-needed)
 - Queue closer `tools/mark_topic.py` (dry-run default; folder evidence required; fixture refuse)
 - `new_packet.py` next_id treats `sample-001-*` as 001, so the next folder is `002-...`
 - `new_packet.py` prints mark_topic dry-run follow-up after scaffold; does not auto-mark
@@ -52,8 +52,8 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 | QA           | assisted    | checklist written at scaffold after titles |
 | Publish meta | assisted    | `publish.md` stub; no API                  |
 | Rendering    | assisted    | `render.md` presence only; no ffmpeg       |
-| Oversight    | monitored   | board + next-action + hint + doctor + gated status write + fixture selftest + queue_status |
-| Topic pick   | templated   | queue + next_topic + mark_topic + queue_lib + queue_status |
+| Oversight    | monitored   | board + next-action + hint + doctor + gated status write + fixture selftest + queue_status --strict |
+| Topic pick   | monitored   | queue + next_topic + mark_topic + queue_lib + queue_status |
 | Operator path| templated   | `docs/human_session.md`                    |
 | Agent path   | templated   | `docs/agent_session.md`                    |
 | Publishing   | blocked     | YouTube API not configured                 |
@@ -62,8 +62,8 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 ## Metrics snapshot
 | Metric                         | Previous     | Current        | Notes                          |
 |--------------------------------|--------------|----------------|--------------------------------|
-| Estimated human min / video    | 145          | 144            | queue vs folder scan is a board |
-| Automated steps                | 27           | 28             | queue_status.py                |
+| Estimated human min / video    | 144          | 143            | --strict is a glance, not a scan |
+| Automated steps                | 28           | 29             | queue_status --strict + PACKET col |
 | Remaining manual steps         | most         | most           | source check, script words, VO, card build, edit, caption align, publish |
 | Videos produced by system      | 0            | 0              | sample packet is a fixture     |
 | Channel niche decided          | locked (temp)| locked (temp)  | `docs/channel.md`              |
@@ -73,6 +73,7 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - Niche lock is agent-chosen until a human overrides DECISIONS.md
 - Topic queue titles are working titles, not scripts
 - `next_topic.py` and `queue_status.py` must stay read-only and must not call `new_packet.py`
+- Default `queue_status.py` exit 0; `--strict` may exit 1/2 on drift only
 - `mark_topic.py` is the only queue-status writer; dry-run default; no used without folder
 - `new_packet.py` must not auto-`--write` mark_topic
 - Do not auto-scaffold Q1 without a human instruction
