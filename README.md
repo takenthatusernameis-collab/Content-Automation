@@ -35,6 +35,7 @@ If there is no checkout, reconstruct the minimum tree in `docs/agent_session.md`
 ```bash
 python3 tools/doctor.py
 python3 tools/next_topic.py
+python3 tools/mark_topic.py --id Q1
 python3 tools/selftest.py
 python3 tools/new_packet.py "Working title here"
 python3 tools/new_idea.py "Stop deciding what to work on every morning"
@@ -51,7 +52,9 @@ python3 tools/set_status.py videos/sample-001-why-systems-beat-motivation --to r
 python3 tools/vo_session.py videos/sample-001-why-systems-beat-motivation --dry-run
 ```
 
-`next_topic.py` is read-only. It prints the first unused row in `docs/topic_queue.md` plus scaffold commands. It does not create packets or WORDS.
+`next_topic.py` is read-only. It prints the first unused row in `docs/topic_queue.md`, a predicted `videos/NNN-slug`, and scaffold commands. It does not create packets or WORDS. Numeric ids treat `sample-001-*` as 001.
+
+`mark_topic.py` dry-runs a queue status change. It refuses `used` until a matching non-fixture `videos/` folder exists. `--write` is required to edit `docs/topic_queue.md`. It does not scaffold packets.
 
 `selftest.py` is read-only. It asserts the sample-001 contract (PASS + duration WARN + expand-script + fixture lock + apply/set_status refuse). Runtime PASS recorded 2026-09-09 (Run 026) on a reconstructed tree. It is for agents after tool edits, not a second human start command.
 

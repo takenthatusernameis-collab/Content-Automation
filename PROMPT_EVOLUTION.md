@@ -2,6 +2,11 @@
 
 Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 
+## Observed issues (Run 028)
+- After a queue exists, humans still guess `videos/NNN-slug` and hand-edit the status column.
+- `new_packet.py` next_id used `^(\d+)`, which does not see `sample-001-*`.
+- A queue writer must require folder evidence and stay dry-run by default, same pattern as set_status / apply_script.
+
 ## Observed issues (Run 026)
 - Three runs left fixture runtime as "unverified" because HTTPS clone fails.
 - GitHub content download_url tokens are enough to run selftest.

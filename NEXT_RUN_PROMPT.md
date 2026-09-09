@@ -20,8 +20,10 @@ Do not reopen niche debate unless a human changed DECISIONS.md. Specialize promp
 
 ## Topic-queue rule
 `docs/topic_queue.md` holds working titles only. `tools/next_topic.py` is read-only and must not call `new_packet.py`.
+`tools/mark_topic.py` is the only writer of queue status. Dry-run default. Refuse `used` without a matching non-fixture `videos/` folder. Refuse sample-001.
 Do not auto-scaffold a queued title without an explicit human instruction.
 Do not treat a queue row as spoken WORDS.
+Numeric ids treat `sample-001-*` as 001, so the next scaffold is `002-...`.
 
 ## Duration rule
 Spoken WORDS for `explainer-6-10min` belong in 900-1500 at 150 wpm. Default validate prints WARN. `--duration` may FAIL. Do not pad sample-001. Do not make WARN the default FAIL.
