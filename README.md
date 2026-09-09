@@ -19,10 +19,17 @@ python3 tools/doctor.py
 
 Then follow `docs/human_session.md`. Do not scan the tool list below unless doctor printed a command you do not recognize.
 
+After a tool change (agents):
+
+```bash
+python3 tools/selftest.py
+```
+
 ## Local tools
 
 ```bash
 python3 tools/doctor.py
+python3 tools/selftest.py
 python3 tools/new_packet.py "Working title here"
 python3 tools/new_idea.py "Stop deciding what to work on every morning"
 python3 tools/pipeline_status.py
@@ -38,11 +45,13 @@ python3 tools/set_status.py videos/sample-001-why-systems-beat-motivation --to r
 python3 tools/vo_session.py videos/sample-001-why-systems-beat-motivation --dry-run
 ```
 
+`selftest.py` is read-only. It asserts the sample-001 contract (PASS + duration WARN + expand-script + fixture lock + apply/set_status refuse). It is for agents after tool edits, not a second human start command.
+
 `doctor.py` is read-only. It prints gate, drift, duration WARN, next-action code, and the hint CLI in one block. It does not write files. `--strict` exits 1 on FAIL gate or status drift. Duration WARN is not FAIL.
 
 `hint.py` is read-only. It turns the `next_action.py` code into a copy-paste CLI. It never writes files. `--write` appears only as a commented follow-up after a dry-run line. On `sample-001-*` it prints a fixture lock instead of apply_script --write.
 
-`set_status.py` dry-runs a status change. It refuses promoting `sample-001-*`, skip-ahead, `ready_for_vo` while duration WARN is present, and later statuses without Selected VO / Master export on disk. `--write` is required to change `packet.md`. It does not create media. `pipeline_status.py`, `next_action.py`, `hint.py`, and `doctor.py` stay read-only.
+`set_status.py` dry-runs a status change. It refuses promoting `sample-001-*`, skip-ahead, `ready_for_vo` while duration WARN is present, and later statuses without Selected VO / Master export on disk. `--write` is required to change `packet.md`. It does not create media. `pipeline_status.py`, `next_action.py`, `hint.py`, `doctor.py`, and `selftest.py` stay read-only.
 
 `apply_script.py` dry-runs a pasted `script.md` body. It refuses `sample-001-*` and `expand_prompt.py` stdout. `--write` is required to replace `script.md` on a non-fixture packet. `--refresh` then rewrites `expand.md`, `vo_session.md`, and `captions.md`. It does not bump status and does not invent WORDS.
 

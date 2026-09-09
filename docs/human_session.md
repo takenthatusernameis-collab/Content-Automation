@@ -12,6 +12,14 @@ python3 tools/doctor.py
 
 Read the block. Run only the printed Command (dry-run first). Doctor writes nothing.
 
+Agents changing tools also run:
+
+```bash
+python3 tools/selftest.py
+```
+
+That check is not a second human start command.
+
 ## First real video (not the fixture)
 
 1. Scaffold

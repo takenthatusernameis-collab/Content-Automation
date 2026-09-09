@@ -33,12 +33,13 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 26. Read-only command hint from next-action codes — **done (Run 022)**
 27. Read-only one-command doctor / health check — **done (Run 023)**
 28. One-page human session playbook — **done (Run 024)**
+29. Fixture contract selftest — **done (Run 025); read-only; sample-001 only**
 
 ## Later (automation)
-29. TTS narration path (optional; keep human VO compatible)
-30. Caption timing from a real selected take (not 150 wpm estimates)
-31. ffmpeg assembly for this one locked format after one packet has VO + cards
-32. YouTube upload + metadata only after packet QA passes
+30. TTS narration path (optional; keep human VO compatible)
+31. Caption timing from a real selected take (not 150 wpm estimates)
+32. ffmpeg assembly for this one locked format after one packet has VO + cards
+33. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Multi-platform posting
