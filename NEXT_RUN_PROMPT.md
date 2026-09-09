@@ -18,6 +18,11 @@ Reconstruct the selftest tree per `docs/agent_session.md` using download_url tok
 ## Niche rule
 Do not reopen niche debate unless a human changed DECISIONS.md. Specialize prompts toward `docs/channel.md`.
 
+## Topic-queue rule
+`docs/topic_queue.md` holds working titles only. `tools/next_topic.py` is read-only and must not call `new_packet.py`.
+Do not auto-scaffold a queued title without an explicit human instruction.
+Do not treat a queue row as spoken WORDS.
+
 ## Duration rule
 Spoken WORDS for `explainer-6-10min` belong in 900-1500 at 150 wpm. Default validate prints WARN. `--duration` may FAIL. Do not pad sample-001. Do not make WARN the default FAIL.
 
@@ -45,7 +50,7 @@ Refuse skip-ahead.
 Refuse `ready_for_vo` / `ready_for_edit` while duration WARN is present.
 Refuse later statuses without Selected VO / Master export on disk.
 Do not create media.
-`pipeline_status.py`, `next_action.py`, `hint.py`, `doctor.py`, and `selftest.py` stay read-only.
+`pipeline_status.py`, `next_action.py`, `hint.py`, `doctor.py`, `selftest.py`, and `next_topic.py` stay read-only.
 
 ## Hint rule
 `hint.py` is read-only. Map next_action codes to copy-paste CLI.
