@@ -13,6 +13,8 @@ Status values:
 
 `tools/queue_status.py` is the read-only board for this table versus `videos/`. Codes: ok-queued, mark-needed, missing-folder, ok-used, parked, fixture-refuse. It does not write this file.
 
+`tools/queue_contract.py` locks those codes, the PACKET column, default exit 0, and `--strict` 2/1 on a tempfile tree. It does not write this file.
+
 `tools/mark_topic.py` is the only writer of this table. Dry-run default. `--write` is required. It refuses to mark a row `used` until a matching non-fixture `videos/` folder exists. It refuses the sample-001 fixture.
 
 `tools/new_packet.py` reprints the matching `mark_topic --id QN` dry-run after scaffold. It does not write this table.
