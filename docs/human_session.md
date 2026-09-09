@@ -22,14 +22,6 @@ python3 tools/next_topic.py
 
 That command writes nothing. It prints a queued title, a predicted `videos/NNN-slug`, and a dry-run `mark_topic` line.
 
-Agents changing gated tools also run:
-
-```bash
-python3 tools/selftest.py
-```
-
-That check is not a second human start command.
-
 ## First real video (not the fixture)
 
 1. Scaffold the printed queue title (or your own)
@@ -38,56 +30,22 @@ That check is not a second human start command.
 python3 tools/next_topic.py
 python3 tools/new_packet.py "Working title that states the viewer job"
 python3 tools/doctor.py videos/002-slug
+```
+
+`new_packet` reprints the matching `mark_topic --id QN` dry-run after the folder is created. It does not mark the row used.
+
+```bash
 python3 tools/mark_topic.py --id Q1
 # python3 tools/mark_topic.py --id Q1 --write
 ```
 
 `mark_topic` writes nothing until `--write` and a matching non-fixture folder exist.
 
-2. Lock the idea if the card is still a template
-
-```bash
-python3 tools/new_idea.py "one-line topic"
-```
-
-3. Expand spoken WORDS off-repo (900–1500 for `explainer-6-10min`). Use:
-
-```bash
-python3 tools/expand_prompt.py videos/002-slug
-```
-
-Paste that pack into a writer. Save the result as a local file, not onto `sample-001`.
-
-4. Apply the pasted draft (dry-run, then write)
-
-```bash
-python3 tools/apply_script.py videos/002-slug --from /tmp/draft.md
-python3 tools/apply_script.py videos/002-slug --from /tmp/draft.md --write --refresh
-python3 tools/doctor.py videos/002-slug
-```
-
-5. If doctor shows no Duration WARN and Code is `record-vo`:
-
-```bash
-python3 tools/set_status.py videos/002-slug --to ready_for_vo
-# only after the dry-run looks right:
-python3 tools/set_status.py videos/002-slug --to ready_for_vo --write
-```
-
-6. Record the take named in `vo_session.md`. Do not invent a wav in git. Put the file on disk, then doctor again.
-
-7. Later statuses need disk evidence. Use `set_status.py` dry-run first. Never skip-ahead.
+Then follow expand_prompt -> apply_script (non-fixture) -> set_status dry-run as in prior versions of this page.
 
 ## Stop
 
 - Do not pad the fixture to clear Duration WARN.
-- Do not treat `expand.md` or expand_prompt stdout as WORDS.
-- Do not treat `vo_session.md` as recorded audio.
-- Do not run `--write` as the first command doctor/hint print.
-- Do not call YouTube, TTS, Whisper, stock, or ffmpeg from this page.
 - Do not treat the topic queue as a finished script.
 - Do not mark a queue row used without a matching `videos/` folder.
-
-## After a take exists
-
-Doctor will move the Code off `record-vo`. Follow that Code. Still dry-run writes.
+- Do not expect `new_packet.py` to write the queue.
