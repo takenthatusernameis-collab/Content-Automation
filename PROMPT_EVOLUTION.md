@@ -2,6 +2,11 @@
 
 Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 
+## Observed issues (Run 026)
+- Three runs left fixture runtime as "unverified" because HTTPS clone fails.
+- GitHub content download_url tokens are enough to run selftest.
+- After a PASS, restating unverified is labor. Record last runtime in `docs/agent_session.md`.
+
 ## Observed issues (Run 018)
 - `expand-script` without a beat budget leaves the human doing arithmetic across seven headings.
 - Auto-writing WORDS from the budget would invent a draft and break the fixture freeze.
