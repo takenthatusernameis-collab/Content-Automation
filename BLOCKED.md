@@ -9,5 +9,6 @@ External work is parked here so runs do not retry it blindly.
 | TTS or microphone VO  | Narration audio                    | Record to `vo/NNN-slug-take-selected.wav` or document a local TTS CLI | path convention exists; no vendor |
 | Stock / original media| B-roll and thumbs                  | Decide “text-card + public-domain” vs licensed stock; card names live in `docs/assets.md` | filename convention exists; no shopping |
 | ffmpeg render profile | Repeatable export                  | Format lock is `docs/format.md`; add a recipe only after one packet has selected VO + ready cards | format named; recipe not started |
+| Private-repo git clone| Native checkout in agent sandbox   | Not required. Reconstruct per `docs/agent_session.md`. Push via GitHub file API. | parked; do not retry each run |
 
 Do not poll APIs hoping credentials appear.
