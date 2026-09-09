@@ -9,14 +9,15 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 34. Read-only queue vs folder board — **done (Run 030)**
 35. Queue board `--strict` + packet status column — **done (Run 031)**
 36. Queue board contract selftest — **done (Run 032)**
+37. Write-path contract (apply_script + set_status gates on a temp tree) — **done (Run 033)**
 
 Earlier items 1-30 remain done as recorded in prior commits.
 
 ## Later (automation)
-37. TTS narration path (optional; keep human VO compatible)
-38. Caption timing from a real selected take (not 150 wpm estimates)
-39. ffmpeg assembly for this one locked format after one packet has VO + cards
-40. YouTube upload + metadata only after packet QA passes
+38. TTS narration path (optional; keep human VO compatible)
+39. Caption timing from a real selected take (not 150 wpm estimates)
+40. ffmpeg assembly for this one locked format after one packet has VO + cards
+41. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Auto-scaffolding the next queued topic without a human instruction
