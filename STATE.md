@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-09-09T11:20:00Z (Run 025)
+Updated: 2026-09-09T12:22:00Z (Run 026)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -14,15 +14,18 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - No published videos
 - No YouTube / TTS / stock / render integrations configured
 - HTTPS clone from this agent sandbox still fails (private repo). Push via GitHub file API.
+- Reconstruct + selftest path: `docs/agent_session.md`
 
-## What exists now (after Run 025)
+## What exists now (after Run 026)
 - Operating memory files
 - Frozen original master prompt
 - Video packet standard + scaffold CLI + packet QA (publish gate + draft gate + optional duration gate)
 - Sample packet fixture `videos/sample-001-why-systems-beat-motivation/`
 - Working niche locked in `docs/channel.md`
 - Operator path `docs/human_session.md` (doctor first; fixture freeze; expand → apply → set_status dry-run)
-- Fixture contract selftest `tools/selftest.py` (read-only; sample-001 only; PASS + duration WARN + expand-script + no live `--write` + apply/set_status refuse)
+- Agent path `docs/agent_session.md` (clone-once, reconstruct selftest tree, record runtime)
+- Fixture contract selftest `tools/selftest.py` (read-only; sample-001 only)
+- **Runtime verified 2026-09-09T12:22Z:** reconstructed `/tmp/ca`, `SELFTEST PASS`, exit 0, 153 words, code `expand-script`, first live command `expand_prompt` with no `--write`
 - Idea / script / expand / title / QA / research / publish / caption / asset / render / VO / board / next-action / apply-script / set-status / hint / doctor tools as of Run 023
 - Status writer `tools/set_status.py` (dry-run default; `--write` required; refuses sample-001 promote; refuses skip-ahead; refuses ready_for_vo on duration WARN; refuses ready_for_edit without Selected VO; refuses publish statuses without VO + export + PASS). Does not create media. Board tools stay read-only.
 - Command map `tools/hint.py` (read-only; prints copy-paste CLI from next_action codes; never includes `--write` as the default line; fixture lock banner on sample-001).
@@ -46,17 +49,19 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 | Rendering    | assisted    | `render.md` presence only; no ffmpeg       |
 | Oversight    | monitored   | board + next-action + hint + doctor + gated status write + fixture selftest |
 | Operator path| templated   | `docs/human_session.md`                    |
+| Agent path   | templated   | `docs/agent_session.md`                    |
 | Publishing   | blocked     | YouTube API not configured                 |
 | Analytics    | unbuilt     |                                            |
 
 ## Metrics snapshot
 | Metric                         | Previous     | Current        | Notes                          |
 |--------------------------------|--------------|----------------|--------------------------------|
-| Estimated human min / video    | 153          | 152            | selftest replaces reread of gate contracts |
-| Automated steps                | 23           | 24             | selftest.py                    |
+| Estimated human min / video    | 152          | 151            | agents no longer re-derive how to prove the fixture |
+| Automated steps                | 24           | 24             | selftest runtime now verified  |
 | Remaining manual steps         | most         | most           | source check, script words, VO, card build, edit, caption align, publish |
 | Videos produced by system      | 0            | 0              | sample packet is a fixture     |
 | Channel niche decided          | locked (temp)| locked (temp)  | `docs/channel.md`              |
+| Fixture selftest runtime       | unverified   | PASS (Run 026) | reconstructed tree, exit 0     |
 
 ## Active constraints
 - Niche lock is agent-chosen until a human overrides DECISIONS.md
@@ -74,3 +79,4 @@ manual -> assisted scaffolding -> **monitored packets** -> automated -> self-imp
 - Format lock is `explainer-6-10min` only; no shorts split, no ffmpeg recipe
 - `pipeline_status.py`, `next_action.py`, `hint.py`, `doctor.py`, and `selftest.py` must stay read-only
 - Default validate 2-tuple stays (errors, incompletes). Duration WARN must not become FAIL unless `--duration`.
+- Do not retry HTTPS clone after one failure in a run. Reconstruct per `docs/agent_session.md`.
