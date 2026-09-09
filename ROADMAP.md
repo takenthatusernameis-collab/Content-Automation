@@ -34,12 +34,13 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 27. Read-only one-command doctor / health check — **done (Run 023)**
 28. One-page human session playbook — **done (Run 024)**
 29. Fixture contract selftest — **done (Run 025); read-only; sample-001 only**
+30. Clone-less reconstruct + selftest runtime — **done (Run 026); PASS; `docs/agent_session.md`**
 
 ## Later (automation)
-30. TTS narration path (optional; keep human VO compatible)
-31. Caption timing from a real selected take (not 150 wpm estimates)
-32. ffmpeg assembly for this one locked format after one packet has VO + cards
-33. YouTube upload + metadata only after packet QA passes
+31. TTS narration path (optional; keep human VO compatible)
+32. Caption timing from a real selected take (not 150 wpm estimates)
+33. ffmpeg assembly for this one locked format after one packet has VO + cards
+34. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Multi-platform posting
@@ -56,3 +57,4 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 - Promoting sample-001 with set_status
 - Printing `--write` as the first hint.py or doctor.py command
 - Wrapping doctor in a second start.py that only reprints the same block
+- Retrying HTTPS clone after one sandbox failure
