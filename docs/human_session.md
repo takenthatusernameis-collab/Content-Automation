@@ -4,6 +4,8 @@ One page. Follow this instead of scanning `tools/`.
 
 `videos/sample-001-*` is a fixture. Never apply WORDS to it. Never promote it.
 
+Agents without a checkout: `docs/agent_session.md`.
+
 ## Start every session
 
 ```bash
