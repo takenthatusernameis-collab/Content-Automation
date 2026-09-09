@@ -25,7 +25,7 @@ def next_id(videos_dir: Path) -> str:
     for p in videos_dir.iterdir():
         if not p.is_dir() or p.name.startswith("_"):
             continue
-        m = re.match(r"^(\d+)", p.name)
+        m = re.match(r"^(?:sample-)?(\d+)", p.name)
         if m:
             highest = max(highest, int(m.group(1)))
     return f"{highest + 1:03d}"
