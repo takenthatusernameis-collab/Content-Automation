@@ -15,6 +15,7 @@ Do not claim `git clone` or `validate_packet.py --all` succeeded unless you actu
 HTTPS clone of this private repo fails in the agent sandbox. Do not retry after the first failure in a run. Push via GitHub file APIs.
 Reconstruct the selftest tree per `docs/agent_session.md` using download_url tokens. After Run 026, fixture selftest runtime is PASS unless a later run prints SELFTEST FAIL.
 After apply_script or set_status edits, run `tools/write_path_contract.py` on a reconstructed tools tree.
+After new_packet or after_scaffold edits, run `tools/scaffold_contract.py`.
 
 ## Niche rule
 Do not reopen niche debate unless a human changed DECISIONS.md. Specialize prompts toward `docs/channel.md`.
@@ -26,6 +27,7 @@ Do not auto-scaffold a queued title without an explicit human instruction.
 Do not treat a queue row as spoken WORDS.
 Numeric ids treat `sample-001-*` as 001, so the next scaffold is `002-...`.
 Default `queue_status.py` exit is 0. `--strict` may exit 2 on missing-folder and 1 on mark-needed. Do not make default exit non-zero.
+`new_packet.py` reprints mark_topic dry-run only. It must not call mark_topic --write.
 
 ## Duration rule
 Spoken WORDS for `explainer-6-10min` belong in 900-1500 at 150 wpm. Default validate prints WARN. `--duration` may FAIL. Do not pad sample-001. Do not make WARN the default FAIL.
@@ -54,7 +56,7 @@ Refuse skip-ahead.
 Refuse `ready_for_vo` / `ready_for_edit` while duration WARN is present.
 Refuse later statuses without Selected VO / Master export on disk.
 Do not create media.
-`pipeline_status.py`, `next_action.py`, `hint.py`, `doctor.py`, `selftest.py`, `next_topic.py`, `queue_status.py`, `queue_contract.py`, and `write_path_contract.py` stay read-only.
+`pipeline_status.py`, `next_action.py`, `hint.py`, `doctor.py`, `selftest.py`, `next_topic.py`, `queue_status.py`, `queue_contract.py`, `write_path_contract.py`, and `scaffold_contract.py` stay read-only versus videos/ and must not write the queue.
 
 ## Hint rule
 `hint.py` is read-only. Map next_action codes to copy-paste CLI.
@@ -84,6 +86,7 @@ Duration WARN is not FAIL and not drift.
 
 ## Scaffold rule
 Reuse `after_scaffold.py` and `write_empty_*`; never pass `--force` from scaffold.
+`new_packet.py` must print mark_topic dry-run then a commented `--write`. It must not mark the queue.
 
 ## Fixture freeze
 Do not overwrite `videos/sample-001-*` titles, thumbnail, or script WORDS unless the packet schema itself changed.
