@@ -4,74 +4,18 @@
 from __future__ import annotations
 
 import argparse
-import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+TOOLS = Path(__file__).resolve().parent
+if str(TOOLS) not in sys.path:
+    sys.path.insert(0, str(TOOLS))
+
+from queue_lib import already_used, existing_slugs, next_id, parse_queue, slugify  # noqa: E402
+
 QUEUE = ROOT / "docs" / "topic_queue.md"
 VIDEOS = ROOT / "videos"
-
-
-def slugify(text: str) -> str:
-    s = text.lower().strip()
-    s = re.sub(r"[^a-z0-9]+", "-", s)
-    return s.strip("-")[:60] or "untitled"
-
-
-def next_id(videos_dir: Path) -> str:
-    highest = 0
-    if videos_dir.is_dir():
-        for p in videos_dir.iterdir():
-            if not p.is_dir() or p.name.startswith("_"):
-                continue
-            m = re.match(r"^(?:sample-)?(\d+)", p.name)
-            if m:
-                highest = max(highest, int(m.group(1)))
-    return f"{highest + 1:03d}"
-
-
-def existing_slugs() -> set[str]:
-    found: set[str] = set()
-    if not VIDEOS.is_dir():
-        return found
-    for p in VIDEOS.iterdir():
-        if not p.is_dir() or p.name.startswith("_"):
-            continue
-        found.add(p.name.lower())
-        m = re.match(r"^(?:sample-)?\d+-(.+)$", p.name)
-        if m:
-            found.add(m.group(1).lower())
-    return found
-
-
-def parse_queue(text: str) -> list[dict[str, str]]:
-    rows: list[dict[str, str]] = []
-    for line in text.splitlines():
-        if not line.startswith("| Q"):
-            continue
-        parts = [c.strip() for c in line.strip("|").split("|")]
-        if len(parts) < 4:
-            continue
-        rows.append(
-            {
-                "id": parts[0],
-                "status": parts[1].lower(),
-                "working_title": parts[2],
-                "one_line": parts[3],
-            }
-        )
-    return rows
-
-
-def already_used(title: str, slugs: set[str]) -> bool:
-    slug = slugify(title)
-    if slug in slugs:
-        return True
-    for existing in slugs:
-        if slug and slug in existing:
-            return True
-    return False
 
 
 def main() -> int:
@@ -90,7 +34,7 @@ def main() -> int:
         return 1
 
     rows = parse_queue(QUEUE.read_text(encoding="utf-8"))
-    slugs = existing_slugs()
+    slugs = existing_slugs(VIDEOS)
     available = [
         r
         for r in rows
