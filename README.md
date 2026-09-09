@@ -4,6 +4,7 @@ Recurring-agent workspace for a low-labor YouTube production system.
 
 Start here:
 - `docs/human_session.md` — operator path (doctor first; never write the fixture)
+- `docs/agent_session.md` — agent path when clone fails (reconstruct + selftest)
 - `STATE.md` — current reality
 - `NEXT.md` — what the next run should do
 - `RUNS.md` — timestamped log
@@ -25,6 +26,8 @@ After a tool change (agents):
 python3 tools/selftest.py
 ```
 
+If there is no checkout, reconstruct the minimum tree in `docs/agent_session.md`. Do not retry HTTPS clone after one failure.
+
 ## Local tools
 
 ```bash
@@ -45,7 +48,7 @@ python3 tools/set_status.py videos/sample-001-why-systems-beat-motivation --to r
 python3 tools/vo_session.py videos/sample-001-why-systems-beat-motivation --dry-run
 ```
 
-`selftest.py` is read-only. It asserts the sample-001 contract (PASS + duration WARN + expand-script + fixture lock + apply/set_status refuse). It is for agents after tool edits, not a second human start command.
+`selftest.py` is read-only. It asserts the sample-001 contract (PASS + duration WARN + expand-script + fixture lock + apply/set_status refuse). Runtime PASS recorded 2026-09-09 (Run 026) on a reconstructed tree. It is for agents after tool edits, not a second human start command.
 
 `doctor.py` is read-only. It prints gate, drift, duration WARN, next-action code, and the hint CLI in one block. It does not write files. `--strict` exits 1 on FAIL gate or status drift. Duration WARN is not FAIL.
 
@@ -63,4 +66,4 @@ python3 tools/vo_session.py videos/sample-001-why-systems-beat-motivation --dry-
 
 `validate_packet.py` default publish gate stays structural. Duration misses print `WARN`. Do not pad the sample fixture.
 
-Video packets live in `videos/`. Contract: `docs/production_rules.md`. Format: `docs/format.md`. Operator path: `docs/human_session.md`.
+Video packets live in `videos/`. Contract: `docs/production_rules.md`. Format: `docs/format.md`. Operator path: `docs/human_session.md`. Agent reconstruct: `docs/agent_session.md`.
