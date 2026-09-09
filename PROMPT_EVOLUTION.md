@@ -2,6 +2,11 @@
 
 Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 
+## Observed issues (Run 036)
+- A router that only lives in markdown will drift the same way four contracts did before which_contract existed.
+- `--after which_contract.py` with no mapping sent agents back to scanning NEXT.
+- `--run` SKIP must stay exit 0 and must not be recorded as PASS.
+
 ## Observed issues (Run 030)
 - After scaffold reprints the Q-id, humans still open topic_queue.md and videos/ to see whether the row should be marked.
 - A second writer (queue_status --write) would hide the same missing-folder mistake as auto-mark from new_packet.
