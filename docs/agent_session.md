@@ -8,6 +8,16 @@ Humans follow `docs/human_session.md`. This page is not a second start command f
 
 HTTPS clone of this private repo fails in the agent sandbox. Do not retry after the first failure in a run. Push via GitHub file APIs.
 
+## Which contract
+
+After editing a tool, do not scan NEXT for the lock name. Run:
+
+```bash
+python3 tools/which_contract.py --after EDITED_FILE.py
+```
+
+Then run the printed command if the reconstructed tree has that contract's files. `--run` SKIP means deps were missing, not that the lock passed.
+
 ## Reconstruct and prove the fixture
 
 `tools/selftest.py` is the packet contract. Reconstruct only what it imports, plus the sample packet files the publish gate needs.
@@ -106,6 +116,12 @@ Scaffold contract:
 - When: 2026-09-09T21:12:00Z (Run 034)
 - How: `/tmp/ca` with new_packet + queue_lib + docs/topic_queue.md + scaffold_contract
 - Result: SCAFFOLD CONTRACT PASS, exit 0
+
+Contract router:
+
+- When: 2026-09-09T22:10:00Z (Run 035)
+- How: local `which_contract.py` map and `--after` checks (no videos/ writes)
+- Result: map exit 0; `--after new_packet.py` → scaffold_contract; `--after apply_script.py` → write_path_contract
 
 If a later run cannot reconstruct, record FAIL with the missing file. Do not leave runtime as "unverified" after a successful reconstruct.
 
