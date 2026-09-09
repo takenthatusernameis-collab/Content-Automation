@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-09 | First non-fixture titles live in `docs/topic_queue.md`; `next_topic.py` is read-only and does not scaffold | After oversight tools, the blank-title stall is the next recurring human minute | If a human replaces the queue or locks a different first video
 - 2026-09-09 | Agents reconstruct tools+fixture via GitHub download_url instead of retrying HTTPS clone | Private-repo clone fails in this sandbox; three runs left runtime unverified by restating that fact | If a public mirror or local checkout becomes the default agent environment
 - 2026-09-09 | Human operator path lives in `docs/human_session.md`, not a second start.py | Doctor already prints the next command; another wrapper would add lookup without new evidence | If a human never finds the markdown and asks for a printed checklist from a tool
 - 2026-09-08 | doctor.py is read-only and composes board + next_action + hint | Four oversight commands at session start recreate lookup labor | If a second format needs a different health block
