@@ -11,14 +11,15 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 36. Queue board contract selftest — **done (Run 032)**
 37. Write-path contract (apply_script + set_status gates on a temp tree) — **done (Run 033)**
 38. Scaffold contract (new_packet mark-handoff + titles_filled + next_id) — **done (Run 034)**
+39. Contract router (`which_contract.py`) — **done (Run 035)**
 
 Earlier items 1-30 remain done as recorded in prior commits.
 
 ## Later (automation)
-39. TTS narration path (optional; keep human VO compatible)
-40. Caption timing from a real selected take (not 150 wpm estimates)
-41. ffmpeg assembly for this one locked format after one packet has VO + cards
-42. YouTube upload + metadata only after packet QA passes
+40. TTS narration path (optional; keep human VO compatible)
+41. Caption timing from a real selected take (not 150 wpm estimates)
+42. ffmpeg assembly for this one locked format after one packet has VO + cards
+43. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Auto-scaffolding the next queued topic without a human instruction

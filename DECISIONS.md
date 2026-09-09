@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-09 | which_contract.py is the map of tool edit → contract command; it must not write videos/ or the queue | Four locks already existed; NEXT and agent_session were duplicating the map and would drift | If a fifth lock class is added, extend the map in which_contract.py instead of another paragraph in NEXT
 - 2026-09-09 | queue_contract.py is the regression lock for the queue board; it must not write the repo | Run 031 codes and --strict exits are easy to break while editing queue_status; selftest.py only covers sample-001 | If queue format changes
 - 2026-09-09 | queue_status --strict is opt-in; default exit stays 0 | A clean board used as session start must not look like a failed command | If a CI job is added that should always use --strict
 - 2026-09-09 | queue_status.py is read-only and must not write the queue | Humans still scan the table against videos/ after scaffold; a writer-board would hide missing-folder mistakes | If a human later wants --write on the board (do not add without evidence)
