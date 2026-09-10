@@ -6,9 +6,12 @@ Locks:
 - idea_brief source says it does not write idea.md
 - human_session names idea_brief.py and the pinned 002 folder
 - human_session names idea_brief.py --block
+- human_session names idea_brief.py --check
 - running idea_brief on a blank 002 packet reprints Q1 topic + Q1_PROBLEM + one_line
 - idea_brief --block prints a paste-ready idea.md body with those fields
-- idea.md bytes are unchanged after both runs
+- idea_brief --check on blank idea.md exits 2 and does not write
+- idea_brief --check after a tempfile paste of that body exits 0 and does not write
+- idea.md bytes are unchanged after default, --block, and --check runs
 - stdout says it writes nothing
 
 Unmapped in which_contract. Not a reconstruct wave.
@@ -52,8 +55,10 @@ def source_locks(failures: list[str]) -> None:
     fail(failures, "Does not write idea.md" in brief_src or "does not write idea.md" in brief_src, "idea_brief missing no-write-idea note")
     fail(failures, "idea_followup" in brief_src, "idea_brief missing idea_followup reuse")
     fail(failures, "--block" in brief_src and "paste_block" in brief_src, "idea_brief missing --block paste body")
+    fail(failures, "--check" in brief_src and "check_fields" in brief_src, "idea_brief missing --check compare")
     fail(failures, "idea_brief.py" in human, "human_session missing idea_brief.py")
     fail(failures, "idea_brief.py" in human and "--block" in human, "human_session missing idea_brief.py --block")
+    fail(failures, "idea_brief.py" in human and "--check" in human, "human_session missing idea_brief.py --check")
     fail(failures, f"videos/{FOLDER}" in human, f"human_session missing {FOLDER}")
     fail(failures, TITLE in human, "human_session missing Q1 title")
 
@@ -107,6 +112,7 @@ def main() -> int:
         fail(failures, "does not write idea.md" in out.lower() or "writes nothing" in out.lower(), "stdout missing no-write note")
         fail(failures, "(blank)" in out, "stdout missing blank current fields")
         fail(failures, "# Idea" in out, "default stdout missing paste-ready # Idea block")
+        fail(failures, "--check" in out, "default stdout missing --check hint")
 
         block = subprocess.run(
             [sys.executable, str(TOOLS / "idea_brief.py"), str(path), "--block"],
@@ -124,8 +130,39 @@ def main() -> int:
         fail(failures, "writes nothing" in bout.lower(), "--block missing no-write note")
         fail(failures, "Current idea.md:" not in bout, "--block should not print current-vs-suggested wrapper")
 
+        chk_blank = subprocess.run(
+            [sys.executable, str(TOOLS / "idea_brief.py"), str(path), "--check"],
+            capture_output=True,
+            text=True,
+        )
+        after_chk_blank = sha(idea)
+        cout = chk_blank.stdout
+        fail(failures, chk_blank.returncode == 2, f"idea_brief --check on blank exit {chk_blank.returncode}, want 2")
+        fail(failures, before == after_chk_blank, "idea_brief --check on blank mutated idea.md")
+        fail(failures, "PASTE INCOMPLETE" in cout, "--check blank missing PASTE INCOMPLETE")
+        fail(failures, "writes nothing" in cout.lower(), "--check blank missing no-write note")
+        fail(failures, "MISMATCH" in cout, "--check blank missing MISMATCH")
+
+        from idea_brief import paste_block
+
+        pasted = paste_block(TITLE)
+        idea.write_text(pasted, encoding="utf-8")
+        pasted_hash = sha(idea)
+        chk_ok = subprocess.run(
+            [sys.executable, str(TOOLS / "idea_brief.py"), str(path), "--check"],
+            capture_output=True,
+            text=True,
+        )
+        after_chk_ok = sha(idea)
+        oout = chk_ok.stdout
+        fail(failures, chk_ok.returncode == 0, f"idea_brief --check after paste exit {chk_ok.returncode}: {chk_ok.stderr}")
+        fail(failures, pasted_hash == after_chk_ok, "idea_brief --check after paste mutated idea.md")
+        fail(failures, "PASTE READY" in oout, "--check after paste missing PASTE READY")
+        fail(failures, oout.count("MATCH ") >= 3, "--check after paste missing three MATCH lines")
+        fail(failures, "writes nothing" in oout.lower(), "--check after paste missing no-write note")
+
     print("Idea brief contract")
-    print("reprint recover stays read-only; --block prints a paste body; idea.md stays unchanged")
+    print("reprint recover stays read-only; --block prints a paste body; --check compares without writing")
     if failures:
         print("IDEA BRIEF CONTRACT FAIL")
         for f in failures:
