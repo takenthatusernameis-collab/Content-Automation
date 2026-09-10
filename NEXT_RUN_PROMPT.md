@@ -75,6 +75,7 @@ Do not create media.
 `hint.py` is read-only. Map next_action codes to copy-paste CLI.
 Never print `--write` as the first command.
 On `sample-001-*` print a fixture lock instead of apply_script --write.
+On `fill-idea` print a paste comment plus doctor, not expand_prompt.
 
 ## Doctor rule
 `doctor.py` is read-only. One health block per packet.
@@ -83,7 +84,7 @@ Reuse `hint.commands_for` so CLI text cannot drift.
 Never print `--write` as the first command.
 
 ## Human-session rule
-`docs/human_session.md` is the operator path. Keep it short. Do not turn it into a second prompt or a wrapper tool. Keep the first-video expand/apply/status commands on that page; do not defer them to prior commits. Keep the current Q1 working title and predicted folder on that page while Q1 is still queued. Require the idea.md mechanism edit before expand_prompt. Note that new_packet reprints topic + mechanism and still does not write idea.md.
+`docs/human_session.md` is the operator path. Keep it short. Do not turn it into a second prompt or a wrapper tool. Keep the first-video expand/apply/status commands on that page; do not defer them to prior commits. Keep the current Q1 working title and predicted folder on that page while Q1 is still queued. Require the idea.md mechanism edit before expand_prompt. Note that new_packet reprints topic + mechanism and still does not write idea.md. Note that doctor Code is `fill-idea` until that paste exists.
 
 ## Agent-session rule
 `docs/agent_session.md` is the clone-less reconstruct path. Update Last verified runtime only after a real selftest run. Do not invent PASS.
@@ -95,7 +96,7 @@ Duration WARN is not FAIL and not drift.
 `queue_status.py --strict` may exit non-zero on queue drift only.
 
 ## Next-action rule
-`next_action.py` is read-only. One recommended step per packet. Prefer gate FAIL, then drift, then duration WARN (`expand-script`), then the first real production file the human can add.
+`next_action.py` is read-only. One recommended step per packet. Prefer gate FAIL, then drift, then blank idea.md mechanism (`fill-idea`), then duration WARN (`expand-script`), then the first real production file the human can add.
 
 ## Scaffold rule
 Reuse `after_scaffold.py` and `write_empty_*`; never pass `--force` from scaffold.
