@@ -46,6 +46,14 @@ python3 tools/idea_brief.py videos/002-stop-deciding-what-to-work-on-every-morni
 
 `idea_brief.py` writes nothing. It prints current idea.md fields and the suggested paste. `--block` prints only the paste-ready idea.md body. Still does not write idea.md.
 
+After you paste that body into idea.md by hand, confirm without writing:
+
+```bash
+python3 tools/idea_brief.py videos/002-stop-deciding-what-to-work-on-every-morning --check
+```
+
+`--check` writes nothing. Exit 2 means the paste is still blank or does not match the suggested topic/problem/mechanism. Exit 0 means PASTE READY; then expand off-repo.
+
 ```bash
 python3 tools/mark_topic.py --id Q1
 # python3 tools/mark_topic.py --id Q1 --write
@@ -61,7 +69,7 @@ Scaffolded `idea.md` still uses blank template fields. Paste the reprint from `n
 - problem: they reopen the whole work list every morning instead of starting
 - mechanism: Install a written next-action default so the morning does not reopen the whole list.
 
-Do not treat that edit as spoken WORDS. Do not invent statistics. Do not leave the template-default / blank mechanism. `expand_prompt.py` exits 2 until that paste exists. It does not write idea.md. `next_action.py` / `hint.py` / `doctor.py` stay on `fill-idea` until that paste exists; they will not lead with expand_prompt.
+Do not treat that edit as spoken WORDS. Do not invent statistics. Do not leave the template-default / blank mechanism. `expand_prompt.py` exits 2 until that paste exists. It does not write idea.md. `next_action.py` / `hint.py` / `doctor.py` stay on `fill-idea` until that paste exists; they will not lead with expand_prompt. `idea_brief.py --check` is the read-only confirm for that paste.
 
 3. Expand off-repo, then paste back only onto the new packet
 
@@ -74,7 +82,7 @@ python3 tools/apply_script.py videos/002-stop-deciding-what-to-work-on-every-mor
 python3 tools/validate_packet.py videos/002-stop-deciding-what-to-work-on-every-morning
 ```
 
-If expand_prompt prints `refusing expand: idea.md mechanism is blank or template-default`, or doctor prints `Code: fill-idea`, go back to step 2. Do not run `apply_script.py --write` on `videos/sample-001-*`. Do not auto-write WORDS. Do not pad the fixture.
+If expand_prompt prints `refusing expand: idea.md mechanism is blank or template-default`, or doctor prints `Code: fill-idea`, or `idea_brief.py --check` exits 2, go back to step 2. Do not run `apply_script.py --write` on `videos/sample-001-*`. Do not auto-write WORDS. Do not pad the fixture.
 
 4. Promote only when spoken WORDS sit in the 900-1500 band
 
@@ -95,6 +103,7 @@ If unsure of the next command after any step, re-run `python3 tools/doctor.py vi
 - Do not treat the topic queue as a finished script.
 - Do not mark a queue row used without a matching `videos/` folder.
 - Do not expect `new_packet.py`, `idea_brief.py`, or `queue_status.py` to write the queue or idea.md.
+- Do not treat `idea_brief.py --check` PASS as a written idea.md; it only compares.
 - Do not treat `expand_prompt.py` stdout as a rewritten script.
 - Do not promote while duration WARN is present.
 - Do not expand while idea.md still says `template-default` / generic or blank mechanism.
