@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-10 | needed.py --bootstrap is a short ordered first-fetch list, not a contract | Clone-less agents still guessed which files to pull before the printer could run; a sixth lock would not reduce that labor | If session-start files change; keep BOOTSTRAP short
 - 2026-09-10 | needed.py --missing exits 0 even when files are absent | A reconstruct checker that fails the process looks like a broken session start; NOT READY is the signal | If a CI job is added that should fail on incomplete reconstruct
 - 2026-09-10 | needed.py FALLBACK_ALIAS resolves edited-tool names when which_contract is missing | Clone-less agents fetch needed.py first; requiring the router file to resolve new_packet.py recreates the guess problem | If which_contract.MAP tool lists change
 - 2026-09-09 | which_contract.py is the map of tool edit → contract command; it must not write videos/ or the queue | Four locks already existed; NEXT and agent_session were duplicating the map and would drift | If a fifth lock class is added, extend the map in which_contract.py instead of another paragraph in NEXT

@@ -15,14 +15,15 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 40. Router contract (`router_contract.py`) — **done (Run 036)**
 41. Reconstruct file list (`needed.py`) — **done (Run 037)**
 42. Reconstruct presence check (`needed.py --missing` + fallback aliases) — **done (Run 038)**
+43. First-fetch bootstrap (`needed.py --bootstrap`) — **done (Run 039)**
 
 Earlier items 1-30 remain done as recorded in prior commits.
 
 ## Later (automation)
-43. TTS narration path (optional; keep human VO compatible)
-44. Caption timing from a real selected take (not 150 wpm estimates)
-45. ffmpeg assembly for this one locked format after one packet has VO + cards
-46. YouTube upload + metadata only after packet QA passes
+44. TTS narration path (optional; keep human VO compatible)
+45. Caption timing from a real selected take (not 150 wpm estimates)
+46. ffmpeg assembly for this one locked format after one packet has VO + cards
+47. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Auto-scaffolding the next queued topic without a human instruction
@@ -30,6 +31,8 @@ Earlier items 1-30 remain done as recorded in prior commits.
 - Auto-marking the queue from new_packet.py
 - Turning default queue_status into a failing command (keep `--strict` opt-in)
 - Mapping needed.py / doctor.py / expand_prompt.py onto a contract
-- Making needed.py --missing exit non-zero
+- Making needed.py --missing or --bootstrap exit non-zero
+- Treating --bootstrap as a sixth contract
+- Growing BOOTSTRAP into a full-repo dump
 - ffmpeg / TTS / YouTube OAuth / Whisper / stock / shorts
 - Treating which_contract --run SKIP as a contract PASS
