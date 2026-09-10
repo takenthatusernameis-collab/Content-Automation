@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-10 | default idea_brief reprint prints the exact --check (and --block) command for that packet | After --check existed, leftover labor was replacing the PATH placeholder on the default reprint; another flag would hide that | If leftover labor remains after PASTE READY + printed expand_prompt; do not add --seed-idea
 - 2026-09-10 | idea_brief.py --check compares current idea.md to the suggested paste and still does not write idea.md | After --block existed, leftover labor was guessing whether the hand paste matched; --seed-idea would hide a blank-template expand | If a human wants --seed-idea; do not treat PASS as Q1 scaffolded
 - 2026-09-10 | idea_brief.py --block prints a paste-ready idea.md body and still does not write idea.md | After reprint recover existed, leftover labor was reshaping three labeled lines into the idea.md template; --seed-idea would hide a blank-template expand | If a human wants --seed-idea; do not treat PASS as Q1 scaffolded
 - 2026-09-10 | idea_brief_contract.py locks idea_brief as a read-only reprint recover; stays unmapped in which_contract | Run 052 shipped the recover tool with no lock; a later run could add --write and hide a blank-template expand | If a human wants --seed-idea; do not treat PASS as Q1 scaffolded
