@@ -8,6 +8,19 @@ Humans follow `docs/human_session.md`. This page is not a second start command f
 
 HTTPS clone of this private repo fails in the agent sandbox. Do not retry after the first failure in a run. Push via GitHub file APIs.
 
+## First fetch
+
+Do not rebuild the first-fetch set from memory. Print it:
+
+```bash
+python3 tools/needed.py --bootstrap
+python3 tools/needed.py --bootstrap --missing
+```
+
+`--bootstrap` is read-only. It prints the six session-start paths. Combined with `--missing` it labels PRESENT or MISSING and prints READY or NOT READY. Exit is always 0. It is not a contract.
+
+Then fetch those paths and continue below.
+
 ## Which files
 
 Do not rebuild the reconstruct list from memory. Print it:
@@ -71,6 +84,12 @@ Same as prior page: reconstruct what `needed.py CONTRACT` prints, confirm `--mis
 
 ## Last verified runtime
 
+First-fetch bootstrap:
+
+- When: 2026-09-10T03:10:00Z (Run 039)
+- How: `/tmp/ca/tools` with needed.py only
+- Result: `--bootstrap` prints six paths; `--bootstrap --missing` NOT READY exit 0; new_packet still aliases; doctor still Unknown
+
 Reconstruct presence:
 
 - When: 2026-09-10T02:05:00Z (Run 038)
@@ -90,4 +109,5 @@ Prior contract PASS times remain those recorded in Run 026–036. If a later run
 - Do not write reconstructed files back onto sample-001.
 - Do not invent WORDS, wav, cards, or ffmpeg recipes.
 - Do not wrap doctor in start.py.
-- Do not make needed.py --missing exit 1.
+- Do not make needed.py --missing or --bootstrap exit 1.
+- Do not treat --bootstrap as a contract.

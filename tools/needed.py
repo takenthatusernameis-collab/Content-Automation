@@ -10,6 +10,9 @@ cannot silently disagree on the sample packet or queue file.
 
 --missing only reports presence on disk. Missing files never exit 1;
 this printer must not look like a failed session-start command.
+
+--bootstrap prints the first-fetch set so a clone-less agent does not
+guess which files to pull before this printer can resolve names.
 """
 
 from __future__ import annotations
@@ -70,6 +73,16 @@ FALLBACK_TOOLS: dict[str, tuple[str, ...]] = {
     ),
     "router_contract.py": ("router_contract.py", "which_contract.py"),
 }
+
+# Ordered first-fetch set. Keep short. This is not a contract.
+BOOTSTRAP: tuple[str, ...] = (
+    "tools/needed.py",
+    "docs/agent_session.md",
+    "STATE.md",
+    "NEXT.md",
+    "RUNS.md",
+    "tools/which_contract.py",
+)
 
 
 def load_map() -> dict[str, tuple[str, ...]]:
@@ -153,6 +166,32 @@ def print_one(contract: str, contracts: dict[str, tuple[str, ...]], missing: boo
     print()
 
 
+def print_bootstrap(missing: bool) -> None:
+    print("# bootstrap")
+    print("# first-fetch set for clone-less agents")
+    print("python3 tools/needed.py --bootstrap")
+    absent = 0
+    present = 0
+    for p in BOOTSTRAP:
+        if missing:
+            on_disk = (ROOT / p).is_file()
+            flag = "PRESENT" if on_disk else "MISSING"
+            if on_disk:
+                present += 1
+            else:
+                absent += 1
+            print(f"{flag}\t{p}")
+        else:
+            print(p)
+    if missing:
+        print(f"# {present} present, {absent} missing")
+        if absent == 0:
+            print("READY")
+        else:
+            print("NOT READY")
+    print()
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Read-only: files to reconstruct before a contract. No writes."
@@ -172,7 +211,17 @@ def main() -> int:
         action="store_true",
         help="Mark each listed path PRESENT or MISSING on this disk. Exit stays 0.",
     )
+    parser.add_argument(
+        "--bootstrap",
+        action="store_true",
+        help="Print the first-fetch set. Not a contract. Exit stays 0.",
+    )
     args = parser.parse_args()
+
+    if args.bootstrap:
+        print_bootstrap(args.missing)
+        print("This command writes nothing.")
+        return 0
 
     contracts = load_map()
     if args.name:
