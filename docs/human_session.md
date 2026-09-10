@@ -52,7 +52,7 @@ After you paste that body into idea.md by hand, confirm without writing:
 python3 tools/idea_brief.py videos/002-stop-deciding-what-to-work-on-every-morning --check
 ```
 
-`--check` writes nothing. Exit 2 means the paste is still blank or does not match the suggested topic/problem/mechanism. Exit 0 means PASTE READY; then expand off-repo.
+`--check` writes nothing. Exit 2 means the paste is still blank or does not match the suggested topic/problem/mechanism. Exit 0 means PASTE READY; stdout then prints the exact `python3 tools/expand_prompt.py PATH` line for that packet. Expand off-repo. Do not treat expand_prompt stdout as script.md.
 
 ```bash
 python3 tools/mark_topic.py --id Q1
