@@ -10,6 +10,7 @@ Locks:
 - running idea_brief on a blank 002 packet reprints Q1 topic + Q1_PROBLEM + one_line
 - idea_brief --block prints a paste-ready idea.md body with those fields
 - idea_brief --check on blank idea.md exits 2 and does not write
+- PASTE INCOMPLETE stdout includes python3 tools/idea_brief.py PATH --block
 - idea_brief --check after a tempfile paste of that body exits 0 and does not write
 - PASTE READY stdout includes python3 tools/expand_prompt.py and the packet folder
 - idea.md bytes are unchanged after default, --block, and --check runs
@@ -58,6 +59,7 @@ def source_locks(failures: list[str]) -> None:
     fail(failures, "--block" in brief_src and "paste_block" in brief_src, "idea_brief missing --block paste body")
     fail(failures, "--check" in brief_src and "check_fields" in brief_src, "idea_brief missing --check compare")
     fail(failures, "expand_command" in brief_src, "idea_brief missing expand_command helper")
+    fail(failures, "block_command" in brief_src, "idea_brief missing block_command helper")
     fail(failures, "idea_brief.py" in human, "human_session missing idea_brief.py")
     fail(failures, "idea_brief.py" in human and "--block" in human, "human_session missing idea_brief.py --block")
     fail(failures, "idea_brief.py" in human and "--check" in human, "human_session missing idea_brief.py --check")
@@ -145,6 +147,8 @@ def main() -> int:
         fail(failures, "PASTE INCOMPLETE" in cout, "--check blank missing PASTE INCOMPLETE")
         fail(failures, "writes nothing" in cout.lower(), "--check blank missing no-write note")
         fail(failures, "MISMATCH" in cout, "--check blank missing MISMATCH")
+        fail(failures, "python3 tools/idea_brief.py" in cout and "--block" in cout, "--check PASTE INCOMPLETE missing --block command")
+        fail(failures, FOLDER in cout, "--check PASTE INCOMPLETE missing packet folder in --block command")
 
         from idea_brief import paste_block
 
@@ -168,7 +172,7 @@ def main() -> int:
         fail(failures, "Do not treat expand_prompt stdout as script.md." in oout, "--check PASTE READY missing expand stdout warning")
 
     print("Idea brief contract")
-    print("reprint recover stays read-only; --block prints a paste body; --check compares without writing; PASTE READY prints expand_prompt")
+    print("reprint recover stays read-only; --block prints a paste body; --check compares without writing; INCOMPLETE prints --block; PASTE READY prints expand_prompt")
     if failures:
         print("IDEA BRIEF CONTRACT FAIL")
         for f in failures:
