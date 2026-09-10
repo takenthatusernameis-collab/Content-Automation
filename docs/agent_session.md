@@ -71,6 +71,7 @@ python3 tools/operator_pin_contract.py
 
 - After fill-idea / expand refuse edits: idea_gate_contract
 - After human_session or Q1 queue pin edits (title, slug, one_line, problem sentence): operator_pin_contract
+- After new_packet idea reprint edits: scaffold_contract (mapped; not this list)
 
 PASS does not mean Q1 is scaffolded. Do not write idea.md because they passed.
 
@@ -105,25 +106,19 @@ After WAVE 2 READY, print WAVE 3 reconstruct, fetch until READY, then run the op
 
 ## Last verified runtime
 
+Scaffold problem reprint:
+
+- When: 2026-09-10T15:05:00Z (Run 051)
+- How: `/tmp/ca` with new_packet.py + scaffold_contract.py + queue_lib.py + operator_pin Q1_PROBLEM + docs/topic_queue.md
+- Result: SCAFFOLD CONTRACT PASS, exit 0; idea_followup printed topic + problem + mechanism; Q1 remains queued; no videos/ writes
+
 Operator pin problem-line lock:
 
 - When: 2026-09-10T14:20:00Z (Run 050)
 - How: `/tmp/ca` with operator_pin_contract.py + queue_lib.py + docs/topic_queue.md + docs/human_session.md
 - Result: OPERATOR PIN CONTRACT PASS, exit 0; Q1 remains queued; no videos/ writes
 
-Operator reconstruct command:
-
-- When: 2026-09-10T06:12:00Z (Run 042)
-- How: `/tmp/ca/tools` with needed.py only
-- Result: `--plan` prints WAVE 1 six paths + WAVE 2 `needed.py selftest.py --missing` + WAVE 3 `needed.py queue_status.py --missing` then `queue_status.py`; `--plan --missing` NOT READY exit 0; `needed.py queue_status.py` aliases to queue_contract; bootstrap/alias/doctor unchanged
-
-Fetch-wave plan + operator command:
-
-- When: 2026-09-10T05:12:00Z (Run 041)
-- How: `/tmp/ca/tools` with needed.py only
-- Result: `--plan` prints WAVE 1 six paths + WAVE 2 `needed.py selftest.py --missing` + WAVE 3 `queue_status.py`; `--plan --missing` NOT READY exit 0; bootstrap/alias/doctor unchanged
-
-Prior bootstrap / presence / reconstruct times remain those recorded in Run 037–040. Prior contract PASS times remain those recorded in Run 026–036. If a later run cannot reconstruct, record FAIL with the missing file.
+Prior bootstrap / presence / reconstruct times remain those recorded in Run 037–042. Prior contract PASS times remain those recorded in Run 026–050. If a later run cannot reconstruct, record FAIL with the missing file.
 
 ## Stop
 

@@ -35,7 +35,7 @@ python3 tools/doctor.py videos/002-stop-deciding-what-to-work-on-every-morning
 python3 tools/queue_status.py
 ```
 
-Use the exact Q1 working title from `docs/topic_queue.md` unless a human replaced that row. `new_packet` reprints the matching `mark_topic --id Q1` dry-run after the folder is created. It also reprints suggested `idea.md` topic + mechanism from the queue `one_line`. It does not mark the row used and does not write idea.md. After scaffold, queue_status should show `mark-needed` for that id and the PACKET column from packet.md. Doctor Code should be `fill-idea` until idea.md is pasted.
+Use the exact Q1 working title from `docs/topic_queue.md` unless a human replaced that row. `new_packet` reprints the matching `mark_topic --id Q1` dry-run after the folder is created. It also reprints suggested `idea.md` topic + problem + mechanism (problem from the operator pin, mechanism from the queue `one_line`). It does not mark the row used and does not write idea.md. After scaffold, queue_status should show `mark-needed` for that id and the PACKET column from packet.md. Doctor Code should be `fill-idea` until idea.md is pasted.
 
 ```bash
 python3 tools/mark_topic.py --id Q1
