@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-10T15:05:00Z (Run 051)
+Updated: 2026-09-10T16:15:00Z (Run 052)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + scaffold handoff + contract router + router lock + reconstruct list + reconstruct presence check + first-fetch bootstrap + fetch-wave plan + post-reconstruct operator command + operator reconstruct command + operator page with first-video expand/apply/status + Q1 title/path pin + idea.md pre-expand edit + scaffold idea reprint (topic + problem + mechanism) + expand_prompt blank-mechanism refuse + next_action fill-idea before expand + idea-gate contract + operator-pin contract + Q1 problem-line pin** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + scaffold handoff + contract router + router lock + reconstruct list + reconstruct presence check + first-fetch bootstrap + fetch-wave plan + post-reconstruct operator command + operator reconstruct command + operator page with first-video expand/apply/status + Q1 title/path pin + idea.md pre-expand edit + scaffold idea reprint (topic + problem + mechanism) + expand_prompt blank-mechanism refuse + next_action fill-idea before expand + idea-gate contract + operator-pin contract + Q1 problem-line pin + idea_brief reprint recover** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -16,6 +16,7 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - HTTPS clone from this agent sandbox still fails (private repo). Push via GitHub file API.
 - Reconstruct + selftest path: `docs/agent_session.md`
 - Operator path: `docs/human_session.md` pins Q1 title `Stop deciding what to work on every morning`, predicted folder `videos/002-stop-deciding-what-to-work-on-every-morning`, idea.md problem/mechanism edit before expand_prompt, and notes that `new_packet` reprints topic + problem + mechanism
+- After scaffold stdout is gone: `python3 tools/idea_brief.py PATH` reprints current vs suggested idea fields. It does not write idea.md.
 - Operator pin lock: `python3 tools/operator_pin_contract.py` (unmapped; not a reconstruct wave). Also locks the Q1 problem line that is not a queue column.
 - First fetch: `python3 tools/needed.py --bootstrap`
 - Fetch waves: `python3 tools/needed.py --plan`
@@ -26,26 +27,26 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - idea-gate lock: `python3 tools/idea_gate_contract.py` (tempfile; unmapped in which_contract; not a sixth reconstruct wave)
 - new_packet idea_followup reprints Q1 problem from `operator_pin_contract.Q1_PROBLEM` and still does not write idea.md
 
-## What exists now (after Run 051)
-- Same inventory as Run 050 plus problem reprint on new_packet / scaffold_contract
-- `operator_pin_contract.py` unchanged this run
+## What exists now (after Run 052)
+- Same inventory as Run 051 plus `tools/idea_brief.py`
+- `operator_pin_contract.py` / `needed.py` / frozen doctor/hint not edited
+- human_session documents idea_brief as the recover reprint
 - No new packet folder; queue still queued
-- No needed.py edit this run
 - which_contract / router_contract not edited (idea_gate and operator_pin stay unmapped)
 
 ## Pipeline map
-Unchanged from Run 037. After scaffold, the human can paste topic + problem + mechanism from one new_packet reprint instead of joining the operator page and the queue.
+Unchanged from Run 037. After scaffold, the human can paste topic + problem + mechanism from new_packet stdout or recover the same pack with idea_brief.
 
 ## Metrics snapshot
 | Metric                      | Previous | Current    | Notes |
 |-----------------------------|----------|------------|-------|
-| Estimated human min / video | 124      | 123        | problem no longer copied from a second page after scaffold |
-| Automated steps             | 42       | 42         | same contracts; reprint field added |
+| Estimated human min / video | 123      | 122        | lost scaffold stdout no longer forces a hunt through human_session + queue |
+| Automated steps             | 42       | 43         | idea_brief reprint recover |
 | Videos produced             | 0        | 0          | fixture only |
 | Reconstruct list runtime    | PASS 042 | unchanged  | needed.py not edited |
-| Scaffold contract           | PASS 046 | PASS 051   | problem reprint locked; local reconstruct PASS |
+| Scaffold contract           | PASS 051 | unchanged  | new_packet not edited |
 | Idea gate contract          | PASS 048 | unchanged  | not re-run |
-| Operator pin contract       | PASS 050 | unchanged  | not re-run |
+| Operator pin contract       | PASS 050 | strings kept | human_session still contains every locked pin string |
 
 ## Active constraints
 - Do not auto-scaffold Q1
@@ -59,6 +60,7 @@ Unchanged from Run 037. After scaffold, the human can paste topic + problem + me
 - Do not retry HTTPS clone after one failure
 - No secrets, ffmpeg recipe, TTS, or YouTube API
 - new_packet must not write idea.md or mark the queue
+- idea_brief must not write idea.md
 - expand_prompt must not write idea.md or script.md
 - next_action/hint must not print expand_prompt as the first live command while idea.md mechanism is blank
 - Do not treat idea_gate_contract or operator_pin_contract as permission to auto-write idea.md or scaffold Q1

@@ -10,6 +10,7 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 51c. operator_pin_contract locks human_session Q1 title/path/one_line vs topic_queue — **done (Run 049)**
 51d. operator_pin also locks the Q1 problem paste line; agent_session lists unmapped locks — **done (Run 050)**
 51e. new_packet reprints the locked Q1 problem with topic + mechanism — **done (Run 051)**
+51f. idea_brief recovers the three-field paste after scaffold stdout is gone — **done (Run 052)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -22,7 +23,7 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 - Auto-scaffolding the next queued topic without a human instruction
 - Marking a queue row used without a matching videos/ folder
 - Auto-marking the queue from new_packet.py
-- Auto-writing idea.md from new_packet.py
+- Auto-writing idea.md from new_packet.py or idea_brief.py
 - Turning default queue_status into a failing command (keep `--strict` opt-in)
 - Mapping needed.py / doctor.py / expand_prompt.py / idea_gate_contract.py / operator_pin_contract.py onto a contract
 - Making needed.py --missing, --bootstrap, or --plan exit non-zero
