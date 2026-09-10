@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-10T14:20:00Z (Run 050)
+Updated: 2026-09-10T15:05:00Z (Run 051)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + scaffold handoff + contract router + router lock + reconstruct list + reconstruct presence check + first-fetch bootstrap + fetch-wave plan + post-reconstruct operator command + operator reconstruct command + operator page with first-video expand/apply/status + Q1 title/path pin + idea.md pre-expand edit + scaffold idea reprint + expand_prompt blank-mechanism refuse + next_action fill-idea before expand + idea-gate contract + operator-pin contract + Q1 problem-line pin** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + scaffold handoff + contract router + router lock + reconstruct list + reconstruct presence check + first-fetch bootstrap + fetch-wave plan + post-reconstruct operator command + operator reconstruct command + operator page with first-video expand/apply/status + Q1 title/path pin + idea.md pre-expand edit + scaffold idea reprint (topic + problem + mechanism) + expand_prompt blank-mechanism refuse + next_action fill-idea before expand + idea-gate contract + operator-pin contract + Q1 problem-line pin** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -15,7 +15,7 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - No YouTube / TTS / stock / render integrations configured
 - HTTPS clone from this agent sandbox still fails (private repo). Push via GitHub file API.
 - Reconstruct + selftest path: `docs/agent_session.md`
-- Operator path: `docs/human_session.md` pins Q1 title `Stop deciding what to work on every morning`, predicted folder `videos/002-stop-deciding-what-to-work-on-every-morning`, idea.md problem/mechanism edit before expand_prompt, and notes that `new_packet` reprints topic + mechanism
+- Operator path: `docs/human_session.md` pins Q1 title `Stop deciding what to work on every morning`, predicted folder `videos/002-stop-deciding-what-to-work-on-every-morning`, idea.md problem/mechanism edit before expand_prompt, and notes that `new_packet` reprints topic + problem + mechanism
 - Operator pin lock: `python3 tools/operator_pin_contract.py` (unmapped; not a reconstruct wave). Also locks the Q1 problem line that is not a queue column.
 - First fetch: `python3 tools/needed.py --bootstrap`
 - Fetch waves: `python3 tools/needed.py --plan`
@@ -24,28 +24,28 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - expand_prompt exits 2 when idea.md mechanism is blank / template-default / generic / tbd / todo. It does not write idea.md.
 - next_action code `fill-idea` when that mechanism is blank. hint maps it to a paste comment + doctor, not expand_prompt.
 - idea-gate lock: `python3 tools/idea_gate_contract.py` (tempfile; unmapped in which_contract; not a sixth reconstruct wave)
+- new_packet idea_followup reprints Q1 problem from `operator_pin_contract.Q1_PROBLEM` and still does not write idea.md
 
-## What exists now (after Run 050)
-- Same inventory as Run 049
-- `operator_pin_contract.py` now also requires the Q1 problem sentence on `docs/human_session.md`
-- `docs/agent_session.md` lists the two unmapped locks (`idea_gate_contract.py`, `operator_pin_contract.py`) so clone-less agents do not scan NEXT for them
-- No new packet folder this run; queue still queued
+## What exists now (after Run 051)
+- Same inventory as Run 050 plus problem reprint on new_packet / scaffold_contract
+- `operator_pin_contract.py` unchanged this run
+- No new packet folder; queue still queued
 - No needed.py edit this run
 - which_contract / router_contract not edited (idea_gate and operator_pin stay unmapped)
 
 ## Pipeline map
-Unchanged from Run 037. Operator pin now fails if the idea.md problem paste line disappears from human_session while Q1 is queued.
+Unchanged from Run 037. After scaffold, the human can paste topic + problem + mechanism from one new_packet reprint instead of joining the operator page and the queue.
 
 ## Metrics snapshot
 | Metric                      | Previous | Current    | Notes |
 |-----------------------------|----------|------------|-------|
-| Estimated human min / video | 125      | 124        | problem line no longer a free-floating paste string |
-| Automated steps             | 42       | 42         | same contract, one more locked string; no new reconstruct flag |
+| Estimated human min / video | 124      | 123        | problem no longer copied from a second page after scaffold |
+| Automated steps             | 42       | 42         | same contracts; reprint field added |
 | Videos produced             | 0        | 0          | fixture only |
 | Reconstruct list runtime    | PASS 042 | unchanged  | needed.py not edited |
-| Scaffold contract           | PASS 046 | unchanged  | not re-run |
+| Scaffold contract           | PASS 046 | PASS 051   | problem reprint locked; local reconstruct PASS |
 | Idea gate contract          | PASS 048 | unchanged  | not re-run |
-| Operator pin contract       | PASS 049 | PASS 050   | problem line added; local reconstruct PASS |
+| Operator pin contract       | PASS 050 | unchanged  | not re-run |
 
 ## Active constraints
 - Do not auto-scaffold Q1
@@ -62,4 +62,4 @@ Unchanged from Run 037. Operator pin now fails if the idea.md problem paste line
 - expand_prompt must not write idea.md or script.md
 - next_action/hint must not print expand_prompt as the first live command while idea.md mechanism is blank
 - Do not treat idea_gate_contract or operator_pin_contract as permission to auto-write idea.md or scaffold Q1
-- Do not add a problem column to topic_queue unless a human asks; lock the operator-page sentence instead
+- Do not add a problem column to topic_queue unless a human asks; lock the operator-page sentence instead; reprint it from Q1_PROBLEM

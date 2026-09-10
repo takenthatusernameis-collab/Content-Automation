@@ -2,16 +2,22 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-10T15:05:00Z — Run 051
+
+- **Objective:** Close the leftover paste gap: after scaffold, new_packet reprinted topic + mechanism but not the locked Q1 problem sentence, so the human still had to join two pages.
+- **Inspected:** STATE/NEXT/RUNS after Run 050. Q1 still queued. operator_pin already locked Q1_PROBLEM. needed.py left untouched. Frozen doctor/hint/needed not edited.
+- **Action taken:** `tools/new_packet.py` idea_followup now reprints `- problem: {Q1_PROBLEM}` for Q1 (import from operator_pin_contract, with a matching fallback string). Other ids print an explicit no-locked-problem placeholder. `tools/scaffold_contract.py` now requires that Q1 problem line in idea_followup. Did not write idea.md. Did not scaffold Q1. Did not add a queue column. Did not edit needed.py. Did not map unmapped locks.
+- **Result:** SCAFFOLD CONTRACT PASS on reconstructed tools + docs/topic_queue tree (`python3 tools/scaffold_contract.py`, exit 0). idea_followup printed topic + problem + mechanism and the no-write banner. Queue rows remain queued. No new packet folder.
+- **Verification status:** completed for the reprint lock (local PASS, exit 0). Full selftest / doctor against sample-001 not re-run (clone-less). No media.
+- **Important discovery:** The operator pin and the scaffold reprint were two sources of truth for the same three idea fields. Sharing Q1_PROBLEM keeps them aligned without widening the queue schema.
+- **Blocker:** Still waiting on a human-owned non-fixture draft in band. ffmpeg recipe parked until VO + cards exist. HTTPS clone remains unavailable; do not retry it as the first action.
+- **Recommended next action:** Human runs `python3 tools/queue_status.py` then follows `docs/human_session.md`. After scaffold, paste the three reprinted idea fields. After editing human_session or the Q1 queue row, run `operator_pin_contract.py`. After editing new_packet idea reprint, run `scaffold_contract.py`. Agents: --bootstrap then --plan; do not add WAVE 4; do not auto-write idea.md; do not auto-scaffold Q1.
+
 ## 2026-09-10T14:20:00Z — Run 050
 
 - **Objective:** Lock the Q1 idea.md problem sentence on the operator page, and list the two unmapped locks on the agent page so clone-less runs do not scan NEXT for them.
-- **Inspected:** STATE/NEXT/RUNS after Run 049. Q1 still queued. operator_pin already locked title/slug/one_line/fill-idea/new_packet. Problem line lived only as prose. needed.py left untouched.
-- **Action taken:** Extended `tools/operator_pin_contract.py` with `Q1_PROBLEM` and a `problem:` field check. Did not add a queue column. Did not scaffold Q1. Did not edit needed.py. Did not map the file. Added an unmapped-locks section to `docs/agent_session.md`.
-- **Result:** OPERATOR PIN CONTRACT PASS on reconstructed docs + queue_lib tree (`python3 tools/operator_pin_contract.py`, exit 0). Queue rows remain queued. No new packet folder.
-- **Verification status:** completed for the pin extension (local PASS, exit 0). Full selftest / doctor against sample-001 not re-run (clone-less). No media.
-- **Important discovery:** Title/mechanism were queue-backed. The problem sentence was the remaining free-floating paste field. Locking it on the operator page is cheaper than widening the queue schema.
-- **Blocker:** Still waiting on a human-owned non-fixture draft in band. ffmpeg recipe parked until VO + cards exist. HTTPS clone remains unavailable; do not retry it as the first action.
-- **Recommended next action:** Human runs `python3 tools/queue_status.py` then follows `docs/human_session.md`. After editing human_session or the Q1 queue row, run `operator_pin_contract.py`. Agents: --bootstrap then --plan; do not add WAVE 4; do not auto-write idea.md; do not auto-scaffold Q1.
+- **Result:** OPERATOR PIN CONTRACT PASS. Queue rows remain queued. No new packet folder.
+- **Recommended next action:** Human runs queue_status then human_session.
 
 ## 2026-09-10T13:20:00Z — Run 049
 
@@ -19,11 +25,5 @@ Permanent log. Newest first. If the same action repeats across runs with no prog
 - **Result:** OPERATOR PIN CONTRACT PASS. Queue rows remain queued. No new packet folder.
 - **Recommended next action:** Human runs queue_status then human_session.
 
-## 2026-09-10T12:20:00Z — Run 048
-
-- **Objective:** Lock the Run 047 fill-idea + expand refuse so a later edit cannot restore expand_prompt as the first live command on a blank idea.md.
-- **Result:** IDEA GATE CONTRACT PASS.
-- **Recommended next action:** Human runs queue_status then human_session.
-
-## Earlier runs 001–47
+## Earlier runs 001–48
 See prior commits for full detail.

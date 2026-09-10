@@ -9,6 +9,7 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 51b. idea_gate_contract locks fill-idea + blank-mechanism cases — **done (Run 048)**
 51c. operator_pin_contract locks human_session Q1 title/path/one_line vs topic_queue — **done (Run 049)**
 51d. operator_pin also locks the Q1 problem paste line; agent_session lists unmapped locks — **done (Run 050)**
+51e. new_packet reprints the locked Q1 problem with topic + mechanism — **done (Run 051)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
