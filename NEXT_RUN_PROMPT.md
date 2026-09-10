@@ -52,6 +52,7 @@ A Status `short` budget is not a draft.
 `expand_prompt.py` prints a paste pack. It must not write `script.md`.
 Refuse `--out` when the destination is `script.md`.
 On `sample-001-*` print the fixture lock banner. Do not paste the output back onto the fixture.
+Do not expand while idea.md still uses the scaffold template-default mechanism.
 
 ## Apply-script rule
 `apply_script.py` dry-runs by default. `--write` is required.
@@ -81,7 +82,7 @@ Reuse `hint.commands_for` so CLI text cannot drift.
 Never print `--write` as the first command.
 
 ## Human-session rule
-`docs/human_session.md` is the operator path. Keep it short. Do not turn it into a second prompt or a wrapper tool. Keep the first-video expand/apply/status commands on that page; do not defer them to prior commits.
+`docs/human_session.md` is the operator path. Keep it short. Do not turn it into a second prompt or a wrapper tool. Keep the first-video expand/apply/status commands on that page; do not defer them to prior commits. Keep the current Q1 working title and predicted folder on that page while Q1 is still queued. Require the idea.md mechanism edit before expand_prompt.
 
 ## Agent-session rule
 `docs/agent_session.md` is the clone-less reconstruct path. Update Last verified runtime only after a real selftest run. Do not invent PASS.
