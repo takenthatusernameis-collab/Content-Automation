@@ -13,19 +13,21 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 38. Scaffold contract (new_packet mark-handoff + titles_filled + next_id) — **done (Run 034)**
 39. Contract router (`which_contract.py`) — **done (Run 035)**
 40. Router contract (`router_contract.py`) — **done (Run 036)**
+41. Reconstruct file list (`needed.py`) — **done (Run 037)**
 
 Earlier items 1-30 remain done as recorded in prior commits.
 
 ## Later (automation)
-41. TTS narration path (optional; keep human VO compatible)
-42. Caption timing from a real selected take (not 150 wpm estimates)
-43. ffmpeg assembly for this one locked format after one packet has VO + cards
-44. YouTube upload + metadata only after packet QA passes
+42. TTS narration path (optional; keep human VO compatible)
+43. Caption timing from a real selected take (not 150 wpm estimates)
+44. ffmpeg assembly for this one locked format after one packet has VO + cards
+45. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Auto-scaffolding the next queued topic without a human instruction
 - Marking a queue row used without a matching videos/ folder
 - Auto-marking the queue from new_packet.py
 - Turning default queue_status into a failing command (keep `--strict` opt-in)
+- Mapping needed.py / doctor.py / expand_prompt.py onto a contract
 - ffmpeg / TTS / YouTube OAuth / Whisper / stock / shorts
 - Treating which_contract --run SKIP as a contract PASS
