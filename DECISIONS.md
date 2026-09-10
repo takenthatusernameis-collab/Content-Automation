@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-10 | idea_brief.py --check compares current idea.md to the suggested paste and still does not write idea.md | After --block existed, leftover labor was guessing whether the hand paste matched; --seed-idea would hide a blank-template expand | If a human wants --seed-idea; do not treat PASS as Q1 scaffolded
 - 2026-09-10 | idea_brief.py --block prints a paste-ready idea.md body and still does not write idea.md | After reprint recover existed, leftover labor was reshaping three labeled lines into the idea.md template; --seed-idea would hide a blank-template expand | If a human wants --seed-idea; do not treat PASS as Q1 scaffolded
 - 2026-09-10 | idea_brief_contract.py locks idea_brief as a read-only reprint recover; stays unmapped in which_contract | Run 052 shipped the recover tool with no lock; a later run could add --write and hide a blank-template expand | If a human wants --seed-idea; do not treat PASS as Q1 scaffolded
 - 2026-09-10 | idea_brief.py reprints current vs suggested idea.md fields for an existing packet; still does not write idea.md | new_packet only prints the paste pack once; leftover labor was recovering those three fields after the terminal scrolled | If a human wants --write / --seed-idea; do not auto-write idea.md because this shipped
