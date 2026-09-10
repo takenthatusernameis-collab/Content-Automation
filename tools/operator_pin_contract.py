@@ -6,6 +6,7 @@ Locks, while Q1 is still queued:
 - docs/human_session.md contains the Q1 working_title from topic_queue.md
 - predicted folder videos/002-<slugify(title)>
 - queue one_line (mechanism reprint)
+- Q1 problem line (the idea.md paste field that is not a queue column)
 - fill-idea before expand
 - new_packet does not write idea.md
 - mark_topic --id Q1 dry-run is shown
@@ -24,6 +25,9 @@ if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
 from queue_lib import parse_queue, slugify  # noqa: E402
+
+# idea.md problem line for Q1. Not a queue column; lives on the operator page.
+Q1_PROBLEM = "they reopen the whole work list every morning instead of starting"
 
 
 def fail(failures: list[str], cond: bool, msg: str) -> None:
@@ -53,7 +57,6 @@ def main() -> int:
     rows = parse_queue(queue_path.read_text(encoding="utf-8"))
     fail(failures, bool(rows), "topic_queue parsed zero rows")
     q1 = next((r for r in rows if r["id"] == "Q1"), None)
-    fail(failures, q1 is not None, "Q1 row missing from topic_queue")
     first = first_queued(rows)
     human = human_path.read_text(encoding="utf-8")
 
@@ -69,6 +72,12 @@ def main() -> int:
             mechanism in human,
             f"human_session missing Q1 one_line {mechanism!r}",
         )
+        fail(
+            failures,
+            Q1_PROBLEM in human,
+            f"human_session missing Q1 problem line {Q1_PROBLEM!r}",
+        )
+        fail(failures, "problem:" in human.lower(), "human_session missing problem paste field")
         fail(failures, "fill-idea" in human, "human_session missing fill-idea")
         fail(
             failures,
@@ -100,7 +109,7 @@ def main() -> int:
         print(f"Q1 status is {q1['status']}; title pin not required")
 
     print("Operator pin contract")
-    print("Q1 title / 002-slug / one_line / fill-idea stay on human_session while queued")
+    print("Q1 title / 002-slug / one_line / problem / fill-idea stay on human_session while queued")
     if failures:
         print("OPERATOR PIN CONTRACT FAIL")
         for f in failures:
