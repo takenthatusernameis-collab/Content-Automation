@@ -5,6 +5,7 @@ Read-only. Does not write idea.md, the queue, or packets.
 Recovers the new_packet idea_followup after scaffold stdout is gone.
 --block prints only the paste-ready idea.md body. Still does not write.
 --check compares current idea.md to the suggested paste. Still does not write.
+On PASTE READY, prints the exact expand_prompt command for that packet.
 """
 
 from __future__ import annotations
@@ -94,7 +95,11 @@ def is_blankish(value: str) -> bool:
     return value.strip().lower() in BLANKISH
 
 
-def check_fields(current: str, title: str) -> tuple[int, list[str]]:
+def expand_command(packet: Path) -> str:
+    return f"python3 tools/expand_prompt.py {packet}"
+
+
+def check_fields(current: str, title: str, packet: Path) -> tuple[int, list[str]]:
     want_t, want_p, want_m = suggested_values(title)
     got_t = field(current, "topic")
     got_p = field(current, "problem")
@@ -119,6 +124,8 @@ def check_fields(current: str, title: str) -> tuple[int, list[str]]:
         lines.append("This command writes nothing.")
         return 2, lines
     lines.append("PASTE READY. Next live command is expand_prompt (off-repo), not this tool.")
+    lines.append(f"  {expand_command(packet)}")
+    lines.append("Do not treat expand_prompt stdout as script.md.")
     lines.append("This command writes nothing.")
     return 0, lines
 
@@ -150,7 +157,7 @@ def main() -> int:
     current = idea_path.read_text(encoding="utf-8") if idea_path.is_file() else ""
 
     if args.check:
-        code, lines = check_fields(current, title)
+        code, lines = check_fields(current, title, path)
         for line in lines:
             print(line)
         return code
