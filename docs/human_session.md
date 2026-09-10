@@ -44,7 +44,31 @@ python3 tools/mark_topic.py --id Q1
 
 `mark_topic` writes nothing until `--write` and a matching non-fixture folder exist.
 
-Then follow expand_prompt -> apply_script (non-fixture) -> set_status dry-run as in prior versions of this page.
+2. Expand off-repo, then paste back only onto the new packet
+
+```bash
+python3 tools/expand_prompt.py videos/002-slug
+# paste that pack into an off-repo writer; do not treat stdout as script.md
+python3 tools/apply_script.py videos/002-slug --from FILE
+# after dry-run OK:
+python3 tools/apply_script.py videos/002-slug --from FILE --write --refresh
+python3 tools/validate_packet.py videos/002-slug
+```
+
+Do not run `apply_script.py --write` on `videos/sample-001-*`. Do not auto-write WORDS. Do not pad the fixture.
+
+3. Promote only when spoken WORDS sit in the 900-1500 band
+
+```bash
+python3 tools/set_status.py videos/002-slug --to ready_for_vo
+# after dry-run OK and no duration WARN:
+python3 tools/set_status.py videos/002-slug --to ready_for_vo --write
+python3 tools/vo_session.py videos/002-slug
+```
+
+Then record the selected take at the named path in `vo_session.md`. Do not invent a wav. Do not write an ffmpeg recipe.
+
+If unsure of the next command after any step, re-run `python3 tools/doctor.py videos/002-slug` and use the printed Command.
 
 ## Stop
 
@@ -52,3 +76,5 @@ Then follow expand_prompt -> apply_script (non-fixture) -> set_status dry-run as
 - Do not treat the topic queue as a finished script.
 - Do not mark a queue row used without a matching `videos/` folder.
 - Do not expect `new_packet.py` or `queue_status.py` to write the queue.
+- Do not treat `expand_prompt.py` stdout as a rewritten script.
+- Do not promote while duration WARN is present.
