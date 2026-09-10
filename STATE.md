@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-10T19:10:00Z (Run 054)
+Updated: 2026-09-10T20:12:00Z (Run 055)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + scaffold handoff + contract router + router lock + reconstruct list + reconstruct presence check + first-fetch bootstrap + fetch-wave plan + post-reconstruct operator command + operator reconstruct command + operator page with first-video expand/apply/status + Q1 title/path pin + idea.md pre-expand edit + scaffold idea reprint (topic + problem + mechanism) + expand_prompt blank-mechanism refuse + next_action fill-idea before expand + idea-gate contract + operator-pin contract + Q1 problem-line pin + idea_brief reprint recover + idea-brief contract + idea_brief --block paste body** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + scaffold handoff + contract router + router lock + reconstruct list + reconstruct presence check + first-fetch bootstrap + fetch-wave plan + post-reconstruct operator command + operator reconstruct command + operator page with first-video expand/apply/status + Q1 title/path pin + idea.md pre-expand edit + scaffold idea reprint (topic + problem + mechanism) + expand_prompt blank-mechanism refuse + next_action fill-idea before expand + idea-gate contract + operator-pin contract + Q1 problem-line pin + idea_brief reprint recover + idea-brief contract + idea_brief --block paste body + idea_brief --check paste confirm** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -16,7 +16,7 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - HTTPS clone from this agent sandbox still fails (private repo). Push via GitHub file API.
 - Reconstruct + selftest path: `docs/agent_session.md`
 - Operator path: `docs/human_session.md` pins Q1 title `Stop deciding what to work on every morning`, predicted folder `videos/002-stop-deciding-what-to-work-on-every-morning`, idea.md problem/mechanism edit before expand_prompt, and notes that `new_packet` reprints topic + problem + mechanism
-- After scaffold stdout is gone: `python3 tools/idea_brief.py PATH` reprints current vs suggested idea fields. `--block` prints only the paste-ready idea.md body. Neither writes idea.md.
+- After scaffold stdout is gone: `python3 tools/idea_brief.py PATH` reprints current vs suggested idea fields. `--block` prints only the paste-ready idea.md body. `--check` compares current idea.md to that body (exit 2 incomplete, exit 0 PASTE READY). None of those flags write idea.md.
 - After editing idea_brief or its operator mention: `python3 tools/idea_brief_contract.py` (unmapped; tempfile; not a reconstruct wave).
 - Operator pin lock: `python3 tools/operator_pin_contract.py` (unmapped; not a reconstruct wave). Also locks the Q1 problem line that is not a queue column.
 - First fetch: `python3 tools/needed.py --bootstrap`
@@ -28,26 +28,26 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - idea-gate lock: `python3 tools/idea_gate_contract.py` (tempfile; unmapped in which_contract; not a sixth reconstruct wave)
 - new_packet idea_followup reprints Q1 problem from `operator_pin_contract.Q1_PROBLEM` and still does not write idea.md
 
-## What exists now (after Run 054)
-- Same inventory as Run 053 plus `idea_brief.py --block`
+## What exists now (after Run 055)
+- Same inventory as Run 054 plus `idea_brief.py --check`
 - Frozen doctor/hint/needed/which_contract/router not edited
 - No new packet folder; queue still queued
 - idea_gate / operator_pin / idea_brief_contract stay unmapped
 
 ## Pipeline map
-Unchanged from Run 037. After scaffold, the human can paste topic + problem + mechanism from new_packet stdout, recover with idea_brief, or copy the `--block` body.
+Unchanged from Run 037. After scaffold, the human can paste topic + problem + mechanism from new_packet stdout, recover with idea_brief, copy the `--block` body, then confirm with `--check`.
 
 ## Metrics snapshot
 | Metric                      | Previous | Current    | Notes |
 |-----------------------------|----------|------------|-------|
-| Estimated human min / video | 121      | 120        | --block removes assembling three fields into idea.md shape |
-| Automated steps             | 44       | 45         | idea_brief --block + contract lock |
+| Estimated human min / video | 120      | 119        | --check removes guessing whether the paste matched |
+| Automated steps             | 45       | 46         | idea_brief --check + contract lock |
 | Videos produced             | 0        | 0          | fixture only |
 | Reconstruct list runtime    | PASS 042 | unchanged  | needed.py not edited |
 | Scaffold contract           | PASS 051 | unchanged  | new_packet not edited |
 | Idea gate contract          | PASS 048 | unchanged  | not re-run |
-| Operator pin contract       | PASS 050 | strings kept | human_session gained --block only |
-| Idea brief contract         | PASS 053 | PASS 054   | /tmp/ca tempfile; idea.md hash unchanged including --block |
+| Operator pin contract       | PASS 050 | strings kept | human_session gained --check only |
+| Idea brief contract         | PASS 054 | PASS 055   | /tmp/ca tempfile; --check blank exit 2 / pasted exit 0 |
 
 ## Active constraints
 - Do not auto-scaffold Q1
@@ -61,7 +61,7 @@ Unchanged from Run 037. After scaffold, the human can paste topic + problem + me
 - Do not retry HTTPS clone after one failure
 - No secrets, ffmpeg recipe, TTS, or YouTube API
 - new_packet must not write idea.md or mark the queue
-- idea_brief must not write idea.md (including --block)
+- idea_brief must not write idea.md (including --block and --check)
 - expand_prompt must not write idea.md or script.md
 - next_action/hint must not print expand_prompt as the first live command while idea.md mechanism is blank
 - Do not treat idea_gate_contract, operator_pin_contract, or idea_brief_contract as permission to auto-write idea.md or scaffold Q1
