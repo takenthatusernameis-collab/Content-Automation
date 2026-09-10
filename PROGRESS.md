@@ -20,11 +20,12 @@
 | 2026-09-10 Run 040   | ~134 estimate     | 38              | needed.py --plan fetch waves |
 | 2026-09-10 Run 041   | ~133 estimate     | 39              | needed.py --plan WAVE 3 operator command |
 | 2026-09-10 Run 042   | ~132 estimate     | 40              | needed.py --plan WAVE 3 reconstruct command |
+| 2026-09-10 Run 043   | ~131 estimate     | 40              | human_session first-video commands restored |
 
 Earlier rows 001-026 remain in prior commits.
 
 Estimate basis (generic 8-min explainer):
-- Run 042: -1 stop agents guessing how to reconstruct queue_status before running it
+- Run 043: -1 stop operators hunting prior commits for expand/apply/status
 
 These numbers are **estimates**, not stopwatch data.
 
@@ -35,3 +36,4 @@ These numbers are **estimates**, not stopwatch data.
 - Run 040: `needed.py --plan` prints WAVE 1 bootstrap paths and the WAVE 2 command (`selftest.py --missing`) without dumping selftest files. Still unmapped. Local PASS on `/tmp/ca/tools`.
 - Run 041: `needed.py --plan` WAVE 3 prints `queue_status.py` as the first operator command after reconstruct. Does not dump queue files. Does not auto-scaffold. Still unmapped. Local PASS on `/tmp/ca/tools`.
 - Run 042: `needed.py --plan` WAVE 3 prints `needed.py queue_status.py --missing` before the operator line. Still no queue file dump. Still unmapped. Local PASS on `/tmp/ca/tools`.
+- Run 043: `docs/human_session.md` again lists expand_prompt, apply_script dry-run/--write --refresh, validate, set_status ready_for_vo, and vo_session for the first non-fixture packet. Reconstruct-loop flagged. No needed.py change.

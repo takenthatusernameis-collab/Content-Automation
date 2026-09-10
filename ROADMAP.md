@@ -19,14 +19,14 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 44. Fetch-wave plan (`needed.py --plan`) — **done (Run 040)**
 45. Post-reconstruct operator command (`needed.py --plan` WAVE 3) — **done (Run 041)**
 46. Operator reconstruct command (`needed.py --plan` WAVE 3 `queue_status.py --missing`) — **done (Run 042)**
-
-Earlier items 1-30 remain done as recorded in prior commits.
+47. Operator page first-video expand/apply/status commands — **done (Run 043)**
 
 ## Later (automation)
-47. TTS narration path (optional; keep human VO compatible)
-48. Caption timing from a real selected take (not 150 wpm estimates)
-49. ffmpeg assembly for this one locked format after one packet has VO + cards
-50. YouTube upload + metadata only after packet QA passes
+48. Human scaffolds Q1 and lands WORDS in band on a non-fixture packet
+49. TTS narration path (optional; keep human VO compatible)
+50. Caption timing from a real selected take (not 150 wpm estimates)
+51. ffmpeg assembly for this one locked format after one packet has VO + cards
+52. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Auto-scaffolding the next queued topic without a human instruction
@@ -38,5 +38,7 @@ Earlier items 1-30 remain done as recorded in prior commits.
 - Treating --bootstrap or --plan as a sixth contract
 - Growing BOOTSTRAP or WAVE 2 / WAVE 3 into a full-repo dump
 - Treating WAVE 3 as permission to auto-scaffold
+- Adding WAVE 4 without a new post-WAVE-3 guess
+- Extending needed.py after the reconstruct-loop flag unless a new guess is observed
 - ffmpeg / TTS / YouTube OAuth / Whisper / stock / shorts
 - Treating which_contract --run SKIP as a contract PASS

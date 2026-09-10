@@ -6,6 +6,13 @@ When recording a failure:
 - Lesson
 - What to avoid
 
+## 2026-09-10 — reconstruct-loop on needed.py (Runs 037–042)
+
+- **Tried:** Six consecutive runs added reconstruct list, --missing, --bootstrap, --plan, WAVE 3 operator, WAVE 3 reconstruct.
+- **Evidence:** STATE/PROGRESS show automated-step count rising while videos produced stay 0 and the queue stays queued. NEXT_RUN_PROMPT already forbids WAVE 4 unless a human still guesses a command after WAVE 3 READY. `docs/human_session.md` had deferred the expand/apply/status path to "prior versions of this page."
+- **Lesson:** After WAVE 3 reconstruct + operator exist, more needed.py flags do not reduce human minutes per video. The remaining labor is scaffolding Q1 and filling WORDS on a non-fixture packet. Flag this loop instead of adding WAVE 4.
+- **Avoid:** Another needed.py flag, WAVE 4, or a sixth contract unless a new clone-less guess is observed after WAVE 3 READY.
+
 ## 2026-09-09 — treating clone failure as selftest unverified
 
 - **Tried:** Runs 023–025 left fixture runtime as unverified because `git clone` of the private repo fails in the agent sandbox.
