@@ -22,10 +22,12 @@
 | 2026-09-10 Run 055   | ~119 estimate     | 46              | idea_brief --check confirms paste without writing |
 | 2026-09-10 Run 056   | ~118 estimate     | 47              | --check PASTE READY prints exact expand_prompt command |
 | 2026-09-10 Run 057   | ~117 estimate     | 48              | --check PASTE INCOMPLETE prints exact --block command |
+| 2026-09-10 Run 058   | ~116 estimate     | 49              | default idea_brief reprint prints exact --check command |
 
 Earlier rows remain in prior commits.
 
 Estimate basis (generic 8-min explainer):
+- Run 058: -1 stop replacing PATH after a default reprint
 - Run 057: -1 stop hunting --block after an incomplete --check
 - Run 056: -1 stop hunting expand_prompt after a confirmed paste
 - Run 055: -1 stop guessing whether the hand paste matched suggested fields
@@ -36,6 +38,6 @@ Estimate basis (generic 8-min explainer):
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
-- Run 057: `idea_brief.py --check` PASTE INCOMPLETE prints `python3 tools/idea_brief.py PATH --block`. Still does not write idea.md. idea_brief_contract requires block_command plus those lines on tempfile. Unmapped. IDEA BRIEF CONTRACT PASS on tempfile. No packet folder.
+- Run 058: default `idea_brief.py` reprint prints `python3 tools/idea_brief.py PATH --check` with the real folder, plus the exact `--block` command. Still does not write idea.md. idea_brief_contract requires check_command plus those lines on tempfile. Unmapped. IDEA BRIEF CONTRACT PASS on tempfile. No packet folder.
+- Run 057: `idea_brief.py --check` PASTE INCOMPLETE prints `python3 tools/idea_brief.py PATH --block`. Still does not write idea.md.
 - Run 056: `idea_brief.py --check` PASTE READY prints `python3 tools/expand_prompt.py PATH` and warns that stdout is not script.md.
-- Run 055: `idea_brief.py --check` compares current idea.md to suggested topic/problem/mechanism.

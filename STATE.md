@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-10T22:13:00Z (Run 057)
+Updated: 2026-09-10T23:10:00Z (Run 058)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + scaffold handoff + contract router + router lock + reconstruct list + reconstruct presence check + first-fetch bootstrap + fetch-wave plan + post-reconstruct operator command + operator reconstruct command + operator page with first-video expand/apply/status + Q1 title/path pin + idea.md pre-expand edit + scaffold idea reprint (topic + problem + mechanism) + expand_prompt blank-mechanism refuse + next_action fill-idea before expand + idea-gate contract + operator-pin contract + Q1 problem-line pin + idea_brief reprint recover + idea-brief contract + idea_brief --block paste body + idea_brief --check paste confirm + --check PASTE READY prints expand_prompt + --check PASTE INCOMPLETE prints --block** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + scaffold handoff + contract router + router lock + reconstruct list + reconstruct presence check + first-fetch bootstrap + fetch-wave plan + post-reconstruct operator command + operator reconstruct command + operator page with first-video expand/apply/status + Q1 title/path pin + idea.md pre-expand edit + scaffold idea reprint (topic + problem + mechanism) + expand_prompt blank-mechanism refuse + next_action fill-idea before expand + idea-gate contract + operator-pin contract + Q1 problem-line pin + idea_brief reprint recover + idea-brief contract + idea_brief --block paste body + idea_brief --check paste confirm + --check PASTE READY prints expand_prompt + --check PASTE INCOMPLETE prints --block + default idea_brief reprint prints exact --check** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -16,7 +16,7 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - HTTPS clone from this agent sandbox still fails (private repo). Push via GitHub file API.
 - Reconstruct + selftest path: `docs/agent_session.md`
 - Operator path: `docs/human_session.md` pins Q1 title `Stop deciding what to work on every morning`, predicted folder `videos/002-stop-deciding-what-to-work-on-every-morning`
-- After scaffold stdout is gone: `python3 tools/idea_brief.py PATH` reprints current vs suggested idea fields. `--block` prints only the paste-ready idea.md body. `--check` compares current idea.md to that body (exit 2 incomplete and prints `python3 tools/idea_brief.py PATH --block`, exit 0 PASTE READY and prints `python3 tools/expand_prompt.py PATH`). None of those flags write idea.md.
+- After scaffold stdout is gone: `python3 tools/idea_brief.py PATH` reprints current vs suggested idea fields and prints the exact `--block` and `--check` commands for that folder. `--block` prints only the paste-ready idea.md body. `--check` compares current idea.md to that body (exit 2 incomplete and prints `python3 tools/idea_brief.py PATH --block`, exit 0 PASTE READY and prints `python3 tools/expand_prompt.py PATH`). None of those flags write idea.md.
 - After editing idea_brief: `python3 tools/idea_brief_contract.py` (unmapped; tempfile).
 - Operator pin lock: `python3 tools/operator_pin_contract.py` (unmapped).
 - First fetch: `python3 tools/needed.py --bootstrap`
@@ -28,8 +28,8 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - idea-gate lock: `python3 tools/idea_gate_contract.py` (unmapped)
 - new_packet idea_followup reprints Q1 problem from `operator_pin_contract.Q1_PROBLEM` and still does not write idea.md
 
-## What exists now (after Run 057)
-- Same inventory as Run 056 plus `--check` PASTE INCOMPLETE --block line
+## What exists now (after Run 058)
+- Same inventory as Run 057 plus default idea_brief reprint prints exact `--check` (and `--block`) instead of a PATH placeholder
 - Frozen doctor/hint/needed/which_contract/router not edited
 - No new packet folder; queue still queued
 - idea_gate / operator_pin / idea_brief_contract stay unmapped
@@ -40,10 +40,10 @@ Unchanged from Run 037. After scaffold, paste from `--block`, confirm with `--ch
 ## Metrics snapshot
 | Metric                      | Previous | Current    | Notes |
 |-----------------------------|----------|------------|-------|
-| Estimated human min / video | 118      | 117        | --check PASTE INCOMPLETE prints the exact --block command |
-| Automated steps             | 47       | 48         | --block command line on PASTE INCOMPLETE |
+| Estimated human min / video | 117      | 116        | default reprint prints exact --check instead of PATH |
+| Automated steps             | 48       | 49         | check_command on default reprint |
 | Videos produced             | 0        | 0          | fixture only |
-| Idea brief contract         | PASS 056 | PASS 057   | /tmp/ca-repo tempfile; PASTE INCOMPLETE includes idea_brief.py --block + folder |
+| Idea brief contract         | PASS 057 | PASS 058   | /tmp/ca-repo tempfile; default reprint includes idea_brief.py --check + folder |
 
 ## Active constraints
 - Do not auto-scaffold Q1
