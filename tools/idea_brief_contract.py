@@ -5,8 +5,10 @@ Read-only versus videos/. Uses tempfile only.
 Locks:
 - idea_brief source says it does not write idea.md
 - human_session names idea_brief.py and the pinned 002 folder
+- human_session names idea_brief.py --block
 - running idea_brief on a blank 002 packet reprints Q1 topic + Q1_PROBLEM + one_line
-- idea.md bytes are unchanged after the run
+- idea_brief --block prints a paste-ready idea.md body with those fields
+- idea.md bytes are unchanged after both runs
 - stdout says it writes nothing
 
 Unmapped in which_contract. Not a reconstruct wave.
@@ -49,7 +51,9 @@ def source_locks(failures: list[str]) -> None:
     human = (ROOT / "docs" / "human_session.md").read_text(encoding="utf-8")
     fail(failures, "Does not write idea.md" in brief_src or "does not write idea.md" in brief_src, "idea_brief missing no-write-idea note")
     fail(failures, "idea_followup" in brief_src, "idea_brief missing idea_followup reuse")
+    fail(failures, "--block" in brief_src and "paste_block" in brief_src, "idea_brief missing --block paste body")
     fail(failures, "idea_brief.py" in human, "human_session missing idea_brief.py")
+    fail(failures, "idea_brief.py" in human and "--block" in human, "human_session missing idea_brief.py --block")
     fail(failures, f"videos/{FOLDER}" in human, f"human_session missing {FOLDER}")
     fail(failures, TITLE in human, "human_session missing Q1 title")
 
@@ -102,9 +106,26 @@ def main() -> int:
         fail(failures, mechanism in out, "stdout missing Q1 mechanism")
         fail(failures, "does not write idea.md" in out.lower() or "writes nothing" in out.lower(), "stdout missing no-write note")
         fail(failures, "(blank)" in out, "stdout missing blank current fields")
+        fail(failures, "# Idea" in out, "default stdout missing paste-ready # Idea block")
+
+        block = subprocess.run(
+            [sys.executable, str(TOOLS / "idea_brief.py"), str(path), "--block"],
+            capture_output=True,
+            text=True,
+        )
+        after_block = sha(idea)
+        bout = block.stdout
+        fail(failures, block.returncode == 0, f"idea_brief --block exit {block.returncode}: {block.stderr}")
+        fail(failures, before == after_block, "idea_brief --block mutated idea.md")
+        fail(failures, bout.startswith("# Idea"), "--block must start with # Idea")
+        fail(failures, f"- topic: {TITLE}" in bout, "--block missing topic line")
+        fail(failures, f"- problem: {Q1_PROBLEM}" in bout, "--block missing problem line")
+        fail(failures, f"- mechanism (the system, not the pep talk): {mechanism}" in bout, "--block missing mechanism line")
+        fail(failures, "writes nothing" in bout.lower(), "--block missing no-write note")
+        fail(failures, "Current idea.md:" not in bout, "--block should not print current-vs-suggested wrapper")
 
     print("Idea brief contract")
-    print("reprint recover stays read-only; Q1 topic/problem/mechanism still print")
+    print("reprint recover stays read-only; --block prints a paste body; idea.md stays unchanged")
     if failures:
         print("IDEA BRIEF CONTRACT FAIL")
         for f in failures:

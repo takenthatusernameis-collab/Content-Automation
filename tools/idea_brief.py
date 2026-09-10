@@ -3,6 +3,7 @@
 
 Read-only. Does not write idea.md, the queue, or packets.
 Recovers the new_packet idea_followup after scaffold stdout is gone.
+--block prints only the paste-ready idea.md body. Still does not write.
 """
 
 from __future__ import annotations
@@ -50,11 +51,42 @@ def working_title(path: Path) -> str:
     return path.name.split("-", 1)[-1].replace("-", " ")
 
 
+def suggested_values(title: str) -> tuple[str, str, str]:
+    """Parse topic / problem / mechanism from idea_followup lines."""
+    topic = title
+    problem = ""
+    mechanism = ""
+    for line in idea_followup(title):
+        raw = line.strip()
+        if raw.startswith("- topic:"):
+            topic = raw.split(":", 1)[1].strip()
+        elif raw.startswith("- problem:"):
+            problem = raw.split(":", 1)[1].strip()
+        elif raw.startswith("- mechanism"):
+            mechanism = raw.split(":", 1)[1].strip()
+    return topic, problem, mechanism
+
+
+def paste_block(title: str) -> str:
+    topic, problem, mechanism = suggested_values(title)
+    return (
+        "# Idea\n\n"
+        f"- topic: {topic}\n"
+        f"- problem: {problem}\n"
+        f"- mechanism (the system, not the pep talk): {mechanism}\n"
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Read-only idea.md reprint. Does not write idea.md."
     )
     parser.add_argument("packet", help="Packet folder")
+    parser.add_argument(
+        "--block",
+        action="store_true",
+        help="Print only the paste-ready idea.md body. Still does not write idea.md.",
+    )
     args = parser.parse_args()
     path = Path(args.packet)
     if not path.is_dir():
@@ -64,6 +96,12 @@ def main() -> int:
     title = working_title(path)
     idea_path = path / "idea.md"
     current = idea_path.read_text(encoding="utf-8") if idea_path.is_file() else ""
+
+    if args.block:
+        print(paste_block(title), end="")
+        print("# This command writes nothing. Paste the block above into idea.md by hand.")
+        return 0
+
     print(f"Packet: {path.name}")
     print(f"Title: {title}")
     print("Current idea.md:")
@@ -73,6 +111,8 @@ def main() -> int:
     print("Suggested paste (does not write idea.md):")
     for line in idea_followup(title):
         print(line)
+    print("Paste-ready block (still does not write). Re-run with --block to print only this:")
+    print(paste_block(title), end="")
     if "sample-001" in path.name:
         print("Fixture lock: do not treat this packet as the first real video.")
     print("This command writes nothing.")
