@@ -4,6 +4,7 @@ Use the original master prompt unchanged, plus these targeted additions:
 
 ## Bootstrap rule
 If STATE.md exists, trust it over memory. If the repo only has a README, create the memory files and one reusable production artifact before anything else.
+Clone-less agents print `python3 tools/needed.py --bootstrap` for the first-fetch set. Do not rebuild that list from memory. Do not treat --bootstrap as a contract. Keep BOOTSTRAP short.
 
 ## Scope cap
 Ship at most one new reusable capability per run after foundation exists. Prefer extending `tools/` and `videos/_template/` over new top-level concepts.
@@ -22,6 +23,7 @@ After new_packet or after_scaffold edits, run `tools/scaffold_contract.py`.
 `needed.py` is read-only. It prints paths. It does not download and does not write videos/.
 Keep it unmapped in which_contract (same class as doctor.py).
 If EXTRA paths drift from agent_session, fix needed.py EXTRA, not by inventing a new lock.
+`--missing` and `--bootstrap` always exit 0.
 
 ## Niche rule
 Do not reopen niche debate unless a human changed DECISIONS.md. Specialize prompts toward `docs/channel.md`.
