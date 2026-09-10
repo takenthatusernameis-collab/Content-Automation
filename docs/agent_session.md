@@ -21,7 +21,7 @@ python3 tools/needed.py --plan --missing
 
 `--bootstrap` is read-only. It prints the six session-start paths. Combined with `--missing` it labels PRESENT or MISSING and prints READY or NOT READY. Exit is always 0. It is not a contract.
 
-`--plan` is read-only. WAVE 1 reprints those six paths. WAVE 2 prints the next reconstruct command (`python3 tools/needed.py selftest.py --missing`) and does not dump that file list. Combined with `--missing` it labels WAVE 1 only. Exit is always 0. It is not a contract.
+`--plan` is read-only. WAVE 1 reprints those six paths. WAVE 2 prints the next reconstruct command (`python3 tools/needed.py selftest.py --missing`) and does not dump that file list. WAVE 3 prints the first operator command (`python3 tools/queue_status.py`) and does not dump queue files or scaffold. Combined with `--missing` it labels WAVE 1 only. Exit is always 0. It is not a contract.
 
 Then fetch WAVE 1 and continue below.
 
@@ -86,7 +86,15 @@ Expected on current sample-001 (do not pad WORDS to change this):
 
 Same as prior page: reconstruct what `needed.py CONTRACT` prints, confirm `--missing` READY, then run the named contract. Expected PASS, exit 0, no writes to `docs/` or `videos/`.
 
+After WAVE 2 READY, print WAVE 3 and stop at the board. Do not treat WAVE 3 as scaffold permission.
+
 ## Last verified runtime
+
+Fetch-wave plan + operator command:
+
+- When: 2026-09-10T05:12:00Z (Run 041)
+- How: `/tmp/ca/tools` with needed.py only
+- Result: `--plan` prints WAVE 1 six paths + WAVE 2 `needed.py selftest.py --missing` + WAVE 3 `queue_status.py`; `--plan --missing` NOT READY exit 0; bootstrap/alias/doctor unchanged
 
 Fetch-wave plan:
 
@@ -122,3 +130,5 @@ Prior contract PASS times remain those recorded in Run 026–036. If a later run
 - Do not make needed.py --missing, --bootstrap, or --plan exit 1.
 - Do not treat --bootstrap or --plan as a contract.
 - Do not list WAVE 2 reconstruct files inside --plan.
+- Do not list WAVE 3 queue files inside --plan.
+- Do not treat WAVE 3 as auto-scaffold.
