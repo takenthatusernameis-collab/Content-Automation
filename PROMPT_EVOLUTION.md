@@ -2,6 +2,11 @@
 
 Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 
+## Observed issues (Run 053)
+- idea_brief recovered the three-field paste but had no lock.
+- A later run could add --write and hide a blank-template expand.
+- An unmapped tempfile contract is cheaper than mapping a reconstruct wave.
+
 ## Observed issues (Run 050)
 - operator_pin locked title/slug/one_line but not the idea.md problem sentence.
 - That sentence is not a queue column. Dropping it would still PASS the 049 pin.

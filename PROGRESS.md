@@ -17,10 +17,12 @@
 | 2026-09-10 Run 050   | ~124 estimate     | 42              | operator_pin also locks Q1 problem paste line |
 | 2026-09-10 Run 051   | ~123 estimate     | 42              | new_packet reprints locked Q1 problem |
 | 2026-09-10 Run 052   | ~122 estimate     | 43              | idea_brief recovers the three-field paste |
+| 2026-09-10 Run 053   | ~121 estimate     | 44              | idea_brief_contract locks no-write reprint |
 
 Earlier rows remain in prior commits.
 
 Estimate basis (generic 8-min explainer):
+- Run 053: -1 stop a future run from turning idea_brief into a silent idea.md writer
 - Run 052: -1 stop hunting human_session + queue when scaffold stdout is gone
 - Run 051: -1 stop joining operator page + queue after scaffold to assemble idea.md
 - Run 050: -1 stop a future run from dropping the idea.md problem field off the only human page
@@ -29,7 +31,7 @@ Estimate basis (generic 8-min explainer):
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 053: `tools/idea_brief_contract.py` locks idea_brief as read-only reprint recover (source note, human_session command, Q1 three-field stdout, unchanged idea.md hash). Unmapped. IDEA BRIEF CONTRACT PASS on tempfile. No packet folder.
 - Run 052: `tools/idea_brief.py` reprints current vs suggested idea.md fields for an existing packet. Reuses `new_packet.idea_followup`. Does not write idea.md. human_session documents the recover command. No packet folder.
 - Run 051: `new_packet.idea_followup` reprints Q1 problem from `Q1_PROBLEM`. `scaffold_contract` requires that line. SCAFFOLD CONTRACT PASS. No packet folder. No needed.py change. Still does not write idea.md.
 - Run 050: `operator_pin_contract.py` requires the Q1 problem sentence on human_session. AGENT session lists unmapped locks. OPERATOR PIN CONTRACT PASS. No packet folder. No needed.py change.
-- Run 049: `tools/operator_pin_contract.py` locks human_session Q1 title, `videos/002-<slug>`, one_line, fill-idea, and new_packet command against topic_queue while Q1 is queued.

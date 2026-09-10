@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-10 | idea_brief_contract.py locks idea_brief as a read-only reprint recover; stays unmapped in which_contract | Run 052 shipped the recover tool with no lock; a later run could add --write and hide a blank-template expand | If a human wants --seed-idea; do not treat PASS as Q1 scaffolded
 - 2026-09-10 | idea_brief.py reprints current vs suggested idea.md fields for an existing packet; still does not write idea.md | new_packet only prints the paste pack once; leftover labor was recovering those three fields after the terminal scrolled | If a human wants --write / --seed-idea; do not auto-write idea.md because this shipped
 - 2026-09-10 | new_packet reprints the locked Q1 problem line with topic + mechanism; still does not write idea.md | After operator_pin locked the sentence, leftover labor was joining two pages to assemble idea.md; sharing Q1_PROBLEM avoids a queue schema change | If a human wants --seed-idea or a problem column; do not auto-write idea.md because this passed
 - 2026-09-10 | operator_pin also locks the Q1 problem sentence on human_session; do not add a problem column to topic_queue | Title and mechanism are queue-backed; the problem line was the last free-floating paste field on the operator page; a schema change would touch queue_contract | If a human wants problem on every queue row; do not auto-write idea.md because this passed
