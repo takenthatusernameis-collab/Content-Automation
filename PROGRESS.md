@@ -21,11 +21,12 @@
 | 2026-09-10 Run 041   | ~133 estimate     | 39              | needed.py --plan WAVE 3 operator command |
 | 2026-09-10 Run 042   | ~132 estimate     | 40              | needed.py --plan WAVE 3 reconstruct command |
 | 2026-09-10 Run 043   | ~131 estimate     | 40              | human_session first-video commands restored |
+| 2026-09-10 Run 044   | ~130 estimate     | 40              | Q1 title/path pin + idea.md pre-expand edit |
 
 Earlier rows 001-026 remain in prior commits.
 
 Estimate basis (generic 8-min explainer):
-- Run 043: -1 stop operators hunting prior commits for expand/apply/status
+- Run 044: -1 stop inventing a Q1 title and expanding from the scaffold default mechanism
 
 These numbers are **estimates**, not stopwatch data.
 
@@ -37,3 +38,4 @@ These numbers are **estimates**, not stopwatch data.
 - Run 041: `needed.py --plan` WAVE 3 prints `queue_status.py` as the first operator command after reconstruct. Does not dump queue files. Does not auto-scaffold. Still unmapped. Local PASS on `/tmp/ca/tools`.
 - Run 042: `needed.py --plan` WAVE 3 prints `needed.py queue_status.py --missing` before the operator line. Still no queue file dump. Still unmapped. Local PASS on `/tmp/ca/tools`.
 - Run 043: `docs/human_session.md` again lists expand_prompt, apply_script dry-run/--write --refresh, validate, set_status ready_for_vo, and vo_session for the first non-fixture packet. Reconstruct-loop flagged. No needed.py change.
+- Run 044: `docs/human_session.md` pins Q1 title and `videos/002-stop-deciding-what-to-work-on-every-morning`, plus idea.md problem/mechanism edit before expand. `prompts/script_expander.md` repeats the idea.md gate. No packet folder. No needed.py change.
