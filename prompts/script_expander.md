@@ -4,6 +4,13 @@ Use this when `next_action.py` prints `expand-script` and `expand.md` already ha
 
 Do not use this on `videos/sample-001-*`. That packet is a fixture.
 
+## Before the paste
+
+If `idea.md` still says `mechanism_clarity: template-default` or the generic line
+`A written default that removes one daily decision`, edit problem + mechanism
+from the matching `docs/topic_queue.md` `one_line` first. Otherwise every video
+expands from the same default and the draft will not match the queued title.
+
 ## Fast path
 
 ```bash
