@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-10 | needed.py --plan prints WAVE 1 paths and the WAVE 2 command, not the WAVE 2 file list | After bootstrap READY, agents still guessed selftest reconstruct; dumping those files inside --plan would grow a second repo list | If the default second wave should be a different contract; keep WAVE 2 as a command only
 - 2026-09-10 | needed.py --bootstrap is a short ordered first-fetch list, not a contract | Clone-less agents still guessed which files to pull before the printer could run; a sixth lock would not reduce that labor | If session-start files change; keep BOOTSTRAP short
 - 2026-09-10 | needed.py --missing exits 0 even when files are absent | A reconstruct checker that fails the process looks like a broken session start; NOT READY is the signal | If a CI job is added that should fail on incomplete reconstruct
 - 2026-09-10 | needed.py FALLBACK_ALIAS resolves edited-tool names when which_contract is missing | Clone-less agents fetch needed.py first; requiring the router file to resolve new_packet.py recreates the guess problem | If which_contract.MAP tool lists change

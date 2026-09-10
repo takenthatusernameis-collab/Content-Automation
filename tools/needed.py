@@ -13,6 +13,9 @@ this printer must not look like a failed session-start command.
 
 --bootstrap prints the first-fetch set so a clone-less agent does not
 guess which files to pull before this printer can resolve names.
+
+--plan prints ordered fetch waves after bootstrap so the agent does not
+guess the second command. Not a contract. Not a full-repo dump.
 """
 
 from __future__ import annotations
@@ -24,7 +27,6 @@ from pathlib import Path
 TOOLS = Path(__file__).resolve().parent
 ROOT = TOOLS.parent
 
-# Paths relative to repo root that MAP does not list.
 EXTRA: dict[str, tuple[str, ...]] = {
     "selftest.py": (
         "videos/sample-001-why-systems-beat-motivation/packet.md",
@@ -74,7 +76,6 @@ FALLBACK_TOOLS: dict[str, tuple[str, ...]] = {
     "router_contract.py": ("router_contract.py", "which_contract.py"),
 }
 
-# Ordered first-fetch set. Keep short. This is not a contract.
 BOOTSTRAP: tuple[str, ...] = (
     "tools/needed.py",
     "docs/agent_session.md",
@@ -83,6 +84,8 @@ BOOTSTRAP: tuple[str, ...] = (
     "RUNS.md",
     "tools/which_contract.py",
 )
+
+PLAN_NEXT = "python3 tools/needed.py selftest.py --missing"
 
 
 def load_map() -> dict[str, tuple[str, ...]]:
@@ -97,8 +100,6 @@ def load_map() -> dict[str, tuple[str, ...]]:
     return out
 
 
-# Edited-tool aliases used only when which_contract cannot be imported.
-# Keep in sync with which_contract.MAP tool lists; do not add doctor/expand_prompt/needed.
 FALLBACK_ALIAS: dict[str, str] = {
     "validate_packet.py": "selftest.py",
     "pipeline_status.py": "selftest.py",
@@ -192,6 +193,33 @@ def print_bootstrap(missing: bool) -> None:
     print()
 
 
+def print_plan(missing: bool) -> None:
+    print("# plan")
+    print("# ordered fetch waves; not a contract; not a full-repo dump")
+    print("python3 tools/needed.py --plan")
+    print("# WAVE 1 first-fetch")
+    absent = 0
+    present = 0
+    for p in BOOTSTRAP:
+        if missing:
+            on_disk = (ROOT / p).is_file()
+            flag = "PRESENT" if on_disk else "MISSING"
+            if on_disk:
+                present += 1
+            else:
+                absent += 1
+            print(f"{flag}\t{p}")
+        else:
+            print(p)
+    if missing:
+        print(f"# wave 1: {present} present, {absent} missing")
+        print("READY" if absent == 0 else "NOT READY")
+    print("# WAVE 2 after wave 1 READY")
+    print(PLAN_NEXT)
+    print("# WAVE 2 does not list selftest files here; print them with that command")
+    print()
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Read-only: files to reconstruct before a contract. No writes."
@@ -216,7 +244,17 @@ def main() -> int:
         action="store_true",
         help="Print the first-fetch set. Not a contract. Exit stays 0.",
     )
+    parser.add_argument(
+        "--plan",
+        action="store_true",
+        help="Print ordered fetch waves after bootstrap. Not a contract. Exit stays 0.",
+    )
     args = parser.parse_args()
+
+    if args.plan:
+        print_plan(args.missing)
+        print("This command writes nothing.")
+        return 0
 
     if args.bootstrap:
         print_bootstrap(args.missing)

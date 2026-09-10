@@ -17,11 +17,12 @@
 | 2026-09-10 Run 037   | ~137 estimate     | 35              | needed.py prints reconstruct paths per contract |
 | 2026-09-10 Run 038   | ~136 estimate     | 36              | needed.py --missing + FALLBACK_ALIAS |
 | 2026-09-10 Run 039   | ~135 estimate     | 37              | needed.py --bootstrap first-fetch set |
+| 2026-09-10 Run 040   | ~134 estimate     | 38              | needed.py --plan fetch waves |
 
 Earlier rows 001-026 remain in prior commits.
 
 Estimate basis (generic 8-min explainer):
-- Run 039: -1 stop agents guessing the first six files to fetch
+- Run 040: -1 stop agents guessing the command after first-fetch READY
 
 These numbers are **estimates**, not stopwatch data.
 
@@ -29,3 +30,4 @@ These numbers are **estimates**, not stopwatch data.
 - Run 037: `tools/needed.py` prints the reconstruct file list. Unmapped. Local PASS.
 - Run 038: `needed.py --missing` reports PRESENT/MISSING and READY/NOT READY with exit 0. FALLBACK_ALIAS resolves edited-tool names when which_contract is absent. Still unmapped. Local PASS on `/tmp/ca/tools`.
 - Run 039: `needed.py --bootstrap` prints the ordered first-fetch set. `--bootstrap --missing` uses the same PRESENT/MISSING flags. Still unmapped. Local PASS on `/tmp/ca/tools`.
+- Run 040: `needed.py --plan` prints WAVE 1 bootstrap paths and the WAVE 2 command (`selftest.py --missing`) without dumping selftest files. Still unmapped. Local PASS on `/tmp/ca/tools`.
