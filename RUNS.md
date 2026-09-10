@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-10T13:20:00Z — Run 049
+
+- **Objective:** Lock the operator-page Q1 pin so human_session cannot drift off the live topic_queue title, 002-slug, one_line, fill-idea note, or new_packet command while Q1 is still queued.
+- **Inspected:** STATE/NEXT/RUNS after Run 048. Q1 still queued. idea_gate_contract exists and stays unmapped. needed.py left untouched. which_contract left unmapped.
+- **Action taken:** Added `tools/operator_pin_contract.py`. It parses Q1 from `docs/topic_queue.md` and requires `docs/human_session.md` to contain the working title, `videos/002-<slug>`, one_line, fill-idea, no-write-idea note, `mark_topic.py --id Q1`, and the exact `new_packet.py "title"` line. Did not scaffold Q1. Did not edit needed.py. Did not add WAVE 4. Did not write idea.md. Did not map the new file in which_contract.
+- **Result:** OPERATOR PIN CONTRACT PASS on a reconstructed docs + queue_lib tree (`python3 tools/operator_pin_contract.py`, exit 0). Queue rows remain queued. No new packet folder.
+- **Verification status:** completed for the new contract (local PASS, exit 0). Full selftest / doctor against sample-001 not re-run (clone-less). No media.
+- **Important discovery:** The Q1 pin lives only as prose. A later run that retitles Q1 or defers first-video commands again would not fail idea_gate. A two-file string lock is cheaper than another reconstruct wave.
+- **Blocker:** Still waiting on a human-owned non-fixture draft in band. ffmpeg recipe parked until VO + cards exist. HTTPS clone remains unavailable; do not retry it as the first action.
+- **Recommended next action:** Human runs `python3 tools/queue_status.py` then follows `docs/human_session.md`. After editing human_session or the Q1 queue row, run `operator_pin_contract.py`. Agents: --bootstrap then --plan; do not add WAVE 4; do not auto-write idea.md; do not auto-scaffold Q1.
+
 ## 2026-09-10T12:20:00Z — Run 048
 
 - **Objective:** Lock the Run 047 fill-idea + expand refuse so a later edit cannot restore expand_prompt as the first live command on a blank idea.md.

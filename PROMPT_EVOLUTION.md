@@ -2,6 +2,11 @@
 
 Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 
+## Observed issues (Run 049)
+- The Q1 title/path/mechanism pin lives only as prose on human_session.
+- A later run can retitle Q1 or defer first-video commands without failing idea_gate.
+- A two-file string lock is cheaper than another reconstruct wave or auto-scaffold.
+
 ## Observed issues (Run 047)
 - After expand_prompt refused blank mechanisms, doctor/hint still printed expand_prompt as the next command.
 - That live command now exits 2. Operators spend a turn hitting the refuse.
