@@ -13,15 +13,18 @@
 | 2026-09-10 Run 046   | ~128 estimate     | 40              | expand_prompt refuses blank mechanism |
 | 2026-09-10 Run 047   | ~127 estimate     | 40              | next_action/hint fill-idea before expand |
 | 2026-09-10 Run 048   | ~126 estimate     | 41              | idea_gate_contract locks fill-idea map |
+| 2026-09-10 Run 049   | ~125 estimate     | 42              | operator_pin_contract locks Q1 pin vs queue |
 
 Earlier rows remain in prior commits.
 
 Estimate basis (generic 8-min explainer):
+- Run 049: -1 stop a future run from shipping a human_session that no longer matches Q1
 - Run 048: -1 stop a future run from restoring expand-first on blank idea.md
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 049: `tools/operator_pin_contract.py` locks human_session Q1 title, `videos/002-<slug>`, one_line, fill-idea, and new_packet command against topic_queue while Q1 is queued. OPERATOR PIN CONTRACT PASS. Unmapped in which_contract. No packet folder. No needed.py change.
 - Run 048: `tools/idea_gate_contract.py` locks blank/filled mechanism + fill-idea hint map on tempfile. IDEA GATE CONTRACT PASS. Unmapped in which_contract. No packet folder. No needed.py change.
 - Run 047: `next_action.py` code `fill-idea` when idea.md mechanism is blank. `hint.py` maps it to a paste comment + doctor, not expand_prompt. HINT + NEXT_ACTION UNIT PASS. Fixture path unchanged. No packet folder. No needed.py change.
 - Run 046: `expand_prompt.py` exits 2 on blank / template-default idea.md mechanism. `scaffold_contract.py` locks idea_followup reprint. IDEA GATE UNIT PASS + SCAFFOLD CONTRACT PASS on `/tmp/ca`.

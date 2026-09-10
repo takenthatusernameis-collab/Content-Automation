@@ -7,6 +7,7 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 50. expand_prompt refuses blank / template-default idea.md mechanism — **done (Run 046)**
 51. next_action/hint `fill-idea` before expand while mechanism is blank — **done (Run 047)**
 51b. idea_gate_contract locks fill-idea + blank-mechanism cases — **done (Run 048)**
+51c. operator_pin_contract locks human_session Q1 title/path/one_line vs topic_queue — **done (Run 049)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -21,7 +22,7 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 - Auto-marking the queue from new_packet.py
 - Auto-writing idea.md from new_packet.py
 - Turning default queue_status into a failing command (keep `--strict` opt-in)
-- Mapping needed.py / doctor.py / expand_prompt.py / idea_gate_contract.py onto a contract
+- Mapping needed.py / doctor.py / expand_prompt.py / idea_gate_contract.py / operator_pin_contract.py onto a contract
 - Making needed.py --missing, --bootstrap, or --plan exit non-zero
 - Treating --bootstrap or --plan as a sixth contract
 - Growing BOOTSTRAP or WAVE 2 / WAVE 3 into a full-repo dump
@@ -32,4 +33,4 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 - Recommending expand_prompt while idea.md mechanism is blank
 - ffmpeg / TTS / YouTube OAuth / Whisper / stock / shorts
 - Treating which_contract --run SKIP as a contract PASS
-- Treating idea_gate_contract PASS as a real Q1 packet
+- Treating idea_gate_contract or operator_pin_contract PASS as a real Q1 packet
