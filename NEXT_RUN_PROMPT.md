@@ -13,7 +13,7 @@ Do not add a sixth contract whose only job is to lock needed.py.
 Do not add WAVE 4 unless a human still has to guess a command after WAVE 3 READY.
 Do not edit needed.py unless a new clone-less guess is observed after WAVE 3 READY. The 037-042 reconstruct-loop is flagged in FAILURES.md.
 Prefer completing `docs/human_session.md` or a human-owned Q1 packet over another reconstruct printer.
-Do not auto-write idea.md from new_packet or idea_brief.
+Do not auto-write idea.md from new_packet or idea_brief (including --block).
 Do not treat idea_gate_contract, operator_pin_contract, or idea_brief_contract PASS as Q1 scaffolded.
 Do not add a problem column to topic_queue unless a human asks.
 
@@ -26,7 +26,7 @@ After apply_script or set_status edits, run `tools/write_path_contract.py` on a 
 After new_packet or after_scaffold edits, run `tools/scaffold_contract.py`.
 After fill-idea / expand-refuse edits, run `tools/idea_gate_contract.py`.
 After human_session or topic_queue Q1 pin edits, run `tools/operator_pin_contract.py`.
-After idea_brief reprint-recover edits, run `tools/idea_brief_contract.py`.
+After idea_brief reprint-recover or `--block` edits, run `tools/idea_brief_contract.py`.
 
 ## Reconstruct-list rule
 `needed.py` is read-only. It prints paths. It does not download and does not write videos/.
@@ -89,7 +89,7 @@ Reuse `hint.commands_for` so CLI text cannot drift.
 Never print `--write` as the first command.
 
 ## Human-session rule
-`docs/human_session.md` is the operator path. Keep it short. Do not turn it into a second prompt or a wrapper tool. Keep the first-video expand/apply/status commands on that page; do not defer them to prior commits. Keep the current Q1 working title, predicted folder, and Q1 problem sentence on that page while Q1 is still queued. Require the idea.md mechanism edit before expand_prompt. Note that new_packet reprints topic + mechanism and still does not write idea.md. Note that doctor Code is `fill-idea` until that paste exists. `operator_pin_contract.py` locks those strings against topic_queue (problem line is operator-page only).
+`docs/human_session.md` is the operator path. Keep it short. Do not turn it into a second prompt or a wrapper tool. Keep the first-video expand/apply/status commands on that page; do not defer them to prior commits. Keep the current Q1 working title, predicted folder, and Q1 problem sentence on that page while Q1 is still queued. Require the idea.md mechanism edit before expand_prompt. Note that new_packet reprints topic + mechanism and still does not write idea.md. Note that idea_brief --block prints a paste-ready idea.md body and still does not write. Note that doctor Code is `fill-idea` until that paste exists. `operator_pin_contract.py` locks those strings against topic_queue (problem line is operator-page only).
 
 ## Agent-session rule
 `docs/agent_session.md` is the clone-less reconstruct path. Update Last verified runtime only after a real selftest run. Do not invent PASS.
@@ -111,7 +111,7 @@ Duration WARN is not FAIL and not drift.
 `operator_pin_contract.py` is read-only versus videos/. It locks human_session against the live Q1 queue row plus the Q1 problem sentence. Keep it unmapped in which_contract. Do not treat PASS as a Q1 folder.
 
 ## Idea-brief-contract rule
-`idea_brief_contract.py` is read-only versus videos/. Tempfile only. It locks idea_brief as a no-write reprint of Q1 topic/problem/mechanism. Keep it unmapped in which_contract. Do not treat PASS as a Q1 folder.
+`idea_brief_contract.py` is read-only versus videos/. Tempfile only. It locks idea_brief as a no-write reprint of Q1 topic/problem/mechanism, including `--block` paste body. Keep it unmapped in which_contract. Do not treat PASS as a Q1 folder.
 
 ## Scaffold rule
 Reuse `after_scaffold.py` and `write_empty_*`; never pass `--force` from scaffold.
