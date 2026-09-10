@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-10T00:16:00Z (Run 037)
+Updated: 2026-09-10T02:05:00Z (Run 038)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + scaffold handoff + contract router + router lock + reconstruct list** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + scaffold handoff + contract router + router lock + reconstruct list + reconstruct presence check** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -16,88 +16,36 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - HTTPS clone from this agent sandbox still fails (private repo). Push via GitHub file API.
 - Reconstruct + selftest path: `docs/agent_session.md`
 - Reconstruct file list: `python3 tools/needed.py CONTRACT`
+- Reconstruct presence: `python3 tools/needed.py CONTRACT --missing` (exit 0 even if NOT READY)
 
-## What exists now (after Run 037)
-- Operating memory files
-- Frozen original master prompt
-- Video packet standard + scaffold CLI + packet QA (publish gate + draft gate + optional duration gate)
+## What exists now (after Run 038)
+- Operating memory files and frozen original master prompt
+- Video packet standard + scaffold CLI + packet QA
 - Sample packet fixture `videos/sample-001-why-systems-beat-motivation/`
-- Working niche locked in `docs/channel.md`
-- Topic queue `docs/topic_queue.md` (five queued titles; not drafts)
-- Shared queue helpers `tools/queue_lib.py`
-- Read-only next-topic printer `tools/next_topic.py`
-- Read-only queue board `tools/queue_status.py`
-- Queue closer `tools/mark_topic.py`
-- Queue board contract `tools/queue_contract.py`
-- Write-path contract `tools/write_path_contract.py`
-- Scaffold contract `tools/scaffold_contract.py`
-- Contract router `tools/which_contract.py`
-- Router contract `tools/router_contract.py` (ROUTER CONTRACT PASS 2026-09-09T23:15Z on `/tmp/ca/tools`)
+- Topic queue + queue_lib + next_topic + queue_status + mark_topic
+- Contracts: queue, write-path, scaffold, which_contract, router_contract
 - Reconstruct list `tools/needed.py` (read-only; unmapped like doctor)
-- `new_packet.py` next_id treats `sample-001-*` as 001, so the next folder is `002-...`
-- `new_packet.py` prints mark_topic dry-run follow-up after scaffold; does not auto-mark
-- Operator path `docs/human_session.md`
-- Agent path `docs/agent_session.md`
-- Fixture contract selftest `tools/selftest.py` (read-only; sample-001 only)
-- Status writer `tools/set_status.py` (dry-run default)
-- Spoken-duration band: 900-1500 words for `explainer-6-10min` at 150 wpm. Default validate WARNs; `--duration` FAILs. Sample fixture stays PASS + WARN.
+- `needed.py --missing` reports PRESENT/MISSING/READY/NOT READY; always exit 0
+- FALLBACK_ALIAS so `needed.py new_packet.py` works before which_contract is fetched
+- Operator path `docs/human_session.md`; agent path `docs/agent_session.md`
+- Spoken-duration band: 900-1500 words for explainer-6-10min at 150 wpm
+- No new packet folder this run; queue still queued
 
 ## Pipeline map
-| Stage        | Status      | Notes                                      |
-|--------------|-------------|--------------------------------------------|
-| Research     | assisted    | stub written at scaffold; human verifies   |
-| Ideas        | assisted    | queue + `new_idea.py`; human still locks   |
-| Scripts      | assisted    | beats + duration WARN + expand.md + paste prompt + paste-back gate |
-| Narration    | assisted    | session card + path rules; no VO file / TTS|
-| Assets       | assisted    | VISUAL -> planned card names; no binaries  |
-| Editing      | templated   | tracks in editor.md; timing in format.md   |
-| Captions     | assisted    | cue list from WORDS; not timed to a take   |
-| Thumbnails   | assisted    | heuristic brief at scaffold if empty       |
-| Titles       | assisted    | heuristic brief at scaffold if empty       |
-| QA           | assisted    | checklist written at scaffold after titles |
-| Publish meta | assisted    | `publish.md` stub; no API                  |
-| Rendering    | assisted    | `render.md` presence only; no ffmpeg       |
-| Oversight    | monitored   | board + next-action + hint + doctor + gated status write + fixture selftest + queue_status --strict + queue_contract + write_path_contract + scaffold_contract + which_contract + router_contract + needed.py |
-| Topic pick   | monitored   | queue + next_topic + mark_topic + queue_lib + queue_status |
-| Operator path| templated   | `docs/human_session.md`                    |
-| Agent path   | templated   | `docs/agent_session.md`                    |
-| Publishing   | blocked     | YouTube API not configured                 |
-| Analytics    | unbuilt     |                                            |
+Unchanged from Run 037. Oversight now includes needed.py --missing.
 
 ## Metrics snapshot
-| Metric                         | Previous     | Current        | Notes                          |
-|--------------------------------|--------------|----------------|--------------------------------|
-| Estimated human min / video    | 138          | 137            | agents stop guessing reconstruct files |
-| Automated steps                | 34           | 35             | needed.py                      |
-| Remaining manual steps         | most         | most           | source check, script words, VO, card build, edit, caption align, publish |
-| Videos produced by system      | 0            | 0              | sample packet is a fixture     |
-| Channel niche decided          | locked (temp)| locked (temp)  | `docs/channel.md`              |
-| Fixture selftest runtime       | PASS         | PASS (Run 026) | not re-run; no gated-tool edit |
-| Queue contract runtime         | PASS         | PASS (Run 032) | not re-run; no queue-tool edit |
-| Write-path contract runtime    | PASS         | PASS (Run 033) | not re-run; no apply/set_status edit |
-| Scaffold contract runtime      | PASS         | PASS (Run 034) | not re-run; no new_packet edit |
-| Contract router runtime        | PASS         | PASS (Run 035) | map unchanged                  |
-| Router contract runtime        | PASS         | PASS (Run 036) | not re-run; map unchanged      |
-| Reconstruct list runtime       | n/a          | PASS (Run 037) | `/tmp/ca/tools` + MAP copy     |
+| Metric                      | Previous | Current    | Notes |
+|-----------------------------|----------|------------|-------|
+| Estimated human min / video | 137      | 136        | presence check after partial reconstruct |
+| Automated steps             | 35       | 36         | --missing + fallback aliases |
+| Videos produced             | 0        | 0          | fixture only |
+| Reconstruct list runtime    | PASS 037 | PASS 038   | local /tmp/ca/tools |
 
 ## Active constraints
-- Niche lock is agent-chosen until a human overrides DECISIONS.md
-- Topic queue titles are working titles, not scripts
-- `next_topic.py` and `queue_status.py` must stay read-only and must not call `new_packet.py`
-- Default `queue_status.py` exit 0; `--strict` may exit 1/2 on drift only
-- `mark_topic.py` is the only queue-status writer; dry-run default; no used without folder
-- `new_packet.py` must not auto-`--write` mark_topic
-- `queue_contract.py`, `write_path_contract.py`, `scaffold_contract.py`, `which_contract.py`, `router_contract.py`, and `needed.py` are read-only versus videos/; contracts may use tempfile only
-- `which_contract.py --run` may subprocess a contract; SKIP if deps missing; it must not write videos/ or the queue itself
-- `needed.py` stays unmapped on purpose (printer, not a lock body)
-- Do not auto-scaffold Q1 without a human instruction
-- No secrets or platform APIs
-- Do not invent published videos or integrations
-- Do not overwrite sample-001 titles/thumbs/script WORDS
-- `apply_script.py` must refuse sample-001 and expand_prompt stdout
-- Default apply is dry-run; `--write` is required to replace script.md
-- `set_status.py` is the only status writer; dry-run default; no sample-001 promote
-- `hint.py`, `doctor.py`, `selftest.py`, `next_topic.py`, `queue_status.py`, `queue_contract.py`, `write_path_contract.py`, `scaffold_contract.py`, `which_contract.py`, `router_contract.py`, and `needed.py` are read-only vs videos/
-- Format lock is `explainer-6-10min` only; no shorts split, no ffmpeg recipe
-- Default validate 2-tuple stays (errors, incompletes). Duration WARN must not become FAIL unless `--duration`.
-- Do not retry HTTPS clone after one failure in a run. Reconstruct per `docs/agent_session.md`.
+- Do not auto-scaffold Q1
+- Do not map needed.py / doctor.py / expand_prompt.py
+- needed.py --missing must exit 0
+- FALLBACK_ALIAS must match which_contract.MAP tool lists
+- Do not retry HTTPS clone after one failure
+- No secrets, ffmpeg recipe, TTS, or YouTube API

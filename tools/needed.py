@@ -7,6 +7,9 @@ Does not download, write videos/, or import packet writers.
 Uses which_contract.MAP when that file is importable. Extra paths that
 live outside tools/ stay in EXTRA here so agent_session and this printer
 cannot silently disagree on the sample packet or queue file.
+
+--missing only reports presence on disk. Missing files never exit 1;
+this printer must not look like a failed session-start command.
 """
 
 from __future__ import annotations
@@ -81,6 +84,24 @@ def load_map() -> dict[str, tuple[str, ...]]:
     return out
 
 
+# Edited-tool aliases used only when which_contract cannot be imported.
+# Keep in sync with which_contract.MAP tool lists; do not add doctor/expand_prompt/needed.
+FALLBACK_ALIAS: dict[str, str] = {
+    "validate_packet.py": "selftest.py",
+    "pipeline_status.py": "selftest.py",
+    "next_action.py": "selftest.py",
+    "hint.py": "selftest.py",
+    "queue_lib.py": "queue_contract.py",
+    "queue_status.py": "queue_contract.py",
+    "mark_topic.py": "queue_contract.py",
+    "next_topic.py": "queue_contract.py",
+    "apply_script.py": "write_path_contract.py",
+    "set_status.py": "write_path_contract.py",
+    "new_packet.py": "scaffold_contract.py",
+    "after_scaffold.py": "scaffold_contract.py",
+}
+
+
 def resolve_name(raw: str, contracts: dict[str, tuple[str, ...]]) -> str | None:
     base = Path(raw).name
     if base in contracts:
@@ -94,7 +115,7 @@ def resolve_name(raw: str, contracts: dict[str, tuple[str, ...]]) -> str | None:
             return mapped
     except Exception:
         pass
-    return None
+    return FALLBACK_ALIAS.get(base)
 
 
 def paths_for(contract: str, contracts: dict[str, tuple[str, ...]]) -> list[str]:
@@ -106,12 +127,29 @@ def paths_for(contract: str, contracts: dict[str, tuple[str, ...]]) -> list[str]
     return rows
 
 
-def print_one(contract: str, contracts: dict[str, tuple[str, ...]]) -> None:
+def print_one(contract: str, contracts: dict[str, tuple[str, ...]], missing: bool) -> None:
     rows = paths_for(contract, contracts)
     print(f"# {contract}")
     print(f"python3 tools/{contract}")
+    absent = 0
+    present = 0
     for p in rows:
-        print(p)
+        if missing:
+            on_disk = (ROOT / p).is_file()
+            flag = "PRESENT" if on_disk else "MISSING"
+            if on_disk:
+                present += 1
+            else:
+                absent += 1
+            print(f"{flag}\t{p}")
+        else:
+            print(p)
+    if missing:
+        print(f"# {present} present, {absent} missing")
+        if absent == 0:
+            print("READY")
+        else:
+            print("NOT READY")
     print()
 
 
@@ -129,6 +167,11 @@ def main() -> int:
         action="store_true",
         help="Print every contract reconstruct list",
     )
+    parser.add_argument(
+        "--missing",
+        action="store_true",
+        help="Mark each listed path PRESENT or MISSING on this disk. Exit stays 0.",
+    )
     args = parser.parse_args()
 
     contracts = load_map()
@@ -141,13 +184,13 @@ def main() -> int:
                 print(f"  {c}")
             print("This command writes nothing.")
             return 0
-        print_one(contract, contracts)
+        print_one(contract, contracts, args.missing)
         print("This command writes nothing.")
         return 0
 
     if args.all or not args.name:
         for c in contracts:
-            print_one(c, contracts)
+            print_one(c, contracts, args.missing)
         print("This command writes nothing.")
         return 0
 

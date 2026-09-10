@@ -15,22 +15,15 @@
 | 2026-09-09 Run 035   | ~139 estimate     | 33              | which_contract routes tool edits to the right lock |
 | 2026-09-09 Run 036   | ~138 estimate     | 34              | router_contract locks the tool→contract map |
 | 2026-09-10 Run 037   | ~137 estimate     | 35              | needed.py prints reconstruct paths per contract |
+| 2026-09-10 Run 038   | ~136 estimate     | 36              | needed.py --missing + FALLBACK_ALIAS |
 
 Earlier rows 001-026 remain in prior commits.
 
 Estimate basis (generic 8-min explainer):
-- Run 037: -1 stop agents reconstructing the wrong file set from memory
+- Run 038: -1 stop agents guessing whether a reconstruct tree is complete
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
-- Run 028: `tools/mark_topic.py` marks a queue row used only when a matching non-fixture folder exists. Dry-run default.
-- Run 029: `tools/queue_lib.py` is the single source for slugify/next_id/parse/match. `new_packet.py` reprints the matching mark_topic dry-run after scaffold and does not write the queue.
-- Run 030: `tools/queue_status.py` is a read-only board.
-- Run 031: same board prints packet.md status when a folder exists. `--strict` opt-in.
-- Run 032: `tools/queue_contract.py` is the queue equivalent of selftest. Temp tree only. Runtime PASS.
-- Run 033: `tools/write_path_contract.py` is the write-path equivalent of selftest. Temp tree only. Runtime PASS.
-- Run 034: `tools/scaffold_contract.py` locks new_packet mark_followup. Runtime PASS on `/tmp/ca`.
-- Run 035: `tools/which_contract.py` maps edited tool basenames to the contract command. Read-only. `--run` SKIP if deps missing.
-- Run 036: `tools/router_contract.py` locks 18 expected mappings, unknown-tool exit 0, and `--run` SKIP on missing deps. Runtime PASS on `/tmp/ca/tools`.
-- Run 037: `tools/needed.py` prints the reconstruct file list for a contract or edited tool. Read-only. Unmapped. Local PASS on `/tmp/ca/tools`.
+- Run 037: `tools/needed.py` prints the reconstruct file list. Unmapped. Local PASS.
+- Run 038: `needed.py --missing` reports PRESENT/MISSING and READY/NOT READY with exit 0. FALLBACK_ALIAS resolves edited-tool names when which_contract is absent. Still unmapped. Local PASS on `/tmp/ca/tools`.
