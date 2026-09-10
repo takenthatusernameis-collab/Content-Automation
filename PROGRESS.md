@@ -14,11 +14,12 @@
 | 2026-09-09 Run 034   | ~140 estimate     | 32              | scaffold_contract locks new_packet mark-handoff |
 | 2026-09-09 Run 035   | ~139 estimate     | 33              | which_contract routes tool edits to the right lock |
 | 2026-09-09 Run 036   | ~138 estimate     | 34              | router_contract locks the tool→contract map |
+| 2026-09-10 Run 037   | ~137 estimate     | 35              | needed.py prints reconstruct paths per contract |
 
 Earlier rows 001-026 remain in prior commits.
 
 Estimate basis (generic 8-min explainer):
-- Run 036: -1 stop silent remap of which lock to run after a tools/ edit
+- Run 037: -1 stop agents reconstructing the wrong file set from memory
 
 These numbers are **estimates**, not stopwatch data.
 
@@ -32,3 +33,4 @@ These numbers are **estimates**, not stopwatch data.
 - Run 034: `tools/scaffold_contract.py` locks new_packet mark_followup. Runtime PASS on `/tmp/ca`.
 - Run 035: `tools/which_contract.py` maps edited tool basenames to the contract command. Read-only. `--run` SKIP if deps missing.
 - Run 036: `tools/router_contract.py` locks 18 expected mappings, unknown-tool exit 0, and `--run` SKIP on missing deps. Runtime PASS on `/tmp/ca/tools`.
+- Run 037: `tools/needed.py` prints the reconstruct file list for a contract or edited tool. Read-only. Unmapped. Local PASS on `/tmp/ca/tools`.
