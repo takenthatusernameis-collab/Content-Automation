@@ -2,6 +2,11 @@
 
 Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 
+## Observed issues (Run 050)
+- operator_pin locked title/slug/one_line but not the idea.md problem sentence.
+- That sentence is not a queue column. Dropping it would still PASS the 049 pin.
+- Locking the existing operator-page string is cheaper than widening topic_queue.
+
 ## Observed issues (Run 049)
 - The Q1 title/path/mechanism pin lives only as prose on human_session.
 - A later run can retitle Q1 or defer first-video commands without failing idea_gate.
@@ -11,26 +16,6 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 - After expand_prompt refused blank mechanisms, doctor/hint still printed expand_prompt as the next command.
 - That live command now exits 2. Operators spend a turn hitting the refuse.
 - next_action `fill-idea` + hint paste/doctor map is cheaper than auto-writing idea.md or another reconstruct flag.
-
-## Observed issues (Run 046)
-- After the idea reprint existed, expand_prompt still assembled a pack from blank idea.md.
-- Auto-writing idea.md would hide the skipped paste. A refuse (exit 2) is the matching lock.
-- Do not add --allow-blank-idea unless a human needs assembler dry-runs of empty templates.
-
-## Observed issues (Run 045)
-- After title/path pin, operators still open topic_queue.md to copy one_line into idea.md.
-- Auto-writing idea.md would hide a blank-template expand the same way auto-mark hides a missing folder.
-- Reprint topic + mechanism from new_packet; keep the human paste as the write.
-
-## Observed issues (Run 044)
-- Restored first-video commands still used a placeholder title and `videos/002-slug`.
-- Scaffolded idea.md uses one generic mechanism for every queue row.
-- Pinning Q1 title/path and requiring the one_line mechanism edit is cheaper than another tool.
-
-## Observed issues (Run 043)
-- Six consecutive runs extended needed.py while videos produced stayed 0.
-- After WAVE 3 reconstruct + operator exist, another fetch wave is not the highest-value action.
-- Flag the reconstruct-loop in FAILURES instead of adding WAVE 4.
 
 ## Allowed changes
 Recorded as proposals in `NEXT_RUN_PROMPT.md` only. Do not edit the original archive.

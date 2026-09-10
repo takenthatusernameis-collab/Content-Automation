@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-10T13:20:00Z (Run 049)
+Updated: 2026-09-10T14:20:00Z (Run 050)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + scaffold handoff + contract router + router lock + reconstruct list + reconstruct presence check + first-fetch bootstrap + fetch-wave plan + post-reconstruct operator command + operator reconstruct command + operator page with first-video expand/apply/status + Q1 title/path pin + idea.md pre-expand edit + scaffold idea reprint + expand_prompt blank-mechanism refuse + next_action fill-idea before expand + idea-gate contract + operator-pin contract** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + scaffold handoff + contract router + router lock + reconstruct list + reconstruct presence check + first-fetch bootstrap + fetch-wave plan + post-reconstruct operator command + operator reconstruct command + operator page with first-video expand/apply/status + Q1 title/path pin + idea.md pre-expand edit + scaffold idea reprint + expand_prompt blank-mechanism refuse + next_action fill-idea before expand + idea-gate contract + operator-pin contract + Q1 problem-line pin** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -15,8 +15,8 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - No YouTube / TTS / stock / render integrations configured
 - HTTPS clone from this agent sandbox still fails (private repo). Push via GitHub file API.
 - Reconstruct + selftest path: `docs/agent_session.md`
-- Operator path: `docs/human_session.md` pins Q1 title `Stop deciding what to work on every morning`, predicted folder `videos/002-stop-deciding-what-to-work-on-every-morning`, idea.md edit before expand_prompt, and notes that `new_packet` reprints topic + mechanism
-- Operator pin lock: `python3 tools/operator_pin_contract.py` (unmapped; not a reconstruct wave)
+- Operator path: `docs/human_session.md` pins Q1 title `Stop deciding what to work on every morning`, predicted folder `videos/002-stop-deciding-what-to-work-on-every-morning`, idea.md problem/mechanism edit before expand_prompt, and notes that `new_packet` reprints topic + mechanism
+- Operator pin lock: `python3 tools/operator_pin_contract.py` (unmapped; not a reconstruct wave). Also locks the Q1 problem line that is not a queue column.
 - First fetch: `python3 tools/needed.py --bootstrap`
 - Fetch waves: `python3 tools/needed.py --plan`
 - Reconstruct file list: `python3 tools/needed.py CONTRACT`
@@ -25,39 +25,27 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - next_action code `fill-idea` when that mechanism is blank. hint maps it to a paste comment + doctor, not expand_prompt.
 - idea-gate lock: `python3 tools/idea_gate_contract.py` (tempfile; unmapped in which_contract; not a sixth reconstruct wave)
 
-## What exists now (after Run 049)
-- Operating memory files and frozen original master prompt
-- Video packet standard + scaffold CLI + packet QA
-- Sample packet fixture `videos/sample-001-why-systems-beat-motivation/`
-- Topic queue + queue_lib + next_topic + queue_status + mark_topic
-- Contracts: queue, write-path, scaffold, which_contract, router_contract, idea_gate_contract, operator_pin_contract
-- Reconstruct list `tools/needed.py` (read-only; unmapped like doctor)
-- needed.py --missing / --bootstrap / --plan unchanged from Run 042
-- Reconstruct-loop (Runs 037-042) flagged in FAILURES.md
-- `new_packet.idea_followup` reprints topic + queue one_line mechanism; does not write idea.md
-- `expand_prompt.py` refuses blank mechanism (exit 2)
-- `scaffold_contract.py` locks idea_followup reprint + no idea.md write
-- `next_action.py` returns `fill-idea` before write-script / expand-script when idea.md mechanism is blank
-- `hint.py` maps `fill-idea` (no expand_prompt live command; first live command is doctor)
-- `idea_gate_contract.py` locks the blank/filled mechanism cases + fill-idea hint map on tempfile
-- `operator_pin_contract.py` locks human_session Q1 title / 002-slug / one_line / fill-idea / new_packet command against topic_queue while Q1 is queued
+## What exists now (after Run 050)
+- Same inventory as Run 049
+- `operator_pin_contract.py` now also requires the Q1 problem sentence on `docs/human_session.md`
+- `docs/agent_session.md` lists the two unmapped locks (`idea_gate_contract.py`, `operator_pin_contract.py`) so clone-less agents do not scan NEXT for them
 - No new packet folder this run; queue still queued
 - No needed.py edit this run
 - which_contract / router_contract not edited (idea_gate and operator_pin stay unmapped)
 
 ## Pipeline map
-Unchanged from Run 037. Oversight now includes needed.py --plan WAVE 3 reconstruct + operator lines. Operator page no longer defers expand/apply/status and no longer leaves Q1 title/path as a guess. Scaffold reprint now includes idea.md fields. expand_prompt will not emit a pack until those fields are pasted. doctor/hint will not lead with expand_prompt while the mechanism is still blank. idea_gate_contract fails the run if that map regresses. operator_pin_contract fails the run if human_session drifts off the live Q1 row.
+Unchanged from Run 037. Operator pin now fails if the idea.md problem paste line disappears from human_session while Q1 is queued.
 
 ## Metrics snapshot
 | Metric                      | Previous | Current    | Notes |
 |-----------------------------|----------|------------|-------|
-| Estimated human min / video | 126      | 125        | operator pin stops title/path/mechanism drift on the only human page |
-| Automated steps             | 41       | 42         | operator_pin_contract added; no new reconstruct flag |
+| Estimated human min / video | 125      | 124        | problem line no longer a free-floating paste string |
+| Automated steps             | 42       | 42         | same contract, one more locked string; no new reconstruct flag |
 | Videos produced             | 0        | 0          | fixture only |
 | Reconstruct list runtime    | PASS 042 | unchanged  | needed.py not edited |
 | Scaffold contract           | PASS 046 | unchanged  | not re-run |
 | Idea gate contract          | PASS 048 | unchanged  | not re-run |
-| Operator pin contract       | new 049  | PASS 049   | reconstruct docs + queue_lib |
+| Operator pin contract       | PASS 049 | PASS 050   | problem line added; local reconstruct PASS |
 
 ## Active constraints
 - Do not auto-scaffold Q1
@@ -74,3 +62,4 @@ Unchanged from Run 037. Oversight now includes needed.py --plan WAVE 3 reconstru
 - expand_prompt must not write idea.md or script.md
 - next_action/hint must not print expand_prompt as the first live command while idea.md mechanism is blank
 - Do not treat idea_gate_contract or operator_pin_contract as permission to auto-write idea.md or scaffold Q1
+- Do not add a problem column to topic_queue unless a human asks; lock the operator-page sentence instead
