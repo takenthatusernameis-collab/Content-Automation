@@ -21,7 +21,7 @@ python3 tools/needed.py --plan --missing
 
 `--bootstrap` is read-only. It prints the six session-start paths. Combined with `--missing` it labels PRESENT or MISSING and prints READY or NOT READY. Exit is always 0. It is not a contract.
 
-`--plan` is read-only. WAVE 1 reprints those six paths. WAVE 2 prints the next reconstruct command (`python3 tools/needed.py selftest.py --missing`) and does not dump that file list. WAVE 3 prints the first operator command (`python3 tools/queue_status.py`) and does not dump queue files or scaffold. Combined with `--missing` it labels WAVE 1 only. Exit is always 0. It is not a contract.
+`--plan` is read-only. WAVE 1 reprints those six paths. WAVE 2 prints the next reconstruct command (`python3 tools/needed.py selftest.py --missing`) and does not dump that file list. WAVE 3 prints the reconstruct command for the operator (`python3 tools/needed.py queue_status.py --missing`) then the operator command (`python3 tools/queue_status.py`) and does not dump queue files or scaffold. Combined with `--missing` it labels WAVE 1 only. Exit is always 0. It is not a contract.
 
 Then fetch WAVE 1 and continue below.
 
@@ -32,13 +32,14 @@ Do not rebuild the reconstruct list from memory. Print it:
 ```bash
 python3 tools/needed.py selftest.py
 python3 tools/needed.py new_packet.py
+python3 tools/needed.py queue_status.py
 python3 tools/needed.py --all
 python3 tools/needed.py new_packet.py --missing
 ```
 
 `needed.py` is read-only. It prints repo-relative paths plus the contract command. `--missing` labels each path PRESENT or MISSING and prints READY or NOT READY. Exit is always 0. It does not download files and does not write `videos/`.
 
-Without `which_contract.py` on disk, FALLBACK_ALIAS still resolves edited-tool names such as `new_packet.py` → scaffold_contract. Unmapped tools (`doctor.py`, `expand_prompt.py`, `needed.py`) print Unknown and exit 0.
+Without `which_contract.py` on disk, FALLBACK_ALIAS still resolves edited-tool names such as `new_packet.py` → scaffold_contract and `queue_status.py` → queue_contract. Unmapped tools (`doctor.py`, `expand_prompt.py`, `needed.py`) print Unknown and exit 0.
 
 ## Which contract
 
@@ -86,9 +87,15 @@ Expected on current sample-001 (do not pad WORDS to change this):
 
 Same as prior page: reconstruct what `needed.py CONTRACT` prints, confirm `--missing` READY, then run the named contract. Expected PASS, exit 0, no writes to `docs/` or `videos/`.
 
-After WAVE 2 READY, print WAVE 3 and stop at the board. Do not treat WAVE 3 as scaffold permission.
+After WAVE 2 READY, print WAVE 3 reconstruct, fetch until READY, then run the operator command and stop at the board. Do not treat WAVE 3 as scaffold permission.
 
 ## Last verified runtime
+
+Operator reconstruct command:
+
+- When: 2026-09-10T06:12:00Z (Run 042)
+- How: `/tmp/ca/tools` with needed.py only
+- Result: `--plan` prints WAVE 1 six paths + WAVE 2 `needed.py selftest.py --missing` + WAVE 3 `needed.py queue_status.py --missing` then `queue_status.py`; `--plan --missing` NOT READY exit 0; `needed.py queue_status.py` aliases to queue_contract; bootstrap/alias/doctor unchanged
 
 Fetch-wave plan + operator command:
 
@@ -96,30 +103,7 @@ Fetch-wave plan + operator command:
 - How: `/tmp/ca/tools` with needed.py only
 - Result: `--plan` prints WAVE 1 six paths + WAVE 2 `needed.py selftest.py --missing` + WAVE 3 `queue_status.py`; `--plan --missing` NOT READY exit 0; bootstrap/alias/doctor unchanged
 
-Fetch-wave plan:
-
-- When: 2026-09-10T04:10:00Z (Run 040)
-- How: `/tmp/ca/tools` with needed.py only
-- Result: `--plan` prints WAVE 1 six paths + WAVE 2 `needed.py selftest.py --missing`; `--plan --missing` NOT READY exit 0; bootstrap/alias/doctor unchanged
-
-First-fetch bootstrap:
-
-- When: 2026-09-10T03:10:00Z (Run 039)
-- How: `/tmp/ca/tools` with needed.py only
-- Result: `--bootstrap` prints six paths; `--bootstrap --missing` NOT READY exit 0; new_packet still aliases; doctor still Unknown
-
-Reconstruct presence:
-
-- When: 2026-09-10T02:05:00Z (Run 038)
-- How: `/tmp/ca/tools` with needed.py only (no which_contract)
-- Result: `needed.py new_packet.py` resolves to scaffold_contract; `needed.py doctor.py` Unknown exit 0; `--missing` NOT READY exit 0
-
-Reconstruct list:
-
-- When: 2026-09-10T00:16:00Z (Run 037)
-- Result: needed.py lists paths; unmapped doctor Unknown
-
-Prior contract PASS times remain those recorded in Run 026–036. If a later run cannot reconstruct, record FAIL with the missing file.
+Prior bootstrap / presence / reconstruct times remain those recorded in Run 037–040. Prior contract PASS times remain those recorded in Run 026–036. If a later run cannot reconstruct, record FAIL with the missing file.
 
 ## Stop
 

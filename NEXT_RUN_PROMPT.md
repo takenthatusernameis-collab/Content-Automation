@@ -4,12 +4,13 @@ Use the original master prompt unchanged, plus these targeted additions:
 
 ## Bootstrap rule
 If STATE.md exists, trust it over memory. If the repo only has a README, create the memory files and one reusable production artifact before anything else.
-Clone-less agents print `python3 tools/needed.py --bootstrap` for the first-fetch set and `python3 tools/needed.py --plan` for the next wave command. Do not rebuild those lists from memory. Do not treat --bootstrap or --plan as a contract. Keep BOOTSTRAP short. Keep WAVE 2 as a command, not a file dump.
+Clone-less agents print `python3 tools/needed.py --bootstrap` for the first-fetch set and `python3 tools/needed.py --plan` for the next wave command. Do not rebuild those lists from memory. Do not treat --bootstrap or --plan as a contract. Keep BOOTSTRAP short. Keep WAVE 2 as a command, not a file dump. Keep WAVE 3 as two commands (reconstruct `queue_status.py` then run it), not a file dump.
 
 ## Scope cap
 Ship at most one new reusable capability per run after foundation exists. Prefer extending `tools/` and `videos/_template/` over new top-level concepts.
 Do not add a start.py that only reprints doctor.
 Do not add a sixth contract whose only job is to lock needed.py.
+Do not add WAVE 4 unless a human still has to guess a command after WAVE 3 READY.
 
 ## Evidence rule
 If you add a script, run it against a copy of `videos/sample-001-*` fields (dry-run is enough if write would mutate the fixture) and paste the command output into RUNS.md.
