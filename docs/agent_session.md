@@ -73,6 +73,8 @@ python3 tools/operator_pin_contract.py
 - After human_session or Q1 queue pin edits (title, slug, one_line, problem sentence): operator_pin_contract
 - After new_packet idea reprint edits: scaffold_contract (mapped; not this list)
 
+`idea_brief.py` is also unmapped. It is a reprint recover tool, not a lock. PASS/print does not mean Q1 is scaffolded. Do not write idea.md because they passed.
+
 PASS does not mean Q1 is scaffolded. Do not write idea.md because they passed.
 
 ## Reconstruct and prove the fixture
@@ -106,6 +108,12 @@ After WAVE 2 READY, print WAVE 3 reconstruct, fetch until READY, then run the op
 
 ## Last verified runtime
 
+idea_brief reprint recover:
+
+- When: 2026-09-10T16:15:00Z (Run 052)
+- How: `/tmp/ca` with idea_brief.py + new_packet.idea_followup + queue_lib.py + docs/topic_queue.md + a blank 002 packet
+- Result: exit 0; printed blank current fields + Q1 topic/problem/mechanism; idea.md hash unchanged; Q1 remains queued; no videos/ writes in the repo
+
 Scaffold problem reprint:
 
 - When: 2026-09-10T15:05:00Z (Run 051)
@@ -132,3 +140,4 @@ Prior bootstrap / presence / reconstruct times remain those recorded in Run 037â
 - Do not list WAVE 3 queue files inside --plan.
 - Do not treat WAVE 3 as auto-scaffold.
 - Do not map idea_gate_contract or operator_pin_contract.
+- Do not write idea.md from idea_brief.py.
