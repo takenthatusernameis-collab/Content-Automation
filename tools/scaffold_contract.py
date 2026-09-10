@@ -2,11 +2,14 @@
 """Contract check for scaffold + queue-mark handoff.
 
 Read-only versus the repo videos/ tree. May import new_packet.mark_followup
-which reads docs/topic_queue.md. Never writes the queue or sample-001.
+and new_packet.idea_followup which read docs/topic_queue.md. Never writes
+the queue, idea.md, or sample-001.
 
 Locks:
 - new_packet does not call mark_topic --write
+- new_packet does not write idea.md
 - mark_followup prints a dry-run line then a commented --write
+- idea_followup reprints topic + matching queue one_line
 - empty titles `1.` stay untitled
 - next_id treats sample-001 as 001
 """
@@ -24,7 +27,7 @@ ROOT = TOOLS.parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
-from new_packet import mark_followup  # noqa: E402
+from new_packet import idea_followup, mark_followup  # noqa: E402
 from queue_lib import next_id, slugify  # noqa: E402
 
 
@@ -57,7 +60,7 @@ def source_does_not_write_queue(src: str) -> list[str]:
         for i, line in enumerate(src.splitlines(), 1):
             stripped = line.strip()
             if "mark_topic.py --write" in stripped and not stripped.startswith("#"):
-                if "f\"  # " in line or "\"  # " in line or "'  # " in line:
+                if 'f"  # ' in line or '"  # ' in line or "'  # " in line:
                     continue
                 if stripped.startswith("lines.append") and "--write" in stripped and "#" in stripped:
                     continue
@@ -70,7 +73,12 @@ def main() -> int:
 
     src = (TOOLS / "new_packet.py").read_text(encoding="utf-8")
     fail(failures, "def mark_followup" in src, "mark_followup missing")
+    fail(failures, "def idea_followup" in src, "idea_followup missing")
     fail(failures, "does not mark the topic queue used" in src, "no-mark banner missing")
+    fail(failures, "does not write idea.md" in src, "no-write-idea banner missing")
+    if re.search(r"idea\.md.*write_text|write_text\(.*idea", src):
+        failures.append("new_packet appears to write idea.md")
+
     for problem in source_does_not_write_queue(src):
         failures.append(problem)
 
@@ -85,6 +93,20 @@ def main() -> int:
         f"commented write missing: {lines}",
     )
     fail(failures, "does not mark the topic queue used" in blob.lower() or "does not mark" in blob, "banner")
+
+    ideas = idea_followup(title)
+    idea_blob = "\n".join(ideas)
+    fail(failures, "does not write idea.md" in idea_blob.lower(), f"idea no-write banner missing: {ideas}")
+    fail(
+        failures,
+        any("topic:" in ln and "Stop deciding what to work on every morning" in ln for ln in ideas),
+        f"idea topic reprint missing: {ideas}",
+    )
+    fail(
+        failures,
+        any("next-action default" in ln for ln in ideas),
+        f"idea mechanism reprint missing Q1 one_line: {ideas}",
+    )
 
     unknown = mark_followup("A title that is not in the queue")
     fail(
@@ -119,6 +141,7 @@ def main() -> int:
 
     print("Scaffold contract")
     print("new_packet: reprint mark_topic dry-run; no auto --write")
+    print("new_packet: reprint idea topic + one_line; no idea.md write")
     print("titles_filled: empty 1. stays untitled")
     print("next_id: sample-001 => 002")
     if failures:
