@@ -9,7 +9,7 @@ Locks:
 - new_packet does not call mark_topic --write
 - new_packet does not write idea.md
 - mark_followup prints a dry-run line then a commented --write
-- idea_followup reprints topic + matching queue one_line
+- idea_followup reprints topic + Q1 problem + matching queue one_line
 - empty titles `1.` stay untitled
 - next_id treats sample-001 as 001
 """
@@ -29,6 +29,11 @@ if str(TOOLS) not in sys.path:
 
 from new_packet import idea_followup, mark_followup  # noqa: E402
 from queue_lib import next_id, slugify  # noqa: E402
+
+try:
+    from operator_pin_contract import Q1_PROBLEM  # noqa: E402
+except Exception:
+    Q1_PROBLEM = "they reopen the whole work list every morning instead of starting"
 
 
 def titles_filled(text: str) -> bool:
@@ -104,6 +109,11 @@ def main() -> int:
     )
     fail(
         failures,
+        any("problem:" in ln and Q1_PROBLEM in ln for ln in ideas),
+        f"idea problem reprint missing Q1 problem: {ideas}",
+    )
+    fail(
+        failures,
         any("next-action default" in ln for ln in ideas),
         f"idea mechanism reprint missing Q1 one_line: {ideas}",
     )
@@ -141,7 +151,7 @@ def main() -> int:
 
     print("Scaffold contract")
     print("new_packet: reprint mark_topic dry-run; no auto --write")
-    print("new_packet: reprint idea topic + one_line; no idea.md write")
+    print("new_packet: reprint idea topic + problem + one_line; no idea.md write")
     print("titles_filled: empty 1. stays untitled")
     print("next_id: sample-001 => 002")
     if failures:

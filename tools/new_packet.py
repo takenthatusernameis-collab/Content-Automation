@@ -16,6 +16,11 @@ if str(TOOLS) not in sys.path:
 
 from queue_lib import matching_queue_row, next_id, parse_queue, slugify  # noqa: E402
 
+try:
+    from operator_pin_contract import Q1_PROBLEM  # noqa: E402
+except Exception:  # pragma: no cover - reconstruct trees may omit the pin
+    Q1_PROBLEM = "they reopen the whole work list every morning instead of starting"
+
 TEMPLATE = ROOT / "videos" / "_template"
 QUEUE = ROOT / "docs" / "topic_queue.md"
 
@@ -47,20 +52,25 @@ def idea_followup(title: str) -> list[str]:
         "Before expand_prompt, paste these into idea.md if the template fields are still blank:",
         f"  - topic: {title}",
     ]
+    row = None
     if QUEUE.is_file():
         rows = parse_queue(QUEUE.read_text(encoding="utf-8"))
         row = matching_queue_row(title, rows)
-        if row and row.get("one_line"):
-            lines.append(
-                f"  - mechanism (the system, not the pep talk): {row['one_line']}"
-            )
-        else:
-            lines.append(
-                "  - mechanism (the system, not the pep talk): (no matching queue one_line)"
-            )
+    if row and row.get("id") == "Q1" and Q1_PROBLEM:
+        lines.append(f"  - problem: {Q1_PROBLEM}")
+    elif row:
+        lines.append(
+            "  - problem: (no locked problem line for this id; write one before expand)"
+        )
+    else:
+        lines.append("  - problem: (no matching queue row; write one before expand)")
+    if row and row.get("one_line"):
+        lines.append(
+            f"  - mechanism (the system, not the pep talk): {row['one_line']}"
+        )
     else:
         lines.append(
-            "  - mechanism (the system, not the pep talk): (queue missing)"
+            "  - mechanism (the system, not the pep talk): (no matching queue one_line)"
         )
     lines.append("Do not treat those lines as spoken WORDS.")
     return lines
