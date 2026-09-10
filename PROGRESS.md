@@ -21,10 +21,12 @@
 | 2026-09-10 Run 054   | ~120 estimate     | 45              | idea_brief --block prints paste-ready idea.md body |
 | 2026-09-10 Run 055   | ~119 estimate     | 46              | idea_brief --check confirms paste without writing |
 | 2026-09-10 Run 056   | ~118 estimate     | 47              | --check PASTE READY prints exact expand_prompt command |
+| 2026-09-10 Run 057   | ~117 estimate     | 48              | --check PASTE INCOMPLETE prints exact --block command |
 
 Earlier rows remain in prior commits.
 
 Estimate basis (generic 8-min explainer):
+- Run 057: -1 stop hunting --block after an incomplete --check
 - Run 056: -1 stop hunting expand_prompt after a confirmed paste
 - Run 055: -1 stop guessing whether the hand paste matched suggested fields
 - Run 054: -1 stop reshaping reprint lines into idea.md after recover
@@ -34,8 +36,6 @@ Estimate basis (generic 8-min explainer):
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
-- Run 056: `idea_brief.py --check` PASTE READY prints `python3 tools/expand_prompt.py PATH` and warns that stdout is not script.md. Still does not write idea.md. idea_brief_contract requires expand_command plus those lines on tempfile. Unmapped. IDEA BRIEF CONTRACT PASS on tempfile. No packet folder.
-- Run 055: `idea_brief.py --check` compares current idea.md to suggested topic/problem/mechanism. Exit 2 on blank/mismatch, exit 0 on PASTE READY. Does not write idea.md. idea_brief_contract requires both outcomes on tempfile and unchanged hashes. Unmapped. IDEA BRIEF CONTRACT PASS on tempfile. No packet folder.
-- Run 054: `idea_brief.py --block` prints a paste-ready `# Idea` body (topic/problem/mechanism) and still does not write idea.md.
-- Run 053: `tools/idea_brief_contract.py` locks idea_brief as read-only reprint recover.
-- Run 052: `tools/idea_brief.py` reprints current vs suggested idea.md fields for an existing packet.
+- Run 057: `idea_brief.py --check` PASTE INCOMPLETE prints `python3 tools/idea_brief.py PATH --block`. Still does not write idea.md. idea_brief_contract requires block_command plus those lines on tempfile. Unmapped. IDEA BRIEF CONTRACT PASS on tempfile. No packet folder.
+- Run 056: `idea_brief.py --check` PASTE READY prints `python3 tools/expand_prompt.py PATH` and warns that stdout is not script.md.
+- Run 055: `idea_brief.py --check` compares current idea.md to suggested topic/problem/mechanism.
