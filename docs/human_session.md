@@ -52,7 +52,7 @@ Scaffolded `idea.md` still uses blank template fields. Paste the reprint from `n
 - problem: they reopen the whole work list every morning instead of starting
 - mechanism: Install a written next-action default so the morning does not reopen the whole list.
 
-Do not treat that edit as spoken WORDS. Do not invent statistics. Do not leave the template-default / blank mechanism.
+Do not treat that edit as spoken WORDS. Do not invent statistics. Do not leave the template-default / blank mechanism. `expand_prompt.py` exits 2 until that paste exists. It does not write idea.md.
 
 3. Expand off-repo, then paste back only onto the new packet
 
@@ -65,7 +65,7 @@ python3 tools/apply_script.py videos/002-stop-deciding-what-to-work-on-every-mor
 python3 tools/validate_packet.py videos/002-stop-deciding-what-to-work-on-every-morning
 ```
 
-Do not run `apply_script.py --write` on `videos/sample-001-*`. Do not auto-write WORDS. Do not pad the fixture.
+If expand_prompt prints `refusing expand: idea.md mechanism is blank or template-default`, go back to step 2. Do not run `apply_script.py --write` on `videos/sample-001-*`. Do not auto-write WORDS. Do not pad the fixture.
 
 4. Promote only when spoken WORDS sit in the 900-1500 band
 
