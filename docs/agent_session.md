@@ -39,7 +39,7 @@ python3 tools/needed.py new_packet.py --missing
 
 `needed.py` is read-only. It prints repo-relative paths plus the contract command. `--missing` labels each path PRESENT or MISSING and prints READY or NOT READY. Exit is always 0. It does not download files and does not write `videos/`.
 
-Without `which_contract.py` on disk, FALLBACK_ALIAS still resolves edited-tool names such as `new_packet.py` → scaffold_contract and `queue_status.py` → queue_contract. Unmapped tools (`doctor.py`, `expand_prompt.py`, `needed.py`) print Unknown and exit 0.
+Without `which_contract.py` on disk, FALLBACK_ALIAS still resolves edited-tool names such as `new_packet.py` → scaffold_contract and `queue_status.py` → queue_contract. Unmapped tools (`doctor.py`, `expand_prompt.py`, `needed.py`, `idea_gate_contract.py`, `operator_pin_contract.py`) print Unknown and exit 0.
 
 ## Which contract
 
@@ -59,6 +59,20 @@ python3 tools/router_contract.py
 ```
 
 Expected: `ROUTER CONTRACT PASS`, exit 0, no writes to `docs/` or `videos/`.
+
+## Unmapped locks
+
+These are not reconstruct waves and are not in which_contract. Run them directly after the matching edit:
+
+```bash
+python3 tools/idea_gate_contract.py
+python3 tools/operator_pin_contract.py
+```
+
+- After fill-idea / expand refuse edits: idea_gate_contract
+- After human_session or Q1 queue pin edits (title, slug, one_line, problem sentence): operator_pin_contract
+
+PASS does not mean Q1 is scaffolded. Do not write idea.md because they passed.
 
 ## Reconstruct and prove the fixture
 
@@ -91,6 +105,12 @@ After WAVE 2 READY, print WAVE 3 reconstruct, fetch until READY, then run the op
 
 ## Last verified runtime
 
+Operator pin problem-line lock:
+
+- When: 2026-09-10T14:20:00Z (Run 050)
+- How: `/tmp/ca` with operator_pin_contract.py + queue_lib.py + docs/topic_queue.md + docs/human_session.md
+- Result: OPERATOR PIN CONTRACT PASS, exit 0; Q1 remains queued; no videos/ writes
+
 Operator reconstruct command:
 
 - When: 2026-09-10T06:12:00Z (Run 042)
@@ -116,3 +136,4 @@ Prior bootstrap / presence / reconstruct times remain those recorded in Run 037�
 - Do not list WAVE 2 reconstruct files inside --plan.
 - Do not list WAVE 3 queue files inside --plan.
 - Do not treat WAVE 3 as auto-scaffold.
+- Do not map idea_gate_contract or operator_pin_contract.
