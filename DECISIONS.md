@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-10 | WAVE 3 includes a reconstruct command (`needed.py queue_status.py --missing`) before the operator line | Run 041 printed the operator command but agents still guessed the reconstruct invocation; dumping queue files inside --plan remains forbidden | If the default first operator command changes; keep both WAVE 3 lines as commands only
 - 2026-09-10 | needed.py --plan WAVE 3 is one operator command (`queue_status.py`), not a file list | After WAVE 2 READY, agents still guessed whether to scaffold or inspect the board; dumping queue files inside --plan would grow a third repo list | If the default first operator command should change; keep WAVE 3 as a command only; never treat it as auto-scaffold
 - 2026-09-10 | needed.py --plan prints WAVE 1 paths and the WAVE 2 command, not the WAVE 2 file list | After bootstrap READY, agents still guessed selftest reconstruct; dumping those files inside --plan would grow a second repo list | If the default second wave should be a different contract; keep WAVE 2 as a command only
 - 2026-09-10 | needed.py --bootstrap is a short ordered first-fetch list, not a contract | Clone-less agents still guessed which files to pull before the printer could run; a sixth lock would not reduce that labor | If session-start files change; keep BOOTSTRAP short

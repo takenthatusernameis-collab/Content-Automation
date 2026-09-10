@@ -18,14 +18,15 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 43. First-fetch bootstrap (`needed.py --bootstrap`) — **done (Run 039)**
 44. Fetch-wave plan (`needed.py --plan`) — **done (Run 040)**
 45. Post-reconstruct operator command (`needed.py --plan` WAVE 3) — **done (Run 041)**
+46. Operator reconstruct command (`needed.py --plan` WAVE 3 `queue_status.py --missing`) — **done (Run 042)**
 
 Earlier items 1-30 remain done as recorded in prior commits.
 
 ## Later (automation)
-46. TTS narration path (optional; keep human VO compatible)
-47. Caption timing from a real selected take (not 150 wpm estimates)
-48. ffmpeg assembly for this one locked format after one packet has VO + cards
-49. YouTube upload + metadata only after packet QA passes
+47. TTS narration path (optional; keep human VO compatible)
+48. Caption timing from a real selected take (not 150 wpm estimates)
+49. ffmpeg assembly for this one locked format after one packet has VO + cards
+50. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Auto-scaffolding the next queued topic without a human instruction
