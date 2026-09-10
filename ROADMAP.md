@@ -20,13 +20,14 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 45. Post-reconstruct operator command (`needed.py --plan` WAVE 3) — **done (Run 041)**
 46. Operator reconstruct command (`needed.py --plan` WAVE 3 `queue_status.py --missing`) — **done (Run 042)**
 47. Operator page first-video expand/apply/status commands — **done (Run 043)**
+48. Operator page Q1 title/path pin + idea.md pre-expand edit — **done (Run 044)**
 
 ## Later (automation)
-48. Human scaffolds Q1 and lands WORDS in band on a non-fixture packet
-49. TTS narration path (optional; keep human VO compatible)
-50. Caption timing from a real selected take (not 150 wpm estimates)
-51. ffmpeg assembly for this one locked format after one packet has VO + cards
-52. YouTube upload + metadata only after packet QA passes
+49. Human scaffolds Q1 and lands WORDS in band on a non-fixture packet
+50. TTS narration path (optional; keep human VO compatible)
+51. Caption timing from a real selected take (not 150 wpm estimates)
+52. ffmpeg assembly for this one locked format after one packet has VO + cards
+53. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Auto-scaffolding the next queued topic without a human instruction
@@ -40,5 +41,6 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 - Treating WAVE 3 as permission to auto-scaffold
 - Adding WAVE 4 without a new post-WAVE-3 guess
 - Extending needed.py after the reconstruct-loop flag unless a new guess is observed
+- Expanding while idea.md still uses the scaffold template-default mechanism
 - ffmpeg / TTS / YouTube OAuth / Whisper / stock / shorts
 - Treating which_contract --run SKIP as a contract PASS
