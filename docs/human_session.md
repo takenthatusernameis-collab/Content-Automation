@@ -41,9 +41,10 @@ If scaffold stdout is gone, reprint the same three fields without writing:
 
 ```bash
 python3 tools/idea_brief.py videos/002-stop-deciding-what-to-work-on-every-morning
+python3 tools/idea_brief.py videos/002-stop-deciding-what-to-work-on-every-morning --block
 ```
 
-`idea_brief.py` writes nothing. It prints current idea.md fields and the suggested paste.
+`idea_brief.py` writes nothing. It prints current idea.md fields and the suggested paste. `--block` prints only the paste-ready idea.md body. Still does not write idea.md.
 
 ```bash
 python3 tools/mark_topic.py --id Q1
@@ -54,7 +55,7 @@ python3 tools/mark_topic.py --id Q1
 
 2. Replace the template mechanism before expanding
 
-Scaffolded `idea.md` still uses blank template fields. Paste the reprint from `new_packet` or `idea_brief` (or write these if you skipped the reprint):
+Scaffolded `idea.md` still uses blank template fields. Paste the reprint from `new_packet` or `idea_brief` (or the `--block` body, or write these if you skipped the reprint):
 
 - topic: Stop deciding what to work on every morning
 - problem: they reopen the whole work list every morning instead of starting
