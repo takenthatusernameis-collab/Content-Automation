@@ -2,6 +2,11 @@
 
 Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 
+## Observed issues (Run 047)
+- After expand_prompt refused blank mechanisms, doctor/hint still printed expand_prompt as the next command.
+- That live command now exits 2. Operators spend a turn hitting the refuse.
+- next_action `fill-idea` + hint paste/doctor map is cheaper than auto-writing idea.md or another reconstruct flag.
+
 ## Observed issues (Run 046)
 - After the idea reprint existed, expand_prompt still assembled a pack from blank idea.md.
 - Auto-writing idea.md would hide the skipped paste. A refuse (exit 2) is the matching lock.

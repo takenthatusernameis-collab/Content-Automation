@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-10T10:20:00Z (Run 046)
+Updated: 2026-09-10T11:05:00Z (Run 047)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + scaffold handoff + contract router + router lock + reconstruct list + reconstruct presence check + first-fetch bootstrap + fetch-wave plan + post-reconstruct operator command + operator reconstruct command + operator page with first-video expand/apply/status + Q1 title/path pin + idea.md pre-expand edit + scaffold idea reprint + expand_prompt blank-mechanism refuse** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + scaffold handoff + contract router + router lock + reconstruct list + reconstruct presence check + first-fetch bootstrap + fetch-wave plan + post-reconstruct operator command + operator reconstruct command + operator page with first-video expand/apply/status + Q1 title/path pin + idea.md pre-expand edit + scaffold idea reprint + expand_prompt blank-mechanism refuse + next_action fill-idea before expand** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -21,8 +21,9 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - Reconstruct file list: `python3 tools/needed.py CONTRACT`
 - Reconstruct presence: `python3 tools/needed.py CONTRACT --missing` (exit 0 even if NOT READY)
 - expand_prompt exits 2 when idea.md mechanism is blank / template-default / generic / tbd / todo. It does not write idea.md.
+- next_action code `fill-idea` when that mechanism is blank. hint maps it to a paste comment + doctor, not expand_prompt.
 
-## What exists now (after Run 046)
+## What exists now (after Run 047)
 - Operating memory files and frozen original master prompt
 - Video packet standard + scaffold CLI + packet QA
 - Sample packet fixture `videos/sample-001-why-systems-beat-motivation/`
@@ -34,20 +35,22 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - `new_packet.idea_followup` reprints topic + queue one_line mechanism; does not write idea.md
 - `expand_prompt.py` refuses blank mechanism (exit 2)
 - `scaffold_contract.py` locks idea_followup reprint + no idea.md write
+- `next_action.py` returns `fill-idea` before write-script / expand-script when idea.md mechanism is blank
+- `hint.py` maps `fill-idea` (no expand_prompt live command; first live command is doctor)
 - No new packet folder this run; queue still queued
 - No needed.py edit this run
 
 ## Pipeline map
-Unchanged from Run 037. Oversight now includes needed.py --plan WAVE 3 reconstruct + operator lines. Operator page no longer defers expand/apply/status and no longer leaves Q1 title/path as a guess. Scaffold reprint now includes idea.md fields. expand_prompt will not emit a pack until those fields are pasted.
+Unchanged from Run 037. Oversight now includes needed.py --plan WAVE 3 reconstruct + operator lines. Operator page no longer defers expand/apply/status and no longer leaves Q1 title/path as a guess. Scaffold reprint now includes idea.md fields. expand_prompt will not emit a pack until those fields are pasted. doctor/hint will not lead with expand_prompt while the mechanism is still blank.
 
 ## Metrics snapshot
 | Metric                      | Previous | Current    | Notes |
 |-----------------------------|----------|------------|-------|
-| Estimated human min / video | 129      | 128        | refuse blank-mechanism expand |
-| Automated steps             | 40       | 40         | gate only; no new reconstruct flag |
+| Estimated human min / video | 128      | 127        | doctor no longer sends expand before paste |
+| Automated steps             | 40       | 40         | reuse next_action/hint; no new reconstruct flag |
 | Videos produced             | 0        | 0          | fixture only |
 | Reconstruct list runtime    | PASS 042 | unchanged  | needed.py not edited |
-| Scaffold contract           | PASS 045 | PASS 046   | /tmp/ca tree; no videos/ write |
+| Scaffold contract           | PASS 046 | unchanged  | not re-run; new_packet untouched |
 
 ## Active constraints
 - Do not auto-scaffold Q1
@@ -62,3 +65,4 @@ Unchanged from Run 037. Oversight now includes needed.py --plan WAVE 3 reconstru
 - No secrets, ffmpeg recipe, TTS, or YouTube API
 - new_packet must not write idea.md or mark the queue
 - expand_prompt must not write idea.md or script.md
+- next_action/hint must not print expand_prompt as the first live command while idea.md mechanism is blank

@@ -11,15 +11,17 @@
 | 2026-09-10 Run 044   | ~130 estimate     | 40              | Q1 title/path pin + idea.md pre-expand edit |
 | 2026-09-10 Run 045   | ~129 estimate     | 40              | new_packet reprints idea topic + mechanism |
 | 2026-09-10 Run 046   | ~128 estimate     | 40              | expand_prompt refuses blank mechanism |
+| 2026-09-10 Run 047   | ~127 estimate     | 40              | next_action/hint fill-idea before expand |
 
 Earlier rows remain in prior commits.
 
 Estimate basis (generic 8-min explainer):
-- Run 046: -1 stop expanding from a blank idea.md after scaffold
+- Run 047: -1 stop following hint into an expand_prompt that exits 2
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
-- Run 046: `expand_prompt.py` exits 2 on blank / template-default idea.md mechanism. `scaffold_contract.py` locks idea_followup reprint. IDEA GATE UNIT PASS + SCAFFOLD CONTRACT PASS on `/tmp/ca`. No packet folder. No needed.py change.
-- Run 045: `new_packet.idea_followup` reprints topic + matching queue one_line after scaffold. Does not write idea.md. SCAFFOLD CONTRACT PASS on `/tmp/ca`.
+- Run 047: `next_action.py` code `fill-idea` when idea.md mechanism is blank. `hint.py` maps it to a paste comment + doctor, not expand_prompt. HINT + NEXT_ACTION UNIT PASS. Fixture path unchanged. No packet folder. No needed.py change.
+- Run 046: `expand_prompt.py` exits 2 on blank / template-default idea.md mechanism. `scaffold_contract.py` locks idea_followup reprint. IDEA GATE UNIT PASS + SCAFFOLD CONTRACT PASS on `/tmp/ca`.
+- Run 045: `new_packet.idea_followup` reprints topic + matching queue one_line after scaffold. Does not write idea.md.
 - Run 044: `docs/human_session.md` pins Q1 title and `videos/002-stop-deciding-what-to-work-on-every-morning`, plus idea.md problem/mechanism edit before expand.
