@@ -13,8 +13,8 @@ Do not add a sixth contract whose only job is to lock needed.py.
 Do not add WAVE 4 unless a human still has to guess a command after WAVE 3 READY.
 Do not edit needed.py unless a new clone-less guess is observed after WAVE 3 READY. The 037-042 reconstruct-loop is flagged in FAILURES.md.
 Prefer completing `docs/human_session.md` or a human-owned Q1 packet over another reconstruct printer.
-Do not auto-write idea.md from new_packet.
-Do not treat idea_gate_contract or operator_pin_contract PASS as Q1 scaffolded.
+Do not auto-write idea.md from new_packet or idea_brief.
+Do not treat idea_gate_contract, operator_pin_contract, or idea_brief_contract PASS as Q1 scaffolded.
 Do not add a problem column to topic_queue unless a human asks.
 
 ## Evidence rule
@@ -26,6 +26,7 @@ After apply_script or set_status edits, run `tools/write_path_contract.py` on a 
 After new_packet or after_scaffold edits, run `tools/scaffold_contract.py`.
 After fill-idea / expand-refuse edits, run `tools/idea_gate_contract.py`.
 After human_session or topic_queue Q1 pin edits, run `tools/operator_pin_contract.py`.
+After idea_brief reprint-recover edits, run `tools/idea_brief_contract.py`.
 
 ## Reconstruct-list rule
 `needed.py` is read-only. It prints paths. It does not download and does not write videos/.
@@ -73,7 +74,7 @@ Refuse skip-ahead.
 Refuse `ready_for_vo` / `ready_for_edit` while duration WARN is present.
 Refuse later statuses without Selected VO / Master export on disk.
 Do not create media.
-`pipeline_status.py`, `next_action.py`, `hint.py`, `doctor.py`, `selftest.py`, `next_topic.py`, `queue_status.py`, `queue_contract.py`, `write_path_contract.py`, `scaffold_contract.py`, `which_contract.py`, `router_contract.py`, `needed.py`, `idea_gate_contract.py`, and `operator_pin_contract.py` stay read-only versus videos/ and must not write the queue.
+`pipeline_status.py`, `next_action.py`, `hint.py`, `doctor.py`, `selftest.py`, `next_topic.py`, `queue_status.py`, `queue_contract.py`, `write_path_contract.py`, `scaffold_contract.py`, `which_contract.py`, `router_contract.py`, `needed.py`, `idea_gate_contract.py`, `operator_pin_contract.py`, and `idea_brief_contract.py` stay read-only versus videos/ and must not write the queue.
 
 ## Hint rule
 `hint.py` is read-only. Map next_action codes to copy-paste CLI.
@@ -92,7 +93,7 @@ Never print `--write` as the first command.
 
 ## Agent-session rule
 `docs/agent_session.md` is the clone-less reconstruct path. Update Last verified runtime only after a real selftest run. Do not invent PASS.
-Keep a short unmapped-locks list so agents do not scan NEXT for idea_gate_contract / operator_pin_contract.
+Keep a short unmapped-locks list so agents do not scan NEXT for idea_gate_contract / operator_pin_contract / idea_brief_contract.
 
 ## Board rule
 `pipeline_status.py` is read-only. It must not rewrite `packet.md` status, render.md, or qa.md.
@@ -108,6 +109,9 @@ Duration WARN is not FAIL and not drift.
 
 ## Operator-pin rule
 `operator_pin_contract.py` is read-only versus videos/. It locks human_session against the live Q1 queue row plus the Q1 problem sentence. Keep it unmapped in which_contract. Do not treat PASS as a Q1 folder.
+
+## Idea-brief-contract rule
+`idea_brief_contract.py` is read-only versus videos/. Tempfile only. It locks idea_brief as a no-write reprint of Q1 topic/problem/mechanism. Keep it unmapped in which_contract. Do not treat PASS as a Q1 folder.
 
 ## Scaffold rule
 Reuse `after_scaffold.py` and `write_empty_*`; never pass `--force` from scaffold.
