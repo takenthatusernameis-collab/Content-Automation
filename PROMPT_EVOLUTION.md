@@ -2,6 +2,11 @@
 
 Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 
+## Observed issues (Run 044)
+- Restored first-video commands still used a placeholder title and `videos/002-slug`.
+- Scaffolded idea.md uses one generic mechanism for every queue row.
+- Pinning Q1 title/path and requiring the one_line mechanism edit is cheaper than another tool.
+
 ## Observed issues (Run 043)
 - Six consecutive runs extended needed.py while videos produced stayed 0.
 - human_session had deferred expand/apply/status to prior page versions.
