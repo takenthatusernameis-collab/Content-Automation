@@ -11,6 +11,8 @@ Ship at most one new reusable capability per run after foundation exists. Prefer
 Do not add a start.py that only reprints doctor.
 Do not add a sixth contract whose only job is to lock needed.py.
 Do not add WAVE 4 unless a human still has to guess a command after WAVE 3 READY.
+Do not edit needed.py unless a new clone-less guess is observed after WAVE 3 READY. The 037-042 reconstruct-loop is flagged in FAILURES.md.
+Prefer completing `docs/human_session.md` or a human-owned Q1 packet over another reconstruct printer.
 
 ## Evidence rule
 If you add a script, run it against a copy of `videos/sample-001-*` fields (dry-run is enough if write would mutate the fixture) and paste the command output into RUNS.md.
@@ -79,7 +81,7 @@ Reuse `hint.commands_for` so CLI text cannot drift.
 Never print `--write` as the first command.
 
 ## Human-session rule
-`docs/human_session.md` is the operator path. Keep it short. Do not turn it into a second prompt or a wrapper tool.
+`docs/human_session.md` is the operator path. Keep it short. Do not turn it into a second prompt or a wrapper tool. Keep the first-video expand/apply/status commands on that page; do not defer them to prior commits.
 
 ## Agent-session rule
 `docs/agent_session.md` is the clone-less reconstruct path. Update Last verified runtime only after a real selftest run. Do not invent PASS.
