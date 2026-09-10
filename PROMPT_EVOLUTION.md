@@ -2,6 +2,11 @@
 
 Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 
+## Observed issues (Run 046)
+- After the idea reprint existed, expand_prompt still assembled a pack from blank idea.md.
+- Auto-writing idea.md would hide the skipped paste. A refuse (exit 2) is the matching lock.
+- Do not add --allow-blank-idea unless a human needs assembler dry-runs of empty templates.
+
 ## Observed issues (Run 045)
 - After title/path pin, operators still open topic_queue.md to copy one_line into idea.md.
 - Auto-writing idea.md would hide a blank-template expand the same way auto-mark hides a missing folder.
@@ -14,7 +19,6 @@ Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 
 ## Observed issues (Run 043)
 - Six consecutive runs extended needed.py while videos produced stayed 0.
-- human_session had deferred expand/apply/status to prior page versions.
 - After WAVE 3 reconstruct + operator exist, another fetch wave is not the highest-value action.
 - Flag the reconstruct-loop in FAILURES instead of adding WAVE 4.
 
