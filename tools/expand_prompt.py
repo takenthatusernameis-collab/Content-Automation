@@ -4,6 +4,8 @@
 Does not rewrite script.md. Does not invent WORDS. Does not write expand.md.
 Stdout only. A printed prompt is not a draft and is not permission to
 pad videos/sample-001-*.
+Refuses a blank or template-default idea.md mechanism so scaffolded
+packets cannot expand before the operator pastes a real system.
 """
 
 from __future__ import annotations
@@ -22,6 +24,14 @@ from expand_brief import TARGET_BY_FORMAT  # noqa: E402
 from validate_packet import FORMAT_SPOKEN_WORDS, duration_note, field  # noqa: E402
 
 FIXTURE_PREFIX = "sample-001"
+BLANK_MECHANISM = {
+    "",
+    "template-default",
+    "generic",
+    "(blank)",
+    "tbd",
+    "todo",
+}
 
 
 def _read(path: Path) -> str:
@@ -39,6 +49,21 @@ def _clip(text: str, limit: int = 4000) -> str:
 
 def is_fixture(packet: Path) -> bool:
     return packet.name.startswith(FIXTURE_PREFIX)
+
+
+def idea_mechanism(idea_text: str) -> str:
+    return (
+        field(idea_text, "mechanism (the system, not the pep talk)")
+        or field(idea_text, "mechanism")
+        or ""
+    )
+
+
+def idea_mechanism_blank(idea_text: str) -> bool:
+    val = idea_mechanism(idea_text).strip().lower()
+    if val in BLANK_MECHANISM:
+        return True
+    return val.startswith("template-default")
 
 
 def render(packet: Path, *, docs_root: Path | None = None) -> str:
@@ -146,7 +171,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
             "Print a paste-ready expansion prompt from packet files. "
-            "Does not write script.md."
+            "Does not write script.md. Refuses a blank idea.md mechanism."
         )
     )
     parser.add_argument("packet", help="Path to packet folder")
@@ -160,6 +185,19 @@ def main() -> int:
     if not path.is_dir():
         print(f"not a directory: {path}", file=sys.stderr)
         return 1
+
+    idea = _read(path / "idea.md")
+    if idea_mechanism_blank(idea):
+        print(
+            "refusing expand: idea.md mechanism is blank or template-default",
+            file=sys.stderr,
+        )
+        print(
+            "Paste the new_packet reprint into idea.md first. "
+            "This command does not write idea.md or script.md.",
+            file=sys.stderr,
+        )
+        return 2
 
     text = render(path)
     if args.out:
