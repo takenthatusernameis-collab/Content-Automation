@@ -13,6 +13,7 @@ Do not add a sixth contract whose only job is to lock needed.py.
 Do not add WAVE 4 unless a human still has to guess a command after WAVE 3 READY.
 Do not edit needed.py unless a new clone-less guess is observed after WAVE 3 READY. The 037-042 reconstruct-loop is flagged in FAILURES.md.
 Prefer completing `docs/human_session.md` or a human-owned Q1 packet over another reconstruct printer.
+Do not auto-write idea.md from new_packet.
 
 ## Evidence rule
 If you add a script, run it against a copy of `videos/sample-001-*` fields (dry-run is enough if write would mutate the fixture) and paste the command output into RUNS.md.
@@ -38,7 +39,7 @@ Do not auto-scaffold a queued title without an explicit human instruction.
 Do not treat a queue row as spoken WORDS.
 Numeric ids treat `sample-001-*` as 001, so the next scaffold is `002-...`.
 Default `queue_status.py` exit is 0. `--strict` may exit 2 on missing-folder and 1 on mark-needed. Do not make default exit non-zero.
-`new_packet.py` reprints mark_topic dry-run only. It must not call mark_topic --write.
+`new_packet.py` reprints mark_topic dry-run and idea.md suggestions only. It must not call mark_topic --write and must not write idea.md.
 
 ## Duration rule
 Spoken WORDS for `explainer-6-10min` belong in 900-1500 at 150 wpm. Default validate prints WARN. `--duration` may FAIL. Do not pad sample-001. Do not make WARN the default FAIL.
@@ -52,7 +53,7 @@ A Status `short` budget is not a draft.
 `expand_prompt.py` prints a paste pack. It must not write `script.md`.
 Refuse `--out` when the destination is `script.md`.
 On `sample-001-*` print the fixture lock banner. Do not paste the output back onto the fixture.
-Do not expand while idea.md still uses the scaffold template-default mechanism.
+Do not expand while idea.md still uses the scaffold template-default or blank mechanism.
 
 ## Apply-script rule
 `apply_script.py` dry-runs by default. `--write` is required.
@@ -82,7 +83,7 @@ Reuse `hint.commands_for` so CLI text cannot drift.
 Never print `--write` as the first command.
 
 ## Human-session rule
-`docs/human_session.md` is the operator path. Keep it short. Do not turn it into a second prompt or a wrapper tool. Keep the first-video expand/apply/status commands on that page; do not defer them to prior commits. Keep the current Q1 working title and predicted folder on that page while Q1 is still queued. Require the idea.md mechanism edit before expand_prompt.
+`docs/human_session.md` is the operator path. Keep it short. Do not turn it into a second prompt or a wrapper tool. Keep the first-video expand/apply/status commands on that page; do not defer them to prior commits. Keep the current Q1 working title and predicted folder on that page while Q1 is still queued. Require the idea.md mechanism edit before expand_prompt. Note that new_packet reprints topic + mechanism and still does not write idea.md.
 
 ## Agent-session rule
 `docs/agent_session.md` is the clone-less reconstruct path. Update Last verified runtime only after a real selftest run. Do not invent PASS.
@@ -99,6 +100,7 @@ Duration WARN is not FAIL and not drift.
 ## Scaffold rule
 Reuse `after_scaffold.py` and `write_empty_*`; never pass `--force` from scaffold.
 `new_packet.py` must print mark_topic dry-run then a commented `--write`. It must not mark the queue.
+`new_packet.py` may reprint idea.md suggestions. It must not write idea.md.
 
 ## Fixture freeze
 Do not overwrite `videos/sample-001-*` titles, thumbnail, or script WORDS unless the packet schema itself changed.

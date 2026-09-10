@@ -21,18 +21,20 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 46. Operator reconstruct command (`needed.py --plan` WAVE 3 `queue_status.py --missing`) — **done (Run 042)**
 47. Operator page first-video expand/apply/status commands — **done (Run 043)**
 48. Operator page Q1 title/path pin + idea.md pre-expand edit — **done (Run 044)**
+49. Scaffold reprints idea.md topic + queue one_line — **done (Run 045)**
 
 ## Later (automation)
-49. Human scaffolds Q1 and lands WORDS in band on a non-fixture packet
-50. TTS narration path (optional; keep human VO compatible)
-51. Caption timing from a real selected take (not 150 wpm estimates)
-52. ffmpeg assembly for this one locked format after one packet has VO + cards
-53. YouTube upload + metadata only after packet QA passes
+50. Human scaffolds Q1 and lands WORDS in band on a non-fixture packet
+51. TTS narration path (optional; keep human VO compatible)
+52. Caption timing from a real selected take (not 150 wpm estimates)
+53. ffmpeg assembly for this one locked format after one packet has VO + cards
+54. YouTube upload + metadata only after packet QA passes
 
 ## Not yet
 - Auto-scaffolding the next queued topic without a human instruction
 - Marking a queue row used without a matching videos/ folder
 - Auto-marking the queue from new_packet.py
+- Auto-writing idea.md from new_packet.py
 - Turning default queue_status into a failing command (keep `--strict` opt-in)
 - Mapping needed.py / doctor.py / expand_prompt.py onto a contract
 - Making needed.py --missing, --bootstrap, or --plan exit non-zero
@@ -41,6 +43,6 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 - Treating WAVE 3 as permission to auto-scaffold
 - Adding WAVE 4 without a new post-WAVE-3 guess
 - Extending needed.py after the reconstruct-loop flag unless a new guess is observed
-- Expanding while idea.md still uses the scaffold template-default mechanism
+- Expanding while idea.md still uses the scaffold template-default or blank mechanism
 - ffmpeg / TTS / YouTube OAuth / Whisper / stock / shorts
 - Treating which_contract --run SKIP as a contract PASS

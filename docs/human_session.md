@@ -35,7 +35,7 @@ python3 tools/doctor.py videos/002-stop-deciding-what-to-work-on-every-morning
 python3 tools/queue_status.py
 ```
 
-Use the exact Q1 working title from `docs/topic_queue.md` unless a human replaced that row. `new_packet` reprints the matching `mark_topic --id Q1` dry-run after the folder is created. It does not mark the row used. After scaffold, queue_status should show `mark-needed` for that id and the PACKET column from packet.md.
+Use the exact Q1 working title from `docs/topic_queue.md` unless a human replaced that row. `new_packet` reprints the matching `mark_topic --id Q1` dry-run after the folder is created. It also reprints suggested `idea.md` topic + mechanism from the queue `one_line`. It does not mark the row used and does not write idea.md. After scaffold, queue_status should show `mark-needed` for that id and the PACKET column from packet.md.
 
 ```bash
 python3 tools/mark_topic.py --id Q1
@@ -46,12 +46,13 @@ python3 tools/mark_topic.py --id Q1
 
 2. Replace the template mechanism before expanding
 
-Scaffolded `idea.md` still uses the generic default mechanism. Edit these two fields before `expand_prompt`:
+Scaffolded `idea.md` still uses blank template fields. Paste the reprint from `new_packet` (or write these if you skipped the reprint):
 
+- topic: Stop deciding what to work on every morning
 - problem: they reopen the whole work list every morning instead of starting
-- mechanism: a written next-action default so the morning does not reopen the list (from the Q1 `one_line`)
+- mechanism: Install a written next-action default so the morning does not reopen the whole list.
 
-Do not treat that edit as spoken WORDS. Do not invent statistics.
+Do not treat that edit as spoken WORDS. Do not invent statistics. Do not leave the template-default / blank mechanism.
 
 3. Expand off-repo, then paste back only onto the new packet
 
@@ -84,7 +85,7 @@ If unsure of the next command after any step, re-run `python3 tools/doctor.py vi
 - Do not pad the fixture to clear Duration WARN.
 - Do not treat the topic queue as a finished script.
 - Do not mark a queue row used without a matching `videos/` folder.
-- Do not expect `new_packet.py` or `queue_status.py` to write the queue.
+- Do not expect `new_packet.py` or `queue_status.py` to write the queue or idea.md.
 - Do not treat `expand_prompt.py` stdout as a rewritten script.
 - Do not promote while duration WARN is present.
-- Do not expand while idea.md still says `template-default` / generic mechanism.
+- Do not expand while idea.md still says `template-default` / generic or blank mechanism.

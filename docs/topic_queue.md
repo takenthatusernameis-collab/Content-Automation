@@ -17,7 +17,7 @@ Status values:
 
 `tools/mark_topic.py` is the only writer of this table. Dry-run default. `--write` is required. It refuses to mark a row `used` until a matching non-fixture `videos/` folder exists. It refuses the sample-001 fixture.
 
-`tools/new_packet.py` reprints the matching `mark_topic --id QN` dry-run after scaffold. It does not write this table.
+`tools/new_packet.py` reprints the matching `mark_topic --id QN` dry-run after scaffold. It also reprints suggested `idea.md` topic + mechanism from this table's `one_line`. It does not write this table and does not write idea.md.
 
 A human (or an agent with an explicit human instruction) scaffolds with the printed `new_packet.py` line. Do not scaffold `sample-001`. Do not mark a row `used` until the packet folder exists.
 

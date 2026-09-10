@@ -22,20 +22,17 @@
 | 2026-09-10 Run 042   | ~132 estimate     | 40              | needed.py --plan WAVE 3 reconstruct command |
 | 2026-09-10 Run 043   | ~131 estimate     | 40              | human_session first-video commands restored |
 | 2026-09-10 Run 044   | ~130 estimate     | 40              | Q1 title/path pin + idea.md pre-expand edit |
+| 2026-09-10 Run 045   | ~129 estimate     | 40              | new_packet reprints idea topic + mechanism |
 
 Earlier rows 001-026 remain in prior commits.
 
 Estimate basis (generic 8-min explainer):
-- Run 044: -1 stop inventing a Q1 title and expanding from the scaffold default mechanism
+- Run 045: -1 stop looking up the queue one_line after scaffold
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
-- Run 037: `tools/needed.py` prints the reconstruct file list. Unmapped. Local PASS.
-- Run 038: `needed.py --missing` reports PRESENT/MISSING and READY/NOT READY with exit 0. FALLBACK_ALIAS resolves edited-tool names when which_contract is absent. Still unmapped. Local PASS on `/tmp/ca/tools`.
-- Run 039: `needed.py --bootstrap` prints the ordered first-fetch set. `--bootstrap --missing` uses the same PRESENT/MISSING flags. Still unmapped. Local PASS on `/tmp/ca/tools`.
-- Run 040: `needed.py --plan` prints WAVE 1 bootstrap paths and the WAVE 2 command (`selftest.py --missing`) without dumping selftest files. Still unmapped. Local PASS on `/tmp/ca/tools`.
-- Run 041: `needed.py --plan` WAVE 3 prints `queue_status.py` as the first operator command after reconstruct. Does not dump queue files. Does not auto-scaffold. Still unmapped. Local PASS on `/tmp/ca/tools`.
-- Run 042: `needed.py --plan` WAVE 3 prints `needed.py queue_status.py --missing` before the operator line. Still no queue file dump. Still unmapped. Local PASS on `/tmp/ca/tools`.
-- Run 043: `docs/human_session.md` again lists expand_prompt, apply_script dry-run/--write --refresh, validate, set_status ready_for_vo, and vo_session for the first non-fixture packet. Reconstruct-loop flagged. No needed.py change.
+- Run 045: `new_packet.idea_followup` reprints topic + matching queue one_line after scaffold. Does not write idea.md. SCAFFOLD CONTRACT PASS on `/tmp/ca`.
 - Run 044: `docs/human_session.md` pins Q1 title and `videos/002-stop-deciding-what-to-work-on-every-morning`, plus idea.md problem/mechanism edit before expand. `prompts/script_expander.md` repeats the idea.md gate. No packet folder. No needed.py change.
+- Run 043: `docs/human_session.md` again lists expand_prompt, apply_script dry-run/--write --refresh, validate, set_status ready_for_vo, and vo_session for the first non-fixture packet. Reconstruct-loop flagged. No needed.py change.
+- Run 042: `needed.py --plan` WAVE 3 prints `needed.py queue_status.py --missing` before the operator line. Still no queue file dump. Still unmapped. Local PASS on `/tmp/ca/tools`.

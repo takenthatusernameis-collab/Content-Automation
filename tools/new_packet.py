@@ -40,6 +40,32 @@ def mark_followup(title: str) -> list[str]:
     return lines
 
 
+def idea_followup(title: str) -> list[str]:
+    """Reprint suggested idea.md fields. Does not write idea.md."""
+    lines = [
+        "This command does not write idea.md.",
+        "Before expand_prompt, paste these into idea.md if the template fields are still blank:",
+        f"  - topic: {title}",
+    ]
+    if QUEUE.is_file():
+        rows = parse_queue(QUEUE.read_text(encoding="utf-8"))
+        row = matching_queue_row(title, rows)
+        if row and row.get("one_line"):
+            lines.append(
+                f"  - mechanism (the system, not the pep talk): {row['one_line']}"
+            )
+        else:
+            lines.append(
+                "  - mechanism (the system, not the pep talk): (no matching queue one_line)"
+            )
+    else:
+        lines.append(
+            "  - mechanism (the system, not the pep talk): (queue missing)"
+        )
+    lines.append("Do not treat those lines as spoken WORDS.")
+    return lines
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Scaffold a new video packet")
     parser.add_argument("title", help="Working title or topic")
@@ -82,6 +108,8 @@ def main() -> int:
             print(line)
 
     for line in mark_followup(args.title):
+        print(line)
+    for line in idea_followup(args.title):
         print(line)
     return 0
 
