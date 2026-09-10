@@ -16,6 +16,7 @@ TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
+from expand_prompt import idea_mechanism_blank  # noqa: E402
 from pipeline_status import inspect, packet_dirs  # noqa: E402
 from render_brief import packet_id_slug, planned_cards  # noqa: E402
 from validate_packet import packet_duration_warning  # noqa: E402
@@ -30,6 +31,13 @@ def first_open(path: Path) -> str:
         if s.startswith("- [ ]"):
             return s[5:].strip()
     return ""
+
+
+def idea_text(path: Path) -> str:
+    idea = path / "idea.md"
+    if not idea.is_file():
+        return ""
+    return idea.read_text(encoding="utf-8")
 
 
 def recommend(path: Path, row: dict[str, object]) -> tuple[str, str]:
@@ -70,6 +78,12 @@ def recommend(path: Path, row: dict[str, object]) -> tuple[str, str]:
         )
     if "published-without-pass" in drift:
         return "fix-gate", "Status is published but the packet gate is not PASS. Fix the gate first."
+
+    if idea_mechanism_blank(idea_text(path)):
+        return (
+            "fill-idea",
+            "idea.md mechanism is blank or template-default. Paste the new_packet reprint before expand_prompt.",
+        )
 
     incompletes = list(row["incompletes"])
     if incompletes:

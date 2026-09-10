@@ -38,6 +38,12 @@ def commands_for(path: Path, row: dict[str, object], code: str) -> list[str]:
         return [f"python3 tools/validate_packet.py {p}"]
     if code == "fix-status":
         return [f"python3 tools/set_status.py {p} --to draft"]
+    if code == "fill-idea":
+        return [
+            "# paste topic/problem/mechanism into idea.md from the new_packet reprint",
+            "# expand_prompt exits 2 until that paste exists; it does not write idea.md",
+            f"python3 tools/doctor.py {p}",
+        ]
     if code in {"write-script", "expand-script"}:
         cmds = [f"python3 tools/expand_prompt.py {p}"]
         if is_fixture(path):
