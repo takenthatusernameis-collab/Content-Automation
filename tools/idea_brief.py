@@ -4,6 +4,7 @@
 Read-only. Does not write idea.md, the queue, or packets.
 Recovers the new_packet idea_followup after scaffold stdout is gone.
 --block prints only the paste-ready idea.md body. Still does not write.
+--check compares current idea.md to the suggested paste. Still does not write.
 """
 
 from __future__ import annotations
@@ -19,6 +20,18 @@ if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
 from new_packet import idea_followup  # noqa: E402
+
+BLANKISH = frozenset(
+    {
+        "",
+        "template-default",
+        "template default",
+        "tbd",
+        "todo",
+        "generic",
+        "(blank)",
+    }
+)
 
 
 def field(text: str, name: str) -> str:
@@ -77,15 +90,54 @@ def paste_block(title: str) -> str:
     )
 
 
+def is_blankish(value: str) -> bool:
+    return value.strip().lower() in BLANKISH
+
+
+def check_fields(current: str, title: str) -> tuple[int, list[str]]:
+    want_t, want_p, want_m = suggested_values(title)
+    got_t = field(current, "topic")
+    got_p = field(current, "problem")
+    got_m = field(current, "mechanism")
+    lines = ["Idea check (does not write idea.md):"]
+    mismatches = 0
+    for label, got, want in (
+        ("topic", got_t, want_t),
+        ("problem", got_p, want_p),
+        ("mechanism", got_m, want_m),
+    ):
+        if is_blankish(got):
+            lines.append(f"  MISMATCH {label}: current is blank/template; want {want!r}")
+            mismatches += 1
+        elif got != want:
+            lines.append(f"  MISMATCH {label}: current {got!r}; want {want!r}")
+            mismatches += 1
+        else:
+            lines.append(f"  MATCH {label}")
+    if mismatches:
+        lines.append("PASTE INCOMPLETE. Paste --block into idea.md by hand, then re-run --check.")
+        lines.append("This command writes nothing.")
+        return 2, lines
+    lines.append("PASTE READY. Next live command is expand_prompt (off-repo), not this tool.")
+    lines.append("This command writes nothing.")
+    return 0, lines
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Read-only idea.md reprint. Does not write idea.md."
     )
     parser.add_argument("packet", help="Packet folder")
-    parser.add_argument(
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
         "--block",
         action="store_true",
         help="Print only the paste-ready idea.md body. Still does not write idea.md.",
+    )
+    group.add_argument(
+        "--check",
+        action="store_true",
+        help="Compare current idea.md to the suggested paste. Still does not write idea.md.",
     )
     args = parser.parse_args()
     path = Path(args.packet)
@@ -96,6 +148,12 @@ def main() -> int:
     title = working_title(path)
     idea_path = path / "idea.md"
     current = idea_path.read_text(encoding="utf-8") if idea_path.is_file() else ""
+
+    if args.check:
+        code, lines = check_fields(current, title)
+        for line in lines:
+            print(line)
+        return code
 
     if args.block:
         print(paste_block(title), end="")
@@ -113,6 +171,7 @@ def main() -> int:
         print(line)
     print("Paste-ready block (still does not write). Re-run with --block to print only this:")
     print(paste_block(title), end="")
+    print("After paste, confirm without writing: python3 tools/idea_brief.py PATH --check")
     if "sample-001" in path.name:
         print("Fixture lock: do not treat this packet as the first real video.")
     print("This command writes nothing.")
