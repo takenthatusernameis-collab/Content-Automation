@@ -12,15 +12,17 @@
 | 2026-09-10 Run 045   | ~129 estimate     | 40              | new_packet reprints idea topic + mechanism |
 | 2026-09-10 Run 046   | ~128 estimate     | 40              | expand_prompt refuses blank mechanism |
 | 2026-09-10 Run 047   | ~127 estimate     | 40              | next_action/hint fill-idea before expand |
+| 2026-09-10 Run 048   | ~126 estimate     | 41              | idea_gate_contract locks fill-idea map |
 
 Earlier rows remain in prior commits.
 
 Estimate basis (generic 8-min explainer):
-- Run 047: -1 stop following hint into an expand_prompt that exits 2
+- Run 048: -1 stop a future run from restoring expand-first on blank idea.md
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 048: `tools/idea_gate_contract.py` locks blank/filled mechanism + fill-idea hint map on tempfile. IDEA GATE CONTRACT PASS. Unmapped in which_contract. No packet folder. No needed.py change.
 - Run 047: `next_action.py` code `fill-idea` when idea.md mechanism is blank. `hint.py` maps it to a paste comment + doctor, not expand_prompt. HINT + NEXT_ACTION UNIT PASS. Fixture path unchanged. No packet folder. No needed.py change.
 - Run 046: `expand_prompt.py` exits 2 on blank / template-default idea.md mechanism. `scaffold_contract.py` locks idea_followup reprint. IDEA GATE UNIT PASS + SCAFFOLD CONTRACT PASS on `/tmp/ca`.
 - Run 045: `new_packet.idea_followup` reprints topic + matching queue one_line after scaffold. Does not write idea.md.

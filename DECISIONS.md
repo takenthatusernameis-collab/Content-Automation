@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-10 | idea_gate_contract.py locks fill-idea + blank-mechanism cases on tempfile; stays unmapped in which_contract | Run 047's unit notes live only in RUNS.md; selftest only covers the filled fixture path; mapping would force a which_contract/router edit and look like another reconstruct wave | If fill-idea is deleted on purpose; do not add --seed-idea because this contract passed
 - 2026-09-10 | next_action returns fill-idea (hint maps to paste + doctor, not expand_prompt) when idea.md mechanism is blank | After expand_prompt exit 2 existed, leftover labor was following the old hint into that refuse | If a human later wants expand_prompt --allow-blank-idea for assembler dry-runs (do not add without evidence)
 - 2026-09-10 | expand_prompt refuses a blank or template-default idea.md mechanism (exit 2); it does not write idea.md | After the scaffold reprint existed, leftover labor was skipping the paste and expanding from empty fields; auto-writing idea.md would hide that skip | If a human later wants --allow-blank-idea for assembler dry-runs of empty templates (do not add without evidence)
 - 2026-09-10 | new_packet reprints idea.md topic + queue one_line after scaffold; it does not write idea.md | After title/path were pinned, leftover labor was copying one_line from the queue; auto-writing idea.md would hide a blank-template expand the same way auto-mark hides a missing folder | If a human later wants a --seed-idea flag (do not add without evidence)
