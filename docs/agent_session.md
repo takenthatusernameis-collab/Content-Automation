@@ -8,6 +8,20 @@ Humans follow `docs/human_session.md`. This page is not a second start command f
 
 HTTPS clone of this private repo fails in the agent sandbox. Do not retry after the first failure in a run. Push via GitHub file APIs.
 
+## Which files
+
+Do not rebuild the reconstruct list from memory. Print it:
+
+```bash
+python3 tools/needed.py selftest.py
+python3 tools/needed.py new_packet.py
+python3 tools/needed.py --all
+```
+
+`needed.py` is read-only. It prints repo-relative paths plus the contract command. It does not download files and does not write `videos/`.
+
+Unmapped tools (`doctor.py`, `expand_prompt.py`) print Unknown and exit 0.
+
 ## Which contract
 
 After editing a tool, do not scan NEXT for the lock name. Run:
@@ -28,28 +42,7 @@ Expected: `ROUTER CONTRACT PASS`, exit 0, no writes to `docs/` or `videos/`.
 
 ## Reconstruct and prove the fixture
 
-`tools/selftest.py` is the packet contract. Reconstruct only what it imports, plus the sample packet files the publish gate needs.
-
-Minimum tree:
-
-```
-tools/selftest.py
-tools/validate_packet.py
-tools/pipeline_status.py
-tools/next_action.py
-tools/hint.py
-tools/set_status.py
-tools/apply_script.py
-tools/render_brief.py
-tools/caption_brief.py
-videos/sample-001-why-systems-beat-motivation/packet.md
-videos/sample-001-why-systems-beat-motivation/idea.md
-videos/sample-001-why-systems-beat-motivation/script.md
-videos/sample-001-why-systems-beat-motivation/titles.md
-videos/sample-001-why-systems-beat-motivation/thumbnail.md
-videos/sample-001-why-systems-beat-motivation/qa.md
-videos/sample-001-why-systems-beat-motivation/assets.md
-```
+`tools/selftest.py` is the packet contract. Reconstruct only what `python3 tools/needed.py selftest.py` prints.
 
 How: list `tools/` and the sample folder with GitHub get_file_contents, then curl each `download_url` into that tree. Do not invent file bodies from memory.
 
@@ -72,7 +65,7 @@ Expected on current sample-001 (do not pad WORDS to change this):
 
 ## Queue board contract
 
-After editing `queue_lib.py`, `queue_status.py`, or `mark_topic.py`, also reconstruct those three files plus `tools/queue_contract.py` and run:
+After editing `queue_lib.py`, `queue_status.py`, or `mark_topic.py`, reconstruct what `python3 tools/needed.py queue_contract.py` prints, then run:
 
 ```bash
 python3 tools/queue_contract.py
@@ -82,7 +75,7 @@ Expected: `QUEUE CONTRACT PASS`, exit 0, no writes to `docs/` or `videos/`.
 
 ## Write-path contract
 
-After editing `apply_script.py` or `set_status.py`, reconstruct those two plus `validate_packet.py`, `pipeline_status.py`, `caption_brief.py`, `render_brief.py`, and `tools/write_path_contract.py`, then run:
+After editing `apply_script.py` or `set_status.py`, reconstruct what `python3 tools/needed.py write_path_contract.py` prints, then run:
 
 ```bash
 python3 tools/write_path_contract.py
@@ -92,7 +85,7 @@ Expected: `WRITE PATH CONTRACT PASS`, exit 0, no writes to `docs/` or `videos/`.
 
 ## Scaffold contract
 
-After editing `new_packet.py` or `after_scaffold.py`, reconstruct `new_packet.py`, `queue_lib.py`, `docs/topic_queue.md`, and `tools/scaffold_contract.py` (optional: `after_scaffold.py` for the titles_filled regex check), then run:
+After editing `new_packet.py` or `after_scaffold.py`, reconstruct what `python3 tools/needed.py scaffold_contract.py` prints (optional: `after_scaffold.py` for the titles_filled regex check), then run:
 
 ```bash
 python3 tools/scaffold_contract.py
@@ -102,7 +95,7 @@ Expected: `SCAFFOLD CONTRACT PASS`, exit 0, no writes to `videos/`, queue status
 
 ## Router contract
 
-After editing `which_contract.py`, reconstruct `which_contract.py` and `tools/router_contract.py`, then run:
+After editing `which_contract.py`, reconstruct what `python3 tools/needed.py router_contract.py` prints, then run:
 
 ```bash
 python3 tools/router_contract.py
@@ -147,6 +140,12 @@ Router contract:
 - When: 2026-09-09T23:15:00Z (Run 036)
 - How: `/tmp/ca/tools` with which_contract + router_contract; tempfile for --after / --run SKIP
 - Result: ROUTER CONTRACT PASS, exit 0
+
+Reconstruct list:
+
+- When: 2026-09-10T00:16:00Z (Run 037)
+- How: `/tmp/ca/tools` with which_contract MAP + needed.py
+- Result: `needed.py new_packet.py` prints scaffold_contract + docs/topic_queue.md; `needed.py doctor.py` prints Unknown, exit 0
 
 If a later run cannot reconstruct, record FAIL with the missing file. Do not leave runtime as "unverified" after a successful reconstruct.
 
