@@ -15,6 +15,7 @@ Do not edit needed.py unless a new clone-less guess is observed after WAVE 3 REA
 Prefer completing `docs/human_session.md` or a human-owned Q1 packet over another reconstruct printer.
 Do not auto-write idea.md from new_packet.
 Do not treat idea_gate_contract or operator_pin_contract PASS as Q1 scaffolded.
+Do not add a problem column to topic_queue unless a human asks.
 
 ## Evidence rule
 If you add a script, run it against a copy of `videos/sample-001-*` fields (dry-run is enough if write would mutate the fixture) and paste the command output into RUNS.md.
@@ -87,10 +88,11 @@ Reuse `hint.commands_for` so CLI text cannot drift.
 Never print `--write` as the first command.
 
 ## Human-session rule
-`docs/human_session.md` is the operator path. Keep it short. Do not turn it into a second prompt or a wrapper tool. Keep the first-video expand/apply/status commands on that page; do not defer them to prior commits. Keep the current Q1 working title and predicted folder on that page while Q1 is still queued. Require the idea.md mechanism edit before expand_prompt. Note that new_packet reprints topic + mechanism and still does not write idea.md. Note that doctor Code is `fill-idea` until that paste exists. `operator_pin_contract.py` locks those strings against topic_queue.
+`docs/human_session.md` is the operator path. Keep it short. Do not turn it into a second prompt or a wrapper tool. Keep the first-video expand/apply/status commands on that page; do not defer them to prior commits. Keep the current Q1 working title, predicted folder, and Q1 problem sentence on that page while Q1 is still queued. Require the idea.md mechanism edit before expand_prompt. Note that new_packet reprints topic + mechanism and still does not write idea.md. Note that doctor Code is `fill-idea` until that paste exists. `operator_pin_contract.py` locks those strings against topic_queue (problem line is operator-page only).
 
 ## Agent-session rule
 `docs/agent_session.md` is the clone-less reconstruct path. Update Last verified runtime only after a real selftest run. Do not invent PASS.
+Keep a short unmapped-locks list so agents do not scan NEXT for idea_gate_contract / operator_pin_contract.
 
 ## Board rule
 `pipeline_status.py` is read-only. It must not rewrite `packet.md` status, render.md, or qa.md.
@@ -105,7 +107,7 @@ Duration WARN is not FAIL and not drift.
 `idea_gate_contract.py` is read-only versus videos/. Tempfile only. It locks blank-mechanism detect, fill-idea recommend, and hint->doctor. Keep it unmapped in which_contract. Do not treat PASS as a Q1 folder.
 
 ## Operator-pin rule
-`operator_pin_contract.py` is read-only versus videos/. It locks human_session against the live Q1 queue row. Keep it unmapped in which_contract. Do not treat PASS as a Q1 folder.
+`operator_pin_contract.py` is read-only versus videos/. It locks human_session against the live Q1 queue row plus the Q1 problem sentence. Keep it unmapped in which_contract. Do not treat PASS as a Q1 folder.
 
 ## Scaffold rule
 Reuse `after_scaffold.py` and `write_empty_*`; never pass `--force` from scaffold.
