@@ -16,7 +16,9 @@ guess which files to pull before this printer can resolve names.
 
 --plan prints ordered fetch waves after bootstrap so the agent does not
 guess the second command. WAVE 3 is the first operator command after
-reconstruct, not a file dump. Not a contract. Not a full-repo dump.
+reconstruct, not a file dump. The WAVE 3 reconstruct line is the
+needed.py invocation for that command only. Not a contract. Not a
+full-repo dump.
 """
 
 from __future__ import annotations
@@ -87,6 +89,7 @@ BOOTSTRAP: tuple[str, ...] = (
 )
 
 PLAN_NEXT = "python3 tools/needed.py selftest.py --missing"
+PLAN_OPERATOR_RECON = "python3 tools/needed.py queue_status.py --missing"
 PLAN_OPERATOR = "python3 tools/queue_status.py"
 
 
@@ -220,6 +223,8 @@ def print_plan(missing: bool) -> None:
     print(PLAN_NEXT)
     print("# WAVE 2 does not list selftest files here; print them with that command")
     print("# WAVE 3 after wave 2 READY; operator command, not a file dump")
+    print("# reconstruct the operator command first; do not list queue files here")
+    print(PLAN_OPERATOR_RECON)
     print(PLAN_OPERATOR)
     print("# humans then follow docs/human_session.md; do not auto-scaffold")
     print()
