@@ -11,6 +11,7 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 51d. operator_pin also locks the Q1 problem paste line; agent_session lists unmapped locks — **done (Run 050)**
 51e. new_packet reprints the locked Q1 problem with topic + mechanism — **done (Run 051)**
 51f. idea_brief recovers the three-field paste after scaffold stdout is gone — **done (Run 052)**
+51g. idea_brief --check PASTE READY prints the exact expand_prompt command — **done (Run 056)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -35,6 +36,7 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 - Expanding while idea.md still uses the scaffold template-default or blank mechanism
 - Recommending expand_prompt while idea.md mechanism is blank
 - Adding a problem column to topic_queue without a human request
+- Adding another idea_brief flag without observed leftover labor after the printed expand_prompt line
 - ffmpeg / TTS / YouTube OAuth / Whisper / stock / shorts
 - Treating which_contract --run SKIP as a contract PASS
 - Treating idea_gate_contract or operator_pin_contract PASS as a real Q1 packet
