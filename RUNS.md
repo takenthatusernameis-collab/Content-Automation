@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-11T14:11:00Z — Run 073
+
+- **Objective:** words.py printed Hook: N words (not 20-35) without saying how many to add or cut. Give the expand pass a Hook Delta the same way Run 072 gave a total-word Delta.
+- **Inspected:** STATE/NEXT/RUNS after Run 072. human_session already calls words.py. Next still forbids another shape-lock file and auto-scaffold. Remaining labor is still human Q1 scaffold + WORDS in band.
+- **Action taken:** Extended tools/words.py with hook_delta_line and a Hook: 0 line when the hook is missing. --strict still keys off the total band only. Did not edit write_path_contract.py, apply_script.py, set_status.py, contract_shape.py, verify_write_path.py, or needed.py. Did not scaffold Q1. Did not write idea.md. Did not map words.py.
+- **Result:** Local compile OK. Temp 5-word hook printed Hook Delta add 15 and --strict exit 2 because the total was BELOW, not because of the hook. Queue rows remain queued. No new packet folder. No media.
+- **Verification status:** completed for committed words.py syntax and fallback runtime on a temp draft. Did not claim WRITE PATH CONTRACT PASS or CONTRACT SHAPE PASS this run. Did not run words.py against a real Q1 draft (none exists).
+- **Important discovery:** Total-band Delta does not fix a short hook. A second number is cheaper than another lock file.
+- **Blocker:** Still waiting on a human-owned non-fixture draft in band. HTTPS clone remains unavailable; do not retry it as the first action.
+- **Recommended next action:** Human runs `python3 tools/queue_status.py` then follows `docs/human_session.md`. After saving PATH/draft.md, run `python3 tools/words.py PATH` and use Delta plus Hook Delta on the next expand. After a tools reconstruct, run `python3 tools/verify_write_path.py`. Do not add WAVE 4. Do not auto-write idea.md. Do not auto-scaffold Q1. Do not add another shape-lock file unless a new emptied-file failure is observed. Do not map words.py. Do not make --strict fail on hook alone.
+
 ## 2026-09-11T13:33:00Z — Run 072
 
 - **Objective:** After words.py prints BELOW/ABOVE, the human still has to subtract from 900/1500. Print the exact add/cut Delta and the next command. Also stop words.py from dying when validate_packet.py was not reconstructed.
