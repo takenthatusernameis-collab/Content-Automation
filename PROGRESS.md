@@ -24,8 +24,10 @@
 | 2026-09-10 Run 057   | ~117 estimate     | 48              | --check PASTE INCOMPLETE prints exact --block command |
 | 2026-09-10 Run 058   | ~116 estimate     | 49              | default idea_brief reprint prints exact --check command |
 | 2026-09-11 Run 059   | ~115 estimate     | 50              | PASTE READY prints apply_script dry-run --from FILE |
+| 2026-09-11 Run 060   | ~114 estimate     | 51              | PASTE READY apply dry-run uses PATH/draft.md |
 
 Estimate basis (generic 8-min explainer):
+- Run 060: -1 stop inventing FILE after PASTE READY apply dry-run
 - Run 059: -1 stop hunting apply_script after PASTE READY expand_prompt
 - Run 058: -1 stop replacing PATH after a default reprint
 - Run 057: -1 stop hunting --block after an incomplete --check
@@ -34,5 +36,5 @@ Estimate basis (generic 8-min explainer):
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
-- Run 059: `idea_brief.py --check` PASTE READY prints dry-run `python3 tools/apply_script.py PATH --from FILE` after expand_prompt. Still does not write idea.md or print `--write`. idea_brief_contract requires check_command, apply_command, exact default --check/--block with folder, and that apply line. Unmapped. IDEA BRIEF CONTRACT PASS on tempfile. No packet folder.
-- Run 058: default `idea_brief.py` reprint prints exact `--check` and `--block` with the real folder.
+- Run 060: `idea_brief.py --check` PASTE READY prints dry-run `python3 tools/apply_script.py PATH --from PATH/draft.md` and a save-to-draft.md line. Still does not write idea.md or print `--write`. idea_brief_contract requires draft_path and that apply line. Unmapped. IDEA BRIEF CONTRACT PASS on tempfile. No packet folder.
+- Run 059: `idea_brief.py --check` PASTE READY prints dry-run `python3 tools/apply_script.py PATH --from FILE` after expand_prompt.
