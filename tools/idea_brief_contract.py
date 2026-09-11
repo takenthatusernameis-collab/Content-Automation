@@ -14,7 +14,7 @@ Locks:
 - PASTE INCOMPLETE stdout includes python3 tools/idea_brief.py PATH --block
 - idea_brief --check after a tempfile paste of that body exits 0 and does not write
 - PASTE READY stdout includes python3 tools/expand_prompt.py and the packet folder
-- PASTE READY stdout includes dry-run apply_script --from FILE (no --write)
+- PASTE READY stdout includes dry-run apply_script --from PATH/draft.md (no --write)
 - idea.md bytes are unchanged after default, --block, and --check runs
 - stdout says it writes nothing
 
@@ -64,11 +64,13 @@ def source_locks(failures: list[str]) -> None:
     fail(failures, "block_command" in brief_src, "idea_brief missing block_command helper")
     fail(failures, "check_command" in brief_src, "idea_brief missing check_command helper")
     fail(failures, "apply_command" in brief_src, "idea_brief missing apply_command helper")
+    fail(failures, "draft_path" in brief_src, "idea_brief missing draft_path helper")
     fail(failures, "idea_brief.py" in human, "human_session missing idea_brief.py")
     fail(failures, "idea_brief.py" in human and "--block" in human, "human_session missing idea_brief.py --block")
     fail(failures, "idea_brief.py" in human and "--check" in human, "human_session missing idea_brief.py --check")
     fail(failures, "expand_prompt.py" in human, "human_session missing expand_prompt.py")
     fail(failures, "apply_script.py" in human, "human_session missing apply_script.py")
+    fail(failures, "draft.md" in human, "human_session missing draft.md convention")
     fail(failures, f"videos/{FOLDER}" in human, f"human_session missing {FOLDER}")
     fail(failures, TITLE in human, "human_session missing Q1 title")
 
@@ -177,11 +179,13 @@ def main() -> int:
         fail(failures, "python3 tools/expand_prompt.py" in oout, "--check PASTE READY missing expand_prompt command")
         fail(failures, FOLDER in oout, "--check PASTE READY missing packet folder in expand command")
         fail(failures, "Do not treat expand_prompt stdout as script.md." in oout, "--check PASTE READY missing expand stdout warning")
-        fail(failures, "python3 tools/apply_script.py" in oout and "--from FILE" in oout, "--check PASTE READY missing apply_script dry-run")
+        fail(failures, "python3 tools/apply_script.py" in oout and "--from" in oout and "draft.md" in oout, "--check PASTE READY missing apply_script --from draft.md")
+        fail(failures, "--from FILE" not in oout, "--check PASTE READY must use draft.md not FILE")
         fail(failures, "--write" not in oout, "--check PASTE READY must not print --write")
+        fail(failures, "Save the off-repo draft" in oout, "--check PASTE READY missing draft.md save line")
 
     print("Idea brief contract")
-    print("reprint recover stays read-only; --block prints a paste body; --check compares without writing; INCOMPLETE prints --block; PASTE READY prints expand_prompt then apply_script dry-run")
+    print("reprint recover stays read-only; --block prints a paste body; --check compares without writing; INCOMPLETE prints --block; PASTE READY prints expand_prompt then apply_script --from draft.md")
     if failures:
         print("IDEA BRIEF CONTRACT FAIL")
         for f in failures:
