@@ -15,6 +15,7 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 51h. default idea_brief reprint prints the exact --check command — **done (Run 058)**
 51i. idea_brief --check PASTE READY prints apply_script dry-run --from FILE / draft.md — **done (Runs 059–060)**
 51j. apply_script missing --from exits 2 with draft.md hint — **done (Run 061)**
+51k. write_path_contract locks missing --from CLI and existing-draft dry-run CLI — **done (Runs 062–063)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
