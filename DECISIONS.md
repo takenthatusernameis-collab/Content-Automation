@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-11 | NEXT_RUN_PROMPT must name prove_locks.py as the first post-write command; the three inner commands are fallback | Run 079 added the wrapper but left the addendum listing the inner three first; agents copy the addendum | If the three files merge; do not add a wrapper around prove_locks; do not map into needed.py
 - 2026-09-11 | prove_locks.py is an unmapped order wrapper (placeholder_guard then words_contract then verify_write_path) | After a GitHub write agents skipped one of three unmapped commands; the advertised order should be one copy-paste | If those three files merge; do not drop them because the wrapper exists; do not map into needed.py; do not treat PASS as apply --write
 - 2026-09-11 | words_contract.py is an unmapped lock for words.py (MIN_BYTES 8000 + Grow/Cut markers + temp BELOW/ABOVE subprocess) | Run 076 landed placeholder words.py blobs before restore; a printer cannot witness its own deletion | If words.py splits; do not map into needed.py; do not treat PASS as apply --write
 - 2026-09-11 | words.py prints Cut naming one heading to trim first when the total is ABOVE; --strict still keys off the total band only | Grow is silent on ABOVE so the trim pass still has to choose; failing --strict on Cut would change the documented gate | If beat ceilings move; do not treat Cut as a request to delete a beat; do not map into needed.py

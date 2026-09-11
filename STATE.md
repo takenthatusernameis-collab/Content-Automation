@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-11T21:20:00Z (Run 079)
+Updated: 2026-09-11T22:03:00Z (Run 080)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + write_path_contract body + contract_shape trio lock + verify_write_path order lock + words.py band + delta + hook delta + beats/thin + grow + cut + words_contract + placeholder_guard + prove_locks order wrapper** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + write_path_contract body + contract_shape trio lock + verify_write_path order lock + words.py band + delta + hook delta + beats/thin + grow + cut + words_contract + placeholder_guard + prove_locks order wrapper + NEXT_RUN_PROMPT names prove_locks first** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -25,27 +25,28 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - words_contract.py is an unmapped lock for words.py. It fails if words.py is missing, under 8000 bytes, missing Grow/Cut markers, or a placeholder. It runs words.py --strict on two temp drafts (BELOW expects Grow, ABOVE expects Cut). It writes nothing under videos/. Do not map it in needed.py.
 - placeholder_guard.py is an unmapped lock for emptied or placeholder bodies across the high-risk tool set (words, words_contract, write-path trio, contract_shape, verify_write_path). Size floor + markers + empty-body check. Writes nothing. Does not run apply or set_status. Do not map it in needed.py.
 - prove_locks.py is an unmapped order wrapper. It subprocess-runs placeholder_guard.py, then words_contract.py, then verify_write_path.py. Stops on first non-zero. Writes nothing. It is not a substitute for those three files. Do not map it in needed.py.
+- NEXT_RUN_PROMPT.md now names prove_locks.py as the first post-write command (Run 080). The three inner commands stay valid only as fallback.
 
-## What exists now (after Run 079)
-- tools/prove_locks.py added
-- placeholder_guard / words / write-path tools not edited this run
-- Frozen doctor/hint/needed/which_contract/router/idea_brief not edited
+## What exists now (after Run 080)
+- tools/prove_locks.py unchanged this run
+- NEXT_RUN_PROMPT.md prefers prove_locks over the three-command memory list
+- Frozen doctor/hint/needed/which_contract/router/idea_brief/words not edited
 - No new packet folder; queue still queued
 - idea_gate / operator_pin / idea_brief_contract / words_contract / placeholder_guard / prove_locks stay unmapped
 
 ## Pipeline map
 After scaffold: --block / paste / --check / expand off-repo / save draft.md / `words.py PATH` (read Result + Delta + Hook Delta + Beats + Thin + Grow or Cut) / apply dry-run / --write --refresh / set_status ready_for_vo if WORDS in band.
-After reconstructing words.py: `python3 tools/words_contract.py`.
-After reconstruct of write-path tools: `python3 tools/verify_write_path.py` (shape then contract).
-After a GitHub write of any high-risk tool: `python3 tools/prove_locks.py` (guard then words_contract then verify_write_path). The three separate commands remain valid.
+After reconstructing words.py: `python3 tools/words_contract.py` (or prove_locks if a high-risk GitHub write just landed).
+After reconstruct of write-path tools: `python3 tools/verify_write_path.py` (shape then contract), or prove_locks after a GitHub write.
+After a GitHub write of any high-risk tool: `python3 tools/prove_locks.py` (guard then words_contract then verify_write_path). The three separate commands remain valid as fallback.
 
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 96 | 95 | prove_locks fails if any of the three post-write locks is skipped or missing |
-| Automated steps | 69 | 70 | prove_locks.py |
+| Estimated human min / video | 95 | 94 | next agent no longer has to reconstruct the post-write order from three bullets |
+| Automated steps | 70 | 70 | no new tool; prompt addendum aligned with prove_locks |
 | Videos produced | 0 | 0 | fixture only |
-| Write-path contract | body + trio + ordered verify 070 | unchanged 079 | run verify_write_path.py after reconstruct |
+| Write-path contract | body + trio + ordered verify 070 | unchanged 080 | run prove_locks.py after a high-risk GitHub write |
 
 ## Active constraints
 - Do not auto-scaffold Q1
@@ -64,3 +65,4 @@ After a GitHub write of any high-risk tool: `python3 tools/prove_locks.py` (guar
 - Do not treat words_contract PASS, PLACEHOLDER GUARD PASS, or PROVE LOCKS PASS as apply --write or as a Q1 scaffold
 - Do not drop tools/placeholder_guard.py
 - Do not drop tools/prove_locks.py or treat it as a replacement for the three files it runs
+- Do not add another order wrapper around prove_locks.py

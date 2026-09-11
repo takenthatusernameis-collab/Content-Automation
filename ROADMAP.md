@@ -15,6 +15,7 @@
 51y. words_contract.py lock for words.py — **done (Run 077)**
 51z. placeholder_guard.py lock for emptied high-risk tools — **done (Run 078)**
 51aa. prove_locks.py one-command post-write order wrapper — **done (Run 079)**
+51ab. NEXT_RUN_PROMPT names prove_locks first — **done (Run 080)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -37,3 +38,4 @@
 - Making words.py --strict fail on hook length, thin headings, Grow, or Cut alone
 - Treating PLACEHOLDER GUARD PASS or PROVE LOCKS PASS as apply --write
 - Dropping tools/prove_locks.py or using it as a substitute for the three files it runs
+- Adding another order wrapper around prove_locks.py
