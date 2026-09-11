@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-11 | words.py is a read-only band printer, not a lock, and stays unmapped | Operator leftover loop is expand → apply → duration WARN. Checking draft.md first cuts that loop without another reconstruct witness | If format bands move; do not treat IN BAND as apply --write; do not map into needed.py
 - 2026-09-11 | verify_write_path.py runs contract_shape.py then write_path_contract.py | Reconstruct can skip the shape file and still execute the contract; the advertised order should be one command | If the two files merge; do not drop either file because the wrapper exists; do not map this into needed.py
 - 2026-09-11 | contract_shape.py also witnesses apply_script.py and set_status.py | write_path_contract subprocess-runs those two files; a lock that only inspects the contract file cannot see a deleted sibling | If those CLIs move; do not shrink the lock back to one file; keep size floors at or above 4000 / 3000
 - 2026-09-11 | contract_shape.py lives in a separate file from write_path_contract.py | Run 066 claimed PASS while the file under test was 986 bytes of documentation; a self-check inside that file cannot survive its own deletion | If write_path_contract is split; do not drop the shape lock; do not lower MIN_BYTES below 8000
