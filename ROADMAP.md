@@ -13,6 +13,7 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 51f. idea_brief recovers the three-field paste after scaffold stdout is gone — **done (Run 052)**
 51g. idea_brief --check PASTE READY prints the exact expand_prompt command — **done (Run 056)**
 51h. default idea_brief reprint prints the exact --check command — **done (Run 058)**
+51i. idea_brief --check PASTE READY prints apply_script dry-run --from FILE — **done (Run 059)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -37,7 +38,7 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 - Expanding while idea.md still uses the scaffold template-default or blank mechanism
 - Recommending expand_prompt while idea.md mechanism is blank
 - Adding a problem column to topic_queue without a human request
-- Adding another idea_brief flag without observed leftover labor after the printed expand_prompt line
+- Adding another idea_brief flag without observed leftover labor after the printed apply_script dry-run
 - ffmpeg / TTS / YouTube OAuth / Whisper / stock / shorts
 - Treating which_contract --run SKIP as a contract PASS
 - Treating idea_gate_contract or operator_pin_contract PASS as a real Q1 packet
