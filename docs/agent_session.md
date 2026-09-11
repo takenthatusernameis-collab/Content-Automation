@@ -60,6 +60,14 @@ python3 tools/router_contract.py
 
 Expected: `ROUTER CONTRACT PASS`, exit 0, no writes to `docs/` or `videos/`.
 
+After reconstructing or editing write-path tools (`write_path_contract.py`, `apply_script.py`, `set_status.py`, `contract_shape.py`), run:
+
+```bash
+python3 tools/verify_write_path.py
+```
+
+Expected when siblings are on disk: `CONTRACT SHAPE PASS` then `WRITE PATH CONTRACT PASS` then `VERIFY WRITE PATH PASS`, exit 0, no writes. If `contract_shape.py` or `write_path_contract.py` is missing, expect `VERIFY WRITE PATH FAIL` and a non-zero exit. Do not treat this wrapper as a replacement for those two files. Do not map it in `needed.py`.
+
 ## Unmapped locks
 
 These are not reconstruct waves and are not in which_contract. Run them directly after the matching edit:
@@ -108,7 +116,15 @@ Same as prior page: reconstruct what `needed.py CONTRACT` prints, confirm `--mis
 
 After WAVE 2 READY, print WAVE 3 reconstruct, fetch until READY, then run the operator command and stop at the board. Do not treat WAVE 3 as scaffold permission.
 
+For write-path after reconstruct, prefer `python3 tools/verify_write_path.py` over running the two locks out of order.
+
 ## Last verified runtime
+
+verify_write_path missing-sibling:
+
+- When: 2026-09-11T11:10:00Z (Run 070)
+- How: sandbox file only; no sibling tools tree
+- Result: VERIFY WRITE PATH FAIL, missing contract_shape.py, exit 1; no videos/ writes
 
 idea_brief --block:
 
@@ -155,3 +171,4 @@ Prior bootstrap / presence / reconstruct times remain those recorded in Run 037â
 - Do not treat WAVE 3 as auto-scaffold.
 - Do not map idea_gate_contract, operator_pin_contract, or idea_brief_contract.
 - Do not write idea.md from idea_brief.py or idea_brief.py --block.
+- Do not treat verify_write_path.py as a replacement for contract_shape.py or write_path_contract.py.
