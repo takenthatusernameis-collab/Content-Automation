@@ -15,8 +15,9 @@ Hook WORDS print a separate 20-35 delta. --strict still keys off
 the total band only.
 
 A Beats line lists per-heading spoken counts so the expand pass
-knows which sections are empty or thin. That line is not a lock
-and is not a request to invent filler.
+knows which sections are empty or thin. A Grow line names the
+single highest-priority heading. Those lines are not a lock and
+are not a request to invent filler.
 """
 
 from __future__ import annotations
@@ -216,6 +217,18 @@ def short_label(label: str) -> str:
     return label[:24]
 
 
+def hint_for(kind: str) -> int | None:
+    if kind == "hook":
+        return HOOK_BAND[0]
+    if kind == "payoff":
+        return PAYOFF_HINT
+    if kind == "cta":
+        return CTA_HINT
+    if kind == "beat":
+        return BEAT_HINT
+    return None
+
+
 def beat_counts(script: str) -> list[tuple[str, int, str]]:
     rows: list[tuple[str, int, str]] = []
     for label in headings(script):
@@ -255,6 +268,38 @@ def thin_line(rows: list[tuple[str, int, str]]) -> str | None:
     return "Thin: " + "; ".join(bits) + " (grow existing beats; do not pad filler)"
 
 
+def grow_line(rows: list[tuple[str, int, str]], total_label: str) -> str | None:
+    """Name the single heading the next expand pass should grow first.
+
+    Empty headings beat thin headings. Among remaining short headings,
+    pick the largest shortfall vs the size hint. Not a lock.
+    """
+    if not rows or total_label == "ABOVE":
+        return None
+    empty = [(name, kind) for name, n, kind in rows if n <= 0]
+    if empty:
+        name, kind = empty[0]
+        return (
+            f"Grow: {name} is empty; write that heading first "
+            "(do not invent a new beat or pad filler)"
+        )
+    shortfalls: list[tuple[int, str, int, int]] = []
+    for name, n, kind in rows:
+        hint = hint_for(kind)
+        if hint is None:
+            continue
+        if n < hint:
+            shortfalls.append((hint - n, name, n, hint))
+    if not shortfalls:
+        return None
+    shortfalls.sort(key=lambda row: (-row[0], row[1]))
+    _need, name, n, hint = shortfalls[0]
+    return (
+        f"Grow: {name} has {n} words vs hint {hint}; add about {_need} there "
+        "(do not invent filler statistics)"
+    )
+
+
 def delta_line(n: int, lo: int, hi: int, label: str) -> str | None:
     if label == "BELOW":
         need = lo - n
@@ -290,7 +335,7 @@ def next_line(label: str, source: Path) -> str:
         )
     if label in {"BELOW", "ABOVE", "EMPTY"}:
         return (
-            "Next: expand off-repo again using Delta + Beats + Thin; "
+            "Next: expand off-repo again using Delta + Grow + Beats + Thin; "
             f"overwrite {packet}/draft.md; re-run words.py. Do not apply --write yet."
         )
     return "Next: save a real draft to PATH/draft.md. This command writes nothing."
@@ -356,6 +401,9 @@ def main() -> int:
     thin = thin_line(rows)
     if thin:
         print(thin)
+    grow = grow_line(rows, label)
+    if grow:
+        print(grow)
     print(next_line(label, source))
     print("This command writes nothing.")
     print("draft.md is not script.md until apply_script --write.")
