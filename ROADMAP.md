@@ -7,6 +7,7 @@
 51q. contract_shape trio (apply_script + set_status) — **done (Run 069)**
 51r. One-command verify_write_path order lock — **done (Run 070)**
 51s. Read-only words.py band check on draft.md — **done (Run 071)**
+51t. words.py Delta + Next + import fallback — **done (Run 072)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -25,3 +26,4 @@
 - Dropping tools/verify_write_path.py or using it as a substitute for the two files it runs
 - Treating words.py as a lock or as apply --write
 - Mapping words.py in needed.py
+- Treating words.py Delta as filler permission

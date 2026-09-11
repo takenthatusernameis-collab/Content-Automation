@@ -8,6 +8,9 @@ WORDS. It does not treat draft.md as script.md.
 Exit 0 by default even when out of band (print BELOW/ABOVE).
 --strict exits 2 when out of band or when the text looks like an
 expand_prompt, so a human can gate a paste without applying it.
+
+When BELOW/ABOVE it prints the exact word delta to the locked band
+so the next expand pass has a number instead of a guess.
 """
 
 from __future__ import annotations
@@ -21,17 +24,92 @@ TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
-from validate_packet import (  # noqa: E402
-    FORMAT_SPOKEN_WORDS,
-    WPM,
-    all_spoken_words,
-    duration_note,
-    field,
-    fmt_mmss,
-    section,
-    spoken_seconds,
-    spoken_words,
-)
+WPM = 150
+FORMAT_SPOKEN_WORDS = {"explainer-6-10min": (900, 1500)}
+
+
+def _field(text: str, name: str) -> str:
+    m = re.search(rf"^-\s*{re.escape(name)}:[ \t]*([^\n]*)$", text, re.M)
+    return (m.group(1).strip() if m else "")
+
+
+def _section(text: str, heading: str) -> str:
+    parts = re.split(rf"^##\s+{re.escape(heading)}\s*$", text, maxsplit=1, flags=re.M)
+    if len(parts) < 2:
+        return ""
+    rest = re.split(r"^##\s+", parts[1], maxsplit=1, flags=re.M)[0]
+    return rest.strip()
+
+
+def _spoken_words(block: str) -> list[str]:
+    m = re.search(r"WORDS:\s*(.*?)(?:VISUAL:|\Z)", block, re.S)
+    blob = m.group(1) if m else block
+    blob = re.sub(r"\*[^*]+\*", " ", blob)
+    return re.findall(r"[A-Za-z0-9']+", blob)
+
+
+def _all_spoken_words(script: str) -> list[str]:
+    words: list[str] = []
+    for m in re.finditer(r"^##\s+(.+)$", script, re.M):
+        words.extend(_spoken_words(_section(script, m.group(1).strip())))
+    return words
+
+
+def _spoken_seconds(n_words: int, wpm: float = WPM) -> float:
+    if n_words <= 0:
+        return 0.0
+    return (n_words / wpm) * 60.0
+
+
+def _fmt_mmss(seconds: float) -> str:
+    if seconds < 0:
+        seconds = 0
+    whole = int(round(seconds))
+    m, s = divmod(whole, 60)
+    return f"{m:02d}:{s:02d}"
+
+
+def _duration_note(fmt: str, n_words: int) -> str | None:
+    if n_words <= 0:
+        return None
+    band = FORMAT_SPOKEN_WORDS.get(fmt)
+    if not band:
+        return None
+    lo, hi = band
+    if lo <= n_words <= hi:
+        return None
+    est = _fmt_mmss(_spoken_seconds(n_words))
+    if n_words < lo:
+        return (
+            f"spoken {n_words} words (~{est} at {int(WPM)} wpm) "
+            f"below {fmt} band {lo}\u2013{hi}"
+        )
+    return (
+        f"spoken {n_words} words (~{est} at {int(WPM)} wpm) "
+        f"above {fmt} band {lo}\u2013{hi}"
+    )
+
+
+try:
+    from validate_packet import (  # noqa: E402
+        FORMAT_SPOKEN_WORDS,
+        WPM,
+        all_spoken_words,
+        duration_note,
+        field,
+        fmt_mmss,
+        section,
+        spoken_seconds,
+        spoken_words,
+    )
+except ImportError:
+    all_spoken_words = _all_spoken_words
+    duration_note = _duration_note
+    field = _field
+    fmt_mmss = _fmt_mmss
+    section = _section
+    spoken_seconds = _spoken_seconds
+    spoken_words = _spoken_words
 
 PROMPT_MARKERS = (
     "script expand prompt (assembled, not a draft)",
@@ -93,8 +171,39 @@ def resolve(target: Path) -> tuple[Path, str, str]:
 
 
 def hook_count(script: str) -> int:
-    hook = section(script, "Hook (0:00–0:12)") or section(script, "Hook")
+    hook = section(script, "Hook (0:00\u20130:12)") or section(script, "Hook")
     return len(spoken_words(hook)) if hook else 0
+
+
+def delta_line(n: int, lo: int, hi: int, label: str) -> str | None:
+    if label == "BELOW":
+        need = lo - n
+        return f"Delta: add {need} spoken words to reach {lo} (do not pad filler)"
+    if label == "ABOVE":
+        cut = n - hi
+        return f"Delta: cut {cut} spoken words to reach {hi}"
+    if label == "IN BAND":
+        headroom = hi - n
+        floor = n - lo
+        return f"Delta: {floor} above floor, {headroom} below ceiling"
+    if label == "EMPTY":
+        return f"Delta: add {lo}-{hi} spoken words; file has none"
+    return None
+
+
+def next_line(label: str, source: Path) -> str:
+    packet = source.parent if source.is_file() else source
+    if label == "IN BAND":
+        return (
+            f"Next: python3 tools/apply_script.py {packet} --from {packet}/draft.md"
+            "  # dry-run first; IN BAND is not --write"
+        )
+    if label in {"BELOW", "ABOVE", "EMPTY"}:
+        return (
+            "Next: expand off-repo again using the Delta line; "
+            f"overwrite {packet}/draft.md; re-run words.py. Do not apply --write yet."
+        )
+    return "Next: save a real draft to PATH/draft.md. This command writes nothing."
 
 
 def main() -> int:
@@ -141,10 +250,14 @@ def main() -> int:
     print(f"Spoken: {n} words (~{est} at {int(WPM)} wpm)")
     print(f"Band: {lo}-{hi}")
     print(f"Result: {label}")
+    extra = delta_line(n, lo, hi, label)
+    if extra:
+        print(extra)
     hook_n = hook_count(script)
     if hook_n:
         hook_ok = "ok" if 20 <= hook_n <= 35 else "not 20-35"
         print(f"Hook: {hook_n} words ({hook_ok})")
+    print(next_line(label, source))
     print("This command writes nothing.")
     print("draft.md is not script.md until apply_script --write.")
     if args.strict and label != "IN BAND":

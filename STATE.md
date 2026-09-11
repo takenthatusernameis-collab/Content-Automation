@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-11T12:04:00Z (Run 071)
+Updated: 2026-09-11T13:33:00Z (Run 072)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + write_path_contract body + contract_shape trio lock + verify_write_path order lock + read-only words band check** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + write_path_contract body + contract_shape trio lock + verify_write_path order lock + words.py band + delta** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -21,26 +21,26 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - write_path_contract has a real main() (restored Run 067)
 - contract_shape.py witnesses write_path_contract.py, apply_script.py, and set_status.py (size + markers). It does not import them and writes nothing.
 - verify_write_path.py subprocess-runs contract_shape.py then write_path_contract.py. It writes nothing. It is not a substitute for those two files.
-- words.py is a read-only band printer. It prefers PATH/draft.md when present. It does not write and is not a lock. Do not map it in needed.py.
+- words.py is a read-only band printer. It prefers PATH/draft.md when present. It prints Delta (add/cut N) and a Next line. It falls back to local counters if validate_packet.py is missing. It does not write and is not a lock. Do not map it in needed.py.
 
-## What exists now (after Run 071)
-- tools/words.py added
+## What exists now (after Run 072)
+- tools/words.py now prints Delta + Next; import fallback added
 - write_path_contract.py / apply_script.py / set_status.py / contract_shape.py / verify_write_path.py not edited this run
 - Frozen doctor/hint/needed/which_contract/router/idea_brief not edited
 - No new packet folder; queue still queued
 - idea_gate / operator_pin / idea_brief_contract stay unmapped
 
 ## Pipeline map
-After scaffold: --block / paste / --check / expand off-repo / save draft.md / `words.py PATH` / apply dry-run / --write --refresh / set_status ready_for_vo if WORDS in band.
+After scaffold: --block / paste / --check / expand off-repo / save draft.md / `words.py PATH` (read Delta) / apply dry-run / --write --refresh / set_status ready_for_vo if WORDS in band.
 After reconstruct of write-path tools: `python3 tools/verify_write_path.py` (shape then contract).
 
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 104 | 103 | one band check on draft.md instead of apply-then-discover WARN |
-| Automated steps | 61 | 62 | words.py read-only band printer |
+| Estimated human min / video | 103 | 102 | delta printed so expand pass has a number |
+| Automated steps | 62 | 63 | words.py Delta + Next + import fallback |
 | Videos produced | 0 | 0 | fixture only |
-| Write-path contract | body + trio + ordered verify 070 | unchanged 071 | run verify_write_path.py after reconstruct |
+| Write-path contract | body + trio + ordered verify 070 | unchanged 072 | run verify_write_path.py after reconstruct |
 
 ## Active constraints
 - Do not auto-scaffold Q1
@@ -54,3 +54,4 @@ After reconstruct of write-path tools: `python3 tools/verify_write_path.py` (sha
 - Do not drop tools/contract_shape.py or shrink it back to a single-file witness
 - Do not drop tools/verify_write_path.py or treat it as a replacement for the two files it runs
 - Do not treat words.py IN BAND as apply --write
+- Do not treat words.py Delta as permission to pad filler

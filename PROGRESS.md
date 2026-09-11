@@ -16,8 +16,10 @@
 | 2026-09-11 Run 069 | ~105 estimate | 60 | contract_shape.py fails if apply_script.py or set_status.py is emptied |
 | 2026-09-11 Run 070 | ~104 estimate | 61 | verify_write_path.py runs shape then contract in one command |
 | 2026-09-11 Run 071 | ~103 estimate | 62 | words.py prints draft.md band before apply |
+| 2026-09-11 Run 072 | ~102 estimate | 63 | words.py prints add/cut Delta + Next; works without validate_packet sibling |
 
 Estimate basis (generic 8-min explainer):
+- Run 072: -1 stop a future expand pass that guesses how many words to add/cut
 - Run 071: -1 stop a future apply-then-WARN loop by checking draft.md words first
 - Run 070: -1 stop a reconstruct from running write_path_contract alone while contract_shape.py was never fetched
 - Run 069: -1 stop a future run from treating a write_path_contract-only shape lock as enough when a sibling writer is gone
@@ -28,6 +30,7 @@ Estimate basis (generic 8-min explainer):
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 072: `tools/words.py` prints Delta (add N / cut N) and a Next line. Local counters if validate_packet.py is missing. Still writes nothing.
 - Run 071: `tools/words.py` prints spoken WORDS vs the locked band from PATH/draft.md or script.md. Writes nothing. Not a lock. Not apply --write.
 - Run 070: `tools/verify_write_path.py` subprocess-runs contract_shape then write_path_contract. Writes nothing. Not a substitute for those two files.
 - Run 069: `tools/contract_shape.py` witnesses the write-path trio (write_path_contract, apply_script, set_status). Still does not import them and writes nothing.
