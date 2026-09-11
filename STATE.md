@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-11T11:10:00Z (Run 070)
+Updated: 2026-09-11T12:04:00Z (Run 071)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + write_path_contract body + contract_shape trio lock + verify_write_path order lock** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + write_path_contract body + contract_shape trio lock + verify_write_path order lock + read-only words band check** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -21,29 +21,30 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - write_path_contract has a real main() (restored Run 067)
 - contract_shape.py witnesses write_path_contract.py, apply_script.py, and set_status.py (size + markers). It does not import them and writes nothing.
 - verify_write_path.py subprocess-runs contract_shape.py then write_path_contract.py. It writes nothing. It is not a substitute for those two files.
+- words.py is a read-only band printer. It prefers PATH/draft.md when present. It does not write and is not a lock. Do not map it in needed.py.
 
-## What exists now (after Run 070)
-- tools/verify_write_path.py added
-- write_path_contract.py / apply_script.py / set_status.py / contract_shape.py not edited this run
+## What exists now (after Run 071)
+- tools/words.py added
+- write_path_contract.py / apply_script.py / set_status.py / contract_shape.py / verify_write_path.py not edited this run
 - Frozen doctor/hint/needed/which_contract/router/idea_brief not edited
 - No new packet folder; queue still queued
 - idea_gate / operator_pin / idea_brief_contract stay unmapped
 
 ## Pipeline map
-After scaffold: --block / paste / --check / expand off-repo / save draft.md / apply dry-run / --write --refresh / set_status ready_for_vo if WORDS in band.
+After scaffold: --block / paste / --check / expand off-repo / save draft.md / `words.py PATH` / apply dry-run / --write --refresh / set_status ready_for_vo if WORDS in band.
 After reconstruct of write-path tools: `python3 tools/verify_write_path.py` (shape then contract).
 
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 105 | 104 | one reconstruct command instead of remembering shape-then-contract order |
-| Automated steps | 60 | 61 | verify_write_path order wrapper |
+| Estimated human min / video | 104 | 103 | one band check on draft.md instead of apply-then-discover WARN |
+| Automated steps | 61 | 62 | words.py read-only band printer |
 | Videos produced | 0 | 0 | fixture only |
-| Write-path contract | body + trio shape lock 069 | body + trio + ordered verify 070 | run verify_write_path.py after reconstruct |
+| Write-path contract | body + trio + ordered verify 070 | unchanged 071 | run verify_write_path.py after reconstruct |
 
 ## Active constraints
 - Do not auto-scaffold Q1
-- Do not map needed.py / doctor.py / expand_prompt.py / idea_gate_contract.py / operator_pin_contract.py / idea_brief_contract.py
+- Do not map needed.py / doctor.py / expand_prompt.py / idea_gate_contract.py / operator_pin_contract.py / idea_brief_contract.py / words.py
 - Do not add WAVE 4 unless a new post-WAVE-3 guess is observed
 - Do not retry HTTPS clone after one failure
 - Do not write idea.md from new_packet or idea_brief
@@ -52,3 +53,4 @@ After reconstruct of write-path tools: `python3 tools/verify_write_path.py` (sha
 - Do not replace write_path_contract.py with a docstring-only file
 - Do not drop tools/contract_shape.py or shrink it back to a single-file witness
 - Do not drop tools/verify_write_path.py or treat it as a replacement for the two files it runs
+- Do not treat words.py IN BAND as apply --write

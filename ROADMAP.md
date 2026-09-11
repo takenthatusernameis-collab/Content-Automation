@@ -6,6 +6,7 @@
 51p. Separate source-shape lock for write_path_contract.py — **done (Run 068)**
 51q. contract_shape trio (apply_script + set_status) — **done (Run 069)**
 51r. One-command verify_write_path order lock — **done (Run 070)**
+51s. Read-only words.py band check on draft.md — **done (Run 071)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -22,3 +23,5 @@
 - Replacing write_path_contract.py with a docstring-only file
 - Dropping tools/contract_shape.py
 - Dropping tools/verify_write_path.py or using it as a substitute for the two files it runs
+- Treating words.py as a lock or as apply --write
+- Mapping words.py in needed.py
