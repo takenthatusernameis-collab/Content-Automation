@@ -13,6 +13,10 @@ When BELOW/ABOVE it prints the exact word delta to the locked band
 so the next expand pass has a number instead of a guess.
 Hook WORDS print a separate 20-35 delta. --strict still keys off
 the total band only.
+
+A Beats line lists per-heading spoken counts so the expand pass
+knows which sections are empty or thin. That line is not a lock
+and is not a request to invent filler.
 """
 
 from __future__ import annotations
@@ -29,6 +33,9 @@ if str(TOOLS) not in sys.path:
 WPM = 150
 FORMAT_SPOKEN_WORDS = {"explainer-6-10min": (900, 1500)}
 HOOK_BAND = (20, 35)
+PAYOFF_HINT = 60
+CTA_HINT = 50
+BEAT_HINT = 80
 
 
 def _field(text: str, name: str) -> str:
@@ -178,6 +185,76 @@ def hook_count(script: str) -> int:
     return len(spoken_words(hook)) if hook else 0
 
 
+def headings(script: str) -> list[str]:
+    return [m.group(1).strip() for m in re.finditer(r"^##\s+(.+)$", script, re.M)]
+
+
+def classify_heading(label: str) -> str:
+    low = label.lower()
+    if low.startswith("hook"):
+        return "hook"
+    if "payoff" in low:
+        return "payoff"
+    if low.startswith("beat"):
+        return "beat"
+    if low.startswith("cta"):
+        return "cta"
+    return "other"
+
+
+def short_label(label: str) -> str:
+    kind = classify_heading(label)
+    if kind == "hook":
+        return "Hook"
+    if kind == "payoff":
+        return "Payoff"
+    if kind == "cta":
+        return "CTA"
+    m = re.match(r"(Beat\s+\d+)", label, re.I)
+    if m:
+        return m.group(1)
+    return label[:24]
+
+
+def beat_counts(script: str) -> list[tuple[str, int, str]]:
+    rows: list[tuple[str, int, str]] = []
+    for label in headings(script):
+        n = len(spoken_words(section(script, label)))
+        rows.append((short_label(label), n, classify_heading(label)))
+    return rows
+
+
+def beats_line(rows: list[tuple[str, int, str]]) -> str:
+    if not rows:
+        return "Beats: (no ## headings)"
+    parts = [f"{name} {n}" for name, n, _kind in rows]
+    return "Beats: " + " | ".join(parts)
+
+
+def thin_line(rows: list[tuple[str, int, str]]) -> str | None:
+    empty = [name for name, n, _k in rows if n <= 0]
+    thin: list[str] = []
+    for name, n, kind in rows:
+        if n <= 0:
+            continue
+        if kind == "hook" and n < HOOK_BAND[0]:
+            thin.append(name)
+        elif kind == "payoff" and n < PAYOFF_HINT // 2:
+            thin.append(name)
+        elif kind == "cta" and n < CTA_HINT // 2:
+            thin.append(name)
+        elif kind == "beat" and n < BEAT_HINT:
+            thin.append(name)
+    bits: list[str] = []
+    if empty:
+        bits.append("empty " + ", ".join(empty))
+    if thin:
+        bits.append("thin " + ", ".join(thin))
+    if not bits:
+        return None
+    return "Thin: " + "; ".join(bits) + " (grow existing beats; do not pad filler)"
+
+
 def delta_line(n: int, lo: int, hi: int, label: str) -> str | None:
     if label == "BELOW":
         need = lo - n
@@ -213,7 +290,7 @@ def next_line(label: str, source: Path) -> str:
         )
     if label in {"BELOW", "ABOVE", "EMPTY"}:
         return (
-            "Next: expand off-repo again using the Delta line; "
+            "Next: expand off-repo again using Delta + Beats + Thin; "
             f"overwrite {packet}/draft.md; re-run words.py. Do not apply --write yet."
         )
     return "Next: save a real draft to PATH/draft.md. This command writes nothing."
@@ -274,6 +351,11 @@ def main() -> int:
     else:
         print(f"Hook: 0 words (not {hook_lo}-{hook_hi})")
     print(hook_delta_line(hook_n))
+    rows = beat_counts(script)
+    print(beats_line(rows))
+    thin = thin_line(rows)
+    if thin:
+        print(thin)
     print(next_line(label, source))
     print("This command writes nothing.")
     print("draft.md is not script.md until apply_script --write.")
