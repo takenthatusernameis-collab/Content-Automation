@@ -4,11 +4,13 @@
 Temp tree only. Never writes videos/ or sample-001.
 Locks apply_script refuse/allow and set_status evidence gates so later
 runs cannot silently regress the dry-run-default write tools.
-Also locks missing --from path messaging (draft.md convention).
+Also locks missing --from path messaging (draft.md convention)
+and the apply_script CLI exit 2 for a missing --from file.
 """
 
 from __future__ import annotations
 
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -99,6 +101,9 @@ def main() -> int:
     text, code = load_source("definitely-not-a-real-draft.md")
     fail(failures, text is None and code == 2, f"load_source missing file should be (None, 2), got {(text, code)}")
 
+    # CLI lock: advertised --from PATH/draft.md must exit 2 when the file
+    # is absent. Helpers alone would miss an argparse / main() regression.
+
     with tempfile.TemporaryDirectory() as tmp:
         live = Path(tmp) / "videos" / "002-write-path-contract"
         live.mkdir(parents=True)
@@ -108,6 +113,30 @@ def main() -> int:
         draft.write_text(script_body(hook_n=24, beat_n=40), encoding="utf-8")
         loaded, lcode = load_source(str(draft))
         fail(failures, lcode == 0 and loaded is not None and "Beat 1" in loaded, "load_source should read existing draft.md")
+
+        missing_from = live / "draft-missing.md"
+        proc = subprocess.run(
+            [
+                sys.executable,
+                str(TOOLS / "apply_script.py"),
+                str(live),
+                "--from",
+                str(missing_from),
+            ],
+            capture_output=True,
+            text=True,
+        )
+        err = (proc.stderr or "") + (proc.stdout or "")
+        fail(failures, proc.returncode == 2, f"CLI missing --from should exit 2, got {proc.returncode}")
+        fail(failures, "missing source file:" in err, "CLI missing --from should print path header")
+        fail(failures, "draft.md is not script.md" in err, "CLI missing --from must not treat draft as script")
+        fail(failures, "writes nothing" in err.lower(), "CLI missing --from must stay dry-run")
+        fail(failures, not missing_from.exists(), "CLI missing --from must not create the source file")
+        fail(
+            failures,
+            (live / "script.md").read_text(encoding="utf-8") == script_body(hook_n=24, beat_n=20),
+            "CLI missing --from must not rewrite script.md",
+        )
 
         fixture = Path(tmp) / "videos" / "sample-001-why-systems-beat-motivation"
         fixture.mkdir(parents=True)
@@ -167,7 +196,7 @@ def main() -> int:
         fail(failures, not leak.exists(), f"temp packet leaked to {leak}")
 
     print("Write-path contract")
-    print("apply: fixture refuse + prompt refuse + hook band + allow non-fixture + missing --from")
+    print("apply: fixture refuse + prompt refuse + hook band + allow non-fixture + missing --from helper + CLI exit 2")
     print("set_status: duration WARN blocks ready_for_vo; skip blocked; fixture blocked")
     if failures:
         print("WRITE PATH CONTRACT FAIL")
