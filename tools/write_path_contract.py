@@ -8,9 +8,11 @@ Also locks missing --from path messaging (draft.md convention),
 the apply_script CLI exit 2 for a missing --from file,
 the advertised dry-run CLI for an existing PATH/draft.md
 (exit 0, Dry-run only, no script.md write),
-and the advertised set_status CLI for ready_for_vo
+the advertised set_status CLI for ready_for_vo
 (duration block and fixture block leave packet.md unchanged,
-including when --write is passed on a blocked target).
+including when --write is passed on a blocked target),
+and the advertised apply_script CLI --write against the fixture
+(exit 1, BLOCKED, script.md unchanged).
 """
 
 from __future__ import annotations
@@ -222,6 +224,44 @@ def main() -> int:
         fixture_promote = status_check(fixture, "ready_for_vo")
         fail(failures, bool(fixture_promote), "fixture promote must block")
 
+        fixture_script_before = (fixture / "script.md").read_text(encoding="utf-8")
+        fixture_draft = fixture / "draft.md"
+        fixture_draft.write_text(long_script, encoding="utf-8")
+        apply_fix_write = subprocess.run(
+            [
+                sys.executable,
+                str(TOOLS / "apply_script.py"),
+                str(fixture),
+                "--from",
+                str(fixture_draft),
+                "--write",
+            ],
+            capture_output=True,
+            text=True,
+        )
+        af_out = (apply_fix_write.stdout or "") + (apply_fix_write.stderr or "")
+        fail(
+            failures,
+            apply_fix_write.returncode == 1,
+            f"CLI apply --write fixture should exit 1, got {apply_fix_write.returncode}\n{af_out}",
+        )
+        fail(failures, "Result: BLOCKED" in af_out, "CLI apply --write fixture must print BLOCKED")
+        fail(
+            failures,
+            "fixture" in af_out.lower() or "sample-001" in af_out.lower(),
+            f"CLI apply --write fixture message: {af_out[:200]!r}",
+        )
+        fail(
+            failures,
+            (fixture / "script.md").read_text(encoding="utf-8") == fixture_script_before,
+            "CLI apply --write fixture must not rewrite script.md",
+        )
+        fail(
+            failures,
+            fixture_draft.read_text(encoding="utf-8") == long_script,
+            "CLI apply --write fixture must not rewrite draft.md",
+        )
+
         live_packet_before = (live / "packet.md").read_text(encoding="utf-8")
         fixture_packet_before = (fixture / "packet.md").read_text(encoding="utf-8")
 
@@ -293,7 +333,7 @@ def main() -> int:
         fail(failures, not leak.exists(), f"temp packet leaked to {leak}")
 
     print("Write-path contract")
-    print("apply: fixture refuse + prompt refuse + hook band + allow non-fixture + missing --from helper + CLI exit 2 + CLI dry-run existing draft.md")
+    print("apply: fixture refuse + prompt refuse + hook band + allow non-fixture + missing --from helper + CLI exit 2 + CLI dry-run existing draft.md + CLI --write fixture refuse")
     print("set_status: duration WARN blocks ready_for_vo; skip blocked; fixture blocked; CLI dry-run and blocked --write leave packet.md draft")
     if failures:
         print("WRITE PATH CONTRACT FAIL")
