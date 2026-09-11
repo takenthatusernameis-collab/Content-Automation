@@ -6,7 +6,8 @@ Recovers the new_packet idea_followup after scaffold stdout is gone.
 --block prints only the paste-ready idea.md body. Still does not write.
 --check compares current idea.md to the suggested paste. Still does not write.
 On PASTE INCOMPLETE, prints the exact --block command for that packet.
-On PASTE READY, prints the exact expand_prompt command for that packet.
+On PASTE READY, prints the exact expand_prompt command for that packet,
+then the dry-run apply_script line (no --write).
 Default reprint prints the exact --check command for that packet.
 """
 
@@ -101,6 +102,10 @@ def expand_command(packet: Path) -> str:
     return f"python3 tools/expand_prompt.py {packet}"
 
 
+def apply_command(packet: Path) -> str:
+    return f"python3 tools/apply_script.py {packet} --from FILE"
+
+
 def block_command(packet: Path) -> str:
     return f"python3 tools/idea_brief.py {packet} --block"
 
@@ -137,6 +142,8 @@ def check_fields(current: str, title: str, packet: Path) -> tuple[int, list[str]
     lines.append("PASTE READY. Next live command is expand_prompt (off-repo), not this tool.")
     lines.append(f"  {expand_command(packet)}")
     lines.append("Do not treat expand_prompt stdout as script.md.")
+    lines.append("After an off-repo draft exists, dry-run apply_script first:")
+    lines.append(f"  {apply_command(packet)}")
     lines.append("This command writes nothing.")
     return 0, lines
 
