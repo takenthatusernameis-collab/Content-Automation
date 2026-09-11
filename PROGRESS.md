@@ -18,8 +18,10 @@
 | 2026-09-11 Run 071 | ~103 estimate | 62 | words.py prints draft.md band before apply |
 | 2026-09-11 Run 072 | ~102 estimate | 63 | words.py prints add/cut Delta + Next; works without validate_packet sibling |
 | 2026-09-11 Run 073 | ~101 estimate | 64 | words.py prints Hook Delta for the 20-35 hook band |
+| 2026-09-11 Run 074 | ~100 estimate | 65 | words.py prints Beats + Thin so expand targets empty/thin headings |
 
 Estimate basis (generic 8-min explainer):
+- Run 074: -1 stop a future expand pass that grows the wrong beat because only totals were visible
 - Run 073: -1 stop a future expand pass that guesses how many hook words to add/cut
 - Run 072: -1 stop a future expand pass that guesses how many words to add/cut
 - Run 071: -1 stop a future apply-then-WARN loop by checking draft.md words first
@@ -32,6 +34,7 @@ Estimate basis (generic 8-min explainer):
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 074: `tools/words.py` prints Beats (per-heading spoken counts) and Thin (empty/thin headings). --strict still keys off the total band. Still writes nothing.
 - Run 073: `tools/words.py` prints Hook Delta (add N / cut N vs 20-35). --strict still keys off the total band. Still writes nothing.
 - Run 072: `tools/words.py` prints Delta (add N / cut N) and a Next line. Local counters if validate_packet.py is missing. Still writes nothing.
 - Run 071: `tools/words.py` prints spoken WORDS vs the locked band from PATH/draft.md or script.md. Writes nothing. Not a lock. Not apply --write.
