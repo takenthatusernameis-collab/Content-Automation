@@ -23,21 +23,16 @@
 | 2026-09-10 Run 056   | ~118 estimate     | 47              | --check PASTE READY prints exact expand_prompt command |
 | 2026-09-10 Run 057   | ~117 estimate     | 48              | --check PASTE INCOMPLETE prints exact --block command |
 | 2026-09-10 Run 058   | ~116 estimate     | 49              | default idea_brief reprint prints exact --check command |
-
-Earlier rows remain in prior commits.
+| 2026-09-11 Run 059   | ~115 estimate     | 50              | PASTE READY prints apply_script dry-run --from FILE |
 
 Estimate basis (generic 8-min explainer):
+- Run 059: -1 stop hunting apply_script after PASTE READY expand_prompt
 - Run 058: -1 stop replacing PATH after a default reprint
 - Run 057: -1 stop hunting --block after an incomplete --check
 - Run 056: -1 stop hunting expand_prompt after a confirmed paste
-- Run 055: -1 stop guessing whether the hand paste matched suggested fields
-- Run 054: -1 stop reshaping reprint lines into idea.md after recover
-- Run 053: -1 stop a future run from turning idea_brief into a silent idea.md writer
-- Run 052: -1 stop hunting human_session + queue when scaffold stdout is gone
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
-- Run 058: default `idea_brief.py` reprint prints `python3 tools/idea_brief.py PATH --check` with the real folder, plus the exact `--block` command. Still does not write idea.md. idea_brief_contract requires check_command plus those lines on tempfile. Unmapped. IDEA BRIEF CONTRACT PASS on tempfile. No packet folder.
-- Run 057: `idea_brief.py --check` PASTE INCOMPLETE prints `python3 tools/idea_brief.py PATH --block`. Still does not write idea.md.
-- Run 056: `idea_brief.py --check` PASTE READY prints `python3 tools/expand_prompt.py PATH` and warns that stdout is not script.md.
+- Run 059: `idea_brief.py --check` PASTE READY prints dry-run `python3 tools/apply_script.py PATH --from FILE` after expand_prompt. Still does not write idea.md or print `--write`. idea_brief_contract requires check_command, apply_command, exact default --check/--block with folder, and that apply line. Unmapped. IDEA BRIEF CONTRACT PASS on tempfile. No packet folder.
+- Run 058: default `idea_brief.py` reprint prints exact `--check` and `--block` with the real folder.
