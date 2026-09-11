@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-11T04:20:00Z (Run 063)
+Updated: 2026-09-11T05:05:00Z (Run 064)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + scaffold handoff + contract router + router lock + reconstruct list + reconstruct presence check + first-fetch bootstrap + fetch-wave plan + post-reconstruct operator command + operator reconstruct command + operator page with first-video expand/apply/status + Q1 title/path pin + idea.md pre-expand edit + scaffold idea reprint (topic + problem + mechanism) + expand_prompt blank-mechanism refuse + next_action fill-idea before expand + idea-gate contract + operator-pin contract + Q1 problem-line pin + idea_brief reprint recover + idea-brief contract + idea_brief --block paste body + idea_brief --check paste confirm + --check PASTE READY prints expand_prompt + apply_script dry-run --from PATH/draft.md + --check PASTE INCOMPLETE prints --block + default idea_brief reprint prints exact --check + apply_script missing --from exits 2 with draft.md hint + write_path_contract locks missing --from CLI exit 2 + write_path_contract locks dry-run --from existing draft.md (no script.md write)** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + scaffold handoff + contract router + router lock + reconstruct list + reconstruct presence check + first-fetch bootstrap + fetch-wave plan + post-reconstruct operator command + operator reconstruct command + operator page with first-video expand/apply/status + Q1 title/path pin + idea.md pre-expand edit + scaffold idea reprint (topic + problem + mechanism) + expand_prompt blank-mechanism refuse + next_action fill-idea before expand + idea-gate contract + operator-pin contract + Q1 problem-line pin + idea_brief reprint recover + idea-brief contract + idea_brief --block paste body + idea_brief --check paste confirm + --check PASTE READY prints expand_prompt + apply_script dry-run --from PATH/draft.md + --check PASTE INCOMPLETE prints --block + default idea_brief reprint prints exact --check + apply_script missing --from exits 2 with draft.md hint + write_path_contract locks missing --from CLI exit 2 + write_path_contract locks dry-run --from existing draft.md (no script.md write) + write_path_contract locks set_status CLI ready_for_vo duration/fixture block (no packet.md write, including blocked --write)** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -30,24 +30,25 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - Off-repo expand draft convention: save to `PATH/draft.md`, then dry-run apply_script `--from PATH/draft.md`. That file is not script.md until `--write`.
 - If that `--from` path is missing, apply_script exits 2 and prints a draft.md hint instead of a traceback. It still does not write script.md.
 - write_path_contract subprocess-runs that missing `--from` path (exit 2) and the existing `PATH/draft.md` dry-run (exit 0, Dry-run only, script.md unchanged).
+- write_path_contract also subprocess-runs `set_status.py PATH --to ready_for_vo` (no --write) and the same command with `--write` while WORDS are short, plus fixture `--write`. Expects exit 1, BLOCKED, packet.md still draft.
 
-## What exists now (after Run 063)
-- Same inventory as Run 062 plus write_path_contract CLI dry-run lock on an existing draft.md
+## What exists now (after Run 064)
+- Same inventory as Run 063 plus write_path_contract CLI lock on blocked set_status ready_for_vo
 - WRITE PATH CONTRACT PASS on a reconstructed tools tree (tempfile + subprocess; no videos/ leak)
-- Frozen doctor/hint/needed/which_contract/router/idea_brief/apply_script not edited
+- Frozen doctor/hint/needed/which_contract/router/idea_brief/apply_script/set_status not edited
 - No new packet folder; queue still queued
 - idea_gate / operator_pin / idea_brief_contract stay unmapped
 
 ## Pipeline map
-Unchanged from Run 037. After scaffold, paste from `--block`, confirm with `--check`, then run the printed expand_prompt off-repo, save to PATH/draft.md, then the printed apply_script dry-run. If draft.md is not there yet, apply_script exits 2 with the save hint. If draft.md is there, dry-run prints OK / Dry-run only and does not write script.md.
+Unchanged from Run 037. After scaffold, paste from `--block`, confirm with `--check`, then run the printed expand_prompt off-repo, save to PATH/draft.md, then the printed apply_script dry-run. If draft.md is not there yet, apply_script exits 2 with the save hint. If draft.md is there, dry-run prints OK / Dry-run only and does not write script.md. After WORDS are in band, `set_status.py PATH --to ready_for_vo` is dry-run first. If WORDS are short, that CLI exits 1 and leaves packet.md draft even with `--write`.
 
 ## Metrics snapshot
 | Metric                      | Previous | Current    | Notes |
 |-----------------------------|----------|------------|-------|
-| Estimated human min / video | 112      | 111        | dry-run CLI cannot silently start writing script.md |
-| Automated steps             | 53       | 54         | write_path_contract existing-draft dry-run CLI lock |
+| Estimated human min / video | 111      | 110        | blocked set_status CLI cannot silently promote packet.md |
+| Automated steps             | 54       | 55         | write_path_contract set_status CLI duration/fixture lock |
 | Videos produced             | 0        | 0          | fixture only |
-| Write-path contract         | PASS 062 | PASS 063   | missing --from + existing draft dry-run |
+| Write-path contract         | PASS 063 | PASS 064   | apply dry-run + set_status blocked CLI |
 
 ## Active constraints
 - Do not auto-scaffold Q1
@@ -63,3 +64,4 @@ Unchanged from Run 037. After scaffold, paste from `--block`, confirm with `--ch
 - Do not turn a missing --from path into a Python traceback; exit 2 with the draft.md hint
 - Do not weaken the write_path_contract CLI missing --from lock
 - Do not weaken the write_path_contract CLI dry-run existing draft.md lock (exit 0, no script.md write)
+- Do not weaken the write_path_contract CLI set_status ready_for_vo duration/fixture lock (exit 1, no packet.md write)

@@ -6,8 +6,11 @@ Locks apply_script refuse/allow and set_status evidence gates so later
 runs cannot silently regress the dry-run-default write tools.
 Also locks missing --from path messaging (draft.md convention),
 the apply_script CLI exit 2 for a missing --from file,
-and the advertised dry-run CLI for an existing PATH/draft.md
-(exit 0, Dry-run only, no script.md write).
+the advertised dry-run CLI for an existing PATH/draft.md
+(exit 0, Dry-run only, no script.md write),
+and the advertised set_status CLI for ready_for_vo
+(duration block and fixture block leave packet.md unchanged,
+including when --write is passed on a blocked target).
 """
 
 from __future__ import annotations
@@ -219,13 +222,79 @@ def main() -> int:
         fixture_promote = status_check(fixture, "ready_for_vo")
         fail(failures, bool(fixture_promote), "fixture promote must block")
 
+        live_packet_before = (live / "packet.md").read_text(encoding="utf-8")
+        fixture_packet_before = (fixture / "packet.md").read_text(encoding="utf-8")
+
+        status_dry = subprocess.run(
+            [
+                sys.executable,
+                str(TOOLS / "set_status.py"),
+                str(live),
+                "--to",
+                "ready_for_vo",
+            ],
+            capture_output=True,
+            text=True,
+        )
+        status_out = (status_dry.stdout or "") + (status_dry.stderr or "")
+        fail(failures, status_dry.returncode == 1, f"CLI set_status ready_for_vo short WORDS should exit 1, got {status_dry.returncode}\n{status_out}")
+        fail(failures, "Result: BLOCKED" in status_out, "CLI set_status ready_for_vo short WORDS must print BLOCKED")
+        fail(failures, "duration" in status_out.lower(), "CLI set_status ready_for_vo short WORDS must mention duration")
+        fail(
+            failures,
+            (live / "packet.md").read_text(encoding="utf-8") == live_packet_before,
+            "CLI set_status dry-run ready_for_vo must not rewrite packet.md",
+        )
+
+        status_write_blocked = subprocess.run(
+            [
+                sys.executable,
+                str(TOOLS / "set_status.py"),
+                str(live),
+                "--to",
+                "ready_for_vo",
+                "--write",
+            ],
+            capture_output=True,
+            text=True,
+        )
+        sw_out = (status_write_blocked.stdout or "") + (status_write_blocked.stderr or "")
+        fail(failures, status_write_blocked.returncode == 1, f"CLI set_status --write blocked ready_for_vo should exit 1, got {status_write_blocked.returncode}\n{sw_out}")
+        fail(
+            failures,
+            (live / "packet.md").read_text(encoding="utf-8") == live_packet_before,
+            "CLI set_status --write on duration block must not rewrite packet.md",
+        )
+        fail(failures, "- status: draft" in (live / "packet.md").read_text(encoding="utf-8"), "blocked ready_for_vo must leave status draft")
+
+        fixture_cli = subprocess.run(
+            [
+                sys.executable,
+                str(TOOLS / "set_status.py"),
+                str(fixture),
+                "--to",
+                "ready_for_vo",
+                "--write",
+            ],
+            capture_output=True,
+            text=True,
+        )
+        fix_out = (fixture_cli.stdout or "") + (fixture_cli.stderr or "")
+        fail(failures, fixture_cli.returncode == 1, f"CLI set_status fixture promote should exit 1, got {fixture_cli.returncode}\n{fix_out}")
+        fail(failures, "fixture" in fix_out.lower() or "sample-001" in fix_out.lower(), f"CLI fixture promote message: {fix_out[:200]!r}")
+        fail(
+            failures,
+            (fixture / "packet.md").read_text(encoding="utf-8") == fixture_packet_before,
+            "CLI set_status --write fixture promote must not rewrite packet.md",
+        )
+
         repo_videos = Path(__file__).resolve().parents[1] / "videos"
         leak = repo_videos / "002-write-path-contract"
         fail(failures, not leak.exists(), f"temp packet leaked to {leak}")
 
     print("Write-path contract")
     print("apply: fixture refuse + prompt refuse + hook band + allow non-fixture + missing --from helper + CLI exit 2 + CLI dry-run existing draft.md")
-    print("set_status: duration WARN blocks ready_for_vo; skip blocked; fixture blocked")
+    print("set_status: duration WARN blocks ready_for_vo; skip blocked; fixture blocked; CLI dry-run and blocked --write leave packet.md draft")
     if failures:
         print("WRITE PATH CONTRACT FAIL")
         for f in failures:
