@@ -3,19 +3,9 @@
 Order is deliberate: understandability and reliability first, then efficiency, then autonomy.
 
 ## Next (assisted production)
-31–49. Queue, contracts, reconstruct waves, operator page, Q1 pin, idea reprint — **done (Runs 027–045)**
-50. expand_prompt refuses blank / template-default idea.md mechanism — **done (Run 046)**
-51. next_action/hint `fill-idea` before expand while mechanism is blank — **done (Run 047)**
-51b. idea_gate_contract locks fill-idea + blank-mechanism cases — **done (Run 048)**
-51c. operator_pin_contract locks human_session Q1 title/path/one_line vs topic_queue — **done (Run 049)**
-51d. operator_pin also locks the Q1 problem paste line; agent_session lists unmapped locks — **done (Run 050)**
-51e. new_packet reprints the locked Q1 problem with topic + mechanism — **done (Run 051)**
-51f. idea_brief recovers the three-field paste after scaffold stdout is gone — **done (Run 052)**
-51g. idea_brief --check PASTE READY prints the exact expand_prompt command — **done (Run 056)**
-51h. default idea_brief reprint prints the exact --check command — **done (Run 058)**
-51i. idea_brief --check PASTE READY prints apply_script dry-run --from FILE / draft.md — **done (Runs 059–060)**
-51j. apply_script missing --from exits 2 with draft.md hint — **done (Run 061)**
-51k. write_path_contract locks missing --from CLI and existing-draft dry-run CLI — **done (Runs 062–063)**
+31–51k. Queue through write_path apply dry-run locks — **done (Runs 027–063)**
+51l. write_path_contract locks set_status CLI blocked ready_for_vo — **done (Run 064)**
+51m. write_path_contract locks apply_script CLI --write fixture refuse — **done (Run 065)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -27,20 +17,7 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 ## Not yet
 - Auto-scaffolding the next queued topic without a human instruction
 - Marking a queue row used without a matching videos/ folder
-- Auto-marking the queue from new_packet.py
 - Auto-writing idea.md from new_packet.py or idea_brief.py
-- Turning default queue_status into a failing command (keep `--strict` opt-in)
-- Mapping needed.py / doctor.py / expand_prompt.py / idea_gate_contract.py / operator_pin_contract.py onto a contract
-- Making needed.py --missing, --bootstrap, or --plan exit non-zero
-- Treating --bootstrap or --plan as a sixth contract
-- Growing BOOTSTRAP or WAVE 2 / WAVE 3 into a full-repo dump
-- Treating WAVE 3 as permission to auto-scaffold
 - Adding WAVE 4 without a new post-WAVE-3 guess
-- Extending needed.py after the reconstruct-loop flag unless a new guess is observed
-- Expanding while idea.md still uses the scaffold template-default or blank mechanism
-- Recommending expand_prompt while idea.md mechanism is blank
-- Adding a problem column to topic_queue without a human request
-- Adding another idea_brief flag without observed leftover labor after the printed apply_script dry-run
 - ffmpeg / TTS / YouTube OAuth / Whisper / stock / shorts
-- Treating which_contract --run SKIP as a contract PASS
-- Treating idea_gate_contract or operator_pin_contract PASS as a real Q1 packet
+- Weakening write_path_contract CLI locks (missing --from, dry-run draft.md, set_status blocked ready_for_vo, apply --write fixture)
