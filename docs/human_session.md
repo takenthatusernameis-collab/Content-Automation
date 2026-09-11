@@ -79,13 +79,14 @@ python3 tools/expand_prompt.py videos/002-stop-deciding-what-to-work-on-every-mo
 # do not treat stdout as script.md
 python3 tools/words.py videos/002-stop-deciding-what-to-work-on-every-morning
 # expect Result: IN BAND before apply --write; --strict exits 2 otherwise
+# if BELOW/ABOVE, use the printed Delta (add N / cut N) on the next expand; do not invent filler
 python3 tools/apply_script.py videos/002-stop-deciding-what-to-work-on-every-morning --from videos/002-stop-deciding-what-to-work-on-every-morning/draft.md
 # after dry-run OK:
 python3 tools/apply_script.py videos/002-stop-deciding-what-to-work-on-every-morning --from videos/002-stop-deciding-what-to-work-on-every-morning/draft.md --write --refresh
 python3 tools/validate_packet.py videos/002-stop-deciding-what-to-work-on-every-morning
 ```
 
-`words.py` writes nothing. On a packet folder it prefers `draft.md` when that file exists. IN BAND is not apply --write. If it prints EXPAND PROMPT, the file is still expand_prompt stdout.
+`words.py` writes nothing. On a packet folder it prefers `draft.md` when that file exists. IN BAND is not apply --write. If it prints EXPAND PROMPT, the file is still expand_prompt stdout. Delta is a count, not permission to pad.
 
 If expand_prompt prints `refusing expand: idea.md mechanism is blank or template-default`, or doctor prints `Code: fill-idea`, or `idea_brief.py --check` exits 2, go back to step 2. Do not run `apply_script.py --write` on `videos/sample-001-*`. Do not auto-write WORDS. Do not pad the fixture.
 
@@ -113,5 +114,6 @@ If unsure of the next command after any step, re-run `python3 tools/doctor.py vi
 - Do not treat `expand_prompt.py` stdout as a rewritten script.
 - Do not treat `draft.md` as the finished `script.md` until apply_script `--write` succeeds.
 - Do not treat `words.py` IN BAND as apply `--write`.
+- Do not treat `words.py` Delta as permission to invent filler.
 - Do not promote while duration WARN is present.
 - Do not expand while idea.md still says `template-default` / generic or blank mechanism.
