@@ -25,16 +25,15 @@
 | 2026-09-10 Run 058   | ~116 estimate     | 49              | default idea_brief reprint prints exact --check command |
 | 2026-09-11 Run 059   | ~115 estimate     | 50              | PASTE READY prints apply_script dry-run --from FILE |
 | 2026-09-11 Run 060   | ~114 estimate     | 51              | PASTE READY apply dry-run uses PATH/draft.md |
+| 2026-09-11 Run 061   | ~113 estimate     | 52              | apply_script missing --from exits 2 with draft.md hint |
 
 Estimate basis (generic 8-min explainer):
+- Run 061: -1 stop decoding a traceback when the printed apply line is run before draft.md exists
 - Run 060: -1 stop inventing FILE after PASTE READY apply dry-run
 - Run 059: -1 stop hunting apply_script after PASTE READY expand_prompt
-- Run 058: -1 stop replacing PATH after a default reprint
-- Run 057: -1 stop hunting --block after an incomplete --check
-- Run 056: -1 stop hunting expand_prompt after a confirmed paste
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
-- Run 060: `idea_brief.py --check` PASTE READY prints dry-run `python3 tools/apply_script.py PATH --from PATH/draft.md` and a save-to-draft.md line. Still does not write idea.md or print `--write`. idea_brief_contract requires draft_path and that apply line. Unmapped. IDEA BRIEF CONTRACT PASS on tempfile. No packet folder.
-- Run 059: `idea_brief.py --check` PASTE READY prints dry-run `python3 tools/apply_script.py PATH --from FILE` after expand_prompt.
+- Run 061: `apply_script.py --from` on a missing path exits 2 and prints a draft.md save hint. Does not write script.md. write_path_contract locks `missing_source_error` / `load_source`. Helper unit check locally OK. Full contract runtime not reconstructed this run.
+- Run 060: `idea_brief.py --check` PASTE READY prints dry-run `python3 tools/apply_script.py PATH --from PATH/draft.md` and a save-to-draft.md line.
