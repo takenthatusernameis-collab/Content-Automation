@@ -39,7 +39,7 @@ python3 tools/needed.py new_packet.py --missing
 
 `needed.py` is read-only. It prints repo-relative paths plus the contract command. `--missing` labels each path PRESENT or MISSING and prints READY or NOT READY. Exit is always 0. It does not download files and does not write `videos/`.
 
-Without `which_contract.py` on disk, FALLBACK_ALIAS still resolves edited-tool names such as `new_packet.py` → scaffold_contract and `queue_status.py` → queue_contract. Unmapped tools (`doctor.py`, `expand_prompt.py`, `needed.py`, `idea_gate_contract.py`, `operator_pin_contract.py`, `idea_brief_contract.py`) print Unknown and exit 0.
+Without `which_contract.py` on disk, FALLBACK_ALIAS still resolves edited-tool names such as `new_packet.py` → scaffold_contract and `queue_status.py` → queue_contract. Unmapped tools (`doctor.py`, `expand_prompt.py`, `needed.py`, `idea_gate_contract.py`, `operator_pin_contract.py`, `idea_brief_contract.py`, `words.py`, `words_contract.py`) print Unknown and exit 0.
 
 ## Which contract
 
@@ -68,6 +68,14 @@ python3 tools/verify_write_path.py
 
 Expected when siblings are on disk: `CONTRACT SHAPE PASS` then `WRITE PATH CONTRACT PASS` then `VERIFY WRITE PATH PASS`, exit 0, no writes. If `contract_shape.py` or `write_path_contract.py` is missing, expect `VERIFY WRITE PATH FAIL` and a non-zero exit. Do not treat this wrapper as a replacement for those two files. Do not map it in `needed.py`.
 
+After reconstructing or editing `words.py`, run:
+
+```bash
+python3 tools/words_contract.py
+```
+
+Expected when `tools/words.py` is on disk and intact: `WORDS CONTRACT PASS`, exit 0, no writes under `videos/`. FAIL if words.py is missing, under 8000 bytes, a placeholder, or Grow/Cut stop printing. Do not map this file. Do not treat PASS as apply `--write`.
+
 ## Unmapped locks
 
 These are not reconstruct waves and are not in which_contract. Run them directly after the matching edit:
@@ -76,12 +84,14 @@ These are not reconstruct waves and are not in which_contract. Run them directly
 python3 tools/idea_gate_contract.py
 python3 tools/operator_pin_contract.py
 python3 tools/idea_brief_contract.py
+python3 tools/words_contract.py
 ```
 
 - After fill-idea / expand refuse edits: idea_gate_contract
 - After human_session or Q1 queue pin edits (title, slug, one_line, problem sentence): operator_pin_contract
 - After idea_brief reprint-recover or `--block` edits: idea_brief_contract
 - After new_packet idea reprint edits: scaffold_contract (mapped; not this list)
+- After words.py reconstruct or printer edits: words_contract
 
 `idea_brief.py` is also unmapped as a printer. It is a reprint recover tool, not a lock. `--block` prints a paste-ready idea.md body and still does not write. PASS/print does not mean Q1 is scaffolded. Do not write idea.md because they passed.
 
@@ -120,43 +130,19 @@ For write-path after reconstruct, prefer `python3 tools/verify_write_path.py` ov
 
 ## Last verified runtime
 
+words_contract stub:
+
+- When: 2026-09-11T18:10:00Z (Run 077)
+- How: sandbox `/tmp/wlock` with words_contract.py + stub words.py
+- Result: 576-byte stub FAIL; padded stub WORDS CONTRACT PASS, exit 0; no videos/ writes
+
 verify_write_path missing-sibling:
 
 - When: 2026-09-11T11:10:00Z (Run 070)
 - How: sandbox file only; no sibling tools tree
 - Result: VERIFY WRITE PATH FAIL, missing contract_shape.py, exit 1; no videos/ writes
 
-idea_brief --block:
-
-- When: 2026-09-10T19:10:00Z (Run 054)
-- How: `/tmp/ca` with idea_brief.py --block + idea_brief_contract.py + new_packet.idea_followup + queue_lib.py + operator_pin Q1_PROBLEM + docs/topic_queue.md + docs/human_session.md
-- Result: IDEA BRIEF CONTRACT PASS, exit 0; idea.md hash unchanged under default and --block; Q1 remains queued; no videos/ writes in the repo
-
-idea_brief contract:
-
-- When: 2026-09-10T17:05:00Z (Run 053)
-- How: `/tmp/ca` with idea_brief_contract.py + idea_brief.py + new_packet.idea_followup + queue_lib.py + operator_pin Q1_PROBLEM + docs/topic_queue.md + docs/human_session.md
-- Result: IDEA BRIEF CONTRACT PASS, exit 0; idea.md hash unchanged; Q1 remains queued; no videos/ writes in the repo
-
-idea_brief reprint recover:
-
-- When: 2026-09-10T16:15:00Z (Run 052)
-- How: `/tmp/ca` with idea_brief.py + new_packet.idea_followup + queue_lib.py + docs/topic_queue.md + a blank 002 packet
-- Result: exit 0; printed blank current fields + Q1 topic/problem/mechanism; idea.md hash unchanged; Q1 remains queued; no videos/ writes in the repo
-
-Scaffold problem reprint:
-
-- When: 2026-09-10T15:05:00Z (Run 051)
-- How: `/tmp/ca` with new_packet.py + scaffold_contract.py + queue_lib.py + operator_pin Q1_PROBLEM + docs/topic_queue.md
-- Result: SCAFFOLD CONTRACT PASS, exit 0; idea_followup printed topic + problem + mechanism; Q1 remains queued; no videos/ writes
-
-Operator pin problem-line lock:
-
-- When: 2026-09-10T14:20:00Z (Run 050)
-- How: `/tmp/ca` with operator_pin_contract.py + queue_lib.py + docs/topic_queue.md + docs/human_session.md
-- Result: OPERATOR PIN CONTRACT PASS, exit 0; Q1 remains queued; no videos/ writes
-
-Prior bootstrap / presence / reconstruct times remain those recorded in Run 037–042. Prior contract PASS times remain those recorded in Run 026–050. If a later run cannot reconstruct, record FAIL with the missing file.
+Prior contract PASS times remain those recorded in Run 026–076. If a later run cannot reconstruct, record FAIL with the missing file.
 
 ## Stop
 
@@ -169,6 +155,7 @@ Prior bootstrap / presence / reconstruct times remain those recorded in Run 037�
 - Do not list WAVE 2 reconstruct files inside --plan.
 - Do not list WAVE 3 queue files inside --plan.
 - Do not treat WAVE 3 as auto-scaffold.
-- Do not map idea_gate_contract, operator_pin_contract, or idea_brief_contract.
+- Do not map idea_gate_contract, operator_pin_contract, idea_brief_contract, words.py, or words_contract.py.
 - Do not write idea.md from idea_brief.py or idea_brief.py --block.
 - Do not treat verify_write_path.py as a replacement for contract_shape.py or write_path_contract.py.
+- Do not treat words_contract PASS as apply --write.
