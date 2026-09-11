@@ -4,6 +4,7 @@
 Temp tree only. Never writes videos/ or sample-001.
 Locks apply_script refuse/allow and set_status evidence gates so later
 runs cannot silently regress the dry-run-default write tools.
+Also locks missing --from path messaging (draft.md convention).
 """
 
 from __future__ import annotations
@@ -18,6 +19,7 @@ if str(TOOLS) not in sys.path:
 
 from apply_script import check as apply_check  # noqa: E402
 from apply_script import extract_script, looks_like_expand_prompt  # noqa: E402
+from apply_script import load_source, missing_source_error  # noqa: E402
 from set_status import check as status_check, is_fixture  # noqa: E402
 
 
@@ -89,11 +91,23 @@ def main() -> int:
     fail(failures, extracted.startswith("# Script"), f"extract fence start: {extracted[:20]!r}")
     fail(failures, "```" not in extracted, "extract left a fence")
 
+    missing_msg = missing_source_error(Path("videos/002-example/draft.md"))
+    fail(failures, "missing source file:" in missing_msg, "missing-source message lacks path header")
+    fail(failures, "draft.md" in missing_msg, "missing-source message must name draft.md")
+    fail(failures, "draft.md is not script.md" in missing_msg, "missing-source must not treat draft as script")
+    fail(failures, "writes nothing" in missing_msg.lower(), "missing-source must stay dry-run")
+    text, code = load_source("definitely-not-a-real-draft.md")
+    fail(failures, text is None and code == 2, f"load_source missing file should be (None, 2), got {(text, code)}")
+
     with tempfile.TemporaryDirectory() as tmp:
         live = Path(tmp) / "videos" / "002-write-path-contract"
         live.mkdir(parents=True)
         (live / "packet.md").write_text(packet_md(), encoding="utf-8")
         (live / "script.md").write_text(script_body(hook_n=24, beat_n=20), encoding="utf-8")
+        draft = live / "draft.md"
+        draft.write_text(script_body(hook_n=24, beat_n=40), encoding="utf-8")
+        loaded, lcode = load_source(str(draft))
+        fail(failures, lcode == 0 and loaded is not None and "Beat 1" in loaded, "load_source should read existing draft.md")
 
         fixture = Path(tmp) / "videos" / "sample-001-why-systems-beat-motivation"
         fixture.mkdir(parents=True)
@@ -153,7 +167,7 @@ def main() -> int:
         fail(failures, not leak.exists(), f"temp packet leaked to {leak}")
 
     print("Write-path contract")
-    print("apply: fixture refuse + prompt refuse + hook band + allow non-fixture")
+    print("apply: fixture refuse + prompt refuse + hook band + allow non-fixture + missing --from")
     print("set_status: duration WARN blocks ready_for_vo; skip blocked; fixture blocked")
     if failures:
         print("WRITE PATH CONTRACT FAIL")
