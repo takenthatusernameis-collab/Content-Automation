@@ -52,7 +52,7 @@ After you paste that body into idea.md by hand, confirm without writing:
 python3 tools/idea_brief.py videos/002-stop-deciding-what-to-work-on-every-morning --check
 ```
 
-`--check` writes nothing. Exit 2 means the paste is still blank or does not match the suggested topic/problem/mechanism; stdout then prints the exact `python3 tools/idea_brief.py PATH --block` line. Exit 0 means PASTE READY; stdout then prints the exact `python3 tools/expand_prompt.py PATH` line and the dry-run `python3 tools/apply_script.py PATH --from FILE` line for that packet. Expand off-repo. Do not treat expand_prompt stdout as script.md.
+`--check` writes nothing. Exit 2 means the paste is still blank or does not match the suggested topic/problem/mechanism; stdout then prints the exact `python3 tools/idea_brief.py PATH --block` line. Exit 0 means PASTE READY; stdout then prints the exact `python3 tools/expand_prompt.py PATH` line and the dry-run `python3 tools/apply_script.py PATH --from PATH/draft.md` line for that packet. Expand off-repo. Save that draft to `videos/002-stop-deciding-what-to-work-on-every-morning/draft.md`. Do not treat expand_prompt stdout as script.md.
 
 ```bash
 python3 tools/mark_topic.py --id Q1
@@ -75,10 +75,11 @@ Do not treat that edit as spoken WORDS. Do not invent statistics. Do not leave t
 
 ```bash
 python3 tools/expand_prompt.py videos/002-stop-deciding-what-to-work-on-every-morning
-# paste that pack into an off-repo writer; do not treat stdout as script.md
-python3 tools/apply_script.py videos/002-stop-deciding-what-to-work-on-every-morning --from FILE
+# paste that pack into an off-repo writer; save the draft to videos/002-stop-deciding-what-to-work-on-every-morning/draft.md
+# do not treat stdout as script.md
+python3 tools/apply_script.py videos/002-stop-deciding-what-to-work-on-every-morning --from videos/002-stop-deciding-what-to-work-on-every-morning/draft.md
 # after dry-run OK:
-python3 tools/apply_script.py videos/002-stop-deciding-what-to-work-on-every-morning --from FILE --write --refresh
+python3 tools/apply_script.py videos/002-stop-deciding-what-to-work-on-every-morning --from videos/002-stop-deciding-what-to-work-on-every-morning/draft.md --write --refresh
 python3 tools/validate_packet.py videos/002-stop-deciding-what-to-work-on-every-morning
 ```
 
@@ -105,5 +106,6 @@ If unsure of the next command after any step, re-run `python3 tools/doctor.py vi
 - Do not expect `new_packet.py`, `idea_brief.py`, or `queue_status.py` to write the queue or idea.md.
 - Do not treat `idea_brief.py --check` PASS as a written idea.md; it only compares.
 - Do not treat `expand_prompt.py` stdout as a rewritten script.
+- Do not treat `draft.md` as the finished `script.md` until apply_script `--write` succeeds.
 - Do not promote while duration WARN is present.
 - Do not expand while idea.md still says `template-default` / generic or blank mechanism.
