@@ -12,6 +12,8 @@
 51v. words.py Beats + Thin (per-heading counts) — **done (Run 074)**
 51w. words.py Grow (one heading first) — **done (Run 075)**
 51x. words.py Cut (one heading first when ABOVE) — **done (Run 076)**
+51y. words_contract.py lock for words.py — **done (Run 077)**
+51z. placeholder_guard.py lock for emptied high-risk tools — **done (Run 078)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -29,6 +31,7 @@
 - Dropping tools/contract_shape.py
 - Dropping tools/verify_write_path.py or using it as a substitute for the two files it runs
 - Treating words.py as a lock or as apply --write
-- Mapping words.py in needed.py
+- Mapping words.py, words_contract.py, or placeholder_guard.py in needed.py
 - Treating words.py Delta, Hook Delta, Beats, Thin, Grow, or Cut as filler permission
 - Making words.py --strict fail on hook length, thin headings, Grow, or Cut alone
+- Treating PLACEHOLDER GUARD PASS as apply --write
