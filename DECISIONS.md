@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-11 | words_contract.py is an unmapped lock for words.py (MIN_BYTES 8000 + Grow/Cut markers + temp BELOW/ABOVE subprocess) | Run 076 landed placeholder words.py blobs before restore; a printer cannot witness its own deletion | If words.py splits; do not map into needed.py; do not treat PASS as apply --write
 - 2026-09-11 | words.py prints Cut naming one heading to trim first when the total is ABOVE; --strict still keys off the total band only | Grow is silent on ABOVE so the trim pass still has to choose; failing --strict on Cut would change the documented gate | If beat ceilings move; do not treat Cut as a request to delete a beat; do not map into needed.py
 - 2026-09-11 | words.py prints Grow naming one heading to expand first; --strict still keys off the total band only | Thin lists several headings; the expand pass still has to choose; failing --strict on Grow would change the documented gate | If beat hints move; do not treat Grow as filler; do not map into needed.py
 - 2026-09-11 | words.py prints Hook Delta for the 20-35 hook band; --strict still keys off the total band only | Hook: not 20-35 without a number sends the human back to guess; failing --strict on hook would change the documented gate | If hook band moves; do not treat Hook Delta as filler; do not map into needed.py

@@ -21,8 +21,10 @@
 | 2026-09-11 Run 074 | ~100 estimate | 65 | words.py prints Beats + Thin so expand targets empty/thin headings |
 | 2026-09-11 Run 075 | ~99 estimate | 66 | words.py prints Grow so expand picks one heading first |
 | 2026-09-11 Run 076 | ~98 estimate | 67 | words.py prints Cut so an ABOVE trim picks one heading first |
+| 2026-09-11 Run 077 | ~97 estimate | 68 | words_contract.py fails placeholder/empty words.py and checks Grow/Cut |
 
 Estimate basis (generic 8-min explainer):
+- Run 077: -1 stop a future run from treating an 8-byte placeholder words.py as the Grow/Cut printer
 - Run 076: -1 stop a future trim pass that cuts several headings instead of the longest surplus
 - Run 075: -1 stop a future expand pass that grows several thin headings instead of the empty or shortest one
 - Run 074: -1 stop a future expand pass that grows the wrong beat because only totals were visible
@@ -38,6 +40,7 @@ Estimate basis (generic 8-min explainer):
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 077: `tools/words_contract.py` is an unmapped lock for words.py (size floor, Grow/Cut markers, temp BELOW/ABOVE subprocess). Writes nothing under videos/.
 - Run 076: `tools/words.py` prints Cut (one heading to trim first when ABOVE). --strict still keys off the total band. Still writes nothing.
 - Run 075: `tools/words.py` prints Grow (one heading to expand first). Empty beats thin. --strict still keys off the total band. Still writes nothing.
 - Run 074: `tools/words.py` prints Beats (per-heading spoken counts) and Thin (empty/thin headings). --strict still keys off the total band. Still writes nothing.
