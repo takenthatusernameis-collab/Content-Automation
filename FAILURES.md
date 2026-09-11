@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-09-11 — placeholder overwrite of words.py (Run 076)
+
+- **Tried:** Push words.py via create_or_update_file / push_files using a short placeholder while assembling the real blob.
+- **Evidence:** Two commits landed 8-byte and placeholder contents before the real 14879-byte file was restored in the same run.
+- **Lesson:** Never commit a placeholder path. Push the verified local file body only. Check committed size after each write-path file update.
+- **Avoid:** "see-next" / PLACEHOLDER strings in GitHub file API content.
+
 ## 2026-09-11 — write_path_contract committed as docstring only (Run 066)
 
 - **Tried:** Run 066 recorded WRITE PATH CONTRACT PASS after adding tempfile subprocesses.
