@@ -14,6 +14,7 @@
 51x. words.py Cut (one heading first when ABOVE) — **done (Run 076)**
 51y. words_contract.py lock for words.py — **done (Run 077)**
 51z. placeholder_guard.py lock for emptied high-risk tools — **done (Run 078)**
+51aa. prove_locks.py one-command post-write order wrapper — **done (Run 079)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -31,7 +32,8 @@
 - Dropping tools/contract_shape.py
 - Dropping tools/verify_write_path.py or using it as a substitute for the two files it runs
 - Treating words.py as a lock or as apply --write
-- Mapping words.py, words_contract.py, or placeholder_guard.py in needed.py
+- Mapping words.py, words_contract.py, placeholder_guard.py, or prove_locks.py in needed.py
 - Treating words.py Delta, Hook Delta, Beats, Thin, Grow, or Cut as filler permission
 - Making words.py --strict fail on hook length, thin headings, Grow, or Cut alone
-- Treating PLACEHOLDER GUARD PASS as apply --write
+- Treating PLACEHOLDER GUARD PASS or PROVE LOCKS PASS as apply --write
+- Dropping tools/prove_locks.py or using it as a substitute for the three files it runs
