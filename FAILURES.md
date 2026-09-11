@@ -1,35 +1,19 @@
 # FAILURES
 
-When recording a failure:
-- What was tried
-- Evidence it failed
-- Lesson
-- What to avoid
+## 2026-09-11 — write_path_contract committed as docstring only (Run 066)
+
+- **Tried:** Run 066 recorded WRITE PATH CONTRACT PASS after adding tempfile subprocesses.
+- **Evidence:** After that commit, tools/write_path_contract.py was 986 bytes and contained only the module docstring. No main(), no subprocess, no PASS printer.
+- **Lesson:** A memory-file PASS is not the lock. The executable file has to be in the same commit.
+- **Avoid:** Updating STATE/RUNS to PASS without checking the committed byte size of the contract.
 
 ## 2026-09-10 — reconstruct-loop on needed.py (Runs 037–042)
 
-- **Tried:** Six consecutive runs added reconstruct list, --missing, --bootstrap, --plan, WAVE 3 operator, WAVE 3 reconstruct.
-- **Evidence:** STATE/PROGRESS show automated-step count rising while videos produced stay 0 and the queue stays queued. NEXT_RUN_PROMPT already forbids WAVE 4 unless a human still guesses a command after WAVE 3 READY. `docs/human_session.md` had deferred the expand/apply/status path to "prior versions of this page."
-- **Lesson:** After WAVE 3 reconstruct + operator exist, more needed.py flags do not reduce human minutes per video. The remaining labor is scaffolding Q1 and filling WORDS on a non-fixture packet. Flag this loop instead of adding WAVE 4.
-- **Avoid:** Another needed.py flag, WAVE 4, or a sixth contract unless a new clone-less guess is observed after WAVE 3 READY.
+- **Tried:** Six consecutive runs added reconstruct list flags.
+- **Evidence:** Automated-step count rose while videos produced stayed 0.
+- **Lesson:** Remaining labor is scaffolding Q1 and filling WORDS.
+- **Avoid:** WAVE 4 or another needed.py flag unless a new clone-less guess appears after WAVE 3 READY.
 
 ## 2026-09-09 — treating clone failure as selftest unverified
 
-- **Tried:** Runs 023–025 left fixture runtime as unverified because `git clone` of the private repo fails in the agent sandbox.
-- **Evidence:** Run 026 reconstructed tools + sample-001 via GitHub `download_url` and `python3 tools/selftest.py` printed SELFTEST PASS, exit 0.
-- **Lesson:** Clone failure is an access constraint, not a contract failure. Reconstruct the minimum tree. Record the output. Do not spend another run restating unverified.
-- **Avoid:** Retrying HTTPS clone as the first action of a run.
-
-## 2026-08-27 — empty packet fields swallowed the next line
-
-- **Tried:** matching `- id:` and `Primary:` with `\\s*` plus `(.*)$` / `(.+)$`
-- **Evidence:** On `- id:` followed by `- slug: x`, group 1 became `- slug: x` because `\\s*` ate the newline. Empty `Primary:` captured `Alts:`.
-- **Lesson:** After a colon, allow only spaces/tabs, then the rest of that line. Anchor `^`. Never let `\\s*` consume the newline after an empty value.
-- **Avoid:** Using `\\s*` immediately after `:` when a blank value is valid.
-
-## 2026-08-27 — empty title list items forged three titles
-
-- **Tried:** `^\\d+\\.\\s+(.+)$` on template `1.` / `2.` / `3.` lines
-- **Evidence:** `titles_from` returned `['2.', '4.', 'Notes (promise vs clickbait risk):']` because `\\s` matched the newline and `$` ended on the next line. Draft validate then `FAIL`ed with `only 3 titles, need >=5` instead of `DRAFT-INCOMPLETE`.
-- **Lesson:** Same class as empty field parsers. After `N.`, allow only `[ \\t]+`.
-- **Avoid:** `\\s` in one-line list parsers.
+- Clone failure is an access constraint, not a contract failure. Do not retry HTTPS clone as the first action.

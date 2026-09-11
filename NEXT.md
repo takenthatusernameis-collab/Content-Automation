@@ -2,51 +2,19 @@
 
 Do these in order. Stop if a step needs a human decision that is not present.
 
-1. **Highest value:** A human runs `python3 tools/queue_status.py` (or `next_topic.py`), then follows `docs/human_session.md` on the pinned Q1 title `Stop deciding what to work on every morning`. Scaffold with that exact string (predicted folder `videos/002-stop-deciding-what-to-work-on-every-morning`). After scaffold, `new_packet.py` reprints the matching `mark_topic --id Q1` dry-run line and suggested idea.md topic + problem + mechanism. If that stdout is gone, `python3 tools/idea_brief.py PATH` reprints current vs suggested fields. `python3 tools/idea_brief.py PATH --block` prints only the paste-ready idea.md body. After a hand paste, `python3 tools/idea_brief.py PATH --check` exits 2 until the three fields match and 0 when PASTE READY (stdout then prints `python3 tools/expand_prompt.py PATH` then dry-run `python3 tools/apply_script.py PATH --from PATH/draft.md`). None of those commands write idea.md. Dry-run mark_topic, then `--write` only after the folder exists. Paste the reprinted idea fields before expand. Re-run `python3 tools/doctor.py PATH` — Code should be `fill-idea` until that paste exists, then `expand-script` / `write-script`. Expand off-repo, save to PATH/draft.md, then `python3 tools/apply_script.py PATH --from PATH/draft.md`. If draft.md is missing, that command exits 2 and prints a save hint; it does not write script.md. If draft.md exists, that command exits 0, prints Dry-run only, and does not write script.md. `--refresh` without `--write` also stays dry-run. `--write` against sample-001 exits 1 and leaves script.md unchanged (Run 065 PASS). On a non-fixture packet, `--write` replaces script.md only; `--write --refresh` also refreshes expand.md / vo_session.md / captions.md and leaves packet.md draft (Run 066 PASS). write_path_contract also locks apply missing --from and existing-draft dry-run (Runs 062–063 PASS) and set_status ready_for_vo while WORDS are short or the packet is the fixture (Run 064 PASS). After apply dry-run OK on a non-fixture packet, `python3 tools/apply_script.py PATH --from PATH/draft.md --write --refresh`. Only then, if WORDS sit in band, `python3 tools/set_status.py PATH --to ready_for_vo` (dry-run first). Do not pad sample-001 to 900 words. Do not auto-write WORDS. Do not auto-scaffold the queue. Do not auto-mark from new_packet. Do not auto-write idea.md from new_packet or idea_brief. Do not add ffmpeg assembly, TTS, stock, or YouTube OAuth. Agents without a clone follow `docs/agent_session.md`. After editing apply_script or set_status, run `python3 tools/write_path_contract.py`.
-2. Do **not** rewrite frozen printers unless they are wrong. `apply_script.py` and `write_path_contract.py` may change only if a locked CLI regresses.
+1. **Highest value:** A human runs `python3 tools/queue_status.py` then follows `docs/human_session.md` on Q1 `Stop deciding what to work on every morning` (predicted folder `videos/002-stop-deciding-what-to-work-on-every-morning`). After scaffold: idea_brief --block / paste / --check / expand off-repo / save PATH/draft.md / apply dry-run / `--write --refresh` on the non-fixture packet only / `set_status.py PATH --to ready_for_vo` dry-run then `--write` only if WORDS are in band. Do not auto-scaffold. Do not auto-write idea.md. After editing apply_script or set_status, run `python3 tools/write_path_contract.py`.
+2. Do **not** rewrite frozen printers unless they are wrong.
 3. Do **not** turn default duration WARN into FAIL.
-4. Do **not** attempt YouTube OAuth, TTS vendors, ffmpeg assembly, or publishing unless credentials or a real VO file appear in-repo docs as available.
-5. Do **not** produce a “real” video packet intended for upload; still no VO or card binaries on disk.
-6. Do **not** `--force` overwrite `videos/sample-001-*` titles, thumbnail, or script WORDS.
-7. Do **not** scrape the web into `research.md` and treat the result as verified.
-8. Do **not** revert the `titles_from` one-line parser.
-9. Do **not** auto-`--force` titles, publish.md, captions.md, assets.md, render.md, vo_session.md, or expand.md during scaffold.
-10. Do **not** call Whisper or write a fake `captions.srt` from estimated times.
-11. Do **not** call the YouTube API from `publish_brief.py`.
-12. Do **not** download stock or commit card PNGs.
-13. Do **not** write an ffmpeg recipe or concat list.
-14. Do **not** have printers or contracts mutate `packet.md` or the queue.
-15. Do **not** treat `vo_session.md` as recorded audio.
-16. Do **not** treat `expand.md` as a finished script.
-17. Do **not** treat `expand_prompt.py` stdout as a rewritten script.
-18. Do **not** run `apply_script.py --write` against `videos/sample-001-*`.
-19. Do **not** run `set_status.py --write --to ready_for_vo` against `videos/sample-001-*`.
-20. Do **not** make `hint.py` or `doctor.py` print `--write` as the first command.
-21. Do **not** replace `docs/human_session.md` with a wrapper around doctor.
+4. Do **not** attempt YouTube OAuth, TTS, ffmpeg assembly, or publishing without in-repo credentials or a real VO file.
+5. Do **not** produce an upload packet; still no VO or card binaries on disk.
+6. Do **not** `--force` overwrite sample-001 titles, thumbnail, or script WORDS.
+18. Do **not** run apply_script --write against sample-001.
+19. Do **not** run set_status --write --to ready_for_vo against sample-001.
 22. Do **not** retry HTTPS clone after one failure.
-23. Do **not** treat fixture selftest runtime as unverified after Run 026 unless a later run sees SELFTEST FAIL.
-24. Do **not** have `next_topic.py` or `queue_status.py` call `new_packet.py`.
-25. Do **not** mark a queue row `used` until the matching `videos/` folder exists.
-26. Do **not** have `mark_topic.py` create packets or mark sample-001 as used.
-27. Do **not** have `new_packet.py` or `idea_brief.py` write idea.md or call `mark_topic.py --write`.
-28. Do **not** make default `queue_status.py` exit non-zero.
-29. Do **not** treat `which_contract.py --run --all` SKIP as a contract PASS.
-30. Do **not** map `doctor.py`, `expand_prompt.py`, `needed.py`, `idea_gate_contract.py`, `operator_pin_contract.py`, or `idea_brief_contract.py` onto a contract.
-31. Do **not** make `needed.py --missing`, `needed.py --bootstrap`, or `needed.py --plan` exit non-zero when files are absent.
-32. Do **not** treat `--bootstrap` or `--plan` as a sixth contract or grow BOOTSTRAP / WAVE 2 / WAVE 3 into a full-repo dump.
-33. Do **not** add WAVE 4 or edit `needed.py` unless a new clone-less guess is observed after WAVE 3 READY.
-34. Do **not** expand a new packet while idea.md still uses the scaffold template-default or blank mechanism.
-35. Do **not** have `next_action.py` / `hint.py` recommend `expand_prompt` while idea.md mechanism is blank.
-36. Do **not** treat `idea_gate_contract.py`, `operator_pin_contract.py`, or `idea_brief_contract.py` PASS as a scaffolded Q1 packet or as permission to auto-write idea.md.
-37. Do **not** add a fifth queue column for problem unless a human asks.
-38. Do **not** add another idea_brief flag unless leftover labor after PASTE READY + printed expand_prompt + printed apply_script `--from PATH/draft.md` is observed.
-39. Do **not** print `--write` from `idea_brief.py --check`.
-40. Do **not** treat `draft.md` as `script.md`.
-41. Do **not** turn a missing `--from` path into a Python traceback; exit 2 with the draft.md hint.
-42. Do **not** drop the write_path_contract subprocess that runs `apply_script.py --from` on a missing file.
-43. Do **not** drop the write_path_contract subprocess that runs `apply_script.py --from` on an existing draft.md and expects dry-run (exit 0, no script.md write).
-44. Do **not** drop the write_path_contract subprocess that runs `set_status.py --to ready_for_vo` on short WORDS or the fixture and expects exit 1 with packet.md unchanged.
-45. Do **not** drop the write_path_contract subprocess that runs `apply_script.py --from FIXTURE/draft.md --write` and expects exit 1 with script.md unchanged.
-46. Do **not** drop the write_path_contract subprocess that runs `apply_script.py --from PATH/draft.md --refresh` without `--write` and expects dry-run (exit 0, no script.md or derived writes).
-47. Do **not** drop the write_path_contract subprocess that runs non-fixture `apply_script.py --from PATH/draft.md --write` and expects script.md replaced with derived files untouched and packet.md still draft.
-48. Do **not** drop the write_path_contract subprocess that runs non-fixture `apply_script.py --from PATH/draft.md --write --refresh` and expects script.md plus expand.md / vo_session.md / captions.md refreshed and packet.md still draft.
+27. Do **not** have new_packet or idea_brief write idea.md.
+30. Do **not** map doctor / expand_prompt / needed / idea_gate / operator_pin / idea_brief_contract.
+33. Do **not** add WAVE 4 or edit needed.py unless a new clone-less guess appears after WAVE 3 READY.
+40. Do **not** treat draft.md as script.md.
+42-48. Do **not** drop write_path_contract subprocesses for missing --from, existing-draft dry-run, blocked set_status, fixture apply --write, --refresh without --write, non-fixture --write, or --write --refresh.
+49. Do **not** drop the in-band set_status ready_for_vo dry-run / --write lock (Run 067).
+50. Do **not** replace write_path_contract.py with a docstring-only file.
