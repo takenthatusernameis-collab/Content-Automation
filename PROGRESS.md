@@ -12,12 +12,15 @@
 | 2026-09-11 Run 065 | ~109 estimate | 56 | write_path_contract locks apply_script CLI --write fixture refuse |
 | 2026-09-11 Run 066 | ~108 estimate | 57 | write_path_contract locks non-fixture --write / --refresh CLIs |
 | 2026-09-11 Run 067 | ~107 estimate | 58 | write_path_contract body restored + in-band set_status success CLI lock |
+| 2026-09-11 Run 068 | ~106 estimate | 59 | contract_shape.py fails if write_path_contract.py is emptied |
 
 Estimate basis (generic 8-min explainer):
+- Run 068: -1 stop a future run from treating a docstring-only lock file as PASS
 - Run 067: -1 stop a future dry-run status write or silent no-op on in-band set_status; also stop claiming PASS on a docstring-only lock file
 - Run 066: -1 stop a future dry-run-refresh or silent no-op on `--write --refresh`
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
-- Run 067: `write_path_contract.py` is an executable lock again. Subprocess-runs in-band non-fixture set_status ready_for_vo dry-run and --write. Re-locks Runs 062–066 CLIs in the same file.
+- Run 068: `tools/contract_shape.py` is a second-file witness. It does not import apply_script or set_status and writes nothing.
+- Run 067: `write_path_contract.py` is an executable lock again.

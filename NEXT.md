@@ -2,7 +2,7 @@
 
 Do these in order. Stop if a step needs a human decision that is not present.
 
-1. **Highest value:** A human runs `python3 tools/queue_status.py` then follows `docs/human_session.md` on Q1 `Stop deciding what to work on every morning` (predicted folder `videos/002-stop-deciding-what-to-work-on-every-morning`). After scaffold: idea_brief --block / paste / --check / expand off-repo / save PATH/draft.md / apply dry-run / `--write --refresh` on the non-fixture packet only / `set_status.py PATH --to ready_for_vo` dry-run then `--write` only if WORDS are in band. Do not auto-scaffold. Do not auto-write idea.md. After editing apply_script or set_status, run `python3 tools/write_path_contract.py`.
+1. **Highest value:** A human runs `python3 tools/queue_status.py` then follows `docs/human_session.md` on Q1 `Stop deciding what to work on every morning` (predicted folder `videos/002-stop-deciding-what-to-work-on-every-morning`). After scaffold: idea_brief --block / paste / --check / expand off-repo / save PATH/draft.md / apply dry-run / `--write --refresh` on the non-fixture packet only / `set_status.py PATH --to ready_for_vo` dry-run then `--write` only if WORDS are in band. Do not auto-scaffold. Do not auto-write idea.md. After editing apply_script or set_status, run `python3 tools/contract_shape.py` then `python3 tools/write_path_contract.py`.
 2. Do **not** rewrite frozen printers unless they are wrong.
 3. Do **not** turn default duration WARN into FAIL.
 4. Do **not** attempt YouTube OAuth, TTS, ffmpeg assembly, or publishing without in-repo credentials or a real VO file.
@@ -18,3 +18,4 @@ Do these in order. Stop if a step needs a human decision that is not present.
 42-48. Do **not** drop write_path_contract subprocesses for missing --from, existing-draft dry-run, blocked set_status, fixture apply --write, --refresh without --write, non-fixture --write, or --write --refresh.
 49. Do **not** drop the in-band set_status ready_for_vo dry-run / --write lock (Run 067).
 50. Do **not** replace write_path_contract.py with a docstring-only file.
+51. Do **not** drop tools/contract_shape.py or lower MIN_BYTES below 8000.

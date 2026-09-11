@@ -2,6 +2,10 @@
 
 Original prompt is frozen in `ORIGINAL_MASTER_PROMPT.md`.
 
+## Observed issues (Run 068)
+- A lock that lives only inside write_path_contract.py cannot detect that file being replaced by a docstring.
+- STATE/RUNS PASS lines are not evidence. A second-file shape check is cheaper than another restore run.
+
 ## Observed issues (Run 053)
 - idea_brief recovered the three-field paste but had no lock.
 - A later run could add --write and hide a blank-template expand.

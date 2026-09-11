@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-11 | contract_shape.py lives in a separate file from write_path_contract.py | Run 066 claimed PASS while the file under test was 986 bytes of documentation; a self-check inside that file cannot survive its own deletion | If write_path_contract is split; do not drop the shape lock; do not lower MIN_BYTES below 8000
 - 2026-09-11 | write_path_contract must stay an executable tempfile CLI lock, not a docstring-only file | Run 066 claimed PASS while the committed blob was 986 bytes of documentation | If the file has no def main; do not treat STATE PASS as a substitute
 - 2026-09-11 | write_path_contract subprocess-runs in-band non-fixture set_status --to ready_for_vo dry-run and --write | Helper-only checks cannot catch a dry-run that writes packet.md or a --write that no-ops after WORDS are in band | If leftover labor remains after a human-owned in-band draft; do not drop this subprocess; do not auto-scaffold Q1
 - 2026-09-11 | write_path_contract subprocess-runs non-fixture apply --refresh / --write / --write --refresh | Printed human_session success line is --write --refresh | Do not drop these subprocesses

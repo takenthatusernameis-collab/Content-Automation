@@ -3,6 +3,7 @@
 ## Next (assisted production)
 31–51n. Queue through write_path apply locks — **done (Runs 027–066; body restored Run 067)**
 51o. write_path_contract locks in-band set_status ready_for_vo — **done (Run 067)**
+51p. Separate source-shape lock for write_path_contract.py — **done (Run 068)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -17,3 +18,4 @@
 - WAVE 4
 - Weakening write_path_contract CLI locks
 - Replacing write_path_contract.py with a docstring-only file
+- Dropping tools/contract_shape.py
