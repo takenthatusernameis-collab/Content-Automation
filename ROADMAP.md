@@ -13,7 +13,8 @@ Order is deliberate: understandability and reliability first, then efficiency, t
 51f. idea_brief recovers the three-field paste after scaffold stdout is gone — **done (Run 052)**
 51g. idea_brief --check PASTE READY prints the exact expand_prompt command — **done (Run 056)**
 51h. default idea_brief reprint prints the exact --check command — **done (Run 058)**
-51i. idea_brief --check PASTE READY prints apply_script dry-run --from FILE — **done (Run 059)**
+51i. idea_brief --check PASTE READY prints apply_script dry-run --from FILE / draft.md — **done (Runs 059–060)**
+51j. apply_script missing --from exits 2 with draft.md hint — **done (Run 061)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
