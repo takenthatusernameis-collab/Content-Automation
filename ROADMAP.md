@@ -10,6 +10,7 @@
 51t. words.py Delta + Next + import fallback — **done (Run 072)**
 51u. words.py Hook Delta (20-35) — **done (Run 073)**
 51v. words.py Beats + Thin (per-heading counts) — **done (Run 074)**
+51w. words.py Grow (one heading first) — **done (Run 075)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -28,5 +29,5 @@
 - Dropping tools/verify_write_path.py or using it as a substitute for the two files it runs
 - Treating words.py as a lock or as apply --write
 - Mapping words.py in needed.py
-- Treating words.py Delta, Hook Delta, Beats, or Thin as filler permission
-- Making words.py --strict fail on hook length or thin headings alone
+- Treating words.py Delta, Hook Delta, Beats, Thin, or Grow as filler permission
+- Making words.py --strict fail on hook length, thin headings, or Grow alone
