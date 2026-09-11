@@ -23,8 +23,10 @@
 | 2026-09-11 Run 076 | ~98 estimate | 67 | words.py prints Cut so an ABOVE trim picks one heading first |
 | 2026-09-11 Run 077 | ~97 estimate | 68 | words_contract.py fails placeholder/empty words.py and checks Grow/Cut |
 | 2026-09-11 Run 078 | ~96 estimate | 69 | placeholder_guard.py fails emptied high-risk tools after a GitHub write |
+| 2026-09-11 Run 079 | ~95 estimate | 70 | prove_locks.py runs guard then words_contract then verify in one command |
 
 Estimate basis (generic 8-min explainer):
+- Run 079: -1 stop a future reconstruct from running one post-write lock while another was never fetched
 - Run 078: -1 stop a future run from treating an emptied write-path or words file as live after a placeholder GitHub write
 - Run 077: -1 stop a future run from treating an 8-byte placeholder words.py as the Grow/Cut printer
 - Run 076: -1 stop a future trim pass that cuts several headings instead of the longest surplus
@@ -42,6 +44,7 @@ Estimate basis (generic 8-min explainer):
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 079: `tools/prove_locks.py` is an unmapped order wrapper for placeholder_guard, words_contract, and verify_write_path. Writes nothing. Does not run apply_script or set_status. Not a substitute for those three files.
 - Run 078: `tools/placeholder_guard.py` is an unmapped lock for emptied or placeholder high-risk tools. Writes nothing. Does not run apply_script or set_status.
 - Run 077: `tools/words_contract.py` is an unmapped lock for words.py (size floor, Grow/Cut markers, temp BELOW/ABOVE subprocess). Writes nothing under videos/.
 - Run 076: `tools/words.py` prints Cut (one heading to trim first when ABOVE). --strict still keys off the total band. Still writes nothing.
