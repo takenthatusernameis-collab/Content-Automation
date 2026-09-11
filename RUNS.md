@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-11T11:10:00Z — Run 070
+
+- **Objective:** Stop a reconstructed tree from running write_path_contract.py alone while contract_shape.py was never fetched. Make the advertised shape-then-contract order one command.
+- **Inspected:** STATE/NEXT/RUNS/FAILURES after Run 069. contract_shape.py already witnesses the trio. write_path_contract.py / apply_script.py / set_status.py unchanged. Remaining labor is still human Q1 scaffold + WORDS in band.
+- **Action taken:** Added tools/verify_write_path.py. It subprocess-runs contract_shape.py then write_path_contract.py, stops on first non-zero, writes nothing, imports neither lock. Did not edit write_path_contract.py, apply_script.py, set_status.py, contract_shape.py, or needed.py. Did not scaffold Q1. Did not write idea.md.
+- **Result:** Order wrapper committed. Local compile OK. Local run in this sandbox FAILs as expected (no sibling tools tree; missing contract_shape.py). Queue rows remain queued. No new packet folder. No media.
+- **Verification status:** completed for committed verify_write_path.py syntax and missing-sibling FAIL. Runtime VERIFY WRITE PATH PASS requires contract_shape.py + write_path_contract.py + the trio they inspect, on disk. Did not claim WRITE PATH CONTRACT PASS or CONTRACT SHAPE PASS this run.
+- **Important discovery:** Two correct locks still fail if the operator only runs the second one after a partial reconstruct.
+- **Blocker:** Still waiting on a human-owned non-fixture draft in band. HTTPS clone remains unavailable; do not retry it as the first action.
+- **Recommended next action:** Human runs `python3 tools/queue_status.py` then follows `docs/human_session.md`. After a tools reconstruct, run `python3 tools/verify_write_path.py`. Do not add WAVE 4. Do not auto-write idea.md. Do not auto-scaffold Q1. Do not add another shape-lock file unless a new emptied-file failure is observed.
+
 ## 2026-09-11T10:05:00Z — Run 069
 
 - **Objective:** Stop a missing or emptied apply_script.py / set_status.py from looking healthy when only write_path_contract.py is shape-checked.

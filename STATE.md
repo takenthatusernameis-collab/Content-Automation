@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-11T10:05:00Z (Run 069)
+Updated: 2026-09-11T11:10:00Z (Run 070)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + write_path_contract body + contract_shape trio lock** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + write_path_contract body + contract_shape trio lock + verify_write_path order lock** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -20,24 +20,26 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - Off-repo expand draft convention: PATH/draft.md is not script.md until apply --write
 - write_path_contract has a real main() (restored Run 067)
 - contract_shape.py witnesses write_path_contract.py, apply_script.py, and set_status.py (size + markers). It does not import them and writes nothing.
+- verify_write_path.py subprocess-runs contract_shape.py then write_path_contract.py. It writes nothing. It is not a substitute for those two files.
 
-## What exists now (after Run 069)
-- tools/contract_shape.py extended to sibling trio (write_path_contract, apply_script, set_status)
-- write_path_contract.py / apply_script.py / set_status.py not edited this run
+## What exists now (after Run 070)
+- tools/verify_write_path.py added
+- write_path_contract.py / apply_script.py / set_status.py / contract_shape.py not edited this run
 - Frozen doctor/hint/needed/which_contract/router/idea_brief not edited
 - No new packet folder; queue still queued
 - idea_gate / operator_pin / idea_brief_contract stay unmapped
 
 ## Pipeline map
 After scaffold: --block / paste / --check / expand off-repo / save draft.md / apply dry-run / --write --refresh / set_status ready_for_vo if WORDS in band.
+After reconstruct of write-path tools: `python3 tools/verify_write_path.py` (shape then contract).
 
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 106 | 105 | emptied apply_script or set_status can no longer hide behind a write_path_contract-only shape lock |
-| Automated steps | 59 | 60 | contract_shape trio |
+| Estimated human min / video | 105 | 104 | one reconstruct command instead of remembering shape-then-contract order |
+| Automated steps | 60 | 61 | verify_write_path order wrapper |
 | Videos produced | 0 | 0 | fixture only |
-| Write-path contract | body + separate shape lock 068 | body + trio shape lock 069 | run contract_shape.py before trusting write_path_contract.py |
+| Write-path contract | body + trio shape lock 069 | body + trio + ordered verify 070 | run verify_write_path.py after reconstruct |
 
 ## Active constraints
 - Do not auto-scaffold Q1
@@ -49,3 +51,4 @@ After scaffold: --block / paste / --check / expand off-repo / save draft.md / ap
 - Do not weaken write_path_contract CLI locks including in-band set_status
 - Do not replace write_path_contract.py with a docstring-only file
 - Do not drop tools/contract_shape.py or shrink it back to a single-file witness
+- Do not drop tools/verify_write_path.py or treat it as a replacement for the two files it runs

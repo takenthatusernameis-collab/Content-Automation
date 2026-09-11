@@ -14,8 +14,10 @@
 | 2026-09-11 Run 067 | ~107 estimate | 58 | write_path_contract body restored + in-band set_status success CLI lock |
 | 2026-09-11 Run 068 | ~106 estimate | 59 | contract_shape.py fails if write_path_contract.py is emptied |
 | 2026-09-11 Run 069 | ~105 estimate | 60 | contract_shape.py fails if apply_script.py or set_status.py is emptied |
+| 2026-09-11 Run 070 | ~104 estimate | 61 | verify_write_path.py runs shape then contract in one command |
 
 Estimate basis (generic 8-min explainer):
+- Run 070: -1 stop a reconstruct from running write_path_contract alone while contract_shape.py was never fetched
 - Run 069: -1 stop a future run from treating a write_path_contract-only shape lock as enough when a sibling writer is gone
 - Run 068: -1 stop a future run from treating a docstring-only lock file as PASS
 - Run 067: -1 stop a future dry-run status write or silent no-op on in-band set_status; also stop claiming PASS on a docstring-only lock file
@@ -24,6 +26,7 @@ Estimate basis (generic 8-min explainer):
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 070: `tools/verify_write_path.py` subprocess-runs contract_shape then write_path_contract. Writes nothing. Not a substitute for those two files.
 - Run 069: `tools/contract_shape.py` witnesses the write-path trio (write_path_contract, apply_script, set_status). Still does not import them and writes nothing.
 - Run 068: `tools/contract_shape.py` is a second-file witness for write_path_contract.py.
 - Run 067: `write_path_contract.py` is an executable lock again.

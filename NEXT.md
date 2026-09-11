@@ -2,7 +2,7 @@
 
 Do these in order. Stop if a step needs a human decision that is not present.
 
-1. **Highest value:** A human runs `python3 tools/queue_status.py` then follows `docs/human_session.md` on Q1 `Stop deciding what to work on every morning` (predicted folder `videos/002-stop-deciding-what-to-work-on-every-morning`). After scaffold: idea_brief --block / paste / --check / expand off-repo / save PATH/draft.md / apply dry-run / `--write --refresh` on the non-fixture packet only / `set_status.py PATH --to ready_for_vo` dry-run then `--write` only if WORDS are in band. Do not auto-scaffold. Do not auto-write idea.md. After editing apply_script or set_status, run `python3 tools/contract_shape.py` then `python3 tools/write_path_contract.py`.
+1. **Highest value:** A human runs `python3 tools/queue_status.py` then follows `docs/human_session.md` on Q1 `Stop deciding what to work on every morning` (predicted folder `videos/002-stop-deciding-what-to-work-on-every-morning`). After scaffold: idea_brief --block / paste / --check / expand off-repo / save PATH/draft.md / apply dry-run / `--write --refresh` on the non-fixture packet only / `set_status.py PATH --to ready_for_vo` dry-run then `--write` only if WORDS are in band. Do not auto-scaffold. Do not auto-write idea.md. After editing apply_script or set_status, or after reconstructing write-path tools, run `python3 tools/verify_write_path.py` (shape then contract). The two-command form remains valid: `python3 tools/contract_shape.py` then `python3 tools/write_path_contract.py`.
 2. Do **not** rewrite frozen printers unless they are wrong.
 3. Do **not** turn default duration WARN into FAIL.
 4. Do **not** attempt YouTube OAuth, TTS, ffmpeg assembly, or publishing without in-repo credentials or a real VO file.
@@ -20,3 +20,4 @@ Do these in order. Stop if a step needs a human decision that is not present.
 50. Do **not** replace write_path_contract.py with a docstring-only file.
 51. Do **not** drop tools/contract_shape.py or lower write_path_contract MIN_BYTES below 8000.
 52. Do **not** shrink contract_shape.py back to a write_path_contract-only witness; keep apply_script and set_status size+marker checks.
+53. Do **not** drop tools/verify_write_path.py or treat it as a replacement for contract_shape.py / write_path_contract.py.
