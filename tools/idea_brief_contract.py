@@ -8,11 +8,13 @@ Locks:
 - human_session names idea_brief.py --block
 - human_session names idea_brief.py --check
 - running idea_brief on a blank 002 packet reprints Q1 topic + Q1_PROBLEM + one_line
+- default reprint prints exact --block and --check commands with the packet folder
 - idea_brief --block prints a paste-ready idea.md body with those fields
 - idea_brief --check on blank idea.md exits 2 and does not write
 - PASTE INCOMPLETE stdout includes python3 tools/idea_brief.py PATH --block
 - idea_brief --check after a tempfile paste of that body exits 0 and does not write
 - PASTE READY stdout includes python3 tools/expand_prompt.py and the packet folder
+- PASTE READY stdout includes dry-run apply_script --from FILE (no --write)
 - idea.md bytes are unchanged after default, --block, and --check runs
 - stdout says it writes nothing
 
@@ -60,10 +62,13 @@ def source_locks(failures: list[str]) -> None:
     fail(failures, "--check" in brief_src and "check_fields" in brief_src, "idea_brief missing --check compare")
     fail(failures, "expand_command" in brief_src, "idea_brief missing expand_command helper")
     fail(failures, "block_command" in brief_src, "idea_brief missing block_command helper")
+    fail(failures, "check_command" in brief_src, "idea_brief missing check_command helper")
+    fail(failures, "apply_command" in brief_src, "idea_brief missing apply_command helper")
     fail(failures, "idea_brief.py" in human, "human_session missing idea_brief.py")
     fail(failures, "idea_brief.py" in human and "--block" in human, "human_session missing idea_brief.py --block")
     fail(failures, "idea_brief.py" in human and "--check" in human, "human_session missing idea_brief.py --check")
     fail(failures, "expand_prompt.py" in human, "human_session missing expand_prompt.py")
+    fail(failures, "apply_script.py" in human, "human_session missing apply_script.py")
     fail(failures, f"videos/{FOLDER}" in human, f"human_session missing {FOLDER}")
     fail(failures, TITLE in human, "human_session missing Q1 title")
 
@@ -118,6 +123,8 @@ def main() -> int:
         fail(failures, "(blank)" in out, "stdout missing blank current fields")
         fail(failures, "# Idea" in out, "default stdout missing paste-ready # Idea block")
         fail(failures, "--check" in out, "default stdout missing --check hint")
+        fail(failures, "idea_brief.py" in out and "--check" in out and FOLDER in out, "default reprint missing exact --check command with folder")
+        fail(failures, "idea_brief.py" in out and "--block" in out and FOLDER in out, "default reprint missing exact --block command with folder")
 
         block = subprocess.run(
             [sys.executable, str(TOOLS / "idea_brief.py"), str(path), "--block"],
@@ -170,9 +177,11 @@ def main() -> int:
         fail(failures, "python3 tools/expand_prompt.py" in oout, "--check PASTE READY missing expand_prompt command")
         fail(failures, FOLDER in oout, "--check PASTE READY missing packet folder in expand command")
         fail(failures, "Do not treat expand_prompt stdout as script.md." in oout, "--check PASTE READY missing expand stdout warning")
+        fail(failures, "python3 tools/apply_script.py" in oout and "--from FILE" in oout, "--check PASTE READY missing apply_script dry-run")
+        fail(failures, "--write" not in oout, "--check PASTE READY must not print --write")
 
     print("Idea brief contract")
-    print("reprint recover stays read-only; --block prints a paste body; --check compares without writing; INCOMPLETE prints --block; PASTE READY prints expand_prompt")
+    print("reprint recover stays read-only; --block prints a paste body; --check compares without writing; INCOMPLETE prints --block; PASTE READY prints expand_prompt then apply_script dry-run")
     if failures:
         print("IDEA BRIEF CONTRACT FAIL")
         for f in failures:
