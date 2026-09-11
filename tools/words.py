@@ -11,6 +11,8 @@ expand_prompt, so a human can gate a paste without applying it.
 
 When BELOW/ABOVE it prints the exact word delta to the locked band
 so the next expand pass has a number instead of a guess.
+Hook WORDS print a separate 20-35 delta. --strict still keys off
+the total band only.
 """
 
 from __future__ import annotations
@@ -26,6 +28,7 @@ if str(TOOLS) not in sys.path:
 
 WPM = 150
 FORMAT_SPOKEN_WORDS = {"explainer-6-10min": (900, 1500)}
+HOOK_BAND = (20, 35)
 
 
 def _field(text: str, name: str) -> str:
@@ -191,6 +194,16 @@ def delta_line(n: int, lo: int, hi: int, label: str) -> str | None:
     return None
 
 
+def hook_delta_line(n: int, lo: int = HOOK_BAND[0], hi: int = HOOK_BAND[1]) -> str:
+    if n <= 0:
+        return f"Hook Delta: add {lo}-{hi} spoken words; hook is empty"
+    if n < lo:
+        return f"Hook Delta: add {lo - n} spoken words to reach {lo} (do not pad filler)"
+    if n > hi:
+        return f"Hook Delta: cut {n - hi} spoken words to reach {hi}"
+    return f"Hook Delta: {n - lo} above floor, {hi - n} below ceiling"
+
+
 def next_line(label: str, source: Path) -> str:
     packet = source.parent if source.is_file() else source
     if label == "IN BAND":
@@ -254,9 +267,13 @@ def main() -> int:
     if extra:
         print(extra)
     hook_n = hook_count(script)
+    hook_lo, hook_hi = HOOK_BAND
     if hook_n:
-        hook_ok = "ok" if 20 <= hook_n <= 35 else "not 20-35"
+        hook_ok = "ok" if hook_lo <= hook_n <= hook_hi else f"not {hook_lo}-{hook_hi}"
         print(f"Hook: {hook_n} words ({hook_ok})")
+    else:
+        print(f"Hook: 0 words (not {hook_lo}-{hook_hi})")
+    print(hook_delta_line(hook_n))
     print(next_line(label, source))
     print("This command writes nothing.")
     print("draft.md is not script.md until apply_script --write.")
