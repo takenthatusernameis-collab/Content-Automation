@@ -2,6 +2,12 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 095:
+
+- idea_brief.py --queue ID must keep reprinting paste_block from topic_queue without a folder and without writing idea.md.
+- --check must still require a packet folder.
+- Do not auto-scaffold Q1. Do not write idea.md from idea_brief.
+
 Targeted addition from Run 094:
 
 - words_contract.py must keep an IN BAND tempfile case. --strict must exit 0 on that case even when INFO prints.

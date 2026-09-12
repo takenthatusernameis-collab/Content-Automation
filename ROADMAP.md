@@ -9,6 +9,7 @@
 51an. idea_lock.py prints the same INFO — **done (Run 092)**
 51ao. words.py prints the same idea-lock INFO — **done (Run 093)**
 51ap. words_contract locks IN BAND --strict exit 0 with INFO present — **done (Run 094)**
+51aq. idea_brief --queue reprints paste before scaffold — **done (Run 095)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
