@@ -4,6 +4,8 @@
 Uses a temp tree only. Never writes docs/topic_queue.md or videos/.
 Locks classify codes, PACKET column, --strict exits, next_id, and
 mark_topic line rewrite so later runs cannot silently regress Run 031.
+Also locks the pre-scaffold idea_brief --queue reprint on the next
+ok-queued row (Run 097).
 """
 
 from __future__ import annotations
@@ -133,6 +135,22 @@ def main() -> int:
             failures,
             "do not auto-scaffold" in body.lower() or "Do not treat this board" in body,
             "no-write banner",
+        )
+        # In this tree Q1 is mark-needed, so first ok-queued is Q2.
+        fail(
+            failures,
+            "python3 tools/idea_brief.py --queue Q2" in body,
+            "pre-scaffold --queue printed for first ok-queued",
+        )
+        fail(
+            failures,
+            "python3 tools/idea_brief.py --queue Q1" not in body,
+            "do not print --queue for a mark-needed row",
+        )
+        fail(
+            failures,
+            "optional pre-scaffold reprint" in body,
+            "pre-scaffold reprint note present",
         )
 
     print("Queue contract")

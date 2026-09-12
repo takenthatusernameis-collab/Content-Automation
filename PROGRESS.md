@@ -14,11 +14,12 @@
 | 2026-09-12 Run 094 | ~80 estimate | 75 | words_contract locks IN BAND --strict exit 0 + INFO |
 | 2026-09-12 Run 095 | ~79 estimate | 76 | idea_brief --queue reprints paste before scaffold |
 | 2026-09-12 Run 096 | ~78 estimate | 77 | idea_brief_contract locks --queue Q1 / missing / --check combo |
+| 2026-09-12 Run 097 | ~77 estimate | 78 | queue printers print --queue; contract locks first ok-queued id |
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 097: queue_status.py and next_topic.py print idea_brief --queue ID before scaffold. queue_contract requires --queue Q2 on the tempfile board and forbids --queue Q1 there (mark-needed). Still no packet.
 - Run 096: idea_brief_contract.py queue_locks() requires --queue Q1 six-field paste exit 0, missing id exit 2, --queue --check exit 2, and no predicted folder created. Still unmapped.
 - Run 095: idea_brief.py --queue ID reprints paste_block from topic_queue without a packet folder. Does not write idea.md. --check still requires a folder.
 - Run 094: words_contract.py IN_BAND_DRAFT must print Result: IN BAND and INFO, and --strict must exit 0. Still unmapped.
-- Run 093: words.py print_idea_lock_notes() imports apply_script.idea_lock_notes after Next. INFO does not change --strict.

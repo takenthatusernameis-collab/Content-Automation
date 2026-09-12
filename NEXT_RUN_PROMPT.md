@@ -2,6 +2,12 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 097:
+
+- queue_status.py and next_topic.py must keep printing `idea_brief.py --queue ID` for the first ok-queued topic before scaffold.
+- queue_contract.py must keep the tempfile assertion that the board prints `--queue Q2` and not `--queue Q1` when Q1 is mark-needed.
+- Do not print --queue for a mark-needed row. Do not add another idea_brief flag.
+
 Targeted addition from Run 096:
 
 - idea_brief_contract.py must keep queue_locks for --queue Q1 / missing id / --queue --check.
