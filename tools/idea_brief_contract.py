@@ -17,6 +17,10 @@ Locks:
 - PASTE READY stdout includes dry-run apply_script --from PATH/draft.md (no --write)
 - idea.md bytes are unchanged after default, --block, and --check runs
 - stdout says it writes nothing
+- idea_brief --queue Q1 reprints the same six-field paste with no videos/ folder
+- idea_brief --queue missing-id exits 2
+- idea_brief --queue Q1 --check exits 2 (no idea.md to compare)
+- --queue does not write idea.md or create a packet folder
 
 Unmapped in which_contract. Not a reconstruct wave.
 Does not write idea.md, the queue, or sample-001.
@@ -65,6 +69,8 @@ def source_locks(failures: list[str]) -> None:
     fail(failures, "check_command" in brief_src, "idea_brief missing check_command helper")
     fail(failures, "apply_command" in brief_src, "idea_brief missing apply_command helper")
     fail(failures, "draft_path" in brief_src, "idea_brief missing draft_path helper")
+    fail(failures, "print_queue_block" in brief_src, "idea_brief missing print_queue_block")
+    fail(failures, "--queue" in brief_src and "queue_row" in brief_src, "idea_brief missing --queue path")
     fail(failures, "idea_brief.py" in human, "human_session missing idea_brief.py")
     fail(failures, "idea_brief.py" in human and "--block" in human, "human_session missing idea_brief.py --block")
     fail(failures, "idea_brief.py" in human and "--check" in human, "human_session missing idea_brief.py --check")
@@ -73,6 +79,50 @@ def source_locks(failures: list[str]) -> None:
     fail(failures, "draft.md" in human, "human_session missing draft.md convention")
     fail(failures, f"videos/{FOLDER}" in human, f"human_session missing {FOLDER}")
     fail(failures, TITLE in human, "human_session missing Q1 title")
+
+
+def queue_locks(failures: list[str], mechanism: str) -> None:
+    videos_before = {p.name for p in (ROOT / "videos").iterdir()} if (ROOT / "videos").is_dir() else set()
+    q1 = subprocess.run(
+        [sys.executable, str(TOOLS / "idea_brief.py"), "--queue", "Q1"],
+        capture_output=True,
+        text=True,
+    )
+    videos_after = {p.name for p in (ROOT / "videos").iterdir()} if (ROOT / "videos").is_dir() else set()
+    qout = q1.stdout
+    fail(failures, q1.returncode == 0, f"idea_brief --queue Q1 exit {q1.returncode}: {q1.stderr}")
+    fail(failures, qout.startswith("# Idea"), "--queue Q1 must start with # Idea")
+    fail(failures, f"- topic: {TITLE}" in qout, "--queue Q1 missing topic line")
+    fail(failures, f"- problem: {Q1_PROBLEM}" in qout, "--queue Q1 missing problem line")
+    fail(failures, f"- mechanism (the system, not the pep talk): {mechanism}" in qout, "--queue Q1 missing mechanism line")
+    fail(failures, "- viewer:" in qout, "--queue Q1 missing viewer")
+    fail(failures, "- why now:" in qout, "--queue Q1 missing why now")
+    fail(failures, "- related videos to avoid repeating:" in qout, "--queue Q1 missing related")
+    fail(failures, "writes nothing" in qout.lower(), "--queue Q1 missing no-write note")
+    fail(failures, "Queue Q1" in qout and "queued" in qout, "--queue Q1 missing queue status line")
+    fail(failures, "script.md" in qout.lower(), "--queue Q1 missing script.md warning")
+    fail(failures, videos_before == videos_after, "--queue Q1 created or removed a videos/ folder")
+    fail(failures, not (ROOT / "videos" / FOLDER).exists(), "--queue Q1 must not scaffold the predicted folder")
+
+    missing = subprocess.run(
+        [sys.executable, str(TOOLS / "idea_brief.py"), "--queue", "Q9"],
+        capture_output=True,
+        text=True,
+    )
+    fail(failures, missing.returncode == 2, f"idea_brief --queue Q9 exit {missing.returncode}, want 2")
+    fail(failures, "no topic_queue row" in missing.stderr or "no topic_queue row" in missing.stdout, "--queue missing id must say no topic_queue row")
+
+    combo = subprocess.run(
+        [sys.executable, str(TOOLS / "idea_brief.py"), "--queue", "Q1", "--check"],
+        capture_output=True,
+        text=True,
+    )
+    fail(failures, combo.returncode == 2, f"idea_brief --queue --check exit {combo.returncode}, want 2")
+    fail(
+        failures,
+        "--check needs a packet folder" in combo.stderr or "--check needs a packet folder" in combo.stdout,
+        "--queue --check must refuse without a folder",
+    )
 
 
 def main() -> int:
@@ -91,6 +141,7 @@ def main() -> int:
     q1 = next((r for r in rows if r.get("id") == "Q1"), None)
     fail(failures, q1 is not None, "Q1 missing from topic_queue")
     mechanism = q1["one_line"] if q1 else ""
+    queue_locks(failures, mechanism)
 
     blank = (
         "# Idea\n\n"
@@ -185,7 +236,7 @@ def main() -> int:
         fail(failures, "Save the off-repo draft" in oout, "--check PASTE READY missing draft.md save line")
 
     print("Idea brief contract")
-    print("reprint recover stays read-only; --block prints a paste body; --check compares without writing; INCOMPLETE prints --block; PASTE READY prints expand_prompt then apply_script --from draft.md")
+    print("reprint recover stays read-only; --block prints a paste body; --check compares without writing; --queue reprints before scaffold; INCOMPLETE prints --block; PASTE READY prints expand_prompt then apply_script --from draft.md")
     if failures:
         print("IDEA BRIEF CONTRACT FAIL")
         for f in failures:
