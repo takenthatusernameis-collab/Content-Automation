@@ -98,11 +98,27 @@ PLAN_OPERATOR_NEXT = "python3 tools/next_topic.py"
 
 # Operator printers that must stay out of which_contract.MAP.
 # needed.py may name them so `needed.py doctor.py` is not Unknown.
+# Extra paths are files doctor imports or reads; listing them here is
+# reconstruct, not a map entry. --plan WAVE 3 still prints only the
+# needed.py doctor.py --missing command, not this file dump.
 UNMAPPED_OPERATOR: dict[str, tuple[str, str, str]] = {
     "doctor.py": (
         "unmapped operator command",
         "python3 tools/doctor.py",
-        "reconstruct queue_contract.py if you need the footer lock; doctor.py stays unmapped",
+        "reconstruct these imports before running doctor; doctor.py stays unmapped",
+    ),
+}
+
+UNMAPPED_PATHS: dict[str, tuple[str, ...]] = {
+    "doctor.py": (
+        "tools/doctor.py",
+        "tools/hint.py",
+        "tools/next_action.py",
+        "tools/pipeline_status.py",
+        "tools/queue_lib.py",
+        "tools/queue_status.py",
+        "tools/validate_packet.py",
+        "docs/topic_queue.md",
     ),
 }
 
@@ -192,14 +208,23 @@ def print_unmapped_operator(base: str, missing: bool) -> None:
     print(f"# {label}")
     print(cmd)
     print(f"# {note}")
-    path = f"tools/{base}"
+    rows = list(UNMAPPED_PATHS.get(base, (f"tools/{base}",)))
+    absent = 0
+    present = 0
+    for path in rows:
+        if missing:
+            on_disk = (ROOT / path).is_file()
+            flag = "PRESENT" if on_disk else "MISSING"
+            if on_disk:
+                present += 1
+            else:
+                absent += 1
+            print(f"{flag}\t{path}")
+        else:
+            print(path)
     if missing:
-        on_disk = (ROOT / path).is_file()
-        flag = "PRESENT" if on_disk else "MISSING"
-        print(f"{flag}\t{path}")
-        print("READY" if on_disk else "NOT READY")
-    else:
-        print(path)
+        print(f"# {present} present, {absent} missing")
+        print("READY" if absent == 0 else "NOT READY")
     print()
 
 
