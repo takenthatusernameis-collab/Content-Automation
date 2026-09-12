@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-09-12 — placeholder overwrite of apply_script.py (Run 091)
+
+- **Tried:** First GitHub push of apply_script.py used a short PLACEHOLDER_SEE_NEXT string while assembling the real blob.
+- **Evidence:** Commit 6f6a4da landed a 20-byte placeholder. Restored same run in commit 9950bd9 at 10697 bytes with idea_lock_notes().
+- **Lesson:** Same as Run 076. Never commit a placeholder path. Push the verified local file body only. Check committed size immediately.
+- **Avoid:** PLACEHOLDER_SEE_NEXT / see-next strings in GitHub file API content.
+
 ## 2026-09-12 — page-alignment chain watch (Runs 082–088)
 
 - **Tried:** Six consecutive runs aligned hint, next_action, queue_status, next_topic, human_session, agent_session, README, then production_rules so each names idea_brief after a folder exists.
