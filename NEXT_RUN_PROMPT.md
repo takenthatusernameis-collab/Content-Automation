@@ -2,23 +2,27 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 096:
+
+- idea_brief_contract.py must keep queue_locks for --queue Q1 / missing id / --queue --check.
+- Do not map idea_brief.py or idea_brief_contract.py.
+- Do not add another idea_brief flag unless --queue regresses.
+- Do not auto-scaffold Q1. Do not write idea.md from idea_brief.
+
 Targeted addition from Run 095:
 
 - idea_brief.py --queue ID must keep reprinting paste_block from topic_queue without a folder and without writing idea.md.
 - --check must still require a packet folder.
-- Do not auto-scaffold Q1. Do not write idea.md from idea_brief.
 
 Targeted addition from Run 094:
 
 - words_contract.py must keep an IN BAND tempfile case. --strict must exit 0 on that case even when INFO prints.
 - Do not add another words.py printer fold or wrapper CLI.
-- Do not auto-scaffold Q1.
 
 Targeted addition from Run 093:
 
 - words.py must keep printing apply_script.idea_lock_notes() after the band / Grow / Cut / Next lines.
-- Those INFO lines must not change --strict and must not become apply --write.
-- Keep the import fallback.
+- Those INFO lines must not change --strict. Keep the import fallback.
 
 Targeted addition from Run 092:
 
@@ -27,7 +31,6 @@ Targeted addition from Run 092:
 Targeted addition from Run 091:
 
 - apply_script.py dry-run must keep printing idea-lock INFO. INFO must not become a check() error.
-- prompts/script_writer.md must keep saving PATH/draft.md.
 
 Targeted addition from Run 090:
 
@@ -36,7 +39,7 @@ Targeted addition from Run 090:
 Targeted addition from Run 089:
 
 - idea_brief.py --block must keep printing the full idea.md template. --check still gates three fields.
-- Do not spend the run aligning another markdown page to name idea_brief --block/--check.
+- Do not spend the run aligning another markdown page to name idea_brief.
 
 Targeted addition from Run 081:
 

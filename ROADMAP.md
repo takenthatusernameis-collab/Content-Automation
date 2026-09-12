@@ -10,6 +10,7 @@
 51ao. words.py prints the same idea-lock INFO — **done (Run 093)**
 51ap. words_contract locks IN BAND --strict exit 0 with INFO present — **done (Run 094)**
 51aq. idea_brief --queue reprints paste before scaffold — **done (Run 095)**
+51ar. idea_brief_contract locks --queue — **done (Run 096)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -26,4 +27,5 @@
 - Another primary run whose only change is naming idea_brief on one more page
 - Another wrapper CLI around idea_lock_notes
 - Dropping the words.py import fallback
-- Another words.py contract case unless the printer regresses
+- Another idea_brief flag unless --queue regresses
+- Mapping idea_brief.py or idea_brief_contract.py
