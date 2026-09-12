@@ -16,10 +16,10 @@ guess which files to pull before this printer can resolve names.
 
 --plan prints ordered fetch waves after bootstrap so the agent does not
 guess the second command. WAVE 3 is the first operator command after
-reconstruct, not a file dump. The WAVE 3 reconstruct line is the
-needed.py invocation for that command only. Not a contract. Not a
-full-repo dump. WAVE 3 operator start is doctor.py then the board
-printers; doctor.py stays unmapped.
+reconstruct, not a file dump. The WAVE 3 reconstruct lines are the
+needed.py invocations for the board and for unmapped doctor.py only.
+Not a contract. Not a full-repo dump. WAVE 3 operator start is doctor.py
+then the board printers; doctor.py stays unmapped.
 """
 
 from __future__ import annotations
@@ -91,6 +91,7 @@ BOOTSTRAP: tuple[str, ...] = (
 
 PLAN_NEXT = "python3 tools/needed.py selftest.py --missing"
 PLAN_OPERATOR_RECON = "python3 tools/needed.py queue_status.py --missing"
+PLAN_OPERATOR_DOCTOR_RECON = "python3 tools/needed.py doctor.py --missing"
 PLAN_OPERATOR_START = "python3 tools/doctor.py"
 PLAN_OPERATOR_BOARD = "python3 tools/queue_status.py"
 PLAN_OPERATOR_NEXT = "python3 tools/next_topic.py"
@@ -255,6 +256,8 @@ def print_plan(missing: bool) -> None:
     print("# WAVE 3 after wave 2 READY; operator command, not a file dump")
     print("# reconstruct the operator board first; do not list queue files here")
     print(PLAN_OPERATOR_RECON)
+    print("# reconstruct unmapped doctor separately; do not list doctor internals here")
+    print(PLAN_OPERATOR_DOCTOR_RECON)
     print("# start command is doctor (Queue next footer); board printers follow")
     print(PLAN_OPERATOR_START)
     print(PLAN_OPERATOR_BOARD)
