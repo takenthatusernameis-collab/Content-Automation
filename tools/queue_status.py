@@ -76,6 +76,7 @@ def report(text: str, folders: list[str], predicted_id: str, videos: Path) -> tu
     }
     first_queued: dict[str, str] | None = None
     mark_cmds: list[str] = []
+    mark_folders: list[str] = []
     for row in rows:
         code, note, folder = classify(row, folders)
         slug = slugify(row["working_title"])
@@ -90,6 +91,8 @@ def report(text: str, folders: list[str], predicted_id: str, videos: Path) -> tu
         if code == "mark-needed":
             mark_cmds.append(f"  python3 tools/mark_topic.py --id {row['id']}")
             mark_cmds.append(f"  # python3 tools/mark_topic.py --id {row['id']} --write")
+            if folder:
+                mark_folders.append(folder)
     lines.append("")
     lines.append(
         f"queued-ready: {counts['ok-queued']}  "
@@ -109,6 +112,16 @@ def report(text: str, folders: list[str], predicted_id: str, videos: Path) -> tu
     if mark_cmds:
         lines.append("Close queue drift (dry-run first):")
         lines.extend(mark_cmds)
+        lines.append("After that folder exists, fill idea.md from idea_brief (writes nothing):")
+        seen: set[str] = set()
+        for folder in mark_folders:
+            if folder in seen:
+                continue
+            seen.add(folder)
+            path = f"videos/{folder}"
+            lines.append(f"  python3 tools/idea_brief.py {path} --block")
+            lines.append(f"  # paste into {path}/idea.md by hand")
+            lines.append(f"  python3 tools/idea_brief.py {path} --check")
     lines.append("Do not treat this board as permission to write the queue or invent WORDS.")
     return "\n".join(lines) + "\n", counts
 
