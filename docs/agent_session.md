@@ -21,7 +21,7 @@ python3 tools/needed.py --plan --missing
 
 `--bootstrap` is read-only. It prints the six session-start paths. Combined with `--missing` it labels PRESENT or MISSING and prints READY or NOT READY. Exit is always 0. It is not a contract.
 
-`--plan` is read-only. WAVE 1 reprints those six paths. WAVE 2 prints the next reconstruct command (`python3 tools/needed.py selftest.py --missing`) and does not dump that file list. WAVE 3 prints the reconstruct command for the operator (`python3 tools/needed.py queue_status.py --missing`) then the operator command (`python3 tools/queue_status.py`) and does not dump queue files or scaffold. Combined with `--missing` it labels WAVE 1 only. Exit is always 0. It is not a contract.
+`--plan` is read-only. WAVE 1 reprints those six paths. WAVE 2 prints the next reconstruct command (`python3 tools/needed.py selftest.py --missing`) and does not dump that file list. WAVE 3 prints the reconstruct command for the operator board (`python3 tools/needed.py queue_status.py --missing`) then the start sequence (`python3 tools/doctor.py`, `python3 tools/queue_status.py`, `python3 tools/next_topic.py`) and does not dump queue files or scaffold. Combined with `--missing` it labels WAVE 1 only. Exit is always 0. It is not a contract. doctor.py stays unmapped.
 
 Then fetch WAVE 1 and continue below.
 
@@ -33,13 +33,14 @@ Do not rebuild the reconstruct list from memory. Print it:
 python3 tools/needed.py selftest.py
 python3 tools/needed.py new_packet.py
 python3 tools/needed.py queue_status.py
+python3 tools/needed.py doctor.py
 python3 tools/needed.py --all
 python3 tools/needed.py new_packet.py --missing
 ```
 
 `needed.py` is read-only. It prints repo-relative paths plus the contract command. `--missing` labels each path PRESENT or MISSING and prints READY or NOT READY. Exit is always 0. It does not download files and does not write `videos/`.
 
-Without `which_contract.py` on disk, FALLBACK_ALIAS still resolves edited-tool names such as `new_packet.py` → scaffold_contract and `queue_status.py` → queue_contract. Unmapped tools (`doctor.py`, `expand_prompt.py`, `needed.py`, `idea_gate_contract.py`, `operator_pin_contract.py`, `idea_brief_contract.py`, `words.py`, `words_contract.py`, `placeholder_guard.py`, `prove_locks.py`) print Unknown and exit 0.
+Without `which_contract.py` on disk, FALLBACK_ALIAS still resolves edited-tool names such as `new_packet.py` → scaffold_contract and `queue_status.py` → queue_contract. Unmapped tools (`doctor.py`, `expand_prompt.py`, `needed.py`, `idea_gate_contract.py`, `operator_pin_contract.py`, `idea_brief_contract.py`, `words.py`, `words_contract.py`, `placeholder_guard.py`, `prove_locks.py`) print Unknown and exit 0 except `doctor.py`, which prints the unmapped operator command and still exits 0.
 
 ## Which contract
 
@@ -145,7 +146,7 @@ Expected on current sample-001 (do not pad WORDS to change this):
 
 Same as prior page: reconstruct what `needed.py CONTRACT` prints, confirm `--missing` READY, then run the named contract. Expected PASS, exit 0, no writes to `docs/` or `videos/`.
 
-After WAVE 2 READY, print WAVE 3 reconstruct, fetch until READY, then run the operator command and stop at the board. Do not treat WAVE 3 as scaffold permission.
+After WAVE 2 READY, print WAVE 3 reconstruct, fetch until READY, then run doctor.py then queue_status.py then next_topic.py and stop at the board. Do not treat WAVE 3 as scaffold permission.
 
 When `queue_status.py` or `next_topic.py` run against a mark-needed folder that already exists, they print `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check`. Do not invent a mark_topic-only next step from this page. Do not write idea.md from those printed lines. Prefer the printed idea_brief commands over scanning tools/. Humans still paste idea.md; agents do not.
 
@@ -187,6 +188,7 @@ Prior contract PASS times remain those recorded in Run 026–076. If a later run
 - Do not write reconstructed files back onto sample-001.
 - Do not invent WORDS, wav, cards, or ffmpeg recipes.
 - Do not wrap doctor in start.py.
+- Do not map doctor.py in which_contract.
 - Do not make needed.py --missing, --bootstrap, or --plan exit 1.
 - Do not treat --bootstrap or --plan as a contract.
 - Do not list WAVE 2 reconstruct files inside --plan.
