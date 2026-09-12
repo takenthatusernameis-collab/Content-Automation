@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-13 | First-draft spoken-word allocation lives in prompts/script_writer.md (and is pointed at from script_expander.md), not in a new CLI | Runs 099–103 already closed reconstruct READY lies; the next repeatable miss is an off-band first draft | If the first real non-fixture draft still misses 900–1500; do not add a band-allocation wrapper CLI; do not touch needed.py reconstruct without a proven READY lie
 - 2026-09-12 | needed.py appends tools/<asked> when an alias name is not in the contract need list; which_contract.MAP need list stays unchanged | `needed.py next_topic.py --missing` printed READY without next_topic.py because MAP need omits it | If another alias READY lie is proven; do not add next_topic.py to MAP need; do not add WAVE 4
 - 2026-09-12 | needed.py doctor.py reconstruct lists next_topic.py with doctor imports; READY only when those nine paths exist; doctor stays unmapped | Run 101 READY on eight files still hid a missing WAVE 3 start command | If Q1 is scaffolded; do not map doctor.py; do not add WAVE 4; do not dump the list inside --plan WAVE 3; do not steal next_topic.py from the queue_contract alias
 - 2026-09-12 | needed.py doctor.py reconstruct lists doctor imports and topic_queue; READY only when those eight paths exist; doctor stays unmapped | Run 100 named the reconstruct command but READY on tools/doctor.py alone still hid ImportError | If Q1 is scaffolded; do not map doctor.py; do not add WAVE 4; do not dump the list inside --plan WAVE 3

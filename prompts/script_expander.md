@@ -21,6 +21,17 @@ Paste stdout into a writer model. The assembler already includes idea locks, cha
 The command does not write `script.md`. A printed prompt is not a draft.
 Save the writer result to `PATH/draft.md`, not `script.md`.
 
+## Band landing
+
+The writer contract in `prompts/script_writer.md` now names a spoken-word allocation. Keep it:
+
+- Hook 20–35, payoff 40–70, each body beat 140–220, CTA 40–80
+- Total 900–1500, target ~1200
+- Count WORDS lines only
+- Put `<!-- spoken_words: NNN  hook: NN  beats: N  target: 900-1500 -->` at the top of draft.md
+
+If the first return is BELOW, grow a beat with a worked morning scene. If ABOVE, cut repeated pep. Do not add a heading.
+
 ## After the writer returns a script.md body
 
 ```bash

@@ -21,13 +21,11 @@
 | 2026-09-12 Run 101 | ~73 estimate | 82 | needed.py doctor.py lists imports; READY only when doctor can run |
 | 2026-09-12 Run 102 | ~72 estimate | 83 | doctor reconstruct lists next_topic.py; READY only when WAVE 3 start can run |
 | 2026-09-12 Run 103 | ~71 estimate | 84 | needed.py alias appends asked file; next_topic READY no longer lies |
+| 2026-09-13 Run 104 | ~70 estimate | 84 | writer prompts name per-segment spoken-word allocation; no new CLI |
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 104: `prompts/script_writer.md` Band landing table (hook 20–35, payoff 40–70, body beat 140–220, CTA 40–80, target ~1200) plus a draft.md spoken_words comment. `prompts/script_expander.md` points at it. needed.py untouched. Still no packet.
 - Run 103: `needed.py next_topic.py --missing` lists queue_contract paths plus tools/next_topic.py. Isolated tree without next_topic.py is NOT READY. `needed.py queue_status.py` list unchanged. which_contract.MAP unchanged. Still no packet.
-- Run 102: needed.py doctor.py reconstruct lists doctor.py plus hint, next_action, pipeline_status, queue_lib, queue_status, validate_packet, next_topic, topic_queue. --missing READY only when those nine exist. --plan WAVE 3 still does not dump the list. which_contract.MAP unchanged. Still no packet.
-- Run 101: needed.py doctor.py reconstruct lists doctor.py plus hint, next_action, pipeline_status, queue_lib, queue_status, validate_packet, topic_queue. --missing READY only when those eight exist. --plan WAVE 3 still does not dump the list. which_contract.MAP unchanged. Still no packet.
-- Run 100: needed.py --plan WAVE 3 prints `needed.py doctor.py --missing` after the queue reconstruct line and before doctor / queue_status / next_topic. which_contract.MAP unchanged. Still no packet.
-- Run 099: needed.py --plan WAVE 3 prints doctor.py then queue_status.py then next_topic.py after the queue reconstruct line. `needed.py doctor.py` is an unmapped operator hint, not Unknown. which_contract.MAP unchanged. Still no packet.
-- Run 098: doctor.py with no packet path appends queue_next_footer after fixture health. First ok-queued `--queue` only. queue_contract locks Q2-when-Q1-mark-needed and Q1-when-empty-folders. Still no packet.
+- Run 102: needed.py doctor.py reconstruct lists doctor.py plus hint, next_action, pipeline_status, queue_lib, queue_status, validate_packet, next_topic, topic_queue. --missing READY only when those nine exist.

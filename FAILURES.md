@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-09-13 — reconstruct-loop closed for this run (Run 104)
+
+- **Tried last five runs:** needed.py reconstruct / WAVE 3 / doctor unmapped lists / alias READY (Runs 099–103).
+- **This run:** Did not add a reconstruct path. Changed writer prompts instead.
+- **Lesson:** After alias READY no longer hides next_topic.py, remaining labor is Q1 scaffold + WORDS in band. First-draft size is the next lever that compounds across videos.
+- **Avoid:** WAVE 4, another UNMAPPED_PATHS row, a MAP need-list edit, or another writer-prompt pass unless a real draft misses 900–1500.
+
 ## 2026-09-12 — reconstruct-loop watch (Runs 099–103)
 
 - **Tried:** Five consecutive runs changed needed.py reconstruct / WAVE 3 / doctor unmapped lists / alias READY.

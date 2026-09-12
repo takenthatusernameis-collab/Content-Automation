@@ -27,6 +27,29 @@ Write spoken WORDS for:
 
 Keep VISUAL lines as short italic stage directions, not a second script.
 
+## Band landing (count before you return)
+
+Spoken WORDS for `explainer-6-10min` must land in **900–1500**. Target **~1200**. Count only WORDS lines, not VISUAL, not headings.
+
+Use this allocation unless expand.md already names different beat sizes:
+
+| Segment | Spoken words | Rule |
+|---------|--------------|------|
+| Hook | 20–35 | Name the mechanism. One sentence plus a sting is enough. |
+| Payoff promise | 40–70 | One doable outcome. Name the mechanism again. |
+| Each body beat | 140–220 | Worked example or failure mode inside the existing heading. |
+| CTA | 40–80 | One action finishable in under two minutes. |
+
+If you have 5 body beats: 30 + 55 + 5×180 + 60 ≈ 1045. If you have 6: stay near 160–180 per beat. If a first pass is under 900, grow the thinnest beat with a concrete morning scene, not a slogan. If over 1500, cut repeated pep, not the mechanism name.
+
+Before returning the draft, write one HTML comment at the very top:
+
+```
+<!-- spoken_words: NNN  hook: NN  beats: N  target: 900-1500 -->
+```
+
+That comment is not spoken WORDS. `words.py` still owns the official count after save.
+
 ## Constraints
 
 - Hook is 20–35 spoken words.
