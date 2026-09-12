@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-09-12 — reconstruct-loop watch (Runs 099–103)
+
+- **Tried:** Five consecutive runs changed needed.py reconstruct / WAVE 3 / doctor unmapped lists / alias READY.
+- **Evidence:** Automated-step count rose 80 → 84. Videos produced stayed 0. Human min estimates fell by 1 per reconstruct tweak.
+- **Lesson:** After alias READY no longer hides next_topic.py, do not spend the next run adding another reconstruct path. Remaining labor is Q1 scaffold + WORDS in band. Same pattern as Runs 037–042.
+- **Avoid:** WAVE 4, another UNMAPPED_PATHS row, or a MAP need-list edit unless a new READY lie is proven with an isolated tree.
+
 ## 2026-09-12 — placeholder overwrite of queue_status.py (Run 098)
 
 - **Tried:** First GitHub push of queue_status.py used a short `placeholder` string while assembling the real blob.
