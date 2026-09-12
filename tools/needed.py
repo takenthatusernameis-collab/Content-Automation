@@ -98,14 +98,15 @@ PLAN_OPERATOR_NEXT = "python3 tools/next_topic.py"
 
 # Operator printers that must stay out of which_contract.MAP.
 # needed.py may name them so `needed.py doctor.py` is not Unknown.
-# Extra paths are files doctor imports or reads; listing them here is
+# Extra paths are files doctor imports or reads, plus next_topic.py
+# because WAVE 3 start prints it after doctor. Listing them here is
 # reconstruct, not a map entry. --plan WAVE 3 still prints only the
 # needed.py doctor.py --missing command, not this file dump.
 UNMAPPED_OPERATOR: dict[str, tuple[str, str, str]] = {
     "doctor.py": (
         "unmapped operator command",
         "python3 tools/doctor.py",
-        "reconstruct these imports before running doctor; doctor.py stays unmapped",
+        "reconstruct these imports plus next_topic.py before running the WAVE 3 start sequence; doctor.py stays unmapped",
     ),
 }
 
@@ -118,6 +119,7 @@ UNMAPPED_PATHS: dict[str, tuple[str, ...]] = {
         "tools/queue_lib.py",
         "tools/queue_status.py",
         "tools/validate_packet.py",
+        "tools/next_topic.py",
         "docs/topic_queue.md",
     ),
 }
