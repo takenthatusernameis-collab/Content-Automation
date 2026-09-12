@@ -1,11 +1,13 @@
 # PROMPT EVOLUTION
 
-ORIGINAL_MASTER_PROMPT.md stays frozen.
+Keep ORIGINAL_MASTER_PROMPT.md archival and unchanged.
 
-Observed through Run 081:
-- Runs that only add another witness file after 068–070 do not reduce human minutes on Q1.
-- Printers that give the human a number and a named heading (band, Delta, Hook Delta, Beats/Thin, Grow, Cut) compound better than another lock.
-- Grow without Cut left the ABOVE path guessing.
-- Auto-scaffold and auto-write idea.md remain forbidden; leftover labor is still human paste + expand.
-- Run 079 added prove_locks.py but left NEXT_RUN_PROMPT listing the three inner commands as the primary post-write action. Future runs will skip the wrapper if the operating addendum stays stale. Close documentation gaps in the same run that adds a preferred command.
-- Run 081: a preferred wrapper that is not in placeholder_guard can be emptied while the fallback inner three still look healthy. Extend the existing first lock instead of adding another wrapper.
+## Evidence-based additions (do not silently rewrite the master)
+
+- Run 091: apply dry-run idea-lock INFO must stay INFO. script_writer must keep the draft.md path.
+- Run 090: expand_prompt Idea locks + idea_brief refuse text.
+- Run 089: idea_brief --block six fields; --check still three; no more page-alignment runs.
+- Runs 082–088: operator printers and pages name idea_brief after a folder exists. Further copies of that sentence are flagged in FAILURES.md.
+- Run 081: prove_locks.py is the first post-write command.
+
+See NEXT_RUN_PROMPT.md for the copy-paste addendum.

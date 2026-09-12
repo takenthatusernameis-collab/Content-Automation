@@ -4,6 +4,8 @@
 31–51n. Queue through write_path apply locks — **done (Runs 027–066; body restored Run 067)**
 51o–51aj. Write-path / words / prove_locks / printer + page alignment — **done (Runs 067–088)**
 51ak. idea_brief --block pastes the full idea.md template — **done (Run 089)**
+51al. expand_prompt prints Idea locks — **done (Run 090)**
+51am. apply_script dry-run prints idea-lock INFO — **done (Run 091)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -18,6 +20,7 @@
 - WAVE 4
 - Making --check FAIL on viewer / why now / related
 - Shrinking --block back to three fields
+- Making apply idea-lock INFO a BLOCKED error
 - Another primary run whose only change is naming idea_brief on one more page
 - Weakening write_path_contract CLI locks
 - Replacing write_path_contract.py with a docstring-only file
