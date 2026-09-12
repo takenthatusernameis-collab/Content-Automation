@@ -15,8 +15,10 @@
 | 2026-09-12 Run 085 | ~89 estimate | 71 | human_session start names idea_brief after a folder exists |
 | 2026-09-12 Run 086 | ~88 estimate | 71 | agent_session WAVE 3 names idea_brief after a folder exists |
 | 2026-09-12 Run 087 | ~87 estimate | 71 | README start path names idea_brief after a folder exists |
+| 2026-09-12 Run 088 | ~86 estimate | 71 | production_rules handoff names idea_brief, words.py, prove_locks |
 
 Estimate basis (generic 8-min explainer):
+- Run 088: -1 stop a future reader of production_rules from treating the packet contract as "only doctor" after the folder exists
 - Run 087: -1 stop a future reader of README from treating the front door as "only mark_topic" after the folder exists
 - Run 086: -1 stop a future clone-less agent from treating WAVE 3 as "only mark_topic" after the folder exists
 - Run 085: -1 stop a future operator from treating human_session start as "only mark_topic" after the folder exists
@@ -25,6 +27,7 @@ Estimate basis (generic 8-min explainer):
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 088: docs/production_rules.md Packet, Script, and Human handoff name idea_brief --block / paste / --check after a mark-needed folder exists, words.py on PATH/draft.md before apply, and prove_locks.py after a high-risk write. No new file. Still not a lock.
 - Run 087: README.md Human session and Local tools name idea_brief --block / paste / --check after a mark-needed folder exists, and prove_locks.py after a high-risk write. No new file. Still not a lock.
 - Run 086: `docs/agent_session.md` WAVE 3 board paragraph and Stop list name idea_brief --block / paste / --check after a mark-needed folder exists. No new file. Still not a lock.
 - Run 085: `docs/human_session.md` start-of-session text names idea_brief --block / paste / --check after a mark-needed folder exists and after next_topic prints an existing predicted path. No new file. Still not a lock.

@@ -23,6 +23,7 @@
 51ag. human_session start names idea_brief after a folder exists — **done (Run 085)**
 51ah. agent_session WAVE 3 board names idea_brief after a folder exists — **done (Run 086)**
 51ai. README start path names idea_brief after a folder exists and prove_locks after high-risk writes — **done (Run 087)**
+51aj. production_rules handoff names idea_brief, words.py, and prove_locks — **done (Run 088)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -53,3 +54,4 @@
 - Stripping idea_brief --block/--check from docs/human_session.md start-of-session text
 - Stripping idea_brief --block/--check from docs/agent_session.md WAVE 3 board paragraph
 - Stripping idea_brief --block/--check or prove_locks.py from README Human session text
+- Stripping idea_brief --block/--check, words.py, or prove_locks.py from docs/production_rules.md Packet / Script / Human handoff text

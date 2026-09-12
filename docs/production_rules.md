@@ -9,11 +9,16 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Status in `packet.md` must be one of: `draft`, `ready_for_vo`, `ready_for_edit`, `ready_to_publish`, `published`, `abandoned`
 - Field values stay on the same line as the key
 - `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `render.md` (if empty), `vo_session.md` (if empty), `expand.md` (if empty), `research.md`, and `qa.md` unless `--no-generate`
+- Neither `new_packet.py` nor `idea_brief.py` writes idea.md. After a mark-needed folder exists, reprint then paste by hand:
+  - `python3 tools/idea_brief.py PATH --block`
+  - paste idea fields by hand into `PATH/idea.md`
+  - `python3 tools/idea_brief.py PATH --check`
 - `python3 tools/doctor.py` is the session-start health check. It does not write files.
 - `python3 tools/pipeline_status.py` is the read-only board across packets. It does not write files.
-- `python3 tools/next_action.py` is the read-only next human step. It does not write files.
-- `python3 tools/hint.py` is the read-only copy-paste CLI for that step. It does not write files. `--write` is never the first command.
+- `python3 tools/next_action.py` is the read-only next human step. It does not write files. fill-idea Why names idea_brief --block / paste / --check.
+- `python3 tools/hint.py` is the read-only copy-paste CLI for that step. It does not write files. `--write` is never the first command. After scaffold, fill-idea prints idea_brief; write-script/expand-script print words.py and PATH/draft.md apply lines.
 - `python3 tools/set_status.py PATH --to STATUS` is the only status writer. Dry-run default. `--write` required. Refuses fixture promote, skip-ahead, and evidence-free bumps.
+- After a GitHub write of a high-risk tool, run `python3 tools/prove_locks.py` first. PASS is not apply --write.
 
 ## Format
 - Default packet format is `explainer-6-10min` (face-free).
@@ -34,13 +39,15 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Default validate prints WARN when the band is missed; `--duration` fails
 - Do not record VO while the duration WARN is present on a real packet
 - Do not pad `videos/sample-001-*` to clear the WARN
+- Off-repo expand lands in `PATH/draft.md`. That file is not `script.md` until apply --write.
+- `python3 tools/words.py PATH` is a read-only band printer. It prefers PATH/draft.md when present. Read Result, Delta, Hook Delta, Beats, Thin, Grow or Cut. `--strict` keys off the total band only. IN BAND is not apply --write.
 - `python3 tools/expand_brief.py PATH` writes `expand.md` per-beat Have/Target/Add from current WORDS
 - An expand.md budget is not a rewritten script. Do not autofill WORDS from it
 - `--force` is required to replace a filled `expand.md`
 - Scaffold writes expand.md only when empty
 - `python3 tools/expand_prompt.py PATH` prints a paste-ready expander pack. It does not write `script.md`
 - A printed prompt is not a draft. Do not write it onto sample-001
-- `python3 tools/apply_script.py PATH --from FILE` dry-runs a pasted script body. Refuse sample-001 and expand_prompt stdout.
+- `python3 tools/apply_script.py PATH --from FILE` dry-runs a pasted script body. Refuse sample-001 and expand_prompt stdout. Prefer `--from PATH/draft.md` after words.py is IN BAND.
 - `--write` is required to replace script.md on a non-fixture packet. `--refresh` then rewrites expand.md, vo_session.md, and captions.md. No status bump.
 - No unverifiable statistics; if a number is used, cite source in `research.md`
 - Working-niche tone: specific, calm, operational. No hustle slogans.
@@ -101,7 +108,17 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Status drift: `ready_for_vo` needs a PASS script gate; `ready_for_edit` needs selected VO on disk; `ready_to_publish` / `published` need VO + export. Do not bump status to hide missing files.
 
 ## Human handoff
-Operator path: `docs/human_session.md`. Start with `python3 tools/doctor.py`.
+Operator path: `docs/human_session.md`. Start with `python3 tools/doctor.py`, then `python3 tools/queue_status.py` and `python3 tools/next_topic.py`.
+After a mark-needed folder exists those printers, `docs/human_session.md`, `docs/agent_session.md` WAVE 3, README Human session, and this page name:
+
+```bash
+python3 tools/idea_brief.py PATH --block
+# paste idea fields by hand into PATH/idea.md
+python3 tools/idea_brief.py PATH --check
+```
+
+After saving PATH/draft.md, run `python3 tools/words.py PATH` before apply --write.
+After a GitHub write of a high-risk tool, run `python3 tools/prove_locks.py`.
 Anything a human must still do is listed under `Remaining human work` in `packet.md`.
 `tools/next_action.py` picks one of those constraints from gate + drift + disk + duration band.
 `tools/hint.py` prints the matching dry-run command.
@@ -113,6 +130,6 @@ Render presence: packet `render.md`.
 VO reading card: packet `vo_session.md`.
 Beat budget: packet `expand.md`.
 Expand paste pack: `python3 tools/expand_prompt.py PATH`.
-Paste-back gate: `python3 tools/apply_script.py PATH --from FILE` (dry-run; `--write --refresh` on non-fixture only).
+Paste-back gate: `python3 tools/apply_script.py PATH --from PATH/draft.md` (dry-run; `--write --refresh` on non-fixture only).
 Status gate: `python3 tools/set_status.py PATH --to STATUS` (dry-run; `--write` after evidence).
 Human visual/audio ticks live in `qa.md` under **Human**.

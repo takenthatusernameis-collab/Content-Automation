@@ -2,6 +2,11 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 088:
+
+- docs/production_rules.md Packet, Script, and Human handoff must keep naming `idea_brief.py PATH --block`, a paste-by-hand line, `idea_brief.py PATH --check`, `words.py PATH` on PATH/draft.md, and `prove_locks.py` after a high-risk GitHub write. Do not revert that page to doctor-only handoff with apply --from FILE and no draft.md.
+- Do not add a lock around production_rules.md.
+
 Targeted addition from Run 087:
 
 - README.md Human session must keep naming `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check` after a mark-needed folder exists, and `prove_locks.py` after a high-risk GitHub write. Do not revert that page to doctor / queue_status / next_topic only.
