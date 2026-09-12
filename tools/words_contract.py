@@ -101,7 +101,13 @@ def main() -> int:
     if size < MIN_BYTES:
         failures.append(f"words.py is {size} bytes; expected >= {MIN_BYTES}")
     body = WORDS.read_text(encoding="utf-8")
-    for marker in ("def cut_line", "def grow_line", "def hook_delta_line", "This command writes nothing."):
+    for marker in (
+        "def cut_line",
+        "def grow_line",
+        "def hook_delta_line",
+        "def print_idea_lock_notes",
+        "This command writes nothing.",
+    ):
         if marker not in body:
             failures.append(f"words.py missing marker: {marker}")
     if "PLACEHOLDER" in body or body.strip() in {"see-next", "404: Not Found"}:
@@ -125,6 +131,8 @@ def main() -> int:
             failures.append("below draft should not print Cut")
         if "Delta:" not in out_b:
             failures.append("below draft should print Delta")
+        if "INFO" not in out_b:
+            failures.append("below draft should print idea-lock INFO (or unavailable fallback)")
         if code_b != 2:
             failures.append(f"below --strict should exit 2, got {code_b}")
 
@@ -137,6 +145,8 @@ def main() -> int:
             failures.append("above draft should print Cut")
         if "Grow:" in out_a:
             failures.append("above draft should not print Grow")
+        if "INFO" not in out_a:
+            failures.append("above draft should print idea-lock INFO (or unavailable fallback)")
         if code_a != 2:
             failures.append(f"above --strict should exit 2, got {code_a}")
 
