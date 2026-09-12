@@ -57,6 +57,11 @@ CHECKS: list[tuple[str, int, tuple[str, ...]]] = [
         800,
         ("VERIFY WRITE PATH", "contract_shape.py", "write_path_contract.py"),
     ),
+    (
+        "prove_locks.py",
+        800,
+        ("PROVE LOCKS PASS", "placeholder_guard.py", "words_contract.py", "verify_write_path.py"),
+    ),
 ]
 
 
