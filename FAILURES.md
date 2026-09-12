@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-09-12 — page-alignment chain watch (Runs 082–088)
+
+- **Tried:** Six consecutive runs aligned hint, next_action, queue_status, next_topic, human_session, agent_session, README, then production_rules so each names idea_brief after a folder exists.
+- **Evidence:** Automated-step count stayed 71. Videos produced stayed 0. Human min estimates fell by 1 per page. Remaining labor stayed Q1 scaffold + WORDS in band.
+- **Lesson:** After the printers and the three operator pages agree, do not spend the next run finding one more markdown file to name idea_brief. Improve the paste or the draft band instead.
+- **Avoid:** Another primary action whose only change is "page X now also names idea_brief --block/--check."
+
 ## 2026-09-11 — placeholder overwrite of words.py (Run 076)
 
 - **Tried:** Push words.py via create_or_update_file / push_files using a short placeholder while assembling the real blob.
