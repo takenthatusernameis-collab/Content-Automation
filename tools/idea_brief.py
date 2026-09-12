@@ -10,9 +10,14 @@ On PASTE READY, prints the exact expand_prompt command for that packet,
 then the dry-run apply_script line using PATH/draft.md (no --write).
 Default reprint prints the exact --check command for that packet.
 
+--queue ID prints the same paste-ready body from docs/topic_queue.md
+without requiring a videos/ folder. Still does not write idea.md.
+--check cannot be used with --queue (there is no idea.md to compare).
+
 Run 089: paste_block includes viewer / why now / related so a hand paste
 fills the whole idea.md template, not only topic / problem / mechanism.
 --check still gates those three locked fields only.
+Run 095: --queue ID unlocks the paste before scaffold.
 """
 
 from __future__ import annotations
@@ -28,6 +33,7 @@ if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
 from new_packet import idea_followup  # noqa: E402
+from queue_lib import parse_queue  # noqa: E402
 
 BLANKISH = frozenset(
     {
@@ -49,6 +55,7 @@ WHY_NOW = (
     "The week is already planned, but the morning still reopens the whole list."
 )
 RELATED = "none published yet"
+QUEUE = ROOT / "docs" / "topic_queue.md"
 
 
 def field(text: str, name: str) -> str:
@@ -79,6 +86,16 @@ def working_title(path: Path) -> str:
         if t:
             return t
     return path.name.split("-", 1)[-1].replace("-", " ")
+
+
+def queue_row(qid: str) -> dict[str, str] | None:
+    if not QUEUE.is_file():
+        return None
+    want = qid.strip().upper()
+    for row in parse_queue(QUEUE.read_text(encoding="utf-8")):
+        if row.get("id", "").upper() == want:
+            return row
+    return None
 
 
 def suggested_values(title: str) -> tuple[str, str, str]:
@@ -175,11 +192,30 @@ def check_fields(current: str, title: str, packet: Path) -> tuple[int, list[str]
     return 0, lines
 
 
+def print_queue_block(qid: str) -> int:
+    row = queue_row(qid)
+    if row is None:
+        print(f"no topic_queue row: {qid}", file=sys.stderr)
+        print("This command writes nothing.")
+        return 2
+    title = row["working_title"]
+    print(paste_block(title), end="")
+    print(f"# Queue {row['id']} status={row['status']}. This command writes nothing.")
+    print("# Paste the block above into idea.md by hand after the packet folder exists.")
+    print("# Do not treat this reprint as scaffold or as script.md.")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Read-only idea.md reprint. Does not write idea.md."
     )
-    parser.add_argument("packet", help="Packet folder")
+    parser.add_argument("packet", nargs="?", help="Packet folder")
+    parser.add_argument(
+        "--queue",
+        metavar="ID",
+        help="Print paste-ready idea.md from a topic_queue id. No folder required. Still does not write.",
+    )
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
         "--block",
@@ -192,6 +228,18 @@ def main() -> int:
         help="Compare current idea.md to the suggested paste. Still does not write idea.md.",
     )
     args = parser.parse_args()
+
+    if args.queue:
+        if args.check:
+            print("--check needs a packet folder; --queue only reprints the paste.", file=sys.stderr)
+            print("This command writes nothing.")
+            return 2
+        return print_queue_block(args.queue)
+
+    if not args.packet:
+        print("packet folder required unless --queue ID is set", file=sys.stderr)
+        return 1
+
     path = Path(args.packet)
     if not path.is_dir():
         print(f"not a packet folder: {path}", file=sys.stderr)
