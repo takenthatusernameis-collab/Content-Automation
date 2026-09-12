@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-12T09:16:00Z — Run 090
+
+- **Objective:** After idea_brief --block fills all six idea.md fields, stop the expand writer from treating idea.md as an optional blob and stop the refuse path from sending the operator back to the new_packet reprint.
+- **Inspected:** STATE/NEXT/RUNS after Run 089. expand_prompt.py dumped clipped idea.md with no parsed locks. Refuse text said "Paste the new_packet reprint into idea.md first." script_expander.md still used /tmp/new-script.md and did not name idea_brief.
+- **Action taken:** Added idea_locks() to tools/expand_prompt.py and an Idea locks section in the assembled prompt. Refuse path now prints idea_brief --block/--check. Output steps name PATH/draft.md and words.py. Updated prompts/script_expander.md to match. Did not edit idea_brief.py, idea_brief_contract, printers, prove_locks, placeholder_guard, words.py, write-path tools, or needed.py. Did not scaffold Q1. Did not write idea.md. Did not map any file. Did not align another operator board page.
+- **Result:** expand_prompt.py committed at 8111 bytes with idea_locks and idea_brief refuse lines. script_expander.md names idea_brief, Idea locks, words.py, and draft.md. Queue rows remain queued. No new packet folder. No media.
+- **Verification status:** completed for committed blob markers (Idea locks, idea_brief.py, draft.md) and size 8111. compile-checked locally before push. unverified for live expand_prompt against a real packet folder (HTTPS clone blocked; packet tree not on this sandbox disk). Did not claim IDEA BRIEF CONTRACT PASS, WRITE PATH CONTRACT PASS, WORDS CONTRACT PASS, PLACEHOLDER GUARD PASS, or PROVE LOCKS PASS this run.
+- **Important discovery:** Filling idea.md is wasted if the expand assembler does not surface those fields as locks. The leftover labor after Run 089 was generic scripts that ignore the paste.
+- **Blocker:** Still waiting on a human-owned non-fixture draft in band. HTTPS clone remains unavailable; do not retry it as the first action.
+- **Recommended next action:** Human runs `python3 tools/queue_status.py` then follows `docs/human_session.md`. After a mark-needed folder exists, paste idea_brief --block, --check, then expand_prompt (Idea locks in stdout). Do not drop idea_locks. Do not auto-write idea.md. Do not auto-scaffold Q1. After a GitHub write of a high-risk tool, run `python3 tools/prove_locks.py`.
+
 ## 2026-09-12T08:11:00Z — Run 089
 
 - **Objective:** Stop the 082–088 page-alignment chain. Make fill-idea a single paste of the whole idea.md template instead of three locked fields plus three leftover blanks.
@@ -13,13 +24,5 @@ Permanent log. Newest first. If the same action repeats across runs with no prog
 - **Blocker:** Still waiting on a human-owned non-fixture draft in band. HTTPS clone remains unavailable; do not retry it as the first action.
 - **Recommended next action:** Human runs `python3 tools/queue_status.py` then follows `docs/human_session.md`. After a mark-needed folder exists, paste `idea_brief.py PATH --block` (now six fields) and `--check`. Do not align another page to name idea_brief. Do not auto-write idea.md. Do not auto-scaffold Q1. Do not make extras a --check FAIL. After a GitHub write of a high-risk tool, run `python3 tools/prove_locks.py`.
 
-## 2026-09-12T07:10:00Z — Run 088
-
-- **Objective:** operator pages and README already name idea_brief after a folder exists, but `docs/production_rules.md` Human handoff still started at doctor and treated apply --from FILE as the paste-back gate without draft.md / words.py / prove_locks.
-- **Action taken:** Updated docs/production_rules.md Packet, Script, and Human handoff.
-- **Result:** production_rules Human handoff contains idea_brief.py, --block, --check, words.py, draft.md, and prove_locks.py.
-- **Verification status:** completed for marker presence on the production_rules.md blob after push.
-- **Recommended next action:** Human Q1 path. Do not add another page-alignment as the primary action.
-
-## Earlier runs 001–87
+## Earlier runs 001–88
 See prior commits for full detail.
