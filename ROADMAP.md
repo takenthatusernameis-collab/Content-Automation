@@ -13,6 +13,7 @@
 51ar. idea_brief_contract locks --queue — **done (Run 096)**
 51as. queue_status / next_topic print --queue; queue_contract locks it — **done (Run 097)**
 51at. doctor all-packet Queue next footer; queue_contract locks it — **done (Run 098)**
+51au. needed.py --plan WAVE 3 prints doctor then board printers; doctor stays unmapped — **done (Run 099)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -30,6 +31,7 @@
 - Another wrapper CLI around idea_lock_notes
 - Dropping the words.py import fallback
 - Another idea_brief flag unless --queue regresses
-- Mapping idea_brief.py or idea_brief_contract.py
+- Mapping idea_brief.py or idea_brief_contract.py or doctor.py
 - Printing --queue for mark-needed rows
 - Printing doctor Queue next on a single-packet doctor invocation
+- Wrapping doctor in start.py

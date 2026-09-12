@@ -16,10 +16,12 @@
 | 2026-09-12 Run 096 | ~78 estimate | 77 | idea_brief_contract locks --queue Q1 / missing / --check combo |
 | 2026-09-12 Run 097 | ~77 estimate | 78 | queue printers print --queue; contract locks first ok-queued id |
 | 2026-09-12 Run 098 | ~76 estimate | 79 | doctor all-packet Queue next footer; contract locks mark-needed skip |
+| 2026-09-12 Run 099 | ~75 estimate | 80 | needed --plan WAVE 3 prints doctor + board; doctor stays unmapped |
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 099: needed.py --plan WAVE 3 prints doctor.py then queue_status.py then next_topic.py after the queue reconstruct line. `needed.py doctor.py` is an unmapped operator hint, not Unknown. which_contract.MAP unchanged. Still no packet.
 - Run 098: doctor.py with no packet path appends queue_next_footer after fixture health. First ok-queued `--queue` only. queue_contract locks Q2-when-Q1-mark-needed and Q1-when-empty-folders. Still no packet.
 - Run 097: queue_status.py and next_topic.py print idea_brief --queue ID before scaffold. queue_contract requires --queue Q2 on the tempfile board and forbids --queue Q1 there (mark-needed). Still no packet.
 - Run 096: idea_brief_contract.py queue_locks() requires --queue Q1 six-field paste exit 0, missing id exit 2, --queue --check exit 2, and no predicted folder created. Still unmapped.
