@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-09-12 — placeholder overwrite of queue_status.py (Run 098)
+
+- **Tried:** First GitHub push of queue_status.py used a short `placeholder` string while assembling the real blob.
+- **Evidence:** Commit 684a078 landed that stub. Restored same run in commit 2a3ee10 at 6941 bytes with queue_next_footer().
+- **Lesson:** Same as Runs 076, 091, and 093. Never commit a placeholder path. Push the verified local file body only. Check committed size immediately.
+- **Avoid:** placeholder / SEE_LOCAL_FILE / PLACEHOLDER strings in GitHub file API content.
+
 ## 2026-09-12 — placeholder overwrite of words.py (Run 093)
 
 - **Tried:** First GitHub push of words.py used a short SEE_LOCAL_FILE_WILL_REPLACE string while assembling the real blob.
