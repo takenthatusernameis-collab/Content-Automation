@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-09-12 — placeholder overwrite of words.py (Run 093)
+
+- **Tried:** First GitHub push of words.py used a short SEE_LOCAL_FILE_WILL_REPLACE string while assembling the real blob.
+- **Evidence:** Commit 5ea1222 landed that stub. Restored same run in commit e3dd08c at 15563 bytes with print_idea_lock_notes().
+- **Lesson:** Same as Runs 076 and 091. Never commit a placeholder path. Push the verified local file body only. Check committed size immediately.
+- **Avoid:** SEE_LOCAL_FILE / PLACEHOLDER / see-next strings in GitHub file API content.
+
 ## 2026-09-12 — placeholder overwrite of apply_script.py (Run 091)
 
 - **Tried:** First GitHub push of apply_script.py used a short PLACEHOLDER_SEE_NEXT string while assembling the real blob.
