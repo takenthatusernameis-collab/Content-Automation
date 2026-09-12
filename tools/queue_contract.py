@@ -5,7 +5,8 @@ Uses a temp tree only. Never writes docs/topic_queue.md or videos/.
 Locks classify codes, PACKET column, --strict exits, next_id, and
 mark_topic line rewrite so later runs cannot silently regress Run 031.
 Also locks the pre-scaffold idea_brief --queue reprint on the next
-ok-queued row (Run 097).
+ok-queued row (Run 097) and doctor.py's all-packet Queue next footer
+(Run 098).
 """
 
 from __future__ import annotations
@@ -20,7 +21,7 @@ if str(TOOLS) not in sys.path:
 
 from mark_topic import rewrite_status  # noqa: E402
 from queue_lib import next_id, parse_queue, slugify  # noqa: E402
-from queue_status import classify, exit_code, packet_status, report  # noqa: E402
+from queue_status import classify, exit_code, packet_status, queue_next_footer, report  # noqa: E402
 
 
 QUEUE_TEXT = """# Topic queue
@@ -151,6 +152,34 @@ def main() -> int:
             failures,
             "optional pre-scaffold reprint" in body,
             "pre-scaffold reprint note present",
+        )
+
+        footer_mark = queue_next_footer(
+            QUEUE_TEXT,
+            ["sample-001-why-systems-beat-motivation", folder_name],
+            "003",
+        )
+        fail(
+            failures,
+            "python3 tools/idea_brief.py --queue Q2" in footer_mark,
+            "doctor footer --queue first ok-queued when Q1 is mark-needed",
+        )
+        fail(
+            failures,
+            "python3 tools/idea_brief.py --queue Q1" not in footer_mark,
+            "doctor footer must not print --queue for mark-needed Q1",
+        )
+        fail(
+            failures,
+            "not the fixture" in footer_mark.lower(),
+            "doctor footer names the fixture trap",
+        )
+
+        footer_open = queue_next_footer(QUEUE_TEXT, [], "002")
+        fail(
+            failures,
+            "python3 tools/idea_brief.py --queue Q1" in footer_open,
+            "doctor footer --queue Q1 when no matching folder",
         )
 
     print("Queue contract")
