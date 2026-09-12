@@ -2,6 +2,12 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 091:
+
+- apply_script.py dry-run must keep printing idea-lock INFO for mechanism / topic token overlap vs incoming draft. INFO must not become a check() error and must not change --write permission by itself.
+- prompts/script_writer.md must keep saving PATH/draft.md and running words.py / apply dry-run before --write --refresh.
+- Do not treat lock INFO as apply --write. Do not auto-scaffold Q1.
+
 Targeted addition from Run 090:
 
 - expand_prompt.py must keep an Idea locks section parsed from idea.md (topic, viewer, problem, mechanism, why now, related).
