@@ -9,6 +9,10 @@ On PASTE INCOMPLETE, prints the exact --block command for that packet.
 On PASTE READY, prints the exact expand_prompt command for that packet,
 then the dry-run apply_script line using PATH/draft.md (no --write).
 Default reprint prints the exact --check command for that packet.
+
+Run 089: paste_block includes viewer / why now / related so a hand paste
+fills the whole idea.md template, not only topic / problem / mechanism.
+--check still gates those three locked fields only.
 """
 
 from __future__ import annotations
@@ -36,6 +40,15 @@ BLANKISH = frozenset(
         "(blank)",
     }
 )
+
+# Channel lock from docs/channel.md. Hard-coded so tempfile packets still paste.
+VIEWER = (
+    "People who already plan their week, then stall when it is time to start."
+)
+WHY_NOW = (
+    "The week is already planned, but the morning still reopens the whole list."
+)
+RELATED = "none published yet"
 
 
 def field(text: str, name: str) -> str:
@@ -89,8 +102,11 @@ def paste_block(title: str) -> str:
     return (
         "# Idea\n\n"
         f"- topic: {topic}\n"
+        f"- viewer: {VIEWER}\n"
         f"- problem: {problem}\n"
         f"- mechanism (the system, not the pep talk): {mechanism}\n"
+        f"- why now: {WHY_NOW}\n"
+        f"- related videos to avoid repeating: {RELATED}\n"
     )
 
 
@@ -138,6 +154,12 @@ def check_fields(current: str, title: str, packet: Path) -> tuple[int, list[str]
             mismatches += 1
         else:
             lines.append(f"  MATCH {label}")
+    got_v = field(current, "viewer")
+    got_w = field(current, "why now")
+    got_r = field(current, "related videos to avoid repeating")
+    if is_blankish(got_v) or is_blankish(got_w) or is_blankish(got_r):
+        lines.append("  INFO extra template fields still blank; --block now includes viewer / why now / related.")
+        lines.append("  INFO those extras are not a --check gate.")
     if mismatches:
         lines.append("PASTE INCOMPLETE. Paste --block into idea.md by hand, then re-run --check.")
         lines.append(f"  {block_command(packet)}")
@@ -194,11 +216,20 @@ def main() -> int:
     print(f"Title: {title}")
     print("Current idea.md:")
     print(f"  - topic: {field(current, 'topic') or '(blank)'}")
+    print(f"  - viewer: {field(current, 'viewer') or '(blank)'}")
     print(f"  - problem: {field(current, 'problem') or '(blank)'}")
     print(f"  - mechanism: {field(current, 'mechanism') or '(blank)'}")
+    print(f"  - why now: {field(current, 'why now') or '(blank)'}")
+    print(
+        "  - related videos to avoid repeating: "
+        f"{field(current, 'related videos to avoid repeating') or '(blank)'}"
+    )
     print("Suggested paste (does not write idea.md):")
     for line in idea_followup(title):
         print(line)
+    print(f"  - viewer: {VIEWER}")
+    print(f"  - why now: {WHY_NOW}")
+    print(f"  - related videos to avoid repeating: {RELATED}")
     print("Paste-ready block (still does not write). Re-run with --block to print only this:")
     print(f"  {block_command(path)}")
     print(paste_block(title), end="")
