@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-12T02:10:00Z (Run 083)
+Updated: 2026-09-12T03:20:00Z (Run 084)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + write_path_contract body + contract_shape trio lock + verify_write_path order lock + words.py band + delta + hook delta + beats/thin + grow + cut + words_contract + placeholder_guard (includes prove_locks.py) + prove_locks order wrapper + NEXT_RUN_PROMPT names prove_locks first + hint.py prints idea_brief and words.py + next_action/doctor Why names idea_brief --block/--check** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + write_path_contract body + contract_shape trio lock + verify_write_path order lock + words.py band + delta + hook delta + beats/thin + grow + cut + words_contract + placeholder_guard (includes prove_locks.py) + prove_locks order wrapper + NEXT_RUN_PROMPT names prove_locks first + hint.py prints idea_brief and words.py + next_action/doctor Why names idea_brief --block/--check + queue_status/next_topic print idea_brief after folder exists** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -27,27 +27,30 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - prove_locks.py is an unmapped order wrapper. It subprocess-runs placeholder_guard.py, then words_contract.py, then verify_write_path.py. Stops on first non-zero. Writes nothing. Do not map it in needed.py.
 - NEXT_RUN_PROMPT.md names prove_locks.py as the first post-write command (Run 080). The three inner commands stay valid only as fallback.
 - hint.py is a read-only command printer. Run 082 made fill-idea print idea_brief reprint/--block/--check and write-script/expand-script print words.py plus PATH/draft.md apply lines. It writes nothing. It is not a lock.
-- next_action.py Why for fill-idea now names idea_brief --block / paste / --check. doctor.py and hint.py reprint that Why. It writes nothing.
+- next_action.py Why for fill-idea names idea_brief --block / paste / --check. doctor.py and hint.py reprint that Why. It writes nothing.
+- queue_status.py is a read-only board. Run 084 prints idea_brief --block / paste / --check under mark-needed folders. It still writes nothing. It is not a lock.
+- next_topic.py is a read-only next-row printer. Run 084 prints idea_brief --block / paste / --check after the predicted folder. It still writes nothing. It is not a lock.
 
-## What exists now (after Run 083)
-- tools/next_action.py fill-idea Why matches docs/human_session.md idea_brief path
-- Isolated compile of next_action.py only; live next_action/doctor/hint against a packet tree is unverified here (HTTPS clone blocked)
-- Frozen doctor/needed/which_contract/router/idea_brief/words/prove_locks/placeholder_guard/hint command lists not edited this run
+## What exists now (after Run 084)
+- tools/queue_status.py mark-needed follow-up names idea_brief --block / paste / --check
+- tools/next_topic.py after-folder lines name idea_brief --block / paste / --check
+- Isolated compile of those two files only; live queue_status/next_topic against a packet tree is unverified here (HTTPS clone blocked)
+- Frozen doctor/needed/which_contract/router/idea_brief/words/prove_locks/placeholder_guard/hint/next_action command lists not edited this run
 - No new packet folder; queue still queued
 - idea_gate / operator_pin / idea_brief_contract / words_contract / placeholder_guard / prove_locks stay unmapped
 
 ## Pipeline map
 After scaffold: idea_brief --block / paste / --check / expand off-repo / save draft.md / `words.py PATH` / apply dry-run / --write --refresh / set_status ready_for_vo if WORDS in band.
 After a GitHub write of any high-risk tool: `python3 tools/prove_locks.py`.
-After scaffold on a live packet: `python3 tools/hint.py PATH` prints idea_brief and words.py lines; `python3 tools/next_action.py PATH` Why names idea_brief --block/--check.
+Start of session: `python3 tools/queue_status.py` then `python3 tools/next_topic.py`. After a mark-needed folder exists, those printers now name idea_brief --block/--check. After scaffold on a live packet, `python3 tools/hint.py PATH` still prints idea_brief and words.py lines; `python3 tools/next_action.py PATH` Why still names idea_brief --block/--check.
 
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 92 | 91 | next_action/doctor Why no longer send the operator back to new_packet reprint memory |
-| Automated steps | 71 | 71 | no new lock; existing Why sentence now matches the session |
+| Estimated human min / video | 91 | 90 | start-of-session board no longer omits idea_brief after a folder exists |
+| Automated steps | 71 | 71 | no new lock; two existing printers now match the session |
 | Videos produced | 0 | 0 | fixture only |
-| Write-path contract | body + trio + ordered verify 070 | unchanged 083 | run prove_locks.py after a high-risk GitHub write |
+| Write-path contract | body + trio + ordered verify 070 | unchanged 084 | run prove_locks.py after a high-risk GitHub write |
 
 ## Active constraints
 - Do not auto-scaffold Q1
@@ -69,3 +72,4 @@ After scaffold on a live packet: `python3 tools/hint.py PATH` prints idea_brief 
 - Do not add another order wrapper around prove_locks.py
 - Do not strip idea_brief or words.py lines from hint.py fill-idea / write-script / expand-script
 - Do not revert next_action fill-idea Why to "paste the new_packet reprint"
+- Do not strip idea_brief --block/--check from queue_status mark-needed follow-up or next_topic after-folder lines
