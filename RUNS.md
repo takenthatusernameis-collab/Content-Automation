@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-12T01:15:00Z — Run 082
+
+- **Objective:** After scaffold, hint.py still told the operator to paste idea.md from memory and apply from FILE. human_session already names idea_brief --block/--check and words.py PATH/draft.md. That lookup is recurring human labor on every packet.
+- **Inspected:** STATE/NEXT/RUNS/ROADMAP after Run 081. Lock wrappers are complete and another wrapper is forbidden. Remaining labor is still human Q1 scaffold + WORDS in band. hint.py was the printer that did not match the session.
+- **Action taken:** Updated tools/hint.py fill-idea to print idea_brief reprint / --block / --check. Updated write-script and expand-script to print expand_prompt, words.py PATH, and apply from PATH/draft.md (fixture still refuses --write). Did not edit prove_locks, placeholder_guard, words.py, write-path tools, or needed.py. Did not scaffold Q1. Did not write idea.md. Did not map any file. Did not add a lock wrapper.
+- **Result:** hint.py compiles. Source contains idea_brief.py, words.py, draft.md, and --write --refresh. Queue rows remain queued. No new packet folder. No media. No new tool file.
+- **Verification status:** completed for syntax and marker presence on the local hint.py blob. unverified for live hint.py against sample-001 or a Q1 folder (HTTPS clone blocked; packet tree not on this sandbox disk). Did not claim WRITE PATH CONTRACT PASS, WORDS CONTRACT PASS, PLACEHOLDER GUARD PASS, or PROVE LOCKS PASS this run.
+- **Important discovery:** Session docs can be correct while the command printer the human is told to re-run still omits the later tools. Align the printer; do not add another lock.
+- **Blocker:** Still waiting on a human-owned non-fixture draft in band. HTTPS clone remains unavailable; do not retry it as the first action.
+- **Recommended next action:** Human runs `python3 tools/queue_status.py` then follows `docs/human_session.md`. After scaffold, `python3 tools/hint.py PATH` should now print idea_brief and words.py. After a GitHub write of a high-risk tool, run `python3 tools/prove_locks.py`. Do not add WAVE 4. Do not auto-write idea.md. Do not auto-scaffold Q1. Do not add another words.py printer line. Do not add another order wrapper. Do not map words.py, words_contract.py, placeholder_guard.py, or prove_locks.py.
+
 ## 2026-09-12T00:21:00Z — Run 081
 
 - **Objective:** prove_locks.py is now the advertised first post-write command, but placeholder_guard did not witness that wrapper. An emptied prove_locks.py would still let the inner three look healthy if an agent ran them as fallback.

@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-12 | hint.py fill-idea prints idea_brief reprint/--block/--check; write-script/expand-script print words.py and apply from PATH/draft.md | human_session already named those tools; hint was the command the operator re-runs and still omitted them | If idea_brief or words.py CLI flags change; do not strip those lines; do not treat hint output as apply --write; do not add a lock around hint.py
 - 2026-09-12 | placeholder_guard.py also witnesses prove_locks.py (MIN_BYTES 800 + PROVE LOCKS PASS + inner three names) | The advertised first post-write command was the one file the first inner lock did not inspect; fallback could ignore an emptied wrapper | If prove_locks merges into another file; do not drop the check; do not add another wrapper; do not map into needed.py
 - 2026-09-11 | NEXT_RUN_PROMPT must name prove_locks.py as the first post-write command; the three inner commands are fallback | Run 079 added the wrapper but left the addendum listing the inner three first; agents copy the addendum | If the three files merge; do not add a wrapper around prove_locks; do not map into needed.py
 - 2026-09-11 | prove_locks.py is an unmapped order wrapper (placeholder_guard then words_contract then verify_write_path) | After a GitHub write agents skipped one of three unmapped commands; the advertised order should be one copy-paste | If those three files merge; do not drop them because the wrapper exists; do not map into needed.py; do not treat PASS as apply --write
