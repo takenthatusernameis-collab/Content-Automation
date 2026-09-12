@@ -147,6 +147,8 @@ Same as prior page: reconstruct what `needed.py CONTRACT` prints, confirm `--mis
 
 After WAVE 2 READY, print WAVE 3 reconstruct, fetch until READY, then run the operator command and stop at the board. Do not treat WAVE 3 as scaffold permission.
 
+When `queue_status.py` or `next_topic.py` run against a mark-needed folder that already exists, they print `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check`. Do not invent a mark_topic-only next step from this page. Do not write idea.md from those printed lines. Prefer the printed idea_brief commands over scanning tools/. Humans still paste idea.md; agents do not.
+
 For write-path after reconstruct, prefer `python3 tools/verify_write_path.py` over running the two locks out of order.
 
 After a high-risk GitHub write, prefer `python3 tools/prove_locks.py` over running the three locks out of order.
@@ -195,3 +197,5 @@ Prior contract PASS times remain those recorded in Run 026–076. If a later run
 - Do not treat verify_write_path.py as a replacement for contract_shape.py or write_path_contract.py.
 - Do not treat prove_locks.py as a replacement for placeholder_guard.py, words_contract.py, or verify_write_path.py.
 - Do not treat words_contract PASS, PLACEHOLDER GUARD PASS, or PROVE LOCKS PASS as apply --write.
+- Do not treat WAVE 3 queue_status / next_topic as mark_topic-only after a folder exists; they print idea_brief --block / paste / --check.
+- Do not strip idea_brief --block/--check from this page's WAVE 3 board paragraph.
