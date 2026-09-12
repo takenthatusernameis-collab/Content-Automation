@@ -58,6 +58,8 @@ def main() -> int:
         print(f"Next: {row['id']} — {title}")
         print(f"One-line: {row['one_line']}")
         print(f"Predicted path: {dest}")
+        print("Optional before scaffold (no folder required; writes nothing):")
+        print(f"  python3 tools/idea_brief.py --queue {row['id']}")
         print("Scaffold (human / instructed agent only; not the fixture):")
         print(f'  python3 tools/new_packet.py "{title}"')
         print(f'  python3 tools/new_idea.py "{row["one_line"]}"')

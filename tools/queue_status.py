@@ -105,6 +105,10 @@ def report(text: str, folders: list[str], predicted_id: str, videos: Path) -> tu
         slug = slugify(first_queued["working_title"])
         dest = f"videos/{predicted_id}-{slug}"
         lines.append(f"Next scaffold: {first_queued['id']} -> {dest}")
+        lines.append(
+            f"  python3 tools/idea_brief.py --queue {first_queued['id']}"
+        )
+        lines.append("  (optional pre-scaffold reprint; writes nothing; no folder required)")
         lines.append(f'  python3 tools/new_packet.py "{first_queued["working_title"]}"')
         lines.append("  (human / instructed agent only; do not auto-scaffold)")
     else:
