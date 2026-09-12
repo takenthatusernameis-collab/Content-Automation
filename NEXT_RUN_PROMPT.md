@@ -2,6 +2,12 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 082:
+
+- hint.py fill-idea must keep printing `idea_brief.py PATH`, `--block`, and `--check`. write-script / expand-script must keep printing `words.py PATH` and apply from `PATH/draft.md`. Do not revert to "paste from the new_packet reprint" + `apply --from FILE`.
+- After scaffold on a live packet, `python3 tools/hint.py PATH` is the copy-paste surface. Do not add a lock around hint.py. Do not map hint.py.
+- Remaining high-value work is still human-owned: scaffold Q1, paste idea fields, land WORDS in band, apply --write --refresh, set_status ready_for_vo.
+
 Targeted addition from Run 081:
 
 - After a GitHub write of a high-risk tool (words.py, words_contract.py, write_path_contract.py, apply_script.py, set_status.py, contract_shape.py, verify_write_path.py, placeholder_guard.py, prove_locks.py), run `python3 tools/prove_locks.py` first. Expect each inner PASS then PROVE LOCKS PASS, exit 0, no videos/ writes. FAIL if placeholder_guard.py, words_contract.py, or verify_write_path.py is missing or any step exits non-zero.
@@ -14,4 +20,3 @@ Targeted addition from Run 081:
 - Do not add another order wrapper around prove_locks.py.
 - Do not map words.py, words_contract.py, placeholder_guard.py, or prove_locks.py.
 - Do not treat Delta, Hook Delta, Beats, Thin, Grow, Cut, WORDS CONTRACT PASS, PLACEHOLDER GUARD PASS, or PROVE LOCKS PASS as permission to invent filler or to apply --write.
-- Remaining high-value work is still human-owned: scaffold Q1, paste idea fields, land WORDS in band, apply --write --refresh, set_status ready_for_vo.
