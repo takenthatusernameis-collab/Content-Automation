@@ -19,7 +19,12 @@ if str(TOOLS) not in sys.path:
 from hint import commands_for  # noqa: E402
 from next_action import recommend  # noqa: E402
 from pipeline_status import inspect, packet_dirs  # noqa: E402
+from queue_lib import existing_dirs, next_id  # noqa: E402
+from queue_status import queue_next_footer  # noqa: E402
 from validate_packet import packet_duration_warning  # noqa: E402
+
+QUEUE = ROOT / "docs" / "topic_queue.md"
+VIDEOS = ROOT / "videos"
 
 
 def format_block(path: Path, row: dict[str, object]) -> str:
@@ -82,8 +87,10 @@ def main() -> int:
 
     if args.packet:
         targets = [Path(args.packet).resolve()]
+        show_queue = False
     else:
         targets = packet_dirs(ROOT)
+        show_queue = True
         if not targets:
             print("no packets under videos/", file=sys.stderr)
             return 1
@@ -97,6 +104,10 @@ def main() -> int:
     sys.stdout.write("\n".join(blocks))
     if len(targets) > 1:
         sys.stdout.write(format_summary(rows))
+    if show_queue and QUEUE.is_file():
+        text = QUEUE.read_text(encoding="utf-8")
+        folders = existing_dirs(VIDEOS)
+        sys.stdout.write(queue_next_footer(text, folders, next_id(VIDEOS)))
     if args.strict and any(r["gate"] == "FAIL" or r["drift"] for r in rows):
         return 1
     return 0
