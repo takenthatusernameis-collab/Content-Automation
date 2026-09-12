@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-12T04:10:00Z (Run 085)
+Updated: 2026-09-12T05:10:00Z (Run 086)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + write_path_contract body + contract_shape trio lock + verify_write_path order lock + words.py band + delta + hook delta + beats/thin + grow + cut + words_contract + placeholder_guard (includes prove_locks.py) + prove_locks order wrapper + NEXT_RUN_PROMPT names prove_locks first + hint.py prints idea_brief and words.py + next_action/doctor Why names idea_brief --block/--check + queue_status/next_topic print idea_brief after folder exists + human_session start names those idea_brief lines** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + write_path_contract body + contract_shape trio lock + verify_write_path order lock + words.py band + delta + hook delta + beats/thin + grow + cut + words_contract + placeholder_guard (includes prove_locks.py) + prove_locks order wrapper + NEXT_RUN_PROMPT names prove_locks first + hint.py prints idea_brief and words.py + next_action/doctor Why names idea_brief --block/--check + queue_status/next_topic print idea_brief after folder exists + human_session start names those idea_brief lines + agent_session WAVE 3 board names those idea_brief lines** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -30,27 +30,28 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - next_action.py Why for fill-idea names idea_brief --block / paste / --check. doctor.py and hint.py reprint that Why. It writes nothing.
 - queue_status.py is a read-only board. Run 084 prints idea_brief --block / paste / --check under mark-needed folders. It still writes nothing. It is not a lock.
 - next_topic.py is a read-only next-row printer. Run 084 prints idea_brief --block / paste / --check after the predicted folder. It still writes nothing. It is not a lock.
-- docs/human_session.md start-of-session section now names those same idea_brief lines (Run 085). It is the human page, not a lock.
+- docs/human_session.md start-of-session section names those same idea_brief lines (Run 085). It is the human page, not a lock.
+- docs/agent_session.md WAVE 3 board paragraph names those same idea_brief lines (Run 086). It is the clone-less agent page, not a lock.
 
-## What exists now (after Run 085)
-- docs/human_session.md Start every session names idea_brief --block / paste / --check after a mark-needed folder exists and after next_topic prints a predicted path that already exists
-- Isolated check: human_session contains idea_brief.py, --block, and --check in the start section, not only in the later reprint block
-- Frozen doctor/needed/which_contract/router/idea_brief/words/prove_locks/placeholder_guard/hint/next_action/queue_status/next_topic command lists not edited this run
+## What exists now (after Run 086)
+- docs/agent_session.md WAVE 3 / stop section names idea_brief --block / paste / --check after a mark-needed folder exists
+- Isolated check: agent_session contains idea_brief.py, --block, and --check in the WAVE 3 board paragraph, not only in Unmapped locks
+- Frozen doctor/needed/which_contract/router/idea_brief/words/prove_locks/placeholder_guard/hint/next_action/queue_status/next_topic/human_session command lists not edited this run
 - No new packet folder; queue still queued
 - idea_gate / operator_pin / idea_brief_contract / words_contract / placeholder_guard / prove_locks stay unmapped
 
 ## Pipeline map
 After scaffold: idea_brief --block / paste / --check / expand off-repo / save draft.md / `words.py PATH` / apply dry-run / --write --refresh / set_status ready_for_vo if WORDS in band.
 After a GitHub write of any high-risk tool: `python3 tools/prove_locks.py`.
-Start of session: `python3 tools/queue_status.py` then `python3 tools/next_topic.py`. After a mark-needed folder exists, those printers name idea_brief --block/--check. `docs/human_session.md` start section now says the same. After scaffold on a live packet, `python3 tools/hint.py PATH` still prints idea_brief and words.py lines; `python3 tools/next_action.py PATH` Why still names idea_brief --block/--check.
+Start of session: `python3 tools/queue_status.py` then `python3 tools/next_topic.py`. After a mark-needed folder exists, those printers name idea_brief --block/--check. `docs/human_session.md` start section says the same. `docs/agent_session.md` WAVE 3 board paragraph now says the same. After scaffold on a live packet, `python3 tools/hint.py PATH` still prints idea_brief and words.py lines; `python3 tools/next_action.py PATH` Why still names idea_brief --block/--check.
 
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 90 | 89 | start page no longer omits idea_brief after a folder exists |
-| Automated steps | 71 | 71 | no new lock; session page now matches the printers |
+| Estimated human min / video | 89 | 88 | agent page no longer omits idea_brief after a folder exists |
+| Automated steps | 71 | 71 | no new lock; agent page now matches the printers |
 | Videos produced | 0 | 0 | fixture only |
-| Write-path contract | body + trio + ordered verify 070 | unchanged 085 | run prove_locks.py after a high-risk GitHub write |
+| Write-path contract | body + trio + ordered verify 070 | unchanged 086 | run prove_locks.py after a high-risk GitHub write |
 
 ## Active constraints
 - Do not auto-scaffold Q1
@@ -74,3 +75,4 @@ Start of session: `python3 tools/queue_status.py` then `python3 tools/next_topic
 - Do not revert next_action fill-idea Why to "paste the new_packet reprint"
 - Do not strip idea_brief --block/--check from queue_status mark-needed follow-up or next_topic after-folder lines
 - Do not strip idea_brief --block/--check from docs/human_session.md start-of-session text
+- Do not strip idea_brief --block/--check from docs/agent_session.md WAVE 3 board paragraph

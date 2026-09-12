@@ -21,6 +21,7 @@
 51ae. next_action fill-idea Why names idea_brief --block/--check — **done (Run 083)**
 51af. queue_status + next_topic print idea_brief after a folder exists — **done (Run 084)**
 51ag. human_session start names idea_brief after a folder exists — **done (Run 085)**
+51ah. agent_session WAVE 3 board names idea_brief after a folder exists — **done (Run 086)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -49,3 +50,4 @@
 - Reverting next_action fill-idea Why to "paste the new_packet reprint"
 - Stripping idea_brief --block/--check from queue_status or next_topic
 - Stripping idea_brief --block/--check from docs/human_session.md start-of-session text
+- Stripping idea_brief --block/--check from docs/agent_session.md WAVE 3 board paragraph
