@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-12T10:20:00Z — Run 091
+
+- **Objective:** After expand_prompt prints Idea locks, stop apply dry-run from accepting a generic draft that never names the pasted mechanism, and stop the first-draft writer prompt from writing script.md directly.
+- **Inspected:** STATE/NEXT/RUNS after Run 090. apply_script.py checked headings, hook band, fixture, and expand-prompt markers only. prompts/script_writer.md ended at validate_packet / expand_brief and did not name draft.md or words.py.
+- **Action taken:** Added idea_lock_notes() to tools/apply_script.py. Dry-run prints INFO for mechanism / topic token overlap. INFO is not a check() error and does not change exit codes. Updated prompts/script_writer.md to treat idea.md fields as locks, save PATH/draft.md, and run words.py + apply dry-run before --write --refresh. Did not edit write_path_contract, contract_shape, prove_locks, placeholder_guard, words.py, needed.py, idea_brief, or operator boards. Did not scaffold Q1. Did not write idea.md. Did not map any file. Did not turn INFO into FAIL.
+- **Result:** First push of apply_script.py accidentally landed PLACEHOLDER_SEE_NEXT (commit 6f6a4da). Restored same run to 10697 bytes (commit 9950bd9) with idea_lock_notes(). script_writer.md names draft.md, words.py, and lock-miss rewrite. Queue rows remain queued. No new packet folder. No media.
+- **Verification status:** completed for committed apply_script.py size 10697 and markers (idea lock, does not block --write). unverified for live apply against a real packet folder (HTTPS clone blocked; packet tree not on this sandbox disk). Did not claim WRITE PATH CONTRACT PASS, WORDS CONTRACT PASS, PLACEHOLDER GUARD PASS, or PROVE LOCKS PASS this run. Human should run prove_locks.py after this high-risk apply_script write. Recorded the placeholder in FAILURES.md.
+- **Important discovery:** Idea locks in the expand prompt are wasted if apply still reports OK on a draft that never uses the mechanism tokens.
+- **Blocker:** Still waiting on a human-owned non-fixture draft in band. HTTPS clone remains unavailable; do not retry it as the first action.
+- **Recommended next action:** Human runs `python3 tools/queue_status.py` then follows `docs/human_session.md`. After a mark-needed folder exists, paste idea_brief --block, --check, expand_prompt, save draft.md, words.py, apply dry-run (read lock INFO). Do not make lock INFO a BLOCKED error. Do not auto-write idea.md. Do not auto-scaffold Q1. After a GitHub write of a high-risk tool, run `python3 tools/prove_locks.py`.
+
 ## 2026-09-12T09:16:00Z — Run 090
 
 - **Objective:** After idea_brief --block fills all six idea.md fields, stop the expand writer from treating idea.md as an optional blob and stop the refuse path from sending the operator back to the new_packet reprint.
