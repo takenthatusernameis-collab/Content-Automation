@@ -28,8 +28,10 @@
 | 2026-09-12 Run 081 | ~93 estimate | 71 | placeholder_guard witnesses prove_locks.py; isolated FAIL verified |
 | 2026-09-12 Run 082 | ~92 estimate | 71 | hint.py prints idea_brief + words.py + draft.md apply lines |
 | 2026-09-12 Run 083 | ~91 estimate | 71 | next_action fill-idea Why names idea_brief --block/--check |
+| 2026-09-12 Run 084 | ~90 estimate | 71 | queue_status + next_topic print idea_brief after a folder exists |
 
 Estimate basis (generic 8-min explainer):
+- Run 084: -1 stop a future operator from treating queue_status/next_topic as "only mark_topic" after the folder exists
 - Run 083: -1 stop a future operator from treating doctor/next_action Why as "remember the new_packet reprint"
 - Run 082: -1 stop a future operator from scanning human_session after hint.py already printed the next packet code
 - Run 081: -1 stop a future fallback from treating an emptied prove_locks.py as live while the inner three still pass
@@ -39,6 +41,7 @@ Estimate basis (generic 8-min explainer):
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 084: `tools/queue_status.py` mark-needed follow-up and `tools/next_topic.py` after-folder lines name idea_brief --block / paste / --check. No new file. Still not a lock.
 - Run 083: `tools/next_action.py` fill-idea Why names idea_brief --block / paste / --check. doctor.py and hint.py reprint that Why. No new file. Still not a lock.
 - Run 082: `tools/hint.py` fill-idea prints idea_brief reprint/--block/--check. write-script/expand-script print words.py and apply from PATH/draft.md. Fixture still refuses apply --write. No new file. Still not a lock.
 - Run 081: `tools/placeholder_guard.py` also witnesses prove_locks.py (800-byte floor + PROVE LOCKS PASS + inner three filenames). Isolated missing and 8-byte bodies FAIL. No new file. Still unmapped.

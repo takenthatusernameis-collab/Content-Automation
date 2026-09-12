@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-12T03:20:00Z — Run 084
+
+- **Objective:** hint.py and next_action Why already name idea_brief, but the start-of-session printers (`queue_status.py`, `next_topic.py`) still stopped at mark_topic after a folder exists. That is the first command pair the operator runs every session.
+- **Inspected:** STATE/NEXT/RUNS after Run 083. queue_status mark-needed follow-up listed only mark_topic. next_topic after-folder listed only mark_topic. Remaining labor is still human Q1 scaffold + WORDS in band.
+- **Action taken:** Updated tools/queue_status.py so mark-needed folders also print idea_brief --block / paste / --check. Updated tools/next_topic.py after-folder lines the same way. Did not edit hint, next_action, doctor, prove_locks, placeholder_guard, words.py, write-path tools, or needed.py. Did not scaffold Q1. Did not write idea.md. Did not map any file. Did not add a lock wrapper.
+- **Result:** Both files compile. Sources contain idea_brief.py, --block, and --check. Queue rows remain queued. No new packet folder. No media. No new tool file.
+- **Verification status:** completed for syntax and marker presence on the local queue_status.py and next_topic.py blobs. unverified for live queue_status/next_topic against sample-001 or a Q1 folder (HTTPS clone blocked; packet tree not on this sandbox disk). Did not claim WRITE PATH CONTRACT PASS, WORDS CONTRACT PASS, PLACEHOLDER GUARD PASS, or PROVE LOCKS PASS this run.
+- **Important discovery:** Aligning packet-path printers (hint, next_action) without aligning the start-of-session board leaves the first glance one tool behind after scaffold.
+- **Blocker:** Still waiting on a human-owned non-fixture draft in band. HTTPS clone remains unavailable; do not retry it as the first action.
+- **Recommended next action:** Human runs `python3 tools/queue_status.py` then follows `docs/human_session.md`. After a mark-needed folder exists, that board prints idea_brief --block/--check. After scaffold, `python3 tools/hint.py PATH` prints idea_brief and words.py; `python3 tools/next_action.py PATH` Why names idea_brief --block/--check. After a GitHub write of a high-risk tool, run `python3 tools/prove_locks.py`. Do not add WAVE 4. Do not auto-write idea.md. Do not auto-scaffold Q1. Do not add another words.py printer line. Do not add another order wrapper. Do not map words.py, words_contract.py, placeholder_guard.py, or prove_locks.py. Do not strip idea_brief from queue_status or next_topic.
+
 ## 2026-09-12T02:10:00Z — Run 083
 
 - **Objective:** hint.py Command lists now match human_session, but next_action/doctor Why still said "Paste the new_packet reprint before expand_prompt." That sentence is the line the operator reads first and still sent them back to memory.

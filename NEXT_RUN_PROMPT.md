@@ -2,6 +2,11 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 084:
+
+- queue_status.py mark-needed follow-up must keep printing `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check`. next_topic.py after-folder lines must keep the same three lines. Do not revert those printers to mark_topic-only.
+- Do not add a lock around queue_status.py or next_topic.py. Do not map them.
+
 Targeted addition from Run 083:
 
 - next_action.py fill-idea Why must keep naming idea_brief --block / paste / --check. doctor.py and hint.py reprint that Why. Do not revert to "Paste the new_packet reprint before expand_prompt."
