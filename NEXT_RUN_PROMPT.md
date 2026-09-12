@@ -2,6 +2,12 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 090:
+
+- expand_prompt.py must keep an Idea locks section parsed from idea.md (topic, viewer, problem, mechanism, why now, related).
+- expand_prompt refuse text must name idea_brief --block / --check, not the new_packet reprint.
+- Do not map expand_prompt.py. Do not write script.md from it.
+
 Targeted addition from Run 089:
 
 - idea_brief.py --block must keep printing the full idea.md template: topic, viewer, problem, mechanism, why now, related videos to avoid repeating. Do not shrink it back to three fields.
