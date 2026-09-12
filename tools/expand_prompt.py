@@ -6,6 +6,11 @@ Stdout only. A printed prompt is not a draft and is not permission to
 pad videos/sample-001-*.
 Refuses a blank or template-default idea.md mechanism so scaffolded
 packets cannot expand before the operator pastes a real system.
+
+Run 090: assembled prompt prints parsed idea locks (topic, viewer,
+problem, mechanism, why now, related) so the writer cannot ignore the
+pasted idea.md. Refuse text names idea_brief --block / --check, not
+the new_packet reprint.
 """
 
 from __future__ import annotations
@@ -64,6 +69,27 @@ def idea_mechanism_blank(idea_text: str) -> bool:
     if val in BLANK_MECHANISM:
         return True
     return val.startswith("template-default")
+
+
+def idea_locks(idea_text: str) -> str:
+    """Parse idea.md fields into explicit writer locks."""
+    topic = field(idea_text, "topic") or "(blank)"
+    viewer = field(idea_text, "viewer") or "(blank)"
+    problem = field(idea_text, "problem") or "(blank)"
+    mechanism = idea_mechanism(idea_text) or "(blank)"
+    why_now = field(idea_text, "why now") or "(blank)"
+    related = field(idea_text, "related videos to avoid repeating") or "(blank)"
+    return (
+        "Use these fields as locks. Do not replace them with a generic weekly-planning pep talk.\n"
+        f"- topic: {topic}\n"
+        f"- viewer: {viewer}\n"
+        f"- problem: {problem}\n"
+        f"- mechanism: {mechanism}\n"
+        f"- why now: {why_now}\n"
+        f"- related videos to avoid repeating: {related}\n"
+        "Hook and payoff must name this mechanism. Beats must show the viewer using it.\n"
+        "If related is not 'none published yet', do not retell those videos."
+    )
 
 
 def render(packet: Path, *, docs_root: Path | None = None) -> str:
@@ -137,6 +163,9 @@ You are expanding an existing YouTube explainer script. Return a complete
 - Do not copy the budget table into WORDS.
 - Do not write files. Do not claim VO or cards exist.
 
+## Idea locks
+{idea_locks(idea)}
+
 ## Channel
 {_clip(channel, 1500)}
 
@@ -157,12 +186,12 @@ You are expanding an existing YouTube explainer script. Return a complete
 
 ## Output
 Replace only WORDS / VISUAL bodies. Preserve headings. After the human
-pastes the result into a *non-fixture* packet they will run:
+saves the result to PATH/draft.md on a *non-fixture* packet they will run:
 
 ```
-python3 tools/validate_packet.py PATH
-python3 tools/validate_packet.py --duration PATH
-python3 tools/expand_brief.py PATH --force
+python3 tools/words.py PATH
+python3 tools/apply_script.py PATH --from PATH/draft.md
+python3 tools/apply_script.py PATH --from PATH/draft.md --write --refresh
 ```
 """
 
@@ -193,10 +222,12 @@ def main() -> int:
             file=sys.stderr,
         )
         print(
-            "Paste the new_packet reprint into idea.md first. "
+            "Paste idea_brief --block into idea.md by hand, then --check. "
             "This command does not write idea.md or script.md.",
             file=sys.stderr,
         )
+        print(f"  python3 tools/idea_brief.py {path} --block", file=sys.stderr)
+        print(f"  python3 tools/idea_brief.py {path} --check", file=sys.stderr)
         return 2
 
     text = render(path)
