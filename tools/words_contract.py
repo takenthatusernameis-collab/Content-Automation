@@ -4,6 +4,9 @@
 Catches a placeholder or emptied words.py (Run 076) and proves Grow/Cut
 still print on temp drafts. Writes nothing under videos/. Not a reconstruct
 wave. Not mapped in needed.py.
+
+Run 094: also prove an IN BAND tempfile draft still exits 0 under --strict
+while idea-lock INFO prints. INFO must not become the --strict reason.
 """
 
 from __future__ import annotations
@@ -81,6 +84,38 @@ WORDS: Keep it visible.
 WORDS: Write tomorrow first.
 """
 
+IN_PAD = " word" * 1000
+IN_BAND_DRAFT = f"""# Script
+
+## Hook (0:00–0:12)
+
+WORDS: Morning starts by reopening the whole list again tonight.
+
+## Payoff promise
+
+WORDS: A written next action stops the reopen loop.
+
+## Beat 1 — reopen
+
+WORDS:{IN_PAD}
+
+## Beat 2 — default
+
+WORDS: Write one default on paper before sleep.
+
+## Beat 3 — start
+
+WORDS: Start that written line before any other list.
+
+## Beat 4 — protect
+
+WORDS: Keep the default visible overnight on the desk.
+
+## CTA
+
+WORDS: Write tomorrow first before you close the laptop.
+"""
+
 
 def run_words(draft: Path, strict: bool = True) -> tuple[int, str]:
     cmd = [sys.executable, str(WORDS), str(draft)]
@@ -117,8 +152,10 @@ def main() -> int:
         tmp_path = Path(tmp)
         below = tmp_path / "below.md"
         above = tmp_path / "above.md"
+        inside = tmp_path / "inband.md"
         below.write_text(BELOW_DRAFT, encoding="utf-8")
         above.write_text(ABOVE_DRAFT, encoding="utf-8")
+        inside.write_text(IN_BAND_DRAFT, encoding="utf-8")
 
         code_b, out_b = run_words(below)
         print("--- below ---")
@@ -149,6 +186,20 @@ def main() -> int:
             failures.append("above draft should print idea-lock INFO (or unavailable fallback)")
         if code_a != 2:
             failures.append(f"above --strict should exit 2, got {code_a}")
+
+        code_i, out_i = run_words(inside)
+        print("--- in-band ---")
+        print(out_i.strip() or "(no stdout)")
+        if "Result: IN BAND" not in out_i:
+            failures.append("in-band draft should print Result: IN BAND")
+        if "INFO" not in out_i:
+            failures.append("in-band draft should print idea-lock INFO (or unavailable fallback)")
+        if "Result: BELOW" in out_i or "Result: ABOVE" in out_i:
+            failures.append("in-band draft must not print BELOW/ABOVE")
+        if code_i != 0:
+            failures.append(
+                f"in-band --strict should exit 0 even with idea-lock INFO, got {code_i}"
+            )
 
     if failures:
         print("WORDS CONTRACT FAIL")

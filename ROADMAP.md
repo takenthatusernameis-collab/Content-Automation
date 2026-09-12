@@ -8,6 +8,7 @@
 51am. apply_script dry-run prints idea-lock INFO — **done (Run 091)**
 51an. idea_lock.py prints the same INFO — **done (Run 092)**
 51ao. words.py prints the same idea-lock INFO — **done (Run 093)**
+51ap. words_contract locks IN BAND --strict exit 0 with INFO present — **done (Run 094)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -24,3 +25,4 @@
 - Another primary run whose only change is naming idea_brief on one more page
 - Another wrapper CLI around idea_lock_notes
 - Dropping the words.py import fallback
+- Another words.py contract case unless the printer regresses

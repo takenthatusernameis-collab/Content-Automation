@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-12T12:15:00Z (Run 093)
+Updated: 2026-09-12T13:30:00Z (Run 094)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets + write-path + words.py band + idea-lock INFO inside words.py** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + write-path + words.py band + idea-lock INFO + words_contract IN BAND --strict 0** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -15,16 +15,15 @@ manual -> assisted scaffolding -> **monitored packets + write-path + words.py ba
 - HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
 - idea_brief reprints only; never writes idea.md
 - PATH/draft.md is not script.md until apply --write
-- Run 091: apply_script.py dry-run prints idea-lock INFO. INFO never blocks --write.
-- Run 092: tools/idea_lock.py prints the same INFO. Exit 0. Unmapped.
 - Run 093: words.py print_idea_lock_notes() imports apply_script.idea_lock_notes after Next. Fallback INFO if import fails. --strict still keys off the total band only.
+- Run 094: words_contract.py proves an IN BAND tempfile draft exits 0 under --strict while INFO still prints. Did not map words_contract.py.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 
-## What exists now (after Run 093)
+## What exists now (after Run 094)
 - tools/idea_lock.py still available as an optional extra CLI
 - apply_script.py still owns idea_lock_notes()
 - words.py prints idea-lock INFO so the extra CLI is not required
-- words_contract.py checks the print_idea_lock_notes marker and that INFO appears; --strict still exits 2 on BELOW/ABOVE
+- words_contract.py checks markers, BELOW/ABOVE exit 2, IN BAND --strict exit 0, and that INFO appears
 - No new packet folder; queue still queued
 
 ## Pipeline map
@@ -36,8 +35,8 @@ Start of session: `python3 tools/queue_status.py` then `python3 tools/next_topic
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 82 | 81 | idea-lock INFO now rides on the words.py pass |
-| Automated steps | 73 | 74 | words.py folds apply_script.idea_lock_notes |
+| Estimated human min / video | 81 | 80 | --strict IN BAND path is now locked, not just documented |
+| Automated steps | 74 | 75 | words_contract covers IN BAND + INFO |
 | Videos produced | 0 | 0 | fixture only |
 
 ## Active constraints
@@ -49,3 +48,4 @@ Start of session: `python3 tools/queue_status.py` then `python3 tools/next_topic
 - Do not retry HTTPS clone as the first action
 - Do not spend a run aligning another page to name idea_brief
 - Do not drop the words.py import fallback
+- Do not add another wrapper CLI around idea_lock_notes

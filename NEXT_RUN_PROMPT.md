@@ -2,11 +2,17 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 094:
+
+- words_contract.py must keep an IN BAND tempfile case. --strict must exit 0 on that case even when INFO prints.
+- Do not add another words.py printer fold or wrapper CLI.
+- Do not auto-scaffold Q1.
+
 Targeted addition from Run 093:
 
 - words.py must keep printing apply_script.idea_lock_notes() after the band / Grow / Cut / Next lines.
 - Those INFO lines must not change --strict and must not become apply --write.
-- Keep the import fallback. Do not add another wrapper CLI. Do not auto-scaffold Q1.
+- Keep the import fallback.
 
 Targeted addition from Run 092:
 
