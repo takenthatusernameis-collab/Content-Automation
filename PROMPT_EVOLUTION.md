@@ -4,7 +4,8 @@ Keep ORIGINAL_MASTER_PROMPT.md archival and unchanged.
 
 ## Evidence-based additions (do not silently rewrite the master)
 
-- Run 092: words.py must keep printing apply_script.idea_lock_notes() as INFO. --strict still keys off the total band only.
+- Run 093: words.py must keep printing apply_script.idea_lock_notes() as INFO. --strict still keys off the total band only. Do not add another wrapper CLI.
+- Run 092: idea_lock.py optional extra printer. Exit 0. Unmapped.
 - Run 091: apply dry-run idea-lock INFO must stay INFO. script_writer must keep the draft.md path.
 - Run 090: expand_prompt Idea locks + idea_brief refuse text.
 - Run 089: idea_brief --block six fields; --check still three; no more page-alignment runs.

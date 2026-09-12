@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-12T11:12:00Z (Run 092)
+Updated: 2026-09-12T12:15:00Z (Run 093)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets + write-path + words.py band + apply idea-lock INFO + idea_lock.py printer** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + write-path + words.py band + idea-lock INFO inside words.py** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -16,25 +16,28 @@ manual -> assisted scaffolding -> **monitored packets + write-path + words.py ba
 - idea_brief reprints only; never writes idea.md
 - PATH/draft.md is not script.md until apply --write
 - Run 091: apply_script.py dry-run prints idea-lock INFO. INFO never blocks --write.
-- Run 092: tools/idea_lock.py prints the same INFO against draft.md/script.md. Exit 0. Unmapped. words.py does **not** yet import idea_lock_notes (fold that next if no Q1 packet exists).
+- Run 092: tools/idea_lock.py prints the same INFO. Exit 0. Unmapped.
+- Run 093: words.py print_idea_lock_notes() imports apply_script.idea_lock_notes after Next. Fallback INFO if import fails. --strict still keys off the total band only.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 
-## What exists now (after Run 092)
-- tools/idea_lock.py committed
+## What exists now (after Run 093)
+- tools/idea_lock.py still available as an optional extra CLI
 - apply_script.py still owns idea_lock_notes()
-- words.py unchanged this run (still band / Grow / Cut only)
+- words.py prints idea-lock INFO so the extra CLI is not required
+- words_contract.py checks the print_idea_lock_notes marker and that INFO appears; --strict still exits 2 on BELOW/ABOVE
 - No new packet folder; queue still queued
 
 ## Pipeline map
-After scaffold: idea_brief --block / paste / --check / expand_prompt / save draft.md / `words.py PATH` / `idea_lock.py PATH` / apply dry-run / `--write --refresh` / set_status ready_for_vo if WORDS in band.
+After scaffold: idea_brief --block / paste / --check / expand_prompt / save draft.md / `words.py PATH` / apply dry-run / `--write --refresh` / set_status ready_for_vo if WORDS in band.
+`idea_lock.py PATH` is optional once words.py prints the notes.
 After a high-risk GitHub write: `python3 tools/prove_locks.py`.
 Start of session: `python3 tools/queue_status.py` then `python3 tools/next_topic.py`.
 
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 83 | 82 | idea_lock.py shows mechanism miss before apply |
-| Automated steps | 72 | 73 | new read-only printer wrapping idea_lock_notes |
+| Estimated human min / video | 82 | 81 | idea-lock INFO now rides on the words.py pass |
+| Automated steps | 73 | 74 | words.py folds apply_script.idea_lock_notes |
 | Videos produced | 0 | 0 | fixture only |
 
 ## Active constraints
@@ -45,4 +48,4 @@ Start of session: `python3 tools/queue_status.py` then `python3 tools/next_topic
 - Do not write idea.md from idea_brief
 - Do not retry HTTPS clone as the first action
 - Do not spend a run aligning another page to name idea_brief
-- Next code fold if Q1 is still absent: words.py imports idea_lock_notes so the extra CLI is not required
+- Do not drop the words.py import fallback

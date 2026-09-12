@@ -2,11 +2,15 @@
 
 Keep the original master prompt unchanged.
 
-Targeted addition from Run 092:
+Targeted addition from Run 093:
 
 - words.py must keep printing apply_script.idea_lock_notes() after the band / Grow / Cut / Next lines.
 - Those INFO lines must not change --strict and must not become apply --write.
-- Do not drop the import fallback. Do not auto-scaffold Q1.
+- Keep the import fallback. Do not add another wrapper CLI. Do not auto-scaffold Q1.
+
+Targeted addition from Run 092:
+
+- tools/idea_lock.py may remain as an optional extra printer. It must stay unmapped and must not block --write.
 
 Targeted addition from Run 091:
 
