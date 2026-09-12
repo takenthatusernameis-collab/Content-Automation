@@ -15,6 +15,8 @@
 51at. doctor all-packet Queue next footer; queue_contract locks it — **done (Run 098)**
 51au. needed.py --plan WAVE 3 prints doctor then board printers; doctor stays unmapped — **done (Run 099)**
 51av. needed.py --plan WAVE 3 reconstructs unmapped doctor.py before running it — **done (Run 100)**
+51aw. needed.py doctor.py reconstruct lists imports so READY means doctor can import — **done (Run 101)**
+51ax. needed.py doctor.py reconstruct lists next_topic.py so READY means WAVE 3 start can run — **done (Run 102)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet

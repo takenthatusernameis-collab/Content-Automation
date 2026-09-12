@@ -19,15 +19,13 @@
 | 2026-09-12 Run 099 | ~75 estimate | 80 | needed --plan WAVE 3 prints doctor + board; doctor stays unmapped |
 | 2026-09-12 Run 100 | ~74 estimate | 81 | WAVE 3 reconstructs unmapped doctor.py before the start command |
 | 2026-09-12 Run 101 | ~73 estimate | 82 | needed.py doctor.py lists imports; READY only when doctor can run |
+| 2026-09-12 Run 102 | ~72 estimate | 83 | doctor reconstruct lists next_topic.py; READY only when WAVE 3 start can run |
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 102: needed.py doctor.py reconstruct lists doctor.py plus hint, next_action, pipeline_status, queue_lib, queue_status, validate_packet, next_topic, topic_queue. --missing READY only when those nine exist. --plan WAVE 3 still does not dump the list. which_contract.MAP unchanged. Still no packet.
 - Run 101: needed.py doctor.py reconstruct lists doctor.py plus hint, next_action, pipeline_status, queue_lib, queue_status, validate_packet, topic_queue. --missing READY only when those eight exist. --plan WAVE 3 still does not dump the list. which_contract.MAP unchanged. Still no packet.
 - Run 100: needed.py --plan WAVE 3 prints `needed.py doctor.py --missing` after the queue reconstruct line and before doctor / queue_status / next_topic. which_contract.MAP unchanged. Still no packet.
 - Run 099: needed.py --plan WAVE 3 prints doctor.py then queue_status.py then next_topic.py after the queue reconstruct line. `needed.py doctor.py` is an unmapped operator hint, not Unknown. which_contract.MAP unchanged. Still no packet.
 - Run 098: doctor.py with no packet path appends queue_next_footer after fixture health. First ok-queued `--queue` only. queue_contract locks Q2-when-Q1-mark-needed and Q1-when-empty-folders. Still no packet.
-- Run 097: queue_status.py and next_topic.py print idea_brief --queue ID before scaffold. queue_contract requires --queue Q2 on the tempfile board and forbids --queue Q1 there (mark-needed). Still no packet.
-- Run 096: idea_brief_contract.py queue_locks() requires --queue Q1 six-field paste exit 0, missing id exit 2, --queue --check exit 2, and no predicted folder created. Still unmapped.
-- Run 095: idea_brief.py --queue ID reprints paste_block from topic_queue without a packet folder. Does not write idea.md. --check still requires a folder.
-- Run 094: words_contract.py IN_BAND_DRAFT must print Result: IN BAND and INFO, and --strict must exit 0. Still unmapped.

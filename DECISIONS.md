@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-12 | needed.py doctor.py reconstruct lists next_topic.py with doctor imports; READY only when those nine paths exist; doctor stays unmapped | Run 101 READY on eight files still hid a missing WAVE 3 start command | If Q1 is scaffolded; do not map doctor.py; do not add WAVE 4; do not dump the list inside --plan WAVE 3; do not steal next_topic.py from the queue_contract alias
 - 2026-09-12 | needed.py doctor.py reconstruct lists doctor imports and topic_queue; READY only when those eight paths exist; doctor stays unmapped | Run 100 named the reconstruct command but READY on tools/doctor.py alone still hid ImportError | If Q1 is scaffolded; do not map doctor.py; do not add WAVE 4; do not dump the list inside --plan WAVE 3
 - 2026-09-12 | needed.py --plan WAVE 3 reconstructs unmapped doctor.py (`needed.py doctor.py --missing`) before the start commands; doctor stays unmapped | Run 099 named the start command but clone-less agents could still skip fetching tools/doctor.py | If Q1 is scaffolded; do not map doctor.py; do not add WAVE 4; do not wrap doctor in start.py
 - 2026-09-12 | needed.py --plan WAVE 3 prints doctor.py then queue_status.py then next_topic.py; doctor.py stays unmapped in which_contract | Run 098 locked the human start command on doctor, but clone-less --plan still started at queue_status only | If Q1 is scaffolded; do not map doctor.py; do not add WAVE 4; do not wrap doctor in start.py
