@@ -2,6 +2,11 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 087:
+
+- README.md Human session must keep naming `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check` after a mark-needed folder exists, and `prove_locks.py` after a high-risk GitHub write. Do not revert that page to doctor / queue_status / next_topic only.
+- Do not add a lock around README.md.
+
 Targeted addition from Run 086:
 
 - docs/agent_session.md WAVE 3 board paragraph must keep naming `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check` after a mark-needed folder exists. Do not revert that page to "stop at the board" without those lines.
