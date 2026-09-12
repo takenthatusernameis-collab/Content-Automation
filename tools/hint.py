@@ -29,9 +29,17 @@ def rel(path: Path) -> str:
         return str(path)
 
 
+def draft_from(path: Path, p: str) -> str:
+    """Prefer PATH/draft.md when it already exists. Never invent WORDS."""
+    if (path / "draft.md").is_file():
+        return f"{p}/draft.md"
+    return f"{p}/draft.md"
+
+
 def commands_for(path: Path, row: dict[str, object], code: str) -> list[str]:
     """Zero or more copy-paste commands. Never includes --write by default."""
     p = rel(path)
+    draft = draft_from(path, p)
     if code == "skip":
         return []
     if code == "fix-gate":
@@ -40,22 +48,30 @@ def commands_for(path: Path, row: dict[str, object], code: str) -> list[str]:
         return [f"python3 tools/set_status.py {p} --to draft"]
     if code == "fill-idea":
         return [
-            "# paste topic/problem/mechanism into idea.md from the new_packet reprint",
-            "# expand_prompt exits 2 until that paste exists; it does not write idea.md",
-            f"python3 tools/doctor.py {p}",
+            f"python3 tools/idea_brief.py {p}",
+            f"python3 tools/idea_brief.py {p} --block",
+            "# paste that --block body into idea.md by hand; idea_brief writes nothing",
+            f"python3 tools/idea_brief.py {p} --check",
+            "# --check exit 2: paste still blank or mismatched; reprint --block",
+            "# --check exit 0 PASTE READY: then expand off-repo; do not treat stdout as script.md",
         ]
     if code in {"write-script", "expand-script"}:
-        cmds = [f"python3 tools/expand_prompt.py {p}"]
+        cmds = [
+            f"python3 tools/expand_prompt.py {p}",
+            f"# save the off-repo draft to {draft}; do not treat expand_prompt stdout as script.md",
+            f"python3 tools/words.py {p}",
+            "# read Result + Delta + Hook Delta + Beats + Thin + Grow or Cut; IN BAND is not apply --write",
+        ]
         if is_fixture(path):
             cmds.append(
                 "# fixture lock: do not apply_script --write onto this packet"
             )
         else:
             cmds.append(
-                f"python3 tools/apply_script.py {p} --from FILE"
+                f"python3 tools/apply_script.py {p} --from {draft}"
             )
             cmds.append(
-                f"# after dry-run OK: python3 tools/apply_script.py {p} --from FILE --write --refresh"
+                f"# after dry-run OK and words.py IN BAND: python3 tools/apply_script.py {p} --from {draft} --write --refresh"
             )
         return cmds
     if code in {"lock-titles", "lock-thumb"}:
