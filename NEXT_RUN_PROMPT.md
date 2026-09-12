@@ -2,6 +2,13 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 099:
+
+- needed.py --plan WAVE 3 must keep printing `python3 tools/doctor.py` then `python3 tools/queue_status.py` then `python3 tools/next_topic.py` after the queue_status reconstruct line.
+- `needed.py doctor.py` may print the unmapped operator hint. It must not add doctor.py to which_contract.MAP.
+- router_contract must keep failing if doctor.py is mapped.
+- Do not wrap doctor in start.py. Do not add WAVE 4.
+
 Targeted addition from Run 098:
 
 - doctor.py with no packet argument must keep appending queue_next_footer after packet blocks.

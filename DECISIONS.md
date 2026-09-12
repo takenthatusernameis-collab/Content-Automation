@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-12 | needed.py --plan WAVE 3 prints doctor.py then queue_status.py then next_topic.py; doctor.py stays unmapped in which_contract | Run 098 locked the human start command on doctor, but clone-less --plan still started at queue_status only | If Q1 is scaffolded; do not map doctor.py; do not add WAVE 4; do not wrap doctor in start.py
 - 2026-09-12 | doctor.py with no packet path appends queue_next_footer; single-packet doctor stays packet-only; queue_contract locks first ok-queued id | Start command listed in human_session hid Q1 behind fixture expand-script | If Q1 is scaffolded; do not print --queue for mark-needed; do not print footer on a path argument
 - 2026-09-12 | queue_status and next_topic print idea_brief --queue ID only for the first ok-queued row; queue_contract locks that print | Run 095/096 built --queue but the live board still hid it | If Q1 is scaffolded; do not print --queue for mark-needed rows
 - 2026-09-12 | idea_brief_contract.py must prove --queue Q1 paste, missing-id exit 2, and --queue --check exit 2 without creating a folder | Run 095 added --queue without a lock | If --queue regresses; do not map this contract; do not add another idea_brief flag

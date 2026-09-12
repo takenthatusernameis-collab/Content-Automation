@@ -4,6 +4,7 @@ Keep ORIGINAL_MASTER_PROMPT.md archival and unchanged.
 
 ## Evidence-based additions (do not silently rewrite the master)
 
+- Run 099: needed.py --plan WAVE 3 must print doctor.py then the board printers. doctor.py stays unmapped. Do not wrap doctor in start.py. Do not add WAVE 4.
 - Run 093: words.py must keep printing apply_script.idea_lock_notes() as INFO. --strict still keys off the total band only. Do not add another wrapper CLI.
 - Run 092: idea_lock.py optional extra printer. Exit 0. Unmapped.
 - Run 091: apply dry-run idea-lock INFO must stay INFO. script_writer must keep the draft.md path.
