@@ -2,6 +2,11 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 086:
+
+- docs/agent_session.md WAVE 3 board paragraph must keep naming `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check` after a mark-needed folder exists. Do not revert that page to "stop at the board" without those lines.
+- Do not add a lock around agent_session.md.
+
 Targeted addition from Run 085:
 
 - docs/human_session.md Start every session must keep naming `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check` after a mark-needed folder exists and after next_topic prints an existing predicted path. Do not revert that page to mark_topic-only.
