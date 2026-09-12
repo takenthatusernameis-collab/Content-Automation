@@ -18,10 +18,12 @@
 | 2026-09-12 Run 098 | ~76 estimate | 79 | doctor all-packet Queue next footer; contract locks mark-needed skip |
 | 2026-09-12 Run 099 | ~75 estimate | 80 | needed --plan WAVE 3 prints doctor + board; doctor stays unmapped |
 | 2026-09-12 Run 100 | ~74 estimate | 81 | WAVE 3 reconstructs unmapped doctor.py before the start command |
+| 2026-09-12 Run 101 | ~73 estimate | 82 | needed.py doctor.py lists imports; READY only when doctor can run |
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 101: needed.py doctor.py reconstruct lists doctor.py plus hint, next_action, pipeline_status, queue_lib, queue_status, validate_packet, topic_queue. --missing READY only when those eight exist. --plan WAVE 3 still does not dump the list. which_contract.MAP unchanged. Still no packet.
 - Run 100: needed.py --plan WAVE 3 prints `needed.py doctor.py --missing` after the queue reconstruct line and before doctor / queue_status / next_topic. which_contract.MAP unchanged. Still no packet.
 - Run 099: needed.py --plan WAVE 3 prints doctor.py then queue_status.py then next_topic.py after the queue reconstruct line. `needed.py doctor.py` is an unmapped operator hint, not Unknown. which_contract.MAP unchanged. Still no packet.
 - Run 098: doctor.py with no packet path appends queue_next_footer after fixture health. First ok-queued `--queue` only. queue_contract locks Q2-when-Q1-mark-needed and Q1-when-empty-folders. Still no packet.

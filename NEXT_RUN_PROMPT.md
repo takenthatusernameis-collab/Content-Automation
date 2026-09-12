@@ -2,6 +2,13 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 101:
+
+- `needed.py doctor.py` must keep listing doctor.py plus hint.py, next_action.py, pipeline_status.py, queue_lib.py, queue_status.py, validate_packet.py, and docs/topic_queue.md.
+- `--missing` READY only when those eight paths exist. Exit stays 0.
+- --plan WAVE 3 must still print only `needed.py doctor.py --missing`, not that file dump.
+- Do not add doctor.py to which_contract.MAP. Do not add WAVE 4.
+
 Targeted addition from Run 099:
 
 - needed.py --plan WAVE 3 must keep printing `python3 tools/doctor.py` then `python3 tools/queue_status.py` then `python3 tools/next_topic.py` after the queue_status reconstruct line.
@@ -44,23 +51,6 @@ Targeted addition from Run 093:
 
 - words.py must keep printing apply_script.idea_lock_notes() after the band / Grow / Cut / Next lines.
 - Those INFO lines must not change --strict. Keep the import fallback.
-
-Targeted addition from Run 092:
-
-- tools/idea_lock.py may remain as an optional extra printer. It must stay unmapped and must not block --write.
-
-Targeted addition from Run 091:
-
-- apply_script.py dry-run must keep printing idea-lock INFO. INFO must not become a check() error.
-
-Targeted addition from Run 090:
-
-- expand_prompt.py must keep an Idea locks section. Refuse text must name idea_brief --block / --check.
-
-Targeted addition from Run 089:
-
-- idea_brief.py --block must keep printing the full idea.md template. --check still gates three fields.
-- Do not spend the run aligning another markdown page to name idea_brief.
 
 Targeted addition from Run 081:
 
