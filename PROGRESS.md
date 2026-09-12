@@ -25,38 +25,16 @@
 | 2026-09-11 Run 078 | ~96 estimate | 69 | placeholder_guard.py fails emptied high-risk tools after a GitHub write |
 | 2026-09-11 Run 079 | ~95 estimate | 70 | prove_locks.py runs guard then words_contract then verify in one command |
 | 2026-09-11 Run 080 | ~94 estimate | 70 | NEXT_RUN_PROMPT names prove_locks first; no new tool |
+| 2026-09-12 Run 081 | ~93 estimate | 71 | placeholder_guard witnesses prove_locks.py; isolated FAIL verified |
 
 Estimate basis (generic 8-min explainer):
+- Run 081: -1 stop a future fallback from treating an emptied prove_locks.py as live while the inner three still pass
 - Run 080: -1 stop a future run from skipping prove_locks because the operating addendum still listed the three inner commands first
 - Run 079: -1 stop a future reconstruct from running one post-write lock while another was never fetched
-- Run 078: -1 stop a future run from treating an emptied write-path or words file as live after a placeholder GitHub write
-- Run 077: -1 stop a future run from treating an 8-byte placeholder words.py as the Grow/Cut printer
-- Run 076: -1 stop a future trim pass that cuts several headings instead of the longest surplus
-- Run 075: -1 stop a future expand pass that grows several thin headings instead of the empty or shortest one
-- Run 074: -1 stop a future expand pass that grows the wrong beat because only totals were visible
-- Run 073: -1 stop a future expand pass that guesses how many hook words to add/cut
-- Run 072: -1 stop a future expand pass that guesses how many words to add/cut
-- Run 071: -1 stop a future apply-then-WARN loop by checking draft.md words first
-- Run 070: -1 stop a reconstruct from running write_path_contract alone while contract_shape.py was never fetched
-- Run 069: -1 stop a future run from treating a write-path_contract-only shape lock as enough when a sibling writer is gone
-- Run 068: -1 stop a future run from treating a docstring-only lock file as PASS
-- Run 067: -1 stop a future dry-run status write or silent no-op on in-band set_status; also stop claiming PASS on a docstring-only lock file
-- Run 066: -1 stop a future dry-run-refresh or silent no-op on `--write --refresh`
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 081: `tools/placeholder_guard.py` also witnesses prove_locks.py (800-byte floor + PROVE LOCKS PASS + inner three filenames). Isolated missing and 8-byte bodies FAIL. No new file. Still unmapped.
 - Run 080: NEXT_RUN_PROMPT.md names `python3 tools/prove_locks.py` as the first post-write command. No new tool. The three inner commands remain fallback.
-- Run 079: `tools/prove_locks.py` is an unmapped order wrapper for placeholder_guard, words_contract, and verify_write_path. Writes nothing. Does not run apply_script or set_status. Not a substitute for those three files.
-- Run 078: `tools/placeholder_guard.py` is an unmapped lock for emptied or placeholder high-risk tools. Writes nothing. Does not run apply_script or set_status.
-- Run 077: `tools/words_contract.py` is an unmapped lock for words.py (size floor, Grow/Cut markers, temp BELOW/ABOVE subprocess). Writes nothing under videos/.
-- Run 076: `tools/words.py` prints Cut (one heading to trim first when ABOVE). --strict still keys off the total band. Still writes nothing.
-- Run 075: `tools/words.py` prints Grow (one heading to expand first). Empty beats thin. --strict still keys off the total band. Still writes nothing.
-- Run 074: `tools/words.py` prints Beats (per-heading spoken counts) and Thin (empty/thin headings). --strict still keys off the total band. Still writes nothing.
-- Run 073: `tools/words.py` prints Hook Delta (add N / cut N vs 20-35). --strict still keys off the total band. Still writes nothing.
-- Run 072: `tools/words.py` prints Delta (add N / cut N) and a Next line. Local counters if validate_packet.py is missing. Still writes nothing.
-- Run 071: `tools/words.py` prints spoken WORDS vs the locked band from PATH/draft.md or script.md. Writes nothing. Not a lock. Not apply --write.
-- Run 070: `tools/verify_write_path.py` subprocess-runs contract_shape then write_path_contract. Writes nothing. Not a substitute for those two files.
-- Run 069: `tools/contract_shape.py` witnesses the write-path trio (write_path_contract, apply_script, set_status). Still does not import them and writes nothing.
-- Run 068: `tools/contract_shape.py` is a second-file witness for write_path_contract.py.
-- Run 067: `write_path_contract.py` is an executable lock again.
+- Run 079: `tools/prove_locks.py` is an unmapped order wrapper for placeholder_guard, words_contract, and verify_write_path.
