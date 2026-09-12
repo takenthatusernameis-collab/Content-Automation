@@ -15,13 +15,15 @@ python3 tools/queue_status.py
 
 Read the doctor block. Run only the printed Command (dry-run first). Doctor writes nothing. queue_status writes nothing. Default queue_status exit is 0. Use `--strict` only when you want a non-zero exit on mark-needed or missing-folder.
 
+If a mark-needed folder already exists, `queue_status.py` prints `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check` under that folder. Follow those printed lines. Do not reopen this page to recover the paste.
+
 If you still need a first real title:
 
 ```bash
 python3 tools/next_topic.py
 ```
 
-That command writes nothing. It prints a queued title, a predicted `videos/NNN-slug`, and a dry-run `mark_topic` line. Prefer the printed title over inventing a new one.
+That command writes nothing. It prints a queued title, a predicted `videos/NNN-slug`, and a dry-run `mark_topic` line. After that predicted folder exists, it also prints `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check`. Prefer the printed title over inventing a new one. Prefer the printed idea_brief lines over scanning this page for the paste.
 
 ## First real video (not the fixture)
 
@@ -117,3 +119,4 @@ If unsure of the next command after any step, re-run `python3 tools/doctor.py vi
 - Do not treat `words.py` Delta, Hook Delta, Beats, Thin, Grow, or Cut as permission to invent filler.
 - Do not promote while duration WARN is present.
 - Do not expand while idea.md still says `template-default` / generic or blank mechanism.
+- Do not treat start-of-session `queue_status.py` / `next_topic.py` as mark_topic-only after a folder exists; they print idea_brief --block / paste / --check.

@@ -2,6 +2,11 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 085:
+
+- docs/human_session.md Start every session must keep naming `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check` after a mark-needed folder exists and after next_topic prints an existing predicted path. Do not revert that page to mark_topic-only.
+- Do not add a lock around human_session.md.
+
 Targeted addition from Run 084:
 
 - queue_status.py mark-needed follow-up must keep printing `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check`. next_topic.py after-folder lines must keep the same three lines. Do not revert those printers to mark_topic-only.
