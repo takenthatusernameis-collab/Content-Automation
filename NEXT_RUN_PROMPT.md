@@ -2,6 +2,14 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 098:
+
+- doctor.py with no packet argument must keep appending queue_next_footer after packet blocks.
+- queue_next_footer must print idea_brief --queue for the first ok-queued row only.
+- queue_contract must keep footer assertions: --queue Q2 when Q1 is mark-needed; --queue Q1 when folders are empty.
+- Do not print Queue next when doctor is given a single packet path.
+- Do not print --queue for a mark-needed row. Do not add another idea_brief flag.
+
 Targeted addition from Run 097:
 
 - queue_status.py and next_topic.py must keep printing `idea_brief.py --queue ID` for the first ok-queued topic before scaffold.

@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-12 | doctor.py with no packet path appends queue_next_footer; single-packet doctor stays packet-only; queue_contract locks first ok-queued id | Start command listed in human_session hid Q1 behind fixture expand-script | If Q1 is scaffolded; do not print --queue for mark-needed; do not print footer on a path argument
 - 2026-09-12 | queue_status and next_topic print idea_brief --queue ID only for the first ok-queued row; queue_contract locks that print | Run 095/096 built --queue but the live board still hid it | If Q1 is scaffolded; do not print --queue for mark-needed rows
 - 2026-09-12 | idea_brief_contract.py must prove --queue Q1 paste, missing-id exit 2, and --queue --check exit 2 without creating a folder | Run 095 added --queue without a lock | If --queue regresses; do not map this contract; do not add another idea_brief flag
 - 2026-09-12 | idea_brief.py --queue ID reprints paste_block from topic_queue without a videos/ folder | Operators could not recover the six-field paste until after scaffold | If Q1 is scaffolded; do not write idea.md from this flag; do not treat it as new_packet

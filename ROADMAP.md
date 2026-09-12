@@ -12,6 +12,7 @@
 51aq. idea_brief --queue reprints paste before scaffold — **done (Run 095)**
 51ar. idea_brief_contract locks --queue — **done (Run 096)**
 51as. queue_status / next_topic print --queue; queue_contract locks it — **done (Run 097)**
+51at. doctor all-packet Queue next footer; queue_contract locks it — **done (Run 098)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -31,3 +32,4 @@
 - Another idea_brief flag unless --queue regresses
 - Mapping idea_brief.py or idea_brief_contract.py
 - Printing --queue for mark-needed rows
+- Printing doctor Queue next on a single-packet doctor invocation
