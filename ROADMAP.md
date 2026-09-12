@@ -2,28 +2,8 @@
 
 ## Next (assisted production)
 31–51n. Queue through write_path apply locks — **done (Runs 027–066; body restored Run 067)**
-51o. write_path_contract locks in-band set_status ready_for_vo — **done (Run 067)**
-51p. Separate source-shape lock for write_path_contract.py — **done (Run 068)**
-51q. contract_shape trio (apply_script + set_status) — **done (Run 069)**
-51r. One-command verify_write_path order lock — **done (Run 070)**
-51s. Read-only words.py band check on draft.md — **done (Run 071)**
-51t. words.py Delta + Next + import fallback — **done (Run 072)**
-51u. words.py Hook Delta (20-35) — **done (Run 073)**
-51v. words.py Beats + Thin (per-heading counts) — **done (Run 074)**
-51w. words.py Grow (one heading first) — **done (Run 075)**
-51x. words.py Cut (one heading first when ABOVE) — **done (Run 076)**
-51y. words_contract.py lock for words.py — **done (Run 077)**
-51z. placeholder_guard.py lock for emptied high-risk tools — **done (Run 078)**
-51aa. prove_locks.py one-command post-write order wrapper — **done (Run 079)**
-51ab. NEXT_RUN_PROMPT names prove_locks first — **done (Run 080)**
-51ac. placeholder_guard witnesses prove_locks.py — **done (Run 081)**
-51ad. hint.py prints idea_brief + words.py + draft.md apply lines — **done (Run 082)**
-51ae. next_action fill-idea Why names idea_brief --block/--check — **done (Run 083)**
-51af. queue_status + next_topic print idea_brief after a folder exists — **done (Run 084)**
-51ag. human_session start names idea_brief after a folder exists — **done (Run 085)**
-51ah. agent_session WAVE 3 board names idea_brief after a folder exists — **done (Run 086)**
-51ai. README start path names idea_brief after a folder exists and prove_locks after high-risk writes — **done (Run 087)**
-51aj. production_rules handoff names idea_brief, words.py, and prove_locks — **done (Run 088)**
+51o–51aj. Write-path / words / prove_locks / printer + page alignment — **done (Runs 067–088)**
+51ak. idea_brief --block pastes the full idea.md template — **done (Run 089)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -36,22 +16,13 @@
 - Auto-scaffolding Q1
 - Auto-writing idea.md
 - WAVE 4
+- Making --check FAIL on viewer / why now / related
+- Shrinking --block back to three fields
+- Another primary run whose only change is naming idea_brief on one more page
 - Weakening write_path_contract CLI locks
 - Replacing write_path_contract.py with a docstring-only file
-- Dropping tools/contract_shape.py
-- Dropping tools/verify_write_path.py or using it as a substitute for the two files it runs
+- Dropping tools/contract_shape.py / verify_write_path.py / placeholder_guard.py / prove_locks.py
 - Treating words.py as a lock or as apply --write
 - Mapping words.py, words_contract.py, placeholder_guard.py, or prove_locks.py in needed.py
-- Treating words.py Delta, Hook Delta, Beats, Thin, Grow, or Cut as filler permission
-- Making words.py --strict fail on hook length, thin headings, Grow, or Cut alone
-- Treating PLACEHOLDER GUARD PASS or PROVE LOCKS PASS as apply --write
-- Dropping tools/prove_locks.py or using it as a substitute for the three files it runs
 - Adding another order wrapper around prove_locks.py
-- Dropping the prove_locks.py check from placeholder_guard.py
-- Stripping idea_brief or words.py lines from hint.py
-- Reverting next_action fill-idea Why to "paste the new_packet reprint"
-- Stripping idea_brief --block/--check from queue_status or next_topic
-- Stripping idea_brief --block/--check from docs/human_session.md start-of-session text
-- Stripping idea_brief --block/--check from docs/agent_session.md WAVE 3 board paragraph
-- Stripping idea_brief --block/--check or prove_locks.py from README Human session text
-- Stripping idea_brief --block/--check, words.py, or prove_locks.py from docs/production_rules.md Packet / Script / Human handoff text
+- Stripping idea_brief lines from hint / next_action / queue_status / next_topic / human_session / agent_session / README / production_rules
