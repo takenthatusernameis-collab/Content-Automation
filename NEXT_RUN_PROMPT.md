@@ -2,6 +2,11 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 083:
+
+- next_action.py fill-idea Why must keep naming idea_brief --block / paste / --check. doctor.py and hint.py reprint that Why. Do not revert to "Paste the new_packet reprint before expand_prompt."
+- Do not add a lock around next_action.py. Do not map next_action.py.
+
 Targeted addition from Run 082:
 
 - hint.py fill-idea must keep printing `idea_brief.py PATH`, `--block`, and `--check`. write-script / expand-script must keep printing `words.py PATH` and apply from `PATH/draft.md`. Do not revert to "paste from the new_packet reprint" + `apply --from FILE`.

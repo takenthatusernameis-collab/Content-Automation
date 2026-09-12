@@ -18,6 +18,7 @@
 51ab. NEXT_RUN_PROMPT names prove_locks first — **done (Run 080)**
 51ac. placeholder_guard witnesses prove_locks.py — **done (Run 081)**
 51ad. hint.py prints idea_brief + words.py + draft.md apply lines — **done (Run 082)**
+51ae. next_action fill-idea Why names idea_brief --block/--check — **done (Run 083)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -43,3 +44,4 @@
 - Adding another order wrapper around prove_locks.py
 - Dropping the prove_locks.py check from placeholder_guard.py
 - Stripping idea_brief or words.py lines from hint.py
+- Reverting next_action fill-idea Why to "paste the new_packet reprint"
