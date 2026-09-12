@@ -20,6 +20,11 @@ reconstruct, not a file dump. The WAVE 3 reconstruct lines are the
 needed.py invocations for the board and for unmapped doctor.py only.
 Not a contract. Not a full-repo dump. WAVE 3 operator start is doctor.py
 then the board printers; doctor.py stays unmapped.
+
+When the asked name is an alias (e.g. next_topic.py -> queue_contract.py)
+and that basename is not already in the contract need list, append
+tools/<asked>. READY on the alias must not hide a missing asked file.
+This does not change which_contract.MAP.
 """
 
 from __future__ import annotations
@@ -169,17 +174,30 @@ def resolve_name(raw: str, contracts: dict[str, tuple[str, ...]]) -> str | None:
     return FALLBACK_ALIAS.get(base)
 
 
-def paths_for(contract: str, contracts: dict[str, tuple[str, ...]]) -> list[str]:
+def paths_for(
+    contract: str,
+    contracts: dict[str, tuple[str, ...]],
+    asked: str | None = None,
+) -> list[str]:
     need = contracts.get(contract, ())
     rows = [f"tools/{n}" for n in need]
     for extra in EXTRA.get(contract, ()):
         if extra not in rows:
             rows.append(extra)
+    if asked:
+        asked_path = f"tools/{Path(asked).name}"
+        if asked_path.endswith(".py") and asked_path not in rows:
+            rows.append(asked_path)
     return rows
 
 
-def print_one(contract: str, contracts: dict[str, tuple[str, ...]], missing: bool) -> None:
-    rows = paths_for(contract, contracts)
+def print_one(
+    contract: str,
+    contracts: dict[str, tuple[str, ...]],
+    missing: bool,
+    asked: str | None = None,
+) -> None:
+    rows = paths_for(contract, contracts, asked=asked)
     print(f"# {contract}")
     print(f"python3 tools/{contract}")
     absent = 0
@@ -349,7 +367,7 @@ def main() -> int:
                 print(f"  {c}")
             print("This command writes nothing.")
             return 0
-        print_one(contract, contracts, args.missing)
+        print_one(contract, contracts, args.missing, asked=base)
         print("This command writes nothing.")
         return 0
 
