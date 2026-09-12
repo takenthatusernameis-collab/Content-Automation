@@ -18,7 +18,8 @@ guess which files to pull before this printer can resolve names.
 guess the second command. WAVE 3 is the first operator command after
 reconstruct, not a file dump. The WAVE 3 reconstruct line is the
 needed.py invocation for that command only. Not a contract. Not a
-full-repo dump.
+full-repo dump. WAVE 3 operator start is doctor.py then the board
+printers; doctor.py stays unmapped.
 """
 
 from __future__ import annotations
@@ -90,7 +91,19 @@ BOOTSTRAP: tuple[str, ...] = (
 
 PLAN_NEXT = "python3 tools/needed.py selftest.py --missing"
 PLAN_OPERATOR_RECON = "python3 tools/needed.py queue_status.py --missing"
-PLAN_OPERATOR = "python3 tools/queue_status.py"
+PLAN_OPERATOR_START = "python3 tools/doctor.py"
+PLAN_OPERATOR_BOARD = "python3 tools/queue_status.py"
+PLAN_OPERATOR_NEXT = "python3 tools/next_topic.py"
+
+# Operator printers that must stay out of which_contract.MAP.
+# needed.py may name them so `needed.py doctor.py` is not Unknown.
+UNMAPPED_OPERATOR: dict[str, tuple[str, str, str]] = {
+    "doctor.py": (
+        "unmapped operator command",
+        "python3 tools/doctor.py",
+        "reconstruct queue_contract.py if you need the footer lock; doctor.py stays unmapped",
+    ),
+}
 
 
 def load_map() -> dict[str, tuple[str, ...]]:
@@ -172,6 +185,23 @@ def print_one(contract: str, contracts: dict[str, tuple[str, ...]], missing: boo
     print()
 
 
+def print_unmapped_operator(base: str, missing: bool) -> None:
+    label, cmd, note = UNMAPPED_OPERATOR[base]
+    print(f"# {base}")
+    print(f"# {label}")
+    print(cmd)
+    print(f"# {note}")
+    path = f"tools/{base}"
+    if missing:
+        on_disk = (ROOT / path).is_file()
+        flag = "PRESENT" if on_disk else "MISSING"
+        print(f"{flag}\t{path}")
+        print("READY" if on_disk else "NOT READY")
+    else:
+        print(path)
+    print()
+
+
 def print_bootstrap(missing: bool) -> None:
     print("# bootstrap")
     print("# first-fetch set for clone-less agents")
@@ -223,9 +253,12 @@ def print_plan(missing: bool) -> None:
     print(PLAN_NEXT)
     print("# WAVE 2 does not list selftest files here; print them with that command")
     print("# WAVE 3 after wave 2 READY; operator command, not a file dump")
-    print("# reconstruct the operator command first; do not list queue files here")
+    print("# reconstruct the operator board first; do not list queue files here")
     print(PLAN_OPERATOR_RECON)
-    print(PLAN_OPERATOR)
+    print("# start command is doctor (Queue next footer); board printers follow")
+    print(PLAN_OPERATOR_START)
+    print(PLAN_OPERATOR_BOARD)
+    print(PLAN_OPERATOR_NEXT)
     print("# humans then follow docs/human_session.md; do not auto-scaffold")
     print()
 
@@ -273,9 +306,14 @@ def main() -> int:
 
     contracts = load_map()
     if args.name:
+        base = Path(args.name).name
+        if base in UNMAPPED_OPERATOR:
+            print_unmapped_operator(base, args.missing)
+            print("This command writes nothing.")
+            return 0
         contract = resolve_name(args.name, contracts)
         if contract is None:
-            print(f"Unknown name {Path(args.name).name!r}")
+            print(f"Unknown name {base!r}")
             print("Known contracts:")
             for c in contracts:
                 print(f"  {c}")
