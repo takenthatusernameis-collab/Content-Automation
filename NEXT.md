@@ -2,13 +2,14 @@
 
 Do these in order. Stop if a step needs a human decision that is not present.
 
-1. **Highest value:** A human runs `python3 tools/queue_status.py` then follows `docs/human_session.md` on Q1 `Stop deciding what to work on every morning` (predicted folder `videos/002-stop-deciding-what-to-work-on-every-morning`). After a mark-needed folder exists, run `python3 tools/idea_brief.py PATH --block` and paste the full idea.md body (topic, viewer, problem, mechanism, why now, related). Then `--check`. `--check` still gates only topic / problem / mechanism. Then expand off-repo / save PATH/draft.md / `python3 tools/words.py PATH` / apply dry-run / `--write --refresh` on the non-fixture packet only / `set_status.py PATH --to ready_for_vo` dry-run then `--write` only if WORDS are in band. Do not auto-scaffold. Do not auto-write idea.md. After a GitHub write of a high-risk tool, run `python3 tools/prove_locks.py` first.
+1. **Highest value:** A human runs `python3 tools/queue_status.py` then follows `docs/human_session.md` on Q1 `Stop deciding what to work on every morning` (predicted folder `videos/002-stop-deciding-what-to-work-on-every-morning`). After a mark-needed folder exists, run `python3 tools/idea_brief.py PATH --block` and paste the full idea.md body (topic, viewer, problem, mechanism, why now, related). Then `--check`. `--check` still gates only topic / problem / mechanism. Then `python3 tools/expand_prompt.py PATH` (Idea locks are now in stdout) / save PATH/draft.md / `python3 tools/words.py PATH` / apply dry-run / `--write --refresh` on the non-fixture packet only / `set_status.py PATH --to ready_for_vo` dry-run then `--write` only if WORDS are in band. Do not auto-scaffold. Do not auto-write idea.md. After a GitHub write of a high-risk tool, run `python3 tools/prove_locks.py` first.
 2. Do **not** spend this run aligning another markdown page to name idea_brief --block/--check. Runs 082–088 already aligned hint, next_action, queue_status, next_topic, human_session, agent_session, README, and production_rules. See FAILURES.md watch.
-3. Do **not** rewrite frozen printers unless they are wrong.
-4. Do **not** turn default duration WARN into FAIL.
-5. Do **not** attempt YouTube OAuth, TTS, ffmpeg assembly, or publishing without in-repo credentials or a real VO file.
-6. Do **not** produce an upload packet; still no VO or card binaries on disk.
-7. Do **not** `--force` overwrite sample-001 titles, thumbnail, or script WORDS.
+3. Do **not** drop the Idea locks section from expand_prompt.py or revert refuse text to the new_packet reprint.
+4. Do **not** rewrite frozen printers unless they are wrong.
+5. Do **not** turn default duration WARN into FAIL.
+6. Do **not** attempt YouTube OAuth, TTS, ffmpeg assembly, or publishing without in-repo credentials or a real VO file.
+7. Do **not** produce an upload packet; still no VO or card binaries on disk.
+8. Do **not** `--force` overwrite sample-001 titles, thumbnail, or script WORDS.
 18. Do **not** run apply_script --write against sample-001.
 19. Do **not** run set_status --write --to ready_for_vo against sample-001.
 22. Do **not** retry HTTPS clone after one failure.
