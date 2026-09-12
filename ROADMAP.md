@@ -16,6 +16,7 @@
 51z. placeholder_guard.py lock for emptied high-risk tools — **done (Run 078)**
 51aa. prove_locks.py one-command post-write order wrapper — **done (Run 079)**
 51ab. NEXT_RUN_PROMPT names prove_locks first — **done (Run 080)**
+51ac. placeholder_guard witnesses prove_locks.py — **done (Run 081)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
@@ -39,3 +40,4 @@
 - Treating PLACEHOLDER GUARD PASS or PROVE LOCKS PASS as apply --write
 - Dropping tools/prove_locks.py or using it as a substitute for the three files it runs
 - Adding another order wrapper around prove_locks.py
+- Dropping the prove_locks.py check from placeholder_guard.py

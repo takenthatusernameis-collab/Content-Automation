@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-11T22:03:00Z (Run 080)
+Updated: 2026-09-12T00:21:00Z (Run 081)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + write_path_contract body + contract_shape trio lock + verify_write_path order lock + words.py band + delta + hook delta + beats/thin + grow + cut + words_contract + placeholder_guard + prove_locks order wrapper + NEXT_RUN_PROMPT names prove_locks first** -> automated -> self-improving
+manual -> assisted scaffolding -> **monitored packets + monitored queue + write-path + write_path_contract body + contract_shape trio lock + verify_write_path order lock + words.py band + delta + hook delta + beats/thin + grow + cut + words_contract + placeholder_guard (includes prove_locks.py) + prove_locks order wrapper + NEXT_RUN_PROMPT names prove_locks first** -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -21,32 +21,30 @@ manual -> assisted scaffolding -> **monitored packets + monitored queue + write-
 - write_path_contract has a real main() (restored Run 067)
 - contract_shape.py witnesses write_path_contract.py, apply_script.py, and set_status.py (size + markers). It does not import them and writes nothing.
 - verify_write_path.py subprocess-runs contract_shape.py then write_path_contract.py. It writes nothing. It is not a substitute for those two files.
-- words.py is a read-only band printer. It prefers PATH/draft.md when present. It prints Delta (add/cut N), Hook Delta (20-35), Beats (per-heading counts), Thin (empty/thin headings), Grow (one heading to expand first), Cut (one heading to trim first when ABOVE), and a Next line. It falls back to local counters if validate_packet.py is missing. --strict still keys off the total band only. It does not write and is not a lock. Do not map it in needed.py.
-- words_contract.py is an unmapped lock for words.py. It fails if words.py is missing, under 8000 bytes, missing Grow/Cut markers, or a placeholder. It runs words.py --strict on two temp drafts (BELOW expects Grow, ABOVE expects Cut). It writes nothing under videos/. Do not map it in needed.py.
-- placeholder_guard.py is an unmapped lock for emptied or placeholder bodies across the high-risk tool set (words, words_contract, write-path trio, contract_shape, verify_write_path). Size floor + markers + empty-body check. Writes nothing. Does not run apply or set_status. Do not map it in needed.py.
-- prove_locks.py is an unmapped order wrapper. It subprocess-runs placeholder_guard.py, then words_contract.py, then verify_write_path.py. Stops on first non-zero. Writes nothing. It is not a substitute for those three files. Do not map it in needed.py.
-- NEXT_RUN_PROMPT.md now names prove_locks.py as the first post-write command (Run 080). The three inner commands stay valid only as fallback.
+- words.py is a read-only band printer. It prefers PATH/draft.md when present. It prints Delta, Hook Delta, Beats, Thin, Grow, Cut, and a Next line. --strict keys off the total band only. Do not map it in needed.py.
+- words_contract.py is an unmapped lock for words.py. Writes nothing under videos/. Do not map it in needed.py.
+- placeholder_guard.py is an unmapped lock for emptied or placeholder bodies across the high-risk tool set (words, words_contract, write-path trio, contract_shape, verify_write_path, prove_locks). Size floor + markers + empty-body check. Writes nothing. Do not map it in needed.py.
+- prove_locks.py is an unmapped order wrapper. It subprocess-runs placeholder_guard.py, then words_contract.py, then verify_write_path.py. Stops on first non-zero. Writes nothing. Do not map it in needed.py.
+- NEXT_RUN_PROMPT.md names prove_locks.py as the first post-write command (Run 080). The three inner commands stay valid only as fallback.
 
-## What exists now (after Run 080)
-- tools/prove_locks.py unchanged this run
-- NEXT_RUN_PROMPT.md prefers prove_locks over the three-command memory list
-- Frozen doctor/hint/needed/which_contract/router/idea_brief/words not edited
+## What exists now (after Run 081)
+- tools/placeholder_guard.py now also witnesses prove_locks.py (800-byte floor + PROVE LOCKS PASS + inner three names)
+- Isolated sandbox: missing or 8-byte prove_locks.py FAIL exit 1
+- Frozen doctor/hint/needed/which_contract/router/idea_brief/words/prove_locks not edited
 - No new packet folder; queue still queued
 - idea_gate / operator_pin / idea_brief_contract / words_contract / placeholder_guard / prove_locks stay unmapped
 
 ## Pipeline map
-After scaffold: --block / paste / --check / expand off-repo / save draft.md / `words.py PATH` (read Result + Delta + Hook Delta + Beats + Thin + Grow or Cut) / apply dry-run / --write --refresh / set_status ready_for_vo if WORDS in band.
-After reconstructing words.py: `python3 tools/words_contract.py` (or prove_locks if a high-risk GitHub write just landed).
-After reconstruct of write-path tools: `python3 tools/verify_write_path.py` (shape then contract), or prove_locks after a GitHub write.
-After a GitHub write of any high-risk tool: `python3 tools/prove_locks.py` (guard then words_contract then verify_write_path). The three separate commands remain valid as fallback.
+After scaffold: --block / paste / --check / expand off-repo / save draft.md / `words.py PATH` / apply dry-run / --write --refresh / set_status ready_for_vo if WORDS in band.
+After a GitHub write of any high-risk tool: `python3 tools/prove_locks.py`.
 
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 95 | 94 | next agent no longer has to reconstruct the post-write order from three bullets |
-| Automated steps | 70 | 70 | no new tool; prompt addendum aligned with prove_locks |
+| Estimated human min / video | 94 | 93 | emptied prove_locks.py now fails in the first inner lock |
+| Automated steps | 70 | 71 | placeholder_guard gained one sibling check; no new file |
 | Videos produced | 0 | 0 | fixture only |
-| Write-path contract | body + trio + ordered verify 070 | unchanged 080 | run prove_locks.py after a high-risk GitHub write |
+| Write-path contract | body + trio + ordered verify 070 | unchanged 081 | run prove_locks.py after a high-risk GitHub write |
 
 ## Active constraints
 - Do not auto-scaffold Q1
@@ -63,6 +61,6 @@ After a GitHub write of any high-risk tool: `python3 tools/prove_locks.py` (guar
 - Do not treat words.py Delta, Hook Delta, Beats, Thin, Grow, or Cut as permission to pad filler
 - Do not make words.py --strict fail on hook, thin headings, Grow, or Cut alone
 - Do not treat words_contract PASS, PLACEHOLDER GUARD PASS, or PROVE LOCKS PASS as apply --write or as a Q1 scaffold
-- Do not drop tools/placeholder_guard.py
+- Do not drop tools/placeholder_guard.py or drop the prove_locks.py check from it
 - Do not drop tools/prove_locks.py or treat it as a replacement for the three files it runs
 - Do not add another order wrapper around prove_locks.py

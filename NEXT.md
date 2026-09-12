@@ -25,6 +25,7 @@ Do these in order. Stop if a step needs a human decision that is not present.
 55. Do **not** treat words.py Delta, Hook Delta, Beats, Thin, Grow, or Cut as a request to invent filler statistics.
 56. Do **not** make words.py --strict fail on hook length, thin headings, Grow, or Cut alone.
 57. Do **not** drop tools/words_contract.py or lower its words.py MIN_BYTES below 8000. It is not a substitute for words.py and is not a reconstruct wave.
-58. Do **not** drop tools/placeholder_guard.py. It is not a substitute for words_contract.py, contract_shape.py, or verify_write_path.py. PASS is not apply --write.
+58. Do **not** drop tools/placeholder_guard.py. It is not a substitute for words_contract.py, contract_shape.py, or verify_write_path.py. PASS is not apply --write. Keep the prove_locks.py sibling check added in Run 081.
 59. Do **not** drop tools/prove_locks.py or treat it as a substitute for placeholder_guard.py, words_contract.py, or verify_write_path.py. PASS is not apply --write.
 60. Do **not** add another order wrapper around prove_locks.py. Do not leave NEXT_RUN_PROMPT listing only the inner three commands as the primary post-write action.
+61. Do **not** drop the prove_locks.py check from placeholder_guard.py or lower that floor below 800 bytes.
