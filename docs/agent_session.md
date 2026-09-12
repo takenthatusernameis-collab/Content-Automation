@@ -21,7 +21,7 @@ python3 tools/needed.py --plan --missing
 
 `--bootstrap` is read-only. It prints the six session-start paths. Combined with `--missing` it labels PRESENT or MISSING and prints READY or NOT READY. Exit is always 0. It is not a contract.
 
-`--plan` is read-only. WAVE 1 reprints those six paths. WAVE 2 prints the next reconstruct command (`python3 tools/needed.py selftest.py --missing`) and does not dump that file list. WAVE 3 prints the reconstruct command for the operator board (`python3 tools/needed.py queue_status.py --missing`) then the start sequence (`python3 tools/doctor.py`, `python3 tools/queue_status.py`, `python3 tools/next_topic.py`) and does not dump queue files or scaffold. Combined with `--missing` it labels WAVE 1 only. Exit is always 0. It is not a contract. doctor.py stays unmapped.
+`--plan` is read-only. WAVE 1 reprints those six paths. WAVE 2 prints the next reconstruct command (`python3 tools/needed.py selftest.py --missing`) and does not dump that file list. WAVE 3 prints the reconstruct command for the operator board (`python3 tools/needed.py queue_status.py --missing`) then the reconstruct command for unmapped doctor (`python3 tools/needed.py doctor.py --missing`) then the start sequence (`python3 tools/doctor.py`, `python3 tools/queue_status.py`, `python3 tools/next_topic.py`) and does not dump queue files or scaffold. Combined with `--missing` it labels WAVE 1 only. Exit is always 0. It is not a contract. doctor.py stays unmapped.
 
 Then fetch WAVE 1 and continue below.
 
@@ -146,7 +146,7 @@ Expected on current sample-001 (do not pad WORDS to change this):
 
 Same as prior page: reconstruct what `needed.py CONTRACT` prints, confirm `--missing` READY, then run the named contract. Expected PASS, exit 0, no writes to `docs/` or `videos/`.
 
-After WAVE 2 READY, print WAVE 3 reconstruct, fetch until READY, then run doctor.py then queue_status.py then next_topic.py and stop at the board. Do not treat WAVE 3 as scaffold permission.
+After WAVE 2 READY, print WAVE 3 reconstruct, fetch queue_status and doctor until READY, then run doctor.py then queue_status.py then next_topic.py and stop at the board. Do not treat WAVE 3 as scaffold permission.
 
 When `queue_status.py` or `next_topic.py` run against a mark-needed folder that already exists, they print `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check`. Do not invent a mark_topic-only next step from this page. Do not write idea.md from those printed lines. Prefer the printed idea_brief commands over scanning tools/. Humans still paste idea.md; agents do not.
 
