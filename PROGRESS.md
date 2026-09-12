@@ -20,10 +20,12 @@
 | 2026-09-12 Run 100 | ~74 estimate | 81 | WAVE 3 reconstructs unmapped doctor.py before the start command |
 | 2026-09-12 Run 101 | ~73 estimate | 82 | needed.py doctor.py lists imports; READY only when doctor can run |
 | 2026-09-12 Run 102 | ~72 estimate | 83 | doctor reconstruct lists next_topic.py; READY only when WAVE 3 start can run |
+| 2026-09-12 Run 103 | ~71 estimate | 84 | needed.py alias appends asked file; next_topic READY no longer lies |
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 103: `needed.py next_topic.py --missing` lists queue_contract paths plus tools/next_topic.py. Isolated tree without next_topic.py is NOT READY. `needed.py queue_status.py` list unchanged. which_contract.MAP unchanged. Still no packet.
 - Run 102: needed.py doctor.py reconstruct lists doctor.py plus hint, next_action, pipeline_status, queue_lib, queue_status, validate_packet, next_topic, topic_queue. --missing READY only when those nine exist. --plan WAVE 3 still does not dump the list. which_contract.MAP unchanged. Still no packet.
 - Run 101: needed.py doctor.py reconstruct lists doctor.py plus hint, next_action, pipeline_status, queue_lib, queue_status, validate_packet, topic_queue. --missing READY only when those eight exist. --plan WAVE 3 still does not dump the list. which_contract.MAP unchanged. Still no packet.
 - Run 100: needed.py --plan WAVE 3 prints `needed.py doctor.py --missing` after the queue reconstruct line and before doctor / queue_status / next_topic. which_contract.MAP unchanged. Still no packet.
