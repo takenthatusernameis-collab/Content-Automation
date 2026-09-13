@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-13T13:10:00Z — Run 119
+
+- **Objective:** While selected VO is blocked, put the after-edit card + presence-refresh commands on the one page a human actually follows, so the session after recording does not hunt NEXT.md / editor.md / assets.md.
+- **Inspected:** HEAD after Run 118. Packet ready_for_vo. Q1 text paperwork exhausted. human_session stopped after set_status ready_for_edit.
+- **Action taken:** Added human_session step 6 (7 planned cards from assets.md, local cards/ folder, render_brief --force, qa_checklist --force). Added matching After-cards sections to docs/editor.md and docs/assets.md. Did not invent wav, png, or mp4. Did not bump ready_for_edit. No new CLI. No Q2 scaffold. Did not map forbidden tools. Did not strip Target column.
+- **Result:** Operator path now covers ready_for_vo through the first legal card refresh. Human gate is still the selected take.
+- **Verification status:** Step 3 Target column still present. New step 6 does not claim card files exist. Official tools not executed in this sandbox (no clone).
+- **Important discovery:** After after-VO commands landed, the remaining in-repo hunt was the card presence refresh, not another brief file on Q1.
+- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
+- **Recommended next action:** Record selected VO to the named path. Follow human_session steps 5–6. Do not invent wav. Do not scaffold Q2.
+
 ## 2026-09-13T12:25:00Z — Run 118
 
 - **Objective:** While selected VO is blocked, put the after-VO operator commands on the one page a human actually follows, so the next recording session does not hunt NEXT.md / narration.md / packet.md.

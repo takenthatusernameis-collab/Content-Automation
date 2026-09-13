@@ -32,5 +32,16 @@ Follow `docs/format.md`.
 - Target: 1920x1080, 30fps, stereo 48kHz
 - YouTube end screen: last 20s reserved, keep CTA card readable
 
+## After cards exist locally
+
+Operator copy lives in `docs/human_session.md` step 6. Q1 names are the Suggested file column in that packet `assets.md`.
+
+```bash
+python3 tools/render_brief.py PATH --force
+python3 tools/qa_checklist.py PATH --force
+```
+
+Do not commit pngs. Do not invent files to flip presence rows. Do not add an ffmpeg recipe until VO + those cards exist.
+
 ## Out of scope
 Do not add an ffmpeg recipe until VO + card assets exist for one packet.

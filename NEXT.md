@@ -2,9 +2,9 @@
 
 Do these in order. Stop if a step needs a human decision that is not present.
 
-1. **Highest value:** Record or generate a **selected VO take** for `videos/002-stop-deciding-what-to-work-on-every-morning` using `vo_session.md` and `docs/narration.md`. Place it at `vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav` (or .flac). Operator copy of the after-file commands is `docs/human_session.md` step 5. Do not invent a wav in-repo. Do not commit TTS as selected take unless a human names that policy.
+1. **Highest value:** Record or generate a **selected VO take** for `videos/002-stop-deciding-what-to-work-on-every-morning` using `vo_session.md` and `docs/narration.md`. Place it at `vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav` (or .flac). Operator copy: `docs/human_session.md` steps 5–6. Do not invent a wav in-repo. Do not commit TTS as selected take unless a human names that policy.
 2. After a real selected take exists: `python3 tools/vo_session.py PATH --force` then `python3 tools/set_status.py PATH --to ready_for_edit` dry-run; `--write` only if Selected VO present and gate still PASS.
-3. After VO exists, build the 7 planned cards locally from `assets.md`. Do not commit binaries to make rows look ready. Re-run `render_brief.py --force` when files exist.
+3. After VO exists, build the 7 planned cards locally from `assets.md`. Do not commit binaries to make rows look ready. Re-run `render_brief.py --force` and `qa_checklist.py --force` when files exist.
 4. Human-edit `publish.md` description + approve pin comment. Tags already trimmed (Run 117). Do not upload.
 5. Do **not** add another wrapper CLI. Do **not** map doctor.py. Do **not** add another needed.py reconstruct path unless a READY lie is proven. Do **not** add a Band-landing reprint CLI. Do **not** scaffold Q2 yet.
 6. Do **not** make apply_script or words.py idea-lock INFO a check() error or a status bump.

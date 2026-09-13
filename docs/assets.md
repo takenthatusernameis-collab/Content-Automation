@@ -37,5 +37,16 @@ Match `docs/editor.md`:
 - diagrams go on `DIAGRAM`
 - b-roll is optional and is not generated here
 
+## After cards exist locally
+
+Operator copy lives in `docs/human_session.md` step 6.
+
+```bash
+python3 tools/render_brief.py PATH --force
+python3 tools/qa_checklist.py PATH --force
+```
+
+Refresh presence only. Do not mark a row `ready` from this page. Do not commit the pngs.
+
 ## Out of scope
 No Unsplash/Pexels/Drive fetch. No ffmpeg stills. No thumbnail PSD.

@@ -125,6 +125,19 @@ python3 tools/set_status.py videos/002-stop-deciding-what-to-work-on-every-morni
 
 `--force` refreshes the session card from WORDS. `set_status` still refuses `ready_for_edit` if the named take is missing. Do not bump from this page without the file. Do not scaffold Q2 while Q1 has no selected take. Do not write an ffmpeg recipe until VO + cards exist.
 
+6. After status is ready_for_edit (cards stay local)
+
+Build the 7 planned cards from `videos/002-stop-deciding-what-to-work-on-every-morning/assets.md` into that packet's `cards/` folder. Names must match the Suggested file column. Tracks: text-cards on `TITLES`, diagrams on `DIAGRAM` (`docs/editor.md`). Do not commit pngs to flip Status to ready.
+
+When local files exist:
+
+```bash
+python3 tools/render_brief.py videos/002-stop-deciding-what-to-work-on-every-morning --force
+python3 tools/qa_checklist.py videos/002-stop-deciding-what-to-work-on-every-morning --force
+```
+
+`render_brief --force` rewrites presence from disk. `qa_checklist --force` refreshes mechanical boxes only. Neither builds cards, neither runs ffmpeg, neither uploads. Human still edits `publish.md` description and the pin comment. Do not mark a card row ready without the local file. Do not write an ffmpeg recipe until VO + cards exist.
+
 If unsure of the next command after any step, re-run `python3 tools/doctor.py videos/002-stop-deciding-what-to-work-on-every-morning` and use the printed Command.
 
 ## Stop
@@ -144,3 +157,4 @@ If unsure of the next command after any step, re-run `python3 tools/doctor.py vi
 - Do not ignore the Target column on an empty first draft.
 - Do not invent a selected wav or treat TTS as selected unless a human names that policy.
 - Do not bump `ready_for_edit` without the named take on disk.
+- Do not commit card binaries to make assets.md or render.md look ready.

@@ -13,6 +13,7 @@
 51bl. assets list + publish stub — **done (Run 116)**
 51bm. publish tag trim + qa mechanical + render presence — **done (Run 117; all-missing; no media)**
 51bn. after-VO operator path on human_session + narration — **done (Run 118; no wav)**
+51bo. after-edit card path on human_session + editor/assets — **done (Run 119; no png)**
 
 ## Later (automation)
 52. Human override of heuristic Primary (optional; already locked)
