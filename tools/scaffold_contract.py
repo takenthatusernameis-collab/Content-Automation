@@ -10,6 +10,7 @@ Locks:
 - new_packet does not write idea.md
 - mark_followup prints a dry-run line then a commented --write
 - idea_followup reprints topic + Q1 problem + matching queue one_line
+- draft_followup reprints the copied draft.md save target and not-script.md
 - empty titles `1.` stay untitled
 - next_id treats sample-001 as 001
 """
@@ -27,7 +28,7 @@ ROOT = TOOLS.parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
-from new_packet import idea_followup, mark_followup  # noqa: E402
+from new_packet import draft_followup, idea_followup, mark_followup  # noqa: E402
 from queue_lib import next_id, slugify  # noqa: E402
 
 try:
@@ -79,8 +80,11 @@ def main() -> int:
     src = (TOOLS / "new_packet.py").read_text(encoding="utf-8")
     fail(failures, "def mark_followup" in src, "mark_followup missing")
     fail(failures, "def idea_followup" in src, "idea_followup missing")
+    fail(failures, "def draft_followup" in src, "draft_followup missing")
     fail(failures, "does not mark the topic queue used" in src, "no-mark banner missing")
     fail(failures, "does not write idea.md" in src, "no-write-idea banner missing")
+    fail(failures, "does not write spoken WORDS" in src, "no-write-words banner missing")
+    fail(failures, "not script.md until apply_script --write" in src, "not-script.md banner missing")
     if re.search(r"idea\.md.*write_text|write_text\(.*idea", src):
         failures.append("new_packet appears to write idea.md")
 
@@ -118,6 +122,13 @@ def main() -> int:
         f"idea mechanism reprint missing Q1 one_line: {ideas}",
     )
 
+    drafts = draft_followup()
+    draft_blob = "\n".join(drafts)
+    fail(failures, "does not write spoken WORDS" in draft_blob, f"draft no-write banner missing: {drafts}")
+    fail(failures, "PATH/draft.md" in draft_blob or "draft.md" in draft_blob, f"draft save target missing: {drafts}")
+    fail(failures, "not script.md" in draft_blob, f"draft not-script.md missing: {drafts}")
+    fail(failures, "Do not invent a second draft file" in draft_blob, f"second-draft warning missing: {drafts}")
+
     unknown = mark_followup("A title that is not in the queue")
     fail(
         failures,
@@ -152,6 +163,7 @@ def main() -> int:
     print("Scaffold contract")
     print("new_packet: reprint mark_topic dry-run; no auto --write")
     print("new_packet: reprint idea topic + problem + one_line; no idea.md write")
+    print("new_packet: reprint draft.md overwrite path; no WORDS write; not script.md")
     print("titles_filled: empty 1. stays untitled")
     print("next_id: sample-001 => 002")
     if failures:
