@@ -2,6 +2,12 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 108:
+
+- `videos/_template/expand.md` must keep the empty-WORDS Band-landing table. Status stays `placeholder` so expand_is_filled does not treat it as finished.
+- `tools/expand_prompt.py` must paste `expand_brief.render()` when expand.md is missing or not expand_is_filled. It must not write expand.md.
+- Do not revert that fallback to the stub line "budgets will appear here".
+
 Targeted addition from Run 107:
 
 - `tools/expand_brief.py` must print a budget table from script.md headings even when spoken WORDS are 0.

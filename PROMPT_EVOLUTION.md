@@ -4,6 +4,7 @@ Keep ORIGINAL_MASTER_PROMPT.md archival and unchanged.
 
 ## Evidence-based additions (do not silently rewrite the master)
 
+- Run 108: template expand.md keeps empty-WORDS targets. expand_prompt pastes a live budget when expand.md is a stub. Do not make expand_prompt write expand.md. Do not add a Band-landing CLI.
 - Run 105: videos/_template/draft.md is the packet save target. Do not add a second template or a Band-landing CLI. Do not treat empty draft.md as script.md.
 - Run 104: writer prompts keep Band landing + spoken_words comment. Do not rewrite unless a real draft misses 900–1500.
 - Run 099: needed.py --plan WAVE 3 must print doctor.py then the board printers. doctor.py stays unmapped. Do not wrap doctor in start.py. Do not add WAVE 4.
