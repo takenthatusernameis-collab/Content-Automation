@@ -108,8 +108,14 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Status drift: `ready_for_vo` needs a PASS script gate; `ready_for_edit` needs selected VO on disk; `ready_to_publish` / `published` need VO + export. Do not bump status to hide missing files.
 
 ## Human handoff
-Operator path: `docs/human_session.md`. Start with `python3 tools/doctor.py`, then `python3 tools/queue_status.py` and `python3 tools/next_topic.py`.
-After a mark-needed folder exists those printers, `docs/human_session.md`, `docs/agent_session.md` WAVE 3, README Human session, and this page name:
+Operator path: `docs/human_session.md`.
+
+While Q1 is `ready_for_vo` with no selected take, the live job is the named packet-relative take — not session-start printers. Do not start at `doctor.py` / `queue_status.py` / `next_topic.py`. Those commands are new-packet only. Follow `docs/human_session.md` Live job + steps 5–7.
+
+Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
+Selected VO: `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
+
+After a mark-needed folder exists (new packet only) those printers, `docs/human_session.md`, `docs/agent_session.md` WAVE 3, README Human session, and this page name:
 
 ```bash
 python3 tools/idea_brief.py PATH --block
