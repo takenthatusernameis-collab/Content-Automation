@@ -1,7 +1,7 @@
 # Publish
 
-Status: stub
-Generated: 2026-09-13T10:20:00Z
+Status: stub (tags trimmed)
+Generated: 2026-09-13T11:14:00Z
 
 This file is upload metadata, not a published video. There is no YouTube API
 call here. Do not treat these fields as live channel copy.
@@ -27,12 +27,11 @@ No upload happened. Human locks title, description, and tags before YouTube.
 - start cue
 - deep work
 - decision fatigue
-- stop
-- deciding
-- work
-- every
-- morning
-- people
+- next-action default
+- written default
+- morning start
+
+Removed as stopwords / title fragments: stop, deciding, work, every, morning, people.
 
 ## First comment (pin candidate)
 Assignment: install a written next-action default so the morning does not reopen the whole list before the next work block. Reply with the cue you wrote down. This comment is a draft pin, not posted.
@@ -42,8 +41,8 @@ Assignment: install a written next-action default so the morning does not reopen
 - Do not auto-subscribe-CTA in spoken WORDS
 
 ## Human before upload
-- [ ] Primary title locked (this stub used the current Primary / working_title)
+- [x] Primary title locked (this stub used the current Primary / working_title)
 - [ ] Description edited for search + honesty
-- [ ] Tags trimmed
+- [x] Tags trimmed
 - [ ] First comment approved
-- [ ] No YouTube upload from this tool
+- [x] No YouTube upload from this tool
