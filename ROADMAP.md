@@ -9,6 +9,7 @@
 51bb. new_packet reprints draft.md overwrite path — **done (Run 106)**
 51bc. Empty-script expand.md prints Band-landing targets — **done (Run 107)**
 51bd. Template expand.md + expand_prompt live budget on stub — **done (Run 108)**
+51be. human_session expand step names empty-script Target column — **done (Run 109)**
 
 ## Later (automation)
 52. Human scaffolds Q1, pastes idea fields, overwrites copied draft.md, and lands WORDS in band on a non-fixture packet
@@ -29,3 +30,4 @@
 - A second draft template or a Band-landing reprint CLI
 - Hiding the empty-WORDS expand budget table
 - Making expand_prompt write expand.md
+- Stripping the Target column from docs/human_session.md step 3
