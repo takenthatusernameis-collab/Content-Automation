@@ -5,7 +5,7 @@ Generated: 2026-09-13T09:15:08Z
 WPM assumption: 150
 Spoken words: 952
 Estimated speech: 06:21 (not a take duration)
-Selected take path: `vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
+Selected take path: `vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav` (packet-relative; not repo-root vo/)
 Selected take on disk: missing
 
 This file is a reading card from script.md WORDS. It is not a wav, not TTS,
@@ -14,6 +14,7 @@ after a human records. Do not invent audio.
 
 ## Record to
 - Selected: `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
+- Repo-root `vo/` is ignored. Tools only check inside this packet.
 - Rejected takes (optional): `videos/002-stop-deciding-what-to-work-on-every-morning/vo/takes/`
 - Rules: `docs/narration.md`
 
@@ -48,7 +49,7 @@ Before you stand up, write one next-action sentence for tomorrow: verb, object, 
 
 ## Human
 - [ ] Confirm hook is 20–35 spoken words before recording
-- [ ] Record one selected take to the named path (wav or flac)
+- [ ] Record one selected take to the packet-relative named path (wav or flac)
 - [ ] Do not commit raw session dumps by default
 - [ ] Do not run a TTS vendor from this tool
-- [ ] After the file exists, re-run `tools/render_brief.py PATH --force`
+- [ ] After the file exists, re-run `tools/vo_session.py PATH --force` then dry-run `tools/set_status.py PATH --to ready_for_edit`
