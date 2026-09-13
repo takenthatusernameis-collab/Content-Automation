@@ -2,11 +2,15 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 121:
+
+- Selected VO is packet-relative only: `videos/NNN-slug/vo/NNN-slug-take-selected.wav` (or .flac, optional `-v2`). Repo-root `vo/` is ignored by `render_brief` / `set_status`.
+- Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2. Do not add another wrapper CLI. Do not upload.
+- Next value is a real selected take at that packet path, or an explicit human TTS policy. Do not spend the run adding another Q1 markdown stub or another operator step that only restates NEXT.md.
+
 Targeted addition from Run 120:
 
 - human_session.md step 7 now names the after-presence publish.md description + pin edit and forbids treating it as an upload. Q1 text paperwork is exhausted. Selected take is still missing.
-- Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2. Do not add another wrapper CLI. Do not upload.
-- Next value is a real selected take or an explicit human TTS policy. Do not spend the run adding another Q1 markdown stub or another operator step that only restates NEXT.md.
 
 Targeted addition from Run 119:
 
