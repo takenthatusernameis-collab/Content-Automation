@@ -11,6 +11,10 @@ Run 090: assembled prompt prints parsed idea locks (topic, viewer,
 problem, mechanism, why now, related) so the writer cannot ignore the
 pasted idea.md. Refuse text names idea_brief --block / --check, not
 the new_packet reprint.
+
+Run 108: if expand.md is missing or still a placeholder stub, paste the
+live Band-landing budget from expand_brief.render() instead of the stub
+line "budgets will appear here". Does not write expand.md.
 """
 
 from __future__ import annotations
@@ -25,7 +29,8 @@ if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
 from caption_brief import WPM, fmt_ts, script_cues  # noqa: E402
-from expand_brief import TARGET_BY_FORMAT  # noqa: E402
+from expand_brief import TARGET_BY_FORMAT, expand_is_filled  # noqa: E402
+from expand_brief import render as render_expand  # noqa: E402
 from validate_packet import FORMAT_SPOKEN_WORDS, duration_note, field  # noqa: E402
 
 FIXTURE_PREFIX = "sample-001"
@@ -92,6 +97,18 @@ def idea_locks(idea_text: str) -> str:
     )
 
 
+def expand_block_for(packet: Path, expand: str) -> str:
+    """Prefer a filled expand.md. Otherwise paste a live empty-WORDS budget."""
+    if expand_is_filled(expand):
+        return expand
+    try:
+        return render_expand(packet).strip()
+    except Exception:
+        if expand:
+            return expand
+        return "(no expand.md — run `python3 tools/expand_brief.py PATH` first)"
+
+
 def render(packet: Path, *, docs_root: Path | None = None) -> str:
     root = docs_root or packet.resolve().parents[1]
     script = _read(packet / "script.md")
@@ -135,9 +152,7 @@ def render(packet: Path, *, docs_root: Path | None = None) -> str:
     else:
         research_note = "Use only numbers that already appear here with a source."
 
-    expand_block = expand if expand else (
-        "(no expand.md — run `python3 tools/expand_brief.py PATH` first)"
-    )
+    expand_block = expand_block_for(packet, expand)
 
     return f"""# Script expand prompt (assembled, not a draft)
 
