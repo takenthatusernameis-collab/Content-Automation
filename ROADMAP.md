@@ -22,6 +22,7 @@
 51bu. agent_session live-job pin before reconstruct waves — **done (Run 125; no wav)**
 51bv. human_session live-job pin before doctor/scaffold — **done (Run 126; no wav)**
 51bw. production_rules Human handoff live-job pin before doctor/queue — **done (Run 127; no wav)**
+51bx. next_action / hint record-vo printers name packet-relative Selected VO — **done (Run 128; no wav)**
 
 ## Later (automation)
 52. Human override of heuristic Primary (optional; already locked)

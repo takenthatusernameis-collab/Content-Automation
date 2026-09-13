@@ -2,36 +2,32 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-13T22:19:00Z — Run 128
+
+- **Objective:** While selected VO is blocked, stop next_action / hint from printing a short `vo/` drop path that gates do not open.
+- **Inspected:** HEAD after Run 127. README / agent_session / human_session / production_rules / BLOCKED already name `videos/NNN-slug/vo/...`. next_action Why used `vo/{vid}-{slug}-take-selected.wav`. hint record-vo Command said "the named vo/ path".
+- **Action taken:** next_action.selected_vo_path() now prints `videos/{vid}-{slug}/vo/{vid}-{slug}-take-selected.wav`. hint.py record-vo Command uses that helper and forbids repo-root `vo/` plus `git add -f`. Did not add a Live job banner. Did not invent wav. Did not bump ready_for_edit. No new CLI. No WAVE 4. No Q2. Did not map forbidden tools.
+- **Result:** An operator who runs next_action or hint on Q1 is told the same path render_brief / set_status check.
+- **Verification status:** Files committed via GitHub file API. Official tools not executed in this sandbox (no clone). No wav on disk. Target column left in human_session step 3. Target comment left on hint write-script/expand-script.
+- **Important discovery:** After first-contact pages were pinned, the remaining short-path lie was inside the record-vo printers themselves.
+- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
+- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session Live job + steps 5–7. Do not invent wav. Do not `git add -f` the take. Do not drop it at repo-root `vo/`. Do not scaffold Q2. Do not upload. Do not add another Live job banner unless a first-contact lie is proven.
+
 ## 2026-09-13T21:18:00Z — Run 127
 
 - **Objective:** While selected VO is blocked, stop production_rules Human handoff from presenting doctor / queue_status / next_topic as the live start.
-- **Inspected:** HEAD after Run 126. README, agent_session, and human_session already name Q1 + Selected VO. production_rules still said "Start with doctor.py, then queue_status and next_topic."
-- **Action taken:** Rewrote the Human handoff opener so the live job is the Q1 packet-relative take. Labeled doctor / queue / next_topic as new-packet only. Pointed at human_session Live job + steps 5–7. Did not add a new page or numbered step. Recorded the decision. Did not invent wav. Did not bump ready_for_edit. No new CLI. No WAVE 4. No Q2. Did not map forbidden tools.
 - **Result:** An operator landing on production rules now sees the recording gate before session-start printers.
-- **Verification status:** Files committed via GitHub file API. Official tools not executed in this sandbox (no clone). No wav on disk. Target column left in human_session step 3.
-- **Important discovery:** After README / agent_session / human_session were pinned, the remaining first-contact lie was the rules page Human handoff still opening on doctor.
-- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
-- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session Live job + steps 5–7. Do not invent wav. Do not `git add -f` the take. Do not drop it at repo-root `vo/`. Do not scaffold Q2. Do not upload. Do not add another Live job banner unless a first-contact lie is proven.
 
 ## 2026-09-13T20:08:00Z — Run 126
 
-- **Objective:** While selected VO is blocked, stop the operator session page from presenting doctor / queue_status / new_packet as the live job.
-- **Inspected:** HEAD after Run 125. README and agent_session already name Q1 + Selected VO. human_session still opened on Start every session + First real video scaffold.
-- **Action taken:** Added a Live job section at the top of `docs/human_session.md`. Labeled Start every session as new-packet only. Labeled steps 1-4 as the completed path, not the live job. Did not add a new numbered step. Recorded the decision. Did not invent wav. Did not bump ready_for_edit. No new CLI. No WAVE 4. No Q2. Did not map forbidden tools.
 - **Result:** An operator landing on human_session now sees the recording gate before scaffold commands.
-- **Verification status:** Files committed via GitHub file API. Official tools not executed in this sandbox (no clone). No wav on disk. Target column left in human_session step 3.
-- **Important discovery:** After README and agent_session were pinned, the remaining first-contact lie for *operators* was human_session leading with doctor + scaffold.
-- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
-- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session Live job + steps 5–7. Do not invent wav. Do not `git add -f` the take. Do not drop it at repo-root `vo/`. Do not scaffold Q2. Do not upload. Do not add another Live job banner unless a first-contact lie is proven.
 
 ## 2026-09-13T19:15:00Z — Run 125
 
-- **Objective:** While selected VO is blocked, stop the agent reconstruct page from presenting WAVE 3 / fixture reconstruct as the live job.
 - **Result:** An agent landing on agent_session now sees the recording gate before reconstruct commands.
 
 ## 2026-09-13T18:05:00Z — Run 124
 
-- **Objective:** While selected VO is blocked, stop the repo front door from sending a returning operator into fixture/scaffold commands.
 - **Result:** Opening README now names the remaining human gate before the fixture command list.
 
 ## 2026-09-13T17:05:00Z — Run 123
