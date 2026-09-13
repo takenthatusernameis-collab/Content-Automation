@@ -19,6 +19,7 @@
 51br. gitignore local VO/card/export binaries — **done (Run 122; no wav)**
 51bs. align BLOCKED.md VO setup path with packet-relative gates — **done (Run 123; no wav)**
 51bt. README front door names live packet + Selected VO path — **done (Run 124; no wav)**
+51bu. agent_session live-job pin before reconstruct waves — **done (Run 125; no wav)**
 
 ## Later (automation)
 52. Human override of heuristic Primary (optional; already locked)
@@ -41,3 +42,4 @@
 - Treating repo-root `vo/` as Selected VO
 - Force-adding ignored media to flip presence rows
 - Adding another operator step that only restates NEXT.md
+- Treating WAVE 3 board printers as the live job while Q1 waits for a take
