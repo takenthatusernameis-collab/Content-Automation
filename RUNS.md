@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-13T14:15:00Z — Run 120
+
+- **Objective:** While selected VO is blocked, put the after-presence publish.md human edit on the one page a human actually follows, so the session after cards does not hunt NEXT.md for description + pin.
+- **Inspected:** HEAD after Run 119. Packet ready_for_vo. Q1 text paperwork exhausted. human_session stopped after render_brief / qa_checklist --force.
+- **Action taken:** Added human_session step 7 (edit Description, approve pin, keep No YouTube upload checked). Added matching Stop bullet. Did not invent wav, png, or mp4. Did not rewrite publish.md body. Did not bump ready_for_edit. No new CLI. No Q2 scaffold. Did not map forbidden tools. Did not strip Target column.
+- **Result:** Operator path now covers ready_for_vo through the first legal publish-metadata edit. Human gate is still the selected take.
+- **Verification status:** Step 3 Target column still present. New step 7 does not claim an upload. Official tools not executed in this sandbox (no clone).
+- **Important discovery:** After after-edit card commands landed, the remaining in-repo hunt was the publish description + pin boxes, not another brief file on Q1.
+- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
+- **Recommended next action:** Record selected VO to the named path. Follow human_session steps 5–7. Do not invent wav. Do not scaffold Q2. Do not upload.
+
 ## 2026-09-13T13:10:00Z — Run 119
 
 - **Objective:** While selected VO is blocked, put the after-edit card + presence-refresh commands on the one page a human actually follows, so the session after recording does not hunt NEXT.md / editor.md / assets.md.
