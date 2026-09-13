@@ -88,6 +88,8 @@ python3 tools/apply_script.py videos/002-stop-deciding-what-to-work-on-every-mor
 python3 tools/validate_packet.py videos/002-stop-deciding-what-to-work-on-every-morning
 ```
 
+`expand_prompt.py` pastes a live budget even when copied expand.md is still a stub. On an empty first draft use the Target column: hook 28 (20-35), payoff 60 (40-70), each of four beats 220 (140-220), CTA 50 (40-80), land ~1010 inside 900-1500. Follow `prompts/script_writer.md` Band landing. Do not wait for WORDS before using those targets. Do not invent filler to hit a heading.
+
 `words.py` writes nothing. On a packet folder it prefers `draft.md` when that file exists. IN BAND is not apply --write. If it prints EXPAND PROMPT, the file is still expand_prompt stdout. Delta, Hook Delta, Beats, Thin, Grow, and Cut are counts, not permission to pad. `--strict` does not fail on hook length, thin headings, Grow, or Cut alone.
 
 If expand_prompt prints `refusing expand: idea.md mechanism is blank or template-default`, or doctor prints `Code: fill-idea`, or `idea_brief.py --check` exits 2, go back to step 2. Do not run `apply_script.py --write` on `videos/sample-001-*`. Do not auto-write WORDS. Do not pad the fixture.
@@ -120,3 +122,4 @@ If unsure of the next command after any step, re-run `python3 tools/doctor.py vi
 - Do not promote while duration WARN is present.
 - Do not expand while idea.md still says `template-default` / generic or blank mechanism.
 - Do not treat start-of-session `queue_status.py` / `next_topic.py` as mark_topic-only after a folder exists; they print idea_brief --block / paste / --check.
+- Do not ignore the Target column on an empty first draft.
