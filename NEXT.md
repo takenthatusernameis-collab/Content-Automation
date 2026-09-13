@@ -2,13 +2,12 @@
 
 Do these in order. Stop if a step needs a human decision that is not present.
 
-1. **Highest value:** On live packet `videos/002-stop-deciding-what-to-work-on-every-morning` run `python3 tools/validate_packet.py PATH`. Then `python3 tools/set_status.py PATH --to ready_for_vo` (dry-run). Pass `--write` only if Result is OK and there is no duration WARN. Do not invent VO.
-2. Fill titles.md / thumbnail.md with `python3 tools/title_thumb_brief.py PATH --dry-run` as the next human lock. Do not upload.
-3. Re-run `python3 tools/words.py PATH` on a machine with a full checkout if the 952 count needs a second official pass (this run used the same spoken-word rules as words.py against the live draft).
-4. Do **not** add another wrapper CLI. Do **not** map doctor.py. Do **not** add another needed.py reconstruct path unless a READY lie is proven. Do **not** add a Band-landing reprint CLI. Do **not** scaffold Q2 yet.
-5. Do **not** make apply_script or words.py idea-lock INFO a check() error or a status bump.
-6. Do **not** map idea_lock.py / words.py / words_contract.py / placeholder_guard.py / prove_locks.py / idea_brief.py / idea_brief_contract.py / doctor.py.
-7. Do **not** attempt YouTube OAuth, TTS, ffmpeg, or publishing without credentials or a real VO file.
+1. **Highest value:** Human locks Primary title on `videos/002-stop-deciding-what-to-work-on-every-morning` (heuristic Primary is already filled and passes validate). Then record or generate a **selected VO take** per `docs/narration.md` and place it at the named path. Do not invent a wav in-repo.
+2. After a real selected take exists: `python3 tools/set_status.py PATH --to ready_for_edit` dry-run; `--write` only if Selected VO present and gate still PASS.
+3. Do **not** add another wrapper CLI. Do **not** map doctor.py. Do **not** add another needed.py reconstruct path unless a READY lie is proven. Do **not** add a Band-landing reprint CLI. Do **not** scaffold Q2 yet.
+4. Do **not** make apply_script or words.py idea-lock INFO a check() error or a status bump.
+5. Do **not** map idea_lock.py / words.py / words_contract.py / placeholder_guard.py / prove_locks.py / idea_brief.py / idea_brief_contract.py / doctor.py.
+6. Do **not** attempt YouTube OAuth, TTS, ffmpeg, or publishing without credentials or a real VO file.
 18. Do **not** run apply_script --write against sample-001.
 22. Do **not** retry HTTPS clone after one failure.
 27. Do **not** have new_packet or idea_brief write idea.md.

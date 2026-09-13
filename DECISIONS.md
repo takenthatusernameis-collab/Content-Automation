@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-13 | Heuristic title_thumb_brief output may be written onto a live packet when it is the only validate_packet FAIL and script is already IN BAND; status may move draft -> ready_for_vo after that PASS and no duration WARN | Run 114 gate was empty titles/thumb only | If a human rejects the heuristic Primary; do not invent VO; do not skip to ready_for_edit
 - 2026-09-13 | First non-fixture draft is written in draft.md only; script.md stays empty until apply --write after words.py IN BAND | Run 111 opened the packet; remaining labor was WORDS, not another reprint | After words.py official count; if BELOW/ABOVE edit draft.md, do not rewrite writer prompts unless official count misses 900-1500
 - 2026-09-13 | hint.py write-script/expand-script Command includes the empty-draft Target comment; doctor.py stays unmapped and unedited | Run 109 named targets on human_session but doctor/hint is the printed Command after scaffold | If a live expand-script Command still hides Target; do not map doctor.py; do not add a Band-landing CLI; do not strip the hint comment
 - 2026-09-13 | expand_prompt pastes expand_brief.render() when expand.md is missing or not expand_is_filled; template expand.md carries the same empty-WORDS table; expand_prompt still writes nothing | Run 107 fixed the CLI dry-run but the writer sees expand_prompt and the copied stub | If a live expand_prompt on a stub packet still hides Target; do not make expand_prompt write expand.md; do not add a Band-landing CLI

@@ -2,12 +2,16 @@
 
 Keep the original master prompt unchanged.
 
-Targeted addition from Run 113:
+Targeted addition from Run 114:
 
 - Live packet is `videos/002-stop-deciding-what-to-work-on-every-morning`.
-- draft.md counted **952 IN BAND** (hook 28). script.md now has the spoken WORDS.
-- packet.md status is still `draft`. Next: validate_packet + set_status ready_for_vo dry-run.
-- Then title_thumb_brief. Do not invent VO. Do not scaffold Q2.
+- validate_packet PASS after heuristic titles/thumb. packet.md status is `ready_for_vo`.
+- Next labor is a real selected VO take. Do not invent a wav. Do not scaffold Q2.
+- Do not bump ready_for_edit without Selected VO on disk.
+
+Targeted addition from Run 113:
+
+- draft.md counted **952 IN BAND** (hook 28). script.md has the spoken WORDS.
 
 Targeted addition from Run 112:
 
