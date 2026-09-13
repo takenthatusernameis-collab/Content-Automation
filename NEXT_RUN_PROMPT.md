@@ -2,11 +2,15 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 117:
+
+- publish.md tags are trimmed. qa.md mechanical is PASS. render.md is all-missing (11 named outputs).
+- Selected take is still missing. Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2.
+- In-repo text paperwork on Q1 is now exhausted. Next value is a real selected take or an explicit human TTS policy.
+
 Targeted addition from Run 116:
 
 - assets.md lists 7 planned cards from VISUAL. publish.md is a stub, not an upload.
-- Selected take is still missing. Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2.
-- Connected Voice/TTS must not be written as the selected take unless a human changes narration policy.
 
 Targeted addition from Run 115:
 
