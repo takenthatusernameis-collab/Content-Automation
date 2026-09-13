@@ -25,7 +25,7 @@ Numeric ids treat `sample-001-*` as 001, so the next scaffold is `002-...`.
 
 | id | status | working_title | one_line |
 |----|--------|---------------|----------|
-| Q1 | queued | Stop deciding what to work on every morning | Install a written next-action default so the morning does not reopen the whole list. |
+| Q1 | used | Stop deciding what to work on every morning | Install a written next-action default so the morning does not reopen the whole list. |
 | Q2 | queued | Put the start cue on the work itself | Name one physical or file cue that means this is the first two minutes. |
 | Q3 | queued | One list, one next action | Collapse competing lists into a single next verb the viewer can do today. |
 | Q4 | queued | Close the extra tab before you open the work | A shutdown default that removes the stall of just checking one more thing. |
