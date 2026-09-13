@@ -2,11 +2,19 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 120:
+
+- human_session.md step 7 now names the after-presence publish.md description + pin edit and forbids treating it as an upload. Q1 text paperwork is exhausted. Selected take is still missing.
+- Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2. Do not add another wrapper CLI. Do not upload.
+- Next value is a real selected take or an explicit human TTS policy. Do not spend the run adding another Q1 markdown stub or another operator step that only restates NEXT.md.
+
+Targeted addition from Run 119:
+
+- human_session.md step 6 and editor/assets now name the after-edit card + presence-refresh commands.
+
 Targeted addition from Run 118:
 
-- human_session.md step 5 and narration.md now name the after-VO commands. Q1 text paperwork is exhausted. Selected take is still missing.
-- Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2. Do not add another wrapper CLI.
-- Next value is a real selected take or an explicit human TTS policy. Do not spend the run adding another Q1 markdown stub.
+- human_session.md step 5 and narration.md now name the after-VO commands.
 
 Targeted addition from Run 117:
 
