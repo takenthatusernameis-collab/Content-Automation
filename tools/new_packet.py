@@ -76,6 +76,22 @@ def idea_followup(title: str) -> list[str]:
     return lines
 
 
+def draft_followup(dest: Path | None = None) -> list[str]:
+    """Reprint the copied draft.md save target. Does not write WORDS."""
+    rel = "PATH/draft.md"
+    if dest is not None:
+        try:
+            rel = str(dest.relative_to(ROOT) / "draft.md")
+        except ValueError:
+            rel = str(Path(dest) / "draft.md")
+    return [
+        "This command does not write spoken WORDS.",
+        f"After expand, overwrite the copied save target {rel}.",
+        "That file is not script.md until apply_script --write.",
+        "Do not invent a second draft file. Do not copy it onto videos/sample-001-*.",
+    ]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Scaffold a new video packet")
     parser.add_argument("title", help="Working title or topic")
@@ -120,6 +136,8 @@ def main() -> int:
     for line in mark_followup(args.title):
         print(line)
     for line in idea_followup(args.title):
+        print(line)
+    for line in draft_followup(dest):
         print(line)
     return 0
 
