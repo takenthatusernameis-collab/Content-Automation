@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-13 | hint.py write-script/expand-script Command includes the empty-draft Target comment; doctor.py stays unmapped and unedited | Run 109 named targets on human_session but doctor/hint is the printed Command after scaffold | If a live expand-script Command still hides Target; do not map doctor.py; do not add a Band-landing CLI; do not strip the hint comment
 - 2026-09-13 | expand_prompt pastes expand_brief.render() when expand.md is missing or not expand_is_filled; template expand.md carries the same empty-WORDS table; expand_prompt still writes nothing | Run 107 fixed the CLI dry-run but the writer sees expand_prompt and the copied stub | If a live expand_prompt on a stub packet still hides Target; do not make expand_prompt write expand.md; do not add a Band-landing CLI
 - 2026-09-13 | expand_brief prints a Band-landing target table from script.md headings even when WORDS are empty; beat wants clamp to 140-220 | Empty expand.md hid the allocation that writer prompts already name; expand_prompt already pastes expand.md | If a live empty packet still shows the old stub; do not hide the table; do not add a Band-landing CLI; do not raise beat max above 220
 - 2026-09-13 | Every new packet copies videos/_template/draft.md as the off-repo save target; draft.md is still not script.md | Run 104 put allocation in prompts but the packet still had no file to overwrite | If a live new_packet run shows draft.md confusing words.py on an empty packet
