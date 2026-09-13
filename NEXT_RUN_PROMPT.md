@@ -2,11 +2,16 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 124:
+
+- README now opens on the live Q1 packet and the packet-relative Selected VO path. sample-001 commands are contract examples, not the live job.
+- Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2. Do not add another wrapper CLI. Do not upload.
+- Do not spend the run adding another Q1 markdown stub or another operator step that only restates NEXT.md.
+- Next value is a real selected take at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`, or an explicit human TTS policy.
+
 Targeted addition from Run 121:
 
 - Selected VO is packet-relative only: `videos/NNN-slug/vo/NNN-slug-take-selected.wav` (or .flac, optional `-v2`). Repo-root `vo/` is ignored by `render_brief` / `set_status`.
-- Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2. Do not add another wrapper CLI. Do not upload.
-- Next value is a real selected take at that packet path, or an explicit human TTS policy. Do not spend the run adding another Q1 markdown stub or another operator step that only restates NEXT.md.
 
 Targeted addition from Run 120:
 

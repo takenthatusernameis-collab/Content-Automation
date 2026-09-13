@@ -2,8 +2,20 @@
 
 Recurring-agent workspace for a low-labor YouTube production system.
 
-Start here:
-- `docs/human_session.md` — operator path (doctor first; never write the fixture)
+## Live packet (do this first)
+
+Status `ready_for_vo`. Text paperwork is done. The remaining human gate is a selected take.
+
+- Packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
+- Reading card: `vo_session.md` (952 words, ~06:21)
+- Put the take here (wav or flac): `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
+- Repo-root `vo/` is not Selected VO. `.gitignore` keeps the take local. Do not `git add -f` it.
+- After the file exists locally: `docs/human_session.md` steps 5–7.
+
+Do not scaffold Q2. Do not start from the sample-001 commands below. Those are contract examples, not the live job.
+
+Start here for context:
+- `docs/human_session.md` — operator path (doctor first only when starting a *new* packet; never write the fixture)
 - `docs/agent_session.md` — agent path when clone fails (reconstruct + selftest)
 - `docs/topic_queue.md` — next working titles (not drafts)
 - `STATE.md` — current reality

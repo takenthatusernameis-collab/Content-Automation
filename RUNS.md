@@ -2,22 +2,27 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-13T18:05:00Z — Run 124
+
+- **Objective:** While selected VO is blocked, stop the repo front door from sending a returning operator into fixture/scaffold commands.
+- **Inspected:** HEAD after Run 123. Operator pages, BLOCKED, gitignore, and NEXT already named the packet-relative take. README still opened on doctor + sample-001 tool list.
+- **Action taken:** Added a Live packet section at the top of README with Q1 path, ready_for_vo, and the exact Selected VO filename. Labeled the sample-001 block as contract examples, not the live job. Recorded the decision. Did not invent wav. Did not bump ready_for_edit. No new CLI. No Q2. Did not map forbidden tools. Did not add another human_session step.
+- **Result:** Opening README now names the remaining human gate before the fixture command list.
+- **Verification status:** Files committed via GitHub file API. Official tools not executed in this sandbox (no clone). No wav on disk. Target column left in human_session step 3.
+- **Important discovery:** After internal operator pages were aligned, the remaining first-contact lie was README leading with scaffold/fixture.
+- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
+- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session steps 5–7. Do not invent wav. Do not `git add -f` the take. Do not drop it at repo-root `vo/`. Do not scaffold Q2. Do not upload. Do not add another operator step that only restates NEXT.md.
+
 ## 2026-09-13T17:05:00Z — Run 123
 
 - **Objective:** While selected VO is blocked, close the last documented path that still told a human to record at repo-root `vo/`.
-- **Inspected:** HEAD after Run 122. Operator pages, narration, NEXT, gitignore, and DECISIONS already required packet-relative Selected VO. `BLOCKED.md` TTS/mic row still said `vo/NNN-slug-take-selected.wav`.
-- **Action taken:** Updated BLOCKED.md setup path to `videos/NNN-slug/vo/NNN-slug-take-selected.wav` and stated repo-root `vo/` is not Selected VO. Recorded the decision. Did not invent wav. Did not bump ready_for_edit. No new CLI. No Q2. Did not map forbidden tools. Did not strip Target column.
 - **Result:** A human reading BLOCKED.md before recording will place the take where `render_brief` / `set_status` look. Human gate is still the selected take.
-- **Verification status:** BLOCKED.md committed via GitHub file API. Official tools not executed in this sandbox (no clone). No wav on disk. Target column left in human_session step 3.
-- **Important discovery:** After operator pages and gitignore were aligned, the remaining in-repo path lie was the parked-dependency table.
-- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
-- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session steps 5–7. Do not invent wav. Do not `git add -f` the take. Do not drop it at repo-root `vo/`. Do not scaffold Q2. Do not upload.
+- **Recommended next action:** Record selected VO to the packet-relative path.
 
 ## 2026-09-13T16:20:00Z — Run 122
 
 - **Objective:** While selected VO is blocked, enforce the existing keep-media-out-of-git rule so a recording session cannot commit binaries and fake present rows.
-- **Result:** A recording session can drop the take at the packet path without that file entering git by default. Human gate is still the selected take.
-- **Recommended next action:** Record selected VO to the packet-relative path. Do not invent wav. Do not `git add -f` the take.
+- **Result:** A recording session can drop the take at the packet path without that file entering git by default.
 
 ## 2026-09-13T15:10:00Z — Run 121
 
