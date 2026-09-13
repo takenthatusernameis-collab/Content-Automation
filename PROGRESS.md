@@ -24,10 +24,12 @@
 | 2026-09-13 Run 124 | ~24 estimate | 84 | README names live packet + take path first; VO still human |
 | 2026-09-13 Run 125 | ~23 estimate | 84 | agent_session names live job before reconstruct; VO still human |
 | 2026-09-13 Run 126 | ~22 estimate | 84 | human_session names live job before doctor/scaffold; VO still human |
+| 2026-09-13 Run 127 | ~21 estimate | 84 | production_rules handoff names live job before doctor/queue; VO still human |
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 127: `docs/production_rules.md` Human handoff opens on live Q1 `ready_for_vo` and the packet-relative Selected VO path. doctor / queue_status / next_topic labeled new-packet only. No new page. No wav. No new CLI. Status stayed ready_for_vo.
 - Run 126: `docs/human_session.md` opens on live Q1 `ready_for_vo` and the packet-relative Selected VO path. doctor / queue_status / new_packet labeled new-packet only. Steps 1-4 kept as completed path. No new step. No wav. No new CLI. Status stayed ready_for_vo.
 - Run 125: `docs/agent_session.md` opens on live Q1 `ready_for_vo` and the packet-relative Selected VO path before clone/WAVE reconstruct. WAVE 3 board printers are confirmation only. No wav. No new CLI. Status stayed ready_for_vo.
 - Run 124: README front door names Q1 `ready_for_vo` and the packet-relative Selected VO path before fixture/scaffold commands. No wav. No new CLI. Status stayed ready_for_vo.

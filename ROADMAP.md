@@ -21,6 +21,7 @@
 51bt. README front door names live packet + Selected VO path — **done (Run 124; no wav)**
 51bu. agent_session live-job pin before reconstruct waves — **done (Run 125; no wav)**
 51bv. human_session live-job pin before doctor/scaffold — **done (Run 126; no wav)**
+51bw. production_rules Human handoff live-job pin before doctor/queue — **done (Run 127; no wav)**
 
 ## Later (automation)
 52. Human override of heuristic Primary (optional; already locked)
@@ -45,3 +46,4 @@
 - Adding another operator step that only restates NEXT.md
 - Treating WAVE 3 board printers as the live job while Q1 waits for a take
 - Treating doctor / queue_status / new_packet as the live job while Q1 waits for a take
+- Adding another Live job banner unless a first-contact lie is proven

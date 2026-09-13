@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-13T21:18:00Z — Run 127
+
+- **Objective:** While selected VO is blocked, stop production_rules Human handoff from presenting doctor / queue_status / next_topic as the live start.
+- **Inspected:** HEAD after Run 126. README, agent_session, and human_session already name Q1 + Selected VO. production_rules still said "Start with doctor.py, then queue_status and next_topic."
+- **Action taken:** Rewrote the Human handoff opener so the live job is the Q1 packet-relative take. Labeled doctor / queue / next_topic as new-packet only. Pointed at human_session Live job + steps 5–7. Did not add a new page or numbered step. Recorded the decision. Did not invent wav. Did not bump ready_for_edit. No new CLI. No WAVE 4. No Q2. Did not map forbidden tools.
+- **Result:** An operator landing on production rules now sees the recording gate before session-start printers.
+- **Verification status:** Files committed via GitHub file API. Official tools not executed in this sandbox (no clone). No wav on disk. Target column left in human_session step 3.
+- **Important discovery:** After README / agent_session / human_session were pinned, the remaining first-contact lie was the rules page Human handoff still opening on doctor.
+- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
+- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session Live job + steps 5–7. Do not invent wav. Do not `git add -f` the take. Do not drop it at repo-root `vo/`. Do not scaffold Q2. Do not upload. Do not add another Live job banner unless a first-contact lie is proven.
+
 ## 2026-09-13T20:08:00Z — Run 126
 
 - **Objective:** While selected VO is blocked, stop the operator session page from presenting doctor / queue_status / new_packet as the live job.
@@ -16,39 +27,23 @@ Permanent log. Newest first. If the same action repeats across runs with no prog
 ## 2026-09-13T19:15:00Z — Run 125
 
 - **Objective:** While selected VO is blocked, stop the agent reconstruct page from presenting WAVE 3 / fixture reconstruct as the live job.
-- **Inspected:** HEAD after Run 124. README already names Q1 + Selected VO. agent_session still opened on clone + needed.py waves.
-- **Action taken:** Added a Live job section at the top of `docs/agent_session.md`. Marked WAVE 3 board printers as confirmation only while `ready_for_vo` has no take. Recorded the decision. Did not invent wav. Did not bump ready_for_edit. No new CLI. No WAVE 4. No Q2. Did not map forbidden tools. Did not add another human_session step.
 - **Result:** An agent landing on agent_session now sees the recording gate before reconstruct commands.
-- **Verification status:** Files committed via GitHub file API. Official tools not executed in this sandbox (no clone). No wav on disk. Target column left in human_session step 3.
-- **Important discovery:** After README was pinned, the remaining first-contact lie for *agents* was agent_session leading with reconstruct waves.
-- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
-- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session steps 5–7. Do not invent wav. Do not `git add -f` the take. Do not drop it at repo-root `vo/`. Do not scaffold Q2. Do not upload. Do not add another operator/agent page that only restates NEXT.md.
 
 ## 2026-09-13T18:05:00Z — Run 124
 
 - **Objective:** While selected VO is blocked, stop the repo front door from sending a returning operator into fixture/scaffold commands.
-- **Inspected:** HEAD after Run 123. Operator pages, BLOCKED, gitignore, and NEXT already named the packet-relative take. README still opened on doctor + sample-001 tool list.
-- **Action taken:** Added a Live packet section at the top of README with Q1 path, ready_for_vo, and the exact Selected VO filename. Labeled the sample-001 block as contract examples, not the live job. Recorded the decision. Did not invent wav. Did not bump ready_for_edit. No new CLI. No Q2. Did not map forbidden tools. Did not add another human_session step.
 - **Result:** Opening README now names the remaining human gate before the fixture command list.
-- **Verification status:** Files committed via GitHub file API. Official tools not executed in this sandbox (no clone). No wav on disk. Target column left in human_session step 3.
-- **Important discovery:** After internal operator pages were aligned, the remaining first-contact lie was README leading with scaffold/fixture.
-- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
-- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session steps 5–7. Do not invent wav. Do not `git add -f` the take. Do not drop it at repo-root `vo/`. Do not scaffold Q2. Do not upload. Do not add another operator step that only restates NEXT.md.
 
 ## 2026-09-13T17:05:00Z — Run 123
 
-- **Objective:** While selected VO is blocked, close the last documented path that still told a human to record at repo-root `vo/`.
 - **Result:** A human reading BLOCKED.md before recording will place the take where `render_brief` / `set_status` look. Human gate is still the selected take.
-- **Recommended next action:** Record selected VO to the packet-relative path.
 
 ## 2026-09-13T16:20:00Z — Run 122
 
-- **Objective:** While selected VO is blocked, enforce the existing keep-media-out-of-git rule so a recording session cannot commit binaries and fake present rows.
 - **Result:** A recording session can drop the take at the packet path without that file entering git by default.
 
 ## 2026-09-13T15:10:00Z — Run 121
 
-- **Objective:** While selected VO is blocked, remove the path lie that would make a recorded take invisible to `set_status` / `render_brief`.
 - **Result:** A recording session can place the file where the gate actually looks.
 
 ## 2026-09-13T14:15:00Z — Run 120
@@ -67,29 +62,5 @@ Permanent log. Newest first. If the same action repeats across runs with no prog
 
 - **Result:** Upload tags are usable. Editor has a named presence list that will stay honest until files exist.
 
-## 2026-09-13T10:20:00Z — Run 116
-
-- **Result:** Editor has a named card list. Upload metadata exists as a stub. Status remains ready_for_vo.
-
-## 2026-09-13T09:16:00Z — Run 115
-
-- **Result:** Human can read the card and record to the named path. Caption stub exists. Status remains ready_for_vo.
-
-## 2026-09-13T08:15:00Z — Run 114
-
-- **Result:** Q1 ready_for_vo with validating title/thumb copy.
-
-## 2026-09-13T07:10:00Z — Run 113
-
-- **Result:** script.md holds spoken WORDS (952 IN BAND). status remained draft until Run 114.
-
-## 2026-09-13T06:30:00Z — Run 112
-
-- **Result:** First non-fixture draft.md WORDS (manual 941).
-
-## 2026-09-13T06:20:00Z — Run 111 (other agent)
-
-- **Result:** Packet exists. draft.md empty until Run 112.
-
-## Earlier runs 001–110
+## Earlier runs 001–116
 See prior commits for full detail.
