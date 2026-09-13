@@ -16,7 +16,7 @@ TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
-from next_action import recommend  # noqa: E402
+from next_action import recommend, selected_vo_path  # noqa: E402
 from pipeline_status import inspect, packet_dirs  # noqa: E402
 from set_status import check as status_check, is_fixture  # noqa: E402
 from validate_packet import packet_duration_warning  # noqa: E402
@@ -90,7 +90,9 @@ def commands_for(path: Path, row: dict[str, object], code: str) -> list[str]:
                 cmds.append(
                     f"# after dry-run OK: python3 tools/set_status.py {p} --to ready_for_vo --write"
                 )
-        cmds.append("# then record the selected take at the named vo/ path (do not invent the file)")
+        vo = selected_vo_path(path)
+        cmds.append(f"# then record the selected take at {vo}")
+        cmds.append("# do not invent the file; repo-root vo/ is not Selected VO; do not git add -f")
         return cmds
     if code == "build-cards":
         return ["# create the named cards/*.png locally; do not download stock from tools"]

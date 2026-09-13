@@ -40,11 +40,17 @@ def idea_text(path: Path) -> str:
     return idea.read_text(encoding="utf-8")
 
 
+def selected_vo_path(path: Path) -> str:
+    """Packet-relative Selected VO. Repo-root vo/ is not Selected VO."""
+    vid, slug = packet_id_slug(path)
+    return f"videos/{vid}-{slug}/vo/{vid}-{slug}-take-selected.wav"
+
+
 def recommend(path: Path, row: dict[str, object]) -> tuple[str, str]:
     """Return (code, sentence). One action. Never mutates."""
     status = str(row["status"])
     vid, slug = packet_id_slug(path)
-    vo_name = f"vo/{vid}-{slug}-take-selected.wav"
+    vo_name = selected_vo_path(path)
     export_name = f"exports/{vid}-{slug}-v1.mp4"
     open_item = first_open(path)
 
@@ -69,7 +75,7 @@ def recommend(path: Path, row: dict[str, object]) -> tuple[str, str]:
     if "status-ahead-of-vo" in drift:
         return (
             "record-vo",
-            f"Status is ahead of Selected VO. Put a take at `{vo_name}` or lower status. Do not invent the file.",
+            f"Status is ahead of Selected VO. Put a take at `{vo_name}` or lower status. Do not invent the file. Repo-root vo/ is not Selected VO.",
         )
     if "status-ahead-of-export" in drift:
         return (
@@ -109,7 +115,7 @@ def recommend(path: Path, row: dict[str, object]) -> tuple[str, str]:
     if status in {"draft", "ready_for_vo"}:
         return (
             "record-vo",
-            f"Script gate is PASS. Record the selected take at `{vo_name}` before raising status.",
+            f"Script gate is PASS. Record the selected take at `{vo_name}` before raising status. Repo-root vo/ is not Selected VO.",
         )
 
     if status == "ready_for_edit":
