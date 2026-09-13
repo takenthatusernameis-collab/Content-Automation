@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-13T23:16:00Z — Run 129
+
+- **Objective:** While selected VO is blocked, stop set_status from refusing ready_for_edit with a generic "Selected VO missing on disk" that hides the path the gate opens.
+- **Inspected:** HEAD after Run 128. next_action / hint already print `videos/NNN-slug/vo/...`. set_status.check still said only "Selected VO missing on disk" for ready_for_edit / ready_to_publish / published.
+- **Action taken:** set_status.py now imports selected_vo_path() and appends `need \`videos/{vid}-{slug}/vo/...\`; repo-root vo/ is not Selected VO` on those refuse lines. Did not add a Live job banner. Did not invent wav. Did not bump ready_for_edit. No new CLI. No WAVE 4. No Q2. Did not map forbidden tools.
+- **Result:** An operator who dry-runs set_status after dropping a take in the wrong place is told the same path render_brief / next_action check.
+- **Verification status:** Files committed via GitHub file API. Official tools not executed in this sandbox (no clone). No wav on disk. Target column left in human_session step 3. Target comment left on hint write-script/expand-script.
+- **Important discovery:** After record-vo printers were pinned, the remaining short-path omit was the status-gate refuse string.
+- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
+- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session Live job + steps 5–7. Do not invent wav. Do not `git add -f` the take. Do not drop it at repo-root `vo/`. Do not scaffold Q2. Do not upload. Do not add another Live job banner unless a first-contact lie is proven.
+
 ## 2026-09-13T22:19:00Z — Run 128
 
 - **Objective:** While selected VO is blocked, stop next_action / hint from printing a short `vo/` drop path that gates do not open.

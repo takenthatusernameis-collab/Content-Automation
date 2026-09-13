@@ -2,6 +2,17 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 129:
+
+- tools/set_status.py missing-VO refuse now names `videos/NNN-slug/vo/NNN-slug-take-selected.wav`. Repo-root `vo/` is not Selected VO.
+- Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2. Do not add another wrapper CLI. Do not add WAVE 4. Do not upload.
+- Do not spend the run adding another Q1 markdown stub or another operator/agent page that only restates NEXT.md.
+- Next value is a real selected take at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`, or an explicit human TTS policy.
+
+Targeted addition from Run 128:
+
+- next_action.py and hint.py record-vo printers name the packet-relative Selected VO path. Short `vo/` is not the printed drop path.
+
 Targeted addition from Run 125:
 
 - docs/agent_session.md now opens on the live Q1 job before reconstruct waves. WAVE 3 board printers are confirmation only while ready_for_vo has no take.

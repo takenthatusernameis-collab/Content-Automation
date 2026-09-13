@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-09-13 — generic missing-VO refuse on set_status (Run 129)
+
+- **Tried:** Runs 121-128 locked pages, BLOCKED, gitignore, first-contact banners, and record-vo printers to `videos/NNN-slug/vo/...`. set_status still refused ready_for_edit with only "Selected VO missing on disk".
+- **Evidence:** An operator who records then dry-runs set_status after dropping the take at repo-root `vo/` still would not be told the path the gate opens.
+- **Lesson:** Pin the refuse string on the status gate, not only the next-action printers.
+- **Avoid:** WAVE 4. Mapping doctor.py. Inventing a wav. Another Live job banner. A second search at repo-root `vo/`.
+
 ## 2026-09-13 — short Selected VO path on record-vo printers (Run 128)
 
 - **Tried:** Runs 121-127 locked pages, BLOCKED, gitignore, and first-contact banners to `videos/NNN-slug/vo/...`. next_action Why and hint record-vo Command still printed a short `vo/` path.
