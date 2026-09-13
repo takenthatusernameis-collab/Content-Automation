@@ -18,6 +18,7 @@ TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
+from next_action import selected_vo_path  # noqa: E402
 from pipeline_status import disk_summary, inspect  # noqa: E402
 from validate_packet import VALID_STATUS, field, packet_duration_warning  # noqa: E402
 
@@ -95,7 +96,11 @@ def check(packet: Path, target: str) -> list[str]:
     if target == "ready_for_edit":
         _label, _p, _m, by_role = disk_summary(packet)
         if by_role.get("Selected VO") != "present":
-            errors.append("refusing ready_for_edit: Selected VO missing on disk")
+            vo = selected_vo_path(packet)
+            errors.append(
+                f"refusing ready_for_edit: Selected VO missing on disk "
+                f"(need `{vo}`; repo-root vo/ is not Selected VO)"
+            )
         if gate == "FAIL":
             errors.append("refusing ready_for_edit: publish gate FAIL")
         dur = packet_duration_warning(packet)
@@ -105,7 +110,11 @@ def check(packet: Path, target: str) -> list[str]:
     if target in {"ready_to_publish", "published"}:
         _label, _p, _m, by_role = disk_summary(packet)
         if by_role.get("Selected VO") != "present":
-            errors.append(f"refusing {target}: Selected VO missing on disk")
+            vo = selected_vo_path(packet)
+            errors.append(
+                f"refusing {target}: Selected VO missing on disk "
+                f"(need `{vo}`; repo-root vo/ is not Selected VO)"
+            )
         if by_role.get("Master export") != "present":
             errors.append(f"refusing {target}: Master export missing on disk")
         if gate != "PASS":
