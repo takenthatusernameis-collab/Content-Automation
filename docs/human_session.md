@@ -114,6 +114,8 @@ Canonical Selected VO for Q1 (packet-relative; this is what `render_brief` / `se
 
 A file at repo-root `vo/` is not Selected VO. Tools only check inside the packet folder. wav or flac. Optional replacement: same name with `-v2` before the extension.
 
+`.gitignore` keeps `videos/**/vo/**/*.{wav,flac}` and `videos/**/cards/**/*.png` out of git. Presence tools still see local files. Do not `git add -f` media to flip rows.
+
 Read `videos/002-stop-deciding-what-to-work-on-every-morning/vo_session.md` and `docs/narration.md`. Record or generate locally. Keep large raw takes out of git.
 
 When that file is on disk:
@@ -129,7 +131,7 @@ python3 tools/set_status.py videos/002-stop-deciding-what-to-work-on-every-morni
 
 6. After status is ready_for_edit (cards stay local)
 
-Build the 7 planned cards from `videos/002-stop-deciding-what-to-work-on-every-morning/assets.md` into that packet's `cards/` folder. Names must match the Suggested file column. Tracks: text-cards on `TITLES`, diagrams on `DIAGRAM` (`docs/editor.md`). Do not commit pngs to flip Status to ready.
+Build the 7 planned cards from `videos/002-stop-deciding-what-to-work-on-every-morning/assets.md` into that packet's `cards/` folder. Names must match the Suggested file column. Tracks: text-cards on `TITLES`, diagrams on `DIAGRAM` (`docs/editor.md`). Do not commit pngs to flip Status to ready. `.gitignore` already excludes those pngs.
 
 When local files exist:
 
@@ -171,4 +173,5 @@ If unsure of the next command after any step, re-run `python3 tools/doctor.py vi
 - Do not place Selected VO at repo-root `vo/`; tools only see `videos/NNN-slug/vo/`.
 - Do not bump `ready_for_edit` without the named take on disk.
 - Do not commit card binaries to make assets.md or render.md look ready.
+- Do not `git add -f` ignored wav/png/mp4 to flip presence rows.
 - Do not treat a publish.md description edit as an upload.

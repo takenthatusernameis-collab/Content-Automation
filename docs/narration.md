@@ -7,6 +7,8 @@ Packet folder: `videos/NNN-slug/`
 
 Every path in the table is **inside that packet folder**. A file at repo-root `vo/` is not Selected VO. `render_brief` and `set_status` only check `videos/NNN-slug/vo/`.
 
+`.gitignore` excludes packet `vo/` audio and `cards/` images. Local presence still works. Do not force-add media.
+
 | Role | Path | Notes |
 |------|------|-------|
 | Script (source of spoken words) | `script.md` | WORDS blocks only |

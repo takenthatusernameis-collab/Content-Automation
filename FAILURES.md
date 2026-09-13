@@ -5,7 +5,7 @@
 - **Tried:** Runs 118-120 named `vo/002-...-take-selected.wav` on human_session / NEXT without saying it is inside the packet folder.
 - **Evidence:** `tools/render_brief.py` `presence_rows` only checks `packet / vo/...`. A take dropped at repo-root `vo/` would stay missing and `set_status ready_for_edit` would refuse.
 - **Lesson:** Name the path the gate actually opens. Do not shorten it for markdown convenience.
-- **Avoid:** Adding a second search at repo-root `vo/`. Inventing a wav to prove the path. Another operator step that only restates NEXT.md.
+- **Avoid:** Adding a second search at repo-root `vo/`. Inventing a wav to prove the path. Another operator step that only restates NEXT.md. Force-adding ignored media.
 
 ## 2026-09-13 — STATE lag after parallel Run 111 scaffold
 

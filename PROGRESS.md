@@ -19,10 +19,12 @@
 | 2026-09-13 Run 119 | ~28 estimate | 84 | after-edit card commands on operator page; VO still human |
 | 2026-09-13 Run 120 | ~27 estimate | 84 | after-presence publish edit on operator page; VO still human |
 | 2026-09-13 Run 121 | ~26 estimate | 84 | Selected VO path locked packet-relative; VO still human |
+| 2026-09-13 Run 122 | ~25 estimate | 84 | gitignore local VO/cards/exports; VO still human |
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 122: `.gitignore` excludes packet vo audio, cards images, exports video, and repo-root media dumps. Presence tools still see local files. Operator pages name the ignore. No wav. No new CLI. Status stayed ready_for_vo.
 - Run 121: Canonical Selected VO is `videos/NNN-slug/vo/NNN-slug-take-selected.wav`. human_session, NEXT, narration, vo_session.py, and the live Q1 card now say so. Repo-root `vo/` is ignored by `render_brief` / `set_status`. No wav. No new CLI. Status stayed ready_for_vo.
 - Run 120: `docs/human_session.md` step 7 names the remaining publish.md human boxes (description + pin) and forbids treating that edit as an upload. No YouTube call. No new CLI. Status stayed ready_for_vo.
 - Run 119: `docs/human_session.md` step 6 names the 7 planned cards, local `cards/` folder, and render_brief / qa_checklist --force. `docs/editor.md` and `docs/assets.md` point at the same sequence. No png. No new CLI. Status stayed ready_for_vo.

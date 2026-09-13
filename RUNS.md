@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-13T16:20:00Z — Run 122
+
+- **Objective:** While selected VO is blocked, enforce the existing keep-media-out-of-git rule so a recording session cannot commit binaries and fake present rows.
+- **Inspected:** HEAD after Run 121. Packet ready_for_vo. Path lock complete. No `.gitignore` in the tree. Operator pages already said keep raw takes and cards out of git.
+- **Action taken:** Added `.gitignore` for packet `vo/` audio, `cards/` images, `exports/` video, and repo-root media dumps. Named the ignore on human_session steps 5–6, narration, and NEXT. Did not invent wav. Did not bump ready_for_edit. No new CLI. No Q2. Did not map forbidden tools. Did not strip Target column.
+- **Result:** A recording session can drop the take at the packet path without that file entering git by default. Human gate is still the selected take.
+- **Verification status:** `.gitignore` committed via GitHub file API. Official tools not executed in this sandbox (no clone). No wav on disk. Target column left in human_session step 3.
+- **Important discovery:** After the path lie was closed, the remaining in-repo failure mode was accidental commit of local media.
+- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
+- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session steps 5–7. Do not invent wav. Do not `git add -f` the take. Do not drop it at repo-root `vo/`. Do not scaffold Q2. Do not upload.
+
 ## 2026-09-13T15:10:00Z — Run 121
 
 - **Objective:** While selected VO is blocked, remove the path lie that would make a recorded take invisible to `set_status` / `render_brief`.

@@ -1,0 +1,22 @@
+# Local production media. Presence tools check the packet folder on disk.
+# Do not git add -f these files to flip render.md or assets.md rows to present.
+
+videos/**/vo/**/*.wav
+videos/**/vo/**/*.flac
+videos/**/vo/**/*.mp3
+videos/**/vo/**/*.m4a
+videos/**/cards/**/*.png
+videos/**/cards/**/*.jpg
+videos/**/cards/**/*.jpeg
+videos/**/cards/**/*.webp
+videos/**/exports/**/*.mp4
+videos/**/exports/**/*.mov
+
+# Repo-root dumps are not Selected VO and are not planned cards.
+/vo/
+/cards/
+/exports/
+
+.DS_Store
+__pycache__/
+*.pyc

@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-13T15:10:00Z (Run 121)
+Updated: 2026-09-13T16:20:00Z (Run 122)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + titles/thumb filled + vo_session ready-to-record + captions stub + assets list + publish stub (tags trimmed) + qa mechanical + render presence all-missing + operator after-VO / after-edit / after-presence commands + Selected VO path locked packet-relative -> automated -> self-improving
+manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + titles/thumb filled + vo_session ready-to-record + captions stub + assets list + publish stub (tags trimmed) + qa mechanical + render presence all-missing + operator after-VO / after-edit / after-presence commands + Selected VO path locked packet-relative + local media gitignored -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -26,9 +26,10 @@ manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + tit
 - Run 119: documented after-edit card path on human_session step 6. No png invented.
 - Run 120: documented after-presence publish edit on human_session step 7. Did not upload.
 - Run 121: locked Selected VO to packet-relative `videos/NNN-slug/vo/...`. Repo-root `vo/` is not Selected VO. No wav invented. No status bump. No Q2. No new CLI. Did not map forbidden tools.
+- Run 122: added `.gitignore` for packet vo audio, cards images, exports video, and repo-root dumps. Presence tools still check local disk. No wav invented. No status bump. No Q2. No new CLI.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 
-## What exists now (after Run 121)
+## What exists now (after Run 122)
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - idea.md mechanism filled
 - draft.md + script.md spoken WORDS (952 IN BAND, hook 28)
@@ -40,21 +41,21 @@ manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + tit
 - qa.md: mechanical PASS; all human boxes open
 - render.md: all-missing (0 present / 11 missing)
 - packet.md status `ready_for_vo`
-- Operator pages now name the packet-relative take path that `render_brief` / `set_status` actually check
+- `.gitignore` excludes local Selected VO / cards / exports binaries
 - Human still must record selected VO and build cards locally
 - Queue Q1 used; Q2-Q5 queued
 - Reconstruct-loop watch from Runs 099-103 remains in force
 
 ## Pipeline map
-Q1 is past paste + draft + words count + script apply + title/thumb + ready_for_vo + reading card + asset list + publish stub + tag trim + qa mechanical + render presence + after-VO / after-edit / after-presence operator commands + Selected VO path lock.
-Next live command: record/generate selected VO per `docs/narration.md` and `vo_session.md`. Place at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`. Do not invent a wav. Do not drop it at repo-root `vo/`. Do not upload. Do not scaffold Q2.
+Q1 is past paste + draft + words count + script apply + title/thumb + ready_for_vo + reading card + asset list + publish stub + tag trim + qa mechanical + render presence + after-VO / after-edit / after-presence operator commands + Selected VO path lock + media gitignore.
+Next live command: record/generate selected VO per `docs/narration.md` and `vo_session.md`. Place at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`. Do not invent a wav. Do not drop it at repo-root `vo/`. Do not `git add -f` it. Do not upload. Do not scaffold Q2.
 
 After a high-risk GitHub write: `python3 tools/prove_locks.py`.
 
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 27 | 26 | recording session will not miss the packet vo/ folder |
+| Estimated human min / video | 26 | 25 | recording session will not commit the take by accident |
 | Automated steps | 84 | 84 | no new CLI |
 | Videos produced | 0 | 0 | ready_for_vo; no selected take |
 
@@ -76,4 +77,5 @@ After a high-risk GitHub write: `python3 tools/prove_locks.py`.
 - Do not bump status past ready_for_vo without Selected VO on disk
 - Do not treat repo-root `vo/` as Selected VO
 - Do not commit card binaries or treat planned rows as ready
+- Do not `git add -f` ignored media
 - Do not treat a publish.md edit as an upload
