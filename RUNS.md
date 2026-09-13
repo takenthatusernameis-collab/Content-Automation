@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-13T06:19:00Z — Run 111
+
+- **Objective:** Break the hourly Brok stall at the Q1 human-decision boundary rather than making another tooling-only change.
+- **Inspected:** STATE/NEXT/RUNS plus the queue, human_session, agent_session, new_packet, idea_brief, and next_action paths. Runs 107-110 had repeatedly improved printers/docs while Q1 remained queued and no non-fixture packet existed.
+- **Human decision taken:** Approved Q1 `Stop deciding what to work on every morning` and created `videos/002-stop-deciding-what-to-work-on-every-morning`.
+- **Action taken:** Created packet.md, filled the locked idea.md fields, initialized draft.md as the writer save target, initialized script.md from the standard template, and marked Q1 `used`.
+- **Handoff repair:** STATE.md and NEXT.md now explicitly say the human handoff is complete and the next useful work is the real Q1 expand/write path. Brok should not reopen Q1 scaffolding or invent another CLI/reconstruct loop.
+- **Result:** The previous blocker is removed. The queue has advanced from `queued` to `used`; the real packet exists; idea gate inputs are present; the production path can continue from Q1.
+- **Verification status:** File writes succeeded through the GitHub file API. No sample-001 changes. No VO/media/publishing assets fabricated.
+- **Next action:** Generate the actual Q1 draft into `videos/002-stop-deciding-what-to-work-on-every-morning/draft.md`, then use the existing words/apply/validate gates. Do not treat draft.md as script.md until apply_script `--write` succeeds.
+
 ## 2026-09-13T05:05:00Z — Run 110
 
 - **Objective:** Run 109 put Target numbers on docs/human_session.md. The command a human copies after scaffold is doctor/hint Command, which still only said save draft.md.
