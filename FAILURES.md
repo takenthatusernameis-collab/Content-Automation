@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-09-13 — reconstruct-loop still closed (Run 105)
+
+- **Tried last five reconstruct runs:** needed.py reconstruct / WAVE 3 / doctor unmapped lists / alias READY (Runs 099–103).
+- **This run:** Did not add a reconstruct path. Added videos/_template/draft.md instead of rewriting prompts again.
+- **Lesson:** After allocation lives in prompts, the missing packet artifact is the save-target file. Remaining labor is still Q1 scaffold + WORDS in band.
+- **Avoid:** WAVE 4, another UNMAPPED_PATHS row, a MAP need-list edit, another writer-prompt pass unless a real draft misses 900–1500, a second draft template, or a Band-landing reprint CLI.
+
 ## 2026-09-13 — reconstruct-loop closed for this run (Run 104)
 
 - **Tried last five runs:** needed.py reconstruct / WAVE 3 / doctor unmapped lists / alias READY (Runs 099–103).

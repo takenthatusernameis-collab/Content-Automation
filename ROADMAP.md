@@ -19,9 +19,10 @@
 51ax. needed.py doctor.py reconstruct lists next_topic.py so READY means WAVE 3 start can run — **done (Run 102)**
 51ay. needed.py alias appends asked file so next_topic READY does not lie — **done (Run 103)**
 51az. Writer prompts name first-draft spoken-word allocation — **done (Run 104)**
+51ba. Packet template includes draft.md save target — **done (Run 105)**
 
 ## Later (automation)
-52. Human scaffolds Q1, pastes idea fields, and lands WORDS in band on a non-fixture packet
+52. Human scaffolds Q1, pastes idea fields, overwrites copied draft.md, and lands WORDS in band on a non-fixture packet
 53. TTS narration path (optional)
 54. Caption timing from a real selected take
 55. ffmpeg assembly after one packet has VO + cards
@@ -42,3 +43,4 @@
 - Wrapping doctor in start.py
 - Another needed.py reconstruct path unless a READY lie is proven
 - Another writer-prompt rewrite unless the first real draft misses 900–1500
+- A second draft template or a Band-landing reprint CLI

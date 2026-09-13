@@ -2,6 +2,12 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 105:
+
+- `videos/_template/draft.md` must stay the packet save target: spoken_words HTML comment, empty WORDS bodies, not-script.md banner, same headings as script.md.
+- `new_packet` copytree must keep copying that file. Do not add a second draft template. Do not add a CLI that reprints Band landing.
+- Do not treat an empty copied draft.md as script.md or as apply --write.
+
 Targeted addition from Run 104:
 
 - Do not touch needed.py reconstruct / WAVE 3 / doctor mapping unless a new READY lie is proven with an isolated tree.
@@ -9,7 +15,7 @@ Targeted addition from Run 104:
 - `prompts/script_expander.md` must keep pointing at that allocation.
 - Do not add a wrapper CLI that reprints the allocation.
 - Do not rewrite those prompts again unless a real non-fixture draft misses the band.
-- Remaining high-value work is still human-owned: scaffold Q1, paste idea fields, land WORDS in band, apply --write --refresh, set_status ready_for_vo.
+- Remaining high-value work is still human-owned: scaffold Q1, paste idea fields, overwrite PATH/draft.md, land WORDS in band, apply --write --refresh, set_status ready_for_vo.
 
 Targeted addition from Run 103:
 

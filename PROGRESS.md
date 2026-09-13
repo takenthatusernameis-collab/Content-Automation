@@ -22,10 +22,11 @@
 | 2026-09-12 Run 102 | ~72 estimate | 83 | doctor reconstruct lists next_topic.py; READY only when WAVE 3 start can run |
 | 2026-09-12 Run 103 | ~71 estimate | 84 | needed.py alias appends asked file; next_topic READY no longer lies |
 | 2026-09-13 Run 104 | ~70 estimate | 84 | writer prompts name per-segment spoken-word allocation; no new CLI |
+| 2026-09-13 Run 105 | ~69 estimate | 84 | template draft.md is the packet save target; no new CLI |
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 105: `videos/_template/draft.md` copies with every new_packet. Empty WORDS, spoken_words comment, not-script.md banner. Writer prompts untouched. Still no packet.
 - Run 104: `prompts/script_writer.md` Band landing table (hook 20–35, payoff 40–70, body beat 140–220, CTA 40–80, target ~1200) plus a draft.md spoken_words comment. `prompts/script_expander.md` points at it. needed.py untouched. Still no packet.
-- Run 103: `needed.py next_topic.py --missing` lists queue_contract paths plus tools/next_topic.py. Isolated tree without next_topic.py is NOT READY. `needed.py queue_status.py` list unchanged. which_contract.MAP unchanged. Still no packet.
-- Run 102: needed.py doctor.py reconstruct lists doctor.py plus hint, next_action, pipeline_status, queue_lib, queue_status, validate_packet, next_topic, topic_queue. --missing READY only when those nine exist.
+- Run 103: `needed.py next_topic.py --missing` lists queue_contract paths plus tools/next_topic.py. Isolated tree without next_topic.py is NOT READY. which_contract.MAP unchanged. Still no packet.
