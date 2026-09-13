@@ -2,12 +2,16 @@
 
 Keep the original master prompt unchanged.
 
-Targeted addition from Run 112:
+Targeted addition from Run 113:
 
 - Live packet is `videos/002-stop-deciding-what-to-work-on-every-morning`.
-- `draft.md` now has first spoken WORDS (manual 941). `script.md` is still empty until apply --write.
-- Next command is `python3 tools/words.py PATH`, then apply dry-run, then `--write --refresh` only if IN BAND.
-- Do not scaffold Q2. Do not treat the manual count as words.py. Do not invent VO.
+- draft.md counted **952 IN BAND** (hook 28). script.md now has the spoken WORDS.
+- packet.md status is still `draft`. Next: validate_packet + set_status ready_for_vo dry-run.
+- Then title_thumb_brief. Do not invent VO. Do not scaffold Q2.
+
+Targeted addition from Run 112:
+
+- `draft.md` has first spoken WORDS. Do not treat a manual count as words.py when a checkout exists.
 
 Targeted addition from Run 110:
 
