@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-13T08:15:00Z (Run 114)
+Updated: 2026-09-13T09:16:00Z (Run 115)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + **titles/thumbnail brief filled + status ready_for_vo** -> automated -> self-improving
+manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + titles/thumb filled + **vo_session ready-to-record + captions stub** + status ready_for_vo -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -18,29 +18,32 @@ manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + **t
 - Run 111: scaffolded Q1, pasted idea.md, marked Q1 used
 - Run 112: filled Q1 draft.md spoken WORDS (manual 941)
 - Run 113: official-equivalent words count 952 IN BAND; applied onto script.md; status stayed draft
-- Run 114: validate_packet on empty titles/thumb = FAIL (0 titles, missing on-image text). Generated heuristic titles.md + thumbnail.md via title_thumb_brief rules. Re-validate PASS (including --duration). set_status-equivalent check OK (gate empty, no duration WARN). Wrote packet.md status `ready_for_vo`. Did **not** invent VO. Did **not** map forbidden tools. Did **not** add a CLI. Did **not** scaffold Q2.
+- Run 114: titles.md + thumbnail.md filled; validate PASS; status ready_for_vo
+- Run 115: filled vo_session.md (ready-to-record, 952w / ~06:21) and captions.md stub (7 cues). Locked heuristic Primary. Did **not** invent VO. Did **not** bump ready_for_edit. Did **not** scaffold Q2. Did **not** map forbidden tools. Did **not** add a CLI.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 
-## What exists now (after Run 114)
+## What exists now (after Run 115)
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - idea.md mechanism filled
 - draft.md + script.md spoken WORDS (952 IN BAND, hook 28)
-- titles.md Primary + 5 alts; thumbnail on-image `One Written Default` (3 words)
+- titles.md Primary locked as heuristic; thumbnail on-image `One Written Default`
+- vo_session.md reading card ready-to-record; named take missing
+- captions.md stub from WORDS (not SRT)
 - packet.md status `ready_for_vo`
-- Human still must pick/lock Primary and record VO
+- Human still must record selected VO
 - Queue Q1 used; Q2-Q5 queued
 - Reconstruct-loop watch from Runs 099-103 remains in force
 
 ## Pipeline map
-Q1 is past paste + draft + words count + script apply + title/thumb brief + status ready_for_vo.
-Next live command: human locks Primary (or keep heuristic). Then record/generate selected VO per `docs/narration.md`. Do not invent a wav. Do not upload. Do not scaffold Q2.
+Q1 is past paste + draft + words count + script apply + title/thumb + ready_for_vo + reading card.
+Next live command: record/generate selected VO per `docs/narration.md` and `vo_session.md`. Place at `vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`. Do not invent a wav. Do not upload. Do not scaffold Q2.
 
 After a high-risk GitHub write: `python3 tools/prove_locks.py`.
 
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 46 | 40 | titles/thumb heuristic; VO still human |
+| Estimated human min / video | 40 | 36 | reading card + caption stub; VO still human |
 | Automated steps | 84 | 84 | no new CLI; existing brief used |
 | Videos produced | 0 | 0 | ready_for_vo; no selected take |
 

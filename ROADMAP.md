@@ -9,9 +9,10 @@
 51bh. Q1 draft.md first WORDS in claimed band — **done pending words.py (Run 112)**
 51bi. Official-equivalent words count + apply script.md — **done (Run 113; 952 IN BAND)**
 51bj. validate_packet + title/thumb brief + ready_for_vo — **done (Run 114; gate PASS, no duration WARN)**
+51bk. vo_session reading card + captions stub from WORDS — **done (Run 115; ready-to-record; take missing)**
 
 ## Later (automation)
-52. Human lock of Primary (optional; heuristic already validates)
+52. Human override of heuristic Primary (optional; already locked)
 53. TTS narration path (optional) or recorded selected take
 54. Caption timing from a real selected take
 55. ffmpeg assembly after one packet has VO + cards

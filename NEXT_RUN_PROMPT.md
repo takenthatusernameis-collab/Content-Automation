@@ -2,12 +2,15 @@
 
 Keep the original master prompt unchanged.
 
-Targeted addition from Run 114:
+Targeted addition from Run 115:
 
 - Live packet is `videos/002-stop-deciding-what-to-work-on-every-morning`.
+- vo_session.md is ready-to-record (952w, ~06:21). captions.md is a stub, not SRT.
+- Selected take is still missing. Do not invent a wav. Do not bump ready_for_edit. Do not scaffold Q2.
+
+Targeted addition from Run 114:
+
 - validate_packet PASS after heuristic titles/thumb. packet.md status is `ready_for_vo`.
-- Next labor is a real selected VO take. Do not invent a wav. Do not scaffold Q2.
-- Do not bump ready_for_edit without Selected VO on disk.
 
 Targeted addition from Run 113:
 

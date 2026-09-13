@@ -12,10 +12,12 @@
 | 2026-09-13 Run 112 | ~52 estimate | 84 | Q1 draft.md first WORDS (manual 941); apply still pending |
 | 2026-09-13 Run 113 | ~46 estimate | 84 | Q1 words count 952 IN BAND; script.md applied; status still draft |
 | 2026-09-13 Run 114 | ~40 estimate | 84 | titles/thumb heuristic + validate PASS + status ready_for_vo |
+| 2026-09-13 Run 115 | ~36 estimate | 84 | vo_session ready-to-record + captions stub; still no selected take |
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 115: Q1 vo_session.md is a real reading card (ready-to-record, 952 words, ~06:21, named take path). captions.md is a 7-cue stub. Heuristic Primary locked. No wav invented. No new CLI. Status stayed ready_for_vo.
 - Run 114: first live non-fixture packet passed validate_packet publish gate (script already in band; titles >=5 with one <50; thumb 3 words). Status written to ready_for_vo after dry-run-equivalent OK and no duration WARN. No new CLI. No VO invented.
 - Run 113: first official-equivalent IN BAND count (952) on a live non-fixture draft; script.md applied from that draft. Status not bumped. No new CLI.
 - Run 112: first non-fixture draft.md contains spoken WORDS aimed at 900-1500. Packet file set completed from template. script.md not applied. No new CLI.

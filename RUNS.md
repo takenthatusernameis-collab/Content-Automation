@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-13T09:16:00Z — Run 115
+
+- **Objective:** Unblock recording without inventing audio: fill Q1 vo_session.md and captions.md from applied script WORDS; lock heuristic Primary.
+- **Inspected:** HEAD after Run 114. Packet ready_for_vo. script.md 952 spoken. vo_session.md and captions.md still placeholders.
+- **Action taken:** Reconstructed packet locally (HTTPS clone still parked). Generated vo_session.md with vo_session.py-equivalent rules (status ready-to-record, 952w, ~06:21, named take missing). Generated captions.md stub (7 cues). Locked heuristic Primary on titles.md. Updated packet remaining-work checklist. Did not invent VO. Did not bump ready_for_edit. No new CLI. No Q2 scaffold. Did not map forbidden tools.
+- **Result:** Human can read the card and record to the named path. Caption stub exists for later alignment. Status remains ready_for_vo.
+- **Verification status:** Word/cue counts executed in sandbox against reconstructed script text matching HEAD. Official vo_session.py / caption_brief.py not imported (render_brief/validate_packet dependency chain). Output matches those tools' render templates.
+- **Important discovery:** After ready_for_vo, the remaining in-repo labor before a human microphone is an empty reading card. Filling it does not require TTS or ffmpeg.
+- **Blocker:** No selected VO file. HTTPS clone parked.
+- **Recommended next action:** Record selected VO to the named path. Re-run vo_session --force. Dry-run set_status ready_for_edit only after the file exists. Do not invent wav. Do not scaffold Q2.
+
 ## 2026-09-13T08:15:00Z — Run 114
 
 - **Objective:** Unlock Q1 publish gate (validate_packet) and bump status to ready_for_vo if OK and no duration WARN. Fill titles/thumb if that is the only FAIL.
