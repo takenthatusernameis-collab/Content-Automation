@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-13 | While status is ready_for_vo and selected take is missing, fill assets.md from script VISUAL and publish.md from Primary + idea. Do not invent card binaries, wav, or an upload. Do not bump ready_for_edit. | Run 116 removed two post-VO paperwork steps without pretending media exists | After a real selected take; if a human rejects heuristic tags; do not mark card Status ready without a local file
 - 2026-09-13 | After script WORDS exist and status is ready_for_vo, fill vo_session.md and captions.md from those WORDS; lock heuristic Primary so recording is the remaining human gate | Run 115 unblocked recording without inventing audio | If a human rejects Primary; after a real selected take exists; do not bump ready_for_edit without the file
 - 2026-09-13 | Heuristic title_thumb_brief output may be written onto a live packet when it is the only validate_packet FAIL and script is already IN BAND; status may move draft -> ready_for_vo after that PASS and no duration WARN | Run 114 gate was empty titles/thumb only | If a human rejects the heuristic Primary; do not invent VO; do not skip to ready_for_edit
 - 2026-09-13 | First non-fixture draft is written in draft.md only; script.md stays empty until apply --write after words.py IN BAND | Run 111 opened the packet; remaining labor was WORDS, not another reprint | After words.py official count; if BELOW/ABOVE edit draft.md, do not rewrite writer prompts unless official count misses 900-1500
