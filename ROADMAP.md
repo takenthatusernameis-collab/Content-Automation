@@ -10,6 +10,8 @@
 51bi. Official-equivalent words count + apply script.md — **done (Run 113; 952 IN BAND)**
 51bj. validate_packet + title/thumb brief + ready_for_vo — **done (Run 114; gate PASS, no duration WARN)**
 51bk. vo_session reading card + captions stub from WORDS — **done (Run 115; ready-to-record; take missing)**
+51bl. assets list + publish stub — **done (Run 116)**
+51bm. publish tag trim + qa mechanical + render presence — **done (Run 117; all-missing; no media)**
 
 ## Later (automation)
 52. Human override of heuristic Primary (optional; already locked)
