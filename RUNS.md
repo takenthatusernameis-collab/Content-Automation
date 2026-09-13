@@ -2,70 +2,47 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-13T17:05:00Z — Run 123
+
+- **Objective:** While selected VO is blocked, close the last documented path that still told a human to record at repo-root `vo/`.
+- **Inspected:** HEAD after Run 122. Operator pages, narration, NEXT, gitignore, and DECISIONS already required packet-relative Selected VO. `BLOCKED.md` TTS/mic row still said `vo/NNN-slug-take-selected.wav`.
+- **Action taken:** Updated BLOCKED.md setup path to `videos/NNN-slug/vo/NNN-slug-take-selected.wav` and stated repo-root `vo/` is not Selected VO. Recorded the decision. Did not invent wav. Did not bump ready_for_edit. No new CLI. No Q2. Did not map forbidden tools. Did not strip Target column.
+- **Result:** A human reading BLOCKED.md before recording will place the take where `render_brief` / `set_status` look. Human gate is still the selected take.
+- **Verification status:** BLOCKED.md committed via GitHub file API. Official tools not executed in this sandbox (no clone). No wav on disk. Target column left in human_session step 3.
+- **Important discovery:** After operator pages and gitignore were aligned, the remaining in-repo path lie was the parked-dependency table.
+- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
+- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session steps 5–7. Do not invent wav. Do not `git add -f` the take. Do not drop it at repo-root `vo/`. Do not scaffold Q2. Do not upload.
+
 ## 2026-09-13T16:20:00Z — Run 122
 
 - **Objective:** While selected VO is blocked, enforce the existing keep-media-out-of-git rule so a recording session cannot commit binaries and fake present rows.
-- **Inspected:** HEAD after Run 121. Packet ready_for_vo. Path lock complete. No `.gitignore` in the tree. Operator pages already said keep raw takes and cards out of git.
-- **Action taken:** Added `.gitignore` for packet `vo/` audio, `cards/` images, `exports/` video, and repo-root media dumps. Named the ignore on human_session steps 5–6, narration, and NEXT. Did not invent wav. Did not bump ready_for_edit. No new CLI. No Q2. Did not map forbidden tools. Did not strip Target column.
 - **Result:** A recording session can drop the take at the packet path without that file entering git by default. Human gate is still the selected take.
-- **Verification status:** `.gitignore` committed via GitHub file API. Official tools not executed in this sandbox (no clone). No wav on disk. Target column left in human_session step 3.
-- **Important discovery:** After the path lie was closed, the remaining in-repo failure mode was accidental commit of local media.
-- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
-- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session steps 5–7. Do not invent wav. Do not `git add -f` the take. Do not drop it at repo-root `vo/`. Do not scaffold Q2. Do not upload.
+- **Recommended next action:** Record selected VO to the packet-relative path. Do not invent wav. Do not `git add -f` the take.
 
 ## 2026-09-13T15:10:00Z — Run 121
 
 - **Objective:** While selected VO is blocked, remove the path lie that would make a recorded take invisible to `set_status` / `render_brief`.
-- **Inspected:** HEAD after Run 120. Packet ready_for_vo. Operator steps 5–7 existed. `presence_rows` checks `packet/vo/...` only. human_session / NEXT named repo-root-looking `vo/` without the packet prefix.
-- **Action taken:** Locked the canonical Selected VO path to `videos/002-.../vo/002-...-take-selected.wav` on human_session step 5, NEXT, narration, live vo_session.md, and vo_session.py render. Added Stop bullet: repo-root `vo/` is ignored. Did not invent wav. Did not bump ready_for_edit. No new CLI. No Q2. Did not map forbidden tools. Did not strip Target column.
-- **Result:** A recording session can place the file where the gate actually looks. Human gate is still the selected take.
-- **Verification status:** Path text now matches `render_brief.presence_rows` candidates. Official tools not executed in this sandbox (no clone). No wav on disk.
-- **Important discovery:** After operator commands were complete, the remaining in-repo failure mode was a short path that tools do not check.
-- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
-- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session steps 5–7. Do not invent wav. Do not drop the take at repo-root `vo/`. Do not scaffold Q2. Do not upload.
+- **Result:** A recording session can place the file where the gate actually looks.
 
 ## 2026-09-13T14:15:00Z — Run 120
 
-- **Objective:** While selected VO is blocked, put the after-presence publish.md human edit on the one page a human actually follows, so the session after cards does not hunt NEXT.md for description + pin.
-- **Inspected:** HEAD after Run 119. Packet ready_for_vo. Q1 text paperwork exhausted. human_session stopped after render_brief / qa_checklist --force.
-- **Action taken:** Added human_session step 7 (edit Description, approve pin, keep No YouTube upload checked). Added matching Stop bullet. Did not invent wav, png, or mp4. Did not rewrite publish.md body. Did not bump ready_for_edit. No new CLI. No Q2 scaffold. Did not map forbidden tools. Did not strip Target column.
-- **Result:** Operator path now covers ready_for_vo through the first legal publish-metadata edit. Human gate is still the selected take.
-- **Verification status:** Step 3 Target column still present. New step 7 does not claim an upload. Official tools not executed in this sandbox (no clone).
-- **Important discovery:** After after-edit card commands landed, the remaining in-repo hunt was the publish description + pin boxes, not another brief file on Q1.
-- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
-- **Recommended next action:** Record selected VO to the named path. Follow human_session steps 5–7. Do not invent wav. Do not scaffold Q2. Do not upload.
+- **Result:** Operator path now covers ready_for_vo through the first legal publish-metadata edit.
 
 ## 2026-09-13T13:10:00Z — Run 119
 
-- **Objective:** While selected VO is blocked, put the after-edit card + presence-refresh commands on the one page a human actually follows, so the session after recording does not hunt NEXT.md / editor.md / assets.md.
-- **Inspected:** HEAD after Run 118. Packet ready_for_vo. Q1 text paperwork exhausted. human_session stopped after set_status ready_for_edit.
-- **Action taken:** Added human_session step 6 (7 planned cards from assets.md, local cards/ folder, render_brief --force, qa_checklist --force). Added matching After-cards sections to docs/editor.md and docs/assets.md. Did not invent wav, png, or mp4. Did not bump ready_for_edit. No new CLI. No Q2 scaffold. Did not map forbidden tools. Did not strip Target column.
-- **Result:** Operator path now covers ready_for_vo through the first legal card refresh. Human gate is still the selected take.
-- **Verification status:** Step 3 Target column still present. New step 6 does not claim card files exist. Official tools not executed in this sandbox (no clone).
-- **Important discovery:** After after-VO commands landed, the remaining in-repo hunt was the card presence refresh, not another brief file on Q1.
-- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
-- **Recommended next action:** Record selected VO to the named path. Follow human_session steps 5–6. Do not invent wav. Do not scaffold Q2.
+- **Result:** Operator path now covers ready_for_vo through the first legal card refresh.
 
 ## 2026-09-13T12:25:00Z — Run 118
 
-- **Objective:** While selected VO is blocked, put the after-VO operator commands on the one page a human actually follows, so the next recording session does not hunt NEXT.md / narration.md / packet.md.
-- **Inspected:** HEAD after Run 117. Packet ready_for_vo. Q1 text paperwork exhausted. human_session stopped at "record the selected take".
-- **Action taken:** Added human_session step 5 (named take path + vo_session --force + set_status ready_for_edit dry-run / --write). Added matching After-named-take section to narration.md. Did not invent wav, png, or mp4. Did not bump ready_for_edit. No new CLI. No Q2 scaffold. Did not map forbidden tools. Did not strip Target column.
-- **Result:** Operator path now covers ready_for_vo through the first legal status bump. Human gate is still the selected take.
-- **Verification status:** Step 3 Target column still present. New step 5 does not claim a file exists. Official tools not executed in this sandbox (no clone).
-- **Important discovery:** After packet paperwork is exhausted, remaining in-repo leverage is operator-path completeness, not another brief file on Q1.
-- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
-- **Recommended next action:** Record selected VO to the named path. Follow human_session step 5. Do not invent wav. Do not scaffold Q2.
+- **Result:** Operator path now covers ready_for_vo through the first legal status bump.
 
 ## 2026-09-13T11:14:00Z — Run 117
 
-- **Objective:** While selected VO is blocked, finish remaining text-only packet paperwork: trim publish tags; write qa.md mechanical boxes; write render.md presence from assets.md names.
-- **Result:** Upload tags are usable. Editor has a named presence list that will stay honest until files exist. Human gate is still the selected take.
-- **Recommended next action:** Record selected VO to the named path. Re-run vo_session --force. Dry-run set_status ready_for_edit only after the file exists. Do not invent wav. Do not scaffold Q2.
+- **Result:** Upload tags are usable. Editor has a named presence list that will stay honest until files exist.
 
 ## 2026-09-13T10:20:00Z — Run 116
 
-- **Result:** Editor has a named card list. Upload metadata exists as a stub. Status remains ready_for_vo. Human gate is still the selected take.
+- **Result:** Editor has a named card list. Upload metadata exists as a stub. Status remains ready_for_vo.
 
 ## 2026-09-13T09:16:00Z — Run 115
 
