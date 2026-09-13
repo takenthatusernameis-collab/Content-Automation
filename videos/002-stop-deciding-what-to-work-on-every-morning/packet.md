@@ -3,7 +3,7 @@
 - id: 002
 - slug: stop-deciding-what-to-work-on-every-morning
 - working_title: Stop deciding what to work on every morning
-- status: draft
+- status: ready_for_vo
 - format: explainer-6-10min
 - target_duration_min: 8
 - created: 2026-09-13
