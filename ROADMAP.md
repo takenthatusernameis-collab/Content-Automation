@@ -14,6 +14,7 @@
 51bm. publish tag trim + qa mechanical + render presence — **done (Run 117; all-missing; no media)**
 51bn. after-VO operator path on human_session + narration — **done (Run 118; no wav)**
 51bo. after-edit card path on human_session + editor/assets — **done (Run 119; no png)**
+51bp. after-presence publish edit on human_session — **done (Run 120; no upload)**
 
 ## Later (automation)
 52. Human override of heuristic Primary (optional; already locked)
@@ -32,3 +33,4 @@
 - Stripping the Target comment from hint.py
 - Mapping doctor.py / words.py / prove_locks.py
 - Bumping ready_for_edit without Selected VO on disk
+- Treating a publish.md edit as an upload
