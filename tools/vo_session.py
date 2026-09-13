@@ -75,7 +75,7 @@ Generated: {generated}
 WPM assumption: {int(WPM)}
 Spoken words: {total_words}
 Estimated speech: {fmt_ts(total_s)} (not a take duration)
-Selected take path: `{vo_path}`
+Selected take path: `{vo_path}` (packet-relative; not repo-root vo/)
 Selected take on disk: {state}
 
 This file is a reading card from script.md WORDS. It is not a wav, not TTS,
@@ -84,6 +84,7 @@ after a human records. Do not invent audio.
 
 ## Record to
 - Selected: `videos/{packet.name}/{vo_path}`
+- Repo-root `vo/` is ignored. Tools only check inside this packet.
 - Rejected takes (optional): `videos/{packet.name}/vo/takes/`
 - Rules: `docs/narration.md`
 
@@ -92,10 +93,10 @@ after a human records. Do not invent audio.
 
 ## Human
 - [ ] Confirm hook is 20–35 spoken words before recording
-- [ ] Record one selected take to the named path (wav or flac)
+- [ ] Record one selected take to the packet-relative named path (wav or flac)
 - [ ] Do not commit raw session dumps by default
 - [ ] Do not run a TTS vendor from this tool
-- [ ] After the file exists, re-run `tools/render_brief.py PATH --force`
+- [ ] After the file exists, re-run `tools/vo_session.py PATH --force` then dry-run `tools/set_status.py PATH --to ready_for_edit`
 """
 
 
