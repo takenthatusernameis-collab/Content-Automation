@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-13T19:15:00Z — Run 125
+
+- **Objective:** While selected VO is blocked, stop the agent reconstruct page from presenting WAVE 3 / fixture reconstruct as the live job.
+- **Inspected:** HEAD after Run 124. README already names Q1 + Selected VO. agent_session still opened on clone + needed.py waves.
+- **Action taken:** Added a Live job section at the top of `docs/agent_session.md`. Marked WAVE 3 board printers as confirmation only while `ready_for_vo` has no take. Recorded the decision. Did not invent wav. Did not bump ready_for_edit. No new CLI. No WAVE 4. No Q2. Did not map forbidden tools. Did not add another human_session step.
+- **Result:** An agent landing on agent_session now sees the recording gate before reconstruct commands.
+- **Verification status:** Files committed via GitHub file API. Official tools not executed in this sandbox (no clone). No wav on disk. Target column left in human_session step 3.
+- **Important discovery:** After README was pinned, the remaining first-contact lie for *agents* was agent_session leading with reconstruct waves.
+- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
+- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session steps 5–7. Do not invent wav. Do not `git add -f` the take. Do not drop it at repo-root `vo/`. Do not scaffold Q2. Do not upload. Do not add another operator/agent page that only restates NEXT.md.
+
 ## 2026-09-13T18:05:00Z — Run 124
 
 - **Objective:** While selected VO is blocked, stop the repo front door from sending a returning operator into fixture/scaffold commands.
