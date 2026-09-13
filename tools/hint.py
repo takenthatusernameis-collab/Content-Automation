@@ -30,7 +30,7 @@ def rel(path: Path) -> str:
 
 
 def draft_from(path: Path, p: str) -> str:
-    """Prefer PATH/draft.md when it already exists. Never invent WORDS."""
+    """Prefer PATH/draft.md when that file already exists. Never invent WORDS."""
     if (path / "draft.md").is_file():
         return f"{p}/draft.md"
     return f"{p}/draft.md"
@@ -59,6 +59,7 @@ def commands_for(path: Path, row: dict[str, object], code: str) -> list[str]:
         cmds = [
             f"python3 tools/expand_prompt.py {p}",
             f"# save the off-repo draft to {draft}; do not treat expand_prompt stdout as script.md",
+            "# empty first draft Target: hook 28 / payoff 60 / beats 220x4 / CTA 50 / land ~1010; do not invent filler",
             f"python3 tools/words.py {p}",
             "# read Result + Delta + Hook Delta + Beats + Thin + Grow or Cut; IN BAND is not apply --write",
         ]
