@@ -1,23 +1,20 @@
 # FAILURES
 
-## 2026-09-13 — reconstruct-loop still closed (Run 108)
+## 2026-09-13 — reconstruct-loop still closed (Run 109)
 
 - **Tried last five reconstruct runs:** needed.py reconstruct / WAVE 3 / doctor unmapped lists / alias READY (Runs 099-103).
-- **This run:** Did not add a reconstruct path. Closed the stub-expand.md leak in expand_prompt and the template copy instead of a new CLI or writer-prompt rewrite.
-- **Lesson:** A live expand_brief dry-run does not help if expand_prompt still pastes the copied stub. The assembled prompt is the artifact the off-repo writer sees.
-- **Avoid:** WAVE 4, another UNMAPPED_PATHS row, a MAP need-list edit, another writer-prompt pass unless a real draft misses 900-1500, a second draft template, a Band-landing reprint CLI, a fourth new_packet followup, hiding the empty-WORDS table, or making expand_prompt write expand.md.
+- **This run:** Did not add a reconstruct path. Named the empty-script Target column on docs/human_session.md instead of a new CLI or writer-prompt rewrite.
+- **Lesson:** expand_prompt and template expand.md can already show targets while the operator page the human follows still omits the numbers.
+- **Avoid:** WAVE 4, another UNMAPPED_PATHS row, a MAP need-list edit, another writer-prompt pass unless a real draft misses 900-1500, a second draft template, a Band-landing reprint CLI, a fourth new_packet followup, hiding the empty-WORDS table, making expand_prompt write expand.md, or stripping the Target column from human_session.
+
+## 2026-09-13 — reconstruct-loop still closed (Run 108)
+
+- **This run:** Closed the stub-expand.md leak in expand_prompt and the template copy instead of a new CLI or writer-prompt rewrite.
+- **Lesson:** A live expand_brief dry-run does not help if expand_prompt still pastes the copied stub.
 
 ## 2026-09-13 — reconstruct-loop still closed (Run 107)
 
-- **Tried last five reconstruct runs:** needed.py reconstruct / WAVE 3 / doctor unmapped lists / alias READY (Runs 099-103).
-- **This run:** Did not add a reconstruct path. Changed expand_brief empty-WORDS budget instead of a new CLI or writer-prompt rewrite.
-- **Lesson:** Prompts and draft.md can name allocation and still leave expand.md blank when WORDS are 0. The budget table is the artifact expand_prompt already pastes. Remaining labor is still Q1 scaffold + WORDS in band.
-- **Avoid:** WAVE 4, another UNMAPPED_PATHS row, a MAP need-list edit, another writer-prompt pass unless a real draft misses 900-1500, a second draft template, a Band-landing reprint CLI, a fourth new_packet followup, or hiding the empty-WORDS table again.
-
-## 2026-09-13 — reconstruct-loop still closed (Run 106)
-
-- **This run:** Did not add a reconstruct path. Added new_packet draft_followup instead of a second template or a Band-landing CLI.
-- **Avoid:** WAVE 4, another UNMAPPED_PATHS row, a MAP need-list edit, another writer-prompt pass unless a real draft misses 900-1500, a second draft template, a Band-landing reprint CLI, or a fourth new_packet followup.
+- **This run:** Changed expand_brief empty-WORDS budget instead of a new CLI or writer-prompt rewrite.
 
 ## 2026-09-12 — reconstruct-loop watch (Runs 099-103)
 
