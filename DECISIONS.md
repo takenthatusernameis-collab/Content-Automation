@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-13 | While status is ready_for_vo and selected take is missing, trim publish.md tags and fill qa.md / render.md from existing packet text. Do not invent media or bump ready_for_edit. | Run 117 removed remaining text-only paperwork without pretending files exist | After a real selected take; re-run qa_checklist / render_brief --force when VO or cards appear
 - 2026-09-13 | While status is ready_for_vo and selected take is missing, fill assets.md from script VISUAL and publish.md from Primary + idea. Do not invent card binaries, wav, or an upload. Do not bump ready_for_edit. | Run 116 removed two post-VO paperwork steps without pretending media exists | After a real selected take; if a human rejects heuristic tags; do not mark card Status ready without a local file
 - 2026-09-13 | After script WORDS exist and status is ready_for_vo, fill vo_session.md and captions.md from those WORDS; lock heuristic Primary so recording is the remaining human gate | Run 115 unblocked recording without inventing audio | If a human rejects Primary; after a real selected take exists; do not bump ready_for_edit without the file
 - 2026-09-13 | Heuristic title_thumb_brief output may be written onto a live packet when it is the only validate_packet FAIL and script is already IN BAND; status may move draft -> ready_for_vo after that PASS and no duration WARN | Run 114 gate was empty titles/thumb only | If a human rejects the heuristic Primary; do not invent VO; do not skip to ready_for_edit
