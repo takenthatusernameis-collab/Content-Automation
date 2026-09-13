@@ -2,11 +2,16 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 116:
+
+- assets.md lists 7 planned cards from VISUAL. publish.md is a stub, not an upload.
+- Selected take is still missing. Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2.
+- Connected Voice/TTS must not be written as the selected take unless a human changes narration policy.
+
 Targeted addition from Run 115:
 
 - Live packet is `videos/002-stop-deciding-what-to-work-on-every-morning`.
 - vo_session.md is ready-to-record (952w, ~06:21). captions.md is a stub, not SRT.
-- Selected take is still missing. Do not invent a wav. Do not bump ready_for_edit. Do not scaffold Q2.
 
 Targeted addition from Run 114:
 
