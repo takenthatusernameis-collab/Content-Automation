@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-13T22:19:00Z (Run 128)
+Updated: 2026-09-13T23:16:00Z (Run 129)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + titles/thumb filled + vo_session ready-to-record + captions stub + assets list + publish stub (tags trimmed) + qa mechanical + render presence all-missing + operator after-VO / after-edit / after-presence commands + Selected VO path locked packet-relative + local media gitignored + BLOCKED VO path matches gates + README front door names live packet + agent_session live-job pin + human_session live-job pin + production_rules Human handoff live-job pin + next_action/hint record-vo printers name packet-relative Selected VO -> automated -> self-improving
+manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + titles/thumb filled + vo_session ready-to-record + captions stub + assets list + publish stub (tags trimmed) + qa mechanical + render presence all-missing + operator after-VO / after-edit / after-presence commands + Selected VO path locked packet-relative + local media gitignored + BLOCKED VO path matches gates + README front door names live packet + agent_session live-job pin + human_session live-job pin + production_rules Human handoff live-job pin + next_action/hint record-vo printers name packet-relative Selected VO + set_status missing-VO refuse names the same path -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -33,9 +33,10 @@ manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + tit
 - Run 126: docs/human_session.md now opens on the live Q1 recording gate. doctor / queue_status / new_packet are labeled new-packet only. Steps 1-4 kept as completed path. No new step. No wav invented. No status bump. No Q2. No new CLI.
 - Run 127: docs/production_rules.md Human handoff no longer says start with doctor / queue_status / next_topic. Live job is the Q1 packet-relative take. No new Live job page. No wav invented. No status bump. No Q2. No new CLI.
 - Run 128: next_action.py Why and hint.py record-vo Command now print `videos/NNN-slug/vo/NNN-slug-take-selected.wav`. Short `vo/` is no longer the printed drop path. No new CLI. No wav invented. No status bump. No Q2. Did not map forbidden tools.
+- Run 129: set_status.py refuse lines for missing Selected VO now print that same packet-relative path. Generic "missing on disk" no longer hides where the gate looks. No new CLI. No wav invented. No status bump. No Q2. Did not map forbidden tools.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 
-## What exists now (after Run 128)
+## What exists now (after Run 129)
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - idea.md mechanism filled
 - draft.md + script.md spoken WORDS (952 IN BAND, hook 28)
@@ -51,12 +52,13 @@ manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + tit
 - BLOCKED.md no longer advertises repo-root `vo/` as the record path
 - README / agent_session / human_session / production_rules Human handoff name the live packet
 - next_action / hint record-vo printers name the packet-relative take
+- set_status missing-VO refuse names the packet-relative take
 - Human still must record selected VO and build cards locally
 - Queue Q1 used; Q2-Q5 queued
 - Reconstruct-loop watch from Runs 099-103 remains in force
 
 ## Pipeline map
-Q1 is past paste + draft + words count + script apply + title/thumb + ready_for_vo + reading card + asset list + publish stub + tag trim + qa mechanical + render presence + after-VO / after-edit / after-presence operator commands + Selected VO path lock + media gitignore + BLOCKED path lock + README live-packet pin + agent_session live-job pin + human_session live-job pin + production_rules Human handoff live-job pin + record-vo printer path lock.
+Q1 is past paste + draft + words count + script apply + title/thumb + ready_for_vo + reading card + asset list + publish stub + tag trim + qa mechanical + render presence + after-VO / after-edit / after-presence operator commands + Selected VO path lock + media gitignore + BLOCKED path lock + README live-packet pin + agent_session live-job pin + human_session live-job pin + production_rules Human handoff live-job pin + record-vo printer path lock + set_status missing-VO path lock.
 Next live command: record/generate selected VO per `docs/narration.md` and `vo_session.md`. Place at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`. Do not invent a wav. Do not drop it at repo-root `vo/`. Do not `git add -f` it. Do not upload. Do not scaffold Q2.
 
 After a high-risk GitHub write: `python3 tools/prove_locks.py`.
@@ -64,7 +66,7 @@ After a high-risk GitHub write: `python3 tools/prove_locks.py`.
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 21 | 20 | record-vo printers no longer shorten the drop path |
+| Estimated human min / video | 20 | 19 | set_status refuse now names the drop path the gate opens |
 | Automated steps | 84 | 84 | no new CLI |
 | Videos produced | 0 | 0 | ready_for_vo; no selected take |
 
