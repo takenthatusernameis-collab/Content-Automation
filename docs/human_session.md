@@ -136,7 +136,17 @@ python3 tools/render_brief.py videos/002-stop-deciding-what-to-work-on-every-mor
 python3 tools/qa_checklist.py videos/002-stop-deciding-what-to-work-on-every-morning --force
 ```
 
-`render_brief --force` rewrites presence from disk. `qa_checklist --force` refreshes mechanical boxes only. Neither builds cards, neither runs ffmpeg, neither uploads. Human still edits `publish.md` description and the pin comment. Do not mark a card row ready without the local file. Do not write an ffmpeg recipe until VO + cards exist.
+`render_brief --force` rewrites presence from disk. `qa_checklist --force` refreshes mechanical boxes only. Neither builds cards, neither runs ffmpeg, neither uploads. Do not mark a card row ready without the local file. Do not write an ffmpeg recipe until VO + cards exist.
+
+7. After presence refresh (publish.md is not an upload)
+
+Open `videos/002-stop-deciding-what-to-work-on-every-morning/publish.md`. Tags and title are already usable (Run 117). Remaining human boxes:
+
+- edit Description for search + honesty (do not invent claims the script does not make)
+- approve or rewrite the First comment pin candidate
+- leave the No YouTube upload box checked
+
+Do not call a YouTube API. Do not treat a filled description as published. Do not scaffold Q2 from this page.
 
 If unsure of the next command after any step, re-run `python3 tools/doctor.py videos/002-stop-deciding-what-to-work-on-every-morning` and use the printed Command.
 
@@ -158,3 +168,4 @@ If unsure of the next command after any step, re-run `python3 tools/doctor.py vi
 - Do not invent a selected wav or treat TTS as selected unless a human names that policy.
 - Do not bump `ready_for_edit` without the named take on disk.
 - Do not commit card binaries to make assets.md or render.md look ready.
+- Do not treat a publish.md description edit as an upload.
