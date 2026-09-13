@@ -13,11 +13,11 @@
 One sentence: after watching, the viewer can install a written next-action default so the morning starts execution instead of reopening the whole work list.
 
 ## Remaining human work
-- [ ] Lock title
-- [ ] Record or generate VO (`docs/narration.md`)
+- [x] Lock title (heuristic Primary; human may override)
+- [ ] Record or generate selected VO to `vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav` using `vo_session.md` (`docs/narration.md`)
 - [ ] Collect assets listed in assets.md
 - [ ] Edit
-- [ ] Review captions.md against VO
+- [ ] Review captions.md against selected VO (stub times are 150 wpm estimates)
 - [ ] Thumbnail
 - [ ] Draft publish.md (description / tags / first comment)
 - [ ] Upload
