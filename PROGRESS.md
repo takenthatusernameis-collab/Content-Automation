@@ -26,10 +26,12 @@
 | 2026-09-13 Run 126 | ~22 estimate | 84 | human_session names live job before doctor/scaffold; VO still human |
 | 2026-09-13 Run 127 | ~21 estimate | 84 | production_rules handoff names live job before doctor/queue; VO still human |
 | 2026-09-13 Run 128 | ~20 estimate | 84 | next_action/hint record-vo name packet-relative take; VO still human |
+| 2026-09-13 Run 129 | ~19 estimate | 84 | set_status missing-VO refuse names packet-relative take; VO still human |
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 129: `tools/set_status.py` refuse lines for missing Selected VO name `videos/NNN-slug/vo/NNN-slug-take-selected.wav`. Repo-root `vo/` is called out as not Selected VO. No new CLI. No wav. Status stayed ready_for_vo.
 - Run 128: `tools/next_action.py` and `tools/hint.py` record-vo output name `videos/NNN-slug/vo/NNN-slug-take-selected.wav`. Repo-root `vo/` is not the printed drop path. No new CLI. No wav. Status stayed ready_for_vo.
 - Run 127: `docs/production_rules.md` Human handoff opens on live Q1 `ready_for_vo` and the packet-relative Selected VO path. doctor / queue_status / next_topic labeled new-packet only. No new page. No wav. No new CLI. Status stayed ready_for_vo.
 - Run 126: `docs/human_session.md` opens on live Q1 `ready_for_vo` and the packet-relative Selected VO path. doctor / queue_status / new_packet labeled new-packet only. Steps 1-4 kept as completed path. No new step. No wav. No new CLI. Status stayed ready_for_vo.
