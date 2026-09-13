@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-13T14:15:00Z (Run 120)
+Updated: 2026-09-13T15:10:00Z (Run 121)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + titles/thumb filled + vo_session ready-to-record + captions stub + assets list + publish stub (tags trimmed) + qa mechanical + render presence all-missing + operator after-VO commands + operator after-edit card commands + operator after-presence publish edit on human_session + status ready_for_vo -> automated -> self-improving
+manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + titles/thumb filled + vo_session ready-to-record + captions stub + assets list + publish stub (tags trimmed) + qa mechanical + render presence all-missing + operator after-VO / after-edit / after-presence commands + Selected VO path locked packet-relative -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -22,12 +22,13 @@ manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + tit
 - Run 115: filled vo_session.md (ready-to-record, 952w / ~06:21) and captions.md stub (7 cues). Locked heuristic Primary. Did not invent VO.
 - Run 116: filled assets.md (7 planned cards from VISUAL) and publish.md stub (title/description/tags/pin). Status stayed ready_for_vo.
 - Run 117: trimmed publish.md tags. Filled qa.md mechanical boxes PASS and render.md presence all-missing. Status stayed ready_for_vo.
-- Run 118: documented after-VO operator path on human_session step 5 and narration.md. No wav invented. No status bump. No Q2. No new CLI. Did not map forbidden tools.
-- Run 119: documented after-edit card path on human_session step 6 and matching editor/assets sections. No png invented. No status bump. No Q2. No new CLI. Did not map forbidden tools.
-- Run 120: documented after-presence publish edit on human_session step 7. Did not edit publish.md body. Did not upload. No status bump. No Q2. No new CLI. Did not map forbidden tools.
+- Run 118: documented after-VO operator path on human_session step 5 and narration.md. No wav invented. No status bump. No Q2. No new CLI.
+- Run 119: documented after-edit card path on human_session step 6. No png invented.
+- Run 120: documented after-presence publish edit on human_session step 7. Did not upload.
+- Run 121: locked Selected VO to packet-relative `videos/NNN-slug/vo/...`. Repo-root `vo/` is not Selected VO. No wav invented. No status bump. No Q2. No new CLI. Did not map forbidden tools.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 
-## What exists now (after Run 120)
+## What exists now (after Run 121)
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - idea.md mechanism filled
 - draft.md + script.md spoken WORDS (952 IN BAND, hook 28)
@@ -39,21 +40,21 @@ manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + tit
 - qa.md: mechanical PASS; all human boxes open
 - render.md: all-missing (0 present / 11 missing)
 - packet.md status `ready_for_vo`
-- Operator page now names take path, vo_session --force, set_status ready_for_edit, card build + render_brief --force + qa_checklist --force, then publish.md description + pin edit with no upload
+- Operator pages now name the packet-relative take path that `render_brief` / `set_status` actually check
 - Human still must record selected VO and build cards locally
 - Queue Q1 used; Q2-Q5 queued
 - Reconstruct-loop watch from Runs 099-103 remains in force
 
 ## Pipeline map
-Q1 is past paste + draft + words count + script apply + title/thumb + ready_for_vo + reading card + asset list + publish stub + tag trim + qa mechanical + render presence + after-VO operator commands + after-edit card commands + after-presence publish edit.
-Next live command: record/generate selected VO per `docs/narration.md` and `vo_session.md`. Place at `vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`. Do not invent a wav. Do not upload. Do not scaffold Q2.
+Q1 is past paste + draft + words count + script apply + title/thumb + ready_for_vo + reading card + asset list + publish stub + tag trim + qa mechanical + render presence + after-VO / after-edit / after-presence operator commands + Selected VO path lock.
+Next live command: record/generate selected VO per `docs/narration.md` and `vo_session.md`. Place at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`. Do not invent a wav. Do not drop it at repo-root `vo/`. Do not upload. Do not scaffold Q2.
 
 After a high-risk GitHub write: `python3 tools/prove_locks.py`.
 
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 28 | 27 | after-presence publish edit no longer hunted across NEXT/publish.md |
+| Estimated human min / video | 27 | 26 | recording session will not miss the packet vo/ folder |
 | Automated steps | 84 | 84 | no new CLI |
 | Videos produced | 0 | 0 | ready_for_vo; no selected take |
 
@@ -69,10 +70,10 @@ After a high-risk GitHub write: `python3 tools/prove_locks.py`.
 - Reconstruct-loop watch: do not add another reconstruct path unless a READY lie is proven
 - Do not rewrite writer prompts unless a later words.py miss
 - Do not add a Band-landing reprint CLI
-- Do not make expand_prompt write expand.md
 - Do not strip Target column / hint Target comment
 - Do not apply_script --write against sample-001
 - Do not invent a wav or ffmpeg recipe
 - Do not bump status past ready_for_vo without Selected VO on disk
+- Do not treat repo-root `vo/` as Selected VO
 - Do not commit card binaries or treat planned rows as ready
 - Do not treat a publish.md edit as an upload
