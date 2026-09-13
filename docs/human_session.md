@@ -104,13 +104,15 @@ python3 tools/set_status.py videos/002-stop-deciding-what-to-work-on-every-morni
 python3 tools/vo_session.py videos/002-stop-deciding-what-to-work-on-every-morning
 ```
 
-Then record the selected take at the named path in `vo_session.md`. Do not invent a wav. Do not write an ffmpeg recipe.
+Then record the selected take at the named packet-relative path in `vo_session.md`. Do not invent a wav. Do not write an ffmpeg recipe.
 
 5. After the selected take exists (do not invent the file)
 
-Named path for Q1:
+Canonical Selected VO for Q1 (packet-relative; this is what `render_brief` / `set_status` look for):
 
-`vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
+`videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
+
+A file at repo-root `vo/` is not Selected VO. Tools only check inside the packet folder. wav or flac. Optional replacement: same name with `-v2` before the extension.
 
 Read `videos/002-stop-deciding-what-to-work-on-every-morning/vo_session.md` and `docs/narration.md`. Record or generate locally. Keep large raw takes out of git.
 
@@ -166,6 +168,7 @@ If unsure of the next command after any step, re-run `python3 tools/doctor.py vi
 - Do not treat start-of-session `queue_status.py` / `next_topic.py` as mark_topic-only after a folder exists; they print idea_brief --block / paste / --check.
 - Do not ignore the Target column on an empty first draft.
 - Do not invent a selected wav or treat TTS as selected unless a human names that policy.
+- Do not place Selected VO at repo-root `vo/`; tools only see `videos/NNN-slug/vo/`.
 - Do not bump `ready_for_edit` without the named take on disk.
 - Do not commit card binaries to make assets.md or render.md look ready.
 - Do not treat a publish.md description edit as an upload.
