@@ -2,34 +2,29 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 107:
+
+- `tools/expand_brief.py` must print a budget table from script.md headings even when spoken WORDS are 0.
+- Empty hook want is 28 (band 20-35). Payoff want 60 (40-70). CTA want 50 (40-80). Beat want clamped to 140-220.
+- Four empty template beats target 220. Do not hide this table. Do not add a CLI that only reprints Band landing.
+- Status stays `placeholder` when total WORDS are 0 so expand_is_filled does not treat the empty table as a finished brief.
+
+Targeted addition from Run 106:
+
+- `new_packet.draft_followup()` must reprint PATH/draft.md as the overwrite target and that it is not script.md.
+- Do not add a fourth new_packet followup unless that reprint regresses.
+
 Targeted addition from Run 105:
 
-- `videos/_template/draft.md` must stay the packet save target: spoken_words HTML comment, empty WORDS bodies, not-script.md banner, same headings as script.md.
-- `new_packet` copytree must keep copying that file. Do not add a second draft template. Do not add a CLI that reprints Band landing.
+- `videos/_template/draft.md` must stay the packet save target.
 - Do not treat an empty copied draft.md as script.md or as apply --write.
 
 Targeted addition from Run 104:
 
 - Do not touch needed.py reconstruct / WAVE 3 / doctor mapping unless a new READY lie is proven with an isolated tree.
-- `prompts/script_writer.md` must keep the Band landing table (hook 20–35, payoff 40–70, body beat 140–220, CTA 40–80, total 900–1500, target ~1200) and the draft.md spoken_words comment convention.
-- `prompts/script_expander.md` must keep pointing at that allocation.
-- Do not add a wrapper CLI that reprints the allocation.
+- `prompts/script_writer.md` must keep the Band landing table.
 - Do not rewrite those prompts again unless a real non-fixture draft misses the band.
 - Remaining high-value work is still human-owned: scaffold Q1, paste idea fields, overwrite PATH/draft.md, land WORDS in band, apply --write --refresh, set_status ready_for_vo.
-
-Targeted addition from Run 103:
-
-- `needed.py next_topic.py --missing` must list the queue_contract reconstruct paths plus `tools/next_topic.py`.
-- READY only when that asked alias file exists. Exit stays 0.
-- `needed.py queue_status.py` must not grow that list to include next_topic.py.
-- Do not add next_topic.py to which_contract.MAP need. Do not add WAVE 4.
-
-Targeted addition from Run 102:
-
-- `needed.py doctor.py` must keep listing doctor.py plus hint.py, next_action.py, pipeline_status.py, queue_lib.py, queue_status.py, validate_packet.py, next_topic.py, and docs/topic_queue.md.
-- `--missing` READY only when those nine paths exist. Exit stays 0.
-- --plan WAVE 3 must still print only `needed.py doctor.py --missing`, not that file dump.
-- Do not add doctor.py to which_contract.MAP. Do not add WAVE 4.
 
 Targeted addition from Run 081:
 
