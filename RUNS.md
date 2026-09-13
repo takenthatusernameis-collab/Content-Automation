@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-13T08:15:00Z — Run 114
+
+- **Objective:** Unlock Q1 publish gate (validate_packet) and bump status to ready_for_vo if OK and no duration WARN. Fill titles/thumb if that is the only FAIL.
+- **Inspected:** HEAD after Run 113. script.md applied (952 spoken). titles.md / thumbnail.md still empty templates. packet status draft.
+- **Action taken:** Reconstructed packet locally (HTTPS clone still parked). validate_packet FAIL: 0 titles + missing on-image text. Generated titles.md + thumbnail.md with title_thumb_brief heuristics. Re-validate PASS and PASS --duration. set_status-equivalent check: gate empty, duration WARN none, current draft -> ready_for_vo one step. Wrote packet.md status ready_for_vo. Did not invent VO. No new CLI. No Q2 scaffold. Did not map forbidden tools.
+- **Result:** Q1 is ready_for_vo with validating title/thumb copy. Remaining labor is selected VO + human title lock.
+- **Verification status:** validate_packet executed in sandbox against reconstructed packet (script text matched HEAD SHA content). title/thumb generated locally then pushed. Official set_status.py not imported (pipeline_status/render_brief deps); status write matches set_status field rules.
+- **Important discovery:** After script apply, the only publish-gate blockers were empty title/thumb templates. Filling those unblocked ready_for_vo without touching words.py.
+- **Blocker:** No selected VO file. HTTPS clone parked. Official set_status.py import chain not executed in this sandbox.
+- **Recommended next action:** Human lock Primary if desired. Record selected VO. Do not invent wav. Do not scaffold Q2.
+
 ## 2026-09-13T07:10:00Z — Run 113
 
 - **Objective:** Official spoken-word count on Q1 draft, then apply to script.md if IN BAND.
