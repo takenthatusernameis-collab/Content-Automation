@@ -3,6 +3,10 @@
 
 Does not rewrite script.md. Does not invent spoken lines. Does not pad
 the sample fixture. A budget row is not a draft.
+
+Run 107: headings with empty WORDS still get a Band-landing target table
+so the first off-repo draft sees hook/payoff/beat/CTA wants before any
+spoken lines exist. Beat wants clamp to 140–220.
 """
 
 from __future__ import annotations
@@ -24,8 +28,12 @@ TARGET_BY_FORMAT = {
     "explainer-6-10min": 1200,
 }
 HOOK_BAND = (20, 35)
+HOOK_TARGET = 28
+PAYOFF_BAND = (40, 70)
 PAYOFF_TARGET = 60
+CTA_BAND = (40, 80)
 CTA_TARGET = 50
+BEAT_BAND = (140, 220)
 PLACEHOLDER_MARKERS = (
     "status: placeholder",
     "(add spoken lines after script words exist)",
@@ -59,23 +67,32 @@ def budgets(cues: list[dict], fmt: str) -> list[dict]:
     kinds = [classify_label(str(c["label"])) for c in cues]
     n_beats = sum(1 for k in kinds if k == "beat") or 1
     hook_lo, hook_hi = HOOK_BAND
-    reserved = hook_lo + PAYOFF_TARGET + CTA_TARGET
-    beat_each = max(80, int(round((target_total - reserved) / n_beats)))
+    beat_lo, beat_hi = BEAT_BAND
+    reserved = HOOK_TARGET + PAYOFF_TARGET + CTA_TARGET
+    raw_beat = int(round((target_total - reserved) / n_beats))
+    beat_each = min(beat_hi, max(beat_lo, raw_beat))
     rows = []
     for c, kind in zip(cues, kinds):
         have = int(c["words"])
         if kind == "hook":
-            want = hook_lo if have < hook_lo else (have if have <= hook_hi else hook_hi)
+            if have == 0:
+                want = HOOK_TARGET
+            elif have < hook_lo:
+                want = hook_lo
+            elif have > hook_hi:
+                want = hook_hi
+            else:
+                want = have
             note = "keep 20–35; do not pad the hook"
         elif kind == "payoff":
             want = PAYOFF_TARGET
-            note = "one concrete outcome sentence, then how the beats deliver it"
+            note = "one concrete outcome sentence, then how the beats deliver it (40–70)"
         elif kind == "cta":
             want = CTA_TARGET
-            note = "one assignment under two minutes; no subscribe pitch"
+            note = "one assignment under two minutes; no subscribe pitch (40–80)"
         elif kind == "beat":
             want = beat_each
-            note = "add a worked example or failure mode inside this beat"
+            note = "worked example or failure mode; land 140–220"
         else:
             want = have
             note = "keep existing heading; do not add extra ## sections"
@@ -93,6 +110,20 @@ def budgets(cues: list[dict], fmt: str) -> list[dict]:
     return rows
 
 
+def render_budget_table(rows: list[dict]) -> str:
+    lines = [
+        "| Section | Have | Target | Add | Note |",
+        "|---------|-----:|-------:|----:|------|",
+    ]
+    for r in rows:
+        if int(r["have"]) == 0 and r["kind"] == "other":
+            continue
+        lines.append(
+            f"| {r['label']} | {r['have']} | {r['want']} | {r['add']} | {r['note']} |"
+        )
+    return "\n".join(lines)
+
+
 def render(packet: Path) -> str:
     script_path = packet / "script.md"
     packet_path = packet / "packet.md"
@@ -100,7 +131,6 @@ def render(packet: Path) -> str:
     packet_text = packet_path.read_text(encoding="utf-8") if packet_path.is_file() else ""
     fmt = field(packet_text, "format") or "explainer-6-10min"
     cues = script_cues(script)
-    spoken = [c for c in cues if int(c["words"]) > 0]
     total = sum(int(c["words"]) for c in cues)
     band = FORMAT_SPOKEN_WORDS.get(fmt, (900, 1500))
     lo, hi = band
@@ -118,30 +148,20 @@ def render(packet: Path) -> str:
     est = fmt_ts((total / WPM) * 60.0 if total else 0.0)
     need = max(0, target - total) if status == "short" else (max(0, total - hi) if status == "long" else 0)
 
-    if not spoken:
-        table = (
-            "(add spoken lines after script WORDS exist)\n"
-            "- Hook / beats / CTA budgets will appear here.\n"
-            "- This file does not write WORDS."
-        )
-        actions = "- Write WORDS in script.md first. Then re-run this tool."
-    else:
-        rows = budgets(cues, fmt)
-        lines = [
-            "| Section | Have | Target | Add | Note |",
-            "|---------|-----:|-------:|----:|------|",
-        ]
-        for r in rows:
-            if int(r["have"]) == 0 and r["kind"] == "other":
-                continue
-            lines.append(
-                f"| {r['label']} | {r['have']} | {r['want']} | {r['add']} | {r['note']} |"
+    heading_rows = budgets(cues, fmt) if cues else []
+    if heading_rows:
+        table = render_budget_table(heading_rows)
+        if status == "placeholder":
+            actions = (
+                "- Headings exist but WORDS are empty. Use Target as the first-draft land.\n"
+                "- Hook 20–35 (aim 28). Payoff 40–70 (aim 60). Each beat 140–220. CTA 40–80 (aim 50).\n"
+                "- Four template beats at 220 plus hook/payoff/CTA lands near 1010, inside 900–1500.\n"
+                "- Do not invent extra ## beats. Do not pad sample-001."
             )
-        table = "\n".join(lines)
-        if status == "short":
-            thin = [r for r in rows if r["kind"] == "beat" and r["add"] > 0]
+        elif status == "short":
+            thin = [r for r in heading_rows if r["kind"] == "beat" and r["add"] > 0]
             if not thin:
-                thin = [r for r in rows if r["add"] > 0]
+                thin = [r for r in heading_rows if r["add"] > 0]
             actions = "\n".join(
                 f"- Expand `{r['label']}` by about {r['add']} words. {r['note'].capitalize()}."
                 for r in thin
@@ -157,6 +177,13 @@ def render(packet: Path) -> str:
             )
         else:
             actions = "- Length is in band. Do not expand for its own sake. Record only after next_action says record-vo."
+    else:
+        table = (
+            "(no ## headings in script.md)\n"
+            "- Hook / beats / CTA budgets appear after headings exist.\n"
+            "- This file does not write WORDS."
+        )
+        actions = "- Keep script.md headings. Then re-run this tool."
 
     warn_line = note or f"spoken {total} words (~{est} at {int(WPM)} wpm) inside {fmt} band {lo}–{hi}"
 
@@ -171,10 +198,11 @@ Band: {lo}–{hi} (target {target})
 Delta to target: {need if status == "short" else (0 if status == "in-band" else need)}
 Note: {warn_line}
 
-This file is a beat budget from script.md WORDS. It is not a rewritten
-script, not VO, and not permission to pad the sample fixture.
-Edit script.md by hand (or with prompts/script_writer.md). Then re-run
-`python3 tools/validate_packet.py PATH` and `--duration`.
+This file is a beat budget from script.md headings and WORDS. It is not a
+rewritten script, not VO, and not permission to pad the sample fixture.
+Empty WORDS still print Target so the first draft can land in band.
+Edit draft.md / script.md by hand (or with prompts/script_writer.md). Then
+re-run `python3 tools/validate_packet.py PATH` and `--duration`.
 
 ## Budget
 {table}
@@ -185,6 +213,7 @@ Edit script.md by hand (or with prompts/script_writer.md). Then re-run
 ## Human
 - [ ] Expand existing beats with steps or examples, not slogans
 - [ ] Keep hook at 20–35 spoken words
+- [ ] Land each body beat in 140–220
 - [ ] Do not invent statistics
 - [ ] Do not rewrite videos/sample-001-* WORDS
 - [ ] Re-run validate after WORDS change; refresh vo_session.md with --force only on a real packet
