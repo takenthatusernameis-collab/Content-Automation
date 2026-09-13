@@ -14,10 +14,12 @@ One sentence: after watching, the viewer can install a written next-action defau
 
 ## Remaining human work
 - [x] Lock title (heuristic Primary; human may override)
+- [x] Draft publish.md (description / tags / first comment) — stub only, not uploaded
+- [x] List planned cards in assets.md from script VISUAL (files still missing)
 - [ ] Record or generate selected VO to `vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav` using `vo_session.md` (`docs/narration.md`)
-- [ ] Collect assets listed in assets.md
+- [ ] Build planned cards locally (do not invent binaries in git)
 - [ ] Edit
 - [ ] Review captions.md against selected VO (stub times are 150 wpm estimates)
-- [ ] Thumbnail
-- [ ] Draft publish.md (description / tags / first comment)
+- [ ] Thumbnail file
+- [ ] Human-lock publish.md
 - [ ] Upload
