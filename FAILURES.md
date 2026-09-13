@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-09-13 — agent reconstruct page as live job (Run 125)
+
+- **Tried:** Runs 118-124 aligned human/operator pages, BLOCKED, gitignore, and README on the packet-relative take. agent_session still opened on clone + WAVE reconstruct.
+- **Evidence:** Recurring agents are told to start on `docs/agent_session.md` when clone fails. That page presented doctor / queue_status / next_topic as the start sequence after WAVE 3 even though Q1 is already `ready_for_vo`.
+- **Lesson:** Pin the agent page the same way as README. Reconstruct is for tool work, not a substitute for the recording gate.
+- **Avoid:** WAVE 4. Mapping doctor.py. Inventing a wav. Another page that only restates NEXT.md.
+
 ## 2026-09-13 — short Selected VO path on operator pages (Run 121)
 
 - **Tried:** Runs 118-120 named `vo/002-...-take-selected.wav` on human_session / NEXT without saying it is inside the packet folder.
