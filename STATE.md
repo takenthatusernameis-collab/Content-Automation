@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-13T10:20:00Z (Run 116)
+Updated: 2026-09-13T11:14:00Z (Run 117)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + titles/thumb filled + vo_session ready-to-record + captions stub + **assets list + publish stub** + status ready_for_vo -> automated -> self-improving
+manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + titles/thumb filled + vo_session ready-to-record + captions stub + assets list + publish stub (tags trimmed) + qa mechanical + render presence all-missing + status ready_for_vo -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -20,10 +20,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + tit
 - Run 113: official-equivalent words count 952 IN BAND; applied onto script.md; status stayed draft
 - Run 114: titles.md + thumbnail.md filled; validate PASS; status ready_for_vo
 - Run 115: filled vo_session.md (ready-to-record, 952w / ~06:21) and captions.md stub (7 cues). Locked heuristic Primary. Did not invent VO.
-- Run 116: filled assets.md (7 planned cards from VISUAL) and publish.md stub (title/description/tags/pin). Status stayed ready_for_vo. Did not invent binaries or wav. Did not bump ready_for_edit. Did not scaffold Q2. Did not map forbidden tools. Did not add a CLI.
+- Run 116: filled assets.md (7 planned cards from VISUAL) and publish.md stub (title/description/tags/pin). Status stayed ready_for_vo.
+- Run 117: trimmed publish.md tags (dropped title-word stopwords). Filled qa.md mechanical boxes PASS and render.md presence all-missing (11 named outputs). Status stayed ready_for_vo. Did not invent wav, cards, or export. Did not bump ready_for_edit. Did not scaffold Q2. Did not map forbidden tools. Did not add a CLI.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 
-## What exists now (after Run 116)
+## What exists now (after Run 117)
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - idea.md mechanism filled
 - draft.md + script.md spoken WORDS (952 IN BAND, hook 28)
@@ -31,14 +32,16 @@ manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + tit
 - vo_session.md reading card ready-to-record; named take missing
 - captions.md stub from WORDS (not SRT)
 - assets.md stub: 7 planned cards; no image files in git
-- publish.md stub: not uploaded
+- publish.md stub: tags trimmed; not uploaded
+- qa.md: mechanical PASS; all human boxes open
+- render.md: all-missing (0 present / 11 missing)
 - packet.md status `ready_for_vo`
 - Human still must record selected VO and build cards locally
 - Queue Q1 used; Q2-Q5 queued
 - Reconstruct-loop watch from Runs 099-103 remains in force
 
 ## Pipeline map
-Q1 is past paste + draft + words count + script apply + title/thumb + ready_for_vo + reading card + asset list + publish stub.
+Q1 is past paste + draft + words count + script apply + title/thumb + ready_for_vo + reading card + asset list + publish stub + tag trim + qa mechanical + render presence.
 Next live command: record/generate selected VO per `docs/narration.md` and `vo_session.md`. Place at `vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`. Do not invent a wav. Do not upload. Do not scaffold Q2.
 
 After a high-risk GitHub write: `python3 tools/prove_locks.py`.
@@ -46,8 +49,8 @@ After a high-risk GitHub write: `python3 tools/prove_locks.py`.
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 36 | 32 | asset list + publish stub; VO + card files still human |
-| Automated steps | 84 | 84 | reused asset_brief / publish_brief rules; no new CLI |
+| Estimated human min / video | 32 | 30 | tags + qa/render paperwork; VO + card files still human |
+| Automated steps | 84 | 84 | reused existing brief/checklist rules; no new CLI |
 | Videos produced | 0 | 0 | ready_for_vo; no selected take |
 
 ## Active constraints
