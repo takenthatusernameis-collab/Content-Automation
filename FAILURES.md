@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-09-13 — reconstruct-loop still closed (Run 106)
+
+- **Tried last five reconstruct runs:** needed.py reconstruct / WAVE 3 / doctor unmapped lists / alias READY (Runs 099–103).
+- **This run:** Did not add a reconstruct path. Added new_packet draft_followup instead of a second template or a Band-landing CLI.
+- **Lesson:** After the save-target file exists, the remaining operator gap is naming that path on scaffold stdout. Remaining labor is still Q1 scaffold + WORDS in band.
+- **Avoid:** WAVE 4, another UNMAPPED_PATHS row, a MAP need-list edit, another writer-prompt pass unless a real draft misses 900–1500, a second draft template, a Band-landing reprint CLI, or a fourth new_packet followup.
+
 ## 2026-09-13 — reconstruct-loop still closed (Run 105)
 
 - **Tried last five reconstruct runs:** needed.py reconstruct / WAVE 3 / doctor unmapped lists / alias READY (Runs 099–103).
