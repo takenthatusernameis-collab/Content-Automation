@@ -2,6 +2,11 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 109:
+
+- `docs/human_session.md` step 3 must keep the empty-script Target column: hook 28 / payoff 60 / beats 220×4 / CTA 50 / land ~1010.
+- Do not strip that paragraph. Do not change Q1 title, slug, one_line, or problem when editing that page.
+
 Targeted addition from Run 108:
 
 - `videos/_template/expand.md` must keep the empty-WORDS Band-landing table. Status stays `placeholder` so expand_is_filled does not treat it as finished.
