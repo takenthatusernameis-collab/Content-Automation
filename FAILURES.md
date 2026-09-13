@@ -1,11 +1,16 @@
 # FAILURES
 
-## 2026-09-13 — reconstruct-loop still closed (Run 109)
+## 2026-09-13 — reconstruct-loop still closed (Run 110)
 
 - **Tried last five reconstruct runs:** needed.py reconstruct / WAVE 3 / doctor unmapped lists / alias READY (Runs 099-103).
-- **This run:** Did not add a reconstruct path. Named the empty-script Target column on docs/human_session.md instead of a new CLI or writer-prompt rewrite.
+- **This run:** Did not add a reconstruct path. Named the empty-draft Target on hint.py Command instead of a new CLI, doctor mapping, or writer-prompt rewrite.
+- **Lesson:** human_session and expand_prompt can already show targets while the doctor/hint Command the human copies still omits the numbers.
+- **Avoid:** WAVE 4, another UNMAPPED_PATHS row, a MAP need-list edit, another writer-prompt pass unless a real draft misses 900-1500, a second draft template, a Band-landing reprint CLI, a fourth new_packet followup, hiding the empty-WORDS table, making expand_prompt write expand.md, stripping the Target column from human_session, stripping the Target comment from hint.py, or mapping doctor.py.
+
+## 2026-09-13 — reconstruct-loop still closed (Run 109)
+
+- **This run:** Named the empty-script Target column on docs/human_session.md instead of a new CLI or writer-prompt rewrite.
 - **Lesson:** expand_prompt and template expand.md can already show targets while the operator page the human follows still omits the numbers.
-- **Avoid:** WAVE 4, another UNMAPPED_PATHS row, a MAP need-list edit, another writer-prompt pass unless a real draft misses 900-1500, a second draft template, a Band-landing reprint CLI, a fourth new_packet followup, hiding the empty-WORDS table, making expand_prompt write expand.md, or stripping the Target column from human_session.
 
 ## 2026-09-13 — reconstruct-loop still closed (Run 108)
 
