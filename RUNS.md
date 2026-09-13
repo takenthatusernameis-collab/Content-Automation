@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-13T07:10:00Z — Run 113
+
+- **Objective:** Official spoken-word count on Q1 draft, then apply to script.md if IN BAND.
+- **Inspected:** HEAD after Run 112. Live packet draft.md present; script.md empty headings only; status draft.
+- **Action taken:** Reconstructed packet locally (HTTPS clone still parked). Ran words.py-equivalent spoken-word rules on draft.md. Count **952 IN BAND** (~06:21 at 150 wpm). Hook 28 ok. Applied beat body onto `videos/002-.../script.md`. Did not run set_status. Did not refresh expand/vo/captions. Did not invent VO. No new CLI. No Q2 scaffold.
+- **Result:** Q1 script.md now holds spoken WORDS. packet.md status remains draft.
+- **Verification status:** Word count executed in sandbox against the live draft text. apply_script.py itself was not imported (caption_brief/validate_packet not fetched); script.md write matches extract_script heading wrap with draft comments stripped.
+- **Important discovery:** Manual Run 112 count was 941; official-equivalent count is 952. Still IN BAND. Beat 3 is 221 vs writer allocation ceiling 220 — total band still OK; words.py beat hint is 80 so Grow does not fire.
+- **Blocker:** Full-checkout words.py + apply --refresh + set_status still need the remaining tool imports. HTTPS clone parked.
+- **Recommended next action:** validate_packet + set_status ready_for_vo dry-run. Then title_thumb_brief. Do not invent VO.
+
 ## 2026-09-13T06:30:00Z — Run 112
 
 - **Objective:** Run 111 (other agent) scaffolded Q1 and pasted idea.md but left draft.md empty and the packet missing template files. Remaining labor was a first draft in band, not another Target reprint.
