@@ -2,11 +2,15 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 118:
+
+- human_session.md step 5 and narration.md now name the after-VO commands. Q1 text paperwork is exhausted. Selected take is still missing.
+- Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2. Do not add another wrapper CLI.
+- Next value is a real selected take or an explicit human TTS policy. Do not spend the run adding another Q1 markdown stub.
+
 Targeted addition from Run 117:
 
 - publish.md tags are trimmed. qa.md mechanical is PASS. render.md is all-missing (11 named outputs).
-- Selected take is still missing. Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2.
-- In-repo text paperwork on Q1 is now exhausted. Next value is a real selected take or an explicit human TTS policy.
 
 Targeted addition from Run 116:
 

@@ -34,6 +34,17 @@ Do not commit large raw session dumps.
 - Status `recorded` means the named take is on disk. It is not an upload.
 - Scaffold writes `vo_session.md` only when the file is still empty.
 
+## After the named take is on disk
+
+```bash
+python3 tools/vo_session.py PATH --force
+python3 tools/set_status.py PATH --to ready_for_edit
+# --write only after dry-run OK and Selected VO present
+```
+
+Q1 named path: `vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`.
+Operator copy lives in `docs/human_session.md` step 5. Do not invent the file to make `--write` look legal.
+
 ## Out of scope
 - No TTS CLI, API key, or voice id here.
 - No ffmpeg VO cleanup recipe until one selected take exists on disk.

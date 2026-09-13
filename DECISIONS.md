@@ -2,6 +2,7 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-13 | After Q1 text paperwork is exhausted and selected take is still missing, document the after-VO command sequence on docs/human_session.md instead of inventing media or scaffolding Q2 | Run 118: remaining labor is recording; hunting commands across files is recurring human work | After a real selected take; if set_status flags change; do not bump ready_for_edit without the file
 - 2026-09-13 | While status is ready_for_vo and selected take is missing, trim publish.md tags and fill qa.md / render.md from existing packet text. Do not invent media or bump ready_for_edit. | Run 117 removed remaining text-only paperwork without pretending files exist | After a real selected take; re-run qa_checklist / render_brief --force when VO or cards appear
 - 2026-09-13 | While status is ready_for_vo and selected take is missing, fill assets.md from script VISUAL and publish.md from Primary + idea. Do not invent card binaries, wav, or an upload. Do not bump ready_for_edit. | Run 116 removed two post-VO paperwork steps without pretending media exists | After a real selected take; if a human rejects heuristic tags; do not mark card Status ready without a local file
 - 2026-09-13 | After script WORDS exist and status is ready_for_vo, fill vo_session.md and captions.md from those WORDS; lock heuristic Primary so recording is the remaining human gate | Run 115 unblocked recording without inventing audio | If a human rejects Primary; after a real selected take exists; do not bump ready_for_edit without the file

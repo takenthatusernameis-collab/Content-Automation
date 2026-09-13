@@ -106,6 +106,25 @@ python3 tools/vo_session.py videos/002-stop-deciding-what-to-work-on-every-morni
 
 Then record the selected take at the named path in `vo_session.md`. Do not invent a wav. Do not write an ffmpeg recipe.
 
+5. After the selected take exists (do not invent the file)
+
+Named path for Q1:
+
+`vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
+
+Read `videos/002-stop-deciding-what-to-work-on-every-morning/vo_session.md` and `docs/narration.md`. Record or generate locally. Keep large raw takes out of git.
+
+When that file is on disk:
+
+```bash
+python3 tools/vo_session.py videos/002-stop-deciding-what-to-work-on-every-morning --force
+python3 tools/set_status.py videos/002-stop-deciding-what-to-work-on-every-morning --to ready_for_edit
+# after dry-run OK and Selected VO present:
+python3 tools/set_status.py videos/002-stop-deciding-what-to-work-on-every-morning --to ready_for_edit --write
+```
+
+`--force` refreshes the session card from WORDS. `set_status` still refuses `ready_for_edit` if the named take is missing. Do not bump from this page without the file. Do not scaffold Q2 while Q1 has no selected take. Do not write an ffmpeg recipe until VO + cards exist.
+
 If unsure of the next command after any step, re-run `python3 tools/doctor.py videos/002-stop-deciding-what-to-work-on-every-morning` and use the printed Command.
 
 ## Stop
@@ -123,3 +142,5 @@ If unsure of the next command after any step, re-run `python3 tools/doctor.py vi
 - Do not expand while idea.md still says `template-default` / generic or blank mechanism.
 - Do not treat start-of-session `queue_status.py` / `next_topic.py` as mark_topic-only after a folder exists; they print idea_brief --block / paste / --check.
 - Do not ignore the Target column on an empty first draft.
+- Do not invent a selected wav or treat TTS as selected unless a human names that policy.
+- Do not bump `ready_for_edit` without the named take on disk.
