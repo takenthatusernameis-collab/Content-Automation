@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-09-13 — short Selected VO path on record-vo printers (Run 128)
+
+- **Tried:** Runs 121-127 locked pages, BLOCKED, gitignore, and first-contact banners to `videos/NNN-slug/vo/...`. next_action Why and hint record-vo Command still printed a short `vo/` path.
+- **Evidence:** An operator who trusts `hint.py` / `next_action.py` after doctor could still drop the take at repo-root `vo/` and fail `set_status ready_for_edit`.
+- **Lesson:** Pin the printers that emit the drop path, not only the markdown pages.
+- **Avoid:** WAVE 4. Mapping doctor.py. Inventing a wav. Another Live job banner. A second search at repo-root `vo/`.
+
 ## 2026-09-13 — agent reconstruct page as live job (Run 125)
 
 - **Tried:** Runs 118-124 aligned human/operator pages, BLOCKED, gitignore, and README on the packet-relative take. agent_session still opened on clone + WAVE reconstruct.
