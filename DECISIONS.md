@@ -2,11 +2,12 @@
 
 Format: date | decision | why | revisit when
 
+- 2026-09-13 | First non-fixture draft is written in draft.md only; script.md stays empty until apply --write after words.py IN BAND | Run 111 opened the packet; remaining labor was WORDS, not another reprint | After words.py official count; if BELOW/ABOVE edit draft.md, do not rewrite writer prompts unless official count misses 900-1500
 - 2026-09-13 | hint.py write-script/expand-script Command includes the empty-draft Target comment; doctor.py stays unmapped and unedited | Run 109 named targets on human_session but doctor/hint is the printed Command after scaffold | If a live expand-script Command still hides Target; do not map doctor.py; do not add a Band-landing CLI; do not strip the hint comment
 - 2026-09-13 | expand_prompt pastes expand_brief.render() when expand.md is missing or not expand_is_filled; template expand.md carries the same empty-WORDS table; expand_prompt still writes nothing | Run 107 fixed the CLI dry-run but the writer sees expand_prompt and the copied stub | If a live expand_prompt on a stub packet still hides Target; do not make expand_prompt write expand.md; do not add a Band-landing CLI
-- 2026-09-13 | expand_brief prints a Band-landing target table from script.md headings even when WORDS are empty; beat wants clamp to 140-220 | Empty expand.md hid the allocation that writer prompts already name; expand_prompt already pastes expand.md | If a live empty packet still shows the old stub; do not hide the table; do not add a Band-landing CLI; do not raise beat max above 220
+- 2026-09-13 | expand_brief prints a Band-landing target table from script.md headings even when WORDS are empty; beat wants clamp to 140-220 | Empty expand.md hid the allocation that writer prompts already name | Do not hide the table; do not add a Band-landing CLI; do not raise beat max above 220
 - 2026-09-13 | Every new packet copies videos/_template/draft.md as the off-repo save target; draft.md is still not script.md | Run 104 put allocation in prompts but the packet still had no file to overwrite | If a live new_packet run shows draft.md confusing words.py on an empty packet
-- 2026-09-13 | First-draft spoken-word allocation lives in prompts/script_writer.md, not in a new CLI | Runs 099-103 already closed reconstruct READY lies | If the first real non-fixture draft still misses 900-1500
+- 2026-09-13 | First-draft spoken-word allocation lives in prompts/script_writer.md, not in a new CLI | Runs 099-103 already closed reconstruct READY lies | If the first real non-fixture draft still misses 900-1500 under words.py
 - 2026-09-12 | needed.py appends tools/<asked> when an alias name is not in the contract need list; which_contract.MAP need list stays unchanged | READY lie on missing next_topic.py | If another alias READY lie is proven; do not add WAVE 4
 
 Earlier decisions remain in force.

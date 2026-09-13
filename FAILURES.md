@@ -1,31 +1,22 @@
 # FAILURES
 
-## 2026-09-13 — reconstruct-loop still closed (Run 110)
+## 2026-09-13 — STATE lag after parallel Run 111 scaffold
+
+- **Tried:** This run began from Run 110 docs while HEAD already had Q1 commits.
+- **Lesson:** List recent commits before treating STATE.md as HEAD. Parallel agents can take the next run number.
+- **Avoid:** Writing a second Run 111. Re-scaffolding Q1. Another Target-reprint pass now that a live draft exists.
+
+## 2026-09-13 — reconstruct-loop still closed (Runs 107-110)
 
 - **Tried last five reconstruct runs:** needed.py reconstruct / WAVE 3 / doctor unmapped lists / alias READY (Runs 099-103).
-- **This run:** Did not add a reconstruct path. Named the empty-draft Target on hint.py Command instead of a new CLI, doctor mapping, or writer-prompt rewrite.
-- **Lesson:** human_session and expand_prompt can already show targets while the doctor/hint Command the human copies still omits the numbers.
-- **Avoid:** WAVE 4, another UNMAPPED_PATHS row, a MAP need-list edit, another writer-prompt pass unless a real draft misses 900-1500, a second draft template, a Band-landing reprint CLI, a fourth new_packet followup, hiding the empty-WORDS table, making expand_prompt write expand.md, stripping the Target column from human_session, stripping the Target comment from hint.py, or mapping doctor.py.
-
-## 2026-09-13 — reconstruct-loop still closed (Run 109)
-
-- **This run:** Named the empty-script Target column on docs/human_session.md instead of a new CLI or writer-prompt rewrite.
-- **Lesson:** expand_prompt and template expand.md can already show targets while the operator page the human follows still omits the numbers.
-
-## 2026-09-13 — reconstruct-loop still closed (Run 108)
-
-- **This run:** Closed the stub-expand.md leak in expand_prompt and the template copy instead of a new CLI or writer-prompt rewrite.
-- **Lesson:** A live expand_brief dry-run does not help if expand_prompt still pastes the copied stub.
-
-## 2026-09-13 — reconstruct-loop still closed (Run 107)
-
-- **This run:** Changed expand_brief empty-WORDS budget instead of a new CLI or writer-prompt rewrite.
+- **Runs 104-110:** Named band targets on writer prompts, template, expand_brief, expand_prompt, human_session, hint Command instead of a new reconstruct path.
+- **Avoid:** WAVE 4, mapping doctor.py, a Band-landing reprint CLI, stripping Target comments, applying --write to sample-001.
 
 ## 2026-09-12 — reconstruct-loop watch (Runs 099-103)
 
 - **Tried:** Five consecutive runs changed needed.py reconstruct / WAVE 3 / doctor unmapped lists / alias READY.
 - **Evidence:** Automated-step count rose 80 → 84. Videos produced stayed 0.
-- **Lesson:** Remaining labor is Q1 scaffold + WORDS in band.
+- **Lesson:** Remaining labor after printers agree is a real packet with WORDS in band.
 - **Avoid:** WAVE 4 or a MAP need-list edit unless a new READY lie is proven with an isolated tree.
 
 ## 2026-09-12 — placeholder overwrite of queue_status.py / words.py / apply_script.py (Runs 098 / 093 / 091 / 076)
