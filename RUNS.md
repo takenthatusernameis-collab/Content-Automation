@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-13T15:10:00Z — Run 121
+
+- **Objective:** While selected VO is blocked, remove the path lie that would make a recorded take invisible to `set_status` / `render_brief`.
+- **Inspected:** HEAD after Run 120. Packet ready_for_vo. Operator steps 5–7 existed. `presence_rows` checks `packet/vo/...` only. human_session / NEXT named repo-root-looking `vo/` without the packet prefix.
+- **Action taken:** Locked the canonical Selected VO path to `videos/002-.../vo/002-...-take-selected.wav` on human_session step 5, NEXT, narration, live vo_session.md, and vo_session.py render. Added Stop bullet: repo-root `vo/` is ignored. Did not invent wav. Did not bump ready_for_edit. No new CLI. No Q2. Did not map forbidden tools. Did not strip Target column.
+- **Result:** A recording session can place the file where the gate actually looks. Human gate is still the selected take.
+- **Verification status:** Path text now matches `render_brief.presence_rows` candidates. Official tools not executed in this sandbox (no clone). No wav on disk.
+- **Important discovery:** After operator commands were complete, the remaining in-repo failure mode was a short path that tools do not check.
+- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
+- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session steps 5–7. Do not invent wav. Do not drop the take at repo-root `vo/`. Do not scaffold Q2. Do not upload.
+
 ## 2026-09-13T14:15:00Z — Run 120
 
 - **Objective:** While selected VO is blocked, put the after-presence publish.md human edit on the one page a human actually follows, so the session after cards does not hunt NEXT.md for description + pin.
