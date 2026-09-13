@@ -4,6 +4,19 @@ One page for recurring agents when there is no local git checkout.
 
 Humans follow `docs/human_session.md`. This page is not a second start command for humans.
 
+## Live job (not reconstruct)
+
+Reconstruct exists so agents can run contracts when clone fails. It is not the current production job.
+
+- Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
+- Status: `ready_for_vo`. Text paperwork is done.
+- Selected VO path: `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
+- Repo-root `vo/` is not Selected VO. Do not invent a wav. Do not `git add -f` ignored media.
+- Do not scaffold Q2. Do not treat WAVE 3 `doctor.py` / `queue_status.py` / `next_topic.py` as permission to start a new packet.
+- After the WAVE 3 board printers run, stop unless this run is editing a named tool. Recording is still a human gate.
+
+README already names this front door. This page must not send an agent back into fixture reconstruct as if that were the remaining labor.
+
 ## Clone
 
 HTTPS clone of this private repo fails in the agent sandbox. Do not retry after the first failure in a run. Push via GitHub file APIs.
@@ -23,7 +36,7 @@ python3 tools/needed.py --plan --missing
 
 `--plan` is read-only. WAVE 1 reprints those six paths. WAVE 2 prints the next reconstruct command (`python3 tools/needed.py selftest.py --missing`) and does not dump that file list. WAVE 3 prints the reconstruct command for the operator board (`python3 tools/needed.py queue_status.py --missing`) then the reconstruct command for unmapped doctor (`python3 tools/needed.py doctor.py --missing`) then the start sequence (`python3 tools/doctor.py`, `python3 tools/queue_status.py`, `python3 tools/next_topic.py`) and does not dump queue files or scaffold. Combined with `--missing` it labels WAVE 1 only. Exit is always 0. It is not a contract. doctor.py stays unmapped.
 
-Then fetch WAVE 1 and continue below.
+Then fetch WAVE 1 and continue below. If the live packet is already `ready_for_vo`, do not treat those board printers as the job.
 
 ## Which files
 
@@ -146,7 +159,7 @@ Expected on current sample-001 (do not pad WORDS to change this):
 
 Same as prior page: reconstruct what `needed.py CONTRACT` prints, confirm `--missing` READY, then run the named contract. Expected PASS, exit 0, no writes to `docs/` or `videos/`.
 
-After WAVE 2 READY, print WAVE 3 reconstruct, fetch queue_status and doctor until READY, then run doctor.py then queue_status.py then next_topic.py and stop at the board. Do not treat WAVE 3 as scaffold permission.
+After WAVE 2 READY, print WAVE 3 reconstruct, fetch queue_status and doctor until READY, then run doctor.py then queue_status.py then next_topic.py and stop at the board. Do not treat WAVE 3 as scaffold permission. If the live packet is `ready_for_vo` with no selected take, the board is confirmation only; the remaining labor is still the human recording gate, not another reconstruct wave.
 
 When `queue_status.py` or `next_topic.py` run against a mark-needed folder that already exists, they print `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check`. Do not invent a mark_topic-only next step from this page. Do not write idea.md from those printed lines. Prefer the printed idea_brief commands over scanning tools/. Humans still paste idea.md; agents do not.
 
@@ -194,6 +207,7 @@ Prior contract PASS times remain those recorded in Run 026–076. If a later run
 - Do not list WAVE 2 reconstruct files inside --plan.
 - Do not list WAVE 3 queue files inside --plan.
 - Do not treat WAVE 3 as auto-scaffold.
+- Do not treat WAVE 3 board printers as the live job while Q1 is `ready_for_vo` without a selected take.
 - Do not map idea_gate_contract, operator_pin_contract, idea_brief_contract, words.py, words_contract.py, placeholder_guard.py, or prove_locks.py.
 - Do not write idea.md from idea_brief.py or idea_brief.py --block.
 - Do not treat verify_write_path.py as a replacement for contract_shape.py or write_path_contract.py.
