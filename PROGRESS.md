@@ -14,10 +14,12 @@
 | 2026-09-13 Run 114 | ~40 estimate | 84 | titles/thumb heuristic + validate PASS + status ready_for_vo |
 | 2026-09-13 Run 115 | ~36 estimate | 84 | vo_session ready-to-record + captions stub; still no selected take |
 | 2026-09-13 Run 116 | ~32 estimate | 84 | assets.md 7 planned cards + publish.md stub; VO still human |
+| 2026-09-13 Run 117 | ~30 estimate | 84 | tags trimmed + qa mechanical + render presence; VO still human |
 
 These numbers are **estimates**, not stopwatch data.
 
 ## Capability additions
+- Run 117: Q1 publish.md tags trimmed (title-word stopwords removed). qa.md mechanical PASS written from packet files. render.md Status all-missing lists 11 named outputs from format + assets backticks. No binaries. No upload. No new CLI. Status stayed ready_for_vo.
 - Run 116: Q1 assets.md lists 7 planned cards from script VISUAL. publish.md has title, description, tags, pin-comment stub. No binaries. No upload. No new CLI. Status stayed ready_for_vo.
 - Run 115: Q1 vo_session.md is a real reading card (ready-to-record, 952 words, ~06:21, named take path). captions.md is a 7-cue stub. Heuristic Primary locked. No wav invented. No new CLI. Status stayed ready_for_vo.
 - Run 114: first live non-fixture packet passed validate_packet publish gate (script already in band; titles >=5 with one <50; thumb 3 words). Status written to ready_for_vo after dry-run-equivalent OK and no duration WARN. No new CLI. No VO invented.
