@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-13T19:15:00Z (Run 125)
+Updated: 2026-09-13T20:08:00Z (Run 126)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + titles/thumb filled + vo_session ready-to-record + captions stub + assets list + publish stub (tags trimmed) + qa mechanical + render presence all-missing + operator after-VO / after-edit / after-presence commands + Selected VO path locked packet-relative + local media gitignored + BLOCKED VO path matches gates + README front door names live packet + agent_session live-job pin -> automated -> self-improving
+manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + titles/thumb filled + vo_session ready-to-record + captions stub + assets list + publish stub (tags trimmed) + qa mechanical + render presence all-missing + operator after-VO / after-edit / after-presence commands + Selected VO path locked packet-relative + local media gitignored + BLOCKED VO path matches gates + README front door names live packet + agent_session live-job pin + human_session live-job pin -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -30,9 +30,10 @@ manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + tit
 - Run 123: BLOCKED.md TTS/mic row now names the packet-relative Selected VO path. Repo-root `vo/` is not a setup instruction. No wav invented. No status bump. No Q2. No new CLI.
 - Run 124: README opens on the live Q1 packet and the exact Selected VO path. sample-001 commands stay contract examples, not the start job. No wav invented. No status bump. No Q2. No new CLI.
 - Run 125: docs/agent_session.md now opens on the live Q1 job before reconstruct waves. WAVE 3 board printers are confirmation only while ready_for_vo has no take. No wav invented. No status bump. No Q2. No new CLI.
+- Run 126: docs/human_session.md now opens on the live Q1 recording gate. doctor / queue_status / new_packet are labeled new-packet only. Steps 1-4 kept as completed path. No new step. No wav invented. No status bump. No Q2. No new CLI.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 
-## What exists now (after Run 125)
+## What exists now (after Run 126)
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - idea.md mechanism filled
 - draft.md + script.md spoken WORDS (952 IN BAND, hook 28)
@@ -48,12 +49,13 @@ manual -> assisted scaffolding -> monitored packets + Q1 script.md applied + tit
 - BLOCKED.md no longer advertises repo-root `vo/` as the record path
 - README front door no longer leads with fixture scaffold as the live job
 - agent_session no longer leads with reconstruct waves as the live job
+- human_session no longer leads with doctor/scaffold as the live job
 - Human still must record selected VO and build cards locally
 - Queue Q1 used; Q2-Q5 queued
 - Reconstruct-loop watch from Runs 099-103 remains in force
 
 ## Pipeline map
-Q1 is past paste + draft + words count + script apply + title/thumb + ready_for_vo + reading card + asset list + publish stub + tag trim + qa mechanical + render presence + after-VO / after-edit / after-presence operator commands + Selected VO path lock + media gitignore + BLOCKED path lock + README live-packet pin + agent_session live-job pin.
+Q1 is past paste + draft + words count + script apply + title/thumb + ready_for_vo + reading card + asset list + publish stub + tag trim + qa mechanical + render presence + after-VO / after-edit / after-presence operator commands + Selected VO path lock + media gitignore + BLOCKED path lock + README live-packet pin + agent_session live-job pin + human_session live-job pin.
 Next live command: record/generate selected VO per `docs/narration.md` and `vo_session.md`. Place at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`. Do not invent a wav. Do not drop it at repo-root `vo/`. Do not `git add -f` it. Do not upload. Do not scaffold Q2.
 
 After a high-risk GitHub write: `python3 tools/prove_locks.py`.
@@ -61,7 +63,7 @@ After a high-risk GitHub write: `python3 tools/prove_locks.py`.
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 24 | 23 | agent reconstruct page no longer presents WAVE 3 as the live job |
+| Estimated human min / video | 23 | 22 | operator page no longer presents scaffold as the live job |
 | Automated steps | 84 | 84 | no new CLI |
 | Videos produced | 0 | 0 | ready_for_vo; no selected take |
 

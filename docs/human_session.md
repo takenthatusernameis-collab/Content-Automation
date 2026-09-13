@@ -6,12 +6,26 @@ One page. Follow this instead of scanning `tools/`.
 
 Agents without a checkout: `docs/agent_session.md`.
 
-## Start every session
+## Live job (do this first)
+
+Q1 is already scaffolded. Status is `ready_for_vo`. Text paperwork is done.
+
+- Packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
+- Reading card: that packet's `vo_session.md` (952 words, ~06:21)
+- Put the selected take here: `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
+- Repo-root `vo/` is not Selected VO. `.gitignore` keeps the take local. Do not `git add -f` it.
+- After the file exists: steps 5–7 below. Do not invent a wav. Do not scaffold Q2.
+
+Do not start this session at `doctor.py` / `queue_status.py` / `new_packet.py`. Those commands are for a *new* packet. The remaining human gate is the named take.
+
+## Start every session (new packet only)
 
 ```bash
 python3 tools/doctor.py
 python3 tools/queue_status.py
 ```
+
+Skip this block while Q1 is `ready_for_vo` with no selected take. Read the Live job section instead.
 
 Read the doctor block. Run only the printed Command (dry-run first). Doctor writes nothing. queue_status writes nothing. Default queue_status exit is 0. Use `--strict` only when you want a non-zero exit on mark-needed or missing-folder.
 
@@ -26,6 +40,8 @@ python3 tools/next_topic.py
 That command writes nothing. It prints a queued title, a predicted `videos/NNN-slug`, and a dry-run `mark_topic` line. After that predicted folder exists, it also prints `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check`. Prefer the printed title over inventing a new one. Prefer the printed idea_brief lines over scanning this page for the paste.
 
 ## First real video (not the fixture)
+
+Q1 already exists. Steps 1–4 below are the completed path, kept so a later packet can reuse them. Do not re-scaffold Q1. Do not run them as the live job.
 
 1. Scaffold the printed queue title (Q1 today)
 
@@ -175,3 +191,4 @@ If unsure of the next command after any step, re-run `python3 tools/doctor.py vi
 - Do not commit card binaries to make assets.md or render.md look ready.
 - Do not `git add -f` ignored wav/png/mp4 to flip presence rows.
 - Do not treat a publish.md description edit as an upload.
+- Do not treat doctor / queue_status / new_packet as the live job while Q1 is `ready_for_vo` with no selected take.
