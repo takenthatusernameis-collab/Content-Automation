@@ -17,6 +17,7 @@
 51bp. after-presence publish edit on human_session — **done (Run 120; no upload)**
 51bq. lock Selected VO to packet-relative path — **done (Run 121; no wav)**
 51br. gitignore local VO/card/export binaries — **done (Run 122; no wav)**
+51bs. align BLOCKED.md VO setup path with packet-relative gates — **done (Run 123; no wav)**
 
 ## Later (automation)
 52. Human override of heuristic Primary (optional; already locked)
