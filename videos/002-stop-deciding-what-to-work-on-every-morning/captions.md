@@ -11,6 +11,9 @@ This file is a caption intake stub from script.md WORDS. It is not Whisper,
 not an SRT file, and not proof that captions were burned or uploaded.
 Do not treat estimated times as aligned to a take.
 
+DROP `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
+Repo-root `vo/` is not Selected VO. Cues below are script-derived, not take-aligned.
+
 ## Cues
 - 00:00–00:11  Hook (0:00–0:12)  (28w) — You already planned the week. Morning comes and you open the whole list again, as if last night never happened. Write one next-action default before you sleep.
 - 00:11–00:34  Payoff promise  (57w) — After this video you will have one written next-action default sitting where tomorrow-you will see it first, so the morning starts execution instead of reopening every open loop. You will pick the sentence tonight, put it on one surface, and refuse to browse the rest of the list until that sentence is done or rewritten.
@@ -23,10 +26,12 @@ Do not treat estimated times as aligned to a take.
 ## Export names (when a human makes real captions)
 - Working text: `videos/002-stop-deciding-what-to-work-on-every-morning/captions.md` (this file)
 - Timed file later: `videos/002-stop-deciding-what-to-work-on-every-morning/captions.srt` (do not invent one here)
+- Selected VO drop from repo root: `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
 - VO path rules: `docs/narration.md`
 
 ## Human
-- [ ] Read cues against the selected VO take
+- [ ] Read cues against the selected VO take at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
 - [ ] Fix wording that was spoken differently than script.md
 - [ ] Split long lines for on-screen readability
 - [ ] Do not upload estimated times as final captions
+- [ ] Do not invent a wav or treat repo-root `vo/` as Selected VO
