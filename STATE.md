@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-09-14T07:12:00Z (Run 137)
+Updated: 2026-09-14T08:05:00Z (Run 138)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -15,10 +15,10 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - script.md 952 IN BAND; status `ready_for_vo`; selected take missing
-- Run 137: `docs/narration.md` names the repo-root DROP path. `tools/selftest.py` fails if narration.md drops the DROP line. No new CLI. No wav invented. No status bump. No Q2.
+- Run 138: honored `OPERATOR_HOLD.md`. No new CLI. No wav invented. No status bump. No Q2. No further DROP/selftest/page alignment.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 
-## What exists now (after Run 137)
+## What exists now (after Run 138)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
 - vo_session.md ready-to-record; named take missing; header DROP matches board/gate
 - captions.md stub with DROP; assets.md 7 planned cards; publish.md stub
@@ -28,6 +28,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - editor.md, format.md, and narration.md name packet-relative DROP for the VO track
 - Human still must record selected VO and build cards locally
 - Queue Q1 used; Q2-Q5 queued
+- OPERATOR_HOLD is active until a real selected take exists at the packet-relative path
 
 ## Pipeline map
 Next live command: record selected VO at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`. Do not invent a wav. Do not drop it at repo-root `vo/`. Do not `git add -f` it. Do not upload. Do not scaffold Q2.
@@ -35,8 +36,8 @@ Next live command: record selected VO at `videos/002-stop-deciding-what-to-work-
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 12 | 11 | narration.md + selftest lock the same DROP path |
-| Automated steps | 85 | 85 | selftest widened; no new CLI |
+| Estimated human min / video | 11 | 11 | hold; no new lock |
+| Automated steps | 85 | 85 | unchanged |
 | Videos produced | 0 | 0 | ready_for_vo; no selected take |
 
 ## Active constraints
@@ -46,3 +47,4 @@ Next live command: record selected VO at `videos/002-stop-deciding-what-to-work-
 - Do not treat repo-root `vo/` as Selected VO
 - Do not add another wrapper CLI, WAVE 4, or Live job banner unless a first-contact lie is proven
 - Do not re-split selected_vo_drop into a second string builder
+- Do not resume documentation alignment while OPERATOR_HOLD is active
