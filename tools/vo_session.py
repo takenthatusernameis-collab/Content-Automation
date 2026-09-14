@@ -17,7 +17,7 @@ if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
 from caption_brief import WPM, fmt_ts, script_cues  # noqa: E402
-from render_brief import packet_id_slug, presence_rows  # noqa: E402
+from render_brief import packet_id_slug, presence_rows, selected_vo_drop  # noqa: E402
 
 PLACEHOLDER_MARKERS = (
     "status: placeholder",
@@ -50,8 +50,8 @@ def render(packet: Path) -> str:
     generated = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     total_words = sum(int(c["words"]) for c in cues)
     total_s = sum(float(c["dur"]) for c in cues)
-    vid, slug = packet_id_slug(packet)
-    state, vo_path = vo_state(packet)
+    state, _vo_rel = vo_state(packet)
+    drop = selected_vo_drop(packet)
     status = "recorded" if state == "present" else ("ready-to-record" if spoken else "placeholder")
 
     if not spoken:
@@ -75,15 +75,16 @@ Generated: {generated}
 WPM assumption: {int(WPM)}
 Spoken words: {total_words}
 Estimated speech: {fmt_ts(total_s)} (not a take duration)
-Selected take path: `{vo_path}` (packet-relative; not repo-root vo/)
+DROP `{drop}`
 Selected take on disk: {state}
+Repo-root `vo/` is not Selected VO. Packet-relative name is `vo/` plus the take filename.
 
 This file is a reading card from script.md WORDS. It is not a wav, not TTS,
 and not proof a take was recorded. Copy the selected file to the named path
 after a human records. Do not invent audio.
 
 ## Record to
-- Selected: `videos/{packet.name}/{vo_path}`
+- Selected: `{drop}`
 - Repo-root `vo/` is ignored. Tools only check inside this packet.
 - Rejected takes (optional): `videos/{packet.name}/vo/takes/`
 - Rules: `docs/narration.md`
@@ -93,7 +94,7 @@ after a human records. Do not invent audio.
 
 ## Human
 - [ ] Confirm hook is 20–35 spoken words before recording
-- [ ] Record one selected take to the packet-relative named path (wav or flac)
+- [ ] Record one selected take to DROP (wav or flac)
 - [ ] Do not commit raw session dumps by default
 - [ ] Do not run a TTS vendor from this tool
 - [ ] After the file exists, re-run `tools/vo_session.py PATH --force` then dry-run `tools/set_status.py PATH --to ready_for_edit`
