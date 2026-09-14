@@ -79,6 +79,22 @@ def check_selected_vo_drop_lock() -> list[str]:
             failures.append("set_status.py must reuse selected_vo_path or selected_vo_drop")
         if "def selected_vo_drop(" in text:
             failures.append("set_status.py must not re-implement selected_vo_drop")
+    hint = TOOLS / "hint.py"
+    if hint.is_file():
+        text = hint.read_text(encoding="utf-8")
+        if "selected_vo_path" not in text and "selected_vo_drop" not in text:
+            failures.append("hint.py must reuse selected_vo_path or selected_vo_drop")
+        if "def selected_vo_drop(" in text:
+            failures.append("hint.py must not re-implement selected_vo_drop")
+        if "def selected_vo_path(" in text:
+            failures.append("hint.py must not re-implement selected_vo_path")
+    format_page = ROOT / "docs" / "format.md"
+    if format_page.is_file():
+        text = format_page.read_text(encoding="utf-8")
+        if "videos/NNN-slug/vo/NNN-slug-take-selected.wav" not in text:
+            failures.append("docs/format.md must name the repo-root Selected VO DROP path")
+        if "Repo-root `vo/` is not Selected VO" not in text and "repo-root `vo/` is not Selected VO" not in text:
+            failures.append("docs/format.md must say repo-root vo/ is not Selected VO")
     return failures
 
 
