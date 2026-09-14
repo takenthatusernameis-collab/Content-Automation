@@ -34,6 +34,8 @@ B-roll is optional texture under cards, never the format.
 ## Named outputs (not a recipe)
 
 Paths live inside the packet folder `videos/NNN-slug/`.
+DROP from repo root: `videos/NNN-slug/vo/NNN-slug-take-selected.wav` (or `.flac`).
+Repo-root `vo/` is not Selected VO. Table paths below are packet-relative.
 
 | Role | Path |
 |------|------|
