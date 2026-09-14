@@ -18,6 +18,8 @@ TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
+from render_brief import selected_vo_drop  # noqa: E402
+
 WPM = 150.0
 PLACEHOLDER_MARKERS = (
     "(add ",
@@ -114,6 +116,7 @@ def render(packet: Path) -> str:
     generated = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     total_words = sum(int(c["words"]) for c in cues)
     total_s = sum(float(c["dur"]) for c in cues)
+    drop = selected_vo_drop(packet)
 
     if not spoken:
         cue_body = (
@@ -146,19 +149,24 @@ This file is a caption intake stub from script.md WORDS. It is not Whisper,
 not an SRT file, and not proof that captions were burned or uploaded.
 Do not treat estimated times as aligned to a take.
 
+DROP `{drop}`
+Repo-root `vo/` is not Selected VO. Cues below are script-derived, not take-aligned.
+
 ## Cues
 {cue_body}
 
 ## Export names (when a human makes real captions)
 - Working text: `videos/{packet.name}/captions.md` (this file)
 - Timed file later: `videos/{packet.name}/captions.srt` (do not invent one here)
+- Selected VO drop from repo root: `{drop}`
 - VO path rules: `docs/narration.md`
 
 ## Human
-- [ ] Read cues against the selected VO take
+- [ ] Read cues against the selected VO take at `{drop}`
 - [ ] Fix wording that was spoken differently than script.md
 - [ ] Split long lines for on-screen readability
 - [ ] Do not upload estimated times as final captions
+- [ ] Do not invent a wav or treat repo-root `vo/` as Selected VO
 """
 
 

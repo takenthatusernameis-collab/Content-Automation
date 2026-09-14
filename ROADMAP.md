@@ -28,6 +28,7 @@
 51ca. render_brief selected_vo_drop shared helper + render.md DROP — **done (Run 131; no wav)**
 51cb. vo_session.md DROP uses selected_vo_drop — **done (Run 132; no wav)**
 51cc. qa.md Notes DROP uses selected_vo_drop — **done (Run 133; no wav)**
+51cd. captions.md DROP uses selected_vo_drop — **done (Run 134; no wav)**
 
 ## Later (automation)
 52. Human override of heuristic Primary (optional; already locked)
