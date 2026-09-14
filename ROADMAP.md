@@ -23,6 +23,9 @@
 51bv. human_session live-job pin before doctor/scaffold — **done (Run 126; no wav)**
 51bw. production_rules Human handoff live-job pin before doctor/queue — **done (Run 127; no wav)**
 51bx. next_action / hint record-vo printers name packet-relative Selected VO — **done (Run 128; no wav)**
+51by. set_status missing-VO refuse names packet-relative path — **done (Run 129; no wav)**
+51bz. pipeline_status missing-VO DROP names packet-relative path — **done (Run 130; no wav)**
+51ca. render_brief selected_vo_drop shared helper + render.md DROP — **done (Run 131; no wav)**
 
 ## Later (automation)
 52. Human override of heuristic Primary (optional; already locked)
@@ -48,3 +51,4 @@
 - Treating WAVE 3 board printers as the live job while Q1 waits for a take
 - Treating doctor / queue_status / new_packet as the live job while Q1 waits for a take
 - Adding another Live job banner unless a first-contact lie is proven
+- Re-implementing selected_vo_drop in a second module
