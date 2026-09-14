@@ -2,13 +2,18 @@
 
 Keep the original master prompt unchanged.
 
-Targeted addition from Run 134:
+Targeted addition from Run 135:
 
-- `tools/caption_brief.py` imports `render_brief.selected_vo_drop()`. Generated captions.md prints `DROP videos/NNN-slug/vo/NNN-slug-take-selected.wav`. Export names and the Human box use the same helper.
+- `tools/selftest.py` source-checks that VO printers import `render_brief.selected_vo_drop` and that `set_status.py` does not redefine it.
+- `docs/editor.md` names `videos/NNN-slug/vo/NNN-slug-take-selected.wav`.
 - Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2. Do not add another wrapper CLI. Do not add WAVE 4. Do not upload.
 - Do not spend the run adding another Q1 markdown stub or another operator/agent page that only restates NEXT.md.
 - Do not re-implement selected_vo_drop in a second module.
 - Next value is a real selected take at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`, or an explicit human TTS policy.
+
+Targeted addition from Run 134:
+
+- `tools/caption_brief.py` imports `render_brief.selected_vo_drop()`. Generated captions.md prints `DROP videos/NNN-slug/vo/NNN-slug-take-selected.wav`. Export names and the Human box use the same helper.
 
 Targeted addition from Run 133:
 

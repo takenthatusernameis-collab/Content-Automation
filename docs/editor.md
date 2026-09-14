@@ -6,8 +6,13 @@ Timing lock: `docs/format.md`.
 ## Project name
 `NNN-slug` matching the packet folder.
 
+## Selected VO
+DROP from repo root: `videos/NNN-slug/vo/NNN-slug-take-selected.wav` (or `.flac`).
+Repo-root `vo/` is not Selected VO. Put that packet file on the `VO` track.
+Do not invent a wav in git. Do not `git add -f` the take.
+
 ## Tracks (top to bottom)
-1. `VO` — narration only
+1. `VO` — narration only (packet-relative selected take above)
 2. `MUSIC` — bed, ducked under VO
 3. `SFX` — optional, sparse
 4. `TITLES` — hook card, beat labels, CTA card

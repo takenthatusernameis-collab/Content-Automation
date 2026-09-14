@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-14T04:10:00Z (Run 134)
+Updated: 2026-09-14T05:20:00Z (Run 135)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected VO path locked packet-relative + printers/gates/render.md/vo_session.md/qa.md/captions.md DROP agree via render_brief.selected_vo_drop -> automated -> self-improving
+manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected VO path locked packet-relative + printers/gates/render.md/vo_session.md/qa.md/captions.md DROP agree via render_brief.selected_vo_drop + selftest DROP-import lock + editor.md DROP -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -15,16 +15,17 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - script.md 952 IN BAND; status `ready_for_vo`; selected take missing
-- Run 134: `tools/caption_brief.py` imports `selected_vo_drop()`. Generated captions.md prints DROP with the repo-root path. Live Q1 captions.md header, export names, and Human box updated. Cue list unchanged. Human boxes still unchecked. No new CLI. No wav invented. No status bump. No Q2.
+- Run 135: `tools/selftest.py` now fails if VO printers stop importing `selected_vo_drop` from `render_brief.py`. `docs/editor.md` names the same DROP path. No new CLI. No wav invented. No status bump. No Q2.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 
-## What exists now (after Run 134)
+## What exists now (after Run 135)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
 - vo_session.md ready-to-record; named take missing; header DROP matches board/gate
 - captions.md stub with DROP; assets.md 7 planned cards; publish.md stub
 - qa.md mechanical PASS; notes name DROP; human VO box unchecked
 - render.md all-missing plus DROP line
 - packet.md status `ready_for_vo`
+- editor.md names packet-relative DROP for the VO track
 - Human still must record selected VO and build cards locally
 - Queue Q1 used; Q2-Q5 queued
 
@@ -34,8 +35,8 @@ Next live command: record selected VO at `videos/002-stop-deciding-what-to-work-
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 15 | 14 | Captions card now names the same DROP path as the board/gate |
-| Automated steps | 84 | 84 | no new CLI; shared helper only |
+| Estimated human min / video | 14 | 13 | Editor card + selftest lock the same DROP path |
+| Automated steps | 84 | 85 | selftest now monitors DROP imports; no new CLI |
 | Videos produced | 0 | 0 | ready_for_vo; no selected take |
 
 ## Active constraints

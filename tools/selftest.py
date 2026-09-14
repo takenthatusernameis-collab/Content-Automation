@@ -23,6 +23,15 @@ from pipeline_status import inspect  # noqa: E402
 from set_status import check as status_check, is_fixture  # noqa: E402
 from validate_packet import packet_duration_warning, validate  # noqa: E402
 
+# Printers that must reuse render_brief.selected_vo_drop, not a second builder.
+DROP_IMPORTERS = (
+    "pipeline_status.py",
+    "next_action.py",
+    "caption_brief.py",
+    "qa_checklist.py",
+    "vo_session.py",
+)
+
 
 def sample_packet() -> Path:
     videos = ROOT / "videos"
@@ -42,6 +51,35 @@ def first_live_command(cmds: list[str]) -> str | None:
         if s and not s.startswith("#"):
             return s
     return None
+
+
+def check_selected_vo_drop_lock() -> list[str]:
+    """Fail if a VO printer stops importing the shared DROP helper."""
+    failures: list[str] = []
+    helper = TOOLS / "render_brief.py"
+    if not helper.is_file():
+        failures.append("missing tools/render_brief.py (selected_vo_drop home)")
+        return failures
+    helper_text = helper.read_text(encoding="utf-8")
+    if "def selected_vo_drop(" not in helper_text:
+        failures.append("render_brief.py must define selected_vo_drop(")
+    for name in DROP_IMPORTERS:
+        path = TOOLS / name
+        if not path.is_file():
+            continue
+        text = path.read_text(encoding="utf-8")
+        if "selected_vo_drop" not in text:
+            failures.append(f"{name} must use selected_vo_drop")
+        if "from render_brief import" not in text and "import render_brief" not in text:
+            failures.append(f"{name} must import selected_vo_drop from render_brief")
+    status = TOOLS / "set_status.py"
+    if status.is_file():
+        text = status.read_text(encoding="utf-8")
+        if "selected_vo_path" not in text and "selected_vo_drop" not in text:
+            failures.append("set_status.py must reuse selected_vo_path or selected_vo_drop")
+        if "def selected_vo_drop(" in text:
+            failures.append("set_status.py must not re-implement selected_vo_drop")
+    return failures
 
 
 def main() -> int:
@@ -113,6 +151,8 @@ def main() -> int:
         failures.append("apply_script must refuse the fixture")
     elif not any("fixture" in e.lower() or "sample-001" in e.lower() for e in blocked_apply):
         failures.append(f"apply_script refuse should mention fixture: {blocked_apply}")
+
+    failures.extend(check_selected_vo_drop_lock())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")
