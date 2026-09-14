@@ -16,7 +16,10 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "tools"))
+TOOLS = Path(__file__).resolve().parent
+if str(TOOLS) not in sys.path:
+    sys.path.insert(0, str(TOOLS))
+from render_brief import selected_vo_drop  # noqa: E402
 from validate_packet import (  # noqa: E402
     REQUIRED_FILES,
     VALID_STATUS,
@@ -117,6 +120,7 @@ def render(path: Path, draft: bool, prior: set[str]) -> str:
     captions_exists = (path / "captions.md").is_file()
     assets_exists = (path / "assets.md").is_file()
     nums = numbers_in_spoken_words(script)
+    drop = selected_vo_drop(path)
 
     notes = [
         f"- Packet folder: `{path.name}`",
@@ -125,6 +129,8 @@ def render(path: Path, draft: bool, prior: set[str]) -> str:
         f"- research.md present: {'yes' if research_exists else 'no'}",
         f"- captions.md present: {'yes' if captions_exists else 'no'}",
         f"- assets.md present: {'yes' if assets_exists else 'no'}",
+        f"- DROP `{drop}`",
+        "- Repo-root `vo/` is not Selected VO. Do not tick the VO box without that file.",
     ]
     if nums:
         notes.append(
