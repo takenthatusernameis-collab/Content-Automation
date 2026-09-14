@@ -4,6 +4,7 @@ Keep ORIGINAL_MASTER_PROMPT.md archival and unchanged.
 
 ## Evidence-based additions (do not silently rewrite the master)
 
+- Run 136: After editor.md DROP agreed, pin format.md named-outputs DROP and watch hint.py so it cannot grow a second path builder. Do not treat selftest PASS as a selected take.
 - Run 135: After captions.md DROP agreed, do not add another generated packet stub. Pin editor.md and monitor selected_vo_drop imports in selftest. Do not treat selftest PASS as a selected take.
 - Run 108: template expand.md keeps empty-WORDS targets. expand_prompt pastes a live budget when expand.md is a stub. Do not make expand_prompt write expand.md. Do not add a Band-landing CLI.
 - Run 105: videos/_template/draft.md is the packet save target. Do not add a second template or a Band-landing CLI. Do not treat empty draft.md as script.md.

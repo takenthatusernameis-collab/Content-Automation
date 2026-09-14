@@ -2,14 +2,19 @@
 
 Keep the original master prompt unchanged.
 
-Targeted addition from Run 135:
+Targeted addition from Run 136:
 
-- `tools/selftest.py` source-checks that VO printers import `render_brief.selected_vo_drop` and that `set_status.py` does not redefine it.
-- `docs/editor.md` names `videos/NNN-slug/vo/NNN-slug-take-selected.wav`.
+- `docs/format.md` names `videos/NNN-slug/vo/NNN-slug-take-selected.wav` and states repo-root `vo/` is not Selected VO.
+- `tools/selftest.py` source-checks that hint.py does not redefine `selected_vo_drop` / `selected_vo_path`, and that format.md keeps the DROP line.
 - Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2. Do not add another wrapper CLI. Do not add WAVE 4. Do not upload.
 - Do not spend the run adding another Q1 markdown stub or another operator/agent page that only restates NEXT.md.
 - Do not re-implement selected_vo_drop in a second module.
 - Next value is a real selected take at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`, or an explicit human TTS policy.
+
+Targeted addition from Run 135:
+
+- `tools/selftest.py` source-checks that VO printers import `render_brief.selected_vo_drop` and that `set_status.py` does not redefine it.
+- `docs/editor.md` names `videos/NNN-slug/vo/NNN-slug-take-selected.wav`.
 
 Targeted addition from Run 134:
 
