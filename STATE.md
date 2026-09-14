@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-09-14T09:13:00Z (Run 139)
+Updated: 2026-09-14T10:06:00Z (Run 140)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -15,10 +15,10 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - script.md 952 IN BAND; status `ready_for_vo`; selected take missing
-- Run 139: honored `OPERATOR_HOLD.md`. No new CLI. No wav invented. No status bump. No Q2. No further DROP/selftest/page alignment.
+- Run 140: honored `OPERATOR_HOLD.md`. No new CLI. No wav invented. No status bump. No Q2. No further DROP/selftest/page alignment.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 
-## What exists now (after Run 139)
+## What exists now (after Run 140)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
 - vo_session.md ready-to-record; named take missing; header DROP matches board/gate
 - captions.md stub with DROP; assets.md 7 planned cards; publish.md stub
@@ -29,6 +29,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Human still must record selected VO and build cards locally
 - Queue Q1 used; Q2-Q5 queued
 - OPERATOR_HOLD is active until a real selected take exists at the packet-relative path
+- Packet listing has no `vo/` directory; repo-wide wav search is empty
 
 ## Pipeline map
 Next live command: record selected VO at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`. Do not invent a wav. Do not drop it at repo-root `vo/`. Do not `git add -f` it. Do not upload. Do not scaffold Q2.
