@@ -5,7 +5,8 @@ Text-first. No TTS vendor and no microphone brand in this file.
 ## Where files live
 Packet folder: `videos/NNN-slug/`
 
-Every path in the table is **inside that packet folder**. A file at repo-root `vo/` is not Selected VO. `render_brief` and `set_status` only check `videos/NNN-slug/vo/`.
+DROP from repo root: `videos/NNN-slug/vo/NNN-slug-take-selected.wav` (or `.flac`).
+Every other path in the table is **inside that packet folder**. A file at repo-root `vo/` is not Selected VO. `render_brief` and `set_status` only check `videos/NNN-slug/vo/`.
 
 `.gitignore` excludes packet `vo/` audio and `cards/` images. Local presence still works. Do not force-add media.
 

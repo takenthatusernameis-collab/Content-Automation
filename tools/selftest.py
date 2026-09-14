@@ -53,6 +53,13 @@ def first_live_command(cmds: list[str]) -> str | None:
     return None
 
 
+def _page_names_drop(rel: str, text: str, failures: list[str]) -> None:
+    if "videos/NNN-slug/vo/NNN-slug-take-selected.wav" not in text:
+        failures.append(f"{rel} must name the repo-root Selected VO DROP path")
+    if "Repo-root `vo/` is not Selected VO" not in text and "repo-root `vo/` is not Selected VO" not in text:
+        failures.append(f"{rel} must say repo-root vo/ is not Selected VO")
+
+
 def check_selected_vo_drop_lock() -> list[str]:
     """Fail if a VO printer stops importing the shared DROP helper."""
     failures: list[str] = []
@@ -90,11 +97,10 @@ def check_selected_vo_drop_lock() -> list[str]:
             failures.append("hint.py must not re-implement selected_vo_path")
     format_page = ROOT / "docs" / "format.md"
     if format_page.is_file():
-        text = format_page.read_text(encoding="utf-8")
-        if "videos/NNN-slug/vo/NNN-slug-take-selected.wav" not in text:
-            failures.append("docs/format.md must name the repo-root Selected VO DROP path")
-        if "Repo-root `vo/` is not Selected VO" not in text and "repo-root `vo/` is not Selected VO" not in text:
-            failures.append("docs/format.md must say repo-root vo/ is not Selected VO")
+        _page_names_drop("docs/format.md", format_page.read_text(encoding="utf-8"), failures)
+    narration_page = ROOT / "docs" / "narration.md"
+    if narration_page.is_file():
+        _page_names_drop("docs/narration.md", narration_page.read_text(encoding="utf-8"), failures)
     return failures
 
 

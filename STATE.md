@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-14T06:10:00Z (Run 136)
+Updated: 2026-09-14T07:12:00Z (Run 137)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected VO path locked packet-relative + printers/gates/render.md/vo_session.md/qa.md/captions.md/editor.md/format.md DROP agree via render_brief.selected_vo_drop + selftest DROP-import lock (hint + format page) -> automated -> self-improving
+manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected VO path locked packet-relative + printers/gates/render.md/vo_session.md/qa.md/captions.md/editor.md/format.md/narration.md DROP agree via render_brief.selected_vo_drop + selftest DROP-import lock (hint + format + narration pages) -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -15,17 +15,17 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - script.md 952 IN BAND; status `ready_for_vo`; selected take missing
-- Run 136: `docs/format.md` names the repo-root DROP path. `tools/selftest.py` fails if hint.py redefines the path helpers or if format.md drops the DROP line. No new CLI. No wav invented. No status bump. No Q2.
+- Run 137: `docs/narration.md` names the repo-root DROP path. `tools/selftest.py` fails if narration.md drops the DROP line. No new CLI. No wav invented. No status bump. No Q2.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 
-## What exists now (after Run 136)
+## What exists now (after Run 137)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
 - vo_session.md ready-to-record; named take missing; header DROP matches board/gate
 - captions.md stub with DROP; assets.md 7 planned cards; publish.md stub
 - qa.md mechanical PASS; notes name DROP; human VO box unchecked
 - render.md all-missing plus DROP line
 - packet.md status `ready_for_vo`
-- editor.md and format.md name packet-relative DROP for the VO track
+- editor.md, format.md, and narration.md name packet-relative DROP for the VO track
 - Human still must record selected VO and build cards locally
 - Queue Q1 used; Q2-Q5 queued
 
@@ -35,7 +35,7 @@ Next live command: record selected VO at `videos/002-stop-deciding-what-to-work-
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 13 | 12 | format.md + hint selftest lock the same DROP path |
+| Estimated human min / video | 12 | 11 | narration.md + selftest lock the same DROP path |
 | Automated steps | 85 | 85 | selftest widened; no new CLI |
 | Videos produced | 0 | 0 | ready_for_vo; no selected take |
 

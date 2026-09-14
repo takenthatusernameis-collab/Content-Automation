@@ -31,6 +31,7 @@
 51cd. captions.md DROP uses selected_vo_drop — **done (Run 134; no wav)**
 51ce. selftest DROP-import lock + editor.md DROP — **done (Run 135; no wav)**
 51cf. format.md DROP + hint helper lock in selftest — **done (Run 136; no wav)**
+51cg. narration.md DROP lock in selftest — **done (Run 137; no wav)**
 
 ## Later (automation)
 52. Human override of heuristic Primary (optional; already locked)
