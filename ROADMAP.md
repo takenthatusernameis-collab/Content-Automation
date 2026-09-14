@@ -26,6 +26,8 @@
 51by. set_status missing-VO refuse names packet-relative path — **done (Run 129; no wav)**
 51bz. pipeline_status missing-VO DROP names packet-relative path — **done (Run 130; no wav)**
 51ca. render_brief selected_vo_drop shared helper + render.md DROP — **done (Run 131; no wav)**
+51cb. vo_session.md DROP uses selected_vo_drop — **done (Run 132; no wav)**
+51cc. qa.md Notes DROP uses selected_vo_drop — **done (Run 133; no wav)**
 
 ## Later (automation)
 52. Human override of heuristic Primary (optional; already locked)
