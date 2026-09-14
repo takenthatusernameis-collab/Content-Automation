@@ -2,69 +2,21 @@
 
 Keep the original master prompt unchanged.
 
+Targeted addition from Run 131:
+
+- `tools/render_brief.selected_vo_drop()` is the shared Selected VO path helper. pipeline_status and next_action import it. Generated render.md prints `DROP videos/NNN-slug/vo/NNN-slug-take-selected.wav`. Table rows stay packet-relative.
+- Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2. Do not add another wrapper CLI. Do not add WAVE 4. Do not upload.
+- Do not spend the run adding another Q1 markdown stub or another operator/agent page that only restates NEXT.md.
+- Do not re-implement selected_vo_drop in a second module.
+- Next value is a real selected take at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`, or an explicit human TTS policy.
+
 Targeted addition from Run 130:
 
 - tools/pipeline_status.py missing-VO packets print `DROP videos/NNN-slug/vo/NNN-slug-take-selected.wav`. Repo-root `vo/` is not Selected VO. This includes legal ready_for_vo (not only status-ahead-of-vo drift).
-- Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2. Do not add another wrapper CLI. Do not add WAVE 4. Do not upload.
-- Do not spend the run adding another Q1 markdown stub or another operator/agent page that only restates NEXT.md.
-- Next value is a real selected take at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`, or an explicit human TTS policy.
-
-Targeted addition from Run 129:
-
-- tools/set_status.py missing-VO refuse now names `videos/NNN-slug/vo/NNN-slug-take-selected.wav`. Repo-root `vo/` is not Selected VO.
-
-Targeted addition from Run 128:
-
-- next_action.py and hint.py record-vo printers name the packet-relative Selected VO path. Short `vo/` is not the printed drop path.
-
-Targeted addition from Run 125:
-
-- docs/agent_session.md now opens on the live Q1 job before reconstruct waves. WAVE 3 board printers are confirmation only while ready_for_vo has no take.
-
-Targeted addition from Run 124:
-
-- README now opens on the live Q1 packet and the packet-relative Selected VO path. sample-001 commands are contract examples, not the live job.
 
 Targeted addition from Run 121:
 
 - Selected VO is packet-relative only: `videos/NNN-slug/vo/NNN-slug-take-selected.wav` (or .flac, optional `-v2`). Repo-root `vo/` is ignored by `render_brief` / `set_status`.
-
-Targeted addition from Run 120:
-
-- human_session.md step 7 now names the after-presence publish.md description + pin edit and forbids treating it as an upload. Q1 text paperwork is exhausted. Selected take is still missing.
-
-Targeted addition from Run 119:
-
-- human_session.md step 6 and editor/assets now name the after-edit card + presence-refresh commands.
-
-Targeted addition from Run 118:
-
-- human_session.md step 5 and narration.md now name the after-VO commands.
-
-Targeted addition from Run 117:
-
-- publish.md tags are trimmed. qa.md mechanical is PASS. render.md is all-missing (11 named outputs).
-
-Targeted addition from Run 116:
-
-- assets.md lists 7 planned cards from VISUAL. publish.md is a stub, not an upload.
-
-Targeted addition from Run 115:
-
-- Live packet is `videos/002-stop-deciding-what-to-work-on-every-morning`.
-- vo_session.md is ready-to-record (952w, ~06:21). captions.md is a stub, not SRT.
-
-Targeted addition from Run 114:
-
-- validate_packet PASS after heuristic titles/thumb. packet.md status is `ready_for_vo`.
-
-Targeted addition from Run 113:
-
-- draft.md counted **952 IN BAND** (hook 28). script.md has the spoken WORDS.
-
-Targeted addition from Run 112:
-
-- `draft.md` has first spoken WORDS. Do not treat a manual count as words.py when a checkout exists.
 
 Targeted addition from Run 110:
 
