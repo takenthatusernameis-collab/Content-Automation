@@ -14,10 +14,12 @@
 | 2026-09-14 Run 133 | ~15 estimate | 84 | qa.md Notes DROP uses selected_vo_drop; VO still human |
 | 2026-09-14 Run 134 | ~14 estimate | 84 | captions.md DROP uses selected_vo_drop; VO still human |
 | 2026-09-14 Run 135 | ~13 estimate | 85 | selftest DROP-import lock + editor.md DROP; VO still human |
+| 2026-09-14 Run 136 | ~12 estimate | 85 | format.md DROP + hint helper lock in selftest; VO still human |
 
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 136: `docs/format.md` names the repo-root DROP. `tools/selftest.py` fails if hint.py redefines the path helpers or if format.md drops the DROP line. No new CLI. No wav. Status stayed ready_for_vo.
 - Run 135: `tools/selftest.py` fails if VO printers drop `selected_vo_drop` from `render_brief.py`. `docs/editor.md` names the packet-relative DROP. No new CLI. No wav. Status stayed ready_for_vo.
 - Run 134: `tools/caption_brief.py` imports `selected_vo_drop()`. Generated `captions.md` prints `DROP videos/NNN-slug/vo/NNN-slug-take-selected.wav`. Live Q1 captions.md header/export/human updated. Cue list unchanged. No new CLI. No wav. Status stayed ready_for_vo.
 - Run 133: `tools/qa_checklist.py` imports `selected_vo_drop()`. Generated `qa.md` Notes print DROP. Human VO box stays unchecked.
