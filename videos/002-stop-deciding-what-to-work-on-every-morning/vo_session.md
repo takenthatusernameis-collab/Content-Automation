@@ -1,12 +1,13 @@
 # VO session
 
 Status: ready-to-record
-Generated: 2026-09-13T09:15:08Z
+Generated: 2026-09-14T02:04:00Z
 WPM assumption: 150
 Spoken words: 952
 Estimated speech: 06:21 (not a take duration)
-Selected take path: `vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav` (packet-relative; not repo-root vo/)
+DROP `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
 Selected take on disk: missing
+Repo-root `vo/` is not Selected VO. Packet-relative name is `vo/` plus the take filename.
 
 This file is a reading card from script.md WORDS. It is not a wav, not TTS,
 and not proof a take was recorded. Copy the selected file to the named path
@@ -49,7 +50,7 @@ Before you stand up, write one next-action sentence for tomorrow: verb, object, 
 
 ## Human
 - [ ] Confirm hook is 20–35 spoken words before recording
-- [ ] Record one selected take to the packet-relative named path (wav or flac)
+- [ ] Record one selected take to DROP (wav or flac)
 - [ ] Do not commit raw session dumps by default
 - [ ] Do not run a TTS vendor from this tool
 - [ ] After the file exists, re-run `tools/vo_session.py PATH --force` then dry-run `tools/set_status.py PATH --to ready_for_edit`
