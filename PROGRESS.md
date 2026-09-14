@@ -11,10 +11,11 @@
 | 2026-09-14 Run 130 | ~18 estimate | 84 | pipeline_status DROP names packet-relative take; VO still human |
 | 2026-09-14 Run 131 | ~17 estimate | 84 | render.md DROP + shared selected_vo_drop; VO still human |
 | 2026-09-14 Run 132 | ~16 estimate | 84 | vo_session.md DROP uses selected_vo_drop; VO still human |
+| 2026-09-14 Run 133 | ~15 estimate | 84 | qa.md Notes DROP uses selected_vo_drop; VO still human |
 
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
-- Run 132: `tools/vo_session.py` imports `selected_vo_drop()`. Generated `vo_session.md` prints `DROP videos/NNN-slug/vo/NNN-slug-take-selected.wav`. Record-to uses the same helper. Live Q1 reading card header updated. No new CLI. No wav. Status stayed ready_for_vo.
+- Run 133: `tools/qa_checklist.py` imports `selected_vo_drop()`. Generated `qa.md` Notes print `DROP videos/NNN-slug/vo/NNN-slug-take-selected.wav`. Live Q1 qa.md notes updated. Human VO box stays unchecked. No new CLI. No wav. Status stayed ready_for_vo.
+- Run 132: `tools/vo_session.py` imports `selected_vo_drop()`. Generated `vo_session.md` prints DROP. Record-to uses the same helper.
 - Run 131: `tools/render_brief.selected_vo_drop()` is the shared Selected VO path helper. `pipeline_status` and `next_action` import it. Generated `render.md` prints DROP.
-- Run 130: `tools/pipeline_status.py` prints DROP when Selected VO is missing, including legal `ready_for_vo`.
