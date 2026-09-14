@@ -16,7 +16,7 @@ TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
-from render_brief import presence_rows  # noqa: E402
+from render_brief import packet_id_slug, presence_rows  # noqa: E402
 from validate_packet import VALID_STATUS, field, validate  # noqa: E402
 
 NEEDS_VO = {"ready_for_edit", "ready_to_publish", "published"}
@@ -31,6 +31,12 @@ def packet_dirs(root: Path) -> list[Path]:
     return sorted(
         p for p in videos.iterdir() if p.is_dir() and not p.name.startswith("_")
     )
+
+
+def selected_vo_drop(path: Path) -> str:
+    """Canonical Selected VO path. Repo-root vo/ is not Selected VO."""
+    vid, slug = packet_id_slug(path)
+    return f"videos/{vid}-{slug}/vo/{vid}-{slug}-take-selected.wav"
 
 
 def gate_label(path: Path) -> tuple[str, list[str], list[str]]:
@@ -93,6 +99,7 @@ def inspect(path: Path) -> dict[str, object]:
     gate, errors, incompletes = gate_label(path)
     disk, present, missing, by_role = disk_summary(path)
     drift = drift_notes(status, gate, by_role)
+    vo_state = by_role.get("Selected VO", "missing")
     return {
         "name": path.name,
         "status": status,
@@ -105,6 +112,8 @@ def inspect(path: Path) -> dict[str, object]:
         "missing": missing,
         "open_human": remaining_open(path),
         "drift": drift,
+        "vo_state": vo_state,
+        "vo_drop": selected_vo_drop(path),
     }
 
 
@@ -136,11 +145,19 @@ def format_report(rows: list[dict[str, object]]) -> str:
         "DRIFT means packet status is ahead of script/VO/export evidence."
     )
     lines.append("This command writes nothing and creates no media.")
+    lines.append(
+        "Selected VO drop is videos/NNN-slug/vo/NNN-slug-take-selected.wav. "
+        "Repo-root vo/ is not Selected VO."
+    )
     drifted = [r for r in rows if r["drift"]]
     failed = [r for r in rows if r["gate"] == "FAIL"]
-    lines.append(f"Packets: {len(rows)}  FAIL: {len(failed)}  DRIFT: {len(drifted)}")
+    missing_vo = [r for r in rows if r.get("vo_state") != "present"]
+    lines.append(
+        f"Packets: {len(rows)}  FAIL: {len(failed)}  DRIFT: {len(drifted)}  MISSING-VO: {len(missing_vo)}"
+    )
     for row in rows:
-        if row["errors"] or row["incompletes"] or row["drift"]:
+        show_drop = row.get("vo_state") != "present"
+        if row["errors"] or row["incompletes"] or row["drift"] or show_drop:
             lines.append(f"  {row['name']}:")
             for e in row["errors"]:
                 lines.append(f"    FAIL {e}")
@@ -148,6 +165,10 @@ def format_report(rows: list[dict[str, object]]) -> str:
                 lines.append(f"    DRAFT {i}")
             for d in row["drift"]:
                 lines.append(f"    DRIFT {d}")
+            if show_drop:
+                lines.append(
+                    f"    DROP `{row['vo_drop']}` (repo-root vo/ is not Selected VO)"
+                )
     return "\n".join(lines) + "\n"
 
 
