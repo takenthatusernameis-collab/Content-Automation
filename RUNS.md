@@ -2,31 +2,29 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-14T00:20:00Z — Run 130
+
+- **Objective:** While selected VO is blocked, stop pipeline_status from reporting missing disk without naming the Selected VO drop path the gate opens.
+- **Inspected:** HEAD after Run 129. next_action / hint / set_status refuse already print `videos/NNN-slug/vo/...`. pipeline_status listed all-missing and status-ahead-of-vo without a DROP line. ready_for_vo is not DRIFT for missing VO, so the board hid the path unless status was already illegally ahead.
+- **Action taken:** pipeline_status.inspect now stores vo_state + vo_drop via selected_vo_drop(). format_report prints a footer rule and a per-packet `DROP \`videos/{vid}-{slug}/vo/...\`` whenever Selected VO is not present. Did not add a Live job banner. Did not invent wav. Did not bump ready_for_edit. No new CLI. No WAVE 4. No Q2. Did not map forbidden tools.
+- **Result:** An operator who runs the production board on Q1 is told the same path render_brief / next_action / set_status check.
+- **Verification status:** Files committed via GitHub file API. Official tools not executed in this sandbox (no clone). No wav on disk. Target column left in human_session step 3. Target comment left on hint write-script/expand-script.
+- **Important discovery:** After refuse strings and record-vo printers were pinned, the remaining short-path omit was the read-only board used to confirm presence.
+- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
+- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session Live job + steps 5–7. Do not invent wav. Do not `git add -f` the take. Do not drop it at repo-root `vo/`. Do not scaffold Q2. Do not upload. Do not add another Live job banner unless a first-contact lie is proven.
+
 ## 2026-09-13T23:16:00Z — Run 129
 
 - **Objective:** While selected VO is blocked, stop set_status from refusing ready_for_edit with a generic "Selected VO missing on disk" that hides the path the gate opens.
-- **Inspected:** HEAD after Run 128. next_action / hint already print `videos/NNN-slug/vo/...`. set_status.check still said only "Selected VO missing on disk" for ready_for_edit / ready_to_publish / published.
-- **Action taken:** set_status.py now imports selected_vo_path() and appends `need \`videos/{vid}-{slug}/vo/...\`; repo-root vo/ is not Selected VO` on those refuse lines. Did not add a Live job banner. Did not invent wav. Did not bump ready_for_edit. No new CLI. No WAVE 4. No Q2. Did not map forbidden tools.
 - **Result:** An operator who dry-runs set_status after dropping a take in the wrong place is told the same path render_brief / next_action check.
-- **Verification status:** Files committed via GitHub file API. Official tools not executed in this sandbox (no clone). No wav on disk. Target column left in human_session step 3. Target comment left on hint write-script/expand-script.
-- **Important discovery:** After record-vo printers were pinned, the remaining short-path omit was the status-gate refuse string.
-- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
-- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session Live job + steps 5–7. Do not invent wav. Do not `git add -f` the take. Do not drop it at repo-root `vo/`. Do not scaffold Q2. Do not upload. Do not add another Live job banner unless a first-contact lie is proven.
+- **Blocker:** No selected VO file.
 
 ## 2026-09-13T22:19:00Z — Run 128
 
-- **Objective:** While selected VO is blocked, stop next_action / hint from printing a short `vo/` drop path that gates do not open.
-- **Inspected:** HEAD after Run 127. README / agent_session / human_session / production_rules / BLOCKED already name `videos/NNN-slug/vo/...`. next_action Why used `vo/{vid}-{slug}-take-selected.wav`. hint record-vo Command said "the named vo/ path".
-- **Action taken:** next_action.selected_vo_path() now prints `videos/{vid}-{slug}/vo/{vid}-{slug}-take-selected.wav`. hint.py record-vo Command uses that helper and forbids repo-root `vo/` plus `git add -f`. Did not add a Live job banner. Did not invent wav. Did not bump ready_for_edit. No new CLI. No WAVE 4. No Q2. Did not map forbidden tools.
 - **Result:** An operator who runs next_action or hint on Q1 is told the same path render_brief / set_status check.
-- **Verification status:** Files committed via GitHub file API. Official tools not executed in this sandbox (no clone). No wav on disk. Target column left in human_session step 3. Target comment left on hint write-script/expand-script.
-- **Important discovery:** After first-contact pages were pinned, the remaining short-path lie was inside the record-vo printers themselves.
-- **Blocker:** No selected VO file. HTTPS clone parked. Connected Voice exists but repo policy forbids inventing a selected take.
-- **Recommended next action:** Record selected VO to the packet-relative path. Follow human_session Live job + steps 5–7. Do not invent wav. Do not `git add -f` the take. Do not drop it at repo-root `vo/`. Do not scaffold Q2. Do not upload. Do not add another Live job banner unless a first-contact lie is proven.
 
 ## 2026-09-13T21:18:00Z — Run 127
 
-- **Objective:** While selected VO is blocked, stop production_rules Human handoff from presenting doctor / queue_status / next_topic as the live start.
 - **Result:** An operator landing on production rules now sees the recording gate before session-start printers.
 
 ## 2026-09-13T20:08:00Z — Run 126
@@ -53,21 +51,5 @@ Permanent log. Newest first. If the same action repeats across runs with no prog
 
 - **Result:** A recording session can place the file where the gate actually looks.
 
-## 2026-09-13T14:15:00Z — Run 120
-
-- **Result:** Operator path now covers ready_for_vo through the first legal publish-metadata edit.
-
-## 2026-09-13T13:10:00Z — Run 119
-
-- **Result:** Operator path now covers ready_for_vo through the first legal card refresh.
-
-## 2026-09-13T12:25:00Z — Run 118
-
-- **Result:** Operator path now covers ready_for_vo through the first legal status bump.
-
-## 2026-09-13T11:14:00Z — Run 117
-
-- **Result:** Upload tags are usable. Editor has a named presence list that will stay honest until files exist.
-
-## Earlier runs 001–116
+## Earlier runs 001–120
 See prior commits for full detail.

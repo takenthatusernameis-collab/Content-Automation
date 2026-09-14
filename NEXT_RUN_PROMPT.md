@@ -2,12 +2,16 @@
 
 Keep the original master prompt unchanged.
 
-Targeted addition from Run 129:
+Targeted addition from Run 130:
 
-- tools/set_status.py missing-VO refuse now names `videos/NNN-slug/vo/NNN-slug-take-selected.wav`. Repo-root `vo/` is not Selected VO.
+- tools/pipeline_status.py missing-VO packets print `DROP videos/NNN-slug/vo/NNN-slug-take-selected.wav`. Repo-root `vo/` is not Selected VO. This includes legal ready_for_vo (not only status-ahead-of-vo drift).
 - Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2. Do not add another wrapper CLI. Do not add WAVE 4. Do not upload.
 - Do not spend the run adding another Q1 markdown stub or another operator/agent page that only restates NEXT.md.
 - Next value is a real selected take at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`, or an explicit human TTS policy.
+
+Targeted addition from Run 129:
+
+- tools/set_status.py missing-VO refuse now names `videos/NNN-slug/vo/NNN-slug-take-selected.wav`. Repo-root `vo/` is not Selected VO.
 
 Targeted addition from Run 128:
 
@@ -16,9 +20,6 @@ Targeted addition from Run 128:
 Targeted addition from Run 125:
 
 - docs/agent_session.md now opens on the live Q1 job before reconstruct waves. WAVE 3 board printers are confirmation only while ready_for_vo has no take.
-- Do not invent a wav or card binaries. Do not bump ready_for_edit. Do not scaffold Q2. Do not add another wrapper CLI. Do not add WAVE 4. Do not upload.
-- Do not spend the run adding another Q1 markdown stub or another operator/agent page that only restates NEXT.md.
-- Next value is a real selected take at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`, or an explicit human TTS policy.
 
 Targeted addition from Run 124:
 
