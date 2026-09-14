@@ -16,7 +16,7 @@ TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
-from render_brief import packet_id_slug, presence_rows  # noqa: E402
+from render_brief import packet_id_slug, presence_rows, selected_vo_drop  # noqa: E402
 from validate_packet import VALID_STATUS, field, validate  # noqa: E402
 
 NEEDS_VO = {"ready_for_edit", "ready_to_publish", "published"}
@@ -31,12 +31,6 @@ def packet_dirs(root: Path) -> list[Path]:
     return sorted(
         p for p in videos.iterdir() if p.is_dir() and not p.name.startswith("_")
     )
-
-
-def selected_vo_drop(path: Path) -> str:
-    """Canonical Selected VO path. Repo-root vo/ is not Selected VO."""
-    vid, slug = packet_id_slug(path)
-    return f"videos/{vid}-{slug}/vo/{vid}-{slug}-take-selected.wav"
 
 
 def gate_label(path: Path) -> tuple[str, list[str], list[str]]:
