@@ -2,6 +2,12 @@
 
 Keep the original master prompt unchanged.
 
+**Hard-stop addition from Run 184:**
+
+- If `OPERATOR_HOLD.md` is active and the packet-relative Selected VO file is still missing, the run must be **read-only**: inspect state, report the blocker, and make **no repository changes and no commit**. Do not refresh `STATE.md`, `NEXT.md`, `RUNS.md`, or any other hold-status snapshot merely to record that the hold still exists.
+- A new commit is permitted only when the hold condition changes (for example, a real selected VO file is supplied), a genuine regression prevents the already-defined next action, or a human explicitly changes the policy.
+- Repeatedly re-asserting the same hold is non-productive churn and must be treated as a failed run, not as progress.
+
 Targeted addition from Run 137:
 
 - `docs/narration.md` names `videos/NNN-slug/vo/NNN-slug-take-selected.wav` at the top of Where files live and states repo-root `vo/` is not Selected VO.
@@ -23,7 +29,7 @@ Targeted addition from Run 135:
 
 Targeted addition from Run 134:
 
-- `tools/caption_brief.py` imports `render_brief.selected_vo_drop()`. Generated captions.md prints `DROP videos/NNN-slug/vo/NNN-slug-take-selected.wav`. Export names and the Human box use the same helper.
+- `tools/caption_brief.py` imports `selected_vo_drop()`. Generated captions.md prints `DROP videos/NNN-slug/vo/NNN-slug-take-selected.wav`. Export names and the Human box use the same helper.
 
 Targeted addition from Run 133:
 
