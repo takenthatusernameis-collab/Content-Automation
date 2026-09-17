@@ -1,5 +1,18 @@
 # NEXT RUN PROMPT
 
+## Absolute no-op gate while OPERATOR_HOLD is active
+
+Before doing anything else, inspect `OPERATOR_HOLD.md`. If it is active and the packet-relative Selected VO file is still missing, this run is complete after read-only inspection. **Do not modify any repository file and do not create a commit.** This includes `STATE.md`, `NEXT.md`, `RUNS.md`, prompts, logs, documentation, tests, lock files, and generated outputs. Do not “log the hold,” refresh timestamps, restate the blocker, or make any other bookkeeping change. A scheduled run that creates a commit under this condition is a failed/non-productive run.
+
+A write is permitted only if at least one of these is true:
+
+1. the real Selected VO file now exists at the packet-relative path;
+2. the blocker materially changed;
+3. a genuine regression prevents the already-defined next action; or
+4. a human explicitly changed the policy.
+
+If none is true, report the current blocker out-of-band and exit with no repository write.
+
 Keep the original master prompt unchanged.
 
 **Hard-stop addition from Run 184:**
