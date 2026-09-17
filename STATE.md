@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-09-17T20:12:00Z (Run 202)
+Updated: 2026-09-17T23:06:00Z (Run 203)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -15,10 +15,10 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - script.md 952 IN BAND; status `ready_for_vo`; selected take missing
-- Run 202: honored `OPERATOR_HOLD.md`. No new CLI. No wav invented. No status bump. No Q2. No further DROP/selftest/page alignment. Did not use Voice TTS as a selected take.
+- Run 203: honored `OPERATOR_HOLD.md`. No new CLI. No wav invented. No status bump. No Q2. No further DROP/selftest/page alignment. Did not use Voice TTS as a selected take.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 
-## What exists now (after Run 202)
+## What exists now (after Run 203)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
 - vo_session.md ready-to-record; named take missing; header DROP matches board/gate
 - captions.md stub with DROP; assets.md 7 planned cards; publish.md stub
