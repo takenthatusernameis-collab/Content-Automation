@@ -17,6 +17,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - script.md 952 IN BAND; status `ready_for_vo`; selected take missing
 - Run 209: honored `OPERATOR_HOLD.md`. No new CLI. No wav invented. No status bump. No Q2. No further DROP/selftest/page alignment. Did not use Voice TTS as a selected take.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
+- End-to-end capability contract added: narration -> visuals -> render/assembly -> media QA -> YouTube OAuth/upload -> Analytics/comments -> experiment loop. These capabilities are not yet all BUILT.
 
 ## What exists now (after Run 209)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
@@ -40,6 +41,16 @@ Next live command: record selected VO at `videos/002-stop-deciding-what-to-work-
 | Estimated human min / video | 11 | 11 | hold; no new lock |
 | Automated steps | 85 | 85 | unchanged |
 | Videos produced | 0 | 0 | ready_for_vo; no selected take |
+
+## Capability roadmap status
+- Content/editorial gates: BUILT
+- Narration adapter: NOT_BUILT
+- Visual/card generator: NOT_BUILT
+- Render/assembly: NOT_BUILT
+- Media QA: NOT_BUILT
+- Credential-ready YouTube uploader: READY_FOR_CREDENTIAL (contract only; implementation NOT_BUILT)
+- YouTube Analytics/comment feedback ingestion: NOT_BUILT
+- Experiment/improvement loop: contract BUILT; execution tooling NOT_BUILT
 
 ## Active constraints
 - Do not auto-scaffold another packet while Q1 has no VO
