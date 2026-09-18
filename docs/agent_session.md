@@ -1,5 +1,13 @@
 # Agent session
 
+## Manual-gate escalation
+
+Recurring agents must also read `docs/operator_escalation.md`. A new human-intervention request is read-only until its recorded 24-hour deadline. After that deadline, the agent may complete the explicitly allowed repository-side fallback using existing write/build permissions. Do not create repeated hold commits while waiting. Never fabricate proof of a human action, and never bypass provider authentication; credentials remain the final manual bottleneck.
+
+## YouTube readiness
+
+Before adding upload behavior, read `docs/youtube_integration.md`. Construct and validate the publishing layer without credentials where possible; stop at `YOUTUBE_AUTH_REQUIRED` when OAuth material is absent. Never commit or print secrets.
+
 One page for recurring agents when there is no local git checkout.
 
 Humans follow `docs/human_session.md`. This page is not a second start command for humans.
