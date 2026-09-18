@@ -151,3 +151,11 @@ Human visual/audio ticks live in `qa.md` under **Human**.
 - Reject generic listicle structure, excessive meta narration, repeated conclusions, slogan-heavy triads, and abstract motivation when they add no information.
 - Before ready_for_vo, apply mechanical validation plus the originality test and a read-aloud repetition/cadence pass.
 - Generated narration is allowed only under the explicit operator policy and must be labeled generated; it is never proof of a human recording.
+
+## Post-publication learning
+- A published packet is not the end of the pipeline.
+- After a defined observation window, collect feedback using `docs/feedback_loop.md`.
+- Record feedback with source, retrieval time, video ID, and observation window.
+- Convert repeated viewer needs or stable metric patterns into an explicit experiment hypothesis.
+- Do not use a single early metric or one comment as proof that a new strategy works.
+- Preserve null results and failures in `docs/experiments.md` / `FAILURES.md`.
