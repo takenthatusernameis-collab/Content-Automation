@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-09-18T17:09:00Z (Run 210)
+Updated: 2026-09-18T18:19:00Z (Run 211)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -15,13 +15,13 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - script.md 952 IN BAND; status `ready_for_vo`; selected take missing
-- Run 210: honored `OPERATOR_HOLD.md`. No new CLI. No wav invented. No status bump. No Q2. No further DROP/selftest/page alignment. Did not use Voice TTS as a selected take.
-- Escalation clock: Q1 selected-VO request dated 2026-09-18; Run 210 is still the same calendar day in UTC, so the 24-hour fallback is not eligible yet. Generated VO remains a labeled fallback only after deadline.
+- Run 211: honored `OPERATOR_HOLD.md`. No new CLI. No wav invented. No status bump. No Q2. No further DROP/selftest/page alignment. Did not use Voice TTS as a selected take.
+- Escalation clock: Q1 selected-VO request dated 2026-09-18; Run 211 is still the same calendar day in UTC, so the 24-hour fallback is not eligible yet. Generated VO remains a labeled fallback only after deadline.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 - End-to-end capability contract added: narration -> visuals -> render/assembly -> media QA -> YouTube OAuth/upload -> Analytics/comments -> experiment loop. These capabilities are not yet all BUILT.
 - Executive trajectory decision: SHIP the first completed video before adding further broad architecture. Daily manager review uses docs/executive_manager.md.
 
-## What exists now (after Run 210)
+## What exists now (after Run 211)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
 - vo_session.md ready-to-record; named take missing; header DROP matches board/gate
 - captions.md stub with DROP; assets.md 7 planned cards; publish.md stub
