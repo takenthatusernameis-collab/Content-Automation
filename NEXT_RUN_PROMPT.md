@@ -115,3 +115,11 @@ A scheduled run may build one small capability increment, validate it, and stop.
 After publication, collect a defined observation window, preserve source/timestamp/video-ID provenance, and convert repeated viewer needs or consistent metrics into explicit hypotheses rather than blindly rewriting content.
 
 If the only remaining external blocker is YouTube authentication, finish the surrounding uploader/feedback infrastructure and stop at `YOUTUBE_AUTH_REQUIRED`. Credentials remain the final manual bottleneck.
+
+## Executive YouTube manager review
+
+After the operational/unstick check, act as the admin YouTube manager and perform one big-picture trajectory decision using docs/executive_manager.md.
+
+For the current pre-publication state, default to SHIP: prioritize completing the first valid video over adding more governance. Move to BUILD only when a missing capability directly blocks completion; SIMPLIFY when machinery is growing without output; PIVOT only when evidence supports changing a material assumption; HOLD only for a genuine external dependency.
+
+Record evidence and the primary decision, but do not create a daily commit just to log an unchanged decision. A decision should produce repository change only when it changes the next action, capability priority, or channel-process policy.
