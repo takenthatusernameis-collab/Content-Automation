@@ -97,3 +97,21 @@ Read `docs/youtube_integration.md` before adding any upload capability. Build an
 ## Anti-slop quality
 
 For all new or rewritten content, read docs/content_quality.md. The goal is specific, original, useful editorial writing, not imitation of “human” quirks. Do not add fake anecdotes, testimonials, mistakes, slang, or unverifiable experience. Do not pad word count. Before promoting a script, perform the quality/originality test and read it aloud for repetitive phrasing and cadence.
+## End-to-end capability progression
+
+When a manual intervention request has either been satisfied or has crossed its 24-hour escalation deadline, do not stop after merely clearing the old blocker. Inspect `docs/production_capabilities.md` and advance the smallest missing capability needed to move the live packet toward a genuinely completed video.
+
+Priority order:
+1. narration validation/adapter;
+2. deterministic card/visual generation;
+3. deterministic render/assembly;
+4. full media QA;
+5. credential-ready YouTube uploader;
+6. YouTube Analytics + comment feedback ingestion;
+7. experiment/improvement loop.
+
+A scheduled run may build one small capability increment, validate it, and stop. Do not create placeholder “done” files. Do not declare automation or self-improvement complete while required capabilities are NOT_BUILT.
+
+After publication, collect a defined observation window, preserve source/timestamp/video-ID provenance, and convert repeated viewer needs or consistent metrics into explicit hypotheses rather than blindly rewriting content.
+
+If the only remaining external blocker is YouTube authentication, finish the surrounding uploader/feedback infrastructure and stop at `YOUTUBE_AUTH_REQUIRED`. Credentials remain the final manual bottleneck.
