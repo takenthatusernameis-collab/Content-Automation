@@ -78,3 +78,17 @@ References:
 - https://developers.google.com/youtube/v3/docs
 - https://developers.google.com/youtube/v3/docs/videos/insert
 - https://developers.google.com/youtube/v3/guides/authentication
+
+
+## Feedback access
+
+After publication, the same credentialed integration should support:
+
+- YouTube Analytics reports through the Analytics API, using an appropriately authorized readonly scope.
+- Video comment-thread retrieval through the Data API, with `comments.list` available when complete reply retrieval is required.
+- Redacted storage of the video ID, retrieval timestamp, observation window, and imported metrics/comments. Never store OAuth tokens in feedback files.
+
+YouTube's Analytics reporting API supports metrics such as views, likes/dislikes, estimated minutes watched, average view duration, and average view percentage. citeturn562536search5turn562536search7
+YouTube's Data API supports comment-thread retrieval by video ID; replies may require the comments.list method. citeturn562536search0turn562536search2
+
+The feedback collector must fail closed at `YOUTUBE_AUTH_REQUIRED` when readonly authorization is absent, just as the uploader does for upload authorization.
