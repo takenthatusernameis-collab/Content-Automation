@@ -82,3 +82,14 @@ Targeted addition from Run 081:
 
 - After a GitHub write of a high-risk tool, run `python3 tools/prove_locks.py` first.
 - Do not map words.py, words_contract.py, placeholder_guard.py, or prove_locks.py.
+
+
+## 24-hour manual-intervention escalation
+
+Before treating any manual gate as permanent, read `docs/operator_escalation.md`. Each new human request has one recorded UTC start time and a 24-hour deadline. Before the deadline: read-only on that blocker. After the deadline: use the granted repository/local permissions to complete the smallest safe allowed fallback, without inventing human evidence. Never create repeated hold/status commits merely because the daily check ran.
+
+When the only unresolved dependency is a provider credential/token/secret, finish and validate all repository-side infrastructure first and leave that credential as the last manual bottleneck.
+
+## YouTube readiness
+
+Read `docs/youtube_integration.md` before adding any upload capability. Build and validate the integration without credentials where possible. Fail closed at `YOUTUBE_AUTH_REQUIRED` when OAuth material is absent. Never commit or print secrets. Do not confuse an API key with upload authorization; YouTube uploads use OAuth 2.0 authorization.
