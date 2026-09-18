@@ -18,6 +18,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Run 209: honored `OPERATOR_HOLD.md`. No new CLI. No wav invented. No status bump. No Q2. No further DROP/selftest/page alignment. Did not use Voice TTS as a selected take.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 - End-to-end capability contract added: narration -> visuals -> render/assembly -> media QA -> YouTube OAuth/upload -> Analytics/comments -> experiment loop. These capabilities are not yet all BUILT.
+- Executive trajectory decision: SHIP the first completed video before adding further broad architecture. Daily manager review uses docs/executive_manager.md.
 
 ## What exists now (after Run 209)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
