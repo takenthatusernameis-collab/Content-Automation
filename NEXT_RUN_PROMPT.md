@@ -93,3 +93,7 @@ When the only unresolved dependency is a provider credential/token/secret, finis
 ## YouTube readiness
 
 Read `docs/youtube_integration.md` before adding any upload capability. Build and validate the integration without credentials where possible. Fail closed at `YOUTUBE_AUTH_REQUIRED` when OAuth material is absent. Never commit or print secrets. Do not confuse an API key with upload authorization; YouTube uploads use OAuth 2.0 authorization.
+
+## Anti-slop quality
+
+For all new or rewritten content, read docs/content_quality.md. The goal is specific, original, useful editorial writing, not imitation of “human” quirks. Do not add fake anecdotes, testimonials, mistakes, slang, or unverifiable experience. Do not pad word count. Before promoting a script, perform the quality/originality test and read it aloud for repetitive phrasing and cadence.
