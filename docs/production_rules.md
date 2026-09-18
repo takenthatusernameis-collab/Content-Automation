@@ -142,3 +142,12 @@ Expand paste pack: `python3 tools/expand_prompt.py PATH`.
 Paste-back gate: `python3 tools/apply_script.py PATH --from PATH/draft.md` (dry-run; `--write --refresh` on non-fixture only).
 Status gate: `python3 tools/set_status.py PATH --to STATUS` (dry-run; `--write` after evidence).
 Human visual/audio ticks live in `qa.md` under **Human**.
+
+## Content quality / anti-slop
+- Read docs/content_quality.md before drafting or promoting spoken content.
+- Treat AI slop as a quality problem, not an authorship-detection problem.
+- Do not pad to the word target. Add concrete actions, examples, distinctions, tests, or failure modes; otherwise cut.
+- Do not invent anecdotes, testimonials, experiments, statistics, citations, or expertise to make copy feel human.
+- Reject generic listicle structure, excessive meta narration, repeated conclusions, slogan-heavy triads, and abstract motivation when they add no information.
+- Before ready_for_vo, apply mechanical validation plus the originality test and a read-aloud repetition/cadence pass.
+- Generated narration is allowed only under the explicit operator policy and must be labeled generated; it is never proof of a human recording.
