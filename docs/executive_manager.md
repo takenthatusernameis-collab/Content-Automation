@@ -95,3 +95,4 @@ The 24-hour escalation policy still applies. After a manual gate expires, the ex
 The process is succeeding when it can repeatedly produce specific, useful, technically valid videos with falling avoidable human effort, then learn from comparable audience evidence and improve deliberately.
 
 Do not claim “self-improving” merely because the agent edits prompts. Require observed feedback plus a recorded experiment or a documented null result.
+For recurring daily checks, do not create a commit merely to record an unchanged executive decision. Only persist a decision when it changes the next action, capability priority, channel/process policy, or revisit trigger.
