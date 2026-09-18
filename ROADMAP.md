@@ -58,3 +58,18 @@
 - Treating doctor / queue_status / new_packet as the live job while Q1 waits for a take
 - Adding another Live job banner unless a first-contact lie is proven
 - Re-implementing selected_vo_drop in a second module
+
+## End-to-end automation buildout
+
+The following are now required capabilities, not optional future ideas. Build them in this order once the current production blocker is resolved, using `docs/production_capabilities.md` as the acceptance contract:
+
+57. **Narration adapter** — recorded-take and explicitly authorized generated-voice paths, with technical audio validation and generated-vs-human provenance.
+58. **Card/visual generator** — deterministic text/diagram card generation from `assets.md`, with image dimensions/readability checks and provenance for external assets.
+59. **Render/assembly pipeline** — deterministic timeline assembly, captions, optional music/SFX, locked 1920x1080/30fps/stereo-48kHz export, media decode verification, and export fingerprinting.
+60. **Full media QA gate** — combine packet/content-quality validation with actual audio/video/card/export checks; fail closed.
+61. **Credential-ready YouTube uploader** — dry-run metadata mapping, OAuth loader, idempotent upload, redacted provider state, and explicit `YOUTUBE_AUTH_REQUIRED` boundary.
+62. **YouTube feedback ingestion** — Analytics metrics plus comment-thread ingestion using comparable observation windows and source timestamps.
+63. **Experiment/improvement loop** — durable feedback records, explicit hypotheses, one-change-at-a-time experiments where practical, baselines/guardrails, results, and feedback-informed topic/script updates.
+64. **Completion gate** — no packet is considered a completed production video until local master, QA evidence, publish metadata, and (when publishing is enabled) provider state are present. No “self-improving” claim until feedback has been ingested and linked to an experiment or documented null result.
+
+Do not implement all of 57-64 as a speculative monolith. Each increment must have a small testable contract, preserve existing gates, and be recorded as BUILT / READY_FOR_CREDENTIAL / READY_FOR_MEDIA / BLOCKED / NOT_BUILT.
