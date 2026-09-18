@@ -89,3 +89,11 @@ python3 tools/set_status.py videos/<id>-<slug> --to ready_for_vo
 ```
 
 Only run set_status `--write` after WORDS are in band. Do not pad `videos/sample-001-*`; that packet is a fixture.
+
+## Anti-slop quality gate
+
+Before returning a draft, read docs/content_quality.md. Do not optimize for sounding “human” by inserting fake anecdotes, mistakes, slang, or unverifiable experience. Make the script feel specific by grounding it in the packet's actual mechanism, viewer, concrete scenes, decisions, tests, and failure modes.
+
+Prefer original reasoning over generic listicles. Every body beat should add a concrete action, example, distinction, or test. Cut paragraphs whose only function is motivation, repetition, or word-count padding. Avoid repeated meta framing such as “in this video,” repeated “the key is” constructions, generic productivity slogans, and symmetrical slogan-heavy prose. Do not add claims requiring evidence when research.md does not support them.
+
+Before promotion, perform the seven-item originality test in docs/content_quality.md. If a quality answer is “no,” revise the draft before apply_script.py --write.
