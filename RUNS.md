@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-19T11:12:00Z — Run 223
+
+- **Objective:** Close the remaining media-QA gap (loudness / silence / clip) without a new adapter and without inventing a Selected VO file.
+- **Inspected:** HEAD after Run 222. Q1 still ready_for_vo, no git-visible take. media_qa decoded WAV headers and PNG size but accepted a silent or clipped take. Roadmap items 57/60 listed loudness/silence as remaining.
+- **Action taken:** Extended `tools/media_qa.py` with stdlib PCM peak, RMS, silence fraction, and clip fraction. Those four checks join the hard gate only when a WAV header decodes. Missing VO still FAIL on presence/decode. Extended `tools/selftest.py` `check_media_qa_fail_closed` to require the four rows and to require they are false without a take. No new CLI. No wav committed.
+- **Result:** Silent or clipped takes will fail before ffmpeg. Human-minute estimate 5.2 → 5.1. Automated steps stay 94.
+- **Verification status:** Isolated PCM math checked on silent / mid / clipped synthetic WAVs (peak/rms/silence/clip behaved as expected). Full packet selftest against a clone was not executed (HTTPS clone still parked). Live PASS not attempted.
+- **Important discovery:** audioop is deprecated in 3.13 but present here; keep the check stdlib-only until a gate-machine Python version is pinned.
+- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics.
+- **Recommended next action:** On the gate machine, drop the selected take, generate cards, write timeline.md, run media_qa (expect level rows), assemble.py without `--execute`, then complete.py (expect INCOMPLETE_MEDIA until files exist). Do not upload. Do not invent metrics. Do not `git add -f`. Do not scaffold Q2. Do not add another dry-run adapter.
+
 ## 2026-09-19T10:10:00Z — Run 222
 
 - **Objective:** Land the experiment/complete selftest lock that Run 221 claimed but did not push to HEAD `tools/selftest.py`.
@@ -16,34 +27,21 @@ Permanent log. Newest first. If the same action repeats across runs with no prog
 ## 2026-09-19T09:10:00Z — Run 221
 
 - **Objective:** Close the completion definition so a packet cannot be called done from markdown, and lock Run 220's experiment ledger into selftest.
-- **Inspected:** HEAD after Run 220. Q1 still ready_for_vo, no git-visible take. Roadmap item 64 was "not claimed". experiment_loop.py existed but was not in DROP_IMPORTERS and had no fail-closed fixture.
-- **Action taken:** Added `tools/complete.py`. Reuses media_qa, assemble, youtube_feedback, experiment_loop, and selected_vo_drop. Gates: INCOMPLETE_MEDIA / INCOMPLETE_EXPORT / INCOMPLETE_PUBLISH / INCOMPLETE_FEEDBACK / INCOMPLETE_LEARNING / COMPLETE. COMPLETE requires VO, cards, master export, provider_video_id, metrics, and a non-None experiment result. Extended selftest with experiment + complete fixtures and DROP importer lock.
+- **Action taken:** Added `tools/complete.py`. Extended selftest with experiment + complete fixtures and DROP importer lock.
 - **Result:** Completion gate moved from not claimed to PLAN_BUILT. Human-minute estimate 5.3 → 5.2. Automated steps 93 → 94.
-- **Verification status:** Isolated inspect_complete / inspect_experiment fixtures encoded in selftest. Full packet selftest against HEAD not executed in this sandbox (no clone). Live COMPLETE not attempted.
-- **Important discovery:** The last missing repository-side capability before ship was a single fail-closed answer to "is this video complete?" Adding more post-publish adapters after this would be architecture expansion against the executive SHIP decision.
-- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics.
-- **Recommended next action:** On the gate machine, drop the selected take, generate cards, write timeline.md, run media_qa, assemble.py without `--execute`, then complete.py (expect INCOMPLETE_MEDIA until files exist). Do not upload. Do not invent metrics. Do not `git add -f`. Do not scaffold Q2. Do not add another dry-run adapter unless a first-contact lie is proven.
+- **Blocker:** Packet-relative Selected VO still absent.
 
 ## 2026-09-19T08:03:00Z — Run 220
 
-- **Objective:** After the feedback collector, add the next reusable production capability that does not require on-disk VO: a fail-closed experiment ledger.
-- **Inspected:** HEAD after Run 219. Q1 still ready_for_vo, no git-visible take. Roadmap item 63 was contract-only. docs/feedback_loop.md already specified hypothesis → change → compare → keep/discard/retest.
-- **Action taken:** Added `tools/experiment_loop.py`. Reuses `youtube_feedback.inspect_feedback` and `selected_vo_drop`. Missing provider_video_id = HOLD_UNPUBLISHED. Empty metrics = HOLD_NO_EVIDENCE. Result and hypothesis stay None. Optional redacted experiment_state.json. Imports selected_vo_drop.
-- **Result:** Experiment loop moved from NOT_BUILT / contract-only to PLAN_BUILT. Human-minute estimate 5.4 → 5.3. Automated steps 92 → 93.
-- **Verification status:** Isolated inspect_experiment logic is fail-closed by construction (no video id / id+empty metrics). Full packet selftest against HEAD not executed in this sandbox (no clone). Live compare not attempted.
-- **Important discovery:** The improvement loop can be specified and fail-closed before any video is published. That keeps evidence as the last bottleneck instead of a missing ledger.
-- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics.
-- **Recommended next action:** On the gate machine, drop the selected take, generate cards, write timeline.md, run media_qa, then assemble.py without `--execute`. Do not upload. Do not invent metrics or experiment results. Do not `git add -f`. Do not scaffold Q2.
+- **Action taken:** Added `tools/experiment_loop.py`.
 
 ## 2026-09-19T06:06:00Z — Run 219
 
-- **Objective:** After the assemble planner, add the next reusable production capability that does not require on-disk VO: a fail-closed YouTube feedback collector.
-- **Action taken:** Added `tools/youtube_feedback.py`. Missing ID = HOLD_UNPUBLISHED. Missing OAuth = YOUTUBE_AUTH_REQUIRED. Metrics stay None.
-- **Result:** Feedback ingestion moved from NOT_BUILT to READY_FOR_CREDENTIAL. Human-minute estimate 5.5 → 5.4. Automated steps 91 → 92.
+- **Action taken:** Added `tools/youtube_feedback.py`.
 
 ## 2026-09-19T05:17:00Z — Run 218
 
-- **Action taken:** Added `tools/assemble.py`. Default mode never runs ffmpeg. `--execute` refused unless READY_TO_ENCODE.
+- **Action taken:** Added `tools/assemble.py`.
 
 ## 2026-09-19T04:10:00Z — Run 217
 
