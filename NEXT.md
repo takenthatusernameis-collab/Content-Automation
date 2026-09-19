@@ -9,12 +9,13 @@ Do these in order. Stop if a step needs a human decision that is not present.
 5. After a local master exists: `python3 tools/youtube_upload.py PATH`. Expect `YOUTUBE_AUTH_REQUIRED` until OAuth env is present. Do not pass secrets. Do not treat dry-run READY as an upload.
 6. After upload_state.json contains a real provider_video_id: `python3 tools/youtube_feedback.py PATH`. Expect HOLD_UNPUBLISHED until then. Do not invent metrics. Do not call Analytics APIs from this tool.
 7. After feedback metrics exist: `python3 tools/experiment_loop.py PATH`. Expect HOLD_NO_EVIDENCE until then. Do not invent a keep/discard. Do not rewrite an old script to make a test look successful.
-8. Human-edit `publish.md` description + approve pin comment (`docs/human_session.md` step 7). Tags already trimmed (Run 117). Do not upload.
-9. Do **not** add another wrapper CLI. Do **not** map doctor.py. Do **not** scaffold Q2 yet. Do **not** add another operator/agent page that only restates this list. Do **not** re-implement `selected_vo_drop` in a second module.
-10. Do **not** make apply_script or words.py idea-lock INFO a check() error or a status bump.
-11. Do **not** map idea_lock.py / words.py / words_contract.py / placeholder_guard.py / prove_locks.py / idea_brief.py / idea_brief_contract.py / doctor.py.
-12. Do **not** attempt YouTube OAuth or publishing without credentials or a real VO file.
-13. Do **not** run ffmpeg or `assemble.py --execute` until `timeline.py` prints ready_to_assemble=yes and `media_qa.py` prints gate PASS.
+8. `python3 tools/complete.py PATH`. Expect INCOMPLETE_MEDIA until VO+cards exist. Do not treat markdown, a named export path, a video ID, or a pending experiment as COMPLETE.
+9. Human-edit `publish.md` description + approve pin comment (`docs/human_session.md` step 7). Tags already trimmed (Run 117). Do not upload.
+10. Do **not** add another wrapper CLI. Do **not** map doctor.py. Do **not** scaffold Q2 yet. Do **not** add another operator/agent page that only restates this list. Do **not** re-implement `selected_vo_drop` in a second module.
+11. Do **not** make apply_script or words.py idea-lock INFO a check() error or a status bump.
+12. Do **not** map idea_lock.py / words.py / words_contract.py / placeholder_guard.py / prove_locks.py / idea_brief.py / idea_brief_contract.py / doctor.py.
+13. Do **not** attempt YouTube OAuth or publishing without credentials or a real VO file.
+14. Do **not** run ffmpeg or `assemble.py --execute` until `timeline.py` prints ready_to_assemble=yes and `media_qa.py` prints gate PASS.
 18. Do **not** run apply_script --write against sample-001.
 22. Do **not** retry HTTPS clone after one failure.
 27. Do **not** have new_packet or idea_brief write idea.md.
@@ -29,3 +30,4 @@ Do these in order. Stop if a step needs a human decision that is not present.
 70. Do **not** treat an assemble recipe as a master export.
 71. Do **not** treat empty feedback metrics as collected audience evidence.
 72. Do **not** treat a pending experiment_loop record as a keep/discard result.
+73. Do **not** treat `complete.py` INCOMPLETE_* as a reason to invent media, an upload, metrics, or a result.
