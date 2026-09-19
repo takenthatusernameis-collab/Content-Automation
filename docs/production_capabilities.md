@@ -4,6 +4,8 @@
 
 A video is not considered “completed” merely because its text packet passes. The pipeline must be able to move a packet from a validated idea to a finished local master, publish it when authorized, ingest real feedback, and use that feedback to improve a later packet.
 
+Local printer: `tools/complete.py` (PLAN_BUILT; fail-closed). Markdown-only packets are INCOMPLETE_MEDIA. A named export path is INCOMPLETE_EXPORT until the file exists. A missing provider_video_id is INCOMPLETE_PUBLISH. Empty metrics are INCOMPLETE_FEEDBACK. A pending experiment is INCOMPLETE_LEARNING. COMPLETE requires VO + cards + master + provider_video_id + metrics + a non-None experiment result.
+
 ## Required capabilities
 
 ### 1. Editorial / research
@@ -39,6 +41,7 @@ A video is not considered “completed” merely because its text packet passes.
 ### 5. QA
 - packet gate: script, status, metadata, selected VO, cards, export
 - media gate: `tools/media_qa.py` (READY_FOR_MEDIA; fail-closed VO header + 1920x1080 PNG IHDR + assembly readiness; no ffmpeg; no status bump)
+- completion gate: `tools/complete.py` (PLAN_BUILT; fail-closed evidence rollup; no writes; no APIs)
 - content-quality gate: anti-slop/originality/read-aloud review
 - factual-claim gate: every consequential number or factual assertion has a source or is rewritten qualitatively
 - publish gate must fail closed on any missing prerequisite
@@ -74,6 +77,7 @@ A video is not considered “completed” merely because its text packet passes.
 - preserve successful mechanisms while testing one material change at a time where practical
 - feed repeated viewer questions and measured weak points back into the topic queue and script prompts
 - keep failures and null results so the system does not repeat them
+- dry-run ledger: `tools/experiment_loop.py` (PLAN_BUILT; no invented keep/discard)
 
 ## Capability states
 
@@ -93,6 +97,8 @@ The daily unstick agent may build any repository-side capability that is missing
 
 The final provider boundary is credentials/authentication. A missing credential must not prevent construction of the surrounding adapter, dry-run validation, idempotency logic, or redacted state handling.
 
+After the completion gate exists, prefer advancing Q1 media over adding another dry-run adapter.
+
 ## Do not fake completion
 
-Do not mark a video complete because metadata files exist. Do not mark a render complete because an output path is named. Do not mark feedback collected because a placeholder exists. Do not mark improvement because a new script sounds better. Completion requires the corresponding evidence.
+Do not mark a video complete because metadata files exist. Do not mark a render complete because an output path is named. Do not mark feedback collected because a placeholder exists. Do not mark improvement because a new script sounds better. Completion requires the corresponding evidence. `tools/complete.py` is the mechanical reminder of that rule.
