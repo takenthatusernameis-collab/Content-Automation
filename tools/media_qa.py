@@ -2,8 +2,9 @@
 """Fail-closed media QA for a video packet.
 
 Checks Selected VO presence/header, card PNG dimensions when files exist,
-and timeline assembly readiness. When a WAV exists, also reports peak,
-RMS, clip fraction, and silence fraction from PCM (stdlib only).
+timeline assembly readiness, and (when present) export/master.mp4 ftyp.
+When a WAV exists, also reports peak, RMS, clip fraction, and silence
+fraction from PCM (stdlib only).
 
 Never invents a pass. Never runs ffmpeg. Never bumps packet status.
 Never re-implements selected_vo_drop.
@@ -33,6 +34,16 @@ MAX_SILENCE_FRAC = 0.60
 MIN_PEAK = 0.05
 MAX_PEAK = 0.999
 MIN_RMS = 0.008
+EXPORT_REL = "export/master.mp4"
+
+
+def mp4_header_ok(path: Path) -> bool:
+    """True only when the file starts with an ISO BMFF ftyp box. Stdlib only."""
+    try:
+        data = path.read_bytes()[:12]
+    except OSError:
+        return False
+    return len(data) >= 8 and data[4:8] == b"ftyp"
 
 
 def _png_size(path: Path) -> tuple[int, int] | None:
@@ -171,6 +182,10 @@ def inspect_media(packet: Path) -> dict:
             item["ok"] = size == (TARGET_W, TARGET_H)
         cards.append(item)
 
+    export_path = packet / EXPORT_REL
+    export_present = export_path.is_file() and export_path.stat().st_size > 0
+    export_ok = export_present and mp4_header_ok(export_path)
+
     checks = []
 
     def add(name: str, ok: bool, detail: str) -> None:
@@ -219,11 +234,18 @@ def inspect_media(packet: Path) -> dict:
         f"{len(sized)}/{len(present)} correct size",
     )
     add("ready_to_assemble", bool(data["ready_to_assemble"]), "timeline gate")
+    add("export_present", export_present, EXPORT_REL)
+    if export_present:
+        add("export_decodable", export_ok, "ftyp" if export_ok else "file present but no ftyp box")
+    else:
+        add("export_decodable", False, "no export")
     add("no_export_claimed", True, "media_qa does not treat a named export as a master")
 
     hard_names = {"selected_vo_present", "vo_decodable", "cards_present", "cards_1920x1080", "ready_to_assemble"}
     if vo["wav"] and vo["wav"].get("ok"):
         hard_names.update({"vo_peak", "vo_rms", "vo_silence", "vo_clip"})
+    if export_present:
+        hard_names.add("export_decodable")
     hard = [c for c in checks if c["name"] in hard_names]
     gate = "PASS" if hard and all(c["ok"] for c in hard) else "FAIL"
     return {
@@ -234,7 +256,9 @@ def inspect_media(packet: Path) -> dict:
         "checks": checks,
         "gate": gate,
         "spoken": data["spoken"],
-        "export": data["export"],
+        "export": EXPORT_REL,
+        "export_present": export_present,
+        "export_decodable": export_ok,
         "ready_to_assemble": data["ready_to_assemble"],
     }
 
@@ -245,6 +269,7 @@ def render_text(report: dict) -> str:
         f"gate: {report['gate']}",
         f"drop: {report['drop']}",
         f"ready_to_assemble: {'yes' if report['ready_to_assemble'] else 'no'}",
+        f"export: {report['export']} present={'yes' if report['export_present'] else 'no'} decodable={'yes' if report['export_decodable'] else 'no'}",
         "repo-root vo/ is not Selected VO",
         "media_qa never runs ffmpeg and never bumps status",
     ]
