@@ -31,8 +31,8 @@ RIGHT = (42, 34, 28)
 
 def parse_cards(text: str) -> list[dict[str, str]]:
     cards: list[dict[str, str]] = []
-    block_parts = re.split(r"^##\\s+Cards\\s*$", text, maxsplit=1, flags=re.M)
-    table = text if len(block_parts) < 2 else re.split(r"^##\\s+", block_parts[1], maxsplit=1, flags=re.M)[0]
+    block_parts = re.split(r"^##[ \t]+Cards[ \t]*$", text, maxsplit=1, flags=re.M)
+    table = text if len(block_parts) < 2 else re.split(r"^##[ \t]+", block_parts[1], maxsplit=1, flags=re.M)[0]
     for ln in table.splitlines():
         if not ln.startswith("|"):
             continue
@@ -63,7 +63,7 @@ def parse_cards(text: str) -> list[dict[str, str]]:
 def title_words(need: str, limit: int = 5) -> str:
     cleaned = re.sub(r"`+", "", need)
     cleaned = cleaned.replace("VISUAL:", "")
-    cleaned = re.sub(r"\\s+", " ", cleaned).strip()
+    cleaned = re.sub(r"[ \t]+", " ", cleaned).strip()
     if ":" in cleaned:
         tail = cleaned.split(":", 1)[1].strip()
         if tail:
@@ -75,13 +75,12 @@ def title_words(need: str, limit: int = 5) -> str:
 
 
 def beat_label(beat: str) -> str:
-    raw = beat.split("—")[0].split("(")[0].strip()
+    raw = beat.split("\u2014")[0].split("(")[0].strip()
     return raw.upper() or "CARD"
 
 
 def _pil():
     from PIL import Image, ImageDraw, ImageFont
-
     return Image, ImageDraw, ImageFont
 
 
@@ -128,18 +127,15 @@ def render_text_card(card: dict[str, str]):
     img = Image.new("RGB", (WIDTH, HEIGHT), BG)
     draw = ImageDraw.Draw(img)
     draw.rectangle((80, 80, WIDTH - 80, HEIGHT - 80), outline=RULE, width=3)
-    label_font = _font(28)
-    title_font = _font(72)
-    note_font = _font(28)
-    draw.text((110, 110), beat_label(card["beat"]), font=label_font, fill=ACCENT)
+    draw.text((110, 110), beat_label(card["beat"]), font=_font(28), fill=ACCENT)
     title = title_words(card["need"], 6)
-    lines = _wrap(draw, title, title_font, WIDTH - 280)
-    _center(draw, lines, title_font, 420, FG)
+    lines = _wrap(draw, title, _font(72), WIDTH - 280)
+    _center(draw, lines, _font(72), 420, FG)
     note = card["need"]
     if len(note) > 90:
-        note = note[:87] + "…"
-    note_lines = _wrap(draw, note, note_font, WIDTH - 320)
-    _center(draw, note_lines[:2], note_font, 860, MUTED)
+        note = note[:87] + "..."
+    note_lines = _wrap(draw, note, _font(28), WIDTH - 320)
+    _center(draw, note_lines[:2], _font(28), 860, MUTED)
     return img
 
 
@@ -148,18 +144,16 @@ def render_diagram(card: dict[str, str]):
     img = Image.new("RGB", (WIDTH, HEIGHT), BG)
     draw = ImageDraw.Draw(img)
     draw.rectangle((80, 80, WIDTH - 80, HEIGHT - 80), outline=RULE, width=3)
-    label_font = _font(28)
-    panel_font = _font(48)
-    vs_font = _font(36)
-    draw.text((110, 110), beat_label(card["beat"]), font=label_font, fill=ACCENT)
+    draw.text((110, 110), beat_label(card["beat"]), font=_font(28), fill=ACCENT)
     draw.rounded_rectangle((140, 280, 860, 820), radius=18, fill=LEFT, outline=RULE, width=2)
     draw.rounded_rectangle((1060, 280, 1780, 820), radius=18, fill=RIGHT, outline=RULE, width=2)
     left, right = "OPEN LIST", "ONE CARD"
     need = card["need"]
     if " vs " in need.lower():
-        parts = re.split(r"\\s+vs\\s+", need, maxsplit=1, flags=re.I)
+        parts = re.split(r"[ \t]+vs[ \t]+", need, maxsplit=1, flags=re.I)
         left = title_words(parts[0], 4).upper()
         right = title_words(parts[1], 4).upper()
+    panel_font = _font(48)
     for text, box in ((left, (140, 280, 860, 820)), (right, (1060, 280, 1780, 820))):
         lines = _wrap(draw, text, panel_font, box[2] - box[0] - 80)
         y = 480
@@ -168,6 +162,7 @@ def render_diagram(card: dict[str, str]):
             cx = (box[0] + box[2] - w) / 2
             draw.text((cx, y), line, font=panel_font, fill=FG)
             y += 64
+    vs_font = _font(36)
     vw = draw.textlength("VS", font=vs_font)
     draw.text(((WIDTH - vw) / 2, 520), "VS", font=vs_font, fill=ACCENT)
     return img
@@ -230,9 +225,7 @@ def render_manifest(packet: Path, rows: list[dict[str, str]]) -> str:
     ]
     for r in rows:
         on = "yes" if r.get("ok") == "yes" else ("dry-run" if r.get("wrote") == "dry-run" else "no")
-        lines.append(
-            f"| {r['beat']} | `{r['file']}` | {r['type']} | {on} | {r.get('size', '')} |"
-        )
+        lines.append(f"| {r['beat']} | `{r['file']}` | {r['type']} | {on} | {r.get('size', '')} |")
     lines.append("")
     lines.append("Status rows in assets.md stay `planned` unless `--mark-ready` runs after files exist.")
     lines.append("")
@@ -295,9 +288,8 @@ def main() -> int:
         print(f"{r['file']}: {r.get('ok') or r.get('wrote')}")
 
     if args.write_manifest and not args.dry_run:
-        manifest = render_manifest(path, rows)
         dest = path / "card_manifest.md"
-        dest.write_text(manifest, encoding="utf-8")
+        dest.write_text(render_manifest(path, rows), encoding="utf-8")
         print(dest)
 
     if args.mark_ready and not args.dry_run:
