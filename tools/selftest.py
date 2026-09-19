@@ -18,6 +18,7 @@ if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
 from apply_script import check as apply_check  # noqa: E402
+from assemble import inspect_assemble  # noqa: E402
 from hint import commands_for  # noqa: E402
 from media_qa import inspect_media  # noqa: E402
 from narration_adapter import extract_words  # noqa: E402
@@ -35,6 +36,8 @@ DROP_IMPORTERS = (
     "vo_session.py",
     "narration_adapter.py",
     "media_qa.py",
+    "youtube_upload.py",
+    "assemble.py",
 )
 
 
@@ -144,6 +147,28 @@ def check_media_qa_fail_closed() -> list[str]:
     return failures
 
 
+def check_assemble_fail_closed() -> list[str]:
+    failures: list[str] = []
+    with tempfile.TemporaryDirectory() as tmp:
+        p = Path(tmp)
+        (p / "script.md").write_text(
+            "# Script\n\n## Hook\nWORDS:\nHello there world.\n\nVISUAL:\n*x*\n",
+            encoding="utf-8",
+        )
+        (p / "assets.md").write_text(
+            "| Beat | Type | File | Status |\n|---|---|---|---|\n| Hook | text-card | cards/hook-x.png | planned |\n",
+            encoding="utf-8",
+        )
+        report = inspect_assemble(p)
+        if report["gate"] != "HOLD_MEDIA":
+            failures.append(f"assemble must HOLD_MEDIA without media, got {report['gate']}")
+        if report["action"] != "DRY_RUN":
+            failures.append(f"assemble default action must be DRY_RUN, got {report['action']}")
+        if report.get("ready_to_assemble"):
+            failures.append("assemble ready_to_assemble must be false without media")
+    return failures
+
+
 def main() -> int:
     path = sample_packet()
     failures: list[str] = []
@@ -217,6 +242,7 @@ def main() -> int:
     failures.extend(check_selected_vo_drop_lock())
     failures.extend(check_words_extract())
     failures.extend(check_media_qa_fail_closed())
+    failures.extend(check_assemble_fail_closed())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")
