@@ -21,6 +21,18 @@ Keep the original master prompt unchanged.
 - A new commit is permitted only when the hold condition changes (for example, a real selected VO file is supplied), a genuine regression prevents the already-defined next action, or a human explicitly changes the policy.
 - Repeatedly re-asserting the same hold is non-productive churn and must be treated as a failed run, not as progress.
 
+## Production-first freeze after authorized fallback
+
+The selected-VO escalation has elapsed and generated narration is authorized, but the generated audio currently exists only in an ephemeral agent workspace and is not available to the gate machine. Therefore, until a packet-relative VO file is actually present on the gate machine:
+
+- Do **not** add more capability contracts, wrappers, guards, prompt rewrites, documentation alignment, or feedback/analytics scaffolding.
+- Do **not** treat `vo_origin.md kind: generated` as evidence that the file exists.
+- Do **not** create a commit merely to restate the same blocker.
+- The only productive path is to materialize the authorized generated take or a human take on the gate machine at the documented DROP path, then run the existing narration, card, timeline, media-QA, and assembly gates in order.
+- Once that file exists, resume normal progression and preserve the generated/human provenance label.
+
+**This freeze supersedes the broader end-to-end capability progression below while the gate-machine media blocker remains unchanged.**
+
 Targeted addition from Run 137:
 
 - `docs/narration.md` names `videos/NNN-slug/vo/NNN-slug-take-selected.wav` at the top of Where files live and states repo-root `vo/` is not Selected VO.
