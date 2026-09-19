@@ -18,6 +18,7 @@ if str(TOOLS) not in sys.path:
 
 from apply_script import check as apply_check  # noqa: E402
 from hint import commands_for  # noqa: E402
+from narration_adapter import extract_words  # noqa: E402
 from next_action import recommend  # noqa: E402
 from pipeline_status import inspect  # noqa: E402
 from set_status import check as status_check, is_fixture  # noqa: E402
@@ -30,6 +31,7 @@ DROP_IMPORTERS = (
     "caption_brief.py",
     "qa_checklist.py",
     "vo_session.py",
+    "narration_adapter.py",
 )
 
 
@@ -104,6 +106,18 @@ def check_selected_vo_drop_lock() -> list[str]:
     return failures
 
 
+def check_words_extract() -> list[str]:
+    sample = (
+        "# Script\n\n"
+        "## Hook\nWORDS:\nHello world.\n\nVISUAL:\n*x*\n\n"
+        "## CTA\nWORDS:\nGoodbye now.\n"
+    )
+    got = extract_words(sample)
+    if "Hello world." not in got or "Goodbye now." not in got:
+        return [f"extract_words missed WORDS blocks: {got!r}"]
+    return []
+
+
 def main() -> int:
     path = sample_packet()
     failures: list[str] = []
@@ -175,6 +189,7 @@ def main() -> int:
         failures.append(f"apply_script refuse should mention fixture: {blocked_apply}")
 
     failures.extend(check_selected_vo_drop_lock())
+    failures.extend(check_words_extract())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")
