@@ -20,7 +20,7 @@ TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
-from media_qa import inspect_media  # noqa: E402
+from media_qa import inspect_media, mp4_header_ok  # noqa: E402
 from render_brief import selected_vo_drop  # noqa: E402
 from timeline import END_SCREEN, plan  # noqa: E402
 
@@ -101,7 +101,7 @@ def inspect_assemble(packet: Path) -> dict:
     cmd = command_for(packet, data) if data["rows"] else []
     ff = ffmpeg_present()
     export = packet / EXPORT_REL
-    export_ok = export.is_file() and export.stat().st_size > 0
+    export_ok = export.is_file() and export.stat().st_size > 0 and mp4_header_ok(export)
 
     checks = []
 
@@ -112,6 +112,7 @@ def inspect_assemble(packet: Path) -> dict:
     add("media_qa_pass", qa["gate"] == "PASS", qa["gate"])
     add("ffmpeg_on_path", ff, "ffmpeg" if ff else "missing ffmpeg")
     add("recipe_built", bool(cmd) and bool(data["rows"]), f"{len(data['rows'])} beats")
+    add("export_header", export_ok or not export.exists(), EXPORT_REL)
     add("export_not_required", True, EXPORT_REL)
     add("no_status_bump", True, "assemble never writes packet.md")
 
