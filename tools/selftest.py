@@ -249,7 +249,7 @@ def check_feedback_fail_closed() -> list[str]:
         if report["action"] != "DRY_RUN":
             failures.append(f"feedback default action must be DRY_RUN, got {report['action']}")
         with_id = p / "upload_state.json"
-        with_id.write_text('{\"provider_video_id\": \"abc123\"}\n', encoding="utf-8")
+        with_id.write_text('{"provider_video_id": "abc123"}\n', encoding="utf-8")
         report2 = inspect_feedback(p, env={})
         if report2["gate"] != "YOUTUBE_AUTH_REQUIRED":
             failures.append(f"feedback with video id and no OAuth must be YOUTUBE_AUTH_REQUIRED, got {report2['gate']}")
@@ -281,7 +281,7 @@ def check_experiment_fail_closed() -> list[str]:
         if rec.get("decision") != "pending":
             failures.append(f"experiment decision must stay pending, got {rec.get('decision')}")
         (p / "upload_state.json").write_text(
-            '{\"provider_video_id\": \"abc123\"}\n', encoding="utf-8"
+            '{"provider_video_id": "abc123"}\n', encoding="utf-8"
         )
         report2 = inspect_experiment(p, env={})
         if report2["gate"] != "HOLD_NO_EVIDENCE":
@@ -320,7 +320,7 @@ def check_complete_fail_closed() -> list[str]:
         if names.get("master_export_present"):
             failures.append("complete master_export_present must be false without export/master.mp4")
         (p / "upload_state.json").write_text(
-            '{\"provider_video_id\": \"abc123\"}\n', encoding="utf-8"
+            '{"provider_video_id": "abc123"}\n', encoding="utf-8"
         )
         (p / "export").mkdir()
         (p / "export" / "master.mp4").write_bytes(b"junk-not-mp4")
