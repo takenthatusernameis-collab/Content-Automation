@@ -45,12 +45,14 @@ A video is not considered “completed” merely because its text packet passes.
 
 ### 6. YouTube publishing
 - metadata mapping from publish.md
+- dry-run adapter: `tools/youtube_upload.py` (READY_FOR_CREDENTIAL; no API call; no secrets printed)
 - OAuth configuration loader and authenticated upload adapter
 - dry-run mode with zero provider writes
 - idempotency fingerprint to prevent duplicate uploads
-- initial privacy state controlled explicitly by policy
+- initial privacy state controlled explicitly by policy (`private` in the dry-run adapter)
 - redacted upload state containing attempt time, provider ID, privacy state, and result/error class
 - never store secrets in Git or logs
+- live `videos.insert` remains NOT_BUILT until a local master and OAuth env exist
 
 ### 7. Feedback ingestion
 - YouTube Analytics ingestion after publication

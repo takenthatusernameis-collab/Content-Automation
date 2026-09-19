@@ -4,7 +4,7 @@
 
 Keep the repository structurally ready for automated YouTube publishing so that, once the channel credentials are supplied, credentials are the final manual bottleneck rather than a missing implementation.
 
-The current production repository intentionally has no live YouTube uploader. This document is the durable contract for constructing that layer without blocking on credentials.
+The live adapter is `tools/youtube_upload.py`. It is dry-run only. It does not call the YouTube API. It never prints secret values.
 
 ## Required pipeline
 
@@ -34,7 +34,7 @@ For uploads, an OAuth 2.0 authorization token is required; an API key by itself 
 
 ## Authentication boundary
 
-The future uploader should fail closed with a single explicit state such as:
+The uploader fails closed with:
 
 `YOUTUBE_AUTH_REQUIRED`
 
@@ -50,22 +50,25 @@ Before an upload attempt:
 - require a valid `publish.md`;
 - compute a stable packet/export fingerprint;
 - refuse to upload the same fingerprint twice unless an explicit replacement operation is requested;
-- use a non-destructive initial privacy mode configured by the repository policy;
+- use a non-destructive initial privacy mode configured by the repository policy (`private` in the dry-run adapter);
 - keep provider IDs and statuses in redacted state only.
 
 Do not implement automatic deletion or channel-wide maintenance as part of the first uploader.
 
 ## Construction order
 
-The daily agent may build these pieces in order without credentials:
+Implemented without credentials (Run 217):
 
 1. metadata parser and validation;
 2. export-path validation;
 3. fingerprint/idempotency contract;
-4. OAuth configuration loader;
+4. OAuth configuration loader (presence only);
 5. dry-run request builder;
-6. redacted result/state writer;
-7. authenticated upload adapter;
+6. redacted result/state writer.
+
+Still NOT_BUILT:
+
+7. authenticated upload adapter (`videos.insert`);
 8. final credential-only integration test.
 
 The last step that cannot be completed without a real channel credential must be clearly reported as `YOUTUBE_AUTH_REQUIRED`.
@@ -88,7 +91,7 @@ After publication, the same credentialed integration should support:
 - Video comment-thread retrieval through the Data API, with `comments.list` available when complete reply retrieval is required.
 - Redacted storage of the video ID, retrieval timestamp, observation window, and imported metrics/comments. Never store OAuth tokens in feedback files.
 
-YouTube's Analytics reporting API supports metrics such as views, likes/dislikes, estimated minutes watched, average view duration, and average view percentage. citeturn562536search5turn562536search7
-YouTube's Data API supports comment-thread retrieval by video ID; replies may require the comments.list method. citeturn562536search0turn562536search2
+YouTube's Analytics reporting API supports metrics such as views, likes/dislikes, estimated minutes watched, average view duration, and average view percentage.
+YouTube's Data API supports comment-thread retrieval by video ID; replies may require the comments.list method.
 
 The feedback collector must fail closed at `YOUTUBE_AUTH_REQUIRED` when readonly authorization is absent, just as the uploader does for upload authorization.
