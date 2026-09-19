@@ -29,11 +29,12 @@ A video is not considered “completed” merely because its text packet passes.
 ### 4. Assembly / rendering
 - deterministic timeline construction from selected VO, cards, captions, and optional music/SFX
 - local planner: `tools/timeline.py` (PLAN_BUILT / READY_FOR_MEDIA; WORDS clock; no ffmpeg)
-- export to the locked 1920x1080, 30fps, stereo 48kHz target
+- local encoder planner: `tools/assemble.py` (PLAN_BUILT / READY_FOR_MEDIA; dry-run ffmpeg argv; `--execute` refused unless media_qa PASS and ready_to_assemble=yes)
+- export to the locked 1920x1080, 30fps, stereo 48kHz target at `export/master.mp4`
 - last 20 seconds reserved for YouTube end-screen elements
 - render verification: file opens, duration is plausible, video/audio streams exist, no missing frame/audio stream, and expected packet fingerprint is recorded
 - master export must remain local / outside Git unless the repository later chooses an artifact store
-- ffmpeg export stays NOT_BUILT until timeline ready_to_assemble=yes and media_qa PASS on a real packet
+- ffmpeg `--execute` stays gated until timeline ready_to_assemble=yes and media_qa PASS on a real packet
 
 ### 5. QA
 - packet gate: script, status, metadata, selected VO, cards, export
