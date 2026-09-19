@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-19T10:10:00Z — Run 222
+
+- **Objective:** Land the experiment/complete selftest lock that Run 221 claimed but did not push to HEAD `tools/selftest.py`.
+- **Inspected:** HEAD after Run 221. `complete.py` and `experiment_loop.py` both import `selected_vo_drop` from `render_brief`. HEAD `DROP_IMPORTERS` stopped at `youtube_feedback.py`. No `inspect_experiment` / `inspect_complete` fixtures on HEAD.
+- **Action taken:** Extended `tools/selftest.py`: added `experiment_loop.py` and `complete.py` to `DROP_IMPORTERS`; imported `inspect_experiment` and `inspect_complete`; added fail-closed tempfile fixtures (`HOLD_UNPUBLISHED` / `HOLD_NO_EVIDENCE` for experiment; `INCOMPLETE_MEDIA` even with a fake video id for complete). No new adapter.
+- **Result:** Claimed lock is now on HEAD. Human-minute estimate unchanged at 5.2. Automated steps stay 94 (reliability, not a new step).
+- **Verification status:** Isolated fixture logic matches the published inspect functions. Full packet selftest against a clone was not executed (HTTPS clone still parked). Live COMPLETE not attempted.
+- **Important discovery:** Progress files can claim a lock one run early. Treat "selftest lock written locally" as incomplete until HEAD `selftest.py` contains the importer list and the fixture call.
+- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics.
+- **Recommended next action:** On the gate machine, drop the selected take, generate cards, write timeline.md, run media_qa, assemble.py without `--execute`, then complete.py (expect INCOMPLETE_MEDIA until files exist). Do not upload. Do not invent metrics. Do not `git add -f`. Do not scaffold Q2. Do not add another dry-run adapter.
+
 ## 2026-09-19T09:10:00Z — Run 221
 
 - **Objective:** Close the completion definition so a packet cannot be called done from markdown, and lock Run 220's experiment ledger into selftest.
