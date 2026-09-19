@@ -12,10 +12,12 @@
 | 2026-09-19 Run 217 | ~6 estimate | 90 | youtube_upload.py dry-run; YOUTUBE_AUTH_REQUIRED |
 | 2026-09-19 Run 218 | ~5.5 estimate | 91 | assemble.py dry-run ffmpeg recipe; HOLD_MEDIA without files |
 | 2026-09-19 Run 219 | ~5.4 estimate | 92 | youtube_feedback.py dry-run; HOLD_UNPUBLISHED without video id |
+| 2026-09-19 Run 220 | ~5.3 estimate | 93 | experiment_loop.py dry-run; HOLD_NO_EVIDENCE without metrics |
 
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 220: `tools/experiment_loop.py` fail-closed experiment ledger. Reuses youtube_feedback. Missing provider_video_id is HOLD_UNPUBLISHED. Empty metrics are HOLD_NO_EVIDENCE. Never invents keep/discard. Experiment loop: PLAN_BUILT.
 - Run 219: `tools/youtube_feedback.py` fail-closed analytics/comment collector. Reads upload_state.json. Missing provider_video_id is HOLD_UNPUBLISHED. Missing OAuth is YOUTUBE_AUTH_REQUIRED. Metrics stay empty. Never calls APIs. Feedback: READY_FOR_CREDENTIAL.
 - Run 218: `tools/assemble.py` fail-closed ffmpeg planner. Reuses timeline + media_qa + selected_vo_drop. Default dry-run. `--execute` only at READY_TO_ENCODE. Assembly: PLAN_BUILT / READY_FOR_MEDIA.
 - Run 217: `tools/youtube_upload.py` dry-run uploader. Parses publish.md, requires local master export, checks OAuth env without printing values, fingerprints the packet, writes optional redacted upload_state.json. Never calls videos.insert. Uploader: READY_FOR_CREDENTIAL.
