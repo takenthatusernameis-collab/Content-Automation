@@ -16,10 +16,12 @@
 | 2026-09-19 Run 221 | ~5.2 estimate | 94 | complete.py fail-closed completion; experiment selftest lock claimed |
 | 2026-09-19 Run 222 | ~5.2 estimate | 94 | HEAD selftest now locks experiment_loop.py + complete.py |
 | 2026-09-19 Run 223 | ~5.1 estimate | 94 | media_qa PCM peak/RMS/silence/clip; silent or clipped takes fail before ffmpeg |
+| 2026-09-19 Run 224 | ~5.0 estimate | 94 | media_qa/assemble/complete reject junk export/master.mp4 without ftyp |
 
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 224: `tools/media_qa.py` reports export_present / export_decodable from a stdlib ISO BMFF ftyp sniff. Hard-gated only when an export file exists. `assemble.py` no longer treats size>0 as EXPORT_EXISTS. `complete.py` requires ftyp before master_export_present. Selftest writes a junk mp4 and asserts FAIL / not EXPORT_EXISTS / master_export_present false. No new adapter. No invented master.
 - Run 223: `tools/media_qa.py` reports vo_peak / vo_rms / vo_silence / vo_clip from stdlib PCM (audioop + array). Hard-gated only when a WAV header decodes. Missing VO still FAIL. Selftest asserts the four rows exist and are false without a take. No new adapter. No invented wav.
 - Run 222: HEAD `tools/selftest.py` now lists `experiment_loop.py` and `complete.py` in `DROP_IMPORTERS` and runs fail-closed fixtures. Closes the gap between Run 221's claim and the file on main. No new adapter.
 - Run 221: `tools/complete.py` fail-closed completion gate. Reuses media_qa + assemble + feedback + experiment_loop. Markdown-only packets stay INCOMPLETE_MEDIA. A provider video ID alone is not COMPLETE. Completion gate: PLAN_BUILT.
@@ -28,7 +30,3 @@ These numbers are **estimates**, not stopwatch data. Earlier rows remain in prio
 - Run 218: `tools/assemble.py` fail-closed ffmpeg planner. Reuses timeline + media_qa + selected_vo_drop. Default dry-run. `--execute` only at READY_TO_ENCODE. Assembly: PLAN_BUILT / READY_FOR_MEDIA.
 - Run 217: `tools/youtube_upload.py` dry-run uploader. Parses publish.md, requires local master export, checks OAuth env without printing values, fingerprints the packet, writes optional redacted upload_state.json. Never calls videos.insert. Uploader: READY_FOR_CREDENTIAL.
 - Run 216: `tools/media_qa.py` fail-closed media gate. WAV header via stdlib wave, PNG IHDR size without Pillow, timeline ready_to_assemble. Exit 2 on FAIL. Does not run ffmpeg, invent a pass, or bump status. Media QA: READY_FOR_MEDIA.
-- Run 215: `tools/timeline.py` builds a beat cut list from script.md WORDS and assets.md, estimates duration at 150 wpm, reserves 20s end-screen, reports VO/card presence, optional `timeline.md`. Does not run ffmpeg or bump status. Assembly: PLAN_BUILT.
-- Run 214: `tools/card_generator.py` parses assets.md, renders text-cards and vs-diagrams at 1920x1080, inspects dimensions, can write `card_manifest.md`. Does not commit binaries or bump status. Visual capability: READY_FOR_MEDIA.
-- Run 213: `tools/narration_adapter.py` extracts WORDS, inspects a packet-relative take, writes `vo_origin.md`. Q1 origin labeled generated after deadline. Workspace TTS MP3 not committed. Status stayed ready_for_vo. Narration capability: READY_FOR_MEDIA.
-- Run 137: `docs/narration.md` names the repo-root DROP. `tools/selftest.py` fails if narration.md drops the DROP line. No new CLI. No wav. Status stayed ready_for_vo.
