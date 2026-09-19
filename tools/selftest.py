@@ -26,6 +26,7 @@ from next_action import recommend  # noqa: E402
 from pipeline_status import inspect  # noqa: E402
 from set_status import check as status_check, is_fixture  # noqa: E402
 from validate_packet import packet_duration_warning, validate  # noqa: E402
+from youtube_feedback import inspect_feedback  # noqa: E402
 
 # Printers that must reuse render_brief.selected_vo_drop, not a second builder.
 DROP_IMPORTERS = (
@@ -38,6 +39,7 @@ DROP_IMPORTERS = (
     "media_qa.py",
     "youtube_upload.py",
     "assemble.py",
+    "youtube_feedback.py",
 )
 
 
@@ -169,6 +171,35 @@ def check_assemble_fail_closed() -> list[str]:
     return failures
 
 
+def check_feedback_fail_closed() -> list[str]:
+    failures: list[str] = []
+    with tempfile.TemporaryDirectory() as tmp:
+        p = Path(tmp)
+        report = inspect_feedback(p, env={})
+        if report["gate"] != "HOLD_UNPUBLISHED":
+            failures.append(f"feedback must HOLD_UNPUBLISHED without video id, got {report['gate']}")
+        if report["metrics"] is not None:
+            failures.append("feedback must not invent metrics")
+        if report["action"] != "DRY_RUN":
+            failures.append(f"feedback default action must be DRY_RUN, got {report['action']}")
+        with_id = p / "upload_state.json"
+        with_id.write_text('{"provider_video_id": "abc123"}\n', encoding="utf-8")
+        report2 = inspect_feedback(p, env={})
+        if report2["gate"] != "YOUTUBE_AUTH_REQUIRED":
+            failures.append(f"feedback with video id and no OAuth must be YOUTUBE_AUTH_REQUIRED, got {report2['gate']}")
+        dummy = {
+            "YOUTUBE_CLIENT_ID": "x",
+            "YOUTUBE_CLIENT_SECRET": "y",
+            "YOUTUBE_REFRESH_TOKEN": "z",
+        }
+        report3 = inspect_feedback(p, env=dummy)
+        if report3["gate"] != "READY":
+            failures.append(f"feedback with video id + OAuth env must be READY, got {report3['gate']}")
+        if report3["action"] != "FETCH_BLOCKED_NO_NETWORK":
+            failures.append(f"feedback READY action must stay offline, got {report3['action']}")
+    return failures
+
+
 def main() -> int:
     path = sample_packet()
     failures: list[str] = []
@@ -243,6 +274,7 @@ def main() -> int:
     failures.extend(check_words_extract())
     failures.extend(check_media_qa_fail_closed())
     failures.extend(check_assemble_fail_closed())
+    failures.extend(check_feedback_fail_closed())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")
