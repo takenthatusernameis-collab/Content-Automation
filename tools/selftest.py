@@ -155,6 +155,18 @@ def check_media_qa_fail_closed() -> list[str]:
                 failures.append(f"media_qa must report {level_name}")
             elif names[level_name]:
                 failures.append(f"{level_name} must be false without a take")
+        if "export_decodable" not in names:
+            failures.append("media_qa must report export_decodable")
+        elif names["export_decodable"]:
+            failures.append("export_decodable must be false without an export")
+        (p / "export").mkdir()
+        (p / "export" / "master.mp4").write_bytes(b"junk-not-mp4")
+        report2 = inspect_media(p)
+        names2 = {c["name"]: c["ok"] for c in report2["checks"]}
+        if names2.get("export_decodable"):
+            failures.append("export_decodable must be false on a junk master.mp4")
+        if report2["gate"] != "FAIL":
+            failures.append(f"junk export must not PASS media_qa, got {report2['gate']}")
     return failures
 
 
@@ -177,6 +189,13 @@ def check_assemble_fail_closed() -> list[str]:
             failures.append(f"assemble default action must be DRY_RUN, got {report['action']}")
         if report.get("ready_to_assemble"):
             failures.append("assemble ready_to_assemble must be false without media")
+        (p / "export").mkdir()
+        (p / "export" / "master.mp4").write_bytes(b"junk-not-mp4")
+        report2 = inspect_assemble(p)
+        if report2["gate"] == "EXPORT_EXISTS":
+            failures.append("assemble must not treat a junk master.mp4 as EXPORT_EXISTS")
+        if report2.get("export_present"):
+            failures.append("assemble export_present must stay false on junk ftyp")
     return failures
 
 
@@ -265,11 +284,16 @@ def check_complete_fail_closed() -> list[str]:
         (p / "upload_state.json").write_text(
             '{"provider_video_id": "abc123"}\n', encoding="utf-8"
         )
+        (p / "export").mkdir()
+        (p / "export" / "master.mp4").write_bytes(b"junk-not-mp4")
         report2 = inspect_complete(p, env={})
         if report2["gate"] != "INCOMPLETE_MEDIA":
             failures.append(
                 f"complete with only a video id must stay INCOMPLETE_MEDIA, got {report2['gate']}"
             )
+        names2 = {c["name"]: c["ok"] for c in report2["checks"]}
+        if names2.get("master_export_present"):
+            failures.append("complete master_export_present must stay false on junk ftyp")
     return failures
 
 
