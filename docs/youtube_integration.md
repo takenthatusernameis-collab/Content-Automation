@@ -6,6 +6,8 @@ Keep the repository structurally ready for automated YouTube publishing so that,
 
 The live adapter is `tools/youtube_upload.py`. It is dry-run only. It does not call the YouTube API. It never prints secret values.
 
+The live feedback adapter is `tools/youtube_feedback.py`. It is dry-run only. It does not call Analytics or comment APIs. It never invents metrics.
+
 ## Required pipeline
 
 1. Validate the packet locally: status, selected VO, cards, captions/metadata as applicable, and final master export.
@@ -15,6 +17,7 @@ The live adapter is `tools/youtube_upload.py`. It is dry-run only. It does not c
 5. When credentials are present, authenticate and upload through the YouTube Data API.
 6. Persist only non-secret operational state: upload-attempt timestamp, provider video ID, final privacy state, and a redacted result/error code.
 7. Never upload, publish, or change channel state merely because a manual hold expired; the hold only removes the repository-side block.
+8. After a real provider_video_id exists, run `tools/youtube_feedback.py` in dry-run. Live fetch remains gated on OAuth.
 
 ## Credential-last design
 
@@ -39,6 +42,8 @@ The uploader fails closed with:
 `YOUTUBE_AUTH_REQUIRED`
 
 when required OAuth credentials are absent or invalid.
+
+The feedback collector fails closed with `HOLD_UNPUBLISHED` when `upload_state.json` has no provider_video_id, and with `YOUTUBE_AUTH_REQUIRED` when OAuth is absent.
 
 The daily unstick agent may construct or repair everything up to that boundary without waiting for a human. When the boundary is reached, it should request only the missing credential material and nothing else.
 
@@ -66,10 +71,18 @@ Implemented without credentials (Run 217):
 5. dry-run request builder;
 6. redacted result/state writer.
 
+Implemented without credentials (Run 219):
+
+7. feedback collector with HOLD_UNPUBLISHED / YOUTUBE_AUTH_REQUIRED gates;
+8. 7-day observation window contract;
+9. dry-run Analytics + commentThreads plan;
+10. redacted feedback_state.json writer.
+
 Still NOT_BUILT:
 
-7. authenticated upload adapter (`videos.insert`);
-8. final credential-only integration test.
+11. authenticated upload adapter (`videos.insert`);
+12. live Analytics reports and commentThreads.list;
+13. final credential-only integration test.
 
 The last step that cannot be completed without a real channel credential must be clearly reported as `YOUTUBE_AUTH_REQUIRED`.
 
@@ -95,3 +108,4 @@ YouTube's Analytics reporting API supports metrics such as views, likes/dislikes
 YouTube's Data API supports comment-thread retrieval by video ID; replies may require the comments.list method.
 
 The feedback collector must fail closed at `YOUTUBE_AUTH_REQUIRED` when readonly authorization is absent, just as the uploader does for upload authorization.
+The collector must also fail closed at `HOLD_UNPUBLISHED` when no provider video ID exists. Empty metrics are not collected feedback.

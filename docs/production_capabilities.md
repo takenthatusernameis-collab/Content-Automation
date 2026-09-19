@@ -56,7 +56,10 @@ A video is not considered “completed” merely because its text packet passes.
 - live `videos.insert` remains NOT_BUILT until a local master and OAuth env exist
 
 ### 7. Feedback ingestion
-- YouTube Analytics ingestion after publication
+- dry-run adapter: `tools/youtube_feedback.py` (READY_FOR_CREDENTIAL; no API call; no invented metrics)
+- missing provider_video_id fails closed as `HOLD_UNPUBLISHED`
+- missing OAuth fails closed as `YOUTUBE_AUTH_REQUIRED`
+- YouTube Analytics ingestion after publication (live fetch still NOT_BUILT)
 - video-level views, likes/dislikes where available, watch-time and average-view-duration / percentage metrics, plus subscriber-related metrics where useful
 - comment-thread ingestion for viewer language, objections, requests, confusion, and recurring questions
 - collection of a comparable observation window for each video rather than mixing different ages
