@@ -2,13 +2,17 @@
 """Fail-closed media QA for a video packet.
 
 Checks Selected VO presence/header, card PNG dimensions when files exist,
-and timeline assembly readiness. Never invents a pass. Never runs ffmpeg.
-Never bumps packet status. Never re-implements selected_vo_drop.
+and timeline assembly readiness. When a WAV exists, also reports peak,
+RMS, clip fraction, and silence fraction from PCM (stdlib only).
+
+Never invents a pass. Never runs ffmpeg. Never bumps packet status.
+Never re-implements selected_vo_drop.
 """
 
 from __future__ import annotations
 
 import argparse
+import audioop
 import struct
 import sys
 import wave
@@ -23,6 +27,12 @@ from timeline import plan  # noqa: E402
 
 TARGET_W = 1920
 TARGET_H = 1080
+SILENCE_ABS = 0.02
+CLIP_ABS = 0.99
+MAX_SILENCE_FRAC = 0.60
+MIN_PEAK = 0.05
+MAX_PEAK = 0.999
+MIN_RMS = 0.008
 
 
 def _png_size(path: Path) -> tuple[int, int] | None:
@@ -52,6 +62,80 @@ def _wav_info(path: Path) -> dict:
     return info
 
 
+def _wav_levels(path: Path) -> dict:
+    """Peak / RMS / silence / clip from PCM. Stdlib only. Fail-closed."""
+    out = {
+        "peak": 0.0,
+        "rms": 0.0,
+        "silence_frac": 1.0,
+        "clip_frac": 0.0,
+        "ok": False,
+        "error": "",
+    }
+    try:
+        with wave.open(str(path), "rb") as wf:
+            width = wf.getsampwidth()
+            nchan = wf.getnchannels()
+            frames = wf.getnframes()
+            raw = wf.readframes(frames)
+        if frames <= 0 or width <= 0 or nchan <= 0 or not raw:
+            out["error"] = "empty pcm"
+            return out
+        max_abs = float((1 << (8 * width - 1)) - 1)
+        if max_abs <= 0:
+            out["error"] = "bad sample width"
+            return out
+        try:
+            peak_int = audioop.max(raw, width)
+        except audioop.error:
+            peak_int = 0
+            if width == 3:
+                step = width
+                for i in range(0, len(raw) - step + 1, step):
+                    val = int.from_bytes(raw[i : i + step], "little", signed=True)
+                    peak_int = max(peak_int, abs(val))
+        peak = min(1.0, peak_int / max_abs)
+        try:
+            rms_int = audioop.rms(raw, width)
+        except audioop.error:
+            rms_int = 0
+        rms = min(1.0, rms_int / max_abs)
+        try:
+            mono = audioop.tomono(raw, width, 0.5, 0.5) if nchan > 1 else raw
+            pcm16 = audioop.lin2lin(mono, width, 2) if width != 2 else mono
+        except audioop.error as exc:
+            out["error"] = f"resample: {exc}"
+            out["peak"] = round(peak, 4)
+            out["rms"] = round(rms, 4)
+            return out
+        import array
+
+        samples = array.array("h")
+        samples.frombytes(pcm16)
+        total = len(samples)
+        if total <= 0:
+            out["error"] = "no samples after mono"
+            return out
+        silent = 0
+        clipped = 0
+        thresh = int(SILENCE_ABS * 32767)
+        clip_t = int(CLIP_ABS * 32767)
+        for s in samples:
+            a = s if s >= 0 else -s
+            if a < thresh:
+                silent += 1
+            if a >= clip_t:
+                clipped += 1
+        out["peak"] = round(peak, 4)
+        out["rms"] = round(rms, 4)
+        out["silence_frac"] = round(silent / float(total), 4)
+        out["clip_frac"] = round(clipped / float(total), 4)
+        out["ok"] = True
+    except Exception as exc:  # noqa: BLE001
+        out["error"] = str(exc)
+    return out
+
+
 def inspect_media(packet: Path) -> dict:
     data = plan(packet)
     drop = selected_vo_drop(packet)
@@ -65,9 +149,11 @@ def inspect_media(packet: Path) -> dict:
         "kind": vo_file.suffix.lower() if vo_file else "",
         "bytes": vo_file.stat().st_size if vo_file else 0,
         "wav": None,
+        "levels": None,
     }
     if vo_file and vo_file.suffix.lower() == ".wav":
         vo["wav"] = _wav_info(vo_file)
+        vo["levels"] = _wav_levels(vo_file)
 
     cards = []
     for row in data["rows"]:
@@ -98,10 +184,29 @@ def inspect_media(packet: Path) -> dict:
             add("vo_decodable", False, f"unsupported or missing header for {vo['kind'] or 'unknown'}")
         else:
             add("vo_decodable", False, "no packet-relative Selected VO")
+        add("vo_peak", False, "no wav levels")
+        add("vo_rms", False, "no wav levels")
+        add("vo_silence", False, "no wav levels")
+        add("vo_clip", False, "no wav levels")
     else:
         w = vo["wav"]
         add("vo_decodable", bool(w["ok"]), w["error"] or f"{w['seconds']}s {w['rate']}Hz {w['channels']}ch")
         add("vo_nonempty", bool(w["ok"] and w["seconds"] > 0.2), f"{w['seconds']}s")
+        lv = vo["levels"] or {}
+        if not lv.get("ok"):
+            add("vo_peak", False, lv.get("error") or "levels unavailable")
+            add("vo_rms", False, lv.get("error") or "levels unavailable")
+            add("vo_silence", False, lv.get("error") or "levels unavailable")
+            add("vo_clip", False, lv.get("error") or "levels unavailable")
+        else:
+            peak_ok = MIN_PEAK <= lv["peak"] <= MAX_PEAK
+            rms_ok = lv["rms"] >= MIN_RMS
+            sil_ok = lv["silence_frac"] <= MAX_SILENCE_FRAC
+            clip_ok = lv["clip_frac"] < 0.01
+            add("vo_peak", peak_ok, f"peak={lv['peak']}")
+            add("vo_rms", rms_ok, f"rms={lv['rms']}")
+            add("vo_silence", sil_ok, f"silence_frac={lv['silence_frac']}")
+            add("vo_clip", clip_ok, f"clip_frac={lv['clip_frac']}")
 
     mapped = [c for c in cards if c["rel"]]
     present = [c for c in mapped if c["present"]]
@@ -116,7 +221,10 @@ def inspect_media(packet: Path) -> dict:
     add("ready_to_assemble", bool(data["ready_to_assemble"]), "timeline gate")
     add("no_export_claimed", True, "media_qa does not treat a named export as a master")
 
-    hard = [c for c in checks if c["name"] in {"selected_vo_present", "vo_decodable", "cards_present", "cards_1920x1080", "ready_to_assemble"}]
+    hard_names = {"selected_vo_present", "vo_decodable", "cards_present", "cards_1920x1080", "ready_to_assemble"}
+    if vo["wav"] and vo["wav"].get("ok"):
+        hard_names.update({"vo_peak", "vo_rms", "vo_silence", "vo_clip"})
+    hard = [c for c in checks if c["name"] in hard_names]
     gate = "PASS" if hard and all(c["ok"] for c in hard) else "FAIL"
     return {
         "packet": packet.name,
