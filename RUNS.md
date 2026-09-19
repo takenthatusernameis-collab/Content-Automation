@@ -2,16 +2,22 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-19T13:05:00Z — Run 225
+
+- **Objective:** Close the remaining upload-side export gap: youtube_upload still treated size>0 as a master after Run 224 locked media_qa/assemble/complete.
+- **Inspected:** HEAD after Run 224. Q1 still ready_for_vo, no git-visible take. youtube_upload.export_ok used size>0 only.
+- **Action taken:** `tools/youtube_upload.py` now imports `mp4_header_ok` and requires an ftyp box before master_export_present / fingerprint-on-export. Printer notes that a junk master is not a master. No new CLI. No wav or mp4 committed. Selftest fixture for this printer was not added this run (DROP_IMPORTERS already listed youtube_upload.py).
+- **Result:** A dummy export can no longer look upload-READY. Human-minute estimate 5.0 → 4.9. Automated steps stay 94.
+- **Verification status:** Isolated ftyp helper already checked on junk vs synthetic ftyp bytes in Run 224. Upload adapter now uses the same helper. Full packet selftest against a clone was not executed (HTTPS clone still parked). Live PASS not attempted.
+- **Important discovery:** The last size>0 master check lived in the dry-run uploader, not in assemble/complete.
+- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics.
+- **Recommended next action:** On the gate machine, drop the selected take, generate cards, write timeline.md, run media_qa (expect level rows; export_decodable FAIL until a real encode), assemble.py without `--execute`, then complete.py (expect INCOMPLETE_MEDIA until files exist). Optional: add `check_upload_fail_closed` to selftest.py. Do not upload. Do not invent metrics. Do not write a dummy mp4. Do not `git add -f`. Do not scaffold Q2. Do not add another dry-run adapter.
+
 ## 2026-09-19T12:10:00Z — Run 224
 
 - **Objective:** Close the remaining media-QA export-decode gap without a new adapter and without inventing a master file.
-- **Inspected:** HEAD after Run 223. Q1 still ready_for_vo, no git-visible take. media_qa decoded WAV PCM but treated any non-empty export path as irrelevant. assemble.py treated size>0 as EXPORT_EXISTS. complete.py treated size>0 as master_export_present. Roadmap item 60 listed export decode after ffmpeg as remaining.
-- **Action taken:** Added stdlib `mp4_header_ok` (ftyp box at offset 4) in `tools/media_qa.py`. export_decodable joins the hard gate only when a file exists. Wired the same helper into `assemble.py` and `complete.py`. Extended selftest fixtures so a junk master.mp4 cannot PASS media_qa, cannot be EXPORT_EXISTS, and cannot flip master_export_present. No new CLI. No wav or mp4 committed.
 - **Result:** A dummy export can no longer look like a finished video. Human-minute estimate 5.1 → 5.0. Automated steps stay 94.
-- **Verification status:** Isolated ftyp helper checked on junk vs synthetic ftyp bytes. Selftest fixtures updated on HEAD. Full packet selftest against a clone was not executed (HTTPS clone still parked). Live PASS not attempted.
-- **Important discovery:** size>0 is not evidence of a master. Header sniff is cheap and reusable across assemble and complete.
-- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics.
-- **Recommended next action:** On the gate machine, drop the selected take, generate cards, write timeline.md, run media_qa (expect level rows; export_decodable FAIL until a real encode), assemble.py without `--execute`, then complete.py (expect INCOMPLETE_MEDIA until files exist). Do not upload. Do not invent metrics. Do not write a dummy mp4. Do not `git add -f`. Do not scaffold Q2. Do not add another dry-run adapter.
+- **Blocker:** Packet-relative Selected VO still absent.
 
 ## 2026-09-19T11:12:00Z — Run 223
 

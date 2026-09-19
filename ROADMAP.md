@@ -6,7 +6,7 @@
 51ci. Deterministic local card generator from assets.md — **done (Run 214; READY_FOR_MEDIA)**
 51cj. WORDS-based edit timeline planner (no ffmpeg) — **done (Run 215; READY_FOR_MEDIA)**
 51ck. Fail-closed media QA (VO header + card size + assembly gate) — **done (Run 216; READY_FOR_MEDIA)**
-51cl. Credential-ready YouTube dry-run uploader — **done (Run 217; READY_FOR_CREDENTIAL)**
+51cl. Credential-ready YouTube dry-run uploader — **done (Run 217; READY_FOR_CREDENTIAL)**; ftyp-required master — **done (Run 225)**
 51cm. Fail-closed ffmpeg assembly planner — **done (Run 218; PLAN_BUILT / READY_FOR_MEDIA)**
 51cn. Fail-closed YouTube feedback collector — **done (Run 219; READY_FOR_CREDENTIAL)**
 51co. Fail-closed experiment ledger — **done (Run 220; PLAN_BUILT)**
@@ -14,6 +14,7 @@
 51cq. HEAD selftest lock for experiment_loop.py + complete.py — **done (Run 222)**
 51cr. media_qa PCM peak / RMS / silence / clip (stdlib; hard only when WAV decodes) — **done (Run 223)**
 51cs. media_qa / assemble / complete export ftyp sniff (stdlib; hard only when a master file exists) — **done (Run 224)**
+51ct. youtube_upload export ftyp sniff (same helper; junk master stays HOLD_LOCAL) — **done (Run 225)**
 
 ## Later (automation)
 52. Human override of heuristic Primary (optional; already locked)
@@ -42,6 +43,7 @@
 - Calling videos.insert from the dry-run adapter
 - Treating an assemble recipe as a master export
 - Writing a dummy export/master.mp4 to flip EXPORT_EXISTS
+- Treating youtube_upload size>0 as a master
 - Inventing analytics or comments before a published video ID exists
 - Treating a pending experiment record as a keep/discard
 - Treating complete.py INCOMPLETE_* as a completed video
@@ -54,7 +56,7 @@
 58. **Card/visual generator** — READY_FOR_MEDIA (Run 214). Remaining: run on gate machine; do not commit pngs.
 59. **Render/assembly pipeline** — PLAN_BUILT / READY_FOR_MEDIA (Run 215 timeline.py + Run 218 assemble.py). Remaining: `--execute` only after ready_to_assemble=yes and media_qa PASS.
 60. **Full media QA gate** — READY_FOR_MEDIA (Run 216 header + Run 223 levels + Run 224 export ftyp). Remaining: live VO/card files on the gate machine; ffmpeg stream probe after a real encode.
-61. **Credential-ready YouTube uploader** — READY_FOR_CREDENTIAL (Run 217 youtube_upload.py). Remaining: local master + OAuth env; live videos.insert still NOT_BUILT.
+61. **Credential-ready YouTube uploader** — READY_FOR_CREDENTIAL (Run 217 youtube_upload.py; Run 225 ftyp). Remaining: local master with ftyp + OAuth env; live videos.insert still NOT_BUILT.
 62. **YouTube feedback ingestion** — READY_FOR_CREDENTIAL (Run 219 youtube_feedback.py). Remaining: published video ID + OAuth env; live Analytics/comment fetch still NOT_BUILT.
 63. **Experiment/improvement loop** — PLAN_BUILT (Run 220 experiment_loop.py). Remaining: real metrics + documented baseline before keep/discard. Selftest lock on HEAD (Run 222).
 64. **Completion gate** — PLAN_BUILT (Run 221 complete.py). Remaining: real VO, cards, master with ftyp, publish ID, metrics, and experiment result before COMPLETE. Selftest lock on HEAD (Run 222).

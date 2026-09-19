@@ -17,10 +17,12 @@
 | 2026-09-19 Run 222 | ~5.2 estimate | 94 | HEAD selftest now locks experiment_loop.py + complete.py |
 | 2026-09-19 Run 223 | ~5.1 estimate | 94 | media_qa PCM peak/RMS/silence/clip; silent or clipped takes fail before ffmpeg |
 | 2026-09-19 Run 224 | ~5.0 estimate | 94 | media_qa/assemble/complete reject junk export/master.mp4 without ftyp |
+| 2026-09-19 Run 225 | ~4.9 estimate | 94 | youtube_upload rejects junk export/master.mp4 without ftyp |
 
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 225: `tools/youtube_upload.py` requires `media_qa.mp4_header_ok` before master_export_present. A size>0 junk file stays HOLD_LOCAL and is not fingerprinted as a master. No new adapter. No invented master. Selftest fixture for this case not yet in `main()`.
 - Run 224: `tools/media_qa.py` reports export_present / export_decodable from a stdlib ISO BMFF ftyp sniff. Hard-gated only when an export file exists. `assemble.py` no longer treats size>0 as EXPORT_EXISTS. `complete.py` requires ftyp before master_export_present. Selftest writes a junk mp4 and asserts FAIL / not EXPORT_EXISTS / master_export_present false. No new adapter. No invented master.
 - Run 223: `tools/media_qa.py` reports vo_peak / vo_rms / vo_silence / vo_clip from stdlib PCM (audioop + array). Hard-gated only when a WAV header decodes. Missing VO still FAIL. Selftest asserts the four rows exist and are false without a take. No new adapter. No invented wav.
 - Run 222: HEAD `tools/selftest.py` now lists `experiment_loop.py` and `complete.py` in `DROP_IMPORTERS` and runs fail-closed fixtures. Closes the gap between Run 221's claim and the file on main. No new adapter.

@@ -6,7 +6,7 @@ Do these in order. Stop if a step needs a human decision that is not present.
 2. After a real selected take exists on disk: `python3 tools/vo_session.py PATH --force` then `python3 tools/set_status.py PATH --to ready_for_edit` dry-run; `--write` only if Selected VO present and gate still PASS. Keep `vo_origin.md` kind honest.
 3. On the same machine: `python3 tools/card_generator.py PATH --write-manifest`. Requires Pillow. Writes gitignored 1920x1080 PNGs under `cards/`. Do not commit binaries. `--mark-ready` only after inspect-only reports all yes.
 4. `python3 tools/timeline.py PATH --write`. Then `python3 tools/media_qa.py PATH`. Expect vo_peak/vo_rms/vo_silence/vo_clip rows. export_decodable stays FAIL until a real ftyp master exists; that is expected. Confirm ready_to_assemble and media_qa gate before any ffmpeg work. Then `python3 tools/assemble.py PATH` (expect HOLD_MEDIA until VO+cards exist). `--execute` only if gate is READY_TO_ENCODE.
-5. After a local master exists with a real ftyp box: `python3 tools/youtube_upload.py PATH`. Expect `YOUTUBE_AUTH_REQUIRED` until OAuth env is present. Do not pass secrets. Do not treat dry-run READY as an upload.
+5. After a local master exists with a real ftyp box: `python3 tools/youtube_upload.py PATH`. Expect `YOUTUBE_AUTH_REQUIRED` until OAuth env is present. A junk master.mp4 is HOLD_LOCAL, not READY. Do not pass secrets. Do not treat dry-run READY as an upload.
 6. After upload_state.json contains a real provider_video_id: `python3 tools/youtube_feedback.py PATH`. Expect HOLD_UNPUBLISHED until then. Do not invent metrics. Do not call Analytics APIs from this tool.
 7. After feedback metrics exist: `python3 tools/experiment_loop.py PATH`. Expect HOLD_NO_EVIDENCE until then. Do not invent a keep/discard. Do not rewrite an old script to make a test look successful.
 8. `python3 tools/complete.py PATH`. Expect INCOMPLETE_MEDIA until VO+cards exist. A junk master.mp4 is not a master. Do not treat markdown, a named export path, a video ID, or a pending experiment as COMPLETE.
@@ -34,3 +34,4 @@ Do these in order. Stop if a step needs a human decision that is not present.
 74. Do **not** claim a selftest lock is on HEAD unless `DROP_IMPORTERS` in `tools/selftest.py` includes the new printer and a fail-closed fixture is called from `main()`.
 75. Do **not** treat media_qa level FAIL as a reason to invent a quieter or louder wav in git.
 76. Do **not** write a dummy `export/master.mp4` to flip assemble EXPORT_EXISTS or complete master_export_present.
+77. Do **not** treat youtube_upload size>0 as master_export_present. Require `mp4_header_ok`.
