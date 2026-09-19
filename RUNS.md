@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-19T03:20:00Z — Run 216
+
+- **Objective:** After the timeline planner, add the next reusable production capability that does not require on-disk VO: a fail-closed media QA gate.
+- **Inspected:** HEAD after Run 215. Q1 still ready_for_vo, no git-visible take. Roadmap item 60 was NOT_BUILT. editor.md still forbids ffmpeg until VO + cards exist.
+- **Action taken:** Added `tools/media_qa.py` (import selected_vo_drop + timeline.plan; WAV header via stdlib wave; PNG IHDR size without Pillow; hard FAIL unless VO present, decodable, all mapped cards 1920x1080, and ready_to_assemble). Did not run ffmpeg. Did not bump Q1 status. Did not scaffold Q2. Did not commit media.
+- **Result:** Media QA moved from NOT_BUILT to READY_FOR_MEDIA. Human-minute estimate 7 → 6.5. Automated steps 88 → 89.
+- **Verification status:** Local PNG IHDR and WAV header helpers PASS on tiny fixtures. Full packet selftest against HEAD not executed in this sandbox (no clone). Expected live Q1 result is FAIL until a take and cards exist on a gate machine.
+- **Important discovery:** Media QA can be built and fail closed before any media exists. That prevents later runs from treating a named export path as a completed master.
+- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked.
+- **Recommended next action:** On the gate machine, drop the selected take, generate cards, write timeline.md, run `python3 tools/media_qa.py PATH`. Do not ffmpeg until gate PASS. Do not `git add -f`. Do not upload. Do not scaffold Q2.
+
 ## 2026-09-19T02:10:00Z — Run 215
 
 - **Objective:** After card generation, add the next reusable production capability that does not require on-disk VO: a deterministic edit timeline.
