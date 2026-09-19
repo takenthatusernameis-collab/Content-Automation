@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-19T02:10:00Z — Run 215
+
+- **Objective:** After card generation, add the next reusable production capability that does not require on-disk VO: a deterministic edit timeline.
+- **Inspected:** HEAD after Run 214. Q1 still ready_for_vo, no git-visible take. Roadmap item 59 was NOT_BUILT. editor.md forbids ffmpeg until VO + cards exist.
+- **Action taken:** Added `tools/timeline.py` (parse WORDS beats, map assets.md cards, 150 wpm clock, 1.5s hold floor, +20s end-screen, presence gate, optional timeline.md). Imports `selected_vo_drop` from render_brief and `parse_cards` from card_generator. Did not run ffmpeg. Did not bump Q1 status. Did not scaffold Q2. Did not commit media.
+- **Result:** Render/assembly moved from NOT_BUILT to PLAN_BUILT / READY_FOR_MEDIA. Human-minute estimate 8 → 7. Automated steps 87 → 88.
+- **Verification status:** Isolated extract_beats unit check PASS on a 4-beat fixture. Live Q1 timeline.md not written on a persistent gate machine (no repo checkout). Full selftest against HEAD not executed in this sandbox.
+- **Important discovery:** A cut list can be generated from script + assets before media exists. ffmpeg remains correctly gated on ready_to_assemble.
+- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked.
+- **Recommended next action:** On the gate machine, drop the selected take, generate cards, run `python3 tools/timeline.py PATH --write`. Do not ffmpeg until ready_to_assemble=yes. Do not `git add -f`. Do not upload. Do not scaffold Q2.
+
 ## 2026-09-19T01:15:00Z — Run 214
 
 - **Objective:** After narration adapter, add the next reusable production capability: deterministic local card generation from assets.md.

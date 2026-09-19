@@ -28,10 +28,12 @@ A video is not considered “completed” merely because its text packet passes.
 
 ### 4. Assembly / rendering
 - deterministic timeline construction from selected VO, cards, captions, and optional music/SFX
+- local planner: `tools/timeline.py` (PLAN_BUILT / READY_FOR_MEDIA; WORDS clock; no ffmpeg)
 - export to the locked 1920x1080, 30fps, stereo 48kHz target
 - last 20 seconds reserved for YouTube end-screen elements
 - render verification: file opens, duration is plausible, video/audio streams exist, no missing frame/audio stream, and expected packet fingerprint is recorded
 - master export must remain local / outside Git unless the repository later chooses an artifact store
+- ffmpeg export stays NOT_BUILT until timeline ready_to_assemble=yes on a real packet
 
 ### 5. QA
 - packet gate: script, status, metadata, selected VO, cards, export
@@ -72,6 +74,7 @@ Use these states in the roadmap/state files:
 - BUILT — implemented and mechanically validated
 - READY_FOR_CREDENTIAL — implementation exists but requires provider credentials
 - READY_FOR_MEDIA — implementation exists but requires local/generated media input
+- PLAN_BUILT — planner/contract exists; encoder or provider step still missing
 - BLOCKED — a real external dependency prevents progress
 - NOT_BUILT — capability does not yet exist
 

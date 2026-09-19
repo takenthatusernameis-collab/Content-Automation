@@ -2,6 +2,7 @@
 
 Face-free explainer. Naming and export only. No ffmpeg profile yet.
 Timing lock: `docs/format.md`.
+Cut list: `tools/timeline.py` (WORDS clock, not a recipe).
 
 ## Project name
 `NNN-slug` matching the packet folder.
@@ -26,11 +27,18 @@ Do not invent a wav in git. Do not `git add -f` the take.
 - Planned names come from `assets.md` / `docs/assets.md` (`cards/{beat}-{slug}.png`)
 
 ## Timing
-Follow `docs/format.md`.
+Follow `docs/format.md` and the packet `timeline.md` when present.
 - Cut on sentence ends from `script.md` WORDS
 - Hold a card at least 1.5s
 - Hook 8–12s spoken; end-screen reserve last 20s of the export
 - No jump-cut montage as the default edit
+
+```bash
+python3 tools/timeline.py PATH --dry-run
+python3 tools/timeline.py PATH --write
+```
+
+`--write` refreshes `timeline.md`. It does not render a master.
 
 ## Export
 - File: `exports/NNN-slug-vN.mp4`
@@ -42,11 +50,13 @@ Follow `docs/format.md`.
 Operator copy lives in `docs/human_session.md` step 6. Q1 names are the Suggested file column in that packet `assets.md`.
 
 ```bash
+python3 tools/card_generator.py PATH --write-manifest
+python3 tools/timeline.py PATH --write
 python3 tools/render_brief.py PATH --force
 python3 tools/qa_checklist.py PATH --force
 ```
 
-Do not commit pngs. Do not invent files to flip presence rows. Do not add an ffmpeg recipe until VO + those cards exist.
+Do not commit pngs. Do not invent files to flip presence rows. Do not add an ffmpeg recipe until `timeline.py` prints ready_to_assemble=yes.
 
 ## Out of scope
-Do not add an ffmpeg recipe until VO + card assets exist for one packet.
+Do not add an ffmpeg recipe until VO + card assets exist for one packet and the timeline gate is yes.
