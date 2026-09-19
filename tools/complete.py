@@ -22,7 +22,7 @@ if str(TOOLS) not in sys.path:
 
 from assemble import inspect_assemble  # noqa: E402
 from experiment_loop import inspect_experiment  # noqa: E402
-from media_qa import inspect_media  # noqa: E402
+from media_qa import inspect_media, mp4_header_ok  # noqa: E402
 from render_brief import selected_vo_drop  # noqa: E402
 from youtube_feedback import inspect_feedback, load_upload_state, provider_video_id  # noqa: E402
 
@@ -54,7 +54,7 @@ def inspect_complete(
     upload = load_upload_state(packet)
     video_id = provider_video_id(upload)
     export_path = packet / "export" / "master.mp4"
-    export_present = export_path.is_file() and export_path.stat().st_size > 0
+    export_present = export_path.is_file() and export_path.stat().st_size > 0 and mp4_header_ok(export_path)
 
     vo_present = _check_ok(media, "selected_vo_present")
     cards_ok = _check_ok(media, "cards_present") or _check_ok(media, "all_cards_present")
