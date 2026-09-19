@@ -19,6 +19,8 @@ if str(TOOLS) not in sys.path:
 
 from apply_script import check as apply_check  # noqa: E402
 from assemble import inspect_assemble  # noqa: E402
+from complete import inspect_complete  # noqa: E402
+from experiment_loop import inspect_experiment  # noqa: E402
 from hint import commands_for  # noqa: E402
 from media_qa import inspect_media  # noqa: E402
 from narration_adapter import extract_words  # noqa: E402
@@ -40,6 +42,8 @@ DROP_IMPORTERS = (
     "youtube_upload.py",
     "assemble.py",
     "youtube_feedback.py",
+    "experiment_loop.py",
+    "complete.py",
 )
 
 
@@ -200,6 +204,70 @@ def check_feedback_fail_closed() -> list[str]:
     return failures
 
 
+def check_experiment_fail_closed() -> list[str]:
+    failures: list[str] = []
+    with tempfile.TemporaryDirectory() as tmp:
+        p = Path(tmp)
+        report = inspect_experiment(p, env={})
+        if report["gate"] != "HOLD_UNPUBLISHED":
+            failures.append(f"experiment must HOLD_UNPUBLISHED without video id, got {report['gate']}")
+        rec = report.get("record") or {}
+        if rec.get("result") is not None:
+            failures.append("experiment must not invent a result")
+        if rec.get("hypothesis") is not None:
+            failures.append("experiment must not invent a hypothesis")
+        if rec.get("decision") != "pending":
+            failures.append(f"experiment decision must stay pending, got {rec.get('decision')}")
+        (p / "upload_state.json").write_text(
+            '{"provider_video_id": "abc123"}\n', encoding="utf-8"
+        )
+        report2 = inspect_experiment(p, env={})
+        if report2["gate"] != "HOLD_NO_EVIDENCE":
+            failures.append(
+                f"experiment with video id and empty metrics must be HOLD_NO_EVIDENCE, got {report2['gate']}"
+            )
+        if (report2.get("record") or {}).get("result") is not None:
+            failures.append("experiment must not invent a keep/discard from empty metrics")
+    return failures
+
+
+def check_complete_fail_closed() -> list[str]:
+    failures: list[str] = []
+    with tempfile.TemporaryDirectory() as tmp:
+        p = Path(tmp)
+        (p / "script.md").write_text(
+            "# Script\n\n## Hook\nWORDS:\nHello there world.\n\nVISUAL:\n*x*\n",
+            encoding="utf-8",
+        )
+        (p / "assets.md").write_text(
+            "| Beat | Type | File | Status |\n|---|---|---|---|\n| Hook | text-card | cards/hook-x.png | planned |\n",
+            encoding="utf-8",
+        )
+        report = inspect_complete(p, env={})
+        if report["gate"] != "INCOMPLETE_MEDIA":
+            failures.append(f"complete must INCOMPLETE_MEDIA without media, got {report['gate']}")
+        if report.get("experiment_result") is not None:
+            failures.append("complete must not invent an experiment result")
+        if report.get("metrics") is not None:
+            failures.append("complete must not invent metrics")
+        if report.get("provider_video_id"):
+            failures.append("complete must not invent a provider_video_id")
+        names = {c["name"]: c["ok"] for c in report["checks"]}
+        if names.get("selected_vo_present"):
+            failures.append("complete selected_vo_present must be false without a take")
+        if names.get("master_export_present"):
+            failures.append("complete master_export_present must be false without export/master.mp4")
+        (p / "upload_state.json").write_text(
+            '{"provider_video_id": "abc123"}\n', encoding="utf-8"
+        )
+        report2 = inspect_complete(p, env={})
+        if report2["gate"] != "INCOMPLETE_MEDIA":
+            failures.append(
+                f"complete with only a video id must stay INCOMPLETE_MEDIA, got {report2['gate']}"
+            )
+    return failures
+
+
 def main() -> int:
     path = sample_packet()
     failures: list[str] = []
@@ -275,6 +343,8 @@ def main() -> int:
     failures.extend(check_media_qa_fail_closed())
     failures.extend(check_assemble_fail_closed())
     failures.extend(check_feedback_fail_closed())
+    failures.extend(check_experiment_fail_closed())
+    failures.extend(check_complete_fail_closed())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")
