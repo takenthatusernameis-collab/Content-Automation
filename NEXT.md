@@ -35,3 +35,4 @@ Do these in order. Stop if a step needs a human decision that is not present.
 75. Do **not** treat media_qa level FAIL as a reason to invent a quieter or louder wav in git.
 76. Do **not** write a dummy `export/master.mp4` to flip assemble EXPORT_EXISTS or complete master_export_present.
 77. Do **not** treat youtube_upload size>0 as master_export_present. Require `mp4_header_ok`.
+78. Do **not** add another selftest fixture or dry-run adapter unless a live printer on HEAD is proven to accept junk media, invent metrics, or call a provider API. Run 226 already locked upload junk-masters.
