@@ -18,7 +18,7 @@ Q1 is already scaffolded. Status is `ready_for_vo`. Text paperwork is done.
 - Generated local audio at that DROP path is the authorized fallback after `2026-09-19T00:00:00Z`. Keep `vo_origin.md` kind=generated. Follow `docs/gate_machine.md`.
 - After the file exists: steps 5–7 below. Do not invent a wav in git. Do not scaffold Q2.
 
-Do not start this session at `doctor.py` / `queue_status.py` / `new_packet.py`. Those commands are for a *new* packet. The remaining human gate is the named take.
+Do not start this session at `doctor.py` / `queue_status.py` / `new_packet.py`. Those commands are for a *new* packet. The remaining labor is the named take at the packet DROP path (record or authorized generated fallback).
 
 ## Start every session (new packet only)
 
@@ -122,7 +122,7 @@ python3 tools/set_status.py videos/002-stop-deciding-what-to-work-on-every-morni
 python3 tools/vo_session.py videos/002-stop-deciding-what-to-work-on-every-morning
 ```
 
-Then record the selected take at the named packet-relative path in `vo_session.md`. Do not invent a wav in git. Do not write an ffmpeg recipe.
+Then put the selected take at the named packet-relative path in `vo_session.md`. Do not invent a wav in git. For the authorized generated fallback, paste the optional TTS one-liners from `docs/gate_machine.md`. Do not write a dummy `export/master.mp4`.
 
 5. After the selected take exists (do not invent the file in git)
 
@@ -145,7 +145,7 @@ python3 tools/set_status.py videos/002-stop-deciding-what-to-work-on-every-morni
 python3 tools/set_status.py videos/002-stop-deciding-what-to-work-on-every-morning --to ready_for_edit --write
 ```
 
-`--force` refreshes the session card from WORDS. `set_status` still refuses `ready_for_edit` if the named take is missing. Do not bump from this page without the file. Do not scaffold Q2 while Q1 has no selected take. Do not write an ffmpeg recipe until VO + cards exist.
+`--force` refreshes the session card from WORDS. `set_status` still refuses `ready_for_edit` if the named take is missing. Do not bump from this page without the file. Do not scaffold Q2 while Q1 has no selected take. Do not run `assemble.py --execute` until VO + cards exist and media_qa is PASS.
 
 6. After status is ready_for_edit (cards stay local)
 
@@ -158,7 +158,7 @@ python3 tools/render_brief.py videos/002-stop-deciding-what-to-work-on-every-mor
 python3 tools/qa_checklist.py videos/002-stop-deciding-what-to-work-on-every-morning --force
 ```
 
-`render_brief --force` rewrites presence from disk. `qa_checklist --force` refreshes mechanical boxes only. Neither builds cards, neither runs ffmpeg, neither uploads. Do not mark a card row ready without the local file. Do not write an ffmpeg recipe until VO + cards exist.
+`render_brief --force` rewrites presence from disk. `qa_checklist --force` refreshes mechanical boxes only. Neither builds cards, neither runs ffmpeg, neither uploads. Do not mark a card row ready without the local file. Do not run `assemble.py --execute` until VO + cards exist and media_qa is PASS.
 
 7. After presence refresh (publish.md is not an upload)
 
