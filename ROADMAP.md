@@ -12,6 +12,7 @@
 51co. Fail-closed experiment ledger — **done (Run 220; PLAN_BUILT)**
 51cp. Fail-closed completion gate — **done (Run 221; PLAN_BUILT)**
 51cq. HEAD selftest lock for experiment_loop.py + complete.py — **done (Run 222)**
+51cr. media_qa PCM peak / RMS / silence / clip (stdlib; hard only when WAV decodes) — **done (Run 223)**
 
 ## Later (automation)
 52. Human override of heuristic Primary (optional; already locked)
@@ -47,10 +48,10 @@
 
 ## End-to-end automation buildout
 
-57. **Narration adapter** — READY_FOR_MEDIA (Run 213). Remaining: on-disk take + loudness/silence checks.
+57. **Narration adapter** — READY_FOR_MEDIA (Run 213). Remaining: on-disk take. Loudness/silence/clip now live in media_qa (Run 223).
 58. **Card/visual generator** — READY_FOR_MEDIA (Run 214). Remaining: run on gate machine; do not commit pngs.
 59. **Render/assembly pipeline** — PLAN_BUILT / READY_FOR_MEDIA (Run 215 timeline.py + Run 218 assemble.py). Remaining: `--execute` only after ready_to_assemble=yes and media_qa PASS.
-60. **Full media QA gate** — READY_FOR_MEDIA (Run 216 media_qa.py). Remaining: live VO/card files on the gate machine; loudness/silence; export decode after ffmpeg exists.
+60. **Full media QA gate** — READY_FOR_MEDIA (Run 216 header + Run 223 levels). Remaining: live VO/card files on the gate machine; export decode after ffmpeg exists.
 61. **Credential-ready YouTube uploader** — READY_FOR_CREDENTIAL (Run 217 youtube_upload.py). Remaining: local master + OAuth env; live videos.insert still NOT_BUILT.
 62. **YouTube feedback ingestion** — READY_FOR_CREDENTIAL (Run 219 youtube_feedback.py). Remaining: published video ID + OAuth env; live Analytics/comment fetch still NOT_BUILT.
 63. **Experiment/improvement loop** — PLAN_BUILT (Run 220 experiment_loop.py). Remaining: real metrics + documented baseline before keep/discard. Selftest lock on HEAD (Run 222).
