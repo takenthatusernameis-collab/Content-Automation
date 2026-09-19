@@ -15,7 +15,7 @@ Do these in order. Stop if a step needs a human decision that is not present.
 11. Do **not** make apply_script or words.py idea-lock INFO a check() error or a status bump.
 12. Do **not** map idea_lock.py / words.py / words_contract.py / placeholder_guard.py / prove_locks.py / idea_brief.py / idea_brief_contract.py / doctor.py.
 13. Do **not** attempt YouTube OAuth or publishing without credentials or a real VO file.
-14. Do **not** run ffmpeg or `assemble.py --execute` until `timeline.py` prints ready_to_assemble=yes and `media_qa.py` prints gate PASS.
+14. Do **not** run `assemble.py --execute` until `timeline.py` prints ready_to_assemble=yes and `media_qa.py` prints gate PASS. The optional TTS ffmpeg one-liners on `docs/gate_machine.md` are not assemble execute.
 18. Do **not** run apply_script --write against sample-001.
 22. Do **not** retry HTTPS clone after one failure.
 27. Do **not** have new_packet or idea_brief write idea.md.
@@ -37,3 +37,4 @@ Do these in order. Stop if a step needs a human decision that is not present.
 77. Do **not** treat youtube_upload size>0 as master_export_present. Require `mp4_header_ok`.
 78. Do **not** add another selftest fixture or dry-run adapter unless a live printer on HEAD is proven to accept junk media, invent metrics, or call a provider API. Run 226 already locked upload junk-masters.
 79. Do **not** treat `docs/gate_machine.md` as permission to commit a wav from the agent sandbox.
+80. Do **not** restore "recording is the only gate" or blanket "do not write an ffmpeg recipe" wording on human_session or agent_session.
