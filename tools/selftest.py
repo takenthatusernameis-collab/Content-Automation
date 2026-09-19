@@ -150,6 +150,11 @@ def check_media_qa_fail_closed() -> list[str]:
             failures.append("selected_vo_present must be false without a take")
         if names.get("ready_to_assemble"):
             failures.append("ready_to_assemble must be false without media")
+        for level_name in ("vo_peak", "vo_rms", "vo_silence", "vo_clip"):
+            if level_name not in names:
+                failures.append(f"media_qa must report {level_name}")
+            elif names[level_name]:
+                failures.append(f"{level_name} must be false without a take")
     return failures
 
 
