@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-19T15:05:00Z — Run 226
+
+- **Objective:** Land the youtube_upload fail-closed selftest fixture that Run 225 recommended and did not add.
+- **Inspected:** HEAD after Run 225. Q1 still ready_for_vo, no git-visible take. youtube_upload already requires mp4_header_ok. selftest.py had no check_upload_fail_closed and did not call inspect_upload.
+- **Action taken:** `tools/selftest.py` now imports `inspect_upload` and runs `check_upload_fail_closed()` from `main()`. The fixture writes a junk `export/master.mp4` and asserts FAIL / HOLD_LOCAL / export_present false / master_export_present false. Over-escaped JSON literals from the first push of this file were corrected in the same run. No new CLI. No wav or mp4 committed.
+- **Result:** A dummy export can no longer look upload-READY without a selftest lock. Human-minute estimate 4.9 → 4.8. Automated steps stay 94.
+- **Verification status:** Isolated fixture added. Full packet selftest against a clone was not executed (HTTPS clone still parked). Live PASS not attempted. Code inspection confirms inspect_upload is imported and called from main().
+- **Important discovery:** Run 225 closed the size>0 gap in the adapter but left the regression unlocked. Selftest locks are how later runs stop silently reversing that.
+- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics.
+- **Recommended next action:** On the gate machine, drop the selected take, generate cards, write timeline.md, run media_qa (expect level rows; export_decodable FAIL until a real encode), assemble.py without `--execute`, then complete.py (expect INCOMPLETE_MEDIA until files exist). Do not upload. Do not invent metrics. Do not write a dummy mp4. Do not `git add -f`. Do not scaffold Q2. Do not add another dry-run adapter.
+
 ## 2026-09-19T13:05:00Z — Run 225
 
 - **Objective:** Close the remaining upload-side export gap: youtube_upload still treated size>0 as a master after Run 224 locked media_qa/assemble/complete.
