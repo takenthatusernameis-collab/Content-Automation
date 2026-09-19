@@ -4,6 +4,7 @@
 Dry-run only unless every local gate passes AND OAuth env vars exist.
 Never prints secret values. Never calls the YouTube API from this tool.
 Never bumps packet status. Never treats a named export as a master.
+A junk export/master.mp4 is not a master; require an ISO BMFF ftyp box.
 """
 
 from __future__ import annotations
@@ -20,6 +21,7 @@ TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
+from media_qa import mp4_header_ok  # noqa: E402
 from publish_brief import primary_title, section  # noqa: E402
 from render_brief import selected_vo_drop  # noqa: E402
 
@@ -108,7 +110,7 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
     if not meta["title"]:
         meta["title"] = primary_title(packet)
     exp = export_path(packet)
-    export_ok = exp.is_file() and exp.stat().st_size > 0
+    export_ok = exp.is_file() and exp.stat().st_size > 0 and mp4_header_ok(exp)
     auth = auth_status(env)
     prior = load_prior_state(packet)
     fp = fingerprint(packet, meta, exp if export_ok else None)
@@ -123,7 +125,7 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
     add("title_present", bool(meta["title"]), meta["title"] or "empty title")
     add("description_usable", meta["word_count"] >= 12, f"{meta['word_count']} words")
     add("tags_present", bool(meta["tags"]), f"{len(meta['tags'])} tags")
-    add("master_export_present", export_ok, EXPORT_REL if export_ok else f"missing {EXPORT_REL}")
+    add("master_export_present", export_ok, EXPORT_REL if export_ok else f"missing or invalid {EXPORT_REL}")
     add("oauth_complete", auth["complete"], auth["state"] if auth["complete"] else ",".join(auth["missing"]))
     add("not_api_key_only", not auth["api_key_alone"], "API key is not upload authorization")
     add("no_duplicate_fingerprint", not duplicate, fp)
@@ -213,6 +215,7 @@ def render_text(report: dict) -> str:
         f"auth: {report['auth']['state']}",
         "youtube_upload never prints secret values and never calls the API",
         "an API key alone is not upload authorization",
+        "a junk export/master.mp4 is not a master",
     ]
     for c in report["checks"]:
         mark = "PASS" if c["ok"] else "FAIL"
