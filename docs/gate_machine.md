@@ -1,7 +1,7 @@
 # Gate machine drop
 
 This page is the copy-paste path for putting Selected VO on the machine that runs gates.
-It is not a new tool. It does not synthesize audio. It does not upload.
+It is not a new tool. It does not synthesize audio inside the repo. It does not upload.
 
 ## Why this page exists
 Q1 paperwork is done. Status is `ready_for_vo`. Audio is gitignored.
@@ -23,15 +23,46 @@ recording replaces it.
 
 ```bash
 PACKET=videos/002-stop-deciding-what-to-work-on-every-morning
+DROP="$PACKET/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav"
 mkdir -p "$PACKET/vo"
 python3 tools/narration_adapter.py "$PACKET" --print-words > /tmp/q1-words.txt
-# Speak /tmp/q1-words.txt with a microphone or any local TTS you already have.
-# Save the result ONLY at the DROP path (wav preferred, flac ok).
+# Speak /tmp/q1-words.txt with a microphone, or use one optional TTS block below.
+# Save the result ONLY at $DROP (wav preferred, flac ok).
 python3 tools/narration_adapter.py "$PACKET"
 ```
 
 Expect `take:` to print the DROP path and `kind: generated` (or `human` if
 you recorded it). If `take: missing`, the file is in the wrong folder or empty.
+
+### Optional local TTS (already-installed tools only)
+
+These one-liners are not a repo CLI. Use at most one. They write only to `$DROP`.
+If `$DROP` already exists and is non-empty, skip this block.
+
+Already have a generated file elsewhere:
+
+```bash
+cp -n /path/to/existing-generated.wav "$DROP"
+```
+
+espeak-ng + ffmpeg (Debian/Ubuntu style; robotic but authorized as generated):
+
+```bash
+command -v espeak-ng >/dev/null && command -v ffmpeg >/dev/null && \
+  espeak-ng -f /tmp/q1-words.txt -w /tmp/q1-espeak.wav && \
+  ffmpeg -y -i /tmp/q1-espeak.wav -ac 1 -ar 44100 -sample_fmt s16 "$DROP"
+```
+
+macOS `say` + ffmpeg:
+
+```bash
+command -v say >/dev/null && command -v ffmpeg >/dev/null && \
+  say -f /tmp/q1-words.txt -o /tmp/q1-say.aiff && \
+  ffmpeg -y -i /tmp/q1-say.aiff -ac 1 -ar 44100 -sample_fmt s16 "$DROP"
+```
+
+After any of those, keep `vo_origin.md` `kind: generated`. Do not describe the
+file as a human recording. Do not commit it.
 
 Then, still on that machine:
 
@@ -52,3 +83,4 @@ INCOMPLETE_MEDIA until VO + cards exist. Do not write a dummy `export/master.mp4
 ## Agent sandbox
 This page does not authorize committing audio from an agent workspace.
 A wav that exists only in a disposable sandbox is not gate-machine Selected VO.
+Do not add a TTS wrapper under `tools/`.

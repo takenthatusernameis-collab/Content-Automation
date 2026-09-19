@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-19T22:20:00Z — Run 229
+
+- **Objective:** Reduce remaining operator invention of a local TTS command without adding a 95th adapter.
+- **Inspected:** STATE, NEXT, ROADMAP, OPERATOR_HOLD, FAILURES, gate_machine, human_session, narration_adapter. Confirmed `--print-words` exists on HEAD. Confirmed `tools/vo_session.py` exists. Q1 still `ready_for_vo`. No git-visible Selected VO.
+- **Action taken:** Extended `docs/gate_machine.md` with optional already-installed TTS one-liners that write only to the packet DROP path (cp existing file, espeak-ng+ffmpeg, macOS say+ffmpeg). Did not add a TTS CLI under tools/. Did not invent a wav or mp4. Did not retry HTTPS clone. Did not scaffold Q2.
+- **Result:** Operator can paste a TTS command instead of designing one. Automated steps stay 94. Videos produced stay 0. Estimated human minutes 4.7 → 4.6.
+- **Verification status:** File API commit of gate_machine.md and state pages. Commands themselves were not executed (no gate-machine checkout; HTTPS clone parked). espeak-ng/say/ffmpeg presence on the operator machine is unverified.
+- **Important discovery:** The drop page after Run 228 still said "any local TTS you already have" with no command. That leftover invention step can stall the authorized generated fallback even when espeak-ng or say is already installed.
+- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics.
+- **Recommended next action:** On the gate machine, follow `docs/gate_machine.md` including one optional TTS block if needed. Do not add a TTS wrapper. Do not write a dummy mp4. Do not git add -f. Do not scaffold Q2.
+
 ## 2026-09-19T21:10:00Z — Run 228
 
 - **Objective:** Reduce operator reconstruction of the Selected VO drop step without adding a 95th adapter.
