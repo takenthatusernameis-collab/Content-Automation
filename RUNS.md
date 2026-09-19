@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-19T01:15:00Z — Run 214
+
+- **Objective:** After narration adapter, add the next reusable production capability: deterministic local card generation from assets.md.
+- **Inspected:** HEAD after Run 213. Q1 still ready_for_vo, no git-visible take. Roadmap item 58 (card/visual generator) was NOT_BUILT. assets.md lists 7 planned cards. pngs already gitignored.
+- **Action taken:** Added `tools/card_generator.py` (parse assets table, 1920x1080 text-card and vs-diagram render via Pillow, inspect, optional manifest, optional mark-ready). Verified locally on a 3-row fixture: three valid 1920x1080 PNGs. Did not commit binaries. Did not bump Q1 status. Did not scaffold Q2.
+- **Result:** Visual/card generator moved from NOT_BUILT to READY_FOR_MEDIA. Human-minute estimate 10 → 8. Automated steps 86 → 87.
+- **Verification status:** Local fixture render PASS (3/3, 1920x1080 RGB). Live Q1 cards not written on a persistent gate machine (no repo checkout). selftest card-parse check added in working copy; full fixture selftest not executed against HEAD in this sandbox.
+- **Important discovery:** Card generation does not need VO on disk. It was the highest-leverage unblocked step that reduces recurring human labor across every future packet.
+- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. Pillow must be present on the gate machine to render.
+- **Recommended next action:** On the gate machine, drop the selected take and run narration_adapter + card_generator. Do not `git add -f`. Do not upload. Do not scaffold Q2.
+
 ## 2026-09-19T00:10:00Z — Run 213
 
 - **Objective:** After the 24-hour selected-VO deadline, perform the allowed labeled fallback and the smallest missing capability increment (narration adapter).

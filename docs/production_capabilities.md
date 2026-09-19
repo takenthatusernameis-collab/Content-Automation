@@ -24,6 +24,7 @@ A video is not considered “completed” merely because its text packet passes.
 - card dimensions and readable text validation
 - optional B-roll adapter that is never required for basic completion
 - asset provenance recorded for anything externally sourced
+- local generator: `tools/card_generator.py` (READY_FOR_MEDIA; Pillow; gitignored PNGs)
 
 ### 4. Assembly / rendering
 - deterministic timeline construction from selected VO, cards, captions, and optional music/SFX

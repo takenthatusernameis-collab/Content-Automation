@@ -3,6 +3,7 @@
 ## Next (assisted production)
 31-51cg. Prior write-path / DROP / packet work — **done (Runs 027-137)**
 51ch. Narration adapter (WORDS extract, wav inspect, vo_origin sidecar) + labeled generated fallback after 24h deadline — **done (Run 213; READY_FOR_MEDIA)**
+51ci. Deterministic local card generator from assets.md — **done (Run 214; READY_FOR_MEDIA)**
 
 ## Later (automation)
 52. Human override of heuristic Primary (optional; already locked)
@@ -22,11 +23,12 @@
 - Force-adding ignored media to flip presence rows
 - Describing generated VO as a human recording
 - Re-implementing selected_vo_drop in a second module
+- Committing generated card PNGs
 
 ## End-to-end automation buildout
 
 57. **Narration adapter** — READY_FOR_MEDIA (Run 213). Remaining: on-disk take + loudness/silence checks.
-58. **Card/visual generator** — NOT_BUILT
+58. **Card/visual generator** — READY_FOR_MEDIA (Run 214). Remaining: run on gate machine; do not commit pngs.
 59. **Render/assembly pipeline** — NOT_BUILT
 60. **Full media QA gate** — NOT_BUILT
 61. **Credential-ready YouTube uploader** — contract only

@@ -30,6 +30,18 @@ Heuristic only. A human may retype the Type cell.
 - `dropped` — VISUAL line will not get a card
 
 `tools/asset_brief.py` always writes `planned`. It does not mark ready.
+`tools/card_generator.py` writes local PNGs. It marks ready only with `--mark-ready` after files exist.
+
+## Generate locally
+
+Requires Pillow. Does not commit PNGs.
+
+```bash
+python3 tools/card_generator.py PATH --write-manifest
+python3 tools/card_generator.py PATH --inspect-only
+```
+
+`--mark-ready` only after inspect-only reports every planned file `yes` at 1920x1080.
 
 ## Editor tracks
 Match `docs/editor.md`:
