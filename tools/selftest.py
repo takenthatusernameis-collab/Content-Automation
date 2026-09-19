@@ -29,6 +29,7 @@ from pipeline_status import inspect  # noqa: E402
 from set_status import check as status_check, is_fixture  # noqa: E402
 from validate_packet import packet_duration_warning, validate  # noqa: E402
 from youtube_feedback import inspect_feedback  # noqa: E402
+from youtube_upload import inspect_upload  # noqa: E402
 
 # Printers that must reuse render_brief.selected_vo_drop, not a second builder.
 DROP_IMPORTERS = (
@@ -199,6 +200,43 @@ def check_assemble_fail_closed() -> list[str]:
     return failures
 
 
+def check_upload_fail_closed() -> list[str]:
+    failures: list[str] = []
+    with tempfile.TemporaryDirectory() as tmp:
+        p = Path(tmp)
+        (p / "publish.md").write_text(
+            "## Title to upload\n\nFixture title\n\n"
+            "## Description\n\nTwelve words here so the description check can pass easily.\n\n"
+            "## Tags\n\n- fixture\n",
+            encoding="utf-8",
+        )
+        report = inspect_upload(p, env={})
+        if report["gate"] != "FAIL":
+            failures.append(f"upload must FAIL without a master, got {report['gate']}")
+        if report["action"] != "HOLD_LOCAL":
+            failures.append(f"upload without master must HOLD_LOCAL, got {report['action']}")
+        if report.get("export_present"):
+            failures.append("upload export_present must be false without a master")
+        names = {c["name"]: c["ok"] for c in report["checks"]}
+        if names.get("master_export_present"):
+            failures.append("upload master_export_present must be false without export/master.mp4")
+        (p / "export").mkdir()
+        (p / "export" / "master.mp4").write_bytes(b"junk-not-mp4")
+        report2 = inspect_upload(p, env={})
+        if report2["gate"] != "FAIL":
+            failures.append(f"upload must FAIL on junk master.mp4, got {report2['gate']}")
+        if report2["action"] != "HOLD_LOCAL":
+            failures.append(f"junk master must stay HOLD_LOCAL, got {report2['action']}")
+        if report2.get("export_present"):
+            failures.append("upload export_present must stay false on junk ftyp")
+        names2 = {c["name"]: c["ok"] for c in report2["checks"]}
+        if names2.get("master_export_present"):
+            failures.append("upload master_export_present must stay false on junk ftyp")
+        if report2["gate"] in {"READY", "YOUTUBE_AUTH_REQUIRED"}:
+            failures.append("junk master must not look credential-ready or upload-READY")
+    return failures
+
+
 def check_feedback_fail_closed() -> list[str]:
     failures: list[str] = []
     with tempfile.TemporaryDirectory() as tmp:
@@ -211,7 +249,7 @@ def check_feedback_fail_closed() -> list[str]:
         if report["action"] != "DRY_RUN":
             failures.append(f"feedback default action must be DRY_RUN, got {report['action']}")
         with_id = p / "upload_state.json"
-        with_id.write_text('{"provider_video_id": "abc123"}\n', encoding="utf-8")
+        with_id.write_text('{\"provider_video_id\": \"abc123\"}\n', encoding="utf-8")
         report2 = inspect_feedback(p, env={})
         if report2["gate"] != "YOUTUBE_AUTH_REQUIRED":
             failures.append(f"feedback with video id and no OAuth must be YOUTUBE_AUTH_REQUIRED, got {report2['gate']}")
@@ -243,7 +281,7 @@ def check_experiment_fail_closed() -> list[str]:
         if rec.get("decision") != "pending":
             failures.append(f"experiment decision must stay pending, got {rec.get('decision')}")
         (p / "upload_state.json").write_text(
-            '{"provider_video_id": "abc123"}\n', encoding="utf-8"
+            '{\"provider_video_id\": \"abc123\"}\n', encoding="utf-8"
         )
         report2 = inspect_experiment(p, env={})
         if report2["gate"] != "HOLD_NO_EVIDENCE":
@@ -282,7 +320,7 @@ def check_complete_fail_closed() -> list[str]:
         if names.get("master_export_present"):
             failures.append("complete master_export_present must be false without export/master.mp4")
         (p / "upload_state.json").write_text(
-            '{"provider_video_id": "abc123"}\n', encoding="utf-8"
+            '{\"provider_video_id\": \"abc123\"}\n', encoding="utf-8"
         )
         (p / "export").mkdir()
         (p / "export" / "master.mp4").write_bytes(b"junk-not-mp4")
@@ -371,6 +409,7 @@ def main() -> int:
     failures.extend(check_words_extract())
     failures.extend(check_media_qa_fail_closed())
     failures.extend(check_assemble_fail_closed())
+    failures.extend(check_upload_fail_closed())
     failures.extend(check_feedback_fail_closed())
     failures.extend(check_experiment_fail_closed())
     failures.extend(check_complete_fail_closed())
