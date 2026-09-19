@@ -9,6 +9,7 @@ contracts instead of leaving runtime unverified.
 from __future__ import annotations
 
 import sys
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -18,6 +19,7 @@ if str(TOOLS) not in sys.path:
 
 from apply_script import check as apply_check  # noqa: E402
 from hint import commands_for  # noqa: E402
+from media_qa import inspect_media  # noqa: E402
 from narration_adapter import extract_words  # noqa: E402
 from next_action import recommend  # noqa: E402
 from pipeline_status import inspect  # noqa: E402
@@ -32,6 +34,7 @@ DROP_IMPORTERS = (
     "qa_checklist.py",
     "vo_session.py",
     "narration_adapter.py",
+    "media_qa.py",
 )
 
 
@@ -118,6 +121,29 @@ def check_words_extract() -> list[str]:
     return []
 
 
+def check_media_qa_fail_closed() -> list[str]:
+    failures: list[str] = []
+    with tempfile.TemporaryDirectory() as tmp:
+        p = Path(tmp)
+        (p / "script.md").write_text(
+            "# Script\n\n## Hook\nWORDS:\nHello there world.\n\nVISUAL:\n*x*\n",
+            encoding="utf-8",
+        )
+        (p / "assets.md").write_text(
+            "| Beat | Type | File | Status |\n|---|---|---|---|\n| Hook | text-card | cards/hook-x.png | planned |\n",
+            encoding="utf-8",
+        )
+        report = inspect_media(p)
+        if report["gate"] != "FAIL":
+            failures.append(f"media_qa must FAIL without media, got {report['gate']}")
+        names = {c["name"]: c["ok"] for c in report["checks"]}
+        if names.get("selected_vo_present"):
+            failures.append("selected_vo_present must be false without a take")
+        if names.get("ready_to_assemble"):
+            failures.append("ready_to_assemble must be false without media")
+    return failures
+
+
 def main() -> int:
     path = sample_packet()
     failures: list[str] = []
@@ -190,6 +216,7 @@ def main() -> int:
 
     failures.extend(check_selected_vo_drop_lock())
     failures.extend(check_words_extract())
+    failures.extend(check_media_qa_fail_closed())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")

@@ -3,6 +3,7 @@
 Face-free explainer. Naming and export only. No ffmpeg profile yet.
 Timing lock: `docs/format.md`.
 Cut list: `tools/timeline.py` (WORDS clock, not a recipe).
+Media gate: `tools/media_qa.py` (fail-closed; no ffmpeg).
 
 ## Project name
 `NNN-slug` matching the packet folder.
@@ -36,9 +37,11 @@ Follow `docs/format.md` and the packet `timeline.md` when present.
 ```bash
 python3 tools/timeline.py PATH --dry-run
 python3 tools/timeline.py PATH --write
+python3 tools/media_qa.py PATH
 ```
 
 `--write` refreshes `timeline.md`. It does not render a master.
+`media_qa.py` prints FAIL until the packet-relative take and 1920x1080 cards exist.
 
 ## Export
 - File: `exports/NNN-slug-vN.mp4`
@@ -52,11 +55,12 @@ Operator copy lives in `docs/human_session.md` step 6. Q1 names are the Suggeste
 ```bash
 python3 tools/card_generator.py PATH --write-manifest
 python3 tools/timeline.py PATH --write
+python3 tools/media_qa.py PATH
 python3 tools/render_brief.py PATH --force
 python3 tools/qa_checklist.py PATH --force
 ```
 
-Do not commit pngs. Do not invent files to flip presence rows. Do not add an ffmpeg recipe until `timeline.py` prints ready_to_assemble=yes.
+Do not commit pngs. Do not invent files to flip presence rows. Do not add an ffmpeg recipe until `timeline.py` prints ready_to_assemble=yes and `media_qa.py` prints gate PASS.
 
 ## Out of scope
 Do not add an ffmpeg recipe until VO + card assets exist for one packet and the timeline gate is yes.

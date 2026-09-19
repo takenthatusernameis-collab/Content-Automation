@@ -33,14 +33,15 @@ A video is not considered “completed” merely because its text packet passes.
 - last 20 seconds reserved for YouTube end-screen elements
 - render verification: file opens, duration is plausible, video/audio streams exist, no missing frame/audio stream, and expected packet fingerprint is recorded
 - master export must remain local / outside Git unless the repository later chooses an artifact store
-- ffmpeg export stays NOT_BUILT until timeline ready_to_assemble=yes on a real packet
+- ffmpeg export stays NOT_BUILT until timeline ready_to_assemble=yes and media_qa PASS on a real packet
 
 ### 5. QA
 - packet gate: script, status, metadata, selected VO, cards, export
-- media gate: audio/video decode and technical checks
+- media gate: `tools/media_qa.py` (READY_FOR_MEDIA; fail-closed VO header + 1920x1080 PNG IHDR + assembly readiness; no ffmpeg; no status bump)
 - content-quality gate: anti-slop/originality/read-aloud review
 - factual-claim gate: every consequential number or factual assertion has a source or is rewritten qualitatively
 - publish gate must fail closed on any missing prerequisite
+- a named export path is not a completed master
 
 ### 6. YouTube publishing
 - metadata mapping from publish.md
