@@ -19,10 +19,12 @@
 | 2026-09-19 Run 224 | ~5.0 estimate | 94 | media_qa/assemble/complete reject junk export/master.mp4 without ftyp |
 | 2026-09-19 Run 225 | ~4.9 estimate | 94 | youtube_upload rejects junk export/master.mp4 without ftyp |
 | 2026-09-19 Run 226 | ~4.8 estimate | 94 | selftest locks youtube_upload junk-master FAIL/HOLD_LOCAL |
+| 2026-09-19 Run 227 | ~4.8 estimate | 94 | freeze honor; no new adapter; treadmill flagged |
 
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 227: No new printer. Recorded that further dry-run adapters before on-disk Selected VO are the 213–226 treadmill, not SHIP progress. NEXT.md item 78 forbids extra fixtures unless a HEAD regression is proven.
 - Run 226: `tools/selftest.py` imports `inspect_upload` and runs `check_upload_fail_closed()` from `main()`. A junk export/master.mp4 must stay FAIL / HOLD_LOCAL / master_export_present false. No new adapter. No invented master.
 - Run 225: `tools/youtube_upload.py` requires `media_qa.mp4_header_ok` before master_export_present. A size>0 junk file stays HOLD_LOCAL and is not fingerprinted as a master. No new adapter. No invented master.
 - Run 224: `tools/media_qa.py` reports export_present / export_decodable from a stdlib ISO BMFF ftyp sniff. Hard-gated only when an export file exists. `assemble.py` no longer treats size>0 as EXPORT_EXISTS. `complete.py` requires ftyp before master_export_present. Selftest writes a junk mp4 and asserts FAIL / not EXPORT_EXISTS / master_export_present false. No new adapter. No invented master.
