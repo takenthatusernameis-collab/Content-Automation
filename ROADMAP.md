@@ -11,6 +11,7 @@
 51cn. Fail-closed YouTube feedback collector — **done (Run 219; READY_FOR_CREDENTIAL)**
 51co. Fail-closed experiment ledger — **done (Run 220; PLAN_BUILT)**
 51cp. Fail-closed completion gate — **done (Run 221; PLAN_BUILT)**
+51cq. HEAD selftest lock for experiment_loop.py + complete.py — **done (Run 222)**
 
 ## Later (automation)
 52. Human override of heuristic Primary (optional; already locked)
@@ -42,6 +43,7 @@
 - Treating a pending experiment record as a keep/discard
 - Treating complete.py INCOMPLETE_* as a completed video
 - Adding another dry-run adapter before the first on-disk Selected VO
+- Claiming a selftest lock is on HEAD when DROP_IMPORTERS still omits the printer
 
 ## End-to-end automation buildout
 
@@ -51,5 +53,5 @@
 60. **Full media QA gate** — READY_FOR_MEDIA (Run 216 media_qa.py). Remaining: live VO/card files on the gate machine; loudness/silence; export decode after ffmpeg exists.
 61. **Credential-ready YouTube uploader** — READY_FOR_CREDENTIAL (Run 217 youtube_upload.py). Remaining: local master + OAuth env; live videos.insert still NOT_BUILT.
 62. **YouTube feedback ingestion** — READY_FOR_CREDENTIAL (Run 219 youtube_feedback.py). Remaining: published video ID + OAuth env; live Analytics/comment fetch still NOT_BUILT.
-63. **Experiment/improvement loop** — PLAN_BUILT (Run 220 experiment_loop.py). Remaining: real metrics + documented baseline before keep/discard. Selftest lock added Run 221.
-64. **Completion gate** — PLAN_BUILT (Run 221 complete.py). Remaining: real VO, cards, master, publish ID, metrics, and experiment result before COMPLETE.
+63. **Experiment/improvement loop** — PLAN_BUILT (Run 220 experiment_loop.py). Remaining: real metrics + documented baseline before keep/discard. Selftest lock on HEAD (Run 222).
+64. **Completion gate** — PLAN_BUILT (Run 221 complete.py). Remaining: real VO, cards, master, publish ID, metrics, and experiment result before COMPLETE. Selftest lock on HEAD (Run 222).

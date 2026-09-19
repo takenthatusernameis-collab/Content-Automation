@@ -31,3 +31,4 @@ Do these in order. Stop if a step needs a human decision that is not present.
 71. Do **not** treat empty feedback metrics as collected audience evidence.
 72. Do **not** treat a pending experiment_loop record as a keep/discard result.
 73. Do **not** treat `complete.py` INCOMPLETE_* as a reason to invent media, an upload, metrics, or a result.
+74. Do **not** claim a selftest lock is on HEAD unless `DROP_IMPORTERS` in `tools/selftest.py` includes the new printer and a fail-closed fixture is called from `main()`.
