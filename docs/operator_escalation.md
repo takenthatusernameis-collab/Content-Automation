@@ -35,9 +35,14 @@ The daily check must not rewrite `STATE.md`, `NEXT.md`, prompts, logs, or docume
 
 ## Current Q1 request
 
-The current Q1 selected-VO intervention request was opened on 2026-09-18. The generated VO supplied by the operator is a permitted machine-generated fallback under this policy, but it must not be silently represented as a human recording.
+- `requested_at_utc`: 2026-09-18T00:00:00Z
+- `reason`: selected VO file missing at the packet-relative DROP path
+- `deadline_at_utc`: 2026-09-19T00:00:00Z
+- `allowed_resolution`: generated VO labeled generated; narration adapter + `vo_origin.md` sidecar; do not commit audio; do not bump `ready_for_edit` without an on-disk take
+- `resolved_at_utc`: 2026-09-19T00:10:00Z (Run 213)
+- `resolution`: `tools/narration_adapter.py` added; Q1 `vo_origin.md` set to `kind: generated`. Workspace TTS artifact was not committed.
 
-Do not retroactively treat earlier hold cycles as new requests. The 24-hour clock starts from the latest explicit manual-intervention request.
+Do not retroactively treat earlier hold cycles as new requests.
 
 ## Permission boundary
 

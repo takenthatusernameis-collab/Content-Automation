@@ -1,9 +1,12 @@
 # OPERATOR HOLD
 
-> Escalation policy: `docs/operator_escalation.md`. A newly requested human gate is not indefinite; after 24 hours the daily unstick agent may perform the explicitly allowed repository-side fallback. Before that deadline, remain read-only on the blocker.
+> Escalation policy: `docs/operator_escalation.md`.
 
-Q1 is blocked on a real human-selected VO file. Until that file exists at the packet-relative path named by `selected_vo_drop`, automation must not make further repository changes merely to appear productive.
+The 24-hour selected-VO request dated 2026-09-18 elapsed at 2026-09-19T00:00:00Z.
+Generated narration is now the authorized fallback. It must stay labeled generated.
 
-Do not keep aligning documentation, adding guards, rewriting prompts, creating wrapper CLIs, or scaffolding Q2. Only change the repository when the selected VO is supplied, the blocker materially changes, or a genuine regression prevents the already-defined next action.
+Q1 still has no git-visible Selected VO file. Audio remains gitignored. Do not `git add -f` a take. Do not bump status past `ready_for_vo` unless a packet-relative take exists on the machine running the gates.
 
-Do not invent a WAV or advance Q1 beyond `ready_for_vo` without the real file.
+Do not keep aligning documentation, adding guards, rewriting prompts, creating wrapper CLIs, or scaffolding Q2 unless a genuine regression blocks the next action.
+
+A human take at the packet-relative DROP path may replace the generated fallback. Update `vo_origin.md` to `kind: human` only when that file is real.
