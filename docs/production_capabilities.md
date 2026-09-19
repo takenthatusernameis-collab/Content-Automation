@@ -18,7 +18,7 @@ Local printer: `tools/complete.py` (PLAN_BUILT; fail-closed). Markdown-only pack
 ### 2. Narration
 - one pluggable narration adapter supporting either a human recording or explicitly authorized generated narration
 - WAV/FLAC validation: decodable audio, expected sample rate/bit depth/channels, non-zero duration, no empty file
-- loudness/silence/ clipping checks before assembly
+- loudness/silence/clipping checks before assembly (`tools/media_qa.py` vo_peak / vo_rms / vo_silence / vo_clip; hard-gated when a WAV decodes)
 - generated narration must be recorded as generated in packet state and never described as human-recorded
 
 ### 3. Visual assets
@@ -40,7 +40,7 @@ Local printer: `tools/complete.py` (PLAN_BUILT; fail-closed). Markdown-only pack
 
 ### 5. QA
 - packet gate: script, status, metadata, selected VO, cards, export
-- media gate: `tools/media_qa.py` (READY_FOR_MEDIA; fail-closed VO header + 1920x1080 PNG IHDR + assembly readiness; no ffmpeg; no status bump)
+- media gate: `tools/media_qa.py` (READY_FOR_MEDIA; fail-closed VO header + PCM levels + 1920x1080 PNG IHDR + assembly readiness; no ffmpeg; no status bump)
 - completion gate: `tools/complete.py` (PLAN_BUILT; fail-closed evidence rollup; no writes; no APIs)
 - content-quality gate: anti-slop/originality/read-aloud review
 - factual-claim gate: every consequential number or factual assertion has a source or is rewritten qualitatively
