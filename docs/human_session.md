@@ -5,6 +5,7 @@ One page. Follow this instead of scanning `tools/`.
 `videos/sample-001-*` is a fixture. Never apply WORDS to it. Never promote it.
 
 Agents without a checkout: `docs/agent_session.md`.
+Copy-paste drop recipe on the gate machine: `docs/gate_machine.md`.
 
 ## Live job (do this first)
 
@@ -14,7 +15,8 @@ Q1 is already scaffolded. Status is `ready_for_vo`. Text paperwork is done.
 - Reading card: that packet's `vo_session.md` (952 words, ~06:21)
 - Put the selected take here: `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
 - Repo-root `vo/` is not Selected VO. `.gitignore` keeps the take local. Do not `git add -f` it.
-- After the file exists: steps 5–7 below. Do not invent a wav. Do not scaffold Q2.
+- Generated local audio at that DROP path is the authorized fallback after `2026-09-19T00:00:00Z`. Keep `vo_origin.md` kind=generated. Follow `docs/gate_machine.md`.
+- After the file exists: steps 5–7 below. Do not invent a wav in git. Do not scaffold Q2.
 
 Do not start this session at `doctor.py` / `queue_status.py` / `new_packet.py`. Those commands are for a *new* packet. The remaining human gate is the named take.
 
@@ -120,9 +122,9 @@ python3 tools/set_status.py videos/002-stop-deciding-what-to-work-on-every-morni
 python3 tools/vo_session.py videos/002-stop-deciding-what-to-work-on-every-morning
 ```
 
-Then record the selected take at the named packet-relative path in `vo_session.md`. Do not invent a wav. Do not write an ffmpeg recipe.
+Then record the selected take at the named packet-relative path in `vo_session.md`. Do not invent a wav in git. Do not write an ffmpeg recipe.
 
-5. After the selected take exists (do not invent the file)
+5. After the selected take exists (do not invent the file in git)
 
 Canonical Selected VO for Q1 (packet-relative; this is what `render_brief` / `set_status` look for):
 
@@ -132,7 +134,7 @@ A file at repo-root `vo/` is not Selected VO. Tools only check inside the packet
 
 `.gitignore` keeps `videos/**/vo/**/*.{wav,flac}` and `videos/**/cards/**/*.png` out of git. Presence tools still see local files. Do not `git add -f` media to flip rows.
 
-Read `videos/002-stop-deciding-what-to-work-on-every-morning/vo_session.md` and `docs/narration.md`. Record or generate locally. Keep large raw takes out of git.
+Read `videos/002-stop-deciding-what-to-work-on-every-morning/vo_session.md`, `docs/narration.md`, and `docs/gate_machine.md`. Record or generate locally. Keep large raw takes out of git.
 
 When that file is on disk:
 
@@ -185,7 +187,7 @@ If unsure of the next command after any step, re-run `python3 tools/doctor.py vi
 - Do not expand while idea.md still says `template-default` / generic or blank mechanism.
 - Do not treat start-of-session `queue_status.py` / `next_topic.py` as mark_topic-only after a folder exists; they print idea_brief --block / paste / --check.
 - Do not ignore the Target column on an empty first draft.
-- Do not invent a selected wav or treat TTS as selected unless a human names that policy.
+- Do not invent a selected wav in git. Generated local audio at the packet DROP path is authorized after the 2026-09-19T00:00:00Z deadline; keep kind=generated and do not describe it as a human recording.
 - Do not place Selected VO at repo-root `vo/`; tools only see `videos/NNN-slug/vo/`.
 - Do not bump `ready_for_edit` without the named take on disk.
 - Do not commit card binaries to make assets.md or render.md look ready.
