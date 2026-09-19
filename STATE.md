@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-18T23:23:00Z (Run 212)
+Updated: 2026-09-19T00:10:00Z (Run 213)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected VO path locked packet-relative + printers/gates/render.md/vo_session.md/qa.md/captions.md/editor.md/format.md/narration.md DROP agree via render_brief.selected_vo_drop + selftest DROP-import lock (hint + format + narration pages) -> automated -> self-improving
+manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected VO path locked packet-relative + narration adapter (WORDS extract / wav inspect / vo_origin sidecar) + labeled generated fallback authorized after 24h deadline -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -14,39 +14,35 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - No published videos
 - HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
-- script.md 952 IN BAND; status `ready_for_vo`; selected take missing
-- Run 212: honored `OPERATOR_HOLD.md`. No new CLI. No wav invented. No status bump. No Q2. No further DROP/selftest/page alignment. Did not use Voice TTS as a selected take.
-- Escalation clock: Q1 selected-VO request dated 2026-09-18; Run 212 is still the same calendar day in UTC (~23:23Z), so the 24-hour fallback is not eligible yet. Generated VO remains a labeled fallback only after deadline.
+- script.md 952 IN BAND; status `ready_for_vo`; selected take not in git
+- Run 213: 24-hour VO request elapsed at 2026-09-19T00:00:00Z. Added `tools/narration_adapter.py`. Wrote Q1 `vo_origin.md` with `kind: generated`. Synthesized a workspace-only MP3 of Q1 WORDS (~5.1MB); not committed. No status bump. No Q2. No wav force-add.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
-- End-to-end capability contract added: narration -> visuals -> render/assembly -> media QA -> YouTube OAuth/upload -> Analytics/comments -> experiment loop. These capabilities are not yet all BUILT.
-- Executive trajectory decision: SHIP the first completed video before adding further broad architecture. Daily manager review uses docs/executive_manager.md.
+- Executive trajectory decision: SHIP the first completed video before adding further broad architecture.
 
-## What exists now (after Run 212)
+## What exists now (after Run 213)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
-- vo_session.md ready-to-record; named take missing; header DROP matches board/gate
+- vo_session.md ready-to-record; named take missing from git
+- vo_origin.md kind=generated (labeled fallback)
 - captions.md stub with DROP; assets.md 7 planned cards; publish.md stub
-- qa.md mechanical PASS; notes name DROP; human VO box unchecked
+- qa.md mechanical PASS; human VO box unchecked
 - render.md all-missing plus DROP line
 - packet.md status `ready_for_vo`
-- editor.md, format.md, and narration.md name packet-relative DROP for the VO track
-- Human still must record selected VO and build cards locally
 - Queue Q1 used; Q2-Q5 queued
-- OPERATOR_HOLD is active until a real selected take exists at the packet-relative path
-- Packet listing has no `vo/` directory (14 markdown files only); repo-wide wav/flac search is empty
+- Packet listing has no committed `vo/` audio
 
 ## Pipeline map
-Next live command: record selected VO at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`. Do not invent a wav. Do not drop it at repo-root `vo/`. Do not `git add -f` it. Do not upload. Do not scaffold Q2.
+Next live command: place a packet-relative take (human or generated) at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav` on the machine that runs gates. Then `python3 tools/narration_adapter.py PATH` and `python3 tools/vo_session.py PATH --force`. Do not invent a committed wav. Do not `git add -f`. Do not upload. Do not scaffold Q2.
 
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 11 | 11 | hold; no new lock |
-| Automated steps | 85 | 85 | unchanged |
-| Videos produced | 0 | 0 | ready_for_vo; no selected take |
+| Estimated human min / video | 11 | 10 | generated fallback authorized; human VO optional |
+| Automated steps | 85 | 86 | narration_adapter.py |
+| Videos produced | 0 | 0 | ready_for_vo; take not on gate machine |
 
 ## Capability roadmap status
 - Content/editorial gates: BUILT
-- Narration adapter: NOT_BUILT
+- Narration adapter: READY_FOR_MEDIA (extract/inspect/origin BUILT; take must exist locally)
 - Visual/card generator: NOT_BUILT
 - Render/assembly: NOT_BUILT
 - Media QA: NOT_BUILT
@@ -55,10 +51,10 @@ Next live command: record selected VO at `videos/002-stop-deciding-what-to-work-
 - Experiment/improvement loop: contract BUILT; execution tooling NOT_BUILT
 
 ## Active constraints
-- Do not auto-scaffold another packet while Q1 has no VO
+- Do not auto-scaffold another packet while Q1 has no on-disk VO
 - Do not map idea_lock.py / words.py / words_contract.py / placeholder_guard.py / prove_locks.py / needed.py / idea_brief.py / idea_brief_contract.py / doctor.py
-- Do not invent a wav or bump status past ready_for_vo without Selected VO on disk
+- Do not invent a committed wav or bump status past ready_for_vo without Selected VO on disk
 - Do not treat repo-root `vo/` as Selected VO
+- Do not describe generated VO as a human recording
 - Do not add another wrapper CLI, WAVE 4, or Live job banner unless a first-contact lie is proven
 - Do not re-split selected_vo_drop into a second string builder
-- Do not resume documentation alignment while OPERATOR_HOLD is active
