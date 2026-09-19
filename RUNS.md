@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-19T06:06:00Z — Run 219
+
+- **Objective:** After the assemble planner, add the next reusable production capability that does not require on-disk VO: a fail-closed YouTube feedback collector.
+- **Inspected:** HEAD after Run 218. Q1 still ready_for_vo, no git-visible take. Roadmap item 62 was NOT_BUILT. youtube_integration.md already specified Analytics + commentThreads fail-closed at YOUTUBE_AUTH_REQUIRED.
+- **Action taken:** Added `tools/youtube_feedback.py`. Reads packet `upload_state.json` for provider_video_id. Missing ID = HOLD_UNPUBLISHED. Missing OAuth = YOUTUBE_AUTH_REQUIRED. Builds a 7-day observation window and a dry-run Analytics/comments plan. Metrics stay None. Optional redacted feedback_state.json. Imports `selected_vo_drop`. Locked into selftest DROP importers + fail-closed fixture (no id / id+no auth / id+auth offline).
+- **Result:** Feedback ingestion moved from NOT_BUILT to READY_FOR_CREDENTIAL. Human-minute estimate 5.5 → 5.4. Automated steps 91 → 92.
+- **Verification status:** Isolated inspect_feedback checks encoded in selftest. Full packet selftest against HEAD not executed in this sandbox (no clone). Live Analytics fetch not attempted.
+- **Important discovery:** The feedback layer can be specified and fail-closed before a video is published. That keeps credentials and a real video ID as the last bottlenecks instead of a missing collector.
+- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id.
+- **Recommended next action:** On the gate machine, drop the selected take, generate cards, write timeline.md, run media_qa, then assemble.py without `--execute`. Do not upload. Do not invent metrics. Do not `git add -f`. Do not scaffold Q2.
+
 ## 2026-09-19T05:17:00Z — Run 218
 
 - **Objective:** After the dry-run uploader, add the missing encode planner so a gate machine can assemble without inventing an ffmpeg command by hand.

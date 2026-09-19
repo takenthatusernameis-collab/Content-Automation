@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-19T05:17:00Z (Run 218)
+Updated: 2026-09-19T06:06:00Z (Run 219)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected VO path locked packet-relative + narration adapter + labeled generated fallback + local card generator + WORDS timeline planner + fail-closed media QA + credential-ready dry-run uploader + fail-closed ffmpeg assemble planner -> automated -> self-improving
+manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected VO path locked packet-relative + narration adapter + labeled generated fallback + local card generator + WORDS timeline planner + fail-closed media QA + credential-ready dry-run uploader + fail-closed ffmpeg assemble planner + fail-closed feedback collector -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -15,11 +15,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - script.md 952 IN BAND; status `ready_for_vo`; selected take not in git
-- Run 218: added `tools/assemble.py`. Builds an ffmpeg argv from timeline + media_qa. Default is dry-run. `--execute` refused unless media_qa PASS, ready_to_assemble=yes, and ffmpeg on PATH. Never invents media. Never bumps status.
+- Run 219: added `tools/youtube_feedback.py`. Reads upload_state.json for provider_video_id. Missing video ID is HOLD_UNPUBLISHED. Missing OAuth is YOUTUBE_AUTH_REQUIRED. Never invents metrics. Never calls Analytics or comment APIs.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 - Executive trajectory decision: SHIP the first completed video before adding further broad architecture.
 
-## What exists now (after Run 218)
+## What exists now (after Run 219)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
 - vo_session.md ready-to-record; named take missing from git
 - vo_origin.md kind=generated (labeled fallback)
@@ -32,6 +32,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Card generator READY_FOR_MEDIA; timeline planner READY_FOR_MEDIA; media QA READY_FOR_MEDIA
 - YouTube uploader READY_FOR_CREDENTIAL and READY_FOR_MEDIA (dry-run; no master export; no OAuth)
 - Assembler PLAN_BUILT / READY_FOR_MEDIA (recipe exists; encode still gated)
+- Feedback collector READY_FOR_CREDENTIAL (dry-run; HOLD_UNPUBLISHED until a provider video ID exists)
 
 ## Pipeline map
 On the machine that runs gates:
@@ -41,13 +42,14 @@ On the machine that runs gates:
 4. `python3 tools/timeline.py PATH --write` then `python3 tools/media_qa.py PATH`
 5. Inspect ready_to_assemble; `python3 tools/assemble.py PATH` (expect HOLD_MEDIA until VO+cards exist). Do not `--execute` until gate READY_TO_ENCODE.
 6. After a local master exists: `python3 tools/youtube_upload.py PATH` (expect `YOUTUBE_AUTH_REQUIRED` until OAuth env is set)
+7. After a real provider_video_id exists in upload_state.json: `python3 tools/youtube_feedback.py PATH` (expect HOLD_UNPUBLISHED until then; never treat empty metrics as collected feedback)
 Do not invent a committed wav. Do not upload. Do not scaffold Q2.
 
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 6 | 5.5 | assemble recipe replaces ad-hoc ffmpeg command writing |
-| Automated steps | 90 | 91 | assemble.py |
+| Estimated human min / video | 5.5 | 5.4 | feedback recipe replaces ad-hoc analytics notes |
+| Automated steps | 91 | 92 | youtube_feedback.py |
 | Videos produced | 0 | 0 | ready_for_vo; take not on gate machine |
 
 ## Capability roadmap status
@@ -57,7 +59,7 @@ Do not invent a committed wav. Do not upload. Do not scaffold Q2.
 - Render/assembly: PLAN_BUILT / READY_FOR_MEDIA (timeline + assemble recipe; encode gated)
 - Media QA: READY_FOR_MEDIA (fail-closed; WAV/PNG checks; no ffmpeg)
 - Credential-ready YouTube uploader: READY_FOR_CREDENTIAL (dry-run adapter BUILT; live videos.insert NOT_BUILT)
-- YouTube Analytics/comment feedback ingestion: NOT_BUILT
+- YouTube Analytics/comment feedback ingestion: READY_FOR_CREDENTIAL (dry-run adapter BUILT; live fetch NOT_BUILT)
 - Experiment/improvement loop: contract BUILT; execution tooling NOT_BUILT
 
 ## Active constraints
@@ -71,3 +73,4 @@ Do not invent a committed wav. Do not upload. Do not scaffold Q2.
 - Do not re-split selected_vo_drop into a second string builder
 - Do not run ffmpeg / assemble --execute before timeline ready_to_assemble=yes and media_qa gate PASS
 - Do not call YouTube APIs or print OAuth values
+- Do not invent analytics or comments

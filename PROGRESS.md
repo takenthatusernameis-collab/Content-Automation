@@ -11,10 +11,12 @@
 | 2026-09-19 Run 216 | ~6.5 estimate | 89 | media_qa.py fail-closed VO/card/assembly checks |
 | 2026-09-19 Run 217 | ~6 estimate | 90 | youtube_upload.py dry-run; YOUTUBE_AUTH_REQUIRED |
 | 2026-09-19 Run 218 | ~5.5 estimate | 91 | assemble.py dry-run ffmpeg recipe; HOLD_MEDIA without files |
+| 2026-09-19 Run 219 | ~5.4 estimate | 92 | youtube_feedback.py dry-run; HOLD_UNPUBLISHED without video id |
 
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 219: `tools/youtube_feedback.py` fail-closed analytics/comment collector. Reads upload_state.json. Missing provider_video_id is HOLD_UNPUBLISHED. Missing OAuth is YOUTUBE_AUTH_REQUIRED. Metrics stay empty. Never calls APIs. Feedback: READY_FOR_CREDENTIAL.
 - Run 218: `tools/assemble.py` fail-closed ffmpeg planner. Reuses timeline + media_qa + selected_vo_drop. Default dry-run. `--execute` only at READY_TO_ENCODE. Assembly: PLAN_BUILT / READY_FOR_MEDIA.
 - Run 217: `tools/youtube_upload.py` dry-run uploader. Parses publish.md, requires local master export, checks OAuth env without printing values, fingerprints the packet, writes optional redacted upload_state.json. Never calls videos.insert. Uploader: READY_FOR_CREDENTIAL.
 - Run 216: `tools/media_qa.py` fail-closed media gate. WAV header via stdlib wave, PNG IHDR size without Pillow, timeline ready_to_assemble. Exit 2 on FAIL. Does not run ffmpeg, invent a pass, or bump status. Media QA: READY_FOR_MEDIA.

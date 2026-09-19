@@ -7,12 +7,13 @@ Do these in order. Stop if a step needs a human decision that is not present.
 3. On the same machine: `python3 tools/card_generator.py PATH --write-manifest`. Requires Pillow. Writes gitignored 1920x1080 PNGs under `cards/`. Do not commit binaries. `--mark-ready` only after inspect-only reports all yes.
 4. `python3 tools/timeline.py PATH --write`. Then `python3 tools/media_qa.py PATH`. Confirm ready_to_assemble and media_qa gate before any ffmpeg work. Then `python3 tools/assemble.py PATH` (expect HOLD_MEDIA until VO+cards exist). `--execute` only if gate is READY_TO_ENCODE.
 5. After a local master exists: `python3 tools/youtube_upload.py PATH`. Expect `YOUTUBE_AUTH_REQUIRED` until OAuth env is present. Do not pass secrets. Do not treat dry-run READY as an upload.
-6. Human-edit `publish.md` description + approve pin comment (`docs/human_session.md` step 7). Tags already trimmed (Run 117). Do not upload.
-7. Do **not** add another wrapper CLI. Do **not** map doctor.py. Do **not** scaffold Q2 yet. Do **not** add another operator/agent page that only restates this list. Do **not** re-implement `selected_vo_drop` in a second module.
-8. Do **not** make apply_script or words.py idea-lock INFO a check() error or a status bump.
-9. Do **not** map idea_lock.py / words.py / words_contract.py / placeholder_guard.py / prove_locks.py / idea_brief.py / idea_brief_contract.py / doctor.py.
-10. Do **not** attempt YouTube OAuth or publishing without credentials or a real VO file.
-11. Do **not** run ffmpeg or `assemble.py --execute` until `timeline.py` prints ready_to_assemble=yes and `media_qa.py` prints gate PASS.
+6. After upload_state.json contains a real provider_video_id: `python3 tools/youtube_feedback.py PATH`. Expect HOLD_UNPUBLISHED until then. Do not invent metrics. Do not call Analytics APIs from this tool.
+7. Human-edit `publish.md` description + approve pin comment (`docs/human_session.md` step 7). Tags already trimmed (Run 117). Do not upload.
+8. Do **not** add another wrapper CLI. Do **not** map doctor.py. Do **not** scaffold Q2 yet. Do **not** add another operator/agent page that only restates this list. Do **not** re-implement `selected_vo_drop` in a second module.
+9. Do **not** make apply_script or words.py idea-lock INFO a check() error or a status bump.
+10. Do **not** map idea_lock.py / words.py / words_contract.py / placeholder_guard.py / prove_locks.py / idea_brief.py / idea_brief_contract.py / doctor.py.
+11. Do **not** attempt YouTube OAuth or publishing without credentials or a real VO file.
+12. Do **not** run ffmpeg or `assemble.py --execute` until `timeline.py` prints ready_to_assemble=yes and `media_qa.py` prints gate PASS.
 18. Do **not** run apply_script --write against sample-001.
 22. Do **not** retry HTTPS clone after one failure.
 27. Do **not** have new_packet or idea_brief write idea.md.
@@ -25,3 +26,4 @@ Do these in order. Stop if a step needs a human decision that is not present.
 68. Do **not** `git add -f` generated card PNGs.
 69. Do **not** call videos.insert from `youtube_upload.py`.
 70. Do **not** treat an assemble recipe as a master export.
+71. Do **not** treat empty feedback metrics as collected audience evidence.
