@@ -21,7 +21,7 @@ Reconstruct exists so agents can run contracts when clone fails. It is not the c
 - Selected VO path: `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
 - Repo-root `vo/` is not Selected VO. Do not invent a wav. Do not `git add -f` ignored media.
 - Do not scaffold Q2. Do not treat WAVE 3 `doctor.py` / `queue_status.py` / `next_topic.py` as permission to start a new packet.
-- After the WAVE 3 board printers run, stop unless this run is editing a named tool. Recording is still a human gate.
+- After the WAVE 3 board printers run, stop unless this run is editing a named tool. The remaining labor is a local file at the packet DROP path on the gate machine (`docs/gate_machine.md`). Generated fallback is authorized; do not invent a committed wav.
 
 README already names this front door. This page must not send an agent back into fixture reconstruct as if that were the remaining labor.
 
@@ -167,7 +167,7 @@ Expected on current sample-001 (do not pad WORDS to change this):
 
 Same as prior page: reconstruct what `needed.py CONTRACT` prints, confirm `--missing` READY, then run the named contract. Expected PASS, exit 0, no writes to `docs/` or `videos/`.
 
-After WAVE 2 READY, print WAVE 3 reconstruct, fetch queue_status and doctor until READY, then run doctor.py then queue_status.py then next_topic.py and stop at the board. Do not treat WAVE 3 as scaffold permission. If the live packet is `ready_for_vo` with no selected take, the board is confirmation only; the remaining labor is still the human recording gate, not another reconstruct wave.
+After WAVE 2 READY, print WAVE 3 reconstruct, fetch queue_status and doctor until READY, then run doctor.py then queue_status.py then next_topic.py and stop at the board. Do not treat WAVE 3 as scaffold permission. If the live packet is `ready_for_vo` with no selected take, the board is confirmation only; the remaining labor is the gate-machine DROP file (generated fallback authorized), not another reconstruct wave.
 
 When `queue_status.py` or `next_topic.py` run against a mark-needed folder that already exists, they print `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check`. Do not invent a mark_topic-only next step from this page. Do not write idea.md from those printed lines. Prefer the printed idea_brief commands over scanning tools/. Humans still paste idea.md; agents do not.
 
@@ -207,7 +207,7 @@ Prior contract PASS times remain those recorded in Run 026–076. If a later run
 
 - Do not retry clone after one failure.
 - Do not write reconstructed files back onto sample-001.
-- Do not invent WORDS, wav, cards, or ffmpeg recipes.
+- Do not invent WORDS, a committed wav, card PNGs, or a dummy `export/master.mp4`. Optional TTS one-liners live only on `docs/gate_machine.md`; do not wrap them under tools/.
 - Do not wrap doctor in start.py.
 - Do not map doctor.py in which_contract.
 - Do not make needed.py --missing, --bootstrap, or --plan exit 1.
