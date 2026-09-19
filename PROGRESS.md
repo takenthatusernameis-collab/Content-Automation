@@ -15,10 +15,12 @@
 | 2026-09-19 Run 220 | ~5.3 estimate | 93 | experiment_loop.py dry-run; HOLD_NO_EVIDENCE without metrics |
 | 2026-09-19 Run 221 | ~5.2 estimate | 94 | complete.py fail-closed completion; experiment selftest lock claimed |
 | 2026-09-19 Run 222 | ~5.2 estimate | 94 | HEAD selftest now locks experiment_loop.py + complete.py |
+| 2026-09-19 Run 223 | ~5.1 estimate | 94 | media_qa PCM peak/RMS/silence/clip; silent or clipped takes fail before ffmpeg |
 
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 223: `tools/media_qa.py` reports vo_peak / vo_rms / vo_silence / vo_clip from stdlib PCM (audioop + array). Hard-gated only when a WAV header decodes. Missing VO still FAIL. Selftest asserts the four rows exist and are false without a take. No new adapter. No invented wav.
 - Run 222: HEAD `tools/selftest.py` now lists `experiment_loop.py` and `complete.py` in `DROP_IMPORTERS` and runs fail-closed fixtures. Closes the gap between Run 221's claim and the file on main. No new adapter.
 - Run 221: `tools/complete.py` fail-closed completion gate. Reuses media_qa + assemble + feedback + experiment_loop. Markdown-only packets stay INCOMPLETE_MEDIA. A provider video ID alone is not COMPLETE. Completion gate: PLAN_BUILT.
 - Run 220: `tools/experiment_loop.py` fail-closed experiment ledger. Reuses youtube_feedback. Missing provider_video_id is HOLD_UNPUBLISHED. Empty metrics are HOLD_NO_EVIDENCE. Never invents keep/discard. Experiment loop: PLAN_BUILT.
