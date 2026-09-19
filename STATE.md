@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-09-19T15:05:00Z (Run 226)
+Updated: 2026-09-19T18:20:00Z (Run 227)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -15,11 +15,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - script.md 952 IN BAND; status `ready_for_vo`; selected take not in git
-- Run 226: `tools/selftest.py` now imports `inspect_upload` and runs `check_upload_fail_closed()` from `main()`. A junk `export/master.mp4` must stay FAIL / HOLD_LOCAL / master_export_present false. No new adapter. No invented wav or mp4.
+- Run 227: inspected HEAD after the Run 226 upload selftest lock. No new adapter. No new fixture. Production freeze honored because the remaining gap is on-disk media, not another printer.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 - Executive trajectory decision: SHIP the first completed video before adding further broad architecture.
 
-## What exists now (after Run 226)
+## What exists now (after Run 227)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
 - vo_session.md ready-to-record; named take missing from git
 - vo_origin.md kind=generated (labeled fallback)
@@ -49,8 +49,8 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|
-| Estimated human min / video | 4.9 | 4.8 | junk masters cannot look upload-ready, and selftest now locks that |
-| Automated steps | 94 | 94 | quality of existing youtube_upload + selftest, not a 95th adapter |
+| Estimated human min / video | 4.8 | 4.8 | no new automation this run |
+| Automated steps | 94 | 94 | freeze: do not add a 95th adapter before VO |
 | Videos produced | 0 | 0 | ready_for_vo; take not on gate machine |
 
 ## Capability roadmap status
@@ -59,9 +59,11 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Media QA loudness/silence/clip: LANDED on HEAD (Run 223)
 - Export ftyp sniff: LANDED on HEAD for media_qa/assemble/complete (Run 224) and youtube_upload (Run 225)
 - Upload junk-master selftest: LANDED on HEAD (Run 226; still READY_FOR_MEDIA / READY_FOR_CREDENTIAL)
+- Run 227: freeze honor; no capability change
 
 ## Active constraints
 - Do not add another dry-run adapter before on-disk Selected VO
 - Do not invent a committed wav or bump status past ready_for_vo without Selected VO on disk
 - Do not treat complete.py INCOMPLETE_* as license to invent media or a keep/discard
 - Do not write a dummy export/master.mp4 to flip gates
+- Do not add another selftest fixture unless a live printer regression is proven on HEAD
