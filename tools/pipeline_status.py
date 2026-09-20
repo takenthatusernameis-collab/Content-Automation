@@ -141,7 +141,7 @@ def format_report(rows: list[dict[str, object]]) -> str:
     lines.append("This command writes nothing and creates no media.")
     lines.append(
         "Selected VO drop is videos/NNN-slug/vo/NNN-slug-take-selected.wav. "
-        "Repo-root vo/ is not Selected VO."
+        "Repo-root vo/ is not Selected VO. Follow docs/gate_machine.md on the gate machine."
     )
     drifted = [r for r in rows if r["drift"]]
     failed = [r for r in rows if r["gate"] == "FAIL"]
@@ -161,7 +161,7 @@ def format_report(rows: list[dict[str, object]]) -> str:
                 lines.append(f"    DRIFT {d}")
             if show_drop:
                 lines.append(
-                    f"    DROP `{row['vo_drop']}` (repo-root vo/ is not Selected VO)"
+                    f"    DROP `{row['vo_drop']}` (repo-root vo/ is not Selected VO; follow docs/gate_machine.md)"
                 )
     return "\n".join(lines) + "\n"
 
