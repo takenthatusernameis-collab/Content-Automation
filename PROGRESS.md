@@ -4,6 +4,7 @@
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-09-20 Run 240 | ~3.7 estimate | 94 | HOLD re-verified; packet still has no vo/; no paper drop |
 | 2026-09-20 Run 239 | ~3.7 estimate | 94 | HOLD; flagged 227–238 treadmill; no paper drop |
 | 2026-09-20 Run 238 | ~3.7 estimate | 94 | README Human session / Local tools lead with Q1 drop, not doctor/scaffold |
 | 2026-09-20 Run 237 | ~3.8 estimate | 94 | WAVE 3 hold prints before scaffold copy-paste; queue_contract locks order |
@@ -23,6 +24,7 @@
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 240: No new capability. Re-verified Q1 packet listing has no `vo/` directory. Confirmed no HEAD regression that would justify another printer/README change.
 - Run 239: No new capability. Documented that further first-command alignment is not production. NEXT item 87 prefers no commit over another state rewrite.
 - Run 238: README Human session / Local tools print the Q1 drop and narration_adapter before doctor/idea_brief/new_packet/sample-001. No new printer. No invented media.
 - Run 237: WAVE 3 `queue_status.py` footer/report and `next_topic.py` print the Q1 hold before scaffold copy-paste. `queue_contract.py` locks that order. No new printer. No invented media.
