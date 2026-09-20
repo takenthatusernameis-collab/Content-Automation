@@ -92,6 +92,7 @@ BOOTSTRAP: tuple[str, ...] = (
     "NEXT.md",
     "RUNS.md",
     "tools/which_contract.py",
+    "docs/gate_machine.md",
 )
 
 PLAN_NEXT = "python3 tools/needed.py selftest.py --missing"
@@ -126,6 +127,7 @@ UNMAPPED_PATHS: dict[str, tuple[str, ...]] = {
         "tools/validate_packet.py",
         "tools/next_topic.py",
         "docs/topic_queue.md",
+        "docs/gate_machine.md",
     ),
 }
 
@@ -307,6 +309,7 @@ def print_plan(missing: bool) -> None:
     print(PLAN_OPERATOR_START)
     print(PLAN_OPERATOR_BOARD)
     print(PLAN_OPERATOR_NEXT)
+    print("# after the board, remaining labor is docs/gate_machine.md; do not scaffold")
     print("# humans then follow docs/human_session.md; do not auto-scaffold")
     print()
 
