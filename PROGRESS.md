@@ -4,6 +4,7 @@
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-09-20 Run 234 | ~4.1 estimate | 94 | next_action.py ready_for_edit now names existing post-VO CLIs |
 | 2026-09-20 Run 233 | ~4.2 estimate | 94 | hint.py build-cards/edit now name existing post-VO CLIs |
 | 2026-09-20 Run 232 | ~4.3 estimate | 94 | pipeline_status missing-VO DROP now names docs/gate_machine.md |
 | 2026-09-20 Run 231 | ~4.4 estimate | 94 | hint.py / next_action.py record-vo now name docs/gate_machine.md |
@@ -22,6 +23,7 @@
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 234: `tools/next_action.py` ready_for_edit Why text names `card_generator.py --write-manifest` and timeline/media_qa/assemble. No new printer. No invented media. hint.py Why text inherits the sentence.
 - Run 233: `tools/hint.py` build-cards prints `card_generator.py --write-manifest`; edit prints timeline/media_qa/assemble. No new printer. No invented media. doctor.py inherits via hint.commands_for.
 - Run 232: `tools/pipeline_status.py` missing-VO DROP and footer now point at `docs/gate_machine.md`. No new printer. No invented media.
 - Run 231: `tools/next_action.py` and `tools/hint.py` record-vo output now point at `docs/gate_machine.md` and name the authorized generated fallback. No new printer. No invented media.

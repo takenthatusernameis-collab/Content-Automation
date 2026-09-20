@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-20T04:20:00Z — Run 234
+
+- **Objective:** Close the leftover stall where `tools/next_action.py` still told operators to invent a stock card and then edit against editor.md after Run 233 pointed hint.py at card_generator/timeline/media_qa/assemble.
+- **Inspected:** STATE, NEXT, ROADMAP, OPERATOR_HOLD, FAILURES, RUNS, hint.py, next_action.py, pipeline_status.py. Confirmed Q1 still `ready_for_vo`. No git-visible Selected VO. hint.py build-cards/edit already name the post-VO CLIs. next_action.py ready_for_edit still said "do not download stock from this tool" and "Edit against docs/editor.md … then export".
+- **Action taken:** Pointed next_action.py build-cards Why at `card_generator.py --write-manifest` and edit Why at timeline/media_qa/assemble dry-run. Did not add a TTS CLI. Did not invent a wav or mp4. Did not retry HTTPS clone. Did not scaffold Q2. Did not add a selftest fixture. Did not add another record-vo pointer.
+- **Result:** An operator who runs next_action after ready_for_edit is sent to the existing post-VO CLIs. hint.py Why text inherits this sentence. Automated steps stay 94. Videos produced stay 0. Estimated human minutes 4.2 → 4.1.
+- **Verification status:** File API commit of next_action.py and state pages. Commands were not executed against a live packet (no gate-machine checkout; HTTPS clone parked). Selftest not re-run in this sandbox.
+- **Important discovery:** hint.py copy-paste and next_action.py Why text can drift independently. Aligning only one leaves the WAVE 3 board reconstructing labor the moment VO lands.
+- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics.
+- **Recommended next action:** On the gate machine, follow `docs/gate_machine.md` including one optional TTS block if needed. Do not add a TTS wrapper. Do not write a dummy mp4. Do not git add -f. Do not scaffold Q2. Do not strip gate_machine pointers. Do not revert hint.py or next_action.py build-cards/edit. Do not keep aligning remaining record-vo printers.
+
 ## 2026-09-20T02:21:00Z — Run 233
 
 - **Objective:** Close the leftover stall where `tools/hint.py` still told operators to invent cards and forbade an ffmpeg recipe after Runs 214/218 landed card_generator and assemble.

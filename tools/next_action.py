@@ -122,11 +122,11 @@ def recommend(path: Path, row: dict[str, object]) -> tuple[str, str]:
         if missing_cards:
             return (
                 "build-cards",
-                f"Build the first planned card `{missing_cards[0]}` (local file; do not download stock from this tool).",
+                f"Planned card `{missing_cards[0]}` is missing. Run card_generator.py --write-manifest (Pillow; gitignored PNGs). Do not download stock. Do not git add -f.",
             )
         return (
             "edit",
-            f"Selected VO is present. Edit against docs/editor.md and docs/format.md, then export `{export_name}`.",
+            f"Selected VO and cards are present. Run timeline.py --write, then media_qa.py, then assemble.py dry-run. --execute only if READY_TO_ENCODE. Do not write a dummy `{export_name}`.",
         )
 
     if status == "ready_to_publish":
