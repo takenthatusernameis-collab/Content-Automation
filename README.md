@@ -9,6 +9,7 @@ Status `ready_for_vo`. Text paperwork is done. The remaining human gate is a sel
 - Packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - Reading card: `vo_session.md` (952 words, ~06:21)
 - Put the take here (wav or flac): `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
+- Drop recipe: `docs/gate_machine.md` (generated fallback authorized; optional already-installed TTS one-liners). Do not wrap TTS under tools/.
 - Repo-root `vo/` is not Selected VO. `.gitignore` keeps the take local. Do not `git add -f` it.
 - After the file exists locally: `docs/human_session.md` steps 5–7.
 
@@ -17,6 +18,7 @@ Do not scaffold Q2. Do not start from the sample-001 commands below. Those are c
 Start here for context:
 - `docs/human_session.md` — operator path (doctor first only when starting a *new* packet; never write the fixture)
 - `docs/agent_session.md` — agent path when clone fails (reconstruct + selftest)
+- `docs/gate_machine.md` — packet-relative Selected VO drop on the gate machine
 - `docs/topic_queue.md` — next working titles (not drafts)
 - `STATE.md` — current reality
 - `NEXT.md` — what the next run should do
