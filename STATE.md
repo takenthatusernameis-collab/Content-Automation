@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-20T00:05:00Z (Run 231)
+Updated: 2026-09-20T01:04:00Z (Run 232)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected VO path locked packet-relative + narration adapter + labeled generated fallback + local card generator + WORDS timeline planner + fail-closed media QA (header + PCM peak/RMS/silence/clip + export ftyp when present) + credential-ready dry-run uploader (ftyp-required master + selftest lock) + fail-closed ffmpeg assemble planner + fail-closed feedback collector + fail-closed experiment ledger + fail-closed completion gate + HEAD selftest lock for experiment/complete/level-checks/export-ftyp/upload-junk-master + gate-machine drop recipe with optional local TTS one-liners + operator/agent pages and live record-vo printers point at that drop -> automated -> self-improving
+manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected VO path locked packet-relative + narration adapter + labeled generated fallback + local card generator + WORDS timeline planner + fail-closed media QA (header + PCM peak/RMS/silence/clip + export ftyp when present) + credential-ready dry-run uploader (ftyp-required master + selftest lock) + fail-closed ffmpeg assemble planner + fail-closed feedback collector + fail-closed experiment ledger + fail-closed completion gate + HEAD selftest lock for experiment/complete/level-checks/export-ftyp/upload-junk-master + gate-machine drop recipe with optional local TTS one-liners + operator/agent pages, hint/next_action, and pipeline_status missing-VO DROP point at that drop -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -15,11 +15,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - script.md 952 IN BAND; status `ready_for_vo`; selected take not in git
-- Run 231: `tools/next_action.py` and `tools/hint.py` record-vo output now name `docs/gate_machine.md` and the authorized generated fallback. No new adapter. No invented wav/mp4. Production freeze otherwise honored.
+- Run 232: `tools/pipeline_status.py` missing-VO DROP and footer now name `docs/gate_machine.md`. No new adapter. No invented wav/mp4. Production freeze otherwise honored.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 - Executive trajectory decision: SHIP the first completed video before adding further broad architecture.
 
-## What exists now (after Run 231)
+## What exists now (after Run 232)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
 - vo_session.md ready-to-record; named take missing from git
 - vo_origin.md kind=generated (labeled fallback)
@@ -33,7 +33,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Selftest DROP lock for experiment_loop.py / complete.py / youtube_upload.py is on HEAD
 - media_qa level checks + export ftyp sniff on HEAD; youtube_upload ftyp on HEAD; upload fail-closed fixture on HEAD; fail-closed without a take
 - Gate-machine drop recipe: `docs/gate_machine.md` (includes optional already-installed TTS one-liners)
-- human_session + agent_session + hint/next_action record-vo now point that drop at gate_machine
+- human_session + agent_session + hint/next_action + pipeline_status now point that drop at gate_machine
 
 ## Pipeline map
 On the machine that runs gates (`docs/gate_machine.md`):
@@ -51,7 +51,7 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|
-| Estimated human min / video | 4.5 | 4.4 | live printers no longer omit the authorized drop page |
+| Estimated human min / video | 4.4 | 4.3 | board printer no longer omits the authorized drop page |
 | Automated steps | 94 | 94 | freeze: still no 95th adapter |
 | Videos produced | 0 | 0 | ready_for_vo; take not on gate machine |
 
@@ -66,6 +66,7 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Run 229: optional local TTS one-liners on existing drop page; no new printer
 - Run 230: operator/agent page alignment; no capability change
 - Run 231: hint/next_action record-vo point at gate_machine; no capability change
+- Run 232: pipeline_status missing-VO DROP points at gate_machine; no capability change
 
 ## Active constraints
 - Do not add another dry-run adapter before on-disk Selected VO
@@ -76,4 +77,4 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Do not treat docs/gate_machine.md as permission to commit sandbox audio
 - Do not wrap the optional TTS one-liners into tools/
 - Do not restore "recording is the only gate" or blanket "no ffmpeg recipe" language on operator pages
-- Do not strip the docs/gate_machine.md pointer from hint.py / next_action.py record-vo output
+- Do not strip the docs/gate_machine.md pointer from hint.py / next_action.py / pipeline_status.py
