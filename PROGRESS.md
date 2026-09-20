@@ -4,6 +4,7 @@
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-09-20 Run 238 | ~3.7 estimate | 94 | README Human session / Local tools lead with Q1 drop, not doctor/scaffold |
 | 2026-09-20 Run 237 | ~3.8 estimate | 94 | WAVE 3 hold prints before scaffold copy-paste; queue_contract locks order |
 | 2026-09-20 Run 236 | ~3.9 estimate | 94 | WAVE 3 queue_status/next_topic hold Q2 and name gate_machine |
 | 2026-09-20 Run 235 | ~4.0 estimate | 94 | needed.py bootstrap + doctor reconstruct fetch docs/gate_machine.md |
@@ -21,6 +22,7 @@
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 238: README Human session / Local tools print the Q1 drop and narration_adapter before doctor/idea_brief/new_packet/sample-001. No new printer. No invented media.
 - Run 237: WAVE 3 `queue_status.py` footer/report and `next_topic.py` print the Q1 hold before scaffold copy-paste. `queue_contract.py` locks that order. No new printer. No invented media.
 - Run 236: `tools/queue_status.py` footer/report and `tools/next_topic.py` print that Q1 remaining labor is `docs/gate_machine.md` and must not scaffold Q2. No new printer. No invented media.
 - Run 235: `tools/needed.py` BOOTSTRAP and doctor UNMAPPED_PATHS include `docs/gate_machine.md`. WAVE 3 plan comment names that page. README live packet names it. No new printer. No invented media.

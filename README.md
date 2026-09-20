@@ -16,9 +16,9 @@ Status `ready_for_vo`. Text paperwork is done. The remaining human gate is a sel
 Do not scaffold Q2. Do not start from the sample-001 commands below. Those are contract examples, not the live job.
 
 Start here for context:
-- `docs/human_session.md` — operator path (doctor first only when starting a *new* packet; never write the fixture)
+- `docs/gate_machine.md` — packet-relative Selected VO drop on the gate machine (do this before doctor/queue/scaffold)
+- `docs/human_session.md` — operator path after the take exists (doctor first only when starting a *new* packet; never write the fixture)
 - `docs/agent_session.md` — agent path when clone fails (reconstruct + selftest)
-- `docs/gate_machine.md` — packet-relative Selected VO drop on the gate machine
 - `docs/topic_queue.md` — next working titles (not drafts)
 - `STATE.md` — current reality
 - `NEXT.md` — what the next run should do
@@ -29,23 +29,35 @@ Start here for context:
 
 ## Human session
 
+On the gate machine, place Selected VO first:
+
+```bash
+# Follow docs/gate_machine.md. Do not invent a wav in git. Do not git add -f.
+python3 tools/narration_adapter.py videos/002-stop-deciding-what-to-work-on-every-morning
+```
+
+Parked until that take exists on disk:
+
 ```bash
 python3 tools/doctor.py
 python3 tools/queue_status.py
 python3 tools/next_topic.py
 ```
 
-Then follow `docs/human_session.md`. Do not scan the tool list below unless doctor printed a command you do not recognize.
+Those three printers now print the Q1 hold *before* idea_brief/new_packet. Do not treat the first copy-paste they show after the hold as permission to scaffold Q2.
 
-After a mark-needed folder exists, those printers, `docs/human_session.md`, and `docs/agent_session.md` WAVE 3 name idea_brief — they are not mark_topic-only:
+Then follow `docs/human_session.md` steps 5–7. Do not scan the tool list below unless doctor printed a command you do not recognize.
+
+After Q1 ships and a mark-needed folder exists, those printers, `docs/human_session.md`, and `docs/agent_session.md` WAVE 3 name idea_brief — they are not the live job while Q1 is `ready_for_vo`:
 
 ```bash
+# PARKED until Q1 has on-disk Selected VO
 python3 tools/idea_brief.py PATH --block
 # paste idea fields by hand into PATH/idea.md
 python3 tools/idea_brief.py PATH --check
 ```
 
-After scaffold on a live packet, `python3 tools/hint.py PATH` prints idea_brief and words.py lines. After a GitHub write of a high-risk tool:
+After scaffold on a *future* live packet, `python3 tools/hint.py PATH` prints idea_brief and words.py lines. After a GitHub write of a high-risk tool:
 
 ```bash
 python3 tools/prove_locks.py
@@ -60,6 +72,17 @@ python3 tools/selftest.py
 If there is no checkout, reconstruct the minimum tree in `docs/agent_session.md`. Do not retry HTTPS clone after one failure.
 
 ## Local tools
+
+Live job first:
+
+```bash
+python3 tools/narration_adapter.py videos/002-stop-deciding-what-to-work-on-every-morning
+python3 tools/pipeline_status.py videos/002-stop-deciding-what-to-work-on-every-morning
+python3 tools/next_action.py videos/002-stop-deciding-what-to-work-on-every-morning
+python3 tools/hint.py videos/002-stop-deciding-what-to-work-on-every-morning
+```
+
+Parked board / contract examples (not the live job):
 
 ```bash
 python3 tools/doctor.py
@@ -90,9 +113,9 @@ python3 tools/set_status.py videos/sample-001-why-systems-beat-motivation --to r
 python3 tools/vo_session.py videos/sample-001-why-systems-beat-motivation --dry-run
 ```
 
-`queue_status.py` is read-only. It classifies each `docs/topic_queue.md` row against `videos/` (ok-queued, mark-needed, missing-folder, ok-used, parked, fixture-refuse). After a mark-needed folder exists it also prints idea_brief --block / paste / --check. It does not write the queue or scaffold packets.
+`queue_status.py` is read-only. It classifies each `docs/topic_queue.md` row against `videos/` (ok-queued, mark-needed, missing-folder, ok-used, parked, fixture-refuse). After a mark-needed folder exists it also prints idea_brief --block / paste / --check. It does not write the queue or scaffold packets. While Q1 is `ready_for_vo` it prints the gate_machine hold before those scaffold lines.
 
-`next_topic.py` is read-only. It prints the first unused row in `docs/topic_queue.md`, a predicted `videos/NNN-slug`, and scaffold commands. After that predicted folder exists it also prints idea_brief --block / paste / --check. It does not create packets or WORDS. Numeric ids treat `sample-001-*` as 001.
+`next_topic.py` is read-only. It prints the first unused row in `docs/topic_queue.md`, a predicted `videos/NNN-slug`, and scaffold commands. After that predicted folder exists it also prints idea_brief --block / paste / --check. It does not create packets or WORDS. Numeric ids treat `sample-001-*` as 001. While Q1 is `ready_for_vo` the Q1 hold prints before scaffold copy-paste.
 
 `idea_brief.py` reprints or checks idea.md. `--block` prints the paste block. `--check` validates pasted fields. It does not write idea.md.
 
