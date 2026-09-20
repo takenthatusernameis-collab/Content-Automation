@@ -20,6 +20,9 @@ VIDEOS = ROOT / "videos"
 Q1_HOLD = (
     "# Q1 remaining labor is docs/gate_machine.md; do not scaffold Q2"
 )
+PARKED_LABEL = (
+    "# Parked until Q1 ships (copy-paste only after Selected VO exists on the gate machine):"
+)
 
 
 def main() -> int:
@@ -60,9 +63,10 @@ def main() -> int:
         slug = slugify(title)
         vid = f"{int(predicted_id) + i:03d}" if args.all else predicted_id
         dest = f"videos/{vid}-{slug}"
-        print(f"Next: {row['id']} — {title}")
+        print(f"Next (parked until Q1 ships): {row['id']} — {title}")
         print(f"One-line: {row['one_line']}")
         print(f"Predicted path: {dest}")
+        print(PARKED_LABEL)
         print("Optional before scaffold (no folder required; writes nothing):")
         print(f"  python3 tools/idea_brief.py --queue {row['id']}")
         print("Scaffold (human / instructed agent only; not the fixture):")
