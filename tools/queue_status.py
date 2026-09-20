@@ -23,6 +23,9 @@ VIDEOS = ROOT / "videos"
 Q1_HOLD = (
     "# Q1 remaining labor is docs/gate_machine.md; do not scaffold Q2"
 )
+PARKED_LABEL = (
+    "# Parked until Q1 ships (copy-paste only after Selected VO exists on the gate machine):"
+)
 
 
 def packet_status(videos: Path, folder: str | None) -> str:
@@ -61,7 +64,7 @@ def classify(row: dict[str, str], folders: list[str]) -> tuple[str, str, str | N
 
 
 def queue_next_footer(text: str, folders: list[str], predicted_id: str) -> str:
-    """First ok-queued reprint only. Never prints --queue for mark-needed."""
+    """Hold first. First ok-queued reprint only. Never prints --queue for mark-needed."""
     rows = parse_queue(text)
     for row in rows:
         code, _, _folder = classify(row, folders)
@@ -70,15 +73,16 @@ def queue_next_footer(text: str, folders: list[str], predicted_id: str) -> str:
         slug = slugify(row["working_title"])
         dest = f"videos/{predicted_id}-{slug}"
         return (
+            f"{Q1_HOLD}\n"
             "Queue next (not the fixture):\n"
+            f"  {PARKED_LABEL}\n"
             f"  python3 tools/idea_brief.py --queue {row['id']}\n"
             f'  python3 tools/new_packet.py "{row["working_title"]}"\n'
             f"  # predicted {dest}; human only; do not auto-scaffold\n"
-            f"  {Q1_HOLD}\n"
         )
     return (
-        "Queue next: no unused queued topic.\n"
         f"{Q1_HOLD}\n"
+        "Queue next: no unused queued topic.\n"
     )
 
 
@@ -127,20 +131,20 @@ def report(text: str, folders: list[str], predicted_id: str, videos: Path) -> tu
         f"used-ok: {counts['ok-used']}  "
         f"parked: {counts['parked']}"
     )
+    lines.append(Q1_HOLD)
     if first_queued:
         slug = slugify(first_queued["working_title"])
         dest = f"videos/{predicted_id}-{slug}"
-        lines.append(f"Next scaffold: {first_queued['id']} -> {dest}")
+        lines.append(f"Next scaffold (parked until Q1 ships): {first_queued['id']} -> {dest}")
+        lines.append(f"  {PARKED_LABEL}")
         lines.append(
             f"  python3 tools/idea_brief.py --queue {first_queued['id']}"
         )
         lines.append("  (optional pre-scaffold reprint; writes nothing; no folder required)")
         lines.append(f'  python3 tools/new_packet.py "{first_queued["working_title"]}"')
         lines.append("  (human / instructed agent only; do not auto-scaffold)")
-        lines.append(f"  {Q1_HOLD}")
     else:
         lines.append("No unused queued topic.")
-        lines.append(Q1_HOLD)
     if mark_cmds:
         lines.append("Close queue drift (dry-run first):")
         lines.extend(mark_cmds)
