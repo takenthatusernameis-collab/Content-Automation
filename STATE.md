@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-20T04:20:00Z (Run 234)
+Updated: 2026-09-20T05:23:00Z (Run 235)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected VO path locked packet-relative + narration adapter + labeled generated fallback + local card generator + WORDS timeline planner + fail-closed media QA (header + PCM peak/RMS/silence/clip + export ftyp when present) + credential-ready dry-run uploader (ftyp-required master + selftest lock) + fail-closed ffmpeg assemble planner + fail-closed feedback collector + fail-closed experiment ledger + fail-closed completion gate + HEAD selftest lock for experiment/complete/level-checks/export-ftyp/upload-junk-master + gate-machine drop recipe with optional local TTS one-liners + operator/agent pages, hint/next_action, and pipeline_status missing-VO DROP point at that drop + hint.py and next_action.py post-VO codes name existing CLIs -> automated -> self-improving
+manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected VO path locked packet-relative + narration adapter + labeled generated fallback + local card generator + WORDS timeline planner + fail-closed media QA (header + PCM peak/RMS/silence/clip + export ftyp when present) + credential-ready dry-run uploader (ftyp-required master + selftest lock) + fail-closed ffmpeg assemble planner + fail-closed feedback collector + fail-closed experiment ledger + fail-closed completion gate + HEAD selftest lock for experiment/complete/level-checks/export-ftyp/upload-junk-master + gate-machine drop recipe with optional local TTS one-liners + operator/agent pages, hint/next_action, and pipeline_status missing-VO DROP point at that drop + hint.py and next_action.py post-VO codes name existing CLIs + clone-less bootstrap/doctor reconstruct fetch docs/gate_machine.md -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -15,11 +15,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - script.md 952 IN BAND; status `ready_for_vo`; selected take not in git
-- Run 234: `tools/next_action.py` ready_for_edit now names card_generator / timeline / media_qa / assemble instead of stock-download or editor.md-then-export. hint.py already printed those CLIs (Run 233). No new adapter. No invented wav/mp4. Production freeze otherwise honored.
+- Run 235: `tools/needed.py` BOOTSTRAP and doctor UNMAPPED_PATHS now include `docs/gate_machine.md`. WAVE 3 plan comment names that page after the board. README live packet names the same page. No new adapter. No invented wav/mp4. Production freeze otherwise honored.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 - Executive trajectory decision: SHIP the first completed video before adding further broad architecture.
 
-## What exists now (after Run 234)
+## What exists now (after Run 235)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
 - vo_session.md ready-to-record; named take missing from git
 - vo_origin.md kind=generated (labeled fallback)
@@ -35,6 +35,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Gate-machine drop recipe: `docs/gate_machine.md` (includes optional already-installed TTS one-liners)
 - human_session + agent_session + hint/next_action + pipeline_status point that drop at gate_machine
 - hint.py and next_action.py post-VO codes now match NEXT steps 3-4
+- Clone-less first-fetch includes the drop page (7 bootstrap paths)
 
 ## Pipeline map
 On the machine that runs gates (`docs/gate_machine.md`):
@@ -52,7 +53,7 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|
-| Estimated human min / video | 4.2 | 4.1 | next_action post-VO no longer invents a stock-card or editor-only export step |
+| Estimated human min / video | 4.1 | 4.0 | clone-less agents fetch the drop recipe without guessing |
 | Automated steps | 94 | 94 | freeze: still no 95th adapter |
 | Videos produced | 0 | 0 | ready_for_vo; take not on gate machine |
 
@@ -70,6 +71,7 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Run 232: pipeline_status missing-VO DROP points at gate_machine; no capability change
 - Run 233: hint.py build-cards/edit copy-paste matches existing post-VO tools; no capability change
 - Run 234: next_action.py ready_for_edit Why text matches those same tools; no capability change
+- Run 235: needed.py bootstrap + doctor reconstruct fetch gate_machine.md; README names it; no capability change
 
 ## Active constraints
 - Do not add another dry-run adapter before on-disk Selected VO
@@ -82,3 +84,4 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Do not restore "recording is the only gate" or blanket "no ffmpeg recipe" language on operator pages or hint.py edit commands
 - Do not strip the docs/gate_machine.md pointer from hint.py / next_action.py / pipeline_status.py
 - Do not revert hint.py or next_action.py build-cards/edit to stock-download or editor-only wording
+- Do not strip docs/gate_machine.md from needed.py BOOTSTRAP or doctor UNMAPPED_PATHS

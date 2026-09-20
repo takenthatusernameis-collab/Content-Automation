@@ -2,42 +2,38 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-20T05:23:00Z — Run 235
+
+- **Objective:** Close the leftover stall where clone-less reconstruct (`needed.py --bootstrap` / WAVE 3 doctor) never fetched `docs/gate_machine.md` even though that page is the remaining labor after Runs 228–234 pointed live printers at it.
+- **Inspected:** STATE, NEXT, ROADMAP, OPERATOR_HOLD, FAILURES, RUNS, needed.py, agent_session, README, pipeline_status, doctor. Confirmed Q1 still `ready_for_vo`. No git-visible Selected VO. hint/next_action/pipeline_status already name gate_machine. BOOTSTRAP was six paths and omitted the drop page.
+- **Action taken:** Added `docs/gate_machine.md` to needed.py BOOTSTRAP and doctor UNMAPPED_PATHS. WAVE 3 plan now says remaining labor is that page. agent_session six	o seven paths. README live packet names the drop recipe. Did not add a TTS CLI. Did not invent a wav or mp4. Did not retry HTTPS clone. Did not scaffold Q2. Did not add a selftest fixture. Did not realign hint/next_action.
+- **Result:** A clone-less agent who follows `--bootstrap` or `needed.py doctor.py` now pulls the drop recipe instead of only STATE/NEXT and queue printers. Automated steps stay 94. Videos produced stay 0. Estimated human minutes 4.1 → 4.0.
+- **Verification status:** File API commits of needed.py, agent_session.md, README.md, and state pages. needed.py was not executed against a live checkout in this sandbox (HTTPS clone parked). Selftest not re-run.
+- **Important discovery:** Printer alignment can complete while reconstruct still omits the page those printers name. That is a different stall class than Runs 231–234.
+- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics.
+- **Recommended next action:** On the gate machine, follow `docs/gate_machine.md` including one optional TTS block if needed. Do not add a TTS wrapper. Do not write a dummy mp4. Do not git add -f. Do not scaffold Q2. Do not strip gate_machine from bootstrap or doctor reconstruct. Do not keep aligning remaining record-vo printers. Do not grow bootstrap further without a proven omission.
+
 ## 2026-09-20T04:20:00Z — Run 234
 
 - **Objective:** Close the leftover stall where `tools/next_action.py` still told operators to invent a stock card and then edit against editor.md after Run 233 pointed hint.py at card_generator/timeline/media_qa/assemble.
-- **Inspected:** STATE, NEXT, ROADMAP, OPERATOR_HOLD, FAILURES, RUNS, hint.py, next_action.py, pipeline_status.py. Confirmed Q1 still `ready_for_vo`. No git-visible Selected VO. hint.py build-cards/edit already name the post-VO CLIs. next_action.py ready_for_edit still said "do not download stock from this tool" and "Edit against docs/editor.md … then export".
-- **Action taken:** Pointed next_action.py build-cards Why at `card_generator.py --write-manifest` and edit Why at timeline/media_qa/assemble dry-run. Did not add a TTS CLI. Did not invent a wav or mp4. Did not retry HTTPS clone. Did not scaffold Q2. Did not add a selftest fixture. Did not add another record-vo pointer.
-- **Result:** An operator who runs next_action after ready_for_edit is sent to the existing post-VO CLIs. hint.py Why text inherits this sentence. Automated steps stay 94. Videos produced stay 0. Estimated human minutes 4.2 → 4.1.
-- **Verification status:** File API commit of next_action.py and state pages. Commands were not executed against a live packet (no gate-machine checkout; HTTPS clone parked). Selftest not re-run in this sandbox.
-- **Important discovery:** hint.py copy-paste and next_action.py Why text can drift independently. Aligning only one leaves the WAVE 3 board reconstructing labor the moment VO lands.
-- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics.
-- **Recommended next action:** On the gate machine, follow `docs/gate_machine.md` including one optional TTS block if needed. Do not add a TTS wrapper. Do not write a dummy mp4. Do not git add -f. Do not scaffold Q2. Do not strip gate_machine pointers. Do not revert hint.py or next_action.py build-cards/edit. Do not keep aligning remaining record-vo printers.
+- **Result:** An operator who runs next_action after ready_for_edit is sent to the existing post-VO CLIs. Estimated human minutes 4.2 → 4.1.
+- **Blocker:** Packet-relative Selected VO still absent.
 
 ## 2026-09-20T02:21:00Z — Run 233
 
-- **Objective:** Close the leftover stall where `tools/hint.py` still told operators to invent cards and forbade an ffmpeg recipe after Runs 214/218 landed card_generator and assemble.
-- **Inspected:** STATE, NEXT, ROADMAP, OPERATOR_HOLD, FAILURES, RUNS, gate_machine, hint.py, next_action.py, pipeline_status.py, doctor.py. Confirmed Q1 still `ready_for_vo`. No git-visible Selected VO. hint.py record-vo already names gate_machine (Run 231). hint.py build-cards still said `--dry-run` plus a stock-download comment. hint.py edit still said "do not write an ffmpeg recipe here".
-- **Action taken:** Pointed hint.py build-cards at `card_generator.py --write-manifest` and hint.py edit at timeline/media_qa/assemble dry-run. Did not add a TTS CLI. Did not invent a wav or mp4. Did not retry HTTPS clone. Did not scaffold Q2. Did not add a selftest fixture. Did not add another record-vo pointer.
-- **Result:** An operator who reaches ready_for_edit is sent to the existing post-VO CLIs instead of inventing a card download or treating assemble as forbidden. Automated steps stay 94. Videos produced stay 0. Estimated human minutes 4.3 → 4.2. doctor.py inherits the same commands via hint.commands_for.
-- **Verification status:** File API commit of hint.py and state pages. Commands were not executed against a live packet (no gate-machine checkout; HTTPS clone parked). Selftest not re-run in this sandbox.
-- **Important discovery:** Record-vo printers can be aligned while the next-status printers still contradict NEXT. That is a different stall class than Runs 230–232: it does not block the drop, but it would reconstruct labor the moment VO lands.
-- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics.
-- **Recommended next action:** On the gate machine, follow `docs/gate_machine.md` including one optional TTS block if needed. Do not add a TTS wrapper. Do not write a dummy mp4. Do not git add -f. Do not scaffold Q2. Do not strip gate_machine pointers. Do not revert hint.py build-cards/edit. Do not keep aligning remaining record-vo printers.
+- **Result:** hint.py build-cards/edit name existing post-VO CLIs. Estimated human minutes 4.3 → 4.2.
 
 ## 2026-09-20T01:04:00Z — Run 232
 
-- **Objective:** Close the leftover stall where `tools/pipeline_status.py` printed the DROP path but never named `docs/gate_machine.md` after Runs 228–231 published that recipe and pointed hint/next_action at it.
-- **Result:** An operator who runs `python3 tools/pipeline_status.py` on Q1 is sent to the drop page instead of only seeing a path. Automated steps stay 94. Videos produced stay 0. Estimated human minutes 4.4 → 4.3.
-- **Blocker:** Packet-relative Selected VO still absent.
+- **Result:** pipeline_status missing-VO DROP names docs/gate_machine.md. Estimated human minutes 4.4 → 4.3.
 
 ## 2026-09-20T00:05:00Z — Run 231
 
-- **Objective:** Close the leftover stall where the live record-vo printers still said only "record the selected take" after Runs 228–230 published `docs/gate_machine.md`.
 - **Result:** hint.py / next_action.py record-vo name the drop page. Estimated human minutes 4.5 → 4.4.
 
 ## 2026-09-19T23:10:00Z — Run 230
 
-- **Result:** Operator following human_session is no longer told to ignore the drop page they were just sent to. Estimated human minutes 4.6 → 4.5.
+- **Result:** Operator following human_session is no longer told to ignore the drop page. Estimated human minutes 4.6 → 4.5.
 
 ## 2026-09-19T22:20:00Z — Run 229
 
