@@ -74,7 +74,7 @@ def recommend(path: Path, row: dict[str, object]) -> tuple[str, str]:
     if "status-ahead-of-vo" in drift:
         return (
             "record-vo",
-            f"Status is ahead of Selected VO. Put a take at `{vo_name}` or lower status. Do not invent the file. Repo-root vo/ is not Selected VO.",
+            f"Status is ahead of Selected VO. Follow docs/gate_machine.md and put a take at `{vo_name}` or lower status. Do not invent the file. Repo-root vo/ is not Selected VO.",
         )
     if "status-ahead-of-export" in drift:
         return (
@@ -112,7 +112,7 @@ def recommend(path: Path, row: dict[str, object]) -> tuple[str, str]:
     if status in {"draft", "ready_for_vo"}:
         return (
             "record-vo",
-            f"Script gate is PASS. Record the selected take at `{vo_name}` before raising status. Repo-root vo/ is not Selected VO.",
+            f"Script gate is PASS. Follow docs/gate_machine.md and place Selected VO at `{vo_name}` before raising status. Generated fallback is authorized. Repo-root vo/ is not Selected VO.",
         )
 
     if status == "ready_for_edit":

@@ -91,8 +91,11 @@ def commands_for(path: Path, row: dict[str, object], code: str) -> list[str]:
                     f"# after dry-run OK: python3 tools/set_status.py {p} --to ready_for_vo --write"
                 )
         vo = selected_vo_path(path)
-        cmds.append(f"# then record the selected take at {vo}")
-        cmds.append("# do not invent the file; repo-root vo/ is not Selected VO; do not git add -f")
+        cmds.append(f"# DROP path: {vo}")
+        cmds.append("# follow docs/gate_machine.md on the gate machine")
+        cmds.append("# record, cp an existing generated file, or one optional TTS one-liner on that page")
+        cmds.append("# do not invent the file in git; repo-root vo/ is not Selected VO; do not git add -f")
+        cmds.append("# do not wrap those TTS one-liners into tools/")
         return cmds
     if code == "build-cards":
         return [
