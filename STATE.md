@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-09-20T08:22:00Z (Run 236)
+Updated: 2026-09-20T14:10:00Z (Run 237)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected VO path locked packet-relative + narration adapter + labeled generated fallback + local card generator + WORDS timeline planner + fail-closed media QA (header + PCM peak/RMS/silence/clip + export ftyp when present) + credential-ready dry-run uploader (ftyp-required master + selftest lock) + fail-closed ffmpeg assemble planner + fail-closed feedback collector + fail-closed experiment ledger + fail-closed completion gate + HEAD selftest lock for experiment/complete/level-checks/export-ftyp/upload-junk-master + gate-machine drop recipe with optional local TTS one-liners + operator/agent pages, hint/next_action, and pipeline_status missing-VO DROP point at that drop + hint.py and next_action.py post-VO codes name existing CLIs + clone-less bootstrap/doctor reconstruct fetch docs/gate_machine.md + WAVE 3 queue_status/next_topic hold Q2 and name that page -> automated -> self-improving
+manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected VO path locked packet-relative + narration adapter + labeled generated fallback + local card generator + WORDS timeline planner + fail-closed media QA (header + PCM peak/RMS/silence/clip + export ftyp when present) + credential-ready dry-run uploader (ftyp-required master + selftest lock) + fail-closed ffmpeg assemble planner + fail-closed feedback collector + fail-closed experiment ledger + fail-closed completion gate + HEAD selftest lock for experiment/complete/level-checks/export-ftyp/upload-junk-master + gate-machine drop recipe with optional local TTS one-liners + operator/agent pages, hint/next_action, and pipeline_status missing-VO DROP point at that drop + hint.py and next_action.py post-VO codes name existing CLIs + clone-less bootstrap/doctor reconstruct fetch docs/gate_machine.md + WAVE 3 queue_status/next_topic hold Q2 and print that hold before scaffold copy-paste -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -15,11 +15,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - script.md 952 IN BAND; status `ready_for_vo`; selected take not in git
-- Run 236: `tools/queue_status.py` footer/report and `tools/next_topic.py` now print that Q1 remaining labor is `docs/gate_machine.md` and must not scaffold Q2. WAVE 3 board no longer looks like the live job. No new adapter. No invented wav/mp4. Production freeze otherwise honored.
+- Run 237: WAVE 3 printers now print the Q1 gate_machine hold *before* idea_brief/new_packet copy-paste. queue_contract locks that order. Scaffold commands stay printed but labeled parked until Q1 ships. No new adapter. No invented wav/mp4. Production freeze otherwise honored.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 - Executive trajectory decision: SHIP the first completed video before adding further broad architecture.
 
-## What exists now (after Run 236)
+## What exists now (after Run 237)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
 - vo_session.md ready-to-record; named take missing from git
 - vo_origin.md kind=generated (labeled fallback)
@@ -36,7 +36,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - human_session + agent_session + hint/next_action + pipeline_status point that drop at gate_machine
 - hint.py and next_action.py post-VO codes now match NEXT steps 3-4
 - Clone-less first-fetch includes the drop page (7 bootstrap paths)
-- WAVE 3 board printers name the Q2 hold
+- WAVE 3 board printers name the Q2 hold *first*
 
 ## Pipeline map
 On the machine that runs gates (`docs/gate_machine.md`):
@@ -54,7 +54,7 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|
-| Estimated human min / video | 4.0 | 3.9 | WAVE 3 board no longer sells Q2 scaffold as the live job |
+| Estimated human min / video | 3.9 | 3.8 | WAVE 3 copy-paste no longer leads with scaffold |
 | Automated steps | 94 | 94 | freeze: still no 95th adapter |
 | Videos produced | 0 | 0 | ready_for_vo; take not on gate machine |
 
@@ -64,16 +64,8 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Media QA loudness/silence/clip: LANDED on HEAD (Run 223)
 - Export ftyp sniff: LANDED on HEAD for media_qa/assemble/complete (Run 224) and youtube_upload (Run 225)
 - Upload junk-master selftest: LANDED on HEAD (Run 226; still READY_FOR_MEDIA / READY_FOR_CREDENTIAL)
-- Run 227: freeze honor; no capability change
-- Run 228: operator drop recipe page; no capability change
-- Run 229: optional local TTS one-liners on existing drop page; no new printer
-- Run 230: operator/agent page alignment; no capability change
-- Run 231: hint/next_action record-vo point at gate_machine; no capability change
-- Run 232: pipeline_status missing-VO DROP points at gate_machine; no capability change
-- Run 233: hint.py build-cards/edit copy-paste matches existing post-VO tools; no capability change
-- Run 234: next_action.py ready_for_edit Why text matches those same tools; no capability change
-- Run 235: needed.py bootstrap + doctor reconstruct fetch gate_machine.md; README names it; no capability change
-- Run 236: queue_status + next_topic WAVE 3 hold Q2 and name gate_machine; no capability change
+- Runs 227-236: freeze honor / drop-page / printer / reconstruct / WAVE 3 hold text
+- Run 237: WAVE 3 hold-before-scaffold order + queue_contract lock; no capability change
 
 ## Active constraints
 - Do not add another dry-run adapter before on-disk Selected VO
@@ -88,3 +80,4 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Do not revert hint.py or next_action.py build-cards/edit to stock-download or editor-only wording
 - Do not strip docs/gate_machine.md from needed.py BOOTSTRAP or doctor UNMAPPED_PATHS
 - Do not strip the Q1 gate_machine hold from queue_status.py or next_topic.py
+- Do not move scaffold copy-paste above the Q1 hold in queue_status.py, next_topic.py, or the doctor footer

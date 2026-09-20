@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-09-20 — WAVE 3 hold after scaffold copy-paste (Run 236)
+
+- **Tried:** Add a Q1 gate_machine hold line to queue_status footer/report and next_topic without changing command order.
+- **Evidence:** First printed operator commands remained idea_brief --queue and new_packet. Videos produced stayed 0. Run 237 had to invert order.
+- **Lesson:** A warning under copy-paste is still a scaffold prompt. Lock the hold *before* the first --queue string.
+- **Avoid:** Moving scaffold commands back above the hold. Treating WAVE 3 as Q2 permission. Another printer alignment pass on hint/next_action.
+
 ## 2026-09-19 — dry-run adapter treadmill while VO missing (Runs 213–226)
 
 - **Tried:** After the 24h generated-VO fallback became authorized, successive runs added narration_adapter, card_generator, timeline, media_qa, youtube_upload, assemble, youtube_feedback, experiment_loop, complete, then ftyp/level/selftest locks around those printers.
