@@ -41,6 +41,14 @@ def fail(failures: list[str], cond: bool, msg: str) -> None:
         failures.append(msg)
 
 
+def hold_before_scaffold(text: str) -> bool:
+    hold = "# Q1 remaining labor is docs/gate_machine.md; do not scaffold Q2"
+    brief = "python3 tools/idea_brief.py --queue"
+    hi = text.find(hold)
+    bi = text.find(brief)
+    return hi != -1 and (bi == -1 or hi < bi)
+
+
 def main() -> int:
     failures: list[str] = []
 
@@ -153,6 +161,7 @@ def main() -> int:
             "optional pre-scaffold reprint" in body,
             "pre-scaffold reprint note present",
         )
+        fail(failures, hold_before_scaffold(body), "report hold precedes first --queue")
 
         footer_mark = queue_next_footer(
             QUEUE_TEXT,
@@ -174,6 +183,7 @@ def main() -> int:
             "not the fixture" in footer_mark.lower(),
             "doctor footer names the fixture trap",
         )
+        fail(failures, hold_before_scaffold(footer_mark), "footer hold precedes first --queue when Q1 mark-needed")
 
         footer_open = queue_next_footer(QUEUE_TEXT, [], "002")
         fail(
@@ -181,6 +191,7 @@ def main() -> int:
             "python3 tools/idea_brief.py --queue Q1" in footer_open,
             "doctor footer --queue Q1 when no matching folder",
         )
+        fail(failures, hold_before_scaffold(footer_open), "footer hold precedes first --queue when queue is open")
 
     print("Queue contract")
     print(f"Rows parsed: {len(rows)}")
