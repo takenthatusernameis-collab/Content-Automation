@@ -33,6 +33,13 @@ The selected-VO escalation has elapsed and generated narration is authorized, bu
 
 **This freeze supersedes the broader end-to-end capability progression below while the gate-machine media blocker remains unchanged.**
 
+Targeted addition from Run 233:
+
+- `tools/hint.py` build-cards must keep `card_generator.py --write-manifest` and must not tell operators to download stock.
+- `tools/hint.py` edit must keep timeline/media_qa/assemble and must not restore "do not write an ffmpeg recipe here".
+- Do not keep aligning remaining record-vo printers unless a proven omission blocks the drop. Runs 231–232 already pointed hint/next_action/pipeline_status at `docs/gate_machine.md`.
+- doctor.py inherits hint.commands_for; do not map doctor.py to add a second copy of those strings.
+
 Targeted addition from Run 137:
 
 - `docs/narration.md` names `videos/NNN-slug/vo/NNN-slug-take-selected.wav` at the top of Where files live and states repo-root `vo/` is not Selected VO.
