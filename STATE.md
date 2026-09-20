@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-09-20T18:20:00Z (Run 238)
+Updated: 2026-09-20T20:04:00Z (Run 239)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -15,11 +15,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - script.md 952 IN BAND; status `ready_for_vo`; selected take not in git
-- Run 238: README front door now lists the packet-relative drop and narration_adapter before doctor/queue/idea_brief/new_packet. Scaffold and sample-001 commands stay printed but labeled parked until Q1 ships. No new adapter. No invented wav/mp4. Production freeze otherwise honored.
+- Run 239: HOLD. Doc-alignment treadmill (Runs 227–238) flagged. No new adapter. No invented wav/mp4. Production freeze otherwise honored. Default next commit is none unless a proven HEAD regression or on-disk Selected VO appears.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
-- Executive trajectory decision: SHIP the first completed video before adding further broad architecture.
+- Executive trajectory decision: HOLD for on-disk Selected VO; SHIP the first completed video once that file exists. Do not expand architecture.
 
-## What exists now (after Run 238)
+## What exists now (after Run 239)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
 - vo_session.md ready-to-record; named take missing from git
 - vo_origin.md kind=generated (labeled fallback)
@@ -55,7 +55,7 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|
-| Estimated human min / video | 3.8 | 3.7 | README no longer leads with doctor/scaffold |
+| Estimated human min / video | 3.7 | 3.7 | No paper drop this run |
 | Automated steps | 94 | 94 | freeze: still no 95th adapter |
 | Videos produced | 0 | 0 | ready_for_vo; take not on gate machine |
 
@@ -65,8 +65,8 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Media QA loudness/silence/clip: LANDED on HEAD (Run 223)
 - Export ftyp sniff: LANDED on HEAD for media_qa/assemble/complete (Run 224) and youtube_upload (Run 225)
 - Upload junk-master selftest: LANDED on HEAD (Run 226; still READY_FOR_MEDIA / READY_FOR_CREDENTIAL)
-- Runs 227-237: freeze honor / drop-page / printer / reconstruct / WAVE 3 hold-before-scaffold
-- Run 238: README hold-before-scaffold order; no capability change
+- Runs 227-238: freeze honor / drop-page / printer / reconstruct / WAVE 3 hold-before-scaffold / README first-block
+- Run 239: treadmill flagged; HOLD until Selected VO; no capability change
 
 ## Active constraints
 - Do not add another dry-run adapter before on-disk Selected VO
@@ -83,3 +83,4 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Do not strip the Q1 gate_machine hold from queue_status.py or next_topic.py
 - Do not move scaffold copy-paste above the Q1 hold in queue_status.py, next_topic.py, or the doctor footer
 - Do not move README Human session / Local tools doctor, idea_brief, new_packet, or sample-001 commands above the live Q1 drop
+- Do not commit another documentation-order or printer-alignment change unless a proven HEAD regression sends operators to scaffold Q2 or invent media

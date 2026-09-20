@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-20T20:04:00Z — Run 239
+
+- **Objective:** Stop the recurring doc-alignment treadmill (Runs 227–238) from being treated as production while Q1 still has no on-disk Selected VO.
+- **Inspected:** STATE, NEXT, ROADMAP, FAILURES, PROGRESS, RUNS, README, OPERATOR_HOLD, DECISIONS, executive_manager. Confirmed Q1 still `ready_for_vo`. README Human session / Local tools already lead with the packet-relative drop. WAVE 3 printers already print hold-before-scaffold. No git-visible Selected VO. HTTPS clone still fails once; not retried.
+- **Action taken:** Classified the last twelve runs as one failure class (paper efficiency with zero videos). Recorded executive trajectory as HOLD for media, not another README/printer reorder. Added NEXT item 87: a future run with no proven HEAD regression must not commit documentation-order work. Did not add a TTS CLI. Did not invent a wav or mp4. Did not retry HTTPS clone. Did not scaffold Q2. Did not add a selftest fixture. Did not realign hint/next_action/README/WAVE 3. Did not grow bootstrap. Did not change automated-step count.
+- **Result:** Automated steps stay 94. Videos produced stay 0. Estimated human minutes stay 3.7 (no paper drop). Default next action is the gate-machine DROP file, not another front-door reorder.
+- **Verification status:** File API commit of state pages only. Printers were not executed against a live checkout in this sandbox (HTTPS clone parked). Selftest not re-run. No media created.
+- **Important discovery:** After hold-before-scaffold is locked in WAVE 3 printers, queue_contract, and README first bash blocks, further alignment cannot compound. Repeating it is the stall.
+- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics.
+- **Recommended next action:** On the gate machine, follow `docs/gate_machine.md` including one optional TTS block if needed. Do not add a TTS wrapper. Do not write a dummy mp4. Do not git add -f. Do not scaffold Q2. Do not reorder README or WAVE 3. Do not add NEXT items that only restate this hold. If VO is still missing and no HEAD regression is proven, prefer no commit over a state-page rewrite.
+
 ## 2026-09-20T18:20:00Z — Run 238
 
 - **Objective:** Close the leftover stall where WAVE 3 printers print hold-before-scaffold but README Human session / Local tools still led with doctor then idea_brief / new_packet / sample-001 as if that were the live job.

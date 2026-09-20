@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-09-20 — documentation-order treadmill (Runs 227–238, flagged Run 239)
+
+- **Tried:** After late-pipeline printers were fail-closed (Run 226), successive runs aligned drop-page pointers, bootstrap reconstruct, WAVE 3 hold text, hold-before-scaffold order, and README first bash blocks.
+- **Evidence:** Videos produced stayed 0. Automated steps stayed 94. Estimated human minutes fell only on paper (4.8 → 3.7). By Run 238 the live first commands already named the packet-relative drop. Run 239 found no remaining first-command stall on README or NEXT.
+- **Lesson:** Once hold-before-scaffold is locked in printers, queue_contract, and README, more alignment is the stall. The compounding step is on-disk media at the DROP path, or no commit.
+- **Avoid:** Another README/WAVE 3/hint/next_action reorder. Another NEXT do-not item that only restates the hold. Treating a state-page rewrite as production. A 95th adapter. Inventing wav/mp4. Scaffolding Q2.
+
 ## 2026-09-20 — README command blocks still sold scaffold (Run 238)
 
 - **Tried:** Runs 236-237 fixed WAVE 3 printer order so hold prints before idea_brief/new_packet.
