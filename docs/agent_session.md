@@ -40,9 +40,9 @@ python3 tools/needed.py --plan
 python3 tools/needed.py --plan --missing
 ```
 
-`--bootstrap` is read-only. It prints the six session-start paths. Combined with `--missing` it labels PRESENT or MISSING and prints READY or NOT READY. Exit is always 0. It is not a contract.
+`--bootstrap` is read-only. It prints the seven session-start paths (needed, agent_session, STATE, NEXT, RUNS, which_contract, and `docs/gate_machine.md`). Combined with `--missing` it labels PRESENT or MISSING and prints READY or NOT READY. Exit is always 0. It is not a contract.
 
-`--plan` is read-only. WAVE 1 reprints those six paths. WAVE 2 prints the next reconstruct command (`python3 tools/needed.py selftest.py --missing`) and does not dump that file list. WAVE 3 prints the reconstruct command for the operator board (`python3 tools/needed.py queue_status.py --missing`) then the reconstruct command for unmapped doctor (`python3 tools/needed.py doctor.py --missing`) then the start sequence (`python3 tools/doctor.py`, `python3 tools/queue_status.py`, `python3 tools/next_topic.py`) and does not dump queue files or scaffold. Combined with `--missing` it labels WAVE 1 only. Exit is always 0. It is not a contract. doctor.py stays unmapped.
+`--plan` is read-only. WAVE 1 reprints those seven paths. WAVE 2 prints the next reconstruct command (`python3 tools/needed.py selftest.py --missing`) and does not dump that file list. WAVE 3 prints the reconstruct command for the operator board (`python3 tools/needed.py queue_status.py --missing`) then the reconstruct command for unmapped doctor (`python3 tools/needed.py doctor.py --missing`) then the start sequence (`python3 tools/doctor.py`, `python3 tools/queue_status.py`, `python3 tools/next_topic.py`) and does not dump queue files or scaffold. Combined with `--missing` it labels WAVE 1 only. Exit is always 0. It is not a contract. doctor.py stays unmapped. `needed.py doctor.py` also lists `docs/gate_machine.md` so the drop recipe is present when the board runs.
 
 Then fetch WAVE 1 and continue below. If the live packet is already `ready_for_vo`, do not treat those board printers as the job.
 
@@ -216,6 +216,7 @@ Prior contract PASS times remain those recorded in Run 026–076. If a later run
 - Do not list WAVE 3 queue files inside --plan.
 - Do not treat WAVE 3 as auto-scaffold.
 - Do not treat WAVE 3 board printers as the live job while Q1 is `ready_for_vo` without a selected take.
+- Do not strip `docs/gate_machine.md` from `needed.py` BOOTSTRAP or doctor UNMAPPED_PATHS.
 - Do not map idea_gate_contract, operator_pin_contract, idea_brief_contract, words.py, words_contract.py, placeholder_guard.py, or prove_locks.py.
 - Do not write idea.md from idea_brief.py or idea_brief.py --block.
 - Do not treat verify_write_path.py as a replacement for contract_shape.py or write_path_contract.py.
