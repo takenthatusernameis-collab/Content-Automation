@@ -2,11 +2,22 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-09-20T08:22:00Z — Run 236
+
+- **Objective:** Close the leftover stall where WAVE 3 board printers (`queue_status.py` footer + `next_topic.py`) still presented Q2 scaffold commands as the live next action after Run 235 made clone-less reconstruct fetch `docs/gate_machine.md`.
+- **Inspected:** STATE, NEXT, ROADMAP, FAILURES, RUNS, needed.py BOOTSTRAP, doctor.py, queue_status.py, next_topic.py, agent_session, selftest. Confirmed Q1 still `ready_for_vo`. No git-visible Selected VO. hint/next_action/pipeline_status already name gate_machine. Bootstrap already includes the drop page. WAVE 3 start sequence still printed idea_brief/new_packet without a Q1 hold.
+- **Action taken:** Added a single Q1 hold line to `queue_status.queue_next_footer`, `queue_status.report`, and `next_topic.py`. Recorded do-not-strip as NEXT item 84. Did not add a TTS CLI. Did not invent a wav or mp4. Did not retry HTTPS clone. Did not scaffold Q2. Did not add a selftest fixture. Did not realign hint/next_action. Did not grow bootstrap.
+- **Result:** An agent who follows WAVE 3 doctor/queue_status/next_topic now sees that remaining labor is the gate-machine drop, not Q2. Automated steps stay 94. Videos produced stay 0. Estimated human minutes 4.0 → 3.9.
+- **Verification status:** File API commits of queue_status.py, next_topic.py, and state pages. Printers were not executed against a live checkout in this sandbox (HTTPS clone parked). Selftest not re-run (selftest does not snapshot queue_status footer text).
+- **Important discovery:** Fetching the drop page in bootstrap can complete while the WAVE 3 board still sells scaffold as the job. That is a different stall class than Runs 231–235 printer/reconstruct alignment.
+- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics.
+- **Recommended next action:** On the gate machine, follow `docs/gate_machine.md` including one optional TTS block if needed. Do not add a TTS wrapper. Do not write a dummy mp4. Do not git add -f. Do not scaffold Q2. Do not strip the Q1 hold from queue_status/next_topic. Do not strip gate_machine from bootstrap or doctor reconstruct. Do not keep aligning remaining record-vo printers. Do not grow bootstrap further without a proven omission.
+
 ## 2026-09-20T05:23:00Z — Run 235
 
 - **Objective:** Close the leftover stall where clone-less reconstruct (`needed.py --bootstrap` / WAVE 3 doctor) never fetched `docs/gate_machine.md` even though that page is the remaining labor after Runs 228–234 pointed live printers at it.
 - **Inspected:** STATE, NEXT, ROADMAP, OPERATOR_HOLD, FAILURES, RUNS, needed.py, agent_session, README, pipeline_status, doctor. Confirmed Q1 still `ready_for_vo`. No git-visible Selected VO. hint/next_action/pipeline_status already name gate_machine. BOOTSTRAP was six paths and omitted the drop page.
-- **Action taken:** Added `docs/gate_machine.md` to needed.py BOOTSTRAP and doctor UNMAPPED_PATHS. WAVE 3 plan now says remaining labor is that page. agent_session six	o seven paths. README live packet names the drop recipe. Did not add a TTS CLI. Did not invent a wav or mp4. Did not retry HTTPS clone. Did not scaffold Q2. Did not add a selftest fixture. Did not realign hint/next_action.
+- **Action taken:** Added `docs/gate_machine.md` to needed.py BOOTSTRAP and doctor UNMAPPED_PATHS. WAVE 3 plan now says remaining labor is that page. agent_session six to seven paths. README live packet names the drop recipe. Did not add a TTS CLI. Did not invent a wav or mp4. Did not retry HTTPS clone. Did not scaffold Q2. Did not add a selftest fixture. Did not realign hint/next_action.
 - **Result:** A clone-less agent who follows `--bootstrap` or `needed.py doctor.py` now pulls the drop recipe instead of only STATE/NEXT and queue printers. Automated steps stay 94. Videos produced stay 0. Estimated human minutes 4.1 → 4.0.
 - **Verification status:** File API commits of needed.py, agent_session.md, README.md, and state pages. needed.py was not executed against a live checkout in this sandbox (HTTPS clone parked). Selftest not re-run.
 - **Important discovery:** Printer alignment can complete while reconstruct still omits the page those printers name. That is a different stall class than Runs 231–234.
