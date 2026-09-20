@@ -4,6 +4,7 @@
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-09-20 Run 231 | ~4.4 estimate | 94 | hint.py / next_action.py record-vo now name docs/gate_machine.md |
 | 2026-09-19 Run 230 | ~4.5 estimate | 94 | human_session/agent_session no longer ban the authorized gate_machine TTS drop |
 | 2026-09-19 Run 229 | ~4.6 estimate | 94 | optional local TTS one-liners on existing drop page; no new adapter |
 | 2026-09-19 Run 228 | ~4.7 estimate | 94 | gate-machine drop page; no new adapter |
@@ -19,6 +20,7 @@
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 231: `tools/next_action.py` and `tools/hint.py` record-vo output now point at `docs/gate_machine.md` and name the authorized generated fallback. No new printer. No invented media.
 - Run 230: `docs/human_session.md` and `docs/agent_session.md` no longer treat recording as the only remaining gate or ban every ffmpeg one-liner. Dummy `export/master.mp4` stays forbidden. Optional TTS stays on `docs/gate_machine.md`, not under tools/.
 - Run 229: `docs/gate_machine.md` now includes optional already-installed TTS one-liners (espeak-ng+ffmpeg, macOS say+ffmpeg, or cp). Still not a repo TTS tool. No invented media.
 - Run 228: `docs/gate_machine.md` is the copy-paste Selected VO drop recipe. `docs/human_session.md` now matches OPERATOR_HOLD: generated local audio at the packet DROP path is authorized after the deadline. No new printer. No invented media.
