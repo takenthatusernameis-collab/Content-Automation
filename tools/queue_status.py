@@ -20,6 +20,10 @@ from queue_lib import existing_dirs, match_folder, next_id, parse_queue, slugify
 QUEUE = ROOT / "docs" / "topic_queue.md"
 VIDEOS = ROOT / "videos"
 
+Q1_HOLD = (
+    "# Q1 remaining labor is docs/gate_machine.md; do not scaffold Q2"
+)
+
 
 def packet_status(videos: Path, folder: str | None) -> str:
     """Read packet.md status only. Never mutates. Missing file is not invented ready."""
@@ -70,8 +74,12 @@ def queue_next_footer(text: str, folders: list[str], predicted_id: str) -> str:
             f"  python3 tools/idea_brief.py --queue {row['id']}\n"
             f'  python3 tools/new_packet.py "{row["working_title"]}"\n'
             f"  # predicted {dest}; human only; do not auto-scaffold\n"
+            f"  {Q1_HOLD}\n"
         )
-    return "Queue next: no unused queued topic.\n"
+    return (
+        "Queue next: no unused queued topic.\n"
+        f"{Q1_HOLD}\n"
+    )
 
 
 def report(text: str, folders: list[str], predicted_id: str, videos: Path) -> tuple[str, dict[str, int]]:
@@ -129,8 +137,10 @@ def report(text: str, folders: list[str], predicted_id: str, videos: Path) -> tu
         lines.append("  (optional pre-scaffold reprint; writes nothing; no folder required)")
         lines.append(f'  python3 tools/new_packet.py "{first_queued["working_title"]}"')
         lines.append("  (human / instructed agent only; do not auto-scaffold)")
+        lines.append(f"  {Q1_HOLD}")
     else:
         lines.append("No unused queued topic.")
+        lines.append(Q1_HOLD)
     if mark_cmds:
         lines.append("Close queue drift (dry-run first):")
         lines.extend(mark_cmds)
