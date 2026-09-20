@@ -99,14 +99,17 @@ def commands_for(path: Path, row: dict[str, object], code: str) -> list[str]:
         return cmds
     if code == "build-cards":
         return [
-            f"python3 tools/card_generator.py {p} --dry-run",
-            "# create the named cards/*.png locally; do not download stock from tools",
+            f"python3 tools/card_generator.py {p} --write-manifest",
+            "# requires Pillow; writes gitignored 1920x1080 PNGs under cards/",
+            "# do not git add -f pngs; --mark-ready only after inspect-only reports all yes",
         ]
     if code == "edit":
         return [
-            f"python3 tools/timeline.py {p} --dry-run",
+            f"python3 tools/timeline.py {p} --write",
+            f"python3 tools/media_qa.py {p}",
+            f"python3 tools/assemble.py {p}",
+            "# assemble stays dry-run until READY_TO_ENCODE; do not write a dummy export/master.mp4",
             f"python3 tools/render_brief.py {p} --dry-run",
-            "# export the named mp4 after edit; do not write an ffmpeg recipe here",
         ]
     if code == "export":
         return [f"python3 tools/render_brief.py {p} --dry-run"]
