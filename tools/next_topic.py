@@ -17,6 +17,10 @@ from queue_lib import already_used, existing_slugs, next_id, parse_queue, slugif
 QUEUE = ROOT / "docs" / "topic_queue.md"
 VIDEOS = ROOT / "videos"
 
+Q1_HOLD = (
+    "# Q1 remaining labor is docs/gate_machine.md; do not scaffold Q2"
+)
+
 
 def main() -> int:
     parser = argparse.ArgumentParser(
@@ -44,6 +48,7 @@ def main() -> int:
     print("This command writes nothing.")
     print("Queue file: docs/topic_queue.md")
     print(f"Queued unused: {len(available)} / {len(rows)}")
+    print(Q1_HOLD)
     if not available:
         print("No unused queued topic. Add a row to docs/topic_queue.md or reuse an existing packet.")
         return 0
@@ -71,6 +76,7 @@ def main() -> int:
         print(f"  python3 tools/mark_topic.py --id {row['id']}")
         print(f"  # python3 tools/mark_topic.py --id {row['id']} --write")
         print("Do not apply WORDS to sample-001. Do not invent a script here.")
+        print(Q1_HOLD)
     return 0
 
 
