@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-10-01 — anonymous Drive fetch is a login wall (flagged Run 246)
+
+- **Tried:** After Runs 244–245 left the wav and seven cards on Drive, this run checked whether a gate machine could fetch file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` with an unauthenticated curl.
+- **Evidence:** `curl -L` of `https://drive.google.com/uc?export=download&id=1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` returned HTTP 303 then an HTML Google sign-in page (`accounts.google.com`), not a wav. The same file downloaded through the connected Drive account still matched sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2` and 27200958 bytes. Packet status stayed `ready_for_vo`.
+- **Lesson:** A Drive file id is durable for the connected account. It is not a public URL. Writing a curl or gdown one-liner into `docs/gate_machine.md` would not place Selected VO. Runs 239–246 have not performed the packet-relative copy.
+- **Avoid:** Another upload while those Drive sizes match. Another checksum-only commit. A public-link fetcher under tools/. Calling the Drive file Selected VO.
+
 ## 2026-10-01 — Drive media is still not the gate (flagged Run 245)
 
 - **Tried:** Run 244 uploaded the generated wav. Run 245 confirmed that file id still listed 27200958 bytes, matched sha256 on download, and uploaded the seven planned cards to the same folder.

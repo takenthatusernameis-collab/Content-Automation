@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-10-01T13:22:00Z — Run 246
+
+- **Objective:** Stop the re-upload loop. Confirm the existing Drive handoff is still the same bytes, and test whether an unauthenticated gate machine can fetch it. Do not regenerate. Do not claim Selected VO.
+- **Inspected:** STATE, NEXT, HANDOFF, FAILURES, RUNS, OPERATOR_HOLD, BLOCKED, docs/gate_machine.md, Drive folder `1ftaVyh8BWQeWp45TIyX7Hh1o0MPmGRev`. Folder still listed the wav at 27200958 bytes and the seven PNGs at the Run 245 sizes. HTTPS clone not retried.
+- **Action taken:** Downloaded the existing Drive wav and seven PNGs. sha256 matched `HANDOFF.md` and `cards.sha256`. Did not synthesize. Did not upload. Probed `https://drive.google.com/uc?export=download&id=1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` without credentials. Did not bump status. Did not scaffold Q2.
+- **Result:** Checksums still match. Automated steps stay 94. Videos produced stay 0. Estimated human minutes stay 3.7. Packet status stays `ready_for_vo`. Anonymous fetch is not a copy path.
+- **Verification status:** Local sha256 of the wav matched `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2`. Seven PNG sha256 values matched `cards.sha256`. Drive listing sizes unchanged. Unauthenticated curl followed a 303 and saved an HTML Google sign-in page (`accounts.google.com`), not a wav. Not copied to a packet checkout. Not Selected VO.
+- **Important discovery:** The Drive file id is durable for an agent with the connected Drive account. It is not anonymously downloadable. A curl/gdown one-liner on the gate machine will not clear the DROP path unless that machine is signed into the same Google account.
+- **Blocker:** Packet-relative Selected VO still absent. Flagged: runs 239–246 have not placed a file at the DROP path. Another checksum or another upload is the stall.
+- **Recommended next action:** On a machine signed into the Drive owner account, copy the existing wav and seven PNGs onto the packet paths in `HANDOFF.md`, check sha256, then run narration_adapter / vo_session / card_generator --inspect-only. Do not regenerate. Do not add a public-link fetcher.
+
 ## 2026-10-01T12:20:00Z — Run 245
 
 - **Objective:** Do not regenerate the wav. Confirm the Run 244 Drive take is still the same bytes, then leave the next media step (seven planned cards) durable on the same Drive folder. Do not claim Selected VO. Do not commit binaries.
