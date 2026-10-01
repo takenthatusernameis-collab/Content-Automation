@@ -255,6 +255,23 @@ def check_upload_fail_closed() -> list[str]:
         src = Path(__file__).resolve().parent.joinpath("youtube_upload.py").read_text(encoding="utf-8")
         if "abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53" not in src:
             failures.append("upload adapter must keep the r249 truncated master sha locked")
+
+        (p / "publish.md").write_text(
+            "## Title to upload\n\nFixture title\n\n"
+            "## Description\n\nNo upload happened. Human locks title, description, and tags before YouTube. "
+            "Twelve more words so length alone would pass the word count gate.\n\n"
+            "## Tags\n\n- fixture\n\n"
+            "## Human before upload\n\n- [ ] Description edited for search + honesty\n",
+            encoding="utf-8",
+        )
+        report_stub = inspect_upload(p, env={})
+        if report_stub["gate"] in {"READY", "YOUTUBE_AUTH_REQUIRED"}:
+            failures.append("stub publish description must not look credential-ready")
+        if report_stub["action"] != "HOLD_LOCAL":
+            failures.append(f"stub publish copy must HOLD_LOCAL, got {report_stub['action']}")
+        names_stub = {c["name"]: c["ok"] for c in report_stub["checks"]}
+        if names_stub.get("publish_copy_approved"):
+            failures.append("stub description must fail publish_copy_approved")
         vo = p / "vo"
         vo.mkdir()
         take = vo / f"{p.name}-take-selected.wav"

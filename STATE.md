@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-01T23:15:00Z (Run 254)
+Updated: 2026-10-02T00:20:00Z (Run 255)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -16,6 +16,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Durable fetch: private release `q1-media-r253` (padded master) plus r249 wav/cards and Drive folder in HANDOFF.md
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Executive: SHIP after YouTube OAuth. Do not re-encode. Do not upload r249. Do not expand architecture.
+
+## Run 255 delta
+- youtube_upload now HOLD_LOCAL when publish.md still has the stub sentence "No upload happened" or an unchecked Human before upload item (description / pin). Word count alone no longer looks upload-ready.
+- Live Q1 dry-run: gate FAIL, action HOLD_LOCAL, publish_copy_approved FAIL. Master still absent on this checkout. Did not re-encode. Did not upload. Did not edit the human description.
+- selftest PASS.
 
 ## Run 254 delta
 - `youtube_upload.py` refuses r249 truncated master sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53` and any VO-length export missing the 20s end screen.
@@ -38,8 +43,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 2.5 | 2.5 | OAuth still the human gate; truncated master now fail-closed |
-| Automated steps | 96 | 97 | upload refuses truncated end screen |
+| Estimated human min / video | 2.5 | 2.5 | OAuth remains; stub description now fail-closed so it is not skipped |
+| Automated steps | 97 | 98 | upload refuses stub publish copy |
 | Videos produced | 0 | 0 | padded local master on q1-media-r253; not uploaded |
 
 ## Active constraints

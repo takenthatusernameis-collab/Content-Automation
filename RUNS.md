@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-10-02T00:20:00Z — Run 255
+
+- **Objective:** Stop a stub description from looking upload-ready once OAuth exists.
+- **Inspected:** STATE/NEXT/HANDOFF/RUNS after Run 254. Release `q1-media-r253` still lists `q1-master-r253.mp4`. Live `publish.md` still contains "No upload happened" and unchecked description/pin boxes. Upload hard-local checks ignored that copy.
+- **Action taken:** `youtube_upload.py` fails closed on stub description markers and unchecked Human before upload items. selftest locks the stub fixture. Did not rewrite the human description. Did not re-encode. Did not upload. Did not scaffold Q2.
+- **Result:** selftest PASS. Live packet dry-run gate FAIL / HOLD_LOCAL / publish_copy_approved FAIL (also missing local master). Automated steps 97 -> 98. Videos published stay 0. Packet status stays ready_for_vo.
+- **Verification status:** selftest PASS observed. Live packet command observed HOLD_LOCAL. r253 asset listed, not re-downloaded.
+- **Important discovery:** Word count treated the process note as a usable description, so the next operator step looked like OAuth only.
+- **Blocker:** YouTube OAuth still absent. Human must edit publish.md description and approve the pin comment. Finished master remains `q1-media-r253`.
+- **Recommended next action:** Human-edit `publish.md` description (remove stub sentences, check the two open boxes). Then download `q1-master-r253.mp4` onto export/master.mp4 and set OAuth. Do not upload r249. Do not re-encode.
+
 ## 2026-10-01T23:15:00Z — Run 254
 
 - **Objective:** Stop the fetch page from installing the truncated master as the upload file.

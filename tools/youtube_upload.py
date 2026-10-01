@@ -42,6 +42,35 @@ def _now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+STUB_DESCRIPTION_MARKERS = (
+    "No upload happened",
+    "Human locks title, description, and tags before YouTube",
+)
+
+
+def unchecked_publish_items(text: str) -> list[str]:
+    block = section(text, "Human before upload")
+    open_items = []
+    for line in block.splitlines():
+        line = line.strip()
+        if line.startswith("- [ ]"):
+            item = line[5:].strip()
+            if item and "No YouTube upload" not in item:
+                open_items.append(item)
+    return open_items
+
+
+def copy_block_reason(text: str, meta: dict) -> str | None:
+    description = meta.get("description") or ""
+    for marker in STUB_DESCRIPTION_MARKERS:
+        if marker in description:
+            return f"stub description still contains {marker!r}"
+    open_items = unchecked_publish_items(text)
+    if open_items:
+        return "unchecked publish copy: " + "; ".join(open_items)
+    return None
+
+
 def parse_publish(text: str) -> dict:
     title = section(text, "Title to upload").splitlines()[0].strip() if text else ""
     description = section(text, "Description").strip()
@@ -196,6 +225,8 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
     add("publish_md_present", pub.is_file(), "publish.md" if pub.is_file() else "missing publish.md")
     add("title_present", bool(meta["title"]), meta["title"] or "empty title")
     add("description_usable", meta["word_count"] >= 12, f"{meta['word_count']} words")
+    copy_block = copy_block_reason(text, meta)
+    add("publish_copy_approved", copy_block is None, copy_block or "description and human checklist approved")
     add("tags_present", bool(meta["tags"]), f"{len(meta['tags'])} tags")
     add(
         "master_export_present",
@@ -207,7 +238,7 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
     add("not_api_key_only", not auth["api_key_alone"], "API key is not upload authorization")
     add("no_duplicate_fingerprint", not duplicate, fp)
 
-    hard_local = [c for c in checks if c["name"] in {"publish_md_present", "title_present", "master_export_present"}]
+    hard_local = [c for c in checks if c["name"] in {"publish_md_present", "title_present", "master_export_present", "publish_copy_approved"}]
     local_ok = all(c["ok"] for c in hard_local)
     if not local_ok:
         gate = "FAIL"

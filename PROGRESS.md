@@ -1,3 +1,8 @@
+Updated: 2026-10-02T00:20:00Z
+
+## Run 255
+Upload dry-run refuses stub publish copy. Automated steps 98. Videos published 0.
+
 # PROGRESS
 
 ## Efficiency ledger
