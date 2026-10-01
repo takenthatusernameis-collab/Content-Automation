@@ -47,9 +47,9 @@ cp -n /path/to/existing-generated.wav "$DROP"
 cp -n /path/to/cards/*.png "$PACKET/cards/"
 ```
 
-Durable generated copy (Run 244, re-verified Run 245): Google Drive file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl`, folder `Content-Automation-handoff` (`1ftaVyh8BWQeWp45TIyX7Hh1o0MPmGRev`), 27200958 bytes, sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2`. Download that file, copy it to `$DROP`, and check the checksum in `HANDOFF.md`. Do not regenerate while that Drive file lists 27200958 bytes. A Drive file is not Selected VO until it is at `$DROP`.
+Durable generated copy (Run 244, checksum re-checked Run 246): Google Drive file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl`, folder `Content-Automation-handoff` (`1ftaVyh8BWQeWp45TIyX7Hh1o0MPmGRev`), 27200958 bytes, sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2`. Download that file while signed into the Drive owner account, copy it to `$DROP`, and check the checksum in `HANDOFF.md`. Do not regenerate while that Drive file lists 27200958 bytes. A Drive file is not Selected VO until it is at `$DROP`. Do not use an unauthenticated curl or gdown. Run 246 followed the uc export URL and got a Google sign-in page, not the wav.
 
-Durable cards (Run 245): seven 1920x1080 PNGs in the same folder. Checksums and file ids are in `HANDOFF.md`. `cards.sha256` file id `1Exe7TolCKO8f7-vZ6HCSseGEmrVLyU2x`. Copy them to `$PACKET/cards/` and run `python3 tools/card_generator.py "$PACKET" --inspect-only`. Do not regenerate while those Drive sizes match. Drive PNGs are not packet cards until that copy.
+Durable cards (Run 245, checksum re-checked Run 246): seven 1920x1080 PNGs in the same folder. Checksums and file ids are in `HANDOFF.md`. `cards.sha256` file id `1Exe7TolCKO8f7-vZ6HCSseGEmrVLyU2x`. Copy them to `$PACKET/cards/` and run `python3 tools/card_generator.py "$PACKET" --inspect-only`. Do not regenerate while those Drive sizes match. Drive PNGs are not packet cards until that copy.
 
 espeak-ng + ffmpeg (Debian/Ubuntu style; robotic but authorized as generated):
 
@@ -90,4 +90,4 @@ INCOMPLETE_MEDIA until VO + cards exist. Do not write a dummy `export/master.mp4
 ## Agent sandbox
 This page does not authorize committing audio or PNGs from an agent workspace.
 A wav that exists only in a disposable sandbox is not gate-machine Selected VO.
-Runs 242 and 243 proved a session artifacts path does not survive the next run. Run 244 left the same bytes on Drive (file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl`). Run 245 re-downloaded that file, matched the sha256, and left the seven cards on the same folder. If artifacts are empty, download those file ids and check sha256. Do not synthesize again while that Drive file lists 27200958 bytes. Do not add a TTS wrapper under `tools/`.
+Runs 242 and 243 proved a session artifacts path does not survive the next run. Run 244 left the same bytes on Drive (file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl`). Run 245 re-downloaded that file, matched the sha256, and left the seven cards on the same folder. Run 246 matched those checksums again and proved the file id is not anonymously downloadable. If artifacts are empty, download those file ids with the connected Drive account and check sha256. Do not synthesize again while that Drive file lists 27200958 bytes. Do not add a TTS wrapper or a public-link fetcher under `tools/`.
