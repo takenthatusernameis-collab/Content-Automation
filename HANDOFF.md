@@ -1,11 +1,11 @@
 # HANDOFF
 
-Updated: 2026-10-01T17:05:00Z (Run 249)
+Updated: 2026-10-01T17:30:00Z (Run 250)
 
 This file is not Selected VO. Audio and card PNGs stay gitignored. Do not `git add -f`.
 
 ## Why this file exists
-Run 242 synthesized a labeled generated take and called it operator-downloadable. Run 243 found an empty workspace. Run 244 found the same empty workspace and uploaded the wav to Drive. Run 245 confirmed that Drive file still lists 27200958 bytes and the same sha256, then added the seven planned cards. Run 246 matched those checksums again and found that an unauthenticated curl of the wav file id returns a Google sign-in page. Run 247 downloaded the same Drive bytes into that operator session. Run 248 listed the Drive folder again (sizes unchanged), downloaded the same bytes into this operator session (`q1-handoff/` and `q1-handoff-verified.zip`, 19908902 bytes), and matched sha256 again. That session folder is the human copy source for this chat. It is not durable for the next agent, and it is not the packet DROP path. Next agent should not re-download unless the operator says this zip was lost.
+Run 242 synthesized a labeled generated take and called it operator-downloadable. Run 243 found an empty workspace. Run 244 found the same empty workspace and uploaded the wav to Drive. Run 245 confirmed that Drive file still lists 27200958 bytes and the same sha256, then added the seven planned cards. Run 246 matched those checksums again and found that an unauthenticated curl of the wav file id returns a Google sign-in page. Run 247 downloaded the same Drive bytes into that operator session. Run 248 listed the Drive folder again (sizes unchanged), downloaded the same bytes into this operator session (`q1-handoff/` and `q1-handoff-verified.zip`, 19908902 bytes), and matched sha256 again. That session folder is the human copy source for this chat. It is not durable for the next agent, and it is not the packet DROP path. Run 250 downloaded `q1-media-r249` with gh and matched the wav and master checksums. Next agent should not re-download unless a release asset is missing.
 
 ## Current operator file
 - Name: `002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`

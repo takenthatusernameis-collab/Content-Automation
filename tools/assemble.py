@@ -169,6 +169,7 @@ def render_text(report: dict) -> str:
         mark = "PASS" if c["ok"] else "FAIL"
         lines.append(f"- {mark} {c['name']}: {c['detail']}")
     lines.append("ffmpeg_argv:")
+    lines.append("do_not_copy_on_2gb: single-graph argv OOMs; use assemble.py --execute (one card at a time)")
     lines.append(json.dumps(report["command"], ensure_ascii=False))
     return "\n".join(lines) + "\n"
 

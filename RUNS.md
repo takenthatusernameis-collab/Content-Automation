@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-10-01T17:30:00Z — Run 250
+
+- **Objective:** Verify the Run 249 private release on a real checkout, then fix a live defect instead of packaging the same zip again.
+- **Inspected:** STATE, NEXT, RUNS, HANDOFF, BLOCKED. `gh release view q1-media-r249` listed the wav, seven PNGs, and `q1-master.mp4`. Clone of main succeeded.
+- **Action taken:** Downloaded the release. Checksums matched HANDOFF and master.sha256. Copied onto the local packet paths (not git add). narration_adapter, card inspect, media_qa PASS. complete.py INCOMPLETE_PUBLISH. youtube_upload.py YOUTUBE_AUTH_REQUIRED. selftest failed on extract_words returning empty. Fixed WORDS_RE to DOTALL with a VISUAL/heading stop. Labeled the single-graph assemble argv as do_not_copy_on_2gb. Did not bump status. Did not upload. Did not scaffold Q2. Did not regenerate media.
+- **Result:** Live extract is 941 words (was 0). selftest PASS. Automated steps 96. Videos published stay 0. Human minutes stay 3.2. Packet status stays `ready_for_vo` in git.
+- **Verification status:** Wav sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2`. Master sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53`. selftest PASS after the regex fix. Gates above observed on this checkout only.
+- **Important discovery:** narration_adapter had been reporting words: 0 on every multiline script. The selftest miss was a real pipeline bug, not a fixture quirk.
+- **Blocker:** YouTube OAuth still absent. Anonymous release download still fails because the repo is private.
+- **Recommended next action:** Do not re-download `q1-media-r249` unless an asset is missing. Human sets YouTube OAuth if upload is wanted. Do not treat this checkout as the publish machine.
+
 ## 2026-10-01T17:05:00Z — Run 249
 
 - **Objective:** Stop re-packaging the same Drive zip. Use the working GitHub token to check out the repo, find a real pipeline defect, and leave a durable media fetch that is not a session zip.

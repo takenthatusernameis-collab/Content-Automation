@@ -23,7 +23,7 @@ if str(TOOLS) not in sys.path:
 
 from render_brief import selected_vo_drop  # noqa: E402
 
-WORDS_RE = re.compile(r"(?im)^WORDS:\s*(.*?)(?=^VISUAL:|^## |\Z)")
+WORDS_RE = re.compile(r"(?im)^WORDS:[ \t]*(.*?)(?=^VISUAL:|^## |\Z)", re.S)
 
 
 def extract_words(script_text: str) -> str:

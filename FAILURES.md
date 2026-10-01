@@ -1,5 +1,13 @@
 # FAILURES
 
+## 2026-10-01 — extract_words dropped every multiline WORDS block (fixed Run 250)
+
+- **Tried:** narration_adapter.extract_words used `^WORDS:\s*(.*?)` without DOTALL. `.` never crossed the newline after `WORDS:`, so the match failed and the adapter printed words: 0. selftest reported `extract_words missed WORDS blocks: ''`.
+- **Result:** Spoken-word count on the live packet was wrong. Duration and TTS callers that used this helper would have seen an empty script.
+- **Lesson:** The existing selftest was the lock. words.py already used `re.S`. Match that, and stop at `VISUAL:` or the next `##` heading.
+- **Avoid:** Treating the selftest miss as a pre-existing fixture to ignore.
+
+
 ## 2026-10-01 — Beat 2–4 encoded as Beat 1 (fixed Run 249)
 
 - **Tried:** Dry-run assemble after placing the verified cards. The argv reused `cards/beat1-split-open-task-board-vs-one-index-car.png` for Beat 2, Beat 3, and Beat 4.

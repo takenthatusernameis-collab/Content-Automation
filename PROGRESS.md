@@ -4,6 +4,7 @@
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-10-01 Run 250 | ~3.2 estimate | 96 | Release checksums matched; extract_words multiline fix; selftest PASS; still not uploaded |
 | 2026-10-01 Run 248 | ~3.7 estimate | 94 | Drive sizes and sha256 still match; session zip again; no share or release-upload tool; still not Selected VO; no paper drop |
 | 2026-10-01 Run 246 | ~3.7 estimate | 94 | Checksums still match; anonymous Drive curl is a login wall; still not Selected VO; no paper drop |
 | 2026-10-01 Run 245 | ~3.7 estimate | 94 | Re-verified Drive wav by download sha256; seven cards uploaded and size-matched; still not Selected VO; no paper drop |

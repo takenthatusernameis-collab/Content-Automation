@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-01T17:05:00Z (Run 249)
+Updated: 2026-10-01T17:30:00Z (Run 250)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -12,7 +12,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - GitHub: `takenthatusernameis-collab/Content-Automation`
 - Default branch: `main`
 - No published videos
-- HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
+- HTTPS clone works in this sandbox when `gh` is authenticated. Do not retry the parked clone-failure path. Media stays gitignored. Push code with git, not media.
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - script.md 952 IN BAND; status `ready_for_vo`; selected take not in git
 - Run 248 re-downloaded the existing Drive wav and seven cards, matched sha256, and left them in the operator session as `q1-handoff/` and `q1-handoff-verified.zip` (19908902 bytes). It did not regenerate or re-upload. Neither the wav nor the PNGs are on the packet paths. Session artifacts are not durable for the next agent.
@@ -59,10 +59,10 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 3.7 | 3.2 | gh release download replaces a Drive UI copy when the token is present |
-| Automated steps | 94 | 95 | segmented assemble execute |
+| Estimated human min / video | 3.2 | 3.2 | release fetch verified; remaining human gate is YouTube OAuth |
+| Automated steps | 95 | 96 | extract_words now reads multiline WORDS |
 | Videos produced | 0 | 0 | local master exists; not uploaded |
-| Days since last media progress | 11 | 0 | local ftyp master + private release |
+| Days since last media progress | 0 | 0 | release re-verified; words extract fixed |
 
 ## Capability roadmap status
 - Completion gate: PLAN_BUILT (complete.py + HEAD selftest lock)
@@ -86,10 +86,17 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 ## Run 249 delta
 - Clone with GH_TOKEN works in this sandbox. Do not treat BLOCKED clone as always-failed.
 - timeline.match_card no longer maps every Beat N to Beat 1.
-- assemble --execute encodes one card at a time. The printed argv is still the single-graph recipe and can be killed on a 2 GB machine.
-- Private release `q1-media-r249`: wav, seven PNGs, `q1-master.mp4` (sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53`, 6499414 bytes, 308.40 s, 1920x1080, ftyp). Download verified with gh. Not a YouTube upload. Not committed media.
+- assemble --execute encodes one card at a time.
+- Private release `q1-media-r249`: wav, seven PNGs, `q1-master.mp4` (sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53`, 6499414 bytes, 308.40 s, 1920x1080, ftyp). Not a YouTube upload. Not committed media.
 - Packet status stays `ready_for_vo` until the DROP file is on the checkout that will publish.
 - Flag cleared for "another session zip". Do not re-download Drive unless the release asset is missing.
+
+## Run 250 delta
+- `gh release download q1-media-r249` matched wav sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2` and master sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53`.
+- On that checkout, narration_adapter, card inspect, and media_qa PASS. complete.py is INCOMPLETE_PUBLISH (no provider_video_id). youtube_upload.py is YOUTUBE_AUTH_REQUIRED. Status was not bumped.
+- extract_words ignored multiline WORDS bodies, so the adapter printed words: 0. Regex now uses DOTALL and stops at VISUAL or the next heading. Live packet extracts 941 words. selftest PASS.
+- assemble dry-run still prints the single-graph argv but now labels it do_not_copy_on_2gb. Execute remains segmented.
+- Do not re-download the release unless an asset is missing. Do not regenerate. Next human gate is YouTube OAuth, not another zip.
 
 ## Active constraints
 - Do not add another dry-run adapter before on-disk Selected VO

@@ -12,3 +12,5 @@ Do not keep aligning documentation, adding guards, rewriting prompts, creating w
 A human take at the packet-relative DROP path may replace the generated fallback. Update `vo_origin.md` to `kind: human` only when that file is real.
 
 Run 248 left the already-verified generated wav and seven cards in the operator chat as `q1-handoff-verified.zip` (19908902 bytes). Copy those files onto the packet paths in `HANDOFF.md`. That zip is not Selected VO until the copy exists on the gate machine. Runs 239–248 have not performed that copy. Do not ask the next agent to re-download unless this zip was lost.
+
+Run 250 verified `gh release download q1-media-r249` checksums and fixed extract_words (multiline WORDS were ignored). Do not ask the next agent to re-download unless that release asset is missing. Upload still needs YouTube OAuth.
