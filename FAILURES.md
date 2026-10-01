@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-10-01 — artifacts handoff still dies between agent runs (flagged Run 244)
+
+- **Tried:** Run 243 wrote the generated wav under operator artifacts `handoff/` and stored only the sha256 in git. It treated that artifacts write as the handoff.
+- **Evidence:** Run 244 opened an empty artifacts workspace. Drive search for the exact wav name returned no file. Packet listing still has no `vo/` directory. Regenerating the same edge-tts pass reproduced sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2` and 27200958 bytes. Uploading that file to Drive succeeded: file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl`, size_bytes 27200958.
+- **Lesson:** Checksum-in-git plus a session artifacts path is not durable for the next agent. A Drive file id is. The file is still not Selected VO until it is copied to the packet-relative DROP path on the gate machine.
+- **Avoid:** Another synthesis while Drive file `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` lists 27200958 bytes. Calling the Drive file Selected VO. Committing the wav. A TTS wrapper under tools/.
+
 ## 2026-10-01 — operator-downloadable sandbox wav did not survive (flagged Run 243)
 
 - **Tried:** Run 242 synthesized a level-passing generated wav and told the next run not to regenerate unless the operator said the handoff was lost. It did not commit audio (correct) and did not leave a checksum in git.
