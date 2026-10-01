@@ -4,6 +4,7 @@
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-10-01 Run 243 | ~3.7 estimate | 94 | Regenerated lost Run 242 wav into operator artifacts; sha256 in HANDOFF.md; still not Selected VO; no paper drop |
 | 2026-10-01 Run 241 | ~3.7 estimate | 94 | 11-day HOLD heartbeat; packet still has no vo/; no paper drop |
 | 2026-09-20 Run 240 | ~3.7 estimate | 94 | HOLD re-verified; packet still has no vo/; no paper drop |
 | 2026-09-20 Run 239 | ~3.7 estimate | 94 | HOLD; flagged 227–238 treadmill; no paper drop |
@@ -25,6 +26,7 @@
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 243: No new adapter. Durable handoff record only: operator artifacts wav plus sha256 in `HANDOFF.md`. Packet listing still has no `vo/`. Videos produced stay 0.
 - Run 241: No new capability. Re-verified after 11 calendar days that Q1 packet listing still has no `vo/` directory and HEAD had not moved. Confirmed no HEAD regression.
 - Run 240: No new capability. Re-verified Q1 packet listing has no `vo/` directory. Confirmed no HEAD regression that would justify another printer/README change.
 - Run 239: No new capability. Documented that further first-command alignment is not production. NEXT item 87 prefers no commit over another state rewrite.
