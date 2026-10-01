@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-10-01T14:12:00Z — Run 247
+
+- **Objective:** Stop re-checking Drive as if that were the gate. Put the already-verified wav and seven cards in the operator-visible session folder so a human can copy them. Do not regenerate. Do not claim Selected VO.
+- **Inspected:** STATE, NEXT, HANDOFF, RUNS, OPERATOR_HOLD, FAILURES. Packet still blocked on the packet-relative DROP path. Runs 239–246 had not placed a file there. HTTPS clone not retried.
+- **Action taken:** Downloaded Drive file `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` and the seven card ids through the connected Drive account into the operator session folder `q1-handoff/`. Checked sha256 against `HANDOFF.md` and `cards.sha256`. Wrote `COPY_TO_PACKET.txt` and `q1-handoff-verified.zip` (19908838 bytes). Did not synthesize. Did not upload. Did not bump status. Did not scaffold Q2.
+- **Result:** Operator session has the matching bytes. Automated steps stay 94. Videos produced stay 0. Estimated human minutes stay 3.7. Packet status stays `ready_for_vo`.
+- **Verification status:** Wav sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2`, 27200958 bytes, 44.1 kHz mono s16, 308.40 s. Seven PNG sha256 values matched `cards.sha256`. Not copied to a packet checkout. Not Selected VO. Session artifacts are not durable for the next agent (Run 244).
+- **Important discovery:** The connected Drive account can place the handoff in the current operator session. That is the human copy source for this run. It still does not clear the packet-relative gate.
+- **Blocker:** Packet-relative Selected VO still absent. Flagged: runs 239–247 have not placed a file at the DROP path. Another Drive checksum is the stall.
+- **Recommended next action:** Human copies `q1-handoff-verified.zip` onto the gate machine using `COPY_TO_PACKET.txt`, then runs narration_adapter and card_generator --inspect-only. Do not regenerate. Do not add a public-link fetcher.
+
 ## 2026-10-01T13:22:00Z — Run 246
 
 - **Objective:** Stop the re-upload loop. Confirm the existing Drive handoff is still the same bytes, and test whether an unauthenticated gate machine can fetch it. Do not regenerate. Do not claim Selected VO.
