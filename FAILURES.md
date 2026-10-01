@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-10-01 — Drive media is still not the gate (flagged Run 245)
+
+- **Tried:** Run 244 uploaded the generated wav. Run 245 confirmed that file id still listed 27200958 bytes, matched sha256 on download, and uploaded the seven planned cards to the same folder.
+- **Evidence:** Packet listing still has no `vo/` and no `cards/` directory. Drive folder listing matched the local PNG sizes. Videos produced stayed 0.
+- **Lesson:** A recorded Drive file id survives agent workspaces. It does not clear `ready_for_vo`. Runs 239–245 have not performed the packet-relative copy. Treat another upload or another checksum note as the stall unless the DROP path listing changes.
+- **Avoid:** Regenerating the wav while file `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` lists 27200958 bytes. Regenerating the seven cards while `HANDOFF.md` sizes match. Calling Drive files Selected VO or packet cards. Committing binaries. A TTS or card wrapper under tools/.
+
 ## 2026-10-01 — artifacts handoff still dies between agent runs (flagged Run 244)
 
 - **Tried:** Run 243 wrote the generated wav under operator artifacts `handoff/` and stored only the sha256 in git. It treated that artifacts write as the handoff.

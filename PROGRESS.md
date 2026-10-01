@@ -4,6 +4,7 @@
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-10-01 Run 245 | ~3.7 estimate | 94 | Re-verified Drive wav by download sha256; seven cards uploaded and size-matched; still not Selected VO; no paper drop |
 | 2026-10-01 Run 244 | ~3.7 estimate | 94 | Same generated wav uploaded to Drive and verified by file id + size; still not Selected VO; no paper drop |
 | 2026-10-01 Run 243 | ~3.7 estimate | 94 | Regenerated lost Run 242 wav into operator artifacts; sha256 in HANDOFF.md; still not Selected VO; no paper drop |
 | 2026-10-01 Run 241 | ~3.7 estimate | 94 | 11-day HOLD heartbeat; packet still has no vo/; no paper drop |
@@ -27,6 +28,7 @@
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 245: No new adapter. Drive wav re-downloaded and sha256 matched. Seven planned cards stored as Drive file ids with checksums. Packet listing still has no `vo/` or `cards/`. Videos produced stay 0.
 - Run 244: No new adapter. Durable generated-VO pointer is now a Drive file id, verified at 27200958 bytes. Packet listing still has no `vo/`. Videos produced stay 0.
 - Run 243: No new adapter. Durable handoff record only: operator artifacts wav plus sha256 in `HANDOFF.md`. Packet listing still has no `vo/`. Videos produced stay 0.
 - Run 241: No new capability. Re-verified after 11 calendar days that Q1 packet listing still has no `vo/` directory and HEAD had not moved. Confirmed no HEAD regression.

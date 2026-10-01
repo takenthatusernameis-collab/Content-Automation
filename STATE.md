@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-01T11:20:00Z (Run 244)
+Updated: 2026-10-01T12:20:00Z (Run 245)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -15,11 +15,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - script.md 952 IN BAND; status `ready_for_vo`; selected take not in git
-- Run 243 artifacts handoff did not survive. Run 244 regenerated the same sha256 and uploaded it to Google Drive. That Drive file is not gate-machine Selected VO. Packet listing still has no `vo/` directory.
+- Run 245 re-downloaded the Run 244 Drive wav and matched sha256. It did not regenerate audio. Seven planned cards are on the same Drive folder. Neither the wav nor the PNGs are on the packet paths.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 - Executive trajectory decision: HOLD for on-disk Selected VO; SHIP the first completed video once that file exists. Do not expand architecture.
 
-## What exists now (after Run 244)
+## What exists now (after Run 245)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
 - vo_session.md ready-to-record; named take missing from git
 - vo_origin.md kind=generated (labeled fallback)
@@ -30,10 +30,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Queue Q1 used; Q2-Q5 queued
 - Packet listing has no committed `vo/` audio and no committed card PNGs
 - Durable generated handoff: Drive file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` in folder `1ftaVyh8BWQeWp45TIyX7Hh1o0MPmGRev` (27200958 bytes, sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2`). Copy target remains the packet-relative DROP path.
+- Durable cards: seven 1920x1080 PNGs in that folder. File ids and sha256 are in `HANDOFF.md`. `cards.sha256` file id `1Exe7TolCKO8f7-vZ6HCSseGEmrVLyU2x`. Copy target is packet `cards/`.
 - Completion gate PLAN_BUILT (`tools/complete.py` on main)
 - Selftest DROP lock for experiment_loop.py / complete.py / youtube_upload.py is on HEAD
 - media_qa level checks + export ftyp sniff on HEAD; youtube_upload ftyp on HEAD; upload fail-closed fixture on HEAD; fail-closed without a take
-- Gate-machine drop recipe: `docs/gate_machine.md` (includes optional already-installed TTS one-liners and the Drive file id)
+- Gate-machine drop recipe: `docs/gate_machine.md` (includes optional already-installed TTS one-liners, the Drive wav id, and the card copy)
 - human_session + agent_session + hint/next_action + pipeline_status point that drop at gate_machine
 - hint.py and next_action.py post-VO codes now match NEXT steps 3-4
 - Clone-less first-fetch includes the drop page (7 bootstrap paths)
@@ -42,21 +43,22 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 
 ## Pipeline map
 On the machine that runs gates (`docs/gate_machine.md`):
-1. Download Drive file `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` (or copy the session artifacts handoff if it is still present) onto the packet-relative DROP path and check sha256 against `HANDOFF.md`. DROP: `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav` (or .flac). A Drive file counts only after that copy.
-2. narration_adapter.py then vo_session.py --force
-3. card_generator.py --write-manifest (do not git add -f pngs)
-4. timeline.py --write then media_qa.py (expect peak/RMS/silence/clip; export_decodable only if a master exists)
-5. assemble.py without --execute until READY_TO_ENCODE
-6. youtube_upload.py after a local master with a real ftyp box
-7. youtube_feedback.py after a real provider_video_id
-8. experiment_loop.py after real metrics
-9. complete.py (expect INCOMPLETE_MEDIA until VO+cards exist; junk mp4 is still incomplete)
+1. Download Drive file `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` onto the packet-relative DROP path and check sha256 against `HANDOFF.md`. DROP: `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav` (or .flac). A Drive file counts only after that copy.
+2. Download the seven card ids in `HANDOFF.md` into `videos/002-stop-deciding-what-to-work-on-every-morning/cards/`. Drive PNGs are not packet cards until that copy.
+3. narration_adapter.py then vo_session.py --force
+4. card_generator.py --inspect-only (do not regenerate if all seven are yes; do not git add -f pngs)
+5. timeline.py --write then media_qa.py (expect peak/RMS/silence/clip; export_decodable only if a master exists)
+6. assemble.py without --execute until READY_TO_ENCODE
+7. youtube_upload.py after a local master with a real ftyp box
+8. youtube_feedback.py after a real provider_video_id
+9. experiment_loop.py after real metrics
+10. complete.py (expect INCOMPLETE_MEDIA until VO+cards exist; junk mp4 is still incomplete)
 Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 3.7 | 3.7 | No paper drop this run |
+| Estimated human min / video | 3.7 | 3.7 | Card render moved to Drive; copy labor remains |
 | Automated steps | 94 | 94 | freeze: still no 95th adapter |
 | Videos produced | 0 | 0 | ready_for_vo; take not on gate machine |
 | Days since last media progress | 11 | 11 | Drive handoff is not on-disk Selected VO |
@@ -74,6 +76,7 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Run 242: sandbox generated-VO handoff measured against media_qa levels; not committed; not durable
 - Run 243: same synthesis left in operator artifacts plus sha256 in `HANDOFF.md`; still not Selected VO
 - Run 244: same bytes uploaded to Drive and verified by file id + size; still not Selected VO; no capability change
+- Run 245: Drive wav re-downloaded and sha256 matched; seven cards uploaded and size-matched; still not Selected VO
 
 ## Active constraints
 - Do not add another dry-run adapter before on-disk Selected VO
@@ -81,7 +84,7 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Do not treat complete.py INCOMPLETE_* as license to invent media or a keep/discard
 - Do not write a dummy export/master.mp4 to flip gates
 - Do not add another selftest fixture unless a live printer regression is proven on HEAD
-- Do not treat docs/gate_machine.md or the Drive file id as permission to commit sandbox audio
+- Do not treat docs/gate_machine.md or the Drive file id as permission to commit sandbox audio or PNGs
 - Do not wrap the optional TTS one-liners into tools/
 - Do not restore "recording is the only gate" or blanket "no ffmpeg recipe" language on operator pages or hint.py edit commands
 - Do not strip the docs/gate_machine.md pointer from hint.py / next_action.py / pipeline_status.py
@@ -93,4 +96,6 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Do not commit another documentation-order or printer-alignment change unless a proven HEAD regression sends operators to scaffold Q2 or invent media
 - Do not commit another hold-verification run in the same week if RUNS.md already records a current HOLD and VO is still missing
 - Do not regenerate the generated wav while Drive file `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` lists 27200958 bytes and sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2` is current
+- Do not regenerate the seven cards while the Drive ids in `HANDOFF.md` list the recorded byte sizes
 - Do not describe the Drive handoff as a human recording or as gate-machine Selected VO
+- Flag: runs 239-245 have not placed a file at the packet-relative DROP path. Another Drive upload is not that copy.
