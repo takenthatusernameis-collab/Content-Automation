@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-01T19:20:00Z (Run 253)
+Updated: 2026-10-01T23:15:00Z (Run 254)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -16,6 +16,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Durable fetch: private release `q1-media-r253` (padded master) plus r249 wav/cards and Drive folder in HANDOFF.md
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Executive: SHIP after YouTube OAuth. Do not re-encode. Do not upload r249. Do not expand architecture.
+
+## Run 254 delta
+- `youtube_upload.py` refuses r249 truncated master sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53` and any VO-length export missing the 20s end screen.
+- `docs/gate_machine.md` no longer tells the operator to copy r249 `q1-master.mp4` onto export/master.mp4. Finished master remains `q1-media-r253`.
+- selftest PASS. Did not re-encode. Did not upload. Packet status stays ready_for_vo.
 
 ## Run 253 delta
 - Re-encoded Q1 with assemble.py --execute. Duration 328.40s (VO 308.40 + 20s end screen). ftyp and moov present. 1920x1080 h264 + aac.
@@ -33,8 +38,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 3.2 | 2.5 | re-encode done; remaining human gate is YouTube OAuth |
-| Automated steps | 96 | 96 | header refuse after mux |
+| Estimated human min / video | 2.5 | 2.5 | OAuth still the human gate; truncated master now fail-closed |
+| Automated steps | 96 | 97 | upload refuses truncated end screen |
 | Videos produced | 0 | 0 | padded local master on q1-media-r253; not uploaded |
 
 ## Active constraints

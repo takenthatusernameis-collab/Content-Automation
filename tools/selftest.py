@@ -29,7 +29,7 @@ from pipeline_status import inspect  # noqa: E402
 from set_status import check as status_check, is_fixture  # noqa: E402
 from validate_packet import packet_duration_warning, validate  # noqa: E402
 from youtube_feedback import inspect_feedback  # noqa: E402
-from youtube_upload import inspect_upload  # noqa: E402
+from youtube_upload import file_sha256, inspect_upload, master_block_reason  # noqa: E402
 
 # Printers that must reuse render_brief.selected_vo_drop, not a second builder.
 DROP_IMPORTERS = (
@@ -246,6 +246,43 @@ def check_upload_fail_closed() -> list[str]:
             failures.append("upload master_export_present must stay false on junk ftyp")
         if report2["gate"] in {"READY", "YOUTUBE_AUTH_REQUIRED"}:
             failures.append("junk master must not look credential-ready or upload-READY")
+        sample = p / "export" / "banned-sample.bin"
+        sample.write_bytes(b"truncated-end-screen-fixture")
+        digest = file_sha256(sample)
+        reason = master_block_reason(sample, banned={digest})
+        if not reason or digest not in reason:
+            failures.append(f"banned master sha must block upload, got {reason}")
+        src = Path(__file__).resolve().parent.joinpath("youtube_upload.py").read_text(encoding="utf-8")
+        if "abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53" not in src:
+            failures.append("upload adapter must keep the r249 truncated master sha locked")
+        vo = p / "vo"
+        vo.mkdir()
+        take = vo / f"{p.name}-take-selected.wav"
+        short = p / "export" / "master.mp4"
+        import subprocess
+        wav = subprocess.run(
+            ["ffmpeg", "-y", "-f", "lavfi", "-i", "anullsrc=r=44100:cl=mono", "-t", "2", str(take)],
+            capture_output=True,
+        )
+        mp4 = subprocess.run(
+            [
+                "ffmpeg", "-y", "-f", "lavfi", "-i", "color=c=black:s=320x180:d=2",
+                "-f", "lavfi", "-i", "anullsrc=r=44100:cl=mono", "-t", "2",
+                "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac", "-shortest",
+                str(short),
+            ],
+            capture_output=True,
+        )
+        if wav.returncode == 0 and mp4.returncode == 0 and short.is_file():
+            report3 = inspect_upload(p, env={})
+            names3 = {c["name"]: c for c in report3["checks"]}
+            row = names3.get("not_truncated_end_screen")
+            if not row or row["ok"]:
+                failures.append(f"VO-length master must fail end screen, got {row}")
+            if report3["gate"] in {"READY", "YOUTUBE_AUTH_REQUIRED"}:
+                failures.append("VO-length master must not look upload-ready")
+        else:
+            failures.append("ffmpeg fixture for truncated end screen failed")
     return failures
 
 

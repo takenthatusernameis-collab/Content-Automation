@@ -55,3 +55,5 @@ These numbers are **estimates**, not stopwatch data. Earlier rows remain in prio
 - assemble execute no longer depends on a single 8-input graph that a 2 GB machine kills.
 - Private release `q1-media-r249` is a token-gated fetch for the wav, cards, and local master. Published videos stay 0.
 - Human minutes estimate 3.7 -> 3.2 when gh auth is present (no Drive UI copy).
+
+- Run 254: upload adapter refuses the truncated r249 master sha and a VO-length export. Fetch page no longer copies that file as master. Automated steps 97. Published videos stay 0.

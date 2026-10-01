@@ -1,5 +1,10 @@
 # FAILURES
 
+## 2026-10-01 — Run 254 — gate page still copied the truncated master
+- **Tried:** Treating Run 253 docs as enough. `docs/gate_machine.md` still said copy `q1-media-r249` `q1-master.mp4` onto export/master.mp4.
+- **Result:** That copy would pass the ftyp check and look uploadable once OAuth exists.
+- **Avoid:** Copying r249 `q1-master.mp4` as the finished export. Uploading sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53`.
+
 ## 2026-10-01 — r249 master treated as finished export (closed Run 253)
 
 - **Tried:** Run 249 uploaded the segmented mux as `q1-master.mp4`. Duration matched the VO (308.40s), so the 20s end card was cut.

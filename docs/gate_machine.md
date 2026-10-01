@@ -93,11 +93,12 @@ A wav that exists only in a disposable sandbox is not gate-machine Selected VO.
 Runs 242 and 243 proved a session artifacts path does not survive the next run. Run 244 left the same bytes on Drive (file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl`). Run 245 re-downloaded that file, matched the sha256, and left the seven cards on the same folder. Run 246 matched those checksums again and proved the file id is not anonymously downloadable. If artifacts are empty, download those file ids with the connected Drive account and check sha256. Do not synthesize again while that Drive file lists 27200958 bytes. Do not add a TTS wrapper or a public-link fetcher under `tools/`.
 
 
-## Run 249 fetch
-If `gh` is authenticated, skip the Drive UI:
+## Run 249 / 253 fetch
+If `gh` is authenticated, skip the Drive UI. Do not copy `q1-media-r249` `q1-master.mp4` onto `export/master.mp4`. That file is 308.40s and truncates the end screen (sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53`). `youtube_upload.py` refuses that sha.
 
 ```bash
-gh release download q1-media-r249 --repo takenthatusernameis-collab/Content-Automation -D /tmp/q1-media
+gh release download q1-media-r249 --repo takenthatusernameis-collab/Content-Automation -D /tmp/q1-media-r249
+gh release download q1-media-r253 --repo takenthatusernameis-collab/Content-Automation -D /tmp/q1-media-r253
 ```
 
-Copy the wav onto `$DROP`, the PNGs into `$PACKET/cards/`, and `q1-master.mp4` to `$PACKET/export/master.mp4`. Check master sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53`. This release is private. It is not a YouTube upload. Do not `git add -f`.
+Copy the r249 wav onto `$DROP` and the r249 PNGs into `$PACKET/cards/`. Copy only `q1-master-r253.mp4` to `$PACKET/export/master.mp4`. Check master sha256 `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546` and duration 328.40s. Both releases are private. Neither is a YouTube upload. Do not `git add -f`. Do not re-encode unless the r253 asset is missing.

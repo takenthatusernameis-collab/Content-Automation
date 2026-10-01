@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-10-01T23:15:00Z — Run 254
+
+- **Objective:** Stop the fetch page from installing the truncated master as the upload file.
+- **Inspected:** STATE/NEXT/HANDOFF/BLOCKED/OPERATOR_HOLD/docs/gate_machine.md after Run 253. OAuth still absent. r253 remains the finished export.
+- **Action taken:** youtube_upload refuses the r249 master sha and a probed export shorter than VO+20s. gate_machine fetch now copies r253 master only. selftest locks the sha and a 2s ffmpeg fixture. Did not re-encode. Did not upload. Did not scaffold Q2.
+- **Result:** selftest PASS. Automated steps 96 -> 97. Videos published stay 0. Packet status stays ready_for_vo. Human minutes stay 2.5.
+- **Verification status:** selftest PASS observed this run. Live Q1 file was not re-downloaded.
+- **Important discovery:** Run 253 state pages said do not upload r249, but gate_machine.md still said copy that file onto export/master.mp4. ftyp alone would have accepted it.
+- **Blocker:** YouTube OAuth absent (YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN).
+- **Recommended next action:** On the publish machine, download q1-media-r253 q1-master-r253.mp4 only. Set OAuth, then python3 tools/youtube_upload.py PATH. Do not upload r249.
+
 ## 2026-10-01T19:20:00Z — Run 253
 
 - **Objective:** Stop pointing at a re-encode. Produce the padded master the Run 251 lock described.

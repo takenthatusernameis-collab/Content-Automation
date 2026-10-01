@@ -24,9 +24,14 @@ if str(TOOLS) not in sys.path:
 from media_qa import mp4_header_ok  # noqa: E402
 from publish_brief import primary_title, section  # noqa: E402
 from render_brief import selected_vo_drop  # noqa: E402
+from timeline import END_SCREEN  # noqa: E402
 
 AUTH_STATE = "YOUTUBE_AUTH_REQUIRED"
 OAUTH_KEYS = ("YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET", "YOUTUBE_REFRESH_TOKEN")
+# Run 249 master is VO-length only. Do not upload it. Run 253 is the padded export.
+TRUNCATED_MASTER_SHA256 = {
+    "abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53",
+}
 UPLOAD_SCOPE = "https://www.googleapis.com/auth/youtube.upload"
 DEFAULT_PRIVACY = "private"
 EXPORT_REL = "export/master.mp4"
@@ -56,6 +61,71 @@ def parse_publish(text: str) -> dict:
         "pin_comment": comment,
         "word_count": len(description.split()) if description else 0,
     }
+
+
+
+def file_sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def probe_duration(path: Path) -> float | None:
+    import subprocess
+
+    try:
+        proc = subprocess.run(
+            [
+                "ffprobe",
+                "-v",
+                "error",
+                "-show_entries",
+                "format=duration",
+                "-of",
+                "default=nw=1:nk=1",
+                str(path),
+            ],
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    if proc.returncode != 0:
+        return None
+    try:
+        return float(proc.stdout.strip())
+    except ValueError:
+        return None
+
+
+def packet_vo(packet: Path) -> Path | None:
+    matches = sorted((packet / "vo").glob(f"{packet.name}-take-selected.wav")) if (packet / "vo").is_dir() else []
+    return matches[0] if matches else None
+
+
+def master_block_reason(
+    export: Path,
+    vo: Path | None = None,
+    banned: set[str] | None = None,
+) -> str | None:
+    """Refuse the known truncated Q1 master and any export missing the end screen."""
+    banned = TRUNCATED_MASTER_SHA256 if banned is None else banned
+    digest = file_sha256(export)
+    if digest in banned:
+        return f"truncated_master sha256={digest}"
+    if vo is not None and vo.is_file():
+        vo_d = probe_duration(vo)
+        ex_d = probe_duration(export)
+        needed = None if vo_d is None else vo_d + END_SCREEN
+        if vo_d is not None and ex_d is not None and needed is not None and ex_d + 0.75 < needed:
+            return (
+                f"end_screen_missing export={ex_d:.2f}s vo={vo_d:.2f}s "
+                f"need>={needed:.2f}s"
+            )
+    return None
 
 
 def export_path(packet: Path) -> Path:
@@ -110,7 +180,9 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
     if not meta["title"]:
         meta["title"] = primary_title(packet)
     exp = export_path(packet)
-    export_ok = exp.is_file() and exp.stat().st_size > 0 and mp4_header_ok(exp)
+    header_ok = exp.is_file() and exp.stat().st_size > 0 and mp4_header_ok(exp)
+    block = master_block_reason(exp, packet_vo(packet)) if header_ok else None
+    export_ok = header_ok and block is None
     auth = auth_status(env)
     prior = load_prior_state(packet)
     fp = fingerprint(packet, meta, exp if export_ok else None)
@@ -125,7 +197,12 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
     add("title_present", bool(meta["title"]), meta["title"] or "empty title")
     add("description_usable", meta["word_count"] >= 12, f"{meta['word_count']} words")
     add("tags_present", bool(meta["tags"]), f"{len(meta['tags'])} tags")
-    add("master_export_present", export_ok, EXPORT_REL if export_ok else f"missing or invalid {EXPORT_REL}")
+    add(
+        "master_export_present",
+        export_ok,
+        EXPORT_REL if export_ok else (block or f"missing or invalid {EXPORT_REL}"),
+    )
+    add("not_truncated_end_screen", block is None, block or "end screen not proven missing")
     add("oauth_complete", auth["complete"], auth["state"] if auth["complete"] else ",".join(auth["missing"]))
     add("not_api_key_only", not auth["api_key_alone"], "API key is not upload authorization")
     add("no_duplicate_fingerprint", not duplicate, fp)

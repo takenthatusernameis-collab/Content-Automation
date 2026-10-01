@@ -10,7 +10,7 @@ External work is parked here so runs do not retry it blindly.
 | Stock / original media| B-roll and thumbs                  | Decide “text-card + public-domain” vs licensed stock; card names live in packet `assets.md` and `docs/assets.md` | filename convention exists; no shopping; pngs gitignored |
 | ffmpeg render profile | Repeatable export                  | Format lock is `docs/format.md`; add a recipe only after one packet has selected VO + ready cards | format named; recipe not started |
 | Private-repo git clone| Native checkout in agent sandbox   | `gh` auth / GH_TOKEN. Run 249 shallow clone succeeded. Still do not commit media. | unblocked when token present |
-| Unauthenticated Drive download | Gate-machine copy of Q1 wav/cards | Prefer `gh release download q1-media-r249` (private; needs gh auth). Drive folder remains the signed-in fallback. Anonymous curl still returns a sign-in page. | release is the durable fetch; do not add a public-link fetcher |
+| Unauthenticated Drive download | Gate-machine copy of Q1 wav/cards | Wav/cards: `gh release download q1-media-r249`. Finished master: `gh release download q1-media-r253` asset `q1-master-r253.mp4` only. Do not copy r249 `q1-master.mp4` (truncated 308.40s). Drive folder remains the signed-in fallback. Anonymous curl still returns a sign-in page. | release is the durable fetch; do not add a public-link fetcher |
 
 Do not poll APIs hoping credentials appear.
 Do not invent a selected take to clear this table.
