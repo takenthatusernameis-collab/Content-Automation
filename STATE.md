@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-01T14:12:00Z (Run 247)
+Updated: 2026-10-01T15:11:00Z (Run 248)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -15,11 +15,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - script.md 952 IN BAND; status `ready_for_vo`; selected take not in git
-- Run 247 re-downloaded the existing Drive wav and seven cards, matched sha256, and left them in the operator session as `q1-handoff/` and `q1-handoff-verified.zip`. It did not regenerate or re-upload. Neither the wav nor the PNGs are on the packet paths. Session artifacts are not durable for the next agent.
+- Run 248 re-downloaded the existing Drive wav and seven cards, matched sha256, and left them in the operator session as `q1-handoff/` and `q1-handoff-verified.zip` (19908902 bytes). It did not regenerate or re-upload. Neither the wav nor the PNGs are on the packet paths. Session artifacts are not durable for the next agent.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 - Executive trajectory decision: HOLD for on-disk Selected VO; SHIP the first completed video once that file exists. Do not expand architecture.
 
-## What exists now (after Run 247)
+## What exists now (after Run 248)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
 - vo_session.md ready-to-record; named take missing from git
 - vo_origin.md kind=generated (labeled fallback)
@@ -29,9 +29,9 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - packet.md status `ready_for_vo`
 - Queue Q1 used; Q2-Q5 queued
 - Packet listing has no committed `vo/` audio and no committed card PNGs
-- Durable generated handoff: Drive file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` in folder `1ftaVyh8BWQeWp45TIyX7Hh1o0MPmGRev` (27200958 bytes, sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2`). Copy target remains the packet-relative DROP path. Not anonymously downloadable (Run 246).
+- Durable generated handoff: Drive file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` in folder `1ftaVyh8BWQeWp45TIyX7Hh1o0MPmGRev` (27200958 bytes, sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2`). Copy target remains the packet-relative DROP path. Not anonymously downloadable (Run 246). No share-permission tool (Run 248).
 - Durable cards: seven 1920x1080 PNGs in that folder. File ids and sha256 are in `HANDOFF.md`. `cards.sha256` file id `1Exe7TolCKO8f7-vZ6HCSseGEmrVLyU2x`. Copy target is packet `cards/`.
-- Run 247 operator session also has those same bytes. That chat zip is a human copy source only.
+- Run 248 operator session also has those same bytes. That chat zip is a human copy source only.
 - Completion gate PLAN_BUILT (`tools/complete.py` on main)
 - Selftest DROP lock for experiment_loop.py / complete.py / youtube_upload.py is on HEAD
 - media_qa level checks + export ftyp sniff on HEAD; youtube_upload ftyp on HEAD; upload fail-closed fixture on HEAD; fail-closed without a take
@@ -43,7 +43,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - README Human session / Local tools name the Q1 drop *first*
 
 ## Pipeline map
-On the machine that runs gates (`docs/gate_machine.md`), using the Run 247 zip or a signed-in Drive download:
+On the machine that runs gates (`docs/gate_machine.md`), using the Run 248 zip or a signed-in Drive download:
 1. Copy Drive file `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` onto the packet-relative DROP path and check sha256 against `HANDOFF.md`. DROP: `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav` (or .flac). A Drive file or a chat zip counts only after that copy. Do not use an unauthenticated curl; Run 246 showed it returns a Google sign-in page.
 2. Copy the seven card ids in `HANDOFF.md` into `videos/002-stop-deciding-what-to-work-on-every-morning/cards/`. Drive PNGs are not packet cards until that copy.
 3. narration_adapter.py then vo_session.py --force
@@ -80,6 +80,7 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Run 245: Drive wav re-downloaded and sha256 matched; seven cards uploaded and size-matched; still not Selected VO
 - Run 246: same Drive bytes re-checked; anonymous fetch is a login wall; still not Selected VO; no capability change
 - Run 247: same Drive bytes placed in the operator session zip; sha256 matched; still not Selected VO; no capability change
+- Run 248: same Drive bytes re-checked and placed in this session zip; no share or release-upload tool; still not Selected VO; no capability change
 
 ## Active constraints
 - Do not add another dry-run adapter before on-disk Selected VO
@@ -100,6 +101,6 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Do not commit another hold-verification run in the same week if RUNS.md already records a current HOLD and VO is still missing
 - Do not regenerate the generated wav while Drive file `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` lists 27200958 bytes and sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2` is current
 - Do not regenerate the seven cards while the Drive ids in `HANDOFF.md` list the recorded byte sizes
-- Do not describe the Drive handoff or the Run 247 session zip as a human recording or as gate-machine Selected VO
-- Do not add a public curl/gdown fetcher. Run 246 showed the wav file id is not anonymously downloadable.
-- Flag: runs 239-247 have not placed a file at the packet-relative DROP path. Another Drive upload or another session zip is not that copy.
+- Do not describe the Drive handoff or the Run 248 session zip as a human recording or as gate-machine Selected VO
+- Do not add a public curl/gdown fetcher. Run 246 showed the wav file id is not anonymously downloadable. Run 248 found no share-permission tool.
+- Flag: runs 239-248 have not placed a file at the packet-relative DROP path. Another Drive upload or another session zip is not that copy. Next agent should not re-download unless the operator says the Run 248 zip was lost.
