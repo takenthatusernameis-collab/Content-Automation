@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-10-01 — r249 master treated as finished export (closed Run 253)
+
+- **Tried:** Run 249 uploaded the segmented mux as `q1-master.mp4`. Duration matched the VO (308.40s), so the 20s end card was cut.
+- **Evidence:** Run 253 re-encode with `apad=pad_dur=20` produced 328.40s, ftyp+moov, sha256 `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546`. Release re-download matched.
+- **Lesson:** The finished local export is `q1-media-r253` `q1-master-r253.mp4`. Do not re-encode unless that asset is missing.
+- **Avoid:** Uploading `q1-media-r249` `q1-master.mp4`. Another checksum-only run of the truncated file.
+
 ## 2026-10-01 — killed mux left moov-missing mp4 (closed Run 252)
 
 - **Tried:** Sandbox mux `ffmpeg -i silent.mp4 -i vo.wav -filter_complex '[1:a]apad[a]' ... -shortest new.mp4`.

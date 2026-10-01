@@ -4,6 +4,7 @@
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-10-01 Run 253 | ~2.5 estimate | 96 | Padded master 328.40s on q1-media-r253; r249 truncated master must not be uploaded; OAuth still blocks publish |
 | 2026-10-01 Run 251 | ~3.2 estimate | 96 | End-screen pad_dur lock; r249 master still truncated; not uploaded |
 | 2026-10-01 Run 250 | ~3.2 estimate | 96 | Release checksums matched; extract_words multiline fix; selftest PASS; still not uploaded |
 | 2026-10-01 Run 248 | ~3.7 estimate | 94 | Drive sizes and sha256 still match; session zip again; no share or release-upload tool; still not Selected VO; no paper drop |
@@ -32,6 +33,8 @@
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 253: Live Q1 padded master exists. Duration 328.40s, sha256 `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546`, private release `q1-media-r253`. Videos published stay 0. Remaining human gate is YouTube OAuth.
+
 - Run 248: No new adapter. Existing Drive wav and seven cards matched `HANDOFF.md` checksums again. No tool can make them anonymously fetchable. Packet status stays `ready_for_vo`. Videos produced stay 0.
 - Run 246: No new adapter. Existing Drive wav and seven cards matched `HANDOFF.md` checksums. Unauthenticated curl of the wav file id returned a Google sign-in page. Packet status stays `ready_for_vo`. Videos produced stay 0.
 - Run 245: No new adapter. Drive wav re-downloaded and sha256 matched. Seven planned cards stored as Drive file ids with checksums. Packet listing still has no `vo/` or `cards/`. Videos produced stay 0.

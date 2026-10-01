@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-01T18:25:00Z (Run 252)
+Updated: 2026-10-01T19:20:00Z (Run 253)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -14,13 +14,17 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - No published videos
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning` status `ready_for_vo`
 - Durable fetch: private release `q1-media-r249` plus Drive folder in HANDOFF.md
-- r249 master is truncated (308.40s VO, no 20s end screen). Do not upload it.
-- Executive: HOLD for on-disk Selected VO on the publish machine; SHIP after a padded re-encode + OAuth. Do not expand architecture.
+- r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
+- Executive: SHIP after YouTube OAuth. Do not re-encode. Do not upload r249. Do not expand architecture.
+
+## Run 253 delta
+- Re-encoded Q1 with assemble.py --execute. Duration 328.40s (VO 308.40 + 20s end screen). ftyp and moov present. 1920x1080 h264 + aac.
+- sha256 `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546` (6633603 bytes). Private release `q1-media-r253` asset `q1-master-r253.mp4`. Re-download matched.
+- r249 master stays truncated (308.40s). Do not upload it. Do not re-encode unless r253 is missing. Packet status stays ready_for_vo (wav not in git).
 
 ## Run 252 delta
 - assemble --execute refuses a muxed file without ftyp/moov and leaves export/.segments.
 - Evidence: sandbox mux with bare apad was Killed; ffprobe reported moov atom not found.
-- Do not re-download. Do not regenerate. Next action is re-encode on a checkout that already has DROP + cards.
 
 ## Run 251 delta
 - assemble recipe and mux use apad=pad_dur=20 then -shortest. Bare apad hangs.
@@ -29,12 +33,13 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 3.2 | 3.2 | remaining human gate is YouTube OAuth + re-encode |
+| Estimated human min / video | 3.2 | 2.5 | re-encode done; remaining human gate is YouTube OAuth |
 | Automated steps | 96 | 96 | header refuse after mux |
 | Videos produced | 0 | 0 | local truncated master exists; not uploaded |
 
 ## Active constraints
 - Do not upload q1-media-r249 q1-master.mp4 as the finished export
+- Finished local export is q1-media-r253 q1-master-r253.mp4 (328.40s, sha256 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546)
 - Do not invent a committed wav or bump status past ready_for_vo without Selected VO on disk
 - Do not write a dummy export/master.mp4 to flip gates
 - Do not regenerate the wav or cards while HANDOFF checksums match

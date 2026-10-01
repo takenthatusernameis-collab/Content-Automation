@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-10-01T19:20:00Z — Run 253
+
+- **Objective:** Stop pointing at a re-encode. Produce the padded master the Run 251 lock described.
+- **Inspected:** STATE/NEXT/RUNS/HANDOFF after Run 252. gh auth present. Release `q1-media-r249` checksums matched HANDOFF (wav and truncated master).
+- **Action taken:** Copied wav and seven cards onto a local checkout (not git add). Left the truncated master aside. `assemble.py --execute` segmented encode. Did not bump status. Did not call YouTube. Did not scaffold Q2. Did not regenerate media.
+- **Result:** export/master.mp4 is 328.40s, 6633603 bytes, 1920x1080 h264 + aac, ftyp and moov present. sha256 `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546`. Private release `q1-media-r253` re-download matched. media_qa PASS. youtube_upload YOUTUBE_AUTH_REQUIRED. complete.py INCOMPLETE_PUBLISH. Automated steps stay 96. Videos published stay 0. Human minutes estimate 3.2 -> 2.5.
+- **Verification status:** Observed duration 328.400000. Release re-download sha256 matched. Packet status in git stays ready_for_vo.
+- **Important discovery:** pad_dur=20 plus segmented execute keeps the end screen on the live Q1 take, not only the synthetic fixture. r249 must not be the upload file.
+- **Blocker:** YouTube OAuth absent (YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN).
+- **Recommended next action:** On the publish machine, download `q1-media-r253` `q1-master-r253.mp4` (do not re-encode). Set OAuth, then `python3 tools/youtube_upload.py PATH`. Do not upload r249.
+
 ## 2026-10-01T18:25:00Z — Run 252
 
 - **Objective:** Stop treating a killed mux as a master. Run 251 already locked finite apad. This run closes the header hole.

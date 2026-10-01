@@ -1,6 +1,6 @@
 # HANDOFF
 
-Updated: 2026-10-01T18:20:00Z (Run 251)
+Updated: 2026-10-01T19:20:00Z (Run 253)
 
 This file is not Selected VO. Audio and card PNGs stay gitignored. Do not `git add -f`.
 
@@ -72,3 +72,24 @@ sha256sum "$PACKET/export/master.mp4"
 ```
 
 Master is a local segmented encode (veryfast, crf 20), not a YouTube upload. Run 251: `-shortest` without a finite apad kept duration at the 308.40 s VO, so the 20 s end card is truncated. Do not upload this asset as the finished export. Re-encode with current assemble.py --execute (apad=pad_dur=20). kind remains generated.
+
+
+## Run 253 finished local export
+Do not upload `q1-media-r249` `q1-master.mp4` (308.40s, truncated end screen).
+
+- Release: `q1-media-r253` (private; `gh` auth required)
+- Asset: `q1-master-r253.mp4`
+- Bytes: 6633603
+- Duration: 328.40 s (VO 308.40 + 20 s end screen)
+- Video: 1920x1080 h264, audio aac
+- SHA256: `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546`
+- Encode: `assemble.py --execute` segmented, veryfast, crf 20, `apad=pad_dur=20` then `-shortest`
+- Not a YouTube upload. kind remains generated.
+- Re-download of the release asset matched this sha256 and duration.
+
+```bash
+gh release download q1-media-r253 --repo takenthatusernameis-collab/Content-Automation -D /tmp/q1-media
+# expect sha256 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546 on q1-master-r253.mp4
+# expect duration 328.40
+```
+Do not re-encode unless this asset is missing. Do not regenerate the wav or cards.
