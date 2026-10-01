@@ -10,9 +10,10 @@ External work is parked here so runs do not retry it blindly.
 | Stock / original media| B-roll and thumbs                  | Decide “text-card + public-domain” vs licensed stock; card names live in packet `assets.md` and `docs/assets.md` | filename convention exists; no shopping; pngs gitignored |
 | ffmpeg render profile | Repeatable export                  | Format lock is `docs/format.md`; add a recipe only after one packet has selected VO + ready cards | format named; recipe not started |
 | Private-repo git clone| Native checkout in agent sandbox   | Not required. Reconstruct per `docs/agent_session.md`. Push via GitHub file API. | parked; do not retry each run |
-| Unauthenticated Drive download | Gate-machine copy of Q1 wav/cards | Signed-in download of folder `1ftaVyh8BWQeWp45TIyX7Hh1o0MPmGRev`, then `cp` to the packet paths in `HANDOFF.md`. Run 246: anonymous curl of the wav file id returned a Google sign-in page, not the wav. | parked; do not add a public-link fetcher |
+| Unauthenticated Drive download | Gate-machine copy of Q1 wav/cards | Signed-in download of folder `1ftaVyh8BWQeWp45TIyX7Hh1o0MPmGRev`, or copy the Run 248 chat zip, then `cp` to the packet paths in `HANDOFF.md`. Run 246: anonymous curl returned a Google sign-in page. Run 248: no Drive share-permission tool and no GitHub release-upload tool. | parked; do not add a public-link fetcher |
 
 Do not poll APIs hoping credentials appear.
 Do not invent a selected take to clear this table.
 Do not `git add -f` ignored media.
 Do not treat a Drive file id as anonymously fetchable.
+Do not retry a share-permission or release-upload tool that is not in the connected tool list.
