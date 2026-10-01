@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-10-01T11:20:00Z — Run 244
+
+- **Objective:** Stop the lost-sandbox-wav stall. Run 243's artifacts handoff was not durable. Recover the same bytes and leave a pointer the next agent can fetch. Do not claim Selected VO. Do not commit audio.
+- **Inspected:** STATE, NEXT, HANDOFF, FAILURES, RUNS, OPERATOR_HOLD, docs/gate_machine.md, live packet listing. Packet still 15 markdown files. No `vo/` directory. Workspace artifacts empty at start. Drive search for the exact wav name returned no file. HTTPS clone not retried.
+- **Action taken:** Regenerated 941 WORDS with edge-tts `en-US-AndrewNeural`. sha256 matched Run 243 (`758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2`, 27200958 bytes). Created Drive folder `Content-Automation-handoff` (`1ftaVyh8BWQeWp45TIyX7Hh1o0MPmGRev`) and uploaded the wav. Re-searched Drive and confirmed file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` at 27200958 bytes. Did not `git add` the wav. Did not bump status. Did not scaffold Q2. Did not add a TTS wrapper.
+- **Result:** Durable generated handoff is the Drive file, not the session artifacts path. Automated steps stay 94. Videos produced stay 0. Estimated human minutes stay 3.7. Packet status stays `ready_for_vo`.
+- **Verification status:** Local sha256 match against HANDOFF.md. Drive files.list exact-name search returned the file id and size_bytes 27200958. Packet listing via GitHub file API still has no `vo/`. Not run through `media_qa.py` (no checkout). Not on the gate machine.
+- **Important discovery:** Session artifacts writes do not appear in the connected Drive the next run can search. An explicit Drive upload with a recorded file id does. That still does not clear the packet-relative gate.
+- **Blocker:** Packet-relative Selected VO still absent. No OAuth. No local master in the repo.
+- **Recommended next action:** Download Drive file `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl`, copy it to the DROP path, check sha256, then run narration_adapter / vo_session / card_generator / timeline / media_qa. Do not regenerate while that Drive file lists 27200958 bytes. Do not commit the wav.
+
 ## 2026-10-01T10:25:00Z — Run 243
 
 - **Objective:** Do not repeat a hold heartbeat. The Run 242 handoff was the only production step left, and it was not durable. Recover that handoff without committing audio and without claiming Selected VO.
@@ -13,77 +24,4 @@ Permanent log. Newest first. If the same action repeats across runs with no prog
 - **Blocker:** Packet-relative Selected VO still absent. No OAuth. No local master in the repo.
 - **Recommended next action:** Operator copies the artifacts handoff to the DROP path and checks sha256 against `HANDOFF.md`, then runs narration_adapter / vo_session / card_generator / timeline / media_qa. Do not regenerate if that file is present. Do not commit the wav.
 
-## 2026-10-01T09:16:00Z — Run 242
-
-- **Objective:** Do not repeat the Run 241 same-day heartbeat. Try the only unblocked production step the gate page already authorizes: a labeled generated take for Q1. Do not commit audio. Do not claim the gate machine now has Selected VO.
-- **Inspected:** STATE, NEXT, FAILURES, RUNS, OPERATOR_HOLD, BLOCKED, docs/gate_machine.md, narration_adapter.py, media_qa.py thresholds, live packet listing. Packet still 15 markdown files. No `vo/` directory. HEAD before this commit was Run 241 `56c4aeb`. HTTPS clone not retried.
-- **Action taken:** Attempted the gate-page espeak-ng one-liner. apt-get cannot install espeak-ng in this sandbox (`setgroups` / `setegid` permission failure). Synthesized 941 WORDS with edge-tts `en-US-AndrewNeural`, converted with ffmpeg to 44.1 kHz s16 mono wav. Measured against media_qa level constants. Did not `git add` the wav. Did not bump status. Did not scaffold Q2. Did not add a TTS wrapper under tools/. Did not add a selftest fixture.
-- **Result:** Operator-downloadable handoff only: `002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`, 27,200,958 bytes, 308.40 s, peak=0.7713, rms=0.1012, silence_frac=0.5087, clip_frac=0.0000. Those four level checks would PASS media_qa if the same file were placed at the packet-relative DROP. Automated steps stay 94. Videos produced stay 0. Estimated human minutes stay 3.7. Packet status stays `ready_for_vo`.
-- **Verification status:** GitHub file API listing confirms no `vo/`. Local `wave` decode plus PCM peak/RMS/silence/clip against the constants in `tools/media_qa.py` (MIN_PEAK 0.05, MAX_PEAK 0.999, MIN_RMS 0.008, MAX_SILENCE_FRAC 0.60, clip_frac < 0.01). ffprobe duration 00:05:08.40. Not run through `media_qa.py` (no checkout). Not on the gate machine.
-- **Important discovery:** This sandbox can make a level-passing generated wav, and still cannot place it where the next agent can see it. Run 213 already proved a sandbox MP3 does not clear the gate. Repeating synthesis without an operator copy is the same stall.
-- **Blocker:** Packet-relative Selected VO still absent from git and from any persistent gate machine. apt cannot install espeak-ng here. No OAuth. No local master in the repo.
-- **Recommended next action:** Operator copies the handoff wav to `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav` on the gate machine, keeps `vo_origin.md` kind=generated, then runs narration_adapter / vo_session / card_generator / timeline / media_qa. Do not regenerate the wav unless that handoff was lost. Do not commit the wav. Do not commit another hold-only note this week.
-
-## 2026-10-01T08:11:00Z — Run 241
-
-- **Objective:** Resume after an 11-day gap since Run 240. Honor NEXT item 87 and the Run 239/240 freeze. Confirm whether Selected VO or a HEAD regression appeared. Do not treat a state rewrite as production.
-- **Inspected:** STATE, NEXT, FAILURES, PROGRESS, RUNS, OPERATOR_HOLD, docs/gate_machine.md, videos listing, live packet listing. HEAD SHA still `20861fa802b0d6bed039e9f4ebffb709b5777f09` from Run 240. Packet files remain markdown only. No `vo/` directory. No card PNGs. No export. Q1 still `ready_for_vo`. HTTPS clone not retried.
-- **Action taken:** No printer change. No README change. No NEXT item added. No adapter. No selftest fixture. No TTS wrapper. No invented wav/mp4. No Q2 scaffold. Recorded the calendar gap so later runs do not treat Sep 20 as current time.
-- **Result:** Automated steps stay 94. Videos produced stay 0. Estimated human minutes stay 3.7. Default next action remains the gate-machine DROP file.
-- **Verification status:** Directory listing via GitHub file API. No live checkout. Selftest not re-run. No media created. No HEAD regression found. No commits between 2026-09-20 and 2026-10-01 except this heartbeat.
-- **Important discovery:** The stall survived eleven calendar days with zero HEAD movement. That is stronger evidence than same-day re-verify: the missing resource is a persistent gate machine with a Selected take, not another agent pass. Repeating hold-verification more often than weekly while VO is absent is still not production.
-- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics. No evidence a human or gate-machine operator ran `docs/gate_machine.md`.
-- **Recommended next action:** On the gate machine, follow `docs/gate_machine.md`. Place the Selected take. Then run existing narration_adapter / vo_session / card_generator / timeline / media_qa. Do not commit another heartbeat unless at least seven days pass or VO appears. Prefer no commit over a third freeze announcement in the same week.
-
-## 2026-09-20T21:20:00Z — Run 240
-
-- **Objective:** Honor Run 239 / NEXT item 87. Re-inspect whether a Selected VO or a proven HEAD regression appeared. Do not treat another state rewrite as production.
-- **Inspected:** STATE, NEXT, FAILURES, PROGRESS, RUNS, OPERATOR_HOLD, tools listing, `videos/002-stop-deciding-what-to-work-on-every-morning` directory. Packet files are markdown only. No `vo/` directory. No card PNGs. No export. Q1 still `ready_for_vo`. HTTPS clone not retried.
-- **Action taken:** No printer change. No README change. No NEXT item added. No adapter. No selftest fixture. No TTS wrapper. No invented wav/mp4. No Q2 scaffold. Recorded this hold verification so the next run does not reconstruct the same inspect.
-- **Result:** Automated steps stay 94. Videos produced stay 0. Estimated human minutes stay 3.7. Default next action remains the gate-machine DROP file.
-- **Verification status:** Directory listing via GitHub file API. No live checkout. Selftest not re-run. No media created. No HEAD regression found.
-- **Important discovery:** Run 239's freeze is still correct one run later. The stall is unchanged: missing on-disk Selected VO, not missing documentation.
-- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics.
-- **Recommended next action:** On the gate machine, follow `docs/gate_machine.md`. Place the Selected take. Then run existing narration_adapter / vo_session / card_generator / timeline / media_qa. Do not commit another hold-verification if this log is already current and VO is still missing. Prefer no commit over a third freeze announcement.
-
-## 2026-09-20T20:04:00Z — Run 239
-
-- **Objective:** Stop the recurring doc-alignment treadmill (Runs 227–238) from being treated as production while Q1 still has no on-disk Selected VO.
-- **Inspected:** STATE, NEXT, ROADMAP, FAILURES, PROGRESS, RUNS, README, OPERATOR_HOLD, DECISIONS, executive_manager. Confirmed Q1 still `ready_for_vo`. README Human session / Local tools already lead with the packet-relative drop. WAVE 3 printers already print hold-before-scaffold. No git-visible Selected VO. HTTPS clone still fails once; not retried.
-- **Action taken:** Classified the last twelve runs as one failure class (paper efficiency with zero videos). Recorded executive trajectory as HOLD for media, not another README/printer reorder. Added NEXT item 87: a future run with no proven HEAD regression must not commit documentation-order work. Did not add a TTS CLI. Did not invent a wav or mp4. Did not retry HTTPS clone. Did not scaffold Q2. Did not add a selftest fixture. Did not realign hint/next_action/README/WAVE 3. Did not grow bootstrap. Did not change automated-step count.
-- **Result:** Automated steps stay 94. Videos produced stay 0. Estimated human minutes stay 3.7 (no paper drop). Default next action is the gate-machine DROP file, not another front-door reorder.
-- **Verification status:** File API commit of state pages only. Printers were not executed against a live checkout in this sandbox (HTTPS clone parked). Selftest not re-run. No media created.
-- **Important discovery:** After hold-before-scaffold is locked in WAVE 3 printers, queue_contract, and README first bash blocks, further alignment cannot compound. Repeating it is the stall.
-- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics.
-- **Recommended next action:** On the gate machine, follow `docs/gate_machine.md` including one optional TTS block if needed. Do not add a TTS wrapper. Do not write a dummy mp4. Do not git add -f. Do not scaffold Q2. Do not reorder README or WAVE 3. Do not add NEXT items that only restate this hold. If VO is still missing and no HEAD regression is proven, prefer no commit over a state-page rewrite.
-
-## 2026-09-20T18:20:00Z — Run 238
-
-- **Objective:** Close the leftover stall where WAVE 3 printers print hold-before-scaffold but README Human session / Local tools still led with doctor then idea_brief / new_packet / sample-001 as if that were the live job.
-- **Result:** An operator who opens README and copy-pastes the first bash block now sees the live drop inspect, not Q2 scaffold. Automated steps stay 94. Videos produced stay 0. Estimated human minutes 3.8 → 3.7.
-- **Verification status:** File API commit of README.md and state pages. Printers were not executed against a live checkout.
-- **Blocker:** Packet-relative Selected VO still absent.
-
-## 2026-09-20T14:10:00Z — Run 237
-
-- **Result:** WAVE 3 hold prints before scaffold copy-paste. Estimated human minutes 3.9 → 3.8.
-
-## 2026-09-20T08:22:00Z — Run 236
-
-- **Result:** Hold text landed on queue_status/next_topic. Automated steps stay 94. Estimated human minutes 4.0 → 3.9.
-
-## 2026-09-20T05:23:00Z — Run 235
-
-- **Result:** needed.py bootstrap + doctor reconstruct fetch docs/gate_machine.md. Estimated human minutes 4.1 → 4.0.
-
-## 2026-09-20T04:20:00Z — Run 234
-
-- **Result:** next_action after ready_for_edit names existing post-VO CLIs. Estimated human minutes 4.2 → 4.1.
-
-## 2026-09-20T02:21:00Z — Run 233
-
-- **Result:** hint.py build-cards/edit name existing post-VO CLIs. Estimated human minutes 4.3 → 4.2.
-
-## 2026-09-16 — Runs 138–232
-
-See prior commits. Summary: late-pipeline printers landed; Q1 remains ready_for_vo without an on-disk take.
+Earlier runs remain in git history before this file was rewritten with the Run 244 entry. Run 242 and earlier summaries are in commit `fb03114b8629771e9a7921615f0584d0e2f28af2` and below.
