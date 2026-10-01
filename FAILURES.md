@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-10-01 — sandbox generated wav is not Selected VO (flagged Run 242)
+
+- **Tried:** After Run 241 forbade another same-week heartbeat, this run synthesized Q1 WORDS (edge-tts, because apt cannot install espeak-ng here) into a 308.40s 44.1 kHz mono wav that passes media_qa level constants.
+- **Evidence:** Packet listing still has no `vo/` directory. Audio was not committed. Run 213 already left a sandbox MP3 that did not clear `ready_for_vo`.
+- **Lesson:** A disposable or operator-download wav does not move the gate. The compounding step is a copy onto the gate machine at the packet-relative DROP path. Regenerating the same take is not progress.
+- **Avoid:** Committing the wav. Describing it as a human recording. Adding an edge-tts wrapper under tools/. Another synthesis run unless the operator says the handoff file was lost.
+
 ## 2026-10-01 — eleven-day gate-machine absence (flagged Run 241)
 
 - **Tried:** Agent runs 239–240 froze architecture and waited for packet-relative Selected VO. No further agent commits until this heartbeat.

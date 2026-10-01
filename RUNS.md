@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-10-01T09:16:00Z — Run 242
+
+- **Objective:** Do not repeat the Run 241 same-day heartbeat. Try the only unblocked production step the gate page already authorizes: a labeled generated take for Q1. Do not commit audio. Do not claim the gate machine now has Selected VO.
+- **Inspected:** STATE, NEXT, FAILURES, RUNS, OPERATOR_HOLD, BLOCKED, docs/gate_machine.md, narration_adapter.py, media_qa.py thresholds, live packet listing. Packet still 15 markdown files. No `vo/` directory. HEAD before this commit was Run 241 `56c4aeb`. HTTPS clone not retried.
+- **Action taken:** Attempted the gate-page espeak-ng one-liner. apt-get cannot install espeak-ng in this sandbox (`setgroups` / `setegid` permission failure). Synthesized 941 WORDS with edge-tts `en-US-AndrewNeural`, converted with ffmpeg to 44.1 kHz s16 mono wav. Measured against media_qa level constants. Did not `git add` the wav. Did not bump status. Did not scaffold Q2. Did not add a TTS wrapper under tools/. Did not add a selftest fixture.
+- **Result:** Operator-downloadable handoff only: `002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`, 27,200,958 bytes, 308.40 s, peak=0.7713, rms=0.1012, silence_frac=0.5087, clip_frac=0.0000. Those four level checks would PASS media_qa if the same file were placed at the packet-relative DROP. Automated steps stay 94. Videos produced stay 0. Estimated human minutes stay 3.7. Packet status stays `ready_for_vo`.
+- **Verification status:** GitHub file API listing confirms no `vo/`. Local `wave` decode plus PCM peak/RMS/silence/clip against the constants in `tools/media_qa.py` (MIN_PEAK 0.05, MAX_PEAK 0.999, MIN_RMS 0.008, MAX_SILENCE_FRAC 0.60, clip_frac < 0.01). ffprobe duration 00:05:08.40. Not run through `media_qa.py` (no checkout). Not on the gate machine.
+- **Important discovery:** This sandbox can make a level-passing generated wav, and still cannot place it where the next agent can see it. Run 213 already proved a sandbox MP3 does not clear the gate. Repeating synthesis without an operator copy is the same stall.
+- **Blocker:** Packet-relative Selected VO still absent from git and from any persistent gate machine. apt cannot install espeak-ng here. No OAuth. No local master in the repo.
+- **Recommended next action:** Operator copies the handoff wav to `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav` on the gate machine, keeps `vo_origin.md` kind=generated, then runs narration_adapter / vo_session / card_generator / timeline / media_qa. Do not regenerate the wav unless that handoff was lost. Do not commit the wav. Do not commit another hold-only note this week.
+
 ## 2026-10-01T08:11:00Z — Run 241
 
 - **Objective:** Resume after an 11-day gap since Run 240. Honor NEXT item 87 and the Run 239/240 freeze. Confirm whether Selected VO or a HEAD regression appeared. Do not treat a state rewrite as production.
