@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-10-01 — end screen cut by -shortest (fixed Run 251)
+
+- **Tried:** Run 249 segmented execute muxed the card concat (including a 20s end card) to the VO with `-shortest`.
+- **Evidence:** HANDOFF duration 308.40s equals the VO, not VO+20. Run 251 synthetic: 2.00s VO against a 6.02s silent video produced 2.00s with the old mux and 6.00s with `apad=pad_dur`. Bare `apad` did not EOF; ffmpeg ran until killed.
+- **Lesson:** Pad with a finite `pad_dur` equal to the end-screen reserve, then `-shortest`. Do not treat the r249 master as the finished export.
+- **Avoid:** Restoring raw `0:a` / `1:a` maps with `-shortest`. Using bare `apad`. Uploading `q1-media-r249` `q1-master.mp4` as complete.
+
 ## 2026-10-01 — extract_words dropped every multiline WORDS block (fixed Run 250)
 
 - **Tried:** narration_adapter.extract_words used `^WORDS:\s*(.*?)` without DOTALL. `.` never crossed the newline after `WORDS:`, so the match failed and the adapter printed words: 0. selftest reported `extract_words missed WORDS blocks: ''`.

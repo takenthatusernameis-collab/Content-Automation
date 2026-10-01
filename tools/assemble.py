@@ -65,14 +65,21 @@ def command_for(packet: Path, data: dict) -> list[str]:
         labels += "[vend]"
     filter_complex = ";".join(concat_parts)
     if n:
-        filter_complex += f";{labels}concat=n={n}:v=1:a=0[vout]"
+        # pad_dur is required. Bare apad never signals EOF, so -shortest hangs
+        # (observed Run 251). pad_dur=END_SCREEN keeps the end card; -shortest
+        # then stops if video is the shorter stream. Run 249 master was 308.40s
+        # and dropped this +20s because it mapped raw audio with -shortest.
+        filter_complex += (
+            f";{labels}concat=n={n}:v=1:a=0[vout];"
+            f"[0:a]apad=pad_dur={END_SCREEN:.0f}[aout]"
+        )
     args += [
         "-filter_complex",
         filter_complex,
         "-map",
         "[vout]",
         "-map",
-        "0:a",
+        "[aout]",
         "-c:v",
         "libx264",
         "-preset",
@@ -163,6 +170,7 @@ def render_text(report: dict) -> str:
         f"target: {report['target']}",
         "assemble never invents media, never bumps status, and default mode never runs ffmpeg",
         "execute encodes one card at a time so a 2GB machine is not killed by the single graph",
+        "end screen is kept: audio is apadded, then -shortest stops on the video",
         "repo-root vo/ is not Selected VO",
     ]
     for c in report["checks"]:
@@ -243,9 +251,11 @@ def execute(packet: Path, report: dict) -> int:
         return 2
     drop = str((packet / "vo" / Path(report.get("drop") or "").name).resolve())
     dest = packet / EXPORT_REL
+    # apad + -shortest: silence fills the end screen; output length follows video.
     mux = [
         "ffmpeg", "-y", "-i", str(silent), "-i", drop,
-        "-map", "0:v:0", "-map", "1:a:0",
+        "-filter_complex", f"[1:a]apad=pad_dur={END_SCREEN:.0f}[a]",
+        "-map", "0:v:0", "-map", "[a]",
         "-c:v", "copy", "-c:a", "aac", "-ar", "48000", "-ac", "2",
         "-shortest", "-movflags", "+faststart", str(dest),
     ]

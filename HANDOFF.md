@@ -1,6 +1,6 @@
 # HANDOFF
 
-Updated: 2026-10-01T17:30:00Z (Run 250)
+Updated: 2026-10-01T18:20:00Z (Run 251)
 
 This file is not Selected VO. Audio and card PNGs stay gitignored. Do not `git add -f`.
 
@@ -71,4 +71,4 @@ sha256sum "$PACKET/export/master.mp4"
 # expect abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53
 ```
 
-Master is a local segmented encode (veryfast, crf 20), not a YouTube upload. `-shortest` kept duration at the 308.40 s VO, so the 20 s end card is truncated. kind remains generated.
+Master is a local segmented encode (veryfast, crf 20), not a YouTube upload. Run 251: `-shortest` without a finite apad kept duration at the 308.40 s VO, so the 20 s end card is truncated. Do not upload this asset as the finished export. Re-encode with current assemble.py --execute (apad=pad_dur=20). kind remains generated.

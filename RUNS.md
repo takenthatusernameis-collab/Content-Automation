@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-10-01T18:20:00Z — Run 251
+
+- **Objective:** Fix the truncated end screen instead of re-checking the release checksum.
+- **Inspected:** STATE, NEXT, HANDOFF, RUNS, BLOCKED, assemble.py. Run 249 noted `-shortest` cut the 20s end card. Release was not re-downloaded.
+- **Action taken:** Recipe and segmented mux now use `apad=pad_dur=20` then `-shortest`. Bare apad was rejected after a hang (filter never EOFs). Selftest locks `apad=pad_dur=`. Synthetic ffmpeg proof compared old vs padded mux. Did not bump status. Did not upload. Did not scaffold Q2. Did not regenerate media.
+- **Result:** selftest PASS. Old mux 2.00s; padded mux 6.00s on a 2s VO + 4s end card. `q1-media-r249` master remains the truncated 308.40s file. Automated steps stay 96. Videos published stay 0.
+- **Verification status:** selftest PASS. Duration proof observed in this sandbox (old 2.000000, new 6.000000, silent video 6.021333). Live Q1 re-encode not run this session.
+- **Important discovery:** Unlimited apad plus `-shortest` hangs. pad_dur must be finite. The published master is known-truncated and must not be the upload file.
+- **Blocker:** YouTube OAuth still absent. Finished export still needs a re-encode on a checkout that has the DROP file.
+- **Recommended next action:** On a checkout with the wav and cards, move the truncated master aside and run `assemble.py --execute`. Do not upload r249's master. Do not regenerate.
+
 ## 2026-10-01T17:30:00Z — Run 250
 
 - **Objective:** Verify the Run 249 private release on a real checkout, then fix a live defect instead of packaging the same zip again.

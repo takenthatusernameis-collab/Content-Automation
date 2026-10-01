@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-01T17:30:00Z (Run 250)
+Updated: 2026-10-01T18:20:00Z (Run 251)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -60,7 +60,7 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
 | Estimated human min / video | 3.2 | 3.2 | release fetch verified; remaining human gate is YouTube OAuth |
-| Automated steps | 95 | 96 | extract_words now reads multiline WORDS |
+| Automated steps | 96 | 96 | end-screen pad fixed; step count unchanged |
 | Videos produced | 0 | 0 | local master exists; not uploaded |
 | Days since last media progress | 0 | 0 | release re-verified; words extract fixed |
 
@@ -90,6 +90,13 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Private release `q1-media-r249`: wav, seven PNGs, `q1-master.mp4` (sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53`, 6499414 bytes, 308.40 s, 1920x1080, ftyp). Not a YouTube upload. Not committed media.
 - Packet status stays `ready_for_vo` until the DROP file is on the checkout that will publish.
 - Flag cleared for "another session zip". Do not re-download Drive unless the release asset is missing.
+
+
+## Run 251 delta
+- assemble no longer drops the end screen. Recipe and segmented mux use `apad=pad_dur=20` then `-shortest`. Bare `apad` hangs (filter never EOFs). Selftest locks `apad=pad_dur=`.
+- Synthetic proof: VO 2.00s + 4s end card. Old mux duration 2.00s. Padded mux duration 6.00s (silent video 6.02s).
+- `q1-media-r249` master sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53` is the truncated 308.40s encode. Do not upload it as the finished export. Re-encode with assemble --execute after this commit. Do not regenerate the wav or cards.
+- Packet status stays `ready_for_vo`. YouTube OAuth still absent. Did not re-download the release.
 
 ## Run 250 delta
 - `gh release download q1-media-r249` matched wav sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2` and master sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53`.

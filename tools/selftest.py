@@ -197,6 +197,18 @@ def check_assemble_fail_closed() -> list[str]:
             failures.append("assemble must not treat a junk master.mp4 as EXPORT_EXISTS")
         if report2.get("export_present"):
             failures.append("assemble export_present must stay false on junk ftyp")
+    from assemble import command_for
+    cmd = command_for(
+        Path("."),
+        {"vo_rel": "vo/x.wav", "rows": [{"card": "cards/hook-x.png", "dur": 4.0}]},
+    )
+    joined = " ".join(cmd)
+    if "apad=pad_dur=" not in joined:
+        failures.append("assemble recipe must apad=pad_dur so -shortest keeps the end screen and does not hang")
+    if "-shortest" not in cmd:
+        failures.append("assemble recipe must keep -shortest after apad")
+    if "[aout]" not in joined:
+        failures.append("assemble recipe must map the padded audio, not raw 0:a")
     return failures
 
 
