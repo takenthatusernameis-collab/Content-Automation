@@ -13,7 +13,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Default branch: `main`
 - No published videos
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning` status `ready_for_vo`
-- Durable fetch: private release `q1-media-r249` plus Drive folder in HANDOFF.md
+- Durable fetch: private release `q1-media-r253` (padded master) plus r249 wav/cards and Drive folder in HANDOFF.md
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Executive: SHIP after YouTube OAuth. Do not re-encode. Do not upload r249. Do not expand architecture.
 
@@ -35,7 +35,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 |--------|----------|---------|-------|
 | Estimated human min / video | 3.2 | 2.5 | re-encode done; remaining human gate is YouTube OAuth |
 | Automated steps | 96 | 96 | header refuse after mux |
-| Videos produced | 0 | 0 | local truncated master exists; not uploaded |
+| Videos produced | 0 | 0 | padded local master on q1-media-r253; not uploaded |
 
 ## Active constraints
 - Do not upload q1-media-r249 q1-master.mp4 as the finished export
