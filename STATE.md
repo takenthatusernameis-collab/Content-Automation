@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-01T10:25:00Z (Run 243)
+Updated: 2026-10-01T11:20:00Z (Run 244)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -15,11 +15,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - HTTPS clone from this agent sandbox still fails. Push via GitHub file API.
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - script.md 952 IN BAND; status `ready_for_vo`; selected take not in git
-- Run 242 handoff did not survive the sandbox. Run 243 regenerated the labeled generated wav into the operator artifacts `handoff/` folder and recorded sha256 in `HANDOFF.md`. It was not committed and is not gate-machine Selected VO. Packet listing still has no `vo/` directory.
+- Run 243 artifacts handoff did not survive. Run 244 regenerated the same sha256 and uploaded it to Google Drive. That Drive file is not gate-machine Selected VO. Packet listing still has no `vo/` directory.
 - words.py / words_contract / placeholder_guard / prove_locks stay unmapped.
 - Executive trajectory decision: HOLD for on-disk Selected VO; SHIP the first completed video once that file exists. Do not expand architecture.
 
-## What exists now (after Run 243)
+## What exists now (after Run 244)
 - idea.md / draft.md / script.md / titles.md / thumbnail.md filled
 - vo_session.md ready-to-record; named take missing from git
 - vo_origin.md kind=generated (labeled fallback)
@@ -29,11 +29,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - packet.md status `ready_for_vo`
 - Queue Q1 used; Q2-Q5 queued
 - Packet listing has no committed `vo/` audio and no committed card PNGs
-- Operator handoff: artifacts `handoff/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav` (27200958 bytes, sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2`). Copy target remains the packet-relative DROP path.
+- Durable generated handoff: Drive file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` in folder `1ftaVyh8BWQeWp45TIyX7Hh1o0MPmGRev` (27200958 bytes, sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2`). Copy target remains the packet-relative DROP path.
 - Completion gate PLAN_BUILT (`tools/complete.py` on main)
 - Selftest DROP lock for experiment_loop.py / complete.py / youtube_upload.py is on HEAD
 - media_qa level checks + export ftyp sniff on HEAD; youtube_upload ftyp on HEAD; upload fail-closed fixture on HEAD; fail-closed without a take
-- Gate-machine drop recipe: `docs/gate_machine.md` (includes optional already-installed TTS one-liners and the Run 243 checksum)
+- Gate-machine drop recipe: `docs/gate_machine.md` (includes optional already-installed TTS one-liners and the Drive file id)
 - human_session + agent_session + hint/next_action + pipeline_status point that drop at gate_machine
 - hint.py and next_action.py post-VO codes now match NEXT steps 3-4
 - Clone-less first-fetch includes the drop page (7 bootstrap paths)
@@ -42,7 +42,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 
 ## Pipeline map
 On the machine that runs gates (`docs/gate_machine.md`):
-1. Copy the Run 243 artifacts handoff to the packet-relative DROP path, or record, or use one optional TTS one-liner on that page. Verify sha256 against `HANDOFF.md`. A sandbox wav counts only after that copy.
+1. Download Drive file `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` (or copy the session artifacts handoff if it is still present) onto the packet-relative DROP path and check sha256 against `HANDOFF.md`. DROP: `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav` (or .flac). A Drive file counts only after that copy.
 2. narration_adapter.py then vo_session.py --force
 3. card_generator.py --write-manifest (do not git add -f pngs)
 4. timeline.py --write then media_qa.py (expect peak/RMS/silence/clip; export_decodable only if a master exists)
@@ -59,7 +59,7 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 | Estimated human min / video | 3.7 | 3.7 | No paper drop this run |
 | Automated steps | 94 | 94 | freeze: still no 95th adapter |
 | Videos produced | 0 | 0 | ready_for_vo; take not on gate machine |
-| Days since last media progress | 11 | 11 | Checksum handoff is not on-disk Selected VO |
+| Days since last media progress | 11 | 11 | Drive handoff is not on-disk Selected VO |
 
 ## Capability roadmap status
 - Completion gate: PLAN_BUILT (complete.py + HEAD selftest lock)
@@ -72,7 +72,8 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Run 240: HOLD re-verified against live packet listing; no capability change
 - Run 241: 11-day gap HOLD heartbeat; packet still has no `vo/`; no capability change
 - Run 242: sandbox generated-VO handoff measured against media_qa levels; not committed; not durable
-- Run 243: same synthesis left in operator artifacts plus sha256 in `HANDOFF.md`; still not Selected VO; no capability change
+- Run 243: same synthesis left in operator artifacts plus sha256 in `HANDOFF.md`; still not Selected VO
+- Run 244: same bytes uploaded to Drive and verified by file id + size; still not Selected VO; no capability change
 
 ## Active constraints
 - Do not add another dry-run adapter before on-disk Selected VO
@@ -80,7 +81,7 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Do not treat complete.py INCOMPLETE_* as license to invent media or a keep/discard
 - Do not write a dummy export/master.mp4 to flip gates
 - Do not add another selftest fixture unless a live printer regression is proven on HEAD
-- Do not treat docs/gate_machine.md as permission to commit sandbox audio
+- Do not treat docs/gate_machine.md or the Drive file id as permission to commit sandbox audio
 - Do not wrap the optional TTS one-liners into tools/
 - Do not restore "recording is the only gate" or blanket "no ffmpeg recipe" language on operator pages or hint.py edit commands
 - Do not strip the docs/gate_machine.md pointer from hint.py / next_action.py / pipeline_status.py
@@ -91,5 +92,5 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Do not move README Human session / Local tools doctor, idea_brief, new_packet, or sample-001 commands above the live Q1 drop
 - Do not commit another documentation-order or printer-alignment change unless a proven HEAD regression sends operators to scaffold Q2 or invent media
 - Do not commit another hold-verification run in the same week if RUNS.md already records a current HOLD and VO is still missing
-- Do not regenerate the Run 243 handoff wav unless `HANDOFF.md` sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2` and the artifacts file are both missing
-- Do not describe the Run 243 handoff as a human recording or as gate-machine Selected VO
+- Do not regenerate the generated wav while Drive file `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` lists 27200958 bytes and sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2` is current
+- Do not describe the Drive handoff as a human recording or as gate-machine Selected VO

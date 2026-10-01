@@ -45,9 +45,7 @@ Already have a generated file elsewhere:
 cp -n /path/to/existing-generated.wav "$DROP"
 ```
 
-If the operator still has the Run 243 artifacts handoff, copy that file and
-check it against `HANDOFF.md` (sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2`).
-Do not regenerate while that file exists.
+Durable generated copy (Run 244): Google Drive file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl`, folder `Content-Automation-handoff` (`1ftaVyh8BWQeWp45TIyX7Hh1o0MPmGRev`), 27200958 bytes, sha256 `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2`. Download that file, copy it to `$DROP`, and check the checksum in `HANDOFF.md`. Do not regenerate while that Drive file lists 27200958 bytes. A Drive file is not Selected VO until it is at `$DROP`.
 
 espeak-ng + ffmpeg (Debian/Ubuntu style; robotic but authorized as generated):
 
@@ -87,4 +85,4 @@ INCOMPLETE_MEDIA until VO + cards exist. Do not write a dummy `export/master.mp4
 ## Agent sandbox
 This page does not authorize committing audio from an agent workspace.
 A wav that exists only in a disposable sandbox is not gate-machine Selected VO.
-Run 242 proved the stronger failure: calling that wav operator-downloadable does not make it survive the next run. If the handoff file is gone, regenerate once into the operator artifacts `handoff/` folder and record sha256 in `HANDOFF.md`. Do not synthesize again while that checksum file is present. Do not add a TTS wrapper under `tools/`.
+Runs 242 and 243 proved a session artifacts path does not survive the next run. Run 244 left the same bytes on Drive (file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl`). If artifacts are empty, download that file id and check sha256. Do not synthesize again while that Drive file lists 27200958 bytes. Do not add a TTS wrapper under `tools/`.
