@@ -171,6 +171,7 @@ def render_text(report: dict) -> str:
         "assemble never invents media, never bumps status, and default mode never runs ffmpeg",
         "execute encodes one card at a time so a 2GB machine is not killed by the single graph",
         "end screen is kept: audio is apadded, then -shortest stops on the video",
+        "execute refuses a muxed file that lacks ftyp/moov",
         "repo-root vo/ is not Selected VO",
     ]
     for c in report["checks"]:
@@ -201,6 +202,8 @@ def execute(packet: Path, report: dict) -> int:
     The printed single-graph argv is the operator recipe. Running that graph
     holds every 1080p input at once and was killed on a 2 GB machine (Run 249).
     Segmented execute keeps the same card order and durations.
+    After mux, require mp4_header_ok. A killed ffmpeg can leave ftyp without
+    moov (Run 249 single-graph; Run 252 sandbox mux). That file is not a master.
     """
     if report["gate"] != "READY_TO_ENCODE":
         print(f"execute refused: gate={report['gate']}", file=sys.stderr)
@@ -260,6 +263,10 @@ def execute(packet: Path, report: dict) -> int:
         "-shortest", "-movflags", "+faststart", str(dest),
     ]
     if _run(mux, packet) != 0:
+        print("execute refused: mux failed; leaving export/.segments", file=sys.stderr)
+        return 2
+    if not dest.is_file() or dest.stat().st_size <= 0 or not mp4_header_ok(dest):
+        print("execute refused: master missing ftyp/moov; leaving export/.segments", file=sys.stderr)
         return 2
     shutil.rmtree(work, ignore_errors=True)
     print(dest)
