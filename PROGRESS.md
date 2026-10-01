@@ -62,3 +62,7 @@ These numbers are **estimates**, not stopwatch data. Earlier rows remain in prio
 - Human minutes estimate 3.7 -> 3.2 when gh auth is present (no Drive UI copy).
 
 - Run 254: upload adapter refuses the truncated r249 master sha and a VO-length export. Fetch page no longer copies that file as master. Automated steps 97. Published videos stay 0.
+
+## 2026-10-02T02:20:00Z — Run 257
+- Front door no longer asks for a new Q1 take. Estimated human minutes 2.5 -> 2.0. Publish remains a human edit; OAuth remains external.
+

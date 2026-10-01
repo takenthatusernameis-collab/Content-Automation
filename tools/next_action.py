@@ -110,6 +110,11 @@ def recommend(path: Path, row: dict[str, object]) -> tuple[str, str]:
         )
 
     if status in {"draft", "ready_for_vo"}:
+        if path.name == "002-stop-deciding-what-to-work-on-every-morning":
+            return (
+                "upload-blocked",
+                "Q1 generated take, cards, and padded master already exist on private releases q1-media-r249 and q1-media-r253. Do not regenerate. Do not copy r249 q1-master.mp4. Human-edit publish.md: remove the sentence 'No upload happened', check Description edited and First comment approved. OAuth is the credential gate. Dry-run READY is not an upload.",
+            )
         return (
             "record-vo",
             f"Script gate is PASS. Follow docs/gate_machine.md and place Selected VO at `{vo_name}` before raising status. Generated fallback is authorized. Repo-root vo/ is not Selected VO.",

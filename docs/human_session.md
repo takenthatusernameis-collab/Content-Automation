@@ -9,16 +9,15 @@ Copy-paste drop recipe on the gate machine: `docs/gate_machine.md`.
 
 ## Live job (do this first)
 
-Q1 is already scaffolded. Status is `ready_for_vo`. Text paperwork is done.
+Q1 is already scaffolded. Status stays `ready_for_vo` because the wav is gitignored. Text paperwork is done. The generated take and seven cards are on private release `q1-media-r249`. The finished local export is private release `q1-media-r253` asset `q1-master-r253.mp4` (328.40s). Do not regenerate them. Do not copy `q1-media-r249` `q1-master.mp4` onto `export/master.mp4` (308.40s, truncated end screen).
 
 - Packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
-- Reading card: that packet's `vo_session.md` (952 words, ~06:21)
-- Put the selected take here: `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
-- Repo-root `vo/` is not Selected VO. `.gitignore` keeps the take local. Do not `git add -f` it.
-- Generated local audio at that DROP path is the authorized fallback after `2026-09-19T00:00:00Z`. Keep `vo_origin.md` kind=generated. Follow `docs/gate_machine.md`.
-- After the file exists: steps 5–7 below. Do not invent a wav in git. Do not scaffold Q2.
+- Fetch: `docs/gate_machine.md` and `HANDOFF.md` (wav/cards from r249 only; master from r253 only)
+- Remaining human edit: `publish.md` — delete the sentence `No upload happened. Human locks title, description, and tags before YouTube.` Check Description edited and First comment approved. Leave No YouTube upload checked.
+- After that copy is approved, YouTube OAuth (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`) is the credential gate. Dry-run READY is not an upload.
+- Keep `vo_origin.md` kind=generated. Do not `git add -f` media. Do not scaffold Q2.
 
-Do not start this session at `doctor.py` / `queue_status.py` / `new_packet.py`. Those commands are for a *new* packet. The remaining labor is the named take at the packet DROP path (record or authorized generated fallback).
+Do not start this session at `doctor.py` / `queue_status.py` / `new_packet.py`. Those commands are for a *new* packet. Do not record or synthesize another take while HANDOFF checksums match.
 
 ## Start every session (new packet only)
 
@@ -162,13 +161,13 @@ python3 tools/qa_checklist.py videos/002-stop-deciding-what-to-work-on-every-mor
 
 7. After presence refresh (publish.md is not an upload)
 
-Open `videos/002-stop-deciding-what-to-work-on-every-morning/publish.md`. Tags and title are already usable (Run 117). Remaining human boxes:
+Open `videos/002-stop-deciding-what-to-work-on-every-morning/publish.md`. Tags and title are already usable (Run 117). The description body above the stub sentence is already usable. Remaining human boxes:
 
-- edit Description for search + honesty (do not invent claims the script does not make)
-- approve or rewrite the First comment pin candidate
+- delete `No upload happened. Human locks title, description, and tags before YouTube.` (youtube_upload treats that sentence as HOLD_LOCAL)
+- check Description edited and First comment approved (the pin candidate is already a draft assignment; rewrite it only if it overclaims)
 - leave the No YouTube upload box checked
 
-Do not call a YouTube API. Do not treat a filled description as published. Do not scaffold Q2 from this page.
+Do not call a YouTube API. Do not treat a filled description as published. Do not copy the r249 master. Do not scaffold Q2 from this page.
 
 If unsure of the next command after any step, re-run `python3 tools/doctor.py videos/002-stop-deciding-what-to-work-on-every-morning` and use the printed Command.
 

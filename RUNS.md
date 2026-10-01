@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-10-02T02:20:00Z — Run 257
+
+- **Objective:** Stop the live-job pages from sending the operator back to recording after the take and padded master already exist.
+- **Inspected:** STATE/NEXT/HANDOFF/RUNS after Run 256. human_session and agent_session still said remaining labor is the DROP file. next_action returned record-vo for ready_for_vo. Releases `q1-media-r253` (2026-10-01T19:18:04Z) and `q1-media-r249` still listed.
+- **Action taken:** Rewrote both live-job sections and step 7 to the publish.md stub edit. next_action returns upload-blocked for this packet only. hint upload-blocked names the fetch and the sentence to delete. Did not edit publish.md. Did not re-download. Did not re-encode. Did not upload. Did not scaffold Q2.
+- **Result:** selftest PASS. Q1 no longer routes to record-vo. Automated steps stay 98. Videos published stay 0. Packet status stays ready_for_vo. Human minutes estimate 2.5 -> 2.0 (delete one sentence and check two boxes; OAuth still manual).
+- **Verification status:** selftest PASS observed. Release tags listed, not re-downloaded. next_action special case present in tools/next_action.py.
+- **Important discovery:** Runs 254–256 closed the truncated-master copy, but the front-door pages still treated a missing local DROP as the job. That loop is the repeated stall.
+- **Blocker:** YouTube OAuth still absent. Human must edit publish.md description and approve the pin comment.
+- **Recommended next action:** Human-edit publish.md (delete the No upload happened sentence, check Description edited and First comment approved). Copy q1-master-r253.mp4 only onto export/master.mp4. Set OAuth. Do not record again.
+
 ## 2026-10-02T01:20:00Z — Run 256
 
 - **Objective:** Stop the durable fetch page from installing the truncated master as the upload file.

@@ -17,13 +17,14 @@ Humans follow `docs/human_session.md`. This page is not a second start command f
 Reconstruct exists so agents can run contracts when clone fails. It is not the current production job.
 
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
-- Status: `ready_for_vo`. Text paperwork is done.
-- Selected VO path: `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
+- Status: `ready_for_vo` (wav is gitignored). Text paperwork is done.
+- Durable media: `q1-media-r249` wav + seven PNGs; finished master `q1-media-r253` `q1-master-r253.mp4` (328.40s, sha256 `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546`). Do not regenerate while HANDOFF checksums match. Do not copy r249 `q1-master.mp4` onto `export/master.mp4`.
+- Selected VO path, if a local copy is needed: `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
 - Repo-root `vo/` is not Selected VO. Do not invent a wav. Do not `git add -f` ignored media.
 - Do not scaffold Q2. Do not treat WAVE 3 `doctor.py` / `queue_status.py` / `next_topic.py` as permission to start a new packet.
-- After the WAVE 3 board printers run, stop unless this run is editing a named tool. The remaining labor is a local file at the packet DROP path on the gate machine (`docs/gate_machine.md`). Generated fallback is authorized; do not invent a committed wav.
+- After the WAVE 3 board printers run, stop unless this run is editing a named tool. Remaining labor is a human edit of `publish.md` (remove `No upload happened`, check Description edited and First comment approved) plus YouTube OAuth. Fetch recipe: `docs/gate_machine.md`. Do not re-encode.
 
-README already names this front door. This page must not send an agent back into fixture reconstruct as if that were the remaining labor.
+README already names this front door. This page must not send an agent back into fixture reconstruct or a new recording as if that were the remaining labor.
 
 ## Clone
 

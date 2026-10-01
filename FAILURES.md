@@ -1,5 +1,11 @@
 # FAILURES
 
+## Run 257 — front door still said record
+- **Tried:** Treating the truncated-master copy fix as enough. human_session and agent_session still said remaining labor is the DROP file, so the next agent would synthesize again.
+- **Result:** Those pages and Q1 next_action now point at the publish.md stub edit.
+- **Avoid:** Restoring "remaining labor is a new recording" while q1-media-r249 and q1-media-r253 exist.
+
+
 ## 2026-10-01 — Run 254 — gate page still copied the truncated master
 - **Tried:** Treating Run 253 docs as enough. `docs/gate_machine.md` still said copy `q1-media-r249` `q1-master.mp4` onto export/master.mp4.
 - **Result:** That copy would pass the ftyp check and look uploadable once OAuth exists.

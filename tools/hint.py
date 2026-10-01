@@ -114,6 +114,13 @@ def commands_for(path: Path, row: dict[str, object], code: str) -> list[str]:
     if code == "export":
         return [f"python3 tools/render_brief.py {p} --dry-run"]
     if code == "upload-blocked":
+        if path.name == "002-stop-deciding-what-to-work-on-every-morning":
+            return [
+                "# Do not regenerate Q1. Do not copy q1-media-r249 q1-master.mp4 onto export/master.mp4.",
+                "# Fetch wav/cards from q1-media-r249 and master from q1-media-r253 (HANDOFF.md).",
+                "# Edit publish.md: delete 'No upload happened'; check Description edited and First comment approved.",
+                "# YouTube OAuth is not configured. Dry-run READY is not an upload. Do not call the API.",
+            ]
         return ["# YouTube OAuth is not configured. Review publish.md. Do not call the API."]
     if code == "analytics-unbuilt":
         return ["# analytics is unbuilt; do not invent numbers"]

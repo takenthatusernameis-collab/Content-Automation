@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T01:20:00Z (Run 256)
+Updated: 2026-10-02T02:20:00Z (Run 257)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -16,6 +16,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Durable fetch: private release `q1-media-r253` (padded master) plus r249 wav/cards and Drive folder in HANDOFF.md
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Executive: SHIP after publish.md human edit and YouTube OAuth. Do not re-encode. Do not upload r249. Do not expand architecture.
+
+## Run 257 delta
+- `docs/human_session.md` and `docs/agent_session.md` no longer tell the live job to record or drop a new take. Remaining labor is the publish.md stub edit plus YouTube OAuth. Fetch stays r249 wav/cards and r253 master only.
+- `tools/next_action.py` returns `upload-blocked` for this packet at `ready_for_vo` instead of `record-vo`. `tools/hint.py` names the same edit. Other packets still record-vo.
+- Releases `q1-media-r253` and `q1-media-r249` still listed. Did not re-download. Did not re-encode. Did not upload. Did not edit the human description.
 
 ## Run 256 delta
 - HANDOFF no longer copies `q1-media-r249` `q1-master.mp4` onto `export/master.mp4`. That block now copies wav and PNGs only. Finished master copy is the r253 asset only.
@@ -39,8 +44,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 2.5 | 2.5 | OAuth and publish.md edit remain |
-| Automated steps | 98 | 98 | no new printer; fetch page no longer installs the truncated master |
+| Estimated human min / video | 2.5 | 2.0 | publish edit is delete-one-sentence plus two checks; OAuth remains |
+| Automated steps | 98 | 98 | Q1 next_action no longer routes to record-vo |
 | Videos produced | 0 | 0 | padded local master on q1-media-r253; not uploaded |
 
 ## Active constraints
