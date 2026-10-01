@@ -1,11 +1,11 @@
 # HANDOFF
 
-Updated: 2026-10-01T13:22:00Z (Run 246)
+Updated: 2026-10-01T14:12:00Z (Run 247)
 
 This file is not Selected VO. Audio and card PNGs stay gitignored. Do not `git add -f`.
 
 ## Why this file exists
-Run 242 synthesized a labeled generated take and called it operator-downloadable. Run 243 found an empty workspace. Run 244 found the same empty workspace and uploaded the wav to Drive. Run 245 confirmed that Drive file still lists 27200958 bytes and the same sha256, then added the seven planned cards. Run 246 matched those checksums again and found that an unauthenticated curl of the wav file id returns a Google sign-in page.
+Run 242 synthesized a labeled generated take and called it operator-downloadable. Run 243 found an empty workspace. Run 244 found the same empty workspace and uploaded the wav to Drive. Run 245 confirmed that Drive file still lists 27200958 bytes and the same sha256, then added the seven planned cards. Run 246 matched those checksums again and found that an unauthenticated curl of the wav file id returns a Google sign-in page. Run 247 downloaded the same Drive bytes into the current operator session (`q1-handoff/` and `q1-handoff-verified.zip`) and matched sha256 again. That session folder is the human copy source for this chat. It is not durable for the next agent, and it is not the packet DROP path.
 
 ## Current operator file
 - Name: `002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
@@ -17,12 +17,13 @@ Run 242 synthesized a labeled generated take and called it operator-downloadable
 - Format: 44.1 kHz, mono, s16 wav
 - Voice: edge-tts `en-US-AndrewNeural` (espeak-ng still cannot be installed in this sandbox)
 - SHA256: `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2`
-- Drive listing size_bytes: 27200958 (re-listed Run 245; local re-download sha256 matched again Run 246). Level constants measured on the Run 244 decode: peak=0.7713, rms=0.1012, silence_frac=0.5089, clip_frac=0.0000. Those four would PASS if the same file were at the DROP path. Cards and export would still FAIL until the PNGs below are copied and a master exists.
+- Drive listing size_bytes: 27200958 (re-listed Run 245; local re-download sha256 matched again Runs 246 and 247). Level constants measured on the Run 244 decode: peak=0.7713, rms=0.1012, silence_frac=0.5089, clip_frac=0.0000. Those four would PASS if the same file were at the DROP path. Cards and export would still FAIL until the PNGs below are copied and a master exists.
 - kind: generated. Not a human recording. Not gate-machine Selected VO.
 - Anonymous fetch: not available. Run 246 `curl -L` of the uc export URL saved an HTML sign-in page, not this wav.
+- Run 247 session copy: operator artifacts `q1-handoff/` plus zip `q1-handoff-verified.zip` (19908838 bytes). Next agent workspace may be empty. Use the Drive file id, not the zip path.
 
 ## Cards (not packet-ready until copied)
-Same Drive folder. Generator rules match `tools/card_generator.py` (1920x1080). `cards.sha256` file id `1Exe7TolCKO8f7-vZ6HCSseGEmrVLyU2x` (846 bytes). Do not regenerate while those file ids list the sizes below. Do not mark `assets.md` ready in git until the PNGs exist under the packet `cards/` directory. Run 246 matched these sha256 values on download.
+Same Drive folder. Generator rules match `tools/card_generator.py` (1920x1080). `cards.sha256` file id `1Exe7TolCKO8f7-vZ6HCSseGEmrVLyU2x` (846 bytes). Do not regenerate while those file ids list the sizes below. Do not mark `assets.md` ready in git until the PNGs exist under the packet `cards/` directory. Runs 246 and 247 matched these sha256 values on download.
 
 | Packet path | Drive file id | Bytes | SHA256 |
 |-------------|---------------|------:|--------|
@@ -35,10 +36,10 @@ Same Drive folder. Generator rules match `tools/card_generator.py` (1920x1080). 
 | `cards/cta-cta-card-write-tomorrow-s-next-action-on.png` | `1Tne_yISXFwl8_5HA_aJjWnC_4j53xnIp` | 39935 | `b0f67d7c5ad085f5e2882fdcda67a2e363a171d544d854b8c43d3b5d492e56e9` |
 
 ## Fetch without regenerating
-If the artifacts file is missing, download Drive file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` with the connected Drive account and check sha256. Do not synthesize again while that Drive file lists 27200958 bytes. Download the seven card ids above instead of re-running the card renderer while those sizes match. Regeneration is allowed only if both the Drive file and this checksum are gone. Do not use an unauthenticated curl; it returns a Google sign-in page.
+If the artifacts file is missing, download Drive file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` with the connected Drive account and check sha256. Do not synthesize again while that Drive file lists 27200958 bytes. Download the seven card ids above instead of re-running the card renderer while those sizes match. Regeneration is allowed only if both the Drive file and this checksum are gone. Do not use an unauthenticated curl; it returns a Google sign-in page. Do not treat a session zip as Selected VO.
 
 ## Copy (gate machine only)
-The gate machine must be signed into the Drive owner account, or it must receive the files from a session that is. A public link is not enough.
+The gate machine must receive these files from a signed-in session. A public link is not enough. Run 247 left a zip in the operator chat for that copy.
 
 ```bash
 PACKET=videos/002-stop-deciding-what-to-work-on-every-morning
