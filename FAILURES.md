@@ -1,5 +1,19 @@
 # FAILURES
 
+## 2026-10-01 — Beat 2–4 encoded as Beat 1 (fixed Run 249)
+
+- **Tried:** Dry-run assemble after placing the verified cards. The argv reused `cards/beat1-split-open-task-board-vs-one-index-car.png` for Beat 2, Beat 3, and Beat 4.
+- **Evidence:** `match_card` returned the first card whose label started with the word "beat". Live packet rows confirmed the collapse. After the key fix, each beat mapped to its own PNG.
+- **Lesson:** A shared prefix is not a beat identity. Lock the mapping. Do not encode from the old argv.
+- **Avoid:** Restoring `t.startswith(beat.split()[0])`.
+
+## 2026-10-01 — single-graph assemble killed at 2 GB (fixed in execute, Run 249)
+
+- **Tried:** `assemble.py --execute` and the printed ffmpeg graph directly.
+- **Evidence:** Process killed (exit 137) after a few seconds. Incomplete mp4 had ftyp and no moov (262192 bytes). Segmented encode then produced a 6499414-byte master.
+- **Lesson:** The dry-run argv is not safe on a 2 GB machine. execute must stay segmented. Mux must use the packet `vo/` file, not the repo-relative drop string.
+- **Avoid:** Treating a killed ffmpeg file as a master. Reverting execute to the single graph.
+
 ## 2026-10-01 — ten runs without a DROP-path copy (flagged Run 248)
 
 - **Tried:** Run 247 already put matching bytes in a session zip. This run confirmed Drive listing sizes were unchanged, downloaded the same wav and seven cards, and matched sha256 again so this chat has a copy pack.

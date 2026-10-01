@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-01T15:11:00Z (Run 248)
+Updated: 2026-10-01T17:05:00Z (Run 249)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -59,10 +59,10 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 3.7 | 3.7 | Human still must copy the zip or Drive files onto the packet |
-| Automated steps | 94 | 94 | freeze: still no 95th adapter |
-| Videos produced | 0 | 0 | ready_for_vo; take not on gate machine |
-| Days since last media progress | 11 | 11 | Session zip is not on-disk Selected VO |
+| Estimated human min / video | 3.7 | 3.2 | gh release download replaces a Drive UI copy when the token is present |
+| Automated steps | 94 | 95 | segmented assemble execute |
+| Videos produced | 0 | 0 | local master exists; not uploaded |
+| Days since last media progress | 11 | 0 | local ftyp master + private release |
 
 ## Capability roadmap status
 - Completion gate: PLAN_BUILT (complete.py + HEAD selftest lock)
@@ -81,6 +81,15 @@ Do not invent a committed wav or mp4. Do not upload. Do not scaffold Q2.
 - Run 246: same Drive bytes re-checked; anonymous fetch is a login wall; still not Selected VO; no capability change
 - Run 247: same Drive bytes placed in the operator session zip; sha256 matched; still not Selected VO; no capability change
 - Run 248: same Drive bytes re-checked and placed in this session zip; no share or release-upload tool; still not Selected VO; no capability change
+
+
+## Run 249 delta
+- Clone with GH_TOKEN works in this sandbox. Do not treat BLOCKED clone as always-failed.
+- timeline.match_card no longer maps every Beat N to Beat 1.
+- assemble --execute encodes one card at a time. The printed argv is still the single-graph recipe and can be killed on a 2 GB machine.
+- Private release `q1-media-r249`: wav, seven PNGs, `q1-master.mp4` (sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53`, 6499414 bytes, 308.40 s, 1920x1080, ftyp). Download verified with gh. Not a YouTube upload. Not committed media.
+- Packet status stays `ready_for_vo` until the DROP file is on the checkout that will publish.
+- Flag cleared for "another session zip". Do not re-download Drive unless the release asset is missing.
 
 ## Active constraints
 - Do not add another dry-run adapter before on-disk Selected VO

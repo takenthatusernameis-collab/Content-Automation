@@ -335,6 +335,37 @@ def check_complete_fail_closed() -> list[str]:
     return failures
 
 
+
+def check_timeline_card_match() -> list[str]:
+    """Beat N must not collapse onto Beat 1 via the shared word 'beat'."""
+    from timeline import match_card
+
+    cards = [
+        {"beat": "Hook (0:00-0:12)", "file": "cards/hook-card.png", "type": "text-card"},
+        {"beat": "Payoff promise", "file": "cards/payoff-same.png", "type": "text-card"},
+        {"beat": "Beat 1 —", "file": "cards/beat1-split.png", "type": "diagram"},
+        {"beat": "Beat 2 —", "file": "cards/beat2-hand.png", "type": "text-card"},
+        {"beat": "Beat 3 —", "file": "cards/beat3-four.png", "type": "text-card"},
+        {"beat": "Beat 4 —", "file": "cards/beat4-night.png", "type": "text-card"},
+        {"beat": "CTA", "file": "cards/cta-cta.png", "type": "text-card"},
+    ]
+    expect = {
+        "Hook (0:00-0:12)": "cards/hook-card.png",
+        "Payoff promise": "cards/payoff-same.png",
+        "Beat 1 —": "cards/beat1-split.png",
+        "Beat 2 —": "cards/beat2-hand.png",
+        "Beat 3 —": "cards/beat3-four.png",
+        "Beat 4 —": "cards/beat4-night.png",
+        "CTA": "cards/cta-cta.png",
+    }
+    failures = []
+    for title, file in expect.items():
+        got = match_card(title, cards)
+        if not got or got["file"] != file:
+            failures.append(f"timeline match_card {title!r} -> {got}")
+    return failures
+
+
 def main() -> int:
     path = sample_packet()
     failures: list[str] = []
@@ -413,6 +444,7 @@ def main() -> int:
     failures.extend(check_feedback_fail_closed())
     failures.extend(check_experiment_fail_closed())
     failures.extend(check_complete_fail_closed())
+    failures.extend(check_timeline_card_match())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")

@@ -43,3 +43,10 @@ These numbers are **estimates**, not stopwatch data. Earlier rows remain in prio
 - Run 236: `tools/queue_status.py` footer/report and `tools/next_topic.py` print that Q1 remaining labor is `docs/gate_machine.md` and must not scaffold Q2. No new printer. No invented media.
 - Run 235: `tools/needed.py` BOOTSTRAP and doctor UNMAPPED_PATHS include `docs/gate_machine.md`. WAVE 3 plan comment names that page. README live packet names it. No new printer. No invented media.
 - Earlier capability rows remain in prior commits.
+
+
+## Run 249 (2026-10-01)
+- Card matcher no longer collapses Beat N onto Beat 1. That would have shipped a wrong video on every Q1 encode.
+- assemble execute no longer depends on a single 8-input graph that a 2 GB machine kills.
+- Private release `q1-media-r249` is a token-gated fetch for the wav, cards, and local master. Published videos stay 0.
+- Human minutes estimate 3.7 -> 3.2 when gh auth is present (no Drive UI copy).

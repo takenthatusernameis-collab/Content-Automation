@@ -1,6 +1,6 @@
 # HANDOFF
 
-Updated: 2026-10-01T15:11:00Z (Run 248)
+Updated: 2026-10-01T17:05:00Z (Run 249)
 
 This file is not Selected VO. Audio and card PNGs stay gitignored. Do not `git add -f`.
 
@@ -53,3 +53,22 @@ python3 tools/narration_adapter.py "$PACKET"
 python3 tools/card_generator.py "$PACKET" --inspect-only
 ```
 Keep `vo_origin.md` kind=generated. Do not commit the wav or the PNGs.
+
+
+## Run 249 durable fetch (private release)
+Repo is private. Anonymous curl still fails. With `gh` auth:
+
+```bash
+gh release download q1-media-r249 --repo takenthatusernameis-collab/Content-Automation -D /tmp/q1-media
+# assets are flat (cards were uploaded without the cards/ prefix)
+PACKET=videos/002-stop-deciding-what-to-work-on-every-morning
+mkdir -p "$PACKET/vo" "$PACKET/cards" "$PACKET/export"
+cp -n /tmp/q1-media/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav \
+  "$PACKET/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav"
+cp -n /tmp/q1-media/*.png "$PACKET/cards/"
+cp -n /tmp/q1-media/q1-master.mp4 "$PACKET/export/master.mp4"
+sha256sum "$PACKET/export/master.mp4"
+# expect abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53
+```
+
+Master is a local segmented encode (veryfast, crf 20), not a YouTube upload. `-shortest` kept duration at the 308.40 s VO, so the 20 s end card is truncated. kind remains generated.

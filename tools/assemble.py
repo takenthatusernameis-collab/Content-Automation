@@ -162,6 +162,7 @@ def render_text(report: dict) -> str:
         f"export: {report['export']} present={'yes' if report['export_present'] else 'no'}",
         f"target: {report['target']}",
         "assemble never invents media, never bumps status, and default mode never runs ffmpeg",
+        "execute encodes one card at a time so a 2GB machine is not killed by the single graph",
         "repo-root vo/ is not Selected VO",
     ]
     for c in report["checks"]:
@@ -172,27 +173,86 @@ def render_text(report: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
-def execute(packet: Path, report: dict) -> int:
-    if report["gate"] != "READY_TO_ENCODE":
-        print(f"execute refused: gate={report['gate']}", file=sys.stderr)
-        return 2
-    dest_dir = packet / "export"
-    dest_dir.mkdir(exist_ok=True)
+def _run(cmd: list[str], cwd: Path) -> int:
     try:
-        proc = subprocess.run(
-            report["command"],
-            cwd=str(packet),
-            check=False,
-            capture_output=True,
-            text=True,
-        )
+        proc = subprocess.run(cmd, cwd=str(cwd), check=False, capture_output=True, text=True)
     except OSError as exc:
         print(f"ffmpeg launch failed: {exc}", file=sys.stderr)
         return 2
     if proc.returncode != 0:
-        print(proc.stderr[-2000:] if proc.stderr else "ffmpeg failed", file=sys.stderr)
+        err = proc.stderr or proc.stdout or "ffmpeg failed"
+        print(err[-2000:], file=sys.stderr)
         return 2
-    print(packet / EXPORT_REL)
+    return 0
+
+
+def execute(packet: Path, report: dict) -> int:
+    """Encode one card at a time, then concat.
+
+    The printed single-graph argv is the operator recipe. Running that graph
+    holds every 1080p input at once and was killed on a 2 GB machine (Run 249).
+    Segmented execute keeps the same card order and durations.
+    """
+    if report["gate"] != "READY_TO_ENCODE":
+        print(f"execute refused: gate={report['gate']}", file=sys.stderr)
+        return 2
+    from timeline import plan
+
+    data = plan(packet)
+    rows = [r for r in data["rows"] if r.get("card")]
+    if not rows:
+        print("execute refused: no card rows", file=sys.stderr)
+        return 2
+    dest_dir = packet / "export"
+    dest_dir.mkdir(exist_ok=True)
+    work = dest_dir / ".segments"
+    if work.exists():
+        shutil.rmtree(work)
+    work.mkdir()
+    seg_paths = []
+    for i, row in enumerate(rows):
+        seg = work / f"seg{i:02d}.mp4"
+        cmd = [
+            "ffmpeg", "-y", "-loop", "1", "-t", f"{float(row['dur']):.1f}",
+            "-i", row["card"],
+            "-f", "lavfi", "-t", f"{float(row['dur']):.1f}", "-i", "anullsrc=r=48000:cl=stereo",
+            "-vf", "scale=1920:1080,fps=30,format=yuv420p",
+            "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-r", "30",
+            "-c:a", "aac", "-shortest", "-movflags", "+faststart", str(seg),
+        ]
+        if _run(cmd, packet) != 0:
+            return 2
+        seg_paths.append(seg)
+    # End screen holds the last card. Matches the dry-run recipe.
+    end = work / "seg_end.mp4"
+    cmd = [
+        "ffmpeg", "-y", "-loop", "1", "-t", f"{END_SCREEN:.1f}", "-i", rows[-1]["card"],
+        "-f", "lavfi", "-t", f"{END_SCREEN:.1f}", "-i", "anullsrc=r=48000:cl=stereo",
+        "-vf", "scale=1920:1080,fps=30,format=yuv420p",
+        "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-r", "30",
+        "-c:a", "aac", "-shortest", "-movflags", "+faststart", str(end),
+    ]
+    if _run(cmd, packet) != 0:
+        return 2
+    seg_paths.append(end)
+    lst = work / "list.txt"
+    lst.write_text("".join(f"file '{s.name}'\n" for s in seg_paths), encoding="utf-8")
+    silent = work / "silent.mp4"
+    if _run(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", "list.txt", "-c", "copy", str(silent.name)], work) != 0:
+        return 2
+    drop = str((packet / "vo" / Path(report.get("drop") or "").name).resolve())
+    dest = packet / EXPORT_REL
+    mux = [
+        "ffmpeg", "-y", "-i", str(silent), "-i", drop,
+        "-map", "0:v:0", "-map", "1:a:0",
+        "-c:v", "copy", "-c:a", "aac", "-ar", "48000", "-ac", "2",
+        "-shortest", "-movflags", "+faststart", str(dest),
+    ]
+    if _run(mux, packet) != 0:
+        return 2
+    shutil.rmtree(work, ignore_errors=True)
+    print(dest)
+    print("execute: segmented (one card at a time); dry-run argv is the single-graph recipe")
     return 0
 
 

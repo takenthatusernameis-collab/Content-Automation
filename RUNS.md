@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-10-01T17:05:00Z — Run 249
+
+- **Objective:** Stop re-packaging the same Drive zip. Use the working GitHub token to check out the repo, find a real pipeline defect, and leave a durable media fetch that is not a session zip.
+- **Inspected:** STATE, NEXT, RUNS, HANDOFF, BLOCKED, FAILURES, gate_machine. Clone with GH_TOKEN succeeded (the parked "clone always fails" note is stale for this sandbox). Drive wav and seven cards matched HANDOFF checksums. No share-permission tool.
+- **Action taken:** Placed the existing Drive bytes on the local checkout (not git add). narration_adapter, card inspect, and media_qa passed. timeline.match_card mapped Beat 2–4 onto the Beat 1 card because the first token was the word "beat". Fixed match_card and locked it in selftest. Single-graph assemble --execute was killed on a 2 GB machine. execute now encodes one card at a time. Produced export/master.mp4 locally and published private release `q1-media-r249`. Did not upload to YouTube. Did not bump packet status. Did not scaffold Q2.
+- **Result:** Card mapping is correct on the live packet. Local master is 6499414 bytes, 308.40 s, 1920x1080 h264 + aac, ftyp present, sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53`. Release download of that asset matched the sha256. Automated steps 95 (segmented execute). Videos published stay 0.
+- **Verification status:** Checksums matched before encode. Release re-download matched master sha256. selftest still fails on a pre-existing extract_words miss (`''`); the new card-match check did not add a failure. Master is not committed. Packet status stays `ready_for_vo` until a checkout has the DROP file.
+- **Important discovery:** HTTPS clone works here when GH_TOKEN is present. The stall was not only the copy. The assembler would have shipped the wrong cards, and the single ffmpeg graph OOMs at 2 GB.
+- **Blocker:** YouTube OAuth still absent. Anonymous release download still fails because the repo is private. Packet status was not bumped.
+- **Recommended next action:** On a machine with gh auth, `gh release download q1-media-r249 -p '*-take-selected.wav' -p 'q1-master.mp4' -p '*.png'` into the packet paths, then narration_adapter and media_qa. Do not regenerate. Do not treat the release as a YouTube upload.
+
 ## 2026-10-01T15:11:00Z — Run 248
 
 - **Objective:** Stop treating a missing agent workspace as lost media. Confirm the existing Drive handoff is still the same bytes, leave those bytes in this operator session, and flag the repeated copy stall. Do not regenerate. Do not claim Selected VO.

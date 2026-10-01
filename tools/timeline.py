@@ -53,25 +53,28 @@ def spoken_seconds(words: int) -> float:
     return max(MIN_HOLD, round(words / WPM * 60.0, 1))
 
 
+def card_key(text: str) -> str | None:
+    """Stable beat key. Do not match on the bare word 'beat' — Beat 2 would steal Beat 1."""
+    t = text.lower().strip()
+    if re.match(r"hook\b", t):
+        return "hook"
+    if re.match(r"payoff\b", t):
+        return "payoff"
+    if re.match(r"cta\b", t):
+        return "cta"
+    m = re.search(r"beat\s*(\d+)", t)
+    if m:
+        return f"beat{m.group(1)}"
+    return None
+
+
 def match_card(title: str, cards: list[dict[str, str]]) -> dict[str, str] | None:
-    t = title.lower()
-    for card in cards:
-        beat = card["beat"].lower()
-        if beat and (beat in t or t.startswith(beat.split()[0])):
-            return card
-    key = None
-    if t.startswith("hook"):
-        key = "hook"
-    elif t.startswith("payoff"):
-        key = "payoff"
-    elif t.startswith("cta"):
-        key = "cta"
-    else:
-        m = re.search(r"beat\s*(\d+)", t)
-        if m:
-            key = f"beat{m.group(1)}"
+    key = card_key(title)
     if not key:
         return None
+    for card in cards:
+        if card_key(card.get("beat", "")) == key:
+            return card
     for card in cards:
         fname = card["file"].lower()
         if f"cards/{key}-" in fname or fname.startswith(f"cards/{key}"):

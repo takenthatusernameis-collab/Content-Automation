@@ -91,3 +91,13 @@ INCOMPLETE_MEDIA until VO + cards exist. Do not write a dummy `export/master.mp4
 This page does not authorize committing audio or PNGs from an agent workspace.
 A wav that exists only in a disposable sandbox is not gate-machine Selected VO.
 Runs 242 and 243 proved a session artifacts path does not survive the next run. Run 244 left the same bytes on Drive (file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl`). Run 245 re-downloaded that file, matched the sha256, and left the seven cards on the same folder. Run 246 matched those checksums again and proved the file id is not anonymously downloadable. If artifacts are empty, download those file ids with the connected Drive account and check sha256. Do not synthesize again while that Drive file lists 27200958 bytes. Do not add a TTS wrapper or a public-link fetcher under `tools/`.
+
+
+## Run 249 fetch
+If `gh` is authenticated, skip the Drive UI:
+
+```bash
+gh release download q1-media-r249 --repo takenthatusernameis-collab/Content-Automation -D /tmp/q1-media
+```
+
+Copy the wav onto `$DROP`, the PNGs into `$PACKET/cards/`, and `q1-master.mp4` to `$PACKET/export/master.mp4`. Check master sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53`. This release is private. It is not a YouTube upload. Do not `git add -f`.
