@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-10-01 — session zip is not the DROP path (flagged Run 247)
+
+- **Tried:** After Runs 244–246 left matching bytes on Drive and proved anonymous curl is a login wall, this run downloaded those bytes into the operator session and zipped them for a human copy.
+- **Evidence:** Wav sha256 matched `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2` (27200958 bytes, 308.40 s). Seven PNG sha256 values matched `cards.sha256`. Zip `q1-handoff-verified.zip` is 19908838 bytes. Packet status stayed `ready_for_vo`. No packet checkout received the files.
+- **Lesson:** A chat zip can be the human copy source for that session. It does not clear Selected VO. Run 244 already showed session artifacts disappear for the next agent. Runs 239–247 have not performed the packet-relative copy. Another checksum commit is the stall.
+- **Avoid:** Regenerating while the Drive sizes match. Calling the zip Selected VO. A public-link fetcher. Another same-day Drive re-download unless the operator says the zip was lost.
+
 ## 2026-10-01 — anonymous Drive fetch is a login wall (flagged Run 246)
 
 - **Tried:** After Runs 244–245 left the wav and seven cards on Drive, this run checked whether a gate machine could fetch file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` with an unauthenticated curl.
