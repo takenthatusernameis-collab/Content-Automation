@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-10-01 — operator-downloadable sandbox wav did not survive (flagged Run 243)
+
+- **Tried:** Run 242 synthesized a level-passing generated wav and told the next run not to regenerate unless the operator said the handoff was lost. It did not commit audio (correct) and did not leave a checksum in git.
+- **Evidence:** Run 243 opened an empty artifacts workspace. Packet listing still has no `vo/` directory. The Run 242 file was not recoverable. Same size and peak/rms as Run 242 after a fresh edge-tts pass (27200958 bytes, peak=0.7713, rms=0.1012), so the synthesis is repeatable, but the file itself was not durable.
+- **Lesson:** "Operator-downloadable" is false unless the file is in the operator artifacts folder for that session and the sha256 is in git (`HANDOFF.md`). Repeating synthesis without that record is the stall. Copy to the packet-relative DROP path is still the only step that clears the gate.
+- **Avoid:** Another synthesis while `HANDOFF.md` checksum `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2` is current and the artifacts file exists. Committing the wav. Calling the handoff Selected VO. A TTS wrapper under tools/.
+
 ## 2026-10-01 — sandbox generated wav is not Selected VO (flagged Run 242)
 
 - **Tried:** After Run 241 forbade another same-week heartbeat, this run synthesized Q1 WORDS (edge-tts, because apt cannot install espeak-ng here) into a 308.40s 44.1 kHz mono wav that passes media_qa level constants.
@@ -21,44 +28,4 @@
 - **Lesson:** Once hold-before-scaffold is locked in printers, queue_contract, and README, more alignment is the stall. The compounding step is on-disk media at the DROP path, or no commit.
 - **Avoid:** Another README/WAVE 3/hint/next_action reorder. Another NEXT do-not item that only restates the hold. Treating a state-page rewrite as production. A 95th adapter. Inventing wav/mp4. Scaffolding Q2.
 
-## 2026-09-20 — README command blocks still sold scaffold (Run 238)
-
-- **Tried:** Runs 236-237 fixed WAVE 3 printer order so hold prints before idea_brief/new_packet.
-- **Evidence:** README Human session still opened with doctor/queue/next_topic then idea_brief as the next bash block. Videos produced stayed 0.
-- **Lesson:** A front-door page with the right prose and the wrong first command block is still a scaffold prompt. Lock README command order the same way as printer order.
-- **Avoid:** Moving doctor/idea_brief/new_packet/sample-001 back above the live Q1 drop. Another printer alignment pass on hint/next_action. Treating README tool-list completeness as production.
-
-## 2026-09-20 — WAVE 3 hold after scaffold copy-paste (Run 236)
-
-- **Tried:** Add a Q1 gate_machine hold line to queue_status footer/report and next_topic without changing command order.
-- **Evidence:** First printed operator commands remained idea_brief --queue and new_packet. Videos produced stayed 0. Run 237 had to invert order.
-- **Lesson:** A warning under copy-paste is still a scaffold prompt. Lock the hold *before* the first --queue string.
-- **Avoid:** Moving scaffold commands back above the hold. Treating WAVE 3 as Q2 permission. Another printer alignment pass on hint/next_action.
-
-## 2026-09-19 — dry-run adapter treadmill while VO missing (Runs 213–226)
-
-- **Tried:** After the 24h generated-VO fallback became authorized, successive runs added narration_adapter, card_generator, timeline, media_qa, youtube_upload, assemble, youtube_feedback, experiment_loop, complete, then ftyp/level/selftest locks around those printers.
-- **Evidence:** Videos produced stayed 0. Estimated human minutes fell only on paper. Q1 never gained a git-visible or gate-machine Selected VO. Run 226 closed the last documented size>0 / junk-master hole in youtube_upload + selftest.
-- **Lesson:** Once late-pipeline printers are fail-closed and locked on HEAD, more adapters or fixtures are not progress. The compounding step is on-disk media at the packet-relative DROP path, then running the existing gates.
-- **Avoid:** A 95th dry-run CLI. Another selftest fixture without a proven HEAD regression. Inventing wav/mp4. Scaffolding Q2. Treating hold-status bookkeeping as production.
-
-## 2026-09-14 — render.md table-only Selected VO path (Run 131)
-
-- **Tried:** Runs 121-130 locked pages and printers to `videos/NNN-slug/vo/...`. Q1 render.md still listed only `vo/002-...-take-selected.wav`.
-- **Evidence:** An operator who records from the packet presence file could still copy the short path and drop the take at repo-root `vo/`.
-- **Lesson:** Pin the generated presence file and put the path helper next to presence_rows.
-- **Avoid:** WAVE 4. Mapping doctor.py. Inventing a wav. Another Live job banner. A second search at repo-root `vo/`. A second selected_vo_drop implementation.
-
-## 2026-09-13 — generic missing-VO refuse on set_status (Run 129)
-
-- **Lesson:** Pin the refuse string on the status gate, not only the next-action printers.
-
-## 2026-09-13 — short Selected VO path on record-vo printers (Run 128)
-
-- **Lesson:** Pin the printers that emit the drop path, not only the markdown pages.
-
-## 2026-09-12 — placeholder overwrite of queue_status.py / words.py / apply_script.py
-
-- **Lesson:** Never commit a placeholder path. Push the verified local file body only. Check committed size immediately.
-
-Earlier failures remain in force in prior commits.
+Earlier failures remain in force in prior commits. The 2026-09-20 rows that were in this file before Run 243 are unchanged in git history.
