@@ -11,6 +11,9 @@ videos/**/cards/**/*.jpeg
 videos/**/cards/**/*.webp
 videos/**/exports/**/*.mp4
 videos/**/exports/**/*.mov
+# assemble.py writes export/master.mp4 (singular). Do not commit it.
+videos/**/export/**/*.mp4
+videos/**/export/**/*.mov
 
 # Repo-root dumps are not Selected VO and are not planned cards.
 /vo/
