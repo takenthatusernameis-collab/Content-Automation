@@ -4,6 +4,7 @@
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-10-01 Run 248 | ~3.7 estimate | 94 | Drive sizes and sha256 still match; session zip again; no share or release-upload tool; still not Selected VO; no paper drop |
 | 2026-10-01 Run 246 | ~3.7 estimate | 94 | Checksums still match; anonymous Drive curl is a login wall; still not Selected VO; no paper drop |
 | 2026-10-01 Run 245 | ~3.7 estimate | 94 | Re-verified Drive wav by download sha256; seven cards uploaded and size-matched; still not Selected VO; no paper drop |
 | 2026-10-01 Run 244 | ~3.7 estimate | 94 | Same generated wav uploaded to Drive and verified by file id + size; still not Selected VO; no paper drop |
@@ -29,6 +30,7 @@
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 248: No new adapter. Existing Drive wav and seven cards matched `HANDOFF.md` checksums again. No tool can make them anonymously fetchable. Packet status stays `ready_for_vo`. Videos produced stay 0.
 - Run 246: No new adapter. Existing Drive wav and seven cards matched `HANDOFF.md` checksums. Unauthenticated curl of the wav file id returned a Google sign-in page. Packet status stays `ready_for_vo`. Videos produced stay 0.
 - Run 245: No new adapter. Drive wav re-downloaded and sha256 matched. Seven planned cards stored as Drive file ids with checksums. Packet listing still has no `vo/` or `cards/`. Videos produced stay 0.
 - Run 244: No new adapter. Durable generated-VO pointer is now a Drive file id, verified at 27200958 bytes. Packet listing still has no `vo/`. Videos produced stay 0.
