@@ -1,11 +1,11 @@
 # HANDOFF
 
-Updated: 2026-10-01T19:20:00Z (Run 253)
+Updated: 2026-10-02T01:20:00Z (Run 256)
 
 This file is not Selected VO. Audio and card PNGs stay gitignored. Do not `git add -f`.
 
 ## Why this file exists
-Run 242 synthesized a labeled generated take and called it operator-downloadable. Run 243 found an empty workspace. Run 244 found the same empty workspace and uploaded the wav to Drive. Run 245 confirmed that Drive file still lists 27200958 bytes and the same sha256, then added the seven planned cards. Run 246 matched those checksums again and found that an unauthenticated curl of the wav file id returns a Google sign-in page. Run 247 downloaded the same Drive bytes into that operator session. Run 248 listed the Drive folder again (sizes unchanged), downloaded the same bytes into this operator session (`q1-handoff/` and `q1-handoff-verified.zip`, 19908902 bytes), and matched sha256 again. That session folder is the human copy source for this chat. It is not durable for the next agent, and it is not the packet DROP path. Run 250 downloaded `q1-media-r249` with gh and matched the wav and master checksums. Next agent should not re-download unless a release asset is missing.
+Run 242 synthesized a labeled generated take and called it operator-downloadable. Run 243 found an empty workspace. Run 244 found the same empty workspace and uploaded the wav to Drive. Run 245 confirmed that Drive file still lists 27200958 bytes and the same sha256, then added the seven planned cards. Run 246 matched those checksums again and found that an unauthenticated curl of the wav file id returns a Google sign-in page. Run 247 downloaded the same Drive bytes into that operator session. Run 248 listed the Drive folder again (sizes unchanged), downloaded the same bytes into this operator session (`q1-handoff/` and `q1-handoff-verified.zip`, 19908902 bytes), and matched sha256 again. That session folder is the human copy source for this chat. It is not durable for the next agent, and it is not the packet DROP path. Run 250 downloaded `q1-media-r249` with gh and matched the wav and truncated-master checksums. Run 253 published the padded master on `q1-media-r253`. Next agent should not re-download unless a release asset is missing. Do not install the r249 master as the upload file.
 
 ## Current operator file
 - Name: `002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
@@ -44,9 +44,11 @@ The gate machine must receive these files from a signed-in session or from the R
 ```bash
 PACKET=videos/002-stop-deciding-what-to-work-on-every-morning
 DROP="$PACKET/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav"
-mkdir -p "$PACKET/vo" "$PACKET/cards"
+mkdir -p "$PACKET/vo" "$PACKET/cards" "$PACKET/export"
 cp -n /path/to/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav "$DROP"
 cp -n /path/to/cards/*.png "$PACKET/cards/"
+# Do not copy q1-media-r249 q1-master.mp4 here.
+# Finished master is q1-media-r253 q1-master-r253.mp4 only. See the Run 253 section.
 sha256sum "$DROP"
 # expect 758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2
 python3 tools/narration_adapter.py "$PACKET"
@@ -54,30 +56,27 @@ python3 tools/card_generator.py "$PACKET" --inspect-only
 ```
 Keep `vo_origin.md` kind=generated. Do not commit the wav or the PNGs.
 
-
-## Run 249 durable fetch (private release)
-Repo is private. Anonymous curl still fails. With `gh` auth:
+## Run 249 source media (wav and cards only)
+Repo is private. Anonymous curl still fails. With `gh` auth, r249 is the wav and seven PNGs only. Do not copy `q1-master.mp4` from this release onto `export/master.mp4`. That asset is 308.40s, sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53`, and truncates the 20s end screen. `youtube_upload.py` refuses that sha. `docs/gate_machine.md` already says the same.
 
 ```bash
-gh release download q1-media-r249 --repo takenthatusernameis-collab/Content-Automation -D /tmp/q1-media
-# assets are flat (cards were uploaded without the cards/ prefix)
+gh release download q1-media-r249 --repo takenthatusernameis-collab/Content-Automation -D /tmp/q1-media-r249
 PACKET=videos/002-stop-deciding-what-to-work-on-every-morning
-mkdir -p "$PACKET/vo" "$PACKET/cards" "$PACKET/export"
-cp -n /tmp/q1-media/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav \
+mkdir -p "$PACKET/vo" "$PACKET/cards"
+cp -n /tmp/q1-media-r249/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav \
   "$PACKET/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav"
-cp -n /tmp/q1-media/*.png "$PACKET/cards/"
-cp -n /tmp/q1-media/q1-master.mp4 "$PACKET/export/master.mp4"
-sha256sum "$PACKET/export/master.mp4"
-# expect abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53
+cp -n /tmp/q1-media-r249/*.png "$PACKET/cards/"
+# do not cp q1-master.mp4
+sha256sum "$PACKET/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav"
+# expect 758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2
 ```
 
-Master is a local segmented encode (veryfast, crf 20), not a YouTube upload. Run 251: `-shortest` without a finite apad kept duration at the 308.40 s VO, so the 20 s end card is truncated. Do not upload this asset as the finished export. Re-encode with current assemble.py --execute (apad=pad_dur=20). kind remains generated.
-
+kind remains generated. Do not regenerate the wav or cards while those checksums match.
 
 ## Run 253 finished local export
 Do not upload `q1-media-r249` `q1-master.mp4` (308.40s, truncated end screen).
 
-- Release: `q1-media-r253` (private; `gh` auth required)
+- Release: `q1-media-r253` (private; `gh` auth required). Still listed as of Run 256.
 - Asset: `q1-master-r253.mp4`
 - Bytes: 6633603
 - Duration: 328.40 s (VO 308.40 + 20 s end screen)
@@ -85,11 +84,15 @@ Do not upload `q1-media-r249` `q1-master.mp4` (308.40s, truncated end screen).
 - SHA256: `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546`
 - Encode: `assemble.py --execute` segmented, veryfast, crf 20, `apad=pad_dur=20` then `-shortest`
 - Not a YouTube upload. kind remains generated.
-- Re-download of the release asset matched this sha256 and duration.
+- Re-download of the release asset matched this sha256 and duration (Run 253).
 
 ```bash
-gh release download q1-media-r253 --repo takenthatusernameis-collab/Content-Automation -D /tmp/q1-media
-# expect sha256 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546 on q1-master-r253.mp4
+gh release download q1-media-r253 --repo takenthatusernameis-collab/Content-Automation -D /tmp/q1-media-r253
+PACKET=videos/002-stop-deciding-what-to-work-on-every-morning
+mkdir -p "$PACKET/export"
+cp -n /tmp/q1-media-r253/q1-master-r253.mp4 "$PACKET/export/master.mp4"
+sha256sum "$PACKET/export/master.mp4"
+# expect 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546
 # expect duration 328.40
 ```
-Do not re-encode unless this asset is missing. Do not regenerate the wav or cards.
+Do not re-encode unless this asset is missing. Do not regenerate the wav or cards. Before upload, human-edit `publish.md` so it no longer contains "No upload happened" and check Description edited + First comment approved. Then set YouTube OAuth. Dry-run READY is not an upload.

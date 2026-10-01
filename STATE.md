@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T00:20:00Z (Run 255)
+Updated: 2026-10-02T01:20:00Z (Run 256)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -15,7 +15,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning` status `ready_for_vo`
 - Durable fetch: private release `q1-media-r253` (padded master) plus r249 wav/cards and Drive folder in HANDOFF.md
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
-- Executive: SHIP after YouTube OAuth. Do not re-encode. Do not upload r249. Do not expand architecture.
+- Executive: SHIP after publish.md human edit and YouTube OAuth. Do not re-encode. Do not upload r249. Do not expand architecture.
+
+## Run 256 delta
+- HANDOFF no longer copies `q1-media-r249` `q1-master.mp4` onto `export/master.mp4`. That block now copies wav and PNGs only. Finished master copy is the r253 asset only.
+- Release list still shows `q1-media-r253` and `q1-media-r249`. Did not re-download. Did not re-encode. Did not upload. Did not edit the human description.
 
 ## Run 255 delta
 - youtube_upload now HOLD_LOCAL when publish.md still has the stub sentence "No upload happened" or an unchecked Human before upload item (description / pin). Word count alone no longer looks upload-ready.
@@ -32,23 +36,16 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - sha256 `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546` (6633603 bytes). Private release `q1-media-r253` asset `q1-master-r253.mp4`. Re-download matched.
 - r249 master stays truncated (308.40s). Do not upload it. Do not re-encode unless r253 is missing. Packet status stays ready_for_vo (wav not in git).
 
-## Run 252 delta
-- assemble --execute refuses a muxed file without ftyp/moov and leaves export/.segments.
-- Evidence: sandbox mux with bare apad was Killed; ffprobe reported moov atom not found.
-
-## Run 251 delta
-- assemble recipe and mux use apad=pad_dur=20 then -shortest. Bare apad hangs.
-- r249 master sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53` is truncated.
-
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 2.5 | 2.5 | OAuth remains; stub description now fail-closed so it is not skipped |
-| Automated steps | 97 | 98 | upload refuses stub publish copy |
+| Estimated human min / video | 2.5 | 2.5 | OAuth and publish.md edit remain |
+| Automated steps | 98 | 98 | no new printer; fetch page no longer installs the truncated master |
 | Videos produced | 0 | 0 | padded local master on q1-media-r253; not uploaded |
 
 ## Active constraints
 - Do not upload q1-media-r249 q1-master.mp4 as the finished export
+- Do not follow an old HANDOFF snippet that copies that file onto export/master.mp4
 - Finished local export is q1-media-r253 q1-master-r253.mp4 (328.40s, sha256 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546)
 - Do not invent a committed wav or bump status past ready_for_vo without Selected VO on disk
 - Do not write a dummy export/master.mp4 to flip gates
