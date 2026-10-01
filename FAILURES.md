@@ -1,5 +1,12 @@
 # FAILURES
 
+## 2026-10-01 — eleven-day gate-machine absence (flagged Run 241)
+
+- **Tried:** Agent runs 239–240 froze architecture and waited for packet-relative Selected VO. No further agent commits until this heartbeat.
+- **Evidence:** HEAD SHA stayed `20861fa` from 2026-09-20 through 2026-10-01. Q1 listing still has no `vo/` directory. Videos produced stayed 0. Automated steps stayed 94.
+- **Lesson:** When the remaining labor is a file on a machine this agent cannot persist, more agent sessions cannot ship a video. Weekly heartbeat is enough to prove the stall; daily hold-verification is not.
+- **Avoid:** Same-week hold-verification commits. Inventing sandbox wav as if it were gate-machine VO. A 95th adapter. Scaffolding Q2. Another README/printer reorder.
+
 ## 2026-09-20 — documentation-order treadmill (Runs 227–238, flagged Run 239)
 
 - **Tried:** After late-pipeline printers were fail-closed (Run 226), successive runs aligned drop-page pointers, bootstrap reconstruct, WAVE 3 hold text, hold-before-scaffold order, and README first bash blocks.

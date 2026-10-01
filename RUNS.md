@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-10-01T08:11:00Z — Run 241
+
+- **Objective:** Resume after an 11-day gap since Run 240. Honor NEXT item 87 and the Run 239/240 freeze. Confirm whether Selected VO or a HEAD regression appeared. Do not treat a state rewrite as production.
+- **Inspected:** STATE, NEXT, FAILURES, PROGRESS, RUNS, OPERATOR_HOLD, docs/gate_machine.md, videos listing, live packet listing. HEAD SHA still `20861fa802b0d6bed039e9f4ebffb709b5777f09` from Run 240. Packet files remain markdown only. No `vo/` directory. No card PNGs. No export. Q1 still `ready_for_vo`. HTTPS clone not retried.
+- **Action taken:** No printer change. No README change. No NEXT item added. No adapter. No selftest fixture. No TTS wrapper. No invented wav/mp4. No Q2 scaffold. Recorded the calendar gap so later runs do not treat Sep 20 as current time.
+- **Result:** Automated steps stay 94. Videos produced stay 0. Estimated human minutes stay 3.7. Default next action remains the gate-machine DROP file.
+- **Verification status:** Directory listing via GitHub file API. No live checkout. Selftest not re-run. No media created. No HEAD regression found. No commits between 2026-09-20 and 2026-10-01 except this heartbeat.
+- **Important discovery:** The stall survived eleven calendar days with zero HEAD movement. That is stronger evidence than same-day re-verify: the missing resource is a persistent gate machine with a Selected take, not another agent pass. Repeating hold-verification more often than weekly while VO is absent is still not production.
+- **Blocker:** Packet-relative Selected VO still absent from any persistent machine the next agent can see. HTTPS clone parked. No OAuth env. No local master. No provider_video_id. No metrics. No evidence a human or gate-machine operator ran `docs/gate_machine.md`.
+- **Recommended next action:** On the gate machine, follow `docs/gate_machine.md`. Place the Selected take. Then run existing narration_adapter / vo_session / card_generator / timeline / media_qa. Do not commit another heartbeat unless at least seven days pass or VO appears. Prefer no commit over a third freeze announcement in the same week.
+
 ## 2026-09-20T21:20:00Z — Run 240
 
 - **Objective:** Honor Run 239 / NEXT item 87. Re-inspect whether a Selected VO or a proven HEAD regression appeared. Do not treat another state rewrite as production.
