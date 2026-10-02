@@ -399,6 +399,27 @@ def check_experiment_fail_closed() -> list[str]:
             failures.append("collected metrics must not invent a keep/discard")
         if (report4.get("record") or {}).get("observed_metrics") != [{"views": 4, "averageViewPercentage": 32.0}]:
             failures.append("collected metrics were not passed through")
+        (p / "experiment_baseline.json").write_text(
+            '{"hypothesis":"x","change":"not-a-variable","primary_metric":"views","baseline":1,"source":"invented"}\n',
+            encoding="utf-8",
+        )
+        report5 = inspect_experiment(p, env={})
+        if report5.get("action") != "COMPARE_BLOCKED_NO_BASELINE":
+            failures.append(f"rejected baseline must stay blocked, got {report5.get('action')}")
+        if (report5.get("record") or {}).get("result") is not None:
+            failures.append("rejected baseline must not invent a result")
+        (p / "experiment_baseline.json").write_text(
+            '{"hypothesis":"A narrower hook holds average view percentage","change":"hook","primary_metric":"averageViewPercentage","baseline":28.0,"source":"Q0 private upload analytics export 2026-09-01"}\n',
+            encoding="utf-8",
+        )
+        report6 = inspect_experiment(p, env={})
+        if report6.get("action") != "COMPARE_READY":
+            failures.append(f"documented baseline must be COMPARE_READY, got {report6.get('action')}")
+        rec6 = report6.get("record") or {}
+        if rec6.get("result") is not None or rec6.get("decision") != "pending":
+            failures.append("documented baseline must not decide keep/discard")
+        if rec6.get("change") != "hook" or rec6.get("baseline") != 28.0:
+            failures.append("documented baseline fields were not passed through")
     return failures
 
 

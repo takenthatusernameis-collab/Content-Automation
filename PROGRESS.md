@@ -1,3 +1,6 @@
+## Run 273 — 2026-10-02T11:17:00Z
+- Experiment ledger now accepts a documented baseline file and refuses an invented one. Comparison can start after a real fetch without a human designing the schema. Decision stays pending. Videos published stay 0.
+
 ## Run 272 — 2026-10-02T10:15:00Z
 - Execute dispatch now refuses missing OAuth secrets before ffmpeg and media materialize. Dry-run path unchanged. Videos published stay 0.
 
@@ -45,7 +48,7 @@ Stale "delete No upload happened" instructions removed from pipeline_status, gat
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
-| 2026-10-02 Run 272 | ~0.5 estimate | 107 | execute fails before media download if OAuth secrets are empty; publish still blocked |
+| 2026-10-02 Run 273 | ~0.5 estimate | 108 | baseline file is loaded fail-closed; OAuth still blocks publish |
 | 2026-10-02 Run 271 | ~0.5 estimate | 106 | collected feedback visible to experiment/complete; OAuth still blocks publish |
 | 2026-10-02 Run 265 | ~1.0 estimate | 104 | thumbnail PNG drafted; two publish boxes, caption spot-check, and OAuth remain |
 | 2026-10-02 Run 264 | ~1.1 estimate | 103 | chapter lines drafted into the description; two publish boxes and OAuth remain |

@@ -1,12 +1,12 @@
 # STATE
 
-Updated: 2026-10-02T10:15:00Z (Run 272)
+Updated: 2026-10-02T11:17:00Z (Run 273)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
 
 ## Current maturity
-manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected VO path locked packet-relative + narration adapter + labeled generated fallback + local card generator + WORDS timeline planner + fail-closed media QA + authenticated YouTube uploader (dry-run default, execute path) + authenticated feedback ingestion (dry-run default, execute path) + fail-closed ffmpeg assemble planner + fail-closed feedback/experiment/complete gates + gate-machine drop recipe + Actions materialize/dry-run verified -> automated -> self-improving
+manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected VO path locked packet-relative + narration adapter + labeled generated fallback + local card generator + WORDS timeline planner + fail-closed media QA + authenticated YouTube uploader (dry-run default, execute path) + authenticated feedback ingestion (dry-run default, execute path) + fail-closed ffmpeg assemble planner + fail-closed feedback/experiment/complete gates + documented experiment baseline contract + gate-machine drop recipe + Actions materialize/dry-run verified -> automated -> self-improving
 
 ## Repo reality
 - GitHub: `takenthatusernameis-collab/Content-Automation`
@@ -16,30 +16,24 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Durable fetch: private release `q1-media-r253` (padded master) plus r249 wav/cards
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
-- Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture.
+- Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 273 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- `experiment_loop.py` now loads `experiment_baseline.json` when present. Invalid or invented sources stay `COMPARE_BLOCKED_NO_BASELINE`. A valid file becomes `COMPARE_READY` and still does not choose keep/discard.
+- No Q1 baseline file was written. There is no prior observation to cite.
+- Selftest passed locally.
 
 ## Run 272 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
 - `tools/oauth_preflight.py` now runs before ffmpeg and materialize when `youtube-production.yml` is dispatched with execute=true. Missing or blank secrets exit 3 and print names only.
 - Dry-run path is unchanged. Selftest passed locally.
 
-## Run 271 delta
-- OAuth secrets remain unset. Execute was not dispatched. Videos published stay 0.
-- `experiment_loop.py` and `complete.py` now read metrics only from a collected `feedback_state.json` whose video id matches `upload_state.json`.
-- A dry-run or mismatched feedback file stays HOLD_NO_EVIDENCE. Collected metrics become READY_TO_COMPARE / INCOMPLETE_LEARNING and still do not invent a keep/discard.
-- Selftest passed locally after the change.
-
-## Run 270 delta
-- Dispatched the production workflow. First run 36982959831 failed because materialize treated the expected truncated r249 master as fatal.
-- Guard now ignores that known sha, refuses an unexpected r249 master sha, and still refuses installing the banned sha as export/master.mp4.
-- Second run 36983196381 succeeded: ignored truncated master, installed r253 master, 7 cards, and wav. Dry-run gate YOUTUBE_AUTH_REQUIRED. Captions and thumbnail uploaded=false. No provider write.
-- Remaining manual boundary: add YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, and YOUTUBE_REFRESH_TOKEN as GitHub Actions secrets.
-
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; execute now fails before media download if secrets are empty |
-| Automated steps | 106 | 107 | execute dispatch refuses missing OAuth before materialize |
+| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; baseline schema no longer needs to be invented after publish |
+| Automated steps | 107 | 108 | documented baseline is loaded, not decided |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
@@ -52,3 +46,5 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not dispatch youtube-production.yml with execute=true until the three OAuth secrets exist
 - Do not remove the oauth_preflight step or move it after materialize
 - Do not regenerate thumbnail.png, chapters.md, or captions.srt while source checksums are unchanged
+- Do not invent experiment_baseline.json for Q1
+- Do not treat COMPARE_READY as a keep/discard

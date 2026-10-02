@@ -23,7 +23,7 @@
 55. ffmpeg `--execute` after one packet has VO + cards and assemble.py prints READY_TO_ENCODE
 56. YouTube upload after packet QA passes AND youtube_upload.py is no longer YOUTUBE_AUTH_REQUIRED
 56b. Live Analytics/comment fetch after a real provider_video_id exists AND youtube_feedback.py is no longer YOUTUBE_AUTH_REQUIRED / HOLD_UNPUBLISHED
-56c. Compare-and-decide after experiment_loop.py sees real metrics and a documented baseline. Run 271: collected feedback_state.json is now visible; baseline and decision still required.
+56c. Compare-and-decide after experiment_loop.py sees real metrics and a documented baseline. Run 271: collected feedback_state.json is visible. Run 273: a valid `experiment_baseline.json` is COMPARE_READY and still not a decision. Baseline file and keep/discard still required.
 56d. Mark COMPLETE only after `tools/complete.py` prints gate COMPLETE with real evidence
 
 ## Not yet

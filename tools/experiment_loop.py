@@ -27,6 +27,7 @@ from youtube_feedback import (  # noqa: E402
 )
 
 STATE_NAME = "experiment_state.json"
+BASELINE_NAME = "experiment_baseline.json"
 ALLOWED_DECISIONS = ("pending", "keep", "discard", "retest")
 ALLOWED_CHANGES = (
     "hook",
@@ -38,6 +39,7 @@ ALLOWED_CHANGES = (
     "cta",
     "topic_selection",
 )
+REJECTED_SOURCES = {"invented", "assumed", "placeholder", "guess"}
 
 
 def _now() -> datetime:
@@ -46,6 +48,39 @@ def _now() -> datetime:
 
 def _fmt(dt: datetime) -> str:
     return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def load_baseline(packet: Path) -> tuple[dict | None, str]:
+    """Read a human- or prior-run-authored baseline. Never invent one."""
+    path = packet / BASELINE_NAME
+    if not path.is_file():
+        return None, "no experiment_baseline.json"
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return None, "experiment_baseline.json is not json"
+    if not isinstance(data, dict):
+        return None, "experiment_baseline.json must be an object"
+    hypothesis = str(data.get("hypothesis") or "").strip()
+    change = str(data.get("change") or "").strip()
+    metric = str(data.get("primary_metric") or "").strip()
+    source = str(data.get("source") or "").strip()
+    baseline = data.get("baseline")
+    if not hypothesis or not metric or not source:
+        return None, "baseline missing hypothesis, primary_metric, or source"
+    if change not in ALLOWED_CHANGES:
+        return None, f"baseline change {change!r} is not an allowed single variable"
+    if source.lower() in REJECTED_SOURCES:
+        return None, "baseline source must be a documented observation, not invented"
+    if baseline is None or baseline == "":
+        return None, "baseline value missing"
+    return {
+        "hypothesis": hypothesis,
+        "change": change,
+        "primary_metric": metric,
+        "baseline": baseline,
+        "source": source,
+    }, "documented baseline loaded; decision stays pending"
 
 
 def inspect_experiment(
@@ -57,6 +92,7 @@ def inspect_experiment(
     upload = load_upload_state(packet)
     video_id = provider_video_id(upload)
     metrics, metrics_detail = collected_metrics(packet, video_id)
+    baseline, baseline_detail = load_baseline(packet)
     checks = []
 
     def add(name: str, ok: bool, detail: str) -> None:
@@ -64,8 +100,9 @@ def inspect_experiment(
 
     add("provider_video_id_present", bool(video_id), video_id or "no provider_video_id")
     add("metrics_present", metrics is not None, metrics_detail)
-    add("no_invented_result", True, "result stays pending without comparable evidence")
-    add("single_variable", True, "one material change per experiment when practical")
+    add("baseline_documented", baseline is not None, baseline_detail)
+    add("no_invented_result", True, "result stays pending without an explicit decision")
+    add("single_variable", baseline is None or baseline.get("change") in ALLOWED_CHANGES, "one material change per experiment when practical")
 
     if not video_id:
         gate = "HOLD_UNPUBLISHED"
@@ -75,26 +112,32 @@ def inspect_experiment(
         gate = "HOLD_NO_EVIDENCE"
         action = "DRY_RUN"
         decision = "pending"
-    else:
+    elif baseline is None:
         gate = "READY_TO_COMPARE"
         action = "COMPARE_BLOCKED_NO_BASELINE"
+        decision = "pending"
+    else:
+        gate = "READY_TO_COMPARE"
+        action = "COMPARE_READY"
         decision = "pending"
 
     record = {
         "id": f"{packet.name}-exp-pending",
         "packet": packet.name,
         "provider_video_id": video_id,
-        "hypothesis": None,
-        "change": None,
+        "hypothesis": None if baseline is None else baseline["hypothesis"],
+        "change": None if baseline is None else baseline["change"],
         "allowed_changes": list(ALLOWED_CHANGES),
-        "primary_metric": None,
+        "primary_metric": None if baseline is None else baseline["primary_metric"],
         "guardrails": [
             "do not invent analytics",
             "do not mix videos of different ages without a documented reason",
             "do not rewrite an old script to make the test look successful",
             "do not treat a single early outlier as a keep decision",
+            "do not invent a baseline to clear COMPARE_BLOCKED_NO_BASELINE",
         ],
-        "baseline": None,
+        "baseline": None if baseline is None else baseline["baseline"],
+        "baseline_source": None if baseline is None else baseline["source"],
         "observed_metrics": metrics,
         "result": None,
         "decision": decision,
@@ -148,6 +191,7 @@ def render_text(report: dict) -> str:
         "experiment_loop never invents results or calls Analytics",
         "missing provider_video_id is HOLD_UNPUBLISHED, not a learned experiment",
         "empty metrics are HOLD_NO_EVIDENCE, not a keep/discard",
+        "a documented baseline makes COMPARE_READY; it does not choose keep or discard",
     ]
     for c in report["checks"]:
         mark = "PASS" if c["ok"] else "FAIL"
