@@ -107,9 +107,13 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - A hook that has words but is outside 20-35 still fails in both validate gates.
 - Status drift: `ready_for_vo` needs a PASS script gate; `ready_for_edit` needs selected VO on disk; `ready_to_publish` / `published` need VO + export. Do not bump status to hide missing files.
 
-## Human handoff
+## Approval delegation and human handoff
 
-Manual gates are time-bounded by `docs/operator_escalation.md`: after 24 hours, the recurring agent may take the documented safe fallback instead of repeatedly re-asking for the same action. Provider credentials/authentication remain a separate hard boundary.
+The human operator has explicitly delegated approval-only actions to the recurring agent. A label such as “human approval”, “human review”, or an unchecked approval box is **not** by itself a blocker.
+
+The agent may perform and record approval-only work when the underlying artifact/evidence is available, including metadata review, caption review, thumbnail review, QA approval, and publish-box checks. The agent must not fabricate sensory evidence for an inaccessible binary. Provider credentials/authentication remain a separate hard boundary.
+
+Manual gates are otherwise time-bounded by `docs/operator_escalation.md`: after 24 hours, the recurring agent may take the documented safe fallback instead of repeatedly re-asking for the same action.
 
 Operator path: `docs/human_session.md`.
 
