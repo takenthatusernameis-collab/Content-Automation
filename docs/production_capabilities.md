@@ -49,20 +49,20 @@ Local printer: `tools/complete.py` (PLAN_BUILT; fail-closed). Markdown-only pack
 
 ### 6. YouTube publishing
 - metadata mapping from publish.md
-- dry-run adapter: `tools/youtube_upload.py` (READY_FOR_CREDENTIAL; no API call; no secrets printed)
-- OAuth configuration loader and authenticated upload adapter
+- upload adapter: `tools/youtube_upload.py` (READY_FOR_CREDENTIAL; dry-run default; `--execute` performs authenticated writes; no secrets printed)
+- dependency-free OAuth configuration loader and authenticated upload adapter in `tools/youtube_api.py`
 - dry-run mode with zero provider writes
 - idempotency fingerprint to prevent duplicate uploads
 - initial privacy state controlled explicitly by policy (`private` in the dry-run adapter)
 - redacted upload state containing attempt time, provider ID, privacy state, and result/error class
 - never store secrets in Git or logs
-- live `videos.insert` remains NOT_BUILT until a local master and OAuth env exist
+- authenticated `videos.insert` path is BUILT; execution remains blocked at credential/provider boundaries until a valid local master and OAuth env exist
 
 ### 7. Feedback ingestion
-- dry-run adapter: `tools/youtube_feedback.py` (READY_FOR_CREDENTIAL; no API call; no invented metrics)
+- feedback adapter: `tools/youtube_feedback.py` (READY_FOR_CREDENTIAL; dry-run default; `--execute` performs authenticated read-only fetches; no invented metrics)
 - missing provider_video_id fails closed as `HOLD_UNPUBLISHED`
 - missing OAuth fails closed as `YOUTUBE_AUTH_REQUIRED`
-- YouTube Analytics ingestion after publication (live fetch still NOT_BUILT)
+- YouTube Analytics ingestion after publication (authenticated `--execute` path BUILT; provider authorization remains external)
 - video-level views, likes/dislikes where available, watch-time and average-view-duration / percentage metrics, plus subscriber-related metrics where useful
 - comment-thread ingestion for viewer language, objections, requests, confusion, and recurring questions
 - collection of a comparable observation window for each video rather than mixing different ages
