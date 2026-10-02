@@ -19,9 +19,9 @@ The daily unstick agent must:
 2. Remain read-only before `deadline_at_utc` unless the human has already supplied the missing input.
 3. After `deadline_at_utc`, autonomously complete the allowed repository-side task using the permissions already granted to the agent.
 4. Prefer the smallest safe completion path and preserve existing gates.
-5. Never fabricate evidence of a human action. If the approved fallback is machine-generated (for example, generated VO), label it as generated.
+5. Do not fabricate evidence of an action that was not actually performed. The recurring agent is authorized to perform approval-only actions itself; when it does so, record the action as agent-approved rather than pretending it was performed by a human. If the approved fallback is machine-generated (for example, generated VO), label it as generated.
 6. Never bypass an authentication, authorization, payment, safety, or provider policy boundary merely because the 24-hour deadline passed.
-7. If the only remaining blocker is a missing provider credential/token/secret, prepare and validate everything else, then leave the credential request as the **last manual bottleneck**.
+7. If the only remaining blocker is a missing provider credential/token/secret, prepare and validate everything else and leave that credential as the last **external** bottleneck. Do not leave approval-only work waiting for a human.
 8. Once the human supplies the missing credential, use it through the approved secret/environment mechanism; never write secrets into repository files, commits, logs, or generated state.
 
 ## No-churn rule
