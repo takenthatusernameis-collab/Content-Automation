@@ -35,6 +35,14 @@ Never commit any of these values. Do not put them in `publish.md`, `STATE.md`, l
 
 For uploads, an OAuth 2.0 authorization token is required; an API key by itself is not sufficient for `videos.insert`. Use the minimum upload scope needed by the implementation.
 
+The production path also uploads `captions.srt` and `thumbnail.png` after the video id exists. `youtube.upload` alone can insert the video and set the thumbnail, but `captions.insert` requires `https://www.googleapis.com/auth/youtube.force-ssl` or `https://www.googleapis.com/auth/youtube`. A refresh token with only the upload scope would create a private video and then loop on `POST_UPLOAD_INCOMPLETE`. Create the refresh token with both:
+
+- `https://www.googleapis.com/auth/youtube.upload`
+- `https://www.googleapis.com/auth/youtube.force-ssl`
+
+`https://www.googleapis.com/auth/youtube` covers upload, captions, thumbnails, and comments by itself. Feedback collect also needs `https://www.googleapis.com/auth/yt-analytics.readonly`. `tools/youtube_upload.py` reads the granted scopes from tokeninfo after refresh and raises `SCOPE_INSUFFICIENT` before `videos.insert` when a needed scope is missing. It does not write `upload_state.json` for that refusal.
+
+
 ## GitHub Actions runtime
 
 The repository now includes `.github/workflows/youtube-production.yml` as the external runtime path. It is deliberately `workflow_dispatch` only: a production write is never triggered merely by a repository push.

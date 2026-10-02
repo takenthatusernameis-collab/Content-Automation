@@ -1,3 +1,14 @@
+## 2026-10-02T21:13:00Z — Run 282
+
+- **Objective:** Stop an upload-only OAuth token from creating a private video that then loops on caption failure, without retrying the OAuth stall.
+- **Inspected:** STATE, NEXT, RUNS, FAILURES, `youtube_upload.py`, `youtube_api.py`, `youtube-production.yml`, `docs/youtube_integration.md`, selftest.
+- **Action taken:** Added `missing_provider_scopes()` and a tokeninfo scope read after refresh. Execute raises `SCOPE_INSUFFICIENT` before `videos.insert` when captions need `youtube.force-ssl` or the full `youtube` scope and the grant lacks both. A scope refusal does not write `upload_state.json`. Documented the consent scopes. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute and collect were not dispatched. Videos published stay 0.
+- **Verification status:** completed for the scope contract and local selftest. Actions was not re-run. No provider write. Tokeninfo was not called.
+- **Important discovery:** The documented minimum scope was `youtube.upload`. That scope can insert the video and set a thumbnail, but `captions.insert` requires `youtube.force-ssl` or `youtube`. The first authenticated dispatch would have created a video and then stayed `POST_UPLOAD_INCOMPLETE`.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish and collect gate. Not polled. Flagged as a recurring external stall. Do not spend a run only restating it. The refresh token must include caption scope, not only upload scope.
+- **Recommended next action:** Add those three secrets from a token granted `youtube.upload` and `youtube.force-ssl` (or full `youtube`), plus `yt-analytics.readonly` for later collect. Then dispatch `youtube-production.yml` with execute=true. Do not invent uploaded_at, a Q1 baseline, or a decision. Do not re-encode. Do not scaffold Q2.
+
 ## 2026-10-02T20:12:00Z — Run 281
 
 - **Objective:** Fail closed on YouTube snippet limits before the first authenticated write, without retrying the OAuth stall.

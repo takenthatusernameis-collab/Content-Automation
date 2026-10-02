@@ -21,6 +21,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 TOKEN_URL = "https://oauth2.googleapis.com/token"
+TOKENINFO_URL = "https://oauth2.googleapis.com/tokeninfo"
 DATA_BASE = "https://www.googleapis.com/youtube/v3"
 UPLOAD_BASE = "https://www.googleapis.com/upload/youtube/v3"
 ANALYTICS_BASE = "https://youtubeanalytics.googleapis.com/v2"
@@ -80,6 +81,25 @@ def _request(
         raise YouTubeAPIError(status, reason, detail) from exc
     except urllib.error.URLError as exc:
         raise YouTubeAPIError(0, "network_error", str(exc.reason)[:500]) from exc
+
+
+def access_token_scopes(token: str) -> set[str]:
+    """Return granted scopes. Never include the token in an error detail."""
+    if not str(token or "").strip():
+        raise YouTubeAPIError(0, "SCOPE_CHECK_FAILED", "empty_token")
+    try:
+        raw = _request(
+            TOKENINFO_URL + "?" + urllib.parse.urlencode({"access_token": token}),
+            method="GET",
+        )
+    except YouTubeAPIError as exc:
+        raise YouTubeAPIError(exc.status, "SCOPE_CHECK_FAILED", exc.reason) from exc
+    try:
+        data = json.loads(raw.decode("utf-8"))
+    except json.JSONDecodeError as exc:
+        raise YouTubeAPIError(0, "SCOPE_CHECK_FAILED", "invalid_tokeninfo") from exc
+    scope = data.get("scope") if isinstance(data, dict) else ""
+    return {part for part in str(scope or "").split() if part.startswith("https://")}
 
 
 def refresh_access_token(env: Mapping[str, str] | None = None) -> str:

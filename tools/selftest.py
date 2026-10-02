@@ -30,7 +30,7 @@ from pipeline_status import format_report, inspect  # noqa: E402
 from set_status import check as status_check, is_fixture  # noqa: E402
 from validate_packet import packet_duration_warning, validate  # noqa: E402
 from youtube_feedback import inspect_feedback  # noqa: E402
-from youtube_upload import file_sha256, inspect_upload, master_block_reason, metadata_block_reason  # noqa: E402
+from youtube_upload import file_sha256, inspect_upload, master_block_reason, metadata_block_reason, missing_provider_scopes  # noqa: E402
 
 # Printers that must reuse render_brief.selected_vo_drop, not a second builder.
 DROP_IMPORTERS = (
@@ -447,6 +447,21 @@ def check_upload_stamp_preserved() -> list[str]:
         failures.append("more than 12 tags must fail instead of being sliced")
     if metadata_block_reason({"title": "ok", "description": "d", "tags": ["bad,tag"]}) is None:
         failures.append("a comma inside a tag must fail")
+    upload_only = {"https://www.googleapis.com/auth/youtube.upload"}
+    full = {"https://www.googleapis.com/auth/youtube"}
+    both = upload_only | {"https://www.googleapis.com/auth/youtube.force-ssl"}
+    if missing_provider_scopes(upload_only, captions=True, thumbnail=True, comment=False) != [
+        "https://www.googleapis.com/auth/youtube.force-ssl"
+    ]:
+        failures.append("upload-only token must refuse captions before insert")
+    if missing_provider_scopes(both, captions=True, thumbnail=True, comment=False):
+        failures.append("upload plus force-ssl must pass caption and thumbnail")
+    if missing_provider_scopes(full, captions=True, thumbnail=True, comment=True):
+        failures.append("full youtube scope must cover upload, captions, and comment")
+    if missing_provider_scopes(set(), captions=False, thumbnail=False, comment=False) != [
+        "https://www.googleapis.com/auth/youtube.upload"
+    ]:
+        failures.append("empty grant must refuse videos.insert")
     if "tags[:12]" in upload_src or '["tags"][:12]' in upload_src:
         failures.append("upload must not silently drop tags")
     if "METADATA_REJECTED" not in upload_src or "PRIVACY_NOT_PRIVATE" not in upload_src:
@@ -1007,6 +1022,8 @@ def check_live_capabilities() -> list[str]:
         failures.append("upload state persist must run after a post-upload failure")
     if "inputs.collect_feedback == true && inputs.execute != true" not in workflow:
         failures.append("collect must not run in the same dispatch as execute")
+    if "SCOPE_INSUFFICIENT" not in upload or "missing_provider_scopes" not in upload:
+        failures.append("execute must refuse captions before insert when force-ssl is missing")
     if "POST_UPLOAD_INCOMPLETE" not in upload:
         failures.append("upload execute must fail closed when caption or thumbnail fails")
     if "RESUME_POST_UPLOAD" not in upload:

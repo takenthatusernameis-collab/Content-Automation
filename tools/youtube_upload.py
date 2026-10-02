@@ -26,6 +26,7 @@ from render_brief import selected_vo_drop  # noqa: E402
 from timeline import END_SCREEN  # noqa: E402
 from youtube_api import (  # noqa: E402
     YouTubeAPIError,
+    access_token_scopes,
     compact_api_error,
     insert_caption,
     insert_top_level_comment,
@@ -41,6 +42,8 @@ TRUNCATED_MASTER_SHA256 = {
     "abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53",
 }
 UPLOAD_SCOPE = "https://www.googleapis.com/auth/youtube.upload"
+MANAGE_SCOPE = "https://www.googleapis.com/auth/youtube"
+FORCE_SSL_SCOPE = "https://www.googleapis.com/auth/youtube.force-ssl"
 DEFAULT_PRIVACY = "private"
 EXPORT_REL = "export/master.mp4"
 STATE_NAME = "upload_state.json"
@@ -76,6 +79,37 @@ STUB_DESCRIPTION_MARKERS = (
     "Human locks title, description, and tags before YouTube",
 )
 
+
+
+def missing_provider_scopes(
+    granted: set[str] | list[str],
+    *,
+    captions: bool,
+    thumbnail: bool,
+    comment: bool,
+) -> list[str]:
+    """Scopes required before videos.insert or a caption/thumbnail resume.
+
+    youtube.upload can insert a video and set a thumbnail, but captions.insert
+    and commentThreads.insert need youtube.force-ssl or the full youtube scope.
+    A token with only the upload scope would create a private video and then
+    loop on POST_UPLOAD_INCOMPLETE. Fail before that write.
+    """
+    have = set(granted)
+    missing: list[str] = []
+    can_upload = bool(have & {UPLOAD_SCOPE, MANAGE_SCOPE, FORCE_SSL_SCOPE})
+    can_caption = bool(have & {FORCE_SSL_SCOPE, MANAGE_SCOPE})
+    can_thumb = bool(have & {UPLOAD_SCOPE, MANAGE_SCOPE})
+    can_comment = bool(have & {FORCE_SSL_SCOPE, MANAGE_SCOPE})
+    if not can_upload:
+        missing.append(UPLOAD_SCOPE)
+    if captions and not can_caption and FORCE_SSL_SCOPE not in missing:
+        missing.append(FORCE_SSL_SCOPE)
+    if thumbnail and not can_thumb and UPLOAD_SCOPE not in missing:
+        missing.append(UPLOAD_SCOPE)
+    if comment and not can_comment and FORCE_SSL_SCOPE not in missing:
+        missing.append(FORCE_SSL_SCOPE)
+    return missing
 
 
 def metadata_block_reason(meta: dict) -> str | None:
@@ -528,6 +562,21 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
     }
     try:
         token = refresh_access_token()
+        granted = access_token_scopes(token)
+        scope_gap = missing_provider_scopes(
+            granted,
+            captions=(packet / "captions.srt").is_file()
+            and result["caption_upload"].get("status") not in {"uploaded", "already_uploaded"},
+            thumbnail=(packet / "thumbnail.png").is_file()
+            and result["thumbnail_upload"].get("status") not in {"uploaded", "already_uploaded"},
+            comment=bool(
+                post_comment
+                and report["meta"].get("pin_comment")
+                and result["comment_post"].get("status") not in {"posted", "already_posted"}
+            ),
+        )
+        if scope_gap:
+            raise YouTubeAPIError(0, "SCOPE_INSUFFICIENT:" + ",".join(scope_gap))
         if prior_video_id:
             video_id = prior_video_id
             result["video_upload"] = {"status": "already_uploaded", "video_id": video_id}
@@ -606,6 +655,8 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
         reason = getattr(exc, "reason", "")
         if result.get("provider_video_id") and str(reason).startswith("POST_UPLOAD_INCOMPLETE"):
             write_upload_state(packet, result)
+            raise
+        if str(reason).startswith("SCOPE_INSUFFICIENT"):
             raise
         result["video_upload"] = result.get("video_upload") or {"status": "failed"}
         result["error_class"] = compact_api_error(exc)

@@ -1,3 +1,9 @@
+## Run 282 — upload-only scope would create an uncaptioned video
+- **Tried:** The upload contract treated `youtube.upload` as sufficient for the production path that also sends captions.
+- **Evidence:** `captions.insert` accepts `youtube.force-ssl` or `youtube`, not `youtube.upload`. `docs/youtube_integration.md` told the operator to use the minimum upload scope. A 403 after `videos.insert` would persist the video id and then loop `POST_UPLOAD_INCOMPLETE`.
+- **Result:** Execute reads tokeninfo scopes and raises `SCOPE_INSUFFICIENT` before insert. The refusal does not write `upload_state.json`. Selftest covers upload-only, upload+force-ssl, and full youtube.
+- **Avoid:** Creating the refresh token with only `youtube.upload`. Treating a later caption 403 as a reason to upload a second video. Writing upload state for a scope refusal.
+
 ## Run 280 — idempotent gate blocked the post-upload retry and mtime could duplicate the video
 - **Tried:** Run 279 saved the provider video id after a caption or thumbnail failure and told the next run to execute again.
 - **Evidence:** `inspect_upload()` set `HOLD_IDEMPOTENT` whenever the fingerprint matched, and `main()` returned 2 before `execute_upload()`. `fingerprint()` included `st_mtime`. Actions materialize copies the same r253 bytes onto a new mtime.

@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T20:12:00Z (Run 281)
+Updated: 2026-10-02T21:13:00Z (Run 282)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 282 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- `youtube_upload.py` now reads granted scopes after refresh and raises `SCOPE_INSUFFICIENT` before `videos.insert` when caption or thumbnail scope is missing. An upload-only token cannot create a private video that then loops on caption failure. A scope refusal does not write `upload_state.json`.
+- Required consent scopes are documented as `youtube.upload` plus `youtube.force-ssl`, or the full `youtube` scope. Analytics scope remains collect-only. Selftest passed locally. Actions was not re-run.
 
 ## Run 281 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -74,7 +79,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
 | Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; invalid snippet fields now fail before the token refresh |
-| Automated steps | 115 | 116 | provider metadata limits fail closed; no upload ran |
+| Automated steps | 116 | 117 | caption scope fails closed before videos.insert; no upload ran |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
@@ -104,3 +109,5 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not silently slice tags to 12
 - Do not call videos.insert with a title over 100 characters, a description over 5000, or tags over the provider limit
 - Do not upload with privacy other than private
+- Do not call videos.insert with only youtube.upload when captions.srt still needs force-ssl
+- Do not write upload_state.json for a SCOPE_INSUFFICIENT refusal
