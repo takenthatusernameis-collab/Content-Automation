@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T07:45:00Z (Run 266)
+Updated: 2026-10-02T07:50:00Z (Run 268)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -21,15 +21,20 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Human-approval-only work is now explicitly delegated to the automation agent.
 - Q1 Description edited and First comment approved boxes were checked by the delegated agent after reviewing the existing metadata.
 - Thumbnail and caption approval remain evidence-gated because the connector cannot access the private binary/audio artifacts for sensory review.
-- Live YouTube upload remains blocked by the NOT_BUILT authenticated adapter and provider authentication.
+- Live YouTube upload is blocked only by the external provider-credential boundary and runtime access to the verified media set; the authenticated adapter is built.
 - No media was fabricated, re-encoded, or uploaded.
+
+## Run 268 delta
+- Added ffmpeg to the GitHub Actions selftest runner after Run 267 exposed a runner dependency gap.
+- GitHub Actions Selftest Run 8 passed on commit `41276b3897a2315abb6eea9d8e7308472f26119b`.
+- Repository selftest now has externally confirmed CI execution; the failure was environmental (missing ffmpeg), not a selftest assertion failure.
 
 ## Run 267 delta
 - Added fail-closed `tools/materialize_q1_release.py`: authenticated `gh` release fetch, per-file SHA256 verification, refusal of the known-truncated r249 master, and ignored-media materialization.
 - Added dependency-free authenticated YouTube API support in `tools/youtube_api.py`.
 - `tools/youtube_upload.py --execute` now performs the authenticated video upload and resumes safely for post-upload caption/thumbnail/comment failures without re-uploading the same fingerprint.
 - `tools/youtube_feedback.py --execute` now performs authenticated Analytics and comment-thread reads with a three-day freshness buffer.
-- Added a minimal selftest workflow. GitHub currently reports 0 workflow runs, so CI execution is not yet externally confirmed.
+- Added a minimal selftest workflow. First CI attempts exposed a missing ffmpeg runner dependency; Run 268 installed it and the selftest passed.
 - Approval-only Q1 metadata review remains delegated; provider credentials/authentication and actual media access remain external boundaries.
 
 ## Run 265 delta
