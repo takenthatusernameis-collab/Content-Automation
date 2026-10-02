@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Credential-ready YouTube analytics + comment feedback adapter.
+"""YouTube Analytics + comment feedback adapter.
 
-Dry-run only. Never calls YouTube APIs. Never prints secret values.
+Dry-run is the default. --execute performs authenticated read-only provider fetches.
 Never invents metrics. Never treats a missing video ID as collected feedback.
 """
+
 
 from __future__ import annotations
 
@@ -19,6 +20,7 @@ if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
 from render_brief import selected_vo_drop  # noqa: E402
+from youtube_api import YouTubeAPIError, analytics_report, compact_api_error, list_comment_threads, refresh_access_token  # noqa: E402
 
 AUTH_STATE = "YOUTUBE_AUTH_REQUIRED"
 OAUTH_KEYS = ("YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET", "YOUTUBE_REFRESH_TOKEN")
@@ -146,6 +148,69 @@ def inspect_feedback(
     }
 
 
+def _analytics_rows(data: dict) -> list[dict]:
+    headers = [str(h.get("name")) for h in (data.get("columnHeaders") or [])]
+    rows = []
+    for row in data.get("rows") or []:
+        rows.append({name: value for name, value in zip(headers, row)})
+    return rows
+
+
+def execute_feedback(packet: Path, report: dict, *, now: datetime | None = None) -> dict:
+    video_id = report.get("provider_video_id")
+    if not video_id:
+        raise YouTubeAPIError(0, "HOLD_UNPUBLISHED")
+    token = refresh_access_token()
+    end = now or _now()
+    end = end - timedelta(days=3)
+    start = end - timedelta(days=report["window"]["days"] - 1)
+    analytics = analytics_report(
+        token,
+        start_date=start.strftime("%Y-%m-%d"),
+        end_date=end.strftime("%Y-%m-%d"),
+        metrics=list(report["metrics_requested"]),
+        video_id=video_id,
+    )
+    rows = _analytics_rows(analytics)
+    threads = list_comment_threads(token, video_id=video_id)
+    comments = []
+    for thread in threads:
+        top = ((thread.get("snippet") or {}).get("topLevelComment") or {}).get("snippet") or {}
+        comments.append(
+            {
+                "thread_id": thread.get("id"),
+                "text": top.get("textOriginal"),
+                "published_at": top.get("publishedAt"),
+                "like_count": top.get("likeCount", 0),
+                "reply_count": (thread.get("snippet") or {}).get("totalReplyCount", 0),
+            }
+        )
+    state = {
+        "packet": packet.name,
+        "generated": _fmt(now or _now()),
+        "gate": "COLLECTED",
+        "action": "FETCHED",
+        "provider_video_id": video_id,
+        "window": {
+            "start": start.strftime("%Y-%m-%dT00:00:00Z"),
+            "end": end.strftime("%Y-%m-%dT23:59:59Z"),
+            "days": report["window"]["days"],
+            "data_lag_days": 3,
+            "note": "Analytics end date is held three days back to avoid the documented processing-latency edge.",
+        },
+        "metrics": rows,
+        "comment_count": len(comments),
+        "comments": comments,
+        "attempted_fetch": True,
+        "error_class": None,
+    }
+    dest = packet / STATE_NAME
+    tmp = dest.with_suffix(dest.suffix + ".tmp")
+    tmp.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    tmp.replace(dest)
+    return state
+
+
 def request_plan(report: dict) -> dict:
     return {
         "analytics": {
@@ -196,7 +261,7 @@ def render_text(report: dict) -> str:
         f"provider_video_id: {report['provider_video_id'] or 'none'}",
         f"window: {report['window']['start']} .. {report['window']['end']} ({report['window']['days']}d)",
         f"auth: {report['auth']['state']}",
-        "youtube_feedback never prints secret values and never calls the API",
+        "dry-run default; --execute performs authenticated read-only Analytics and comment API calls",
         "missing provider_video_id is HOLD_UNPUBLISHED, not collected feedback",
     ]
     for c in report["checks"]:
@@ -215,7 +280,12 @@ def main() -> int:
     parser.add_argument(
         "--write-state",
         action="store_true",
-        help="Write redacted feedback_state.json (never contains secrets)",
+        help="Write redacted dry-run feedback_state.json (never contains secrets)",
+    )
+    parser.add_argument(
+        "--execute",
+        action="store_true",
+        help="Fetch Analytics and comments with the configured OAuth credentials.",
     )
     args = parser.parse_args()
     path = Path(args.packet).resolve()
@@ -224,14 +294,33 @@ def main() -> int:
         return 1
     report = inspect_feedback(path)
     sys.stdout.write(render_text(report))
+    if report["gate"] == "HOLD_UNPUBLISHED":
+        if args.write_state:
+            dest = path / STATE_NAME
+            dest.write_text(json.dumps(redacted_state(report), indent=2) + "\n", encoding="utf-8")
+            print(dest)
+        return 2
+    if report["gate"] == AUTH_STATE and not args.execute:
+        if args.write_state:
+            dest = path / STATE_NAME
+            dest.write_text(json.dumps(redacted_state(report), indent=2) + "\n", encoding="utf-8")
+            print(dest)
+        return 3
+    if args.execute:
+        try:
+            state = execute_feedback(path, report)
+            print(json.dumps(state, indent=2, ensure_ascii=False))
+            return 0
+        except YouTubeAPIError as exc:
+            print(json.dumps({"error": compact_api_error(exc)}, ensure_ascii=False), file=sys.stderr)
+            return 3 if exc.reason == "YOUTUBE_AUTH_REQUIRED" else 4
+        except Exception as exc:
+            print(json.dumps({"error": compact_api_error(exc)}, ensure_ascii=False), file=sys.stderr)
+            return 4
     if args.write_state:
         dest = path / STATE_NAME
         dest.write_text(json.dumps(redacted_state(report), indent=2) + "\n", encoding="utf-8")
         print(dest)
-    if report["gate"] == AUTH_STATE:
-        return 3
-    if report["gate"] == "HOLD_UNPUBLISHED":
-        return 2
     return 0
 
 
