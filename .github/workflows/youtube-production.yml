@@ -71,7 +71,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          STATE="$PACKET/upload_state.json"
+          export STATE="$PACKET/upload_state.json"
           if [ ! -f "$STATE" ]; then
             echo "No upload_state.json produced; nothing to persist."
             exit 0
