@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T07:50:00Z (Run 268)
+Updated: 2026-10-02T08:00:00Z (Run 269)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -24,6 +24,12 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Live YouTube upload is blocked only by the external provider-credential boundary and runtime access to the verified media set; the authenticated adapter is built.
 - No media was fabricated, re-encoded, or uploaded.
 
+## Run 269 delta
+- Added `.github/workflows/youtube-production.yml` as the external runtime path for the existing YouTube adapter.
+- The workflow is intentionally manual-dispatch only; repository pushes do not trigger a YouTube write.
+- It uses the built-in GitHub Actions token for private-release materialization, the existing checksum guards, and the existing uploader with initial privacy fixed at `private`.
+- It persists only non-secret `upload_state.json` after a provider video ID exists, preserving the uploader's duplicate/resume state across fresh Actions runners.
+- Remaining manual boundary: add `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` as GitHub Actions secrets.
 ## Run 268 delta
 - Added ffmpeg to the GitHub Actions selftest runner after Run 267 exposed a runner dependency gap.
 - GitHub Actions Selftest Run 8 passed on commit `41276b3897a2315abb6eea9d8e7308472f26119b`.
