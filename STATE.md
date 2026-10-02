@@ -15,13 +15,13 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning` status `ready_for_vo`
 - Durable fetch: private release `q1-media-r253` (padded master) plus r249 wav/cards and Drive folder in HANDOFF.md
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
-- Executive: SHIP after the delegated agent has completed the approval-only publish review and YouTube OAuth is available. Do not re-encode. Do not upload r249. Do not expand architecture.
+- Executive: SHIP after the delegated agent has completed approval-only publish review and the live YouTube uploader plus provider authentication are available. Do not re-encode. Do not upload r249. Do not expand architecture.
 
 ## Run 266 delta
 - Human-approval-only work is now explicitly delegated to the automation agent.
 - Q1 Description edited and First comment approved boxes were checked by the delegated agent after reviewing the existing metadata.
 - Thumbnail and caption approval remain evidence-gated because the connector cannot access the private binary/audio artifacts for sensory review.
-- YouTube OAuth remains the only current provider-authentication bottleneck for live upload.
+- Live YouTube upload remains blocked by the NOT_BUILT authenticated adapter and provider authentication.
 - No media was fabricated, re-encoded, or uploaded.
 
 ## Run 265 delta
