@@ -1,9 +1,12 @@
+## Run 283
+Thumbnail and caption drafts are now a pre-insert gate. A file YouTube will reject cannot create a private video that then stays POST_UPLOAD_INCOMPLETE. Estimated human minutes stay 0.5. Automated steps 117 -> 118. Videos published stay 0.
+
 ## Run 282
 Caption scope is now a pre-insert gate. An upload-only token cannot create a private video that the caption step can never finish. Estimated human minutes stay 0.5 because the secret entry itself is unchanged; the first secret entry is less likely to need a second consent screen. Automated steps 116 -> 117. Videos published stay 0.
 
 # PROGRESS
 
-Updated: 2026-10-02T21:13:00Z (Run 282)
+Updated: 2026-10-02T22:13:00Z (Run 283)
 
 ## Latest measurable delta
 - Run 280 automated steps: 115. Run 281: 116.

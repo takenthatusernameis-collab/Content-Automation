@@ -53,6 +53,16 @@ TITLE_MAX = 100
 DESCRIPTION_MAX = 5000
 TAG_COUNT_MAX = 12
 TAG_TOTAL_MAX = 500
+# thumbnails.set rejects files over 2MB and images narrower than 640px.
+# captions.insert rejects an empty track or a file with no cue timestamps.
+# Fail before videos.insert so a bad draft cannot create a private video
+# that then loops on POST_UPLOAD_INCOMPLETE.
+THUMB_MAX_BYTES = 2 * 1024 * 1024
+THUMB_MIN_WIDTH = 640
+THUMB_MIN_HEIGHT = 360
+CAPTION_MAX_BYTES = 100 * 1024 * 1024
+COMMENT_MAX = 10000
+PNG_MAGIC = bytes((0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A))
 
 
 def _now() -> str:
@@ -129,6 +139,52 @@ def metadata_block_reason(meta: dict) -> str | None:
     for tag in tags:
         if not tag or tag != tag.strip() or "," in tag or "<" in tag or ">" in tag:
             return "tag_invalid"
+    return None
+
+
+
+def png_dimensions(path: Path) -> tuple[int, int] | None:
+    """Read width and height from a PNG IHDR. None if the file is not a PNG."""
+    try:
+        raw = path.read_bytes()[:24]
+    except OSError:
+        return None
+    if len(raw) < 24 or raw[:8] != PNG_MAGIC or raw[12:16] != b"IHDR":
+        return None
+    return int.from_bytes(raw[16:20], "big"), int.from_bytes(raw[20:24], "big")
+
+
+def artifact_block_reason(packet: Path, meta: dict | None = None) -> str | None:
+    """Refuse local drafts YouTube will reject after videos.insert.
+
+    Missing thumbnail or captions stay missing. A present file that cannot
+    be set or inserted must fail before the provider video exists.
+    """
+    thumb = packet / "thumbnail.png"
+    if thumb.is_file():
+        size = thumb.stat().st_size
+        if size <= 0 or size > THUMB_MAX_BYTES:
+            return f"thumbnail_too_large {size}>{THUMB_MAX_BYTES}"
+        dims = png_dimensions(thumb)
+        if dims is None:
+            return "thumbnail_not_png"
+        width, height = dims
+        if width < THUMB_MIN_WIDTH or height < THUMB_MIN_HEIGHT:
+            return f"thumbnail_too_small {width}x{height}"
+    captions = packet / "captions.srt"
+    if captions.is_file():
+        size = captions.stat().st_size
+        if size <= 0 or size > CAPTION_MAX_BYTES:
+            return f"captions_too_large {size}>{CAPTION_MAX_BYTES}"
+        try:
+            text = captions.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            return "captions_not_utf8"
+        if "-->" not in text:
+            return "captions_missing_timestamp"
+    comment = ((meta or {}).get("pin_comment") or "").strip()
+    if comment and len(comment) > COMMENT_MAX:
+        return f"comment_too_long {len(comment)}>{COMMENT_MAX}"
     return None
 
 
@@ -370,6 +426,12 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
     add("publish_copy_approved", copy_block is None, copy_block or "description and human checklist approved")
     meta_block = metadata_block_reason(meta)
     add("metadata_within_provider_limits", meta_block is None, meta_block or "title, description, and tags fit videos.insert")
+    artifact_block = artifact_block_reason(packet, meta)
+    add(
+        "artifacts_within_provider_limits",
+        artifact_block is None,
+        artifact_block or "thumbnail and captions fit thumbnails.set and captions.insert",
+    )
     add("tags_present", bool(meta["tags"]), f"{len(meta['tags'])} tags")
     add(
         "master_export_present",
@@ -390,7 +452,7 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
         "no persisted video" if existing == "none" else existing,
     )
 
-    hard_local = [c for c in checks if c["name"] in {"publish_md_present", "title_present", "master_export_present", "publish_copy_approved", "metadata_within_provider_limits"}]
+    hard_local = [c for c in checks if c["name"] in {"publish_md_present", "title_present", "master_export_present", "publish_copy_approved", "metadata_within_provider_limits", "artifacts_within_provider_limits"}]
     local_ok = all(c["ok"] for c in hard_local)
     if not local_ok:
         gate = "FAIL"
@@ -536,6 +598,9 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
     meta_block = metadata_block_reason(report.get("meta") or {})
     if meta_block:
         raise YouTubeAPIError(0, f"METADATA_REJECTED:{meta_block}")
+    artifact_block = artifact_block_reason(packet, report.get("meta") or {})
+    if artifact_block:
+        raise YouTubeAPIError(0, f"ARTIFACT_REJECTED:{artifact_block}")
     if report.get("privacy") != DEFAULT_PRIVACY:
         raise YouTubeAPIError(0, "PRIVACY_NOT_PRIVATE")
     export = export_path(packet)

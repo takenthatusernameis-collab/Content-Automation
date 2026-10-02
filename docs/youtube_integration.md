@@ -42,6 +42,8 @@ The production path also uploads `captions.srt` and `thumbnail.png` after the vi
 
 `https://www.googleapis.com/auth/youtube` covers upload, captions, thumbnails, and comments by itself. Feedback collect also needs `https://www.googleapis.com/auth/yt-analytics.readonly`. `tools/youtube_upload.py` reads the granted scopes from tokeninfo after refresh and raises `SCOPE_INSUFFICIENT` before `videos.insert` when a needed scope is missing. It does not write `upload_state.json` for that refusal.
 
+A present `thumbnail.png` must be a PNG of at least 640x360 and at most 2MB. A present `captions.srt` must be UTF-8 and contain at least one `-->` cue. A pin comment over 10000 characters is also refused. `artifact_block_reason()` sets inspect to `HOLD_LOCAL` and execute raises `ARTIFACT_REJECTED` before the token refresh and before `videos.insert`. A missing thumbnail or caption file stays missing and is not invented. An artifact refusal does not write `upload_state.json`.
+
 
 ## GitHub Actions runtime
 

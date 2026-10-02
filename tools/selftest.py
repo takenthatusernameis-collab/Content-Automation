@@ -30,7 +30,7 @@ from pipeline_status import format_report, inspect  # noqa: E402
 from set_status import check as status_check, is_fixture  # noqa: E402
 from validate_packet import packet_duration_warning, validate  # noqa: E402
 from youtube_feedback import inspect_feedback  # noqa: E402
-from youtube_upload import file_sha256, inspect_upload, master_block_reason, metadata_block_reason, missing_provider_scopes  # noqa: E402
+from youtube_upload import artifact_block_reason, file_sha256, inspect_upload, master_block_reason, metadata_block_reason, missing_provider_scopes, png_dimensions  # noqa: E402
 
 # Printers that must reuse render_brief.selected_vo_drop, not a second builder.
 DROP_IMPORTERS = (
@@ -373,6 +373,56 @@ def check_feedback_fail_closed() -> list[str]:
             failures.append(f"feedback READY action must stay offline, got {report5['action']}")
     return failures
 
+
+
+
+def _solid_png(path: Path, width: int, height: int) -> None:
+    import struct
+    import zlib
+
+    def chunk(tag: bytes, data: bytes) -> bytes:
+        return struct.pack(">I", len(data)) + tag + data + struct.pack(">I", zlib.crc32(tag + data) & 0xFFFFFFFF)
+
+    raw = b"".join(b"\x00" + (b"\xff\xff\xff" * width) for _ in range(height))
+    ihdr = struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0)
+    png = b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", ihdr) + chunk(b"IDAT", zlib.compress(raw)) + chunk(b"IEND", b"")
+    path.write_bytes(png)
+
+
+def check_artifact_limits() -> list[str]:
+    failures = []
+    packet = Path("/tmp/ca-artifact-limit")
+    packet.mkdir(parents=True, exist_ok=True)
+    for child in packet.iterdir():
+        child.unlink()
+    thumb = packet / "thumbnail.png"
+    caps = packet / "captions.srt"
+    thumb.write_bytes(b"not a png")
+    if artifact_block_reason(packet) != "thumbnail_not_png":
+        failures.append("non-png thumbnail must fail before videos.insert")
+    _solid_png(thumb, 320, 180)
+    reason = artifact_block_reason(packet)
+    if reason != "thumbnail_too_small 320x180":
+        failures.append(f"undersized thumbnail must fail closed, got {reason}")
+    _solid_png(thumb, 640, 360)
+    if png_dimensions(thumb) != (640, 360):
+        failures.append("png IHDR reader must return width and height")
+    if artifact_block_reason(packet) is not None:
+        failures.append("640x360 png under 2MB must pass the artifact gate")
+    caps.write_text("no timestamps here\n", encoding="utf-8")
+    if artifact_block_reason(packet) != "captions_missing_timestamp":
+        failures.append("caption file without a cue timestamp must fail closed")
+    caps.write_text("1\n00:00:00,000 --> 00:00:01,000\nHello\n", encoding="utf-8")
+    if artifact_block_reason(packet) is not None:
+        failures.append("valid caption cue must pass the artifact gate")
+    long_comment = {"pin_comment": "x" * 10001}
+    if artifact_block_reason(packet, long_comment) != "comment_too_long 10001>10000":
+        failures.append("pin comment over 10000 characters must fail closed")
+    thumb.write_bytes(b"\x89PNG\r\n\x1a\n" + b"0" * (2 * 1024 * 1024))
+    reason = artifact_block_reason(packet)
+    if not reason or not reason.startswith("thumbnail_too_large"):
+        failures.append(f"thumbnail over 2MB must fail closed, got {reason}")
+    return failures
 
 
 def check_upload_stamp_preserved() -> list[str]:
@@ -795,6 +845,7 @@ def main() -> int:
     failures.extend(check_media_qa_fail_closed())
     failures.extend(check_assemble_fail_closed())
     failures.extend(check_upload_fail_closed())
+    failures.extend(check_artifact_limits())
     failures.extend(check_feedback_fail_closed())
     failures.extend(check_upload_stamp_preserved())
     failures.extend(check_experiment_fail_closed())

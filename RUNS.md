@@ -1,3 +1,14 @@
+## 2026-10-02T22:13:00Z — Run 283
+
+- **Objective:** Stop a bad thumbnail or caption draft from creating a private video that then loops on post-upload failure, without retrying the OAuth stall.
+- **Inspected:** STATE, NEXT, RUNS, `youtube_upload.py`, `youtube_api.py`, Q1 `captions.srt`, selftest.
+- **Action taken:** Added `artifact_block_reason()` and `png_dimensions()`. Inspect treats it as a hard local check. Execute raises `ARTIFACT_REJECTED` before the token refresh. Missing thumbnail or captions stay missing. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Q1 captions.srt passes with thumbnail absent. Execute and collect were not dispatched. Videos published stay 0.
+- **Verification status:** completed for the artifact contract and local selftest. Actions was not re-run. No provider write. Q1 thumbnail.png was not in the checkout, so its dimensions were not remeasured this run.
+- **Important discovery:** Scope and snippet checks ran before insert, but a present thumbnail over 2MB, not a PNG, or under 640px, or a caption file with no cue, would still pass READY and fail only after `videos.insert`.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish and collect gate. Not polled. Flagged as a recurring external stall. Do not spend a run only restating it. The refresh token must include caption scope, not only upload scope.
+- **Recommended next action:** Add those three secrets from a token granted `youtube.upload` and `youtube.force-ssl` (or full `youtube`), plus `yt-analytics.readonly` for later collect. Then dispatch `youtube-production.yml` with execute=true. Do not invent uploaded_at, a Q1 baseline, or a decision. Do not re-encode. Do not scaffold Q2.
+
 ## 2026-10-02T21:13:00Z — Run 282
 
 - **Objective:** Stop an upload-only OAuth token from creating a private video that then loops on caption failure, without retrying the OAuth stall.

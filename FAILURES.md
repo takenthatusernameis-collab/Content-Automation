@@ -1,3 +1,9 @@
+## Run 283 — thumbnail and caption drafts could fail only after videos.insert
+- **Tried:** Runs 279-282 made post-upload failure resumable and refused missing caption scope and invalid snippets before insert.
+- **Evidence:** `execute_upload()` called `videos.insert` whenever the local gate was READY, then `thumbnails.set` and `captions.insert`. YouTube rejects thumbnails over 2MB, non-image bytes, and images under 640px wide, and rejects a caption file with no cue. Those checks were absent.
+- **Result:** `artifact_block_reason()` is a hard local check. Execute raises `ARTIFACT_REJECTED` before the token refresh. Missing files stay missing. Selftest covers non-png, undersize, oversize, missing timestamp, valid cue, and a 10001-character pin comment.
+- **Avoid:** Calling videos.insert with a present thumbnail.png that is not a PNG, is over 2MB, or is under 640x360. Calling videos.insert with a captions.srt that has no `-->` cue. Writing upload_state.json for an artifact refusal. Regenerating Q1 thumbnail.png or captions.srt while source checksums are unchanged.
+
 ## Run 282 — upload-only scope would create an uncaptioned video
 - **Tried:** The upload contract treated `youtube.upload` as sufficient for the production path that also sends captions.
 - **Evidence:** `captions.insert` accepts `youtube.force-ssl` or `youtube`, not `youtube.upload`. `docs/youtube_integration.md` told the operator to use the minimum upload scope. A 403 after `videos.insert` would persist the video id and then loop `POST_UPLOAD_INCOMPLETE`.

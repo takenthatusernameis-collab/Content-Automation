@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T21:13:00Z (Run 282)
+Updated: 2026-10-02T22:13:00Z (Run 283)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 283 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- `youtube_upload.py` now refuses a present thumbnail that is not a PNG, is over 2MB, or is under 640x360, a present captions.srt that is not UTF-8 or has no cue timestamp, and a pin comment over 10000 characters. Inspect gate is HOLD_LOCAL. Execute raises ARTIFACT_REJECTED before the token refresh. A missing thumbnail or caption stays missing. An artifact refusal does not write upload_state.json.
+- Q1 captions.srt (103 cues) passes when thumbnail.png is absent. Selftest passed locally. Actions was not re-run.
 
 ## Run 282 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -79,7 +84,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
 | Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; invalid snippet fields now fail before the token refresh |
-| Automated steps | 116 | 117 | caption scope fails closed before videos.insert; no upload ran |
+| Automated steps | 117 | 118 | thumbnail and caption drafts fail closed before videos.insert; no upload ran |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
