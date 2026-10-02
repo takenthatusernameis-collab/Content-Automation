@@ -83,6 +83,56 @@ def load_baseline(packet: Path) -> tuple[dict | None, str]:
     }, "documented baseline loaded; decision stays pending"
 
 
+def _numeric(value):
+    if isinstance(value, bool) or value is None:
+        return None
+    if isinstance(value, (int, float)):
+        return float(value)
+    if isinstance(value, str):
+        try:
+            return float(value.strip())
+        except ValueError:
+            return None
+    return None
+
+
+def compare_primary(baseline: dict, metrics: list) -> tuple[dict | None, str]:
+    """Compute one observed-minus-baseline delta. Never chooses keep/discard."""
+    name = baseline["primary_metric"]
+    found = []
+    for row in metrics:
+        if name not in row:
+            continue
+        number = _numeric(row.get(name))
+        if number is None:
+            return None, f"primary metric {name} is not numeric"
+        found.append(number)
+    if not found:
+        return None, f"primary metric {name} missing from collected rows"
+    if len(set(found)) != 1:
+        return None, f"primary metric {name} has conflicting collected values"
+    base = _numeric(baseline.get("baseline"))
+    if base is None:
+        return None, "baseline value is not numeric"
+    observed = found[0]
+    delta = observed - base
+    if delta > 0:
+        direction = "higher"
+    elif delta < 0:
+        direction = "lower"
+    else:
+        direction = "flat"
+    return {
+        "primary_metric": name,
+        "baseline": base,
+        "observed": observed,
+        "delta": delta,
+        "direction": direction,
+        "decision": "pending",
+        "note": "numeric comparison only; not a keep/discard",
+    }, f"{name} observed {observed} vs baseline {base} ({direction})"
+
+
 def inspect_experiment(
     packet: Path,
     env: dict[str, str] | None = None,
@@ -100,26 +150,31 @@ def inspect_experiment(
 
     add("provider_video_id_present", bool(video_id), video_id or "no provider_video_id")
     add("metrics_present", metrics is not None, metrics_detail)
+    comparison = None
+    comparison_detail = "comparison waits for a documented baseline and collected rows"
+    if baseline is not None and metrics is not None:
+        comparison, comparison_detail = compare_primary(baseline, metrics)
     add("baseline_documented", baseline is not None, baseline_detail)
-    add("no_invented_result", True, "result stays pending without an explicit decision")
+    add("primary_metric_compared", comparison is not None, comparison_detail)
+    add("no_invented_result", True, "decision stays pending; a delta is not a keep/discard")
     add("single_variable", baseline is None or baseline.get("change") in ALLOWED_CHANGES, "one material change per experiment when practical")
 
+    decision = "pending"
     if not video_id:
         gate = "HOLD_UNPUBLISHED"
         action = "DRY_RUN"
-        decision = "pending"
     elif metrics is None:
         gate = "HOLD_NO_EVIDENCE"
         action = "DRY_RUN"
-        decision = "pending"
     elif baseline is None:
         gate = "READY_TO_COMPARE"
         action = "COMPARE_BLOCKED_NO_BASELINE"
-        decision = "pending"
+    elif comparison is None:
+        gate = "READY_TO_COMPARE"
+        action = "COMPARE_BLOCKED_METRIC"
     else:
         gate = "READY_TO_COMPARE"
-        action = "COMPARE_READY"
-        decision = "pending"
+        action = "COMPARED"
 
     record = {
         "id": f"{packet.name}-exp-pending",
@@ -139,6 +194,7 @@ def inspect_experiment(
         "baseline": None if baseline is None else baseline["baseline"],
         "baseline_source": None if baseline is None else baseline["source"],
         "observed_metrics": metrics,
+        "comparison": comparison,
         "result": None,
         "decision": decision,
         "allowed_decisions": list(ALLOWED_DECISIONS),
@@ -173,8 +229,9 @@ def redacted_state(report: dict) -> dict:
         "primary_metric": rec["primary_metric"],
         "result": rec["result"],
         "decision": rec["decision"],
-        "attempted_compare": False,
-        "note": "dry-run only; never invents a keep/discard result",
+        "comparison": rec.get("comparison"),
+        "attempted_compare": rec.get("comparison") is not None,
+        "note": "numeric comparison only; never invents a keep/discard result",
     }
 
 
@@ -191,7 +248,8 @@ def render_text(report: dict) -> str:
         "experiment_loop never invents results or calls Analytics",
         "missing provider_video_id is HOLD_UNPUBLISHED, not a learned experiment",
         "empty metrics are HOLD_NO_EVIDENCE, not a keep/discard",
-        "a documented baseline makes COMPARE_READY; it does not choose keep or discard",
+        "a documented baseline with one numeric primary metric is COMPARED; decision stays pending",
+        "a missing or conflicting primary metric is COMPARE_BLOCKED_METRIC, not a keep/discard",
     ]
     for c in report["checks"]:
         mark = "PASS" if c["ok"] else "FAIL"

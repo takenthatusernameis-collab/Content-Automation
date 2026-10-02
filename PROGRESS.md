@@ -1,3 +1,6 @@
+## Run 274 — 2026-10-02T12:25:00Z
+- Experiment ledger now computes one primary-metric delta from a documented baseline and collected rows. Decision stays pending. A delta cannot mark a video complete. Videos published stay 0.
+
 ## Run 273 — 2026-10-02T11:17:00Z
 - Experiment ledger now accepts a documented baseline file and refuses an invented one. Comparison can start after a real fetch without a human designing the schema. Decision stays pending. Videos published stay 0.
 
@@ -48,6 +51,7 @@ Stale "delete No upload happened" instructions removed from pipeline_status, gat
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-10-02 Run 274 | ~0.5 estimate | 109 | numeric delta is automatic; keep/discard still pending; OAuth still blocks publish |
 | 2026-10-02 Run 273 | ~0.5 estimate | 108 | baseline file is loaded fail-closed; OAuth still blocks publish |
 | 2026-10-02 Run 271 | ~0.5 estimate | 106 | collected feedback visible to experiment/complete; OAuth still blocks publish |
 | 2026-10-02 Run 265 | ~1.0 estimate | 104 | thumbnail PNG drafted; two publish boxes, caption spot-check, and OAuth remain |

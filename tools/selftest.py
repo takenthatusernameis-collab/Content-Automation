@@ -413,13 +413,29 @@ def check_experiment_fail_closed() -> list[str]:
             encoding="utf-8",
         )
         report6 = inspect_experiment(p, env={})
-        if report6.get("action") != "COMPARE_READY":
-            failures.append(f"documented baseline must be COMPARE_READY, got {report6.get('action')}")
+        if report6.get("action") != "COMPARED":
+            failures.append(f"documented baseline with metric must be COMPARED, got {report6.get('action')}")
         rec6 = report6.get("record") or {}
         if rec6.get("result") is not None or rec6.get("decision") != "pending":
             failures.append("documented baseline must not decide keep/discard")
         if rec6.get("change") != "hook" or rec6.get("baseline") != 28.0:
             failures.append("documented baseline fields were not passed through")
+        comparison = rec6.get("comparison") or {}
+        if comparison.get("observed") != 32.0 or comparison.get("delta") != 4.0:
+            failures.append(f"primary metric delta was not computed, got {comparison}")
+        if comparison.get("direction") != "higher" or comparison.get("decision") != "pending":
+            failures.append("comparison must stay pending and directional")
+        (p / "experiment_baseline.json").write_text(
+            '{"hypothesis":"A narrower hook holds average view percentage","change":"hook","primary_metric":"missingMetric","baseline":28.0,"source":"Q0 private upload analytics export 2026-09-01"}\n',
+            encoding="utf-8",
+        )
+        report7 = inspect_experiment(p, env={})
+        if report7.get("action") != "COMPARE_BLOCKED_METRIC":
+            failures.append(f"missing primary metric must stay blocked, got {report7.get('action')}")
+        if (report7.get("record") or {}).get("comparison") is not None:
+            failures.append("missing primary metric must not invent a comparison")
+        if (report7.get("record") or {}).get("decision") != "pending":
+            failures.append("missing primary metric must not decide")
     return failures
 
 

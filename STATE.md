@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T11:17:00Z (Run 273)
+Updated: 2026-10-02T12:25:00Z (Run 274)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -18,6 +18,12 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
 
+## Run 274 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- `experiment_loop.py` now computes one numeric primary-metric delta when a documented baseline and one collected value exist. Action is `COMPARED`. Decision stays `pending`. `result` stays null.
+- A missing, non-numeric, or conflicting primary metric is `COMPARE_BLOCKED_METRIC`. `complete.py` requires a keep/discard/retest decision, so a delta cannot mark COMPLETE.
+- No Q1 baseline file was written. Selftest passed locally.
+
 ## Run 273 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
 - `experiment_loop.py` now loads `experiment_baseline.json` when present. Invalid or invented sources stay `COMPARE_BLOCKED_NO_BASELINE`. A valid file becomes `COMPARE_READY` and still does not choose keep/discard.
@@ -32,8 +38,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; baseline schema no longer needs to be invented after publish |
-| Automated steps | 107 | 108 | documented baseline is loaded, not decided |
+| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; post-publish comparison no longer needs a hand-computed delta |
+| Automated steps | 108 | 109 | numeric delta is computed; keep/discard still pending |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
@@ -47,4 +53,5 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not remove the oauth_preflight step or move it after materialize
 - Do not regenerate thumbnail.png, chapters.md, or captions.srt while source checksums are unchanged
 - Do not invent experiment_baseline.json for Q1
-- Do not treat COMPARE_READY as a keep/discard
+- Do not treat COMPARED or a numeric delta as a keep/discard
+- Do not invent experiment_baseline.json for Q1

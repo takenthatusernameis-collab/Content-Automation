@@ -60,7 +60,10 @@ def inspect_complete(
     cards_ok = _check_ok(media, "cards_present") or _check_ok(media, "all_cards_present")
     ready = bool(media.get("ready_to_assemble") or assemble.get("ready_to_assemble"))
     metrics, metrics_detail = collected_metrics(packet, video_id)
-    result = (experiment.get("record") or {}).get("result")
+    record = experiment.get("record") or {}
+    result = record.get("result")
+    decision = record.get("decision")
+    decided = decision in ("keep", "discard", "retest")
 
     checks = []
 
@@ -73,7 +76,7 @@ def inspect_complete(
     add("master_export_present", export_present, str(export_path))
     add("provider_video_id_present", bool(video_id), video_id or "no provider_video_id")
     add("metrics_present", metrics is not None, metrics_detail)
-    add("experiment_result_present", result is not None, "pending is not a keep/discard")
+    add("experiment_result_present", result is not None and decided, "a numeric comparison is not a keep/discard")
     add("no_invented_completion", True, "COMPLETE requires every evidence row")
 
     if not vo_present or not cards_ok or not ready:
@@ -88,7 +91,7 @@ def inspect_complete(
     elif metrics is None:
         gate = "INCOMPLETE_FEEDBACK"
         action = "HOLD_NO_EVIDENCE"
-    elif result is None:
+    elif result is None or not decided:
         gate = "INCOMPLETE_LEARNING"
         action = "HOLD_NO_RESULT"
     else:
