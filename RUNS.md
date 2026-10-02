@@ -1,3 +1,14 @@
+## 2026-10-02T20:12:00Z — Run 281
+
+- **Objective:** Fail closed on YouTube snippet limits before the first authenticated write, without retrying the OAuth stall.
+- **Inspected:** STATE, NEXT, RUNS, `youtube_upload.py`, selftest, Q1 `publish.md`.
+- **Action taken:** Added `metadata_block_reason()`. Inspect treats it as a hard local check. Execute refuses `METADATA_REJECTED` and `PRIVACY_NOT_PRIVATE` before the token refresh. Stopped silent `tags[:12]` truncation. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Q1 title 42 chars, 9 tags, description under 5000, block reason None. Execute and collect were not dispatched. Videos published stay 0.
+- **Verification status:** completed for the metadata limit contract and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** `request_body` and `upload_video` sliced tags to 12, so a later packet could drop tags and still look READY.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` remain the publish and collect gate. Not polled. Flagged as a recurring external stall. Do not spend a run only restating it.
+- **Recommended next action:** Add those three secrets, then dispatch `youtube-production.yml` with execute=true. Invalid snippet fields must fail before the token refresh. A post-upload failure can be retried with the same execute input; it must not create a second video. Dispatch collect_feedback=true only after uploaded_at is at least 7 days old and not in the same dispatch as execute. Do not invent uploaded_at, a Q1 baseline, or a decision. Do not re-encode. Do not scaffold Q2.
+
 ## 2026-10-02T19:15:00Z — Run 280
 
 - **Objective:** Stop a rematerialized master from uploading a second video, and let a failed caption or thumbnail resume on the existing video id, without retrying the OAuth stall.

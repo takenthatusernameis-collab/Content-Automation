@@ -1,3 +1,16 @@
+# PROGRESS
+
+Updated: 2026-10-02T20:12:00Z (Run 281)
+
+## Latest measurable delta
+- Run 280 automated steps: 115. Run 281: 116.
+- New automated check: provider snippet limits fail closed before token refresh. Tags are not silently sliced.
+- Human minutes per video remain 0.5. The remaining recurring human step is entering the three YouTube OAuth secrets.
+- Videos published: 0. No provider write.
+
+## Run 281 — 2026-10-02T20:12:00Z
+- Invalid YouTube snippet fields now fail locally before the token refresh. Q1 publish copy passes. No upload ran. Videos published stay 0.
+
 ## Run 280 — 2026-10-02T19:15:00Z
 - A later execute can finish captions and thumbnail on the existing video id. Rematerialize no longer changes upload identity. No upload ran. Videos published stay 0.
 

@@ -30,7 +30,7 @@ from pipeline_status import format_report, inspect  # noqa: E402
 from set_status import check as status_check, is_fixture  # noqa: E402
 from validate_packet import packet_duration_warning, validate  # noqa: E402
 from youtube_feedback import inspect_feedback  # noqa: E402
-from youtube_upload import file_sha256, inspect_upload, master_block_reason  # noqa: E402
+from youtube_upload import file_sha256, inspect_upload, master_block_reason, metadata_block_reason  # noqa: E402
 
 # Printers that must reuse render_brief.selected_vo_drop, not a second builder.
 DROP_IMPORTERS = (
@@ -437,6 +437,20 @@ def check_upload_stamp_preserved() -> list[str]:
         failures.append("inspect must expose a resume gate for incomplete post-upload")
     if "EXISTING_VIDEO_FINGERPRINT_MISMATCH" not in upload_src:
         failures.append("execute must refuse a second upload when the fingerprint drifted")
+    if metadata_block_reason({"title": "ok", "description": "d", "tags": ["one"]}) is not None:
+        failures.append("short metadata must pass provider limits")
+    if metadata_block_reason({"title": "x" * 101, "description": "d", "tags": ["one"]}) is None:
+        failures.append("title over 100 characters must fail before videos.insert")
+    if metadata_block_reason({"title": "ok", "description": "d" * 5001, "tags": ["one"]}) is None:
+        failures.append("description over 5000 characters must fail before videos.insert")
+    if metadata_block_reason({"title": "ok", "description": "d", "tags": ["t"] * 13}) is None:
+        failures.append("more than 12 tags must fail instead of being sliced")
+    if metadata_block_reason({"title": "ok", "description": "d", "tags": ["bad,tag"]}) is None:
+        failures.append("a comma inside a tag must fail")
+    if "tags[:12]" in upload_src or '["tags"][:12]' in upload_src:
+        failures.append("upload must not silently drop tags")
+    if "METADATA_REJECTED" not in upload_src or "PRIVACY_NOT_PRIVATE" not in upload_src:
+        failures.append("execute must refuse invalid metadata and non-private privacy before the token refresh")
     return failures
 
 

@@ -44,6 +44,12 @@ UPLOAD_SCOPE = "https://www.googleapis.com/auth/youtube.upload"
 DEFAULT_PRIVACY = "private"
 EXPORT_REL = "export/master.mp4"
 STATE_NAME = "upload_state.json"
+# videos.insert rejects these. Fail before the token refresh so the first
+# authenticated dispatch does not spend a provider write on invalid snippet fields.
+TITLE_MAX = 100
+DESCRIPTION_MAX = 5000
+TAG_COUNT_MAX = 12
+TAG_TOTAL_MAX = 500
 
 
 def _now() -> str:
@@ -69,6 +75,27 @@ STUB_DESCRIPTION_MARKERS = (
     "No upload happened",
     "Human locks title, description, and tags before YouTube",
 )
+
+
+
+def metadata_block_reason(meta: dict) -> str | None:
+    """Refuse snippet fields YouTube will reject. Do not truncate tags silently."""
+    title = meta.get("title") or ""
+    description = meta.get("description") or ""
+    tags = meta.get("tags") or []
+    if len(title) > TITLE_MAX:
+        return f"title_too_long {len(title)}>{TITLE_MAX}"
+    if len(description) > DESCRIPTION_MAX:
+        return f"description_too_long {len(description)}>{DESCRIPTION_MAX}"
+    if len(tags) > TAG_COUNT_MAX:
+        return f"too_many_tags {len(tags)}>{TAG_COUNT_MAX}"
+    total = sum(len(tag) for tag in tags)
+    if total > TAG_TOTAL_MAX:
+        return f"tags_too_long {total}>{TAG_TOTAL_MAX}"
+    for tag in tags:
+        if not tag or tag != tag.strip() or "," in tag or "<" in tag or ">" in tag:
+            return "tag_invalid"
+    return None
 
 
 def incomplete_post_uploads(result: dict) -> list[str]:
@@ -307,6 +334,8 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
     add("description_usable", meta["word_count"] >= 12, f"{meta['word_count']} words")
     copy_block = copy_block_reason(text, meta)
     add("publish_copy_approved", copy_block is None, copy_block or "description and human checklist approved")
+    meta_block = metadata_block_reason(meta)
+    add("metadata_within_provider_limits", meta_block is None, meta_block or "title, description, and tags fit videos.insert")
     add("tags_present", bool(meta["tags"]), f"{len(meta['tags'])} tags")
     add(
         "master_export_present",
@@ -327,7 +356,7 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
         "no persisted video" if existing == "none" else existing,
     )
 
-    hard_local = [c for c in checks if c["name"] in {"publish_md_present", "title_present", "master_export_present", "publish_copy_approved"}]
+    hard_local = [c for c in checks if c["name"] in {"publish_md_present", "title_present", "master_export_present", "publish_copy_approved", "metadata_within_provider_limits"}]
     local_ok = all(c["ok"] for c in hard_local)
     if not local_ok:
         gate = "FAIL"
@@ -415,7 +444,7 @@ def request_body(report: dict) -> dict:
         "snippet": {
             "title": meta["title"],
             "description": meta["description"],
-            "tags": meta["tags"][:12],
+            "tags": meta["tags"],
             "categoryId": "27",
         },
         "status": {
@@ -470,6 +499,11 @@ def write_upload_state(packet: Path, state: dict) -> None:
 
 
 def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) -> dict:
+    meta_block = metadata_block_reason(report.get("meta") or {})
+    if meta_block:
+        raise YouTubeAPIError(0, f"METADATA_REJECTED:{meta_block}")
+    if report.get("privacy") != DEFAULT_PRIVACY:
+        raise YouTubeAPIError(0, "PRIVACY_NOT_PRIVATE")
     export = export_path(packet)
     prior = load_prior_state(packet)
     prior_video_id = None
@@ -509,7 +543,7 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
                     "snippet": {
                         "title": report["meta"]["title"],
                         "description": report["meta"]["description"],
-                        "tags": report["meta"]["tags"][:12],
+                        "tags": report["meta"]["tags"],
                         "categoryId": "27",
                     },
                 },
