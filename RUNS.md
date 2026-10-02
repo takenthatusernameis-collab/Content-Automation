@@ -1,3 +1,14 @@
+## 2026-10-02T23:20:00Z — Run 284
+
+- **Objective:** Stop a caption draft with bad timing, or an empty or illegal title, from creating a private video that then loops on post-upload failure, without retrying the OAuth stall.
+- **Inspected:** STATE, NEXT, RUNS, `youtube_upload.py`, `youtube_api.py`, Q1 `captions.srt`, selftest.
+- **Action taken:** Added `caption_timing_reason()`. Present captions must have parseable forward cues in order. If the master can be probed, the last cue cannot end more than one second past it. Empty titles and titles with angle brackets fail in `metadata_block_reason()`. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Q1 captions.srt (103 cues) passes with no local master. Execute and collect were not dispatched. Videos published stay 0.
+- **Verification status:** completed for the timing contract and local selftest. Actions was not re-run. No provider write. Q1 master was not in the checkout, so the past-video check was verified only by the unit case.
+- **Important discovery:** Run 283 accepted any file containing `-->`. A backward cue or a cue past the master would still pass READY and fail only after `videos.insert`.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish and collect gate. Not polled. Flagged as a recurring external stall. Do not spend a run only restating it. The refresh token must include caption scope, not only upload scope.
+- **Recommended next action:** Add those three secrets from a token granted `youtube.upload` and `youtube.force-ssl` (or full `youtube`), plus `yt-analytics.readonly` for later collect. Then dispatch `youtube-production.yml` with execute=true. Do not invent uploaded_at, a Q1 baseline, or a decision. Do not re-encode. Do not scaffold Q2.
+
 ## 2026-10-02T22:13:00Z — Run 283
 
 - **Objective:** Stop a bad thumbnail or caption draft from creating a private video that then loops on post-upload failure, without retrying the OAuth stall.

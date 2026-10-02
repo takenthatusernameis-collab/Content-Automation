@@ -30,7 +30,7 @@ from pipeline_status import format_report, inspect  # noqa: E402
 from set_status import check as status_check, is_fixture  # noqa: E402
 from validate_packet import packet_duration_warning, validate  # noqa: E402
 from youtube_feedback import inspect_feedback  # noqa: E402
-from youtube_upload import artifact_block_reason, file_sha256, inspect_upload, master_block_reason, metadata_block_reason, missing_provider_scopes, png_dimensions  # noqa: E402
+from youtube_upload import artifact_block_reason, caption_timing_reason, file_sha256, inspect_upload, master_block_reason, metadata_block_reason, missing_provider_scopes, png_dimensions  # noqa: E402
 
 # Printers that must reuse render_brief.selected_vo_drop, not a second builder.
 DROP_IMPORTERS = (
@@ -415,6 +415,18 @@ def check_artifact_limits() -> list[str]:
     caps.write_text("1\n00:00:00,000 --> 00:00:01,000\nHello\n", encoding="utf-8")
     if artifact_block_reason(packet) is not None:
         failures.append("valid caption cue must pass the artifact gate")
+    caps.write_text("1\n00:00:02,000 --> 00:00:01,000\nBackwards\n", encoding="utf-8")
+    if artifact_block_reason(packet) != "captions_cue_not_forward":
+        failures.append("a backward caption cue must fail before videos.insert")
+    caps.write_text(
+        "1\n00:00:01,000 --> 00:00:02,000\nLater\n\n2\n00:00:00,000 --> 00:00:01,000\nEarlier\n",
+        encoding="utf-8",
+    )
+    if artifact_block_reason(packet) != "captions_cues_out_of_order":
+        failures.append("out-of-order caption cues must fail before videos.insert")
+    if caption_timing_reason("1\n00:00:05,000 --> 00:00:06,000\nPast\n", 3.0) != "captions_past_video 6.00>4.00":
+        failures.append("a cue past the known master must fail before videos.insert")
+    caps.write_text("1\n00:00:00,000 --> 00:00:01,000\nHello\n", encoding="utf-8")
     long_comment = {"pin_comment": "x" * 10001}
     if artifact_block_reason(packet, long_comment) != "comment_too_long 10001>10000":
         failures.append("pin comment over 10000 characters must fail closed")
@@ -489,6 +501,10 @@ def check_upload_stamp_preserved() -> list[str]:
         failures.append("execute must refuse a second upload when the fingerprint drifted")
     if metadata_block_reason({"title": "ok", "description": "d", "tags": ["one"]}) is not None:
         failures.append("short metadata must pass provider limits")
+    if metadata_block_reason({"title": "   ", "description": "d", "tags": ["one"]}) != "title_empty":
+        failures.append("empty title must fail before videos.insert")
+    if metadata_block_reason({"title": "bad <title>", "description": "d", "tags": ["one"]}) != "title_invalid_characters":
+        failures.append("title angle brackets must fail before videos.insert")
     if metadata_block_reason({"title": "x" * 101, "description": "d", "tags": ["one"]}) is None:
         failures.append("title over 100 characters must fail before videos.insert")
     if metadata_block_reason({"title": "ok", "description": "d" * 5001, "tags": ["one"]}) is None:

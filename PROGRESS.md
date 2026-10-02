@@ -1,3 +1,6 @@
+## Run 284
+Caption cue order and title characters are now a pre-insert gate. A backward cue, a cue past the probed master, an empty title, or a title with angle brackets cannot create a private video that then stays POST_UPLOAD_INCOMPLETE. Q1 captions.srt still passes. Estimated human minutes stay 0.5. Automated steps 118 -> 119. Videos published stay 0.
+
 ## Run 283
 Thumbnail and caption drafts are now a pre-insert gate. A file YouTube will reject cannot create a private video that then stays POST_UPLOAD_INCOMPLETE. Estimated human minutes stay 0.5. Automated steps 117 -> 118. Videos published stay 0.
 
@@ -6,7 +9,7 @@ Caption scope is now a pre-insert gate. An upload-only token cannot create a pri
 
 # PROGRESS
 
-Updated: 2026-10-02T22:13:00Z (Run 283)
+Updated: 2026-10-02T23:20:00Z (Run 284)
 
 ## Latest measurable delta
 - Run 280 automated steps: 115. Run 281: 116.

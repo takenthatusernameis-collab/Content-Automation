@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import re
 import json
 import os
 import sys
@@ -127,6 +128,10 @@ def metadata_block_reason(meta: dict) -> str | None:
     title = meta.get("title") or ""
     description = meta.get("description") or ""
     tags = meta.get("tags") or []
+    if not title.strip():
+        return "title_empty"
+    if "<" in title or ">" in title:
+        return "title_invalid_characters"
     if len(title) > TITLE_MAX:
         return f"title_too_long {len(title)}>{TITLE_MAX}"
     if len(description) > DESCRIPTION_MAX:
@@ -152,6 +157,51 @@ def png_dimensions(path: Path) -> tuple[int, int] | None:
     if len(raw) < 24 or raw[:8] != PNG_MAGIC or raw[12:16] != b"IHDR":
         return None
     return int.from_bytes(raw[16:20], "big"), int.from_bytes(raw[20:24], "big")
+
+
+CUE_TIME = re.compile(
+    r"(\d{2}):(\d{2}):(\d{2}),(\d{3})\s*-->\s*(\d{2}):(\d{2}):(\d{2}),(\d{3})"
+)
+
+
+def _cue_seconds(hours: str, minutes: str, seconds: str, millis: str) -> float | None:
+    hour, minute, second, milli = int(hours), int(minutes), int(seconds), int(millis)
+    if minute > 59 or second > 59:
+        return None
+    return hour * 3600 + minute * 60 + second + milli / 1000.0
+
+
+def caption_timing_reason(text: str, duration: float | None = None) -> str | None:
+    """Refuse SRT cues captions.insert will reject after a video exists.
+
+    A missing cue stays missing. A present cue that runs backward, is
+    unparseable, or ends after the known master must not reach videos.insert.
+    Duration is optional so a packet without a probed export still checks order.
+    """
+    blocks = [block for block in text.replace("\r\n", "\n").strip().split("\n\n") if block.strip()]
+    seen = 0
+    previous = -1.0
+    last_end = 0.0
+    for block in blocks:
+        match = CUE_TIME.search(block)
+        if match is None:
+            if "-->" in block:
+                return "captions_invalid_timestamp"
+            continue
+        start = _cue_seconds(*match.groups()[:4])
+        end = _cue_seconds(*match.groups()[4:])
+        if start is None or end is None or end <= start:
+            return "captions_cue_not_forward" if start is not None and end is not None else "captions_invalid_timestamp"
+        if start < previous:
+            return "captions_cues_out_of_order"
+        previous = start
+        last_end = end
+        seen += 1
+    if seen == 0:
+        return "captions_missing_timestamp"
+    if duration is not None and last_end > duration + 1.0:
+        return f"captions_past_video {last_end:.2f}>{duration + 1.0:.2f}"
+    return None
 
 
 def artifact_block_reason(packet: Path, meta: dict | None = None) -> str | None:
@@ -182,6 +232,11 @@ def artifact_block_reason(packet: Path, meta: dict | None = None) -> str | None:
             return "captions_not_utf8"
         if "-->" not in text:
             return "captions_missing_timestamp"
+        export = export_path(packet)
+        duration = probe_duration(export) if export.is_file() else None
+        timing = caption_timing_reason(text, duration)
+        if timing:
+            return timing
     comment = ((meta or {}).get("pin_comment") or "").strip()
     if comment and len(comment) > COMMENT_MAX:
         return f"comment_too_long {len(comment)}>{COMMENT_MAX}"

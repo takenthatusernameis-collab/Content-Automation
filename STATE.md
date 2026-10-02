@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T22:13:00Z (Run 283)
+Updated: 2026-10-02T23:20:00Z (Run 284)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,10 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 284 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- `youtube_upload.py` now refuses an empty title, a title containing `<` or `>`, a caption cue that is unparseable or not forward, cues out of order, and a last cue more than one second past a probed master. Inspect stays HOLD_LOCAL. Execute raises ARTIFACT_REJECTED or METADATA_REJECTED before the token refresh. Q1 captions.srt (103 cues) passes without a local master. Selftest passed locally. Actions was not re-run.
 
 ## Run 283 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -83,8 +87,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; invalid snippet fields now fail before the token refresh |
-| Automated steps | 117 | 118 | thumbnail and caption drafts fail closed before videos.insert; no upload ran |
+| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; invalid caption timing now fails before videos.insert |
+| Automated steps | 118 | 119 | caption cue order and title characters fail closed before videos.insert; no upload ran |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
@@ -116,3 +120,5 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not upload with privacy other than private
 - Do not call videos.insert with only youtube.upload when captions.srt still needs force-ssl
 - Do not write upload_state.json for a SCOPE_INSUFFICIENT refusal
+- Do not call videos.insert with an empty title or a title containing < or >
+- Do not call videos.insert when caption cues run backward, overlap in time order, or end past the probed master
