@@ -1,7 +1,7 @@
-Updated: 2026-10-02T00:20:00Z
+Updated: 2026-10-02T03:25:00Z
 
-## Run 255
-Upload dry-run refuses stub publish copy. Automated steps 98. Videos published 0.
+## Run 258
+Q1 board and gate_machine no longer route to a new recording. Automated steps 99. Videos published 0.
 
 # PROGRESS
 
@@ -9,6 +9,7 @@ Upload dry-run refuses stub publish copy. Automated steps 98. Videos published 0
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-10-02 Run 258 | ~2.0 estimate | 99 | pipeline_status and gate_machine stop the record loop; publish edit and OAuth remain |
 | 2026-10-01 Run 253 | ~2.5 estimate | 96 | Padded master 328.40s on q1-media-r253; r249 truncated master must not be uploaded; OAuth still blocks publish |
 | 2026-10-01 Run 251 | ~3.2 estimate | 96 | End-screen pad_dur lock; r249 master still truncated; not uploaded |
 | 2026-10-01 Run 250 | ~3.2 estimate | 96 | Release checksums matched; extract_words multiline fix; selftest PASS; still not uploaded |

@@ -25,7 +25,7 @@ from hint import commands_for  # noqa: E402
 from media_qa import inspect_media  # noqa: E402
 from narration_adapter import extract_words  # noqa: E402
 from next_action import recommend  # noqa: E402
-from pipeline_status import inspect  # noqa: E402
+from pipeline_status import format_report, inspect  # noqa: E402
 from set_status import check as status_check, is_fixture  # noqa: E402
 from validate_packet import packet_duration_warning, validate  # noqa: E402
 from youtube_feedback import inspect_feedback  # noqa: E402
@@ -432,6 +432,38 @@ def check_timeline_card_match() -> list[str]:
     return failures
 
 
+
+def check_q1_board_not_record() -> list[str]:
+    """Live Q1 board must not send the operator back to a new DROP take."""
+    failures: list[str] = []
+    row = {
+        "name": "002-stop-deciding-what-to-work-on-every-morning",
+        "status": "ready_for_vo",
+        "title": "Stop Deciding",
+        "gate": "FAIL",
+        "errors": [],
+        "incompletes": [],
+        "disk": "disk",
+        "present": 0,
+        "missing": 1,
+        "open_human": 2,
+        "drift": [],
+        "vo_state": "missing",
+        "vo_drop": "videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav",
+    }
+    report = format_report([row])
+    if "Do not record" not in report:
+        failures.append("pipeline_status Q1 detail must say Do not record")
+    if "DROP `" in report:
+        failures.append("pipeline_status Q1 detail must not print a DROP path")
+    other = dict(row)
+    other["name"] = "sample-001-why-systems-beat-motivation"
+    other_report = format_report([other])
+    if "DROP `" not in other_report:
+        failures.append("pipeline_status non-Q1 missing VO must still print DROP")
+    return failures
+
+
 def main() -> int:
     path = sample_packet()
     failures: list[str] = []
@@ -511,6 +543,7 @@ def main() -> int:
     failures.extend(check_experiment_fail_closed())
     failures.extend(check_complete_fail_closed())
     failures.extend(check_timeline_card_match())
+    failures.extend(check_q1_board_not_record())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")

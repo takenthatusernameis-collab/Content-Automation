@@ -54,3 +54,6 @@
 - **Avoid:** Treating a killed ffmpeg file as a master. Reverting execute to the single graph.
 
 Earlier failures remain in force in prior commits.
+
+## 2026-10-02 — Run 258
+Runs 254–257 closed truncated-master copy and session/next_action record routing. The page queue_status names (`docs/gate_machine.md`) still opened with a DROP recording. Treating "front doors updated" as done while the named labor page still records is the repeated miss. Flag if a later run restores that opening.

@@ -1,16 +1,21 @@
 # Gate machine drop
 
-This page is the copy-paste path for putting Selected VO on the machine that runs gates.
+This page is the copy-paste path for the live Q1 packet.
 It is not a new tool. It does not synthesize audio inside the repo. It does not upload.
 
 ## Why this page exists
-Q1 paperwork is done. Status is `ready_for_vo`. Audio is gitignored.
-Agents cannot invent a committed wav. HTTPS clone in the agent sandbox is parked.
-The remaining labor is a local file at the packet-relative DROP path.
+Q1 paperwork is done. Status stays `ready_for_vo` because the wav is gitignored.
+The generated take, seven cards, and padded master already exist on private releases `q1-media-r249` (wav and PNGs only) and `q1-media-r253` (`q1-master-r253.mp4`, 328.40s).
+Do not record. Do not regenerate. Do not re-encode while that r253 asset exists. Do not copy `q1-media-r249` `q1-master.mp4` onto `export/master.mp4`.
+
+Remaining labor, in order:
+1. Human-edit `videos/002-stop-deciding-what-to-work-on-every-morning/publish.md`: delete the sentence `No upload happened`, then check Description edited and First comment approved. Do not invent a new description from this page.
+2. Copy only `q1-master-r253.mp4` onto `export/master.mp4` (fetch block below). Wav and PNGs come from `q1-media-r249` only.
+3. YouTube OAuth (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`), then `python3 tools/youtube_upload.py PATH`. Dry-run READY is not an upload.
 
 Generated narration is the authorized fallback after `2026-09-19T00:00:00Z`
 (`OPERATOR_HOLD.md`). Keep `vo_origin.md` `kind: generated` unless a human
-recording replaces it.
+recording replaces it. A new recording is not the job while the releases exist.
 
 ## Packet
 - Folder: `videos/002-stop-deciding-what-to-work-on-every-morning`
@@ -21,6 +26,10 @@ recording replaces it.
 - Do not `git add -f` the take or the PNGs
 
 ## On the gate machine
+
+Do not run the microphone or TTS block while `q1-media-r249` and `q1-media-r253` exist. Use the fetch block at the bottom of this page.
+
+Only if those releases are missing:
 
 ```bash
 PACKET=videos/002-stop-deciding-what-to-work-on-every-morning

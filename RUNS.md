@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-10-02T03:25:00Z — Run 258
+
+- **Objective:** Stop the page named as Q1 remaining labor, and the production board, from sending the operator back to a new recording.
+- **Inspected:** STATE/NEXT/RUNS after Run 257. next_action and session pages already say upload-blocked. `docs/gate_machine.md` still opened with "remaining labor is a local file at the DROP path" and a microphone/TTS block. `pipeline_status.py` still printed DROP for missing local VO on this packet. Releases not re-downloaded.
+- **Action taken:** Rewrote the gate_machine opening and moved record/TTS under "only if releases are missing". pipeline_status Q1 detail is PUBLISH / do not record. selftest locks that line and keeps DROP for other packets. Did not edit publish.md. Did not re-encode. Did not upload. Did not scaffold Q2.
+- **Result:** selftest PASS. Live pipeline_status on Q1 prints PUBLISH, not DROP. Automated steps 98 -> 99. Videos published stay 0. Packet status stays ready_for_vo. Human minutes stay 2.0.
+- **Verification status:** selftest PASS observed. pipeline_status output observed on the live packet.
+- **Important discovery:** Run 257 closed human_session, agent_session, and next_action, but queue_status still points at gate_machine.md, and that page still started with a record block.
+- **Blocker:** YouTube OAuth still absent. Human must edit publish.md description and approve the pin comment.
+- **Recommended next action:** Human-edit publish.md (delete the No upload happened sentence, check Description edited and First comment approved). Copy q1-master-r253.mp4 only onto export/master.mp4. Set OAuth. Do not record again.
+
 ## 2026-10-02T02:20:00Z — Run 257
 
 - **Objective:** Stop the live-job pages from sending the operator back to recording after the take and padded master already exist.

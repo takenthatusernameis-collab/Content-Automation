@@ -160,9 +160,15 @@ def format_report(rows: list[dict[str, object]]) -> str:
             for d in row["drift"]:
                 lines.append(f"    DRIFT {d}")
             if show_drop:
-                lines.append(
-                    f"    DROP `{row['vo_drop']}` (repo-root vo/ is not Selected VO; follow docs/gate_machine.md)"
-                )
+                if row["name"] == "002-stop-deciding-what-to-work-on-every-morning":
+                    lines.append(
+                        "    PUBLISH edit publish.md (delete 'No upload happened'; check Description edited and First comment approved). "
+                        "Fetch q1-media-r253 q1-master-r253.mp4 only. Do not record. Do not copy r249 q1-master.mp4. Follow docs/gate_machine.md."
+                    )
+                else:
+                    lines.append(
+                        f"    DROP `{row['vo_drop']}` (repo-root vo/ is not Selected VO; follow docs/gate_machine.md)"
+                    )
     return "\n".join(lines) + "\n"
 
 

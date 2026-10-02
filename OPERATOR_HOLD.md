@@ -16,3 +16,5 @@ Run 248 left the already-verified generated wav and seven cards in the operator 
 Run 250 verified `gh release download q1-media-r249` checksums and fixed extract_words (multiline WORDS were ignored). Run 253 published the padded master on `q1-media-r253` (`q1-master-r253.mp4`, 328.40s). Run 256 removed the HANDOFF command that copied r249 `q1-master.mp4` onto export/master.mp4. Upload still needs a human publish.md edit plus YouTube OAuth. `youtube_upload.py` refuses the truncated sha and the stub description.
 
 Run 257: live-job pages and next_action no longer treat a new recording as the Q1 job. Human publish.md edit and YouTube OAuth remain. Do not regenerate.
+
+Run 258: gate_machine.md and pipeline_status no longer treat a new recording as the Q1 job. Human publish.md edit and YouTube OAuth remain. Do not regenerate.
