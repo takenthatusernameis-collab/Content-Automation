@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T09:15:00Z (Run 271)
+Updated: 2026-10-02T10:15:00Z (Run 272)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -18,6 +18,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture.
 
+## Run 272 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- `tools/oauth_preflight.py` now runs before ffmpeg and materialize when `youtube-production.yml` is dispatched with execute=true. Missing or blank secrets exit 3 and print names only.
+- Dry-run path is unchanged. Selftest passed locally.
+
 ## Run 271 delta
 - OAuth secrets remain unset. Execute was not dispatched. Videos published stay 0.
 - `experiment_loop.py` and `complete.py` now read metrics only from a collected `feedback_state.json` whose video id matches `upload_state.json`.
@@ -33,8 +38,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; post-upload evidence path no longer drops collected metrics |
-| Automated steps | 105 | 106 | collected feedback is visible to experiment and complete gates |
+| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; execute now fails before media download if secrets are empty |
+| Automated steps | 106 | 107 | execute dispatch refuses missing OAuth before materialize |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
@@ -45,4 +50,5 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not scaffold Q2
 - Do not restore the stub sentence `No upload happened`
 - Do not dispatch youtube-production.yml with execute=true until the three OAuth secrets exist
+- Do not remove the oauth_preflight step or move it after materialize
 - Do not regenerate thumbnail.png, chapters.md, or captions.srt while source checksums are unchanged

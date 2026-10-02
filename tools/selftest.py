@@ -815,6 +815,21 @@ def check_live_capabilities() -> list[str]:
             failures.append(f"Q1 materializer missing checksum/release guard: {needle}")
     if "ignore_truncated_r249_master(r249)" not in materializer:
         failures.append("materializer must ignore the bundled truncated r249 master before copying wav/cards")
+    workflow = (ROOT / ".github" / "workflows" / "youtube-production.yml").read_text(encoding="utf-8")
+    if "tools/oauth_preflight.py" not in workflow:
+        failures.append("production workflow must fail fast on missing OAuth before materialize")
+    if workflow.find("tools/oauth_preflight.py") > workflow.find("tools/materialize_q1_release.py"):
+        failures.append("oauth preflight must run before materialize")
+    from oauth_preflight import presence
+    empty = presence({})
+    if any(empty.values()) or set(empty) != {"YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET", "YOUTUBE_REFRESH_TOKEN"}:
+        failures.append(f"oauth preflight empty env drift: {empty}")
+    filled = presence({key: "x" for key in empty})
+    if not all(filled.values()):
+        failures.append("oauth preflight must treat non-empty values as present")
+    blank = presence({key: "  " for key in empty})
+    if any(blank.values()):
+        failures.append("oauth preflight must treat blank values as missing")
     return failures
 
 

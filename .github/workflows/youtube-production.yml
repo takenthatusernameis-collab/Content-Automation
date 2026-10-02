@@ -35,6 +35,10 @@ jobs:
       - name: Checkout production branch
         uses: actions/checkout@v4
 
+      - name: Fail fast if execute was requested without OAuth secrets
+        if: ${{ inputs.execute == true }}
+        run: python3 tools/oauth_preflight.py
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:

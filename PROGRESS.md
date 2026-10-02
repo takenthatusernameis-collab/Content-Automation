@@ -1,3 +1,6 @@
+## Run 272 — 2026-10-02T10:15:00Z
+- Execute dispatch now refuses missing OAuth secrets before ffmpeg and media materialize. Dry-run path unchanged. Videos published stay 0.
+
 ## Run 271 — 2026-10-02T09:15:00Z
 - Experiment and completion gates now read collected feedback metrics instead of the always-empty dry-run field. A real fetch will no longer look like HOLD_NO_EVIDENCE forever.
 - Local selftest passed. Videos published stay 0. OAuth secrets remain the publish boundary.
@@ -42,6 +45,7 @@ Stale "delete No upload happened" instructions removed from pipeline_status, gat
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-10-02 Run 272 | ~0.5 estimate | 107 | execute fails before media download if OAuth secrets are empty; publish still blocked |
 | 2026-10-02 Run 271 | ~0.5 estimate | 106 | collected feedback visible to experiment/complete; OAuth still blocks publish |
 | 2026-10-02 Run 265 | ~1.0 estimate | 104 | thumbnail PNG drafted; two publish boxes, caption spot-check, and OAuth remain |
 | 2026-10-02 Run 264 | ~1.1 estimate | 103 | chapter lines drafted into the description; two publish boxes and OAuth remain |
