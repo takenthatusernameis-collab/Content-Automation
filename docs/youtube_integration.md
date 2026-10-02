@@ -4,9 +4,9 @@
 
 Keep the repository structurally ready for automated YouTube publishing so that, once the channel credentials are supplied, credentials are the final manual bottleneck rather than a missing implementation.
 
-The live adapter is `tools/youtube_upload.py`. It is dry-run only. It does not call the YouTube API. It never prints secret values.
+The live adapter is `tools/youtube_upload.py`. Dry-run remains the default; `--execute` performs authenticated `videos.insert` and, when the corresponding local files are present and the token is authorized, caption/thumbnail writes. It never prints secret values.
 
-The live feedback adapter is `tools/youtube_feedback.py`. It is dry-run only. It does not call Analytics or comment APIs. It never invents metrics.
+The live feedback adapter is `tools/youtube_feedback.py`. Dry-run remains the default; `--execute` performs authenticated Analytics and comment-thread reads. It never invents metrics.
 
 ## Required pipeline
 
@@ -14,10 +14,10 @@ The live feedback adapter is `tools/youtube_feedback.py`. It is dry-run only. It
 2. Read `videos/NNN-slug/publish.md` as the canonical upload-metadata source.
 3. Validate the local export and metadata in a **dry run** with no provider call.
 4. Check for the required YouTube authentication material without printing its values.
-5. When credentials are present, authenticate and upload through the YouTube Data API.
+5. When credentials are present, authenticate and upload through the YouTube Data API using `python3 tools/youtube_upload.py PATH --execute`.
 6. Persist only non-secret operational state: upload-attempt timestamp, provider video ID, final privacy state, and a redacted result/error code.
 7. Do not upload merely because a hold expired, but do upload/publish through the normal authenticated path when all mechanical gates pass. Approval-only holds are authorized for agent completion; authentication and provider-policy requirements remain mandatory.
-8. After a real provider_video_id exists, run `tools/youtube_feedback.py` in dry-run. Live fetch remains gated on OAuth.
+8. After a real provider_video_id exists and the observation window is due, run `tools/youtube_feedback.py PATH --execute` with valid OAuth.
 
 ## Credential-last design
 
@@ -78,11 +78,11 @@ Implemented without credentials (Run 219):
 9. dry-run Analytics + commentThreads plan;
 10. redacted feedback_state.json writer.
 
-Still NOT_BUILT:
+Ready for credential / provider execution:
 
 11. authenticated upload adapter (`videos.insert`);
 12. live Analytics reports and commentThreads.list;
-13. final credential-only integration test.
+13. credential-only integration testing when real OAuth is supplied.
 
 The last step that cannot be completed without a real channel credential must be clearly reported as `YOUTUBE_AUTH_REQUIRED`. Approval-only status is not a reason to stop.
 
