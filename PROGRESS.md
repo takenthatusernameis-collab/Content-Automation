@@ -1,3 +1,6 @@
+## Run 278 — 2026-10-02T16:20:00Z
+- Upload resume now keeps an existing uploaded_at. A caption or thumbnail retry can no longer erase the 7-day observation clock. No upload ran. Videos published stay 0.
+
 ## Run 277 — 2026-10-02T15:20:00Z
 - Feedback collect now fails closed until the documented 7-day window. An early or undated upload cannot be stored as COLLECTED. No fetch ran. Videos published stay 0.
 
@@ -60,6 +63,7 @@ Stale "delete No upload happened" instructions removed from pipeline_status, gat
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-10-02 Run 278 | 0.5 | 113 | resume keeps uploaded_at; OAuth remains |
 | 2026-10-02 Run 277 | ~0.5 estimate | 112 | early collect cannot become evidence; OAuth still blocks publish and fetch |
 | 2026-10-02 Run 276 | ~0.5 estimate | 111 | collect_feedback dispatch exists; OAuth still blocks publish and fetch |
 | 2026-10-02 Run 275 | ~0.5 estimate | 110 | explicit decision file is loaded fail-closed; OAuth still blocks publish |

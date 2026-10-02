@@ -374,6 +374,24 @@ def check_feedback_fail_closed() -> list[str]:
     return failures
 
 
+
+def check_upload_stamp_preserved() -> list[str]:
+    failures: list[str] = []
+    from youtube_upload import preserved_upload_stamp
+    if preserved_upload_stamp(None) is not None:
+        failures.append("missing prior must not invent uploaded_at")
+    if preserved_upload_stamp({"generated": "2026-01-01T00:00:00Z"}) is not None:
+        failures.append("generated field must not become uploaded_at")
+    stamp = "2026-09-01T12:00:00Z"
+    got = preserved_upload_stamp({"video_upload": {"status": "uploaded", "uploaded_at": stamp}})
+    if got != stamp:
+        failures.append(f"resume must keep video_upload.uploaded_at, got {got}")
+    got2 = preserved_upload_stamp({"uploaded_at": stamp})
+    if got2 != stamp:
+        failures.append(f"resume must keep top-level uploaded_at, got {got2}")
+    return failures
+
+
 def check_experiment_fail_closed() -> list[str]:
     failures: list[str] = []
     with tempfile.TemporaryDirectory() as tmp:
@@ -701,6 +719,7 @@ def main() -> int:
     failures.extend(check_assemble_fail_closed())
     failures.extend(check_upload_fail_closed())
     failures.extend(check_feedback_fail_closed())
+    failures.extend(check_upload_stamp_preserved())
     failures.extend(check_experiment_fail_closed())
     failures.extend(check_complete_fail_closed())
     failures.extend(check_timeline_card_match())

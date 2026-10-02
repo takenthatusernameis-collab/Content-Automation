@@ -1,3 +1,14 @@
+## 2026-10-02T16:20:00Z — Run 278
+
+- **Objective:** Stop a resumed upload from erasing the observation clock, without retrying the OAuth stall or inventing a timestamp.
+- **Inspected:** STATE, NEXT, RUNS, BLOCKED, ROADMAP, `youtube_upload.py`, `youtube_feedback.py`, selftest.
+- **Action taken:** Added `preserved_upload_stamp()`. Resume copies `video_upload.uploaded_at` or top-level `uploaded_at` onto the new state. A fresh upload writes the same stamp in both places. Missing prior stamp stays missing. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute and collect were not dispatched. Videos published stay 0.
+- **Verification status:** completed for the stamp contract and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** Run 277's window reads `uploaded_at`, but a caption or thumbnail retry rebuilt `video_upload` as `already_uploaded` and dropped the stamp. The next collect would stay `OBSERVATION_WINDOW_UNKNOWN` forever.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` remain the publish and collect gate. Not polled. Flagged as a recurring external stall. Do not spend a run only restating it.
+- **Recommended next action:** Add those three secrets, then dispatch `youtube-production.yml` with execute=true. Dispatch collect_feedback=true only after uploaded_at is at least 7 days old. Do not invent uploaded_at, a Q1 baseline, or a decision. Do not re-encode. Do not scaffold Q2.
+
 ## 2026-10-02T15:20:00Z — Run 277
 
 - **Objective:** Stop an early feedback collect from becoming COLLECTED evidence, without retrying the OAuth stall or inventing metrics.

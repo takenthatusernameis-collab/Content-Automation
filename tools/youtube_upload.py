@@ -50,6 +50,21 @@ def _now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def preserved_upload_stamp(prior: dict | None) -> str | None:
+    """Copy a real upload timestamp. Never invent one from generated or fetched fields."""
+    if not isinstance(prior, dict):
+        return None
+    video = prior.get("video_upload")
+    if isinstance(video, dict):
+        raw = video.get("uploaded_at")
+        if isinstance(raw, str) and raw.strip():
+            return raw.strip()
+    raw = prior.get("uploaded_at")
+    if isinstance(raw, str) and raw.strip():
+        return raw.strip()
+    return None
+
+
 STUB_DESCRIPTION_MARKERS = (
     "No upload happened",
     "Human locks title, description, and tags before YouTube",
@@ -410,6 +425,10 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
         if prior_video_id:
             video_id = prior_video_id
             result["video_upload"] = {"status": "already_uploaded", "video_id": video_id}
+            stamp = preserved_upload_stamp(prior)
+            if stamp:
+                result["video_upload"]["uploaded_at"] = stamp
+                result["uploaded_at"] = stamp
         else:
             video = upload_video(
                 token,
@@ -428,7 +447,9 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
             if not video_id:
                 raise YouTubeAPIError(0, "upload_response_missing_video_id")
             result["provider_video_id"] = video_id
-            result["video_upload"] = {"status": "uploaded", "video_id": video_id, "uploaded_at": _now()}
+            stamp = _now()
+            result["uploaded_at"] = stamp
+            result["video_upload"] = {"status": "uploaded", "video_id": video_id, "uploaded_at": stamp}
             # Persist the provider ID immediately so a later caption/thumbnail failure
             # can resume without re-uploading the video.
             write_upload_state(packet, result)
