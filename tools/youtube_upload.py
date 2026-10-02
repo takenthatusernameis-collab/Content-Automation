@@ -383,8 +383,6 @@ def write_upload_state(packet: Path, state: dict) -> None:
 
 
 def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) -> dict:
-    if report["gate"] not in {"READY", "FAIL"}:
-        raise YouTubeAPIError(0, f"LOCAL_GATE_{report['gate']}")
     export = export_path(packet)
     prior = load_prior_state(packet)
     prior_video_id = None
@@ -392,6 +390,8 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
         candidate = str(prior.get("provider_video_id") or "").strip()
         if candidate:
             prior_video_id = candidate
+    if report["gate"] != "READY" and not prior_video_id:
+        raise YouTubeAPIError(0, f"LOCAL_GATE_{report['gate']}")
 
     result = {
         "packet": packet.name,
