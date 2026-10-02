@@ -205,6 +205,11 @@ def export_path(packet: Path) -> Path:
 
 
 def fingerprint(packet: Path, meta: dict, export: Path | None) -> str:
+    """Content identity for idempotency. Do not include mtime.
+
+    Actions rematerializes the same release asset with a new mtime. A clock
+    in this hash would miss the persisted video id and upload a second copy.
+    """
     h = hashlib.sha256()
     h.update(packet.name.encode("utf-8"))
     h.update(b"\n")
@@ -212,10 +217,36 @@ def fingerprint(packet: Path, meta: dict, export: Path | None) -> str:
     h.update(b"\n")
     h.update((meta.get("description") or "").encode("utf-8"))
     if export and export.is_file():
-        h.update(str(export.stat().st_size).encode("utf-8"))
-        h.update(b"\n")
-        h.update(str(int(export.stat().st_mtime)).encode("utf-8"))
+        h.update(file_sha256(export).encode("utf-8"))
     return h.hexdigest()[:16]
+
+
+def existing_upload_action(
+    prior: dict | None,
+    fingerprint_value: str,
+    *,
+    caption_file: bool,
+    thumbnail_file: bool,
+) -> str:
+    """Classify a persisted provider video id before another execute.
+
+    Returns none, resume, finished, or mismatch. Mismatch must not upload again.
+    not_attempted captions or thumbnails still need a resume when the local file exists.
+    """
+    if not prior or not str(prior.get("provider_video_id") or "").strip():
+        return "none"
+    if prior.get("fingerprint") != fingerprint_value:
+        return "mismatch"
+    caption_status = (prior.get("caption_upload") or {}).get("status")
+    thumb_status = (prior.get("thumbnail_upload") or {}).get("status")
+    comment_status = (prior.get("comment_post") or {}).get("status")
+    if caption_file and caption_status not in {"uploaded", "already_uploaded"}:
+        return "resume"
+    if thumbnail_file and thumb_status not in {"uploaded", "already_uploaded"}:
+        return "resume"
+    if comment_status == "failed":
+        return "resume"
+    return "finished"
 
 
 def auth_status(env: dict[str, str] | None = None) -> dict:
@@ -258,7 +289,13 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
     auth = auth_status(env)
     prior = load_prior_state(packet)
     fp = fingerprint(packet, meta, exp if export_ok else None)
-    duplicate = bool(prior and prior.get("fingerprint") == fp and prior.get("provider_video_id"))
+    existing = existing_upload_action(
+        prior,
+        fp,
+        caption_file=(packet / "captions.srt").is_file(),
+        thumbnail_file=(packet / "thumbnail.png").is_file(),
+    )
+    duplicate = existing == "finished"
 
     checks = []
 
@@ -279,7 +316,16 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
     add("not_truncated_end_screen", block is None, block or "end screen not proven missing")
     add("oauth_complete", auth["complete"], auth["state"] if auth["complete"] else ",".join(auth["missing"]))
     add("not_api_key_only", not auth["api_key_alone"], "API key is not upload authorization")
-    add("no_duplicate_fingerprint", not duplicate, fp)
+    add(
+        "no_duplicate_fingerprint",
+        existing != "finished",
+        fp if existing == "none" else f"{existing}:{fp}",
+    )
+    add(
+        "existing_video_matches_export",
+        existing != "mismatch",
+        "no persisted video" if existing == "none" else existing,
+    )
 
     hard_local = [c for c in checks if c["name"] in {"publish_md_present", "title_present", "master_export_present", "publish_copy_approved"}]
     local_ok = all(c["ok"] for c in hard_local)
@@ -289,9 +335,15 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
     elif not auth["complete"]:
         gate = AUTH_STATE
         action = "DRY_RUN"
-    elif duplicate:
+    elif existing == "mismatch":
+        gate = "FAIL"
+        action = "HOLD_FINGERPRINT_MISMATCH"
+    elif existing == "finished":
         gate = "FAIL"
         action = "HOLD_IDEMPOTENT"
+    elif existing == "resume":
+        gate = "RESUME"
+        action = "RESUME_POST_UPLOAD"
     else:
         gate = "READY"
         action = "UPLOAD_BLOCKED_NO_NETWORK"
@@ -421,11 +473,11 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
     export = export_path(packet)
     prior = load_prior_state(packet)
     prior_video_id = None
-    if prior and prior.get("fingerprint") == report["fingerprint"]:
-        candidate = str(prior.get("provider_video_id") or "").strip()
-        if candidate:
-            prior_video_id = candidate
-    if report["gate"] != "READY" and not prior_video_id:
+    if prior and str(prior.get("provider_video_id") or "").strip():
+        if prior.get("fingerprint") != report["fingerprint"]:
+            raise YouTubeAPIError(0, "EXISTING_VIDEO_FINGERPRINT_MISMATCH")
+        prior_video_id = str(prior.get("provider_video_id") or "").strip()
+    if report["gate"] not in {"READY", "RESUME"} and not prior_video_id:
         raise YouTubeAPIError(0, f"LOCAL_GATE_{report['gate']}")
 
     result = {
@@ -548,7 +600,7 @@ def render_text(report: dict) -> str:
             path=(report.get("thumbnail") or {}).get("path", "thumbnail.png"),
             present="yes" if (report.get("thumbnail") or {}).get("present") else "no",
         ),
-        "thumbnail.png is a draft only; this adapter never calls thumbnails.set",
+        "thumbnail.png stays a draft in dry-run; --execute calls thumbnails.set and fails closed if that call fails",
     ]
     for c in report["checks"]:
         mark = "PASS" if c["ok"] else "FAIL"

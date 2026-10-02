@@ -1,3 +1,9 @@
+## Run 280 — idempotent gate blocked the post-upload retry and mtime could duplicate the video
+- **Tried:** Run 279 saved the provider video id after a caption or thumbnail failure and told the next run to execute again.
+- **Evidence:** `inspect_upload()` set `HOLD_IDEMPOTENT` whenever the fingerprint matched, and `main()` returned 2 before `execute_upload()`. `fingerprint()` included `st_mtime`. Actions materialize copies the same r253 bytes onto a new mtime.
+- **Result:** Resume is `RESUME_POST_UPLOAD`. A finished match stays `HOLD_IDEMPOTENT`. A different content hash is `HOLD_FINGERPRINT_MISMATCH` and execute refuses a second insert. Fingerprint uses sha256 of the export.
+- **Avoid:** Treating HOLD_IDEMPOTENT as the caption retry. Putting mtime back into the upload fingerprint. Uploading again because the persisted fingerprint does not match a rematerialized file.
+
 # FAILURES
 
 ## Run 276 — feedback fetch stayed a manual CLI after upload

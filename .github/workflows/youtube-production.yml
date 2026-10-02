@@ -163,5 +163,7 @@ jobs:
           echo "collect_feedback refuses a missing or early uploaded_at and does not write COLLECTED."
           echo "A resumed upload keeps the existing uploaded_at. It does not invent one."
           echo "A caption or thumbnail failure exits non-zero after the video id is written."
+          echo "A later execute resumes that video id when the export hash matches. It does not upload a second copy."
+          echo "Export identity is the file hash, not mtime, so rematerialize does not look like a new master."
           echo "Upload state is persisted even when that post-upload step fails."
           echo "collect_feedback is skipped when execute is also true; the observation window cannot be due in that dispatch."

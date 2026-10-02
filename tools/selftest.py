@@ -397,6 +397,46 @@ def check_upload_stamp_preserved() -> list[str]:
         failures.append(f"failed captions must fail closed, got {failed}")
     if incomplete_post_uploads({"caption_upload": {"status": "not_attempted"}}) != []:
         failures.append("missing caption attempt must not be treated as a failed upload")
+    from youtube_upload import existing_upload_action, fingerprint
+    prior = {
+        "provider_video_id": "abc123",
+        "fingerprint": "same",
+        "caption_upload": {"status": "failed"},
+        "thumbnail_upload": {"status": "not_attempted"},
+    }
+    if existing_upload_action(prior, "same", caption_file=True, thumbnail_file=True) != "resume":
+        failures.append("failed caption with a video id must resume, not finish")
+    done = {
+        "provider_video_id": "abc123",
+        "fingerprint": "same",
+        "caption_upload": {"status": "uploaded"},
+        "thumbnail_upload": {"status": "uploaded"},
+    }
+    if existing_upload_action(done, "same", caption_file=True, thumbnail_file=True) != "finished":
+        failures.append("completed post-upload must stay idempotent")
+    if existing_upload_action(done, "other", caption_file=True, thumbnail_file=True) != "mismatch":
+        failures.append("changed export identity must not upload a second video")
+    if existing_upload_action(None, "same", caption_file=True, thumbnail_file=True) != "none":
+        failures.append("missing prior must not look like an existing video")
+    left = Path(tempfile.mkdtemp()) / "export.mp4"
+    left.write_bytes(b"same-master-bytes")
+    right = Path(tempfile.mkdtemp()) / "export.mp4"
+    right.write_bytes(b"same-master-bytes")
+    import os
+    os.utime(left, (1_700_000_000, 1_700_000_000))
+    os.utime(right, (1_800_000_000, 1_800_000_000))
+    meta = {"title": "t", "description": "d"}
+    if fingerprint(Path("packet"), meta, left) != fingerprint(Path("packet"), meta, right):
+        failures.append("fingerprint must ignore mtime so rematerialize does not duplicate")
+    if fingerprint(Path("packet"), meta, left) == fingerprint(Path("packet"), meta, None):
+        failures.append("fingerprint must include export bytes")
+    upload_src = Path(__file__).resolve().parent.joinpath("youtube_upload.py").read_text(encoding="utf-8")
+    if "st_mtime" in upload_src.split("def fingerprint", 1)[1].split("def existing_upload_action", 1)[0]:
+        failures.append("fingerprint must not read mtime")
+    if 'gate = "RESUME"' not in upload_src or "RESUME_POST_UPLOAD" not in upload_src:
+        failures.append("inspect must expose a resume gate for incomplete post-upload")
+    if "EXISTING_VIDEO_FINGERPRINT_MISMATCH" not in upload_src:
+        failures.append("execute must refuse a second upload when the fingerprint drifted")
     return failures
 
 
@@ -955,6 +995,10 @@ def check_live_capabilities() -> list[str]:
         failures.append("collect must not run in the same dispatch as execute")
     if "POST_UPLOAD_INCOMPLETE" not in upload:
         failures.append("upload execute must fail closed when caption or thumbnail fails")
+    if "RESUME_POST_UPLOAD" not in upload:
+        failures.append("upload must resume incomplete post-upload instead of holding idempotent")
+    if "st_mtime" in upload.split("def fingerprint", 1)[1].split("def existing_upload_action", 1)[0]:
+        failures.append("production fingerprint must not depend on export mtime")
     if "OBSERVATION_WINDOW_NOT_DUE" not in feedback:
         failures.append("feedback collect must refuse an early observation window")
     from oauth_preflight import presence

@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T17:20:00Z (Run 279)
+Updated: 2026-10-02T19:15:00Z (Run 280)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,13 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 280 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- Upload identity no longer includes export mtime. The same bytes keep the same fingerprint after rematerialize.
+- A persisted video id with a matching fingerprint and incomplete caption, thumbnail, or failed comment is gate RESUME. Execute retries those artifacts and does not upload a second video.
+- A matching finished upload stays HOLD_IDEMPOTENT. A different fingerprint stays HOLD_FINGERPRINT_MISMATCH and execute refuses EXISTING_VIDEO_FINGERPRINT_MISMATCH.
+- Selftest passed locally. Actions was not re-run.
 
 ## Run 279 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -62,7 +69,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
 | Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; resume no longer drops the observation clock |
-| Automated steps | 113 | 114 | post-upload failure keeps video id and fails the job; no upload ran |
+| Automated steps | 114 | 115 | resume incomplete post-upload; fingerprint ignores mtime; no upload ran |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
@@ -86,3 +93,6 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not treat a failed caption or thumbnail as a finished upload
 - Do not skip persisting upload_state.json after a post-upload failure
 - Do not collect feedback in the same dispatch as execute
+- Do not treat HOLD_IDEMPOTENT as the retry path for a failed caption or thumbnail
+- Do not put export mtime back into the upload fingerprint
+- Do not upload a second video when a provider video id already exists

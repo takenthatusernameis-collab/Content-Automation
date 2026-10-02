@@ -1,3 +1,14 @@
+## 2026-10-02T19:15:00Z — Run 280
+
+- **Objective:** Stop a rematerialized master from uploading a second video, and let a failed caption or thumbnail resume on the existing video id, without retrying the OAuth stall.
+- **Inspected:** STATE, NEXT, RUNS, `youtube_upload.py`, `youtube-production.yml`, selftest.
+- **Action taken:** Fingerprint now hashes export bytes instead of mtime. `existing_upload_action()` returns resume, finished, mismatch, or none. Inspect exposes `RESUME` / `RESUME_POST_UPLOAD` for an incomplete post-upload. Execute refuses `EXISTING_VIDEO_FINGERPRINT_MISMATCH` instead of inserting another video. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute and collect were not dispatched. Videos published stay 0.
+- **Verification status:** completed for the resume/idempotency contract and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** Run 279 persisted the video id, then the next execute hit `HOLD_IDEMPOTENT` and returned before resume. The fingerprint also included mtime, so a later materialize of the same r253 bytes would miss that id and upload a second copy.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` remain the publish and collect gate. Not polled. Flagged as a recurring external stall. Do not spend a run only restating it.
+- **Recommended next action:** Add those three secrets, then dispatch `youtube-production.yml` with execute=true. A post-upload failure can be retried with the same execute input; it must not create a second video. Dispatch collect_feedback=true only after uploaded_at is at least 7 days old and not in the same dispatch as execute. Do not invent uploaded_at, a Q1 baseline, or a decision. Do not re-encode. Do not scaffold Q2.
+
 ## 2026-10-02T17:20:00Z — Run 279
 
 - **Objective:** Stop a caption or thumbnail failure from looking like a finished upload, and stop that failure from dropping the provider video id, without retrying the OAuth stall.

@@ -1,3 +1,6 @@
+## Run 280 — 2026-10-02T19:15:00Z
+- A later execute can finish captions and thumbnail on the existing video id. Rematerialize no longer changes upload identity. No upload ran. Videos published stay 0.
+
 ## Run 279 — 2026-10-02T17:20:00Z
 - A caption, thumbnail, or requested comment failure after a provider video id is now a failed job, and the upload state is still persisted. The same dispatch no longer collects feedback. No upload ran. Videos published stay 0.
 
