@@ -79,7 +79,8 @@ menu as a decision again is a
 18
 00:00:49,411 --> 00:00:52,849
 second planning session. A written
-next-action default is one sentence that names
+next-action default is one sentence
+that names
 
 19
 00:00:52,849 --> 00:00:55,002

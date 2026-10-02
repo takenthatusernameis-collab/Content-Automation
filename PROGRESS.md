@@ -25,3 +25,5 @@ These numbers are **estimates**, not stopwatch data. Earlier rows remain in prio
 - Run 260: remaining operator surfaces no longer assign a compose step that is already done. Q1 publish.md cannot be force-stubbed.
 - Run 259: publish.md no longer needs a human to compose the description. The human still must check Description edited and First comment approved. Agent must not check those boxes.
 - Run 253: Live Q1 padded master exists. Duration 328.40s, sha256 `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546`, private release `q1-media-r253`. Videos published stay 0.
+
+- Run 262 (2026-10-02): uploader dry-run names captions.srt and refuses to claim captions.insert. One overlong Q1 caption line wrapped. Human caption edit is wording spot-check only. Estimated human minutes 1.5 -> 1.4. Videos published stay 0.

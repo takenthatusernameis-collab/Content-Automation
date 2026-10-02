@@ -266,7 +266,30 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
         "gate": gate,
         "action": action,
         "prior": prior,
+        "captions": caption_track(packet),
         "generated": _now(),
+    }
+
+
+def caption_track(packet: Path) -> dict:
+    """Local captions draft for a later captions.insert. This adapter never uploads it."""
+    path = packet / "captions.srt"
+    if not path.is_file():
+        return {
+            "path": "captions.srt",
+            "present": False,
+            "uploaded": False,
+            "note": "missing draft; captions.insert is not called",
+        }
+    raw = path.read_text(encoding="utf-8")
+    cues = [b for b in raw.strip().split("\n\n") if b.strip()]
+    return {
+        "path": "captions.srt",
+        "present": True,
+        "cues": len(cues),
+        "sha256": file_sha256(path),
+        "uploaded": False,
+        "note": "draft only; not ASR; captions.insert is not called; spot-check stays human",
     }
 
 
@@ -288,6 +311,12 @@ def request_body(report: dict) -> dict:
             "export": report["export"],
             "fingerprint": report["fingerprint"],
             "scope": UPLOAD_SCOPE,
+            "captions": report.get("captions") or {
+                "path": "captions.srt",
+                "present": False,
+                "uploaded": False,
+                "note": "captions.insert is not called",
+            },
         },
     }
 
@@ -320,10 +349,15 @@ def render_text(report: dict) -> str:
         f"export: {report['export']} present={'yes' if report['export_present'] else 'no'}",
         f"fingerprint: {report['fingerprint']}",
         f"privacy: {report['privacy']}",
+        "captions: {path} present={present} uploaded=no".format(
+            path=(report.get("captions") or {}).get("path", "captions.srt"),
+            present="yes" if (report.get("captions") or {}).get("present") else "no",
+        ),
         f"auth: {report['auth']['state']}",
         "youtube_upload never prints secret values and never calls the API",
         "an API key alone is not upload authorization",
         "a junk export/master.mp4 is not a master",
+        "captions.srt is a draft track only; this adapter never calls captions.insert",
     ]
     for c in report["checks"]:
         mark = "PASS" if c["ok"] else "FAIL"

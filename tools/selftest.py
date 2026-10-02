@@ -256,6 +256,16 @@ def check_upload_fail_closed() -> list[str]:
         if "abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53" not in src:
             failures.append("upload adapter must keep the r249 truncated master sha locked")
 
+        from youtube_upload import request_body
+        body = request_body(report2)
+        caps = body.get("local", {}).get("captions") or {}
+        if caps.get("uploaded") is not False:
+            failures.append("upload dry-run must not claim captions were uploaded")
+        if "captions.insert is not called" not in str(caps.get("note", "")):
+            failures.append(f"upload captions note missing, got {caps}")
+        if "captions.insert" not in src:
+            failures.append("upload adapter must keep captions.insert uncalled")
+
         (p / "publish.md").write_text(
             "## Title to upload\n\nFixture title\n\n"
             "## Description\n\nNo upload happened. Human locks title, description, and tags before YouTube. "

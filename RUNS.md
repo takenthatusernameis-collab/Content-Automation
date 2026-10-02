@@ -1,5 +1,17 @@
 # RUNS
 
+## 2026-10-02T04:15:00Z — Run 262
+
+- **Objective:** Remove the last mechanical caption edit and stop a future upload step from losing the draft track.
+- **Inspected:** STATE/NEXT/RUNS after Run 261. Q1 captions.srt had 103 cues and one line over 42 characters. youtube_upload dry-run did not mention captions. Publish boxes still open. No OAuth in this environment.
+- **Action taken:** Wrapped that one line without changing cue times or word count. caption_track() is included in the dry-run request with uploaded=false. selftest locks that claim. Did not check boxes. Did not re-download. Did not re-encode. Did not upload. Did not scaffold Q2.
+- **Result:** Caption readability wrap is no longer a human step. Estimated human minutes 1.5 -> 1.4. Automated steps 101 -> 102. Videos published stay 0. Packet status stays ready_for_vo. Upload gate on this checkout stays HOLD_LOCAL because export/master.mp4 is not on disk.
+- **Verification status:** python3 tools/selftest.py printed SELFTEST PASS. inspect_upload on Q1 reported captions present, 103 cues, uploaded false. No line in captions.srt exceeds 42 characters. 941 words kept.
+- **Important discovery:** Runs 254-261 kept circling the same human boxes. The unblocked gap was the upload adapter ignoring the caption draft. Credential and checkbox gates are unchanged and should not be rewritten again.
+- **Blocker:** Human must check the two open publish boxes and spot-check caption wording. YouTube OAuth still absent.
+- **Recommended next action:** Human reviews publish.md and captions.srt wording. Copy q1-master-r253.mp4 only onto export/master.mp4. Set OAuth. Do not record. Do not restore the stub sentence. Do not add another operator-page rewrite for this hold.
+
+
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
 ## 2026-10-02T03:20:00Z — Run 261
