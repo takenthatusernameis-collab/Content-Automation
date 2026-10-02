@@ -4,6 +4,10 @@
 Fail-closed: requires authenticated gh access, verifies every checksum, never
 commits media, never regenerates matching artifacts, and never installs the
 known-truncated r249 master.
+
+The r249 release still contains that truncated master. Its presence is expected.
+Do not abort the wav/card fetch because the banned asset was downloaded.
+Refuse only if it is installed as export/master.mp4 or if its checksum changes.
 """
 
 from __future__ import annotations
@@ -58,6 +62,8 @@ def copy_verified(src: Path, dst: Path, expected: str) -> None:
     got = sha256(src)
     if got != expected:
         raise RuntimeError(f"checksum mismatch {src.name}: expected {expected}, got {got}")
+    if got == BANNED_MASTER_SHA:
+        raise RuntimeError("refuse known-truncated r249 q1-master.mp4")
     dst.parent.mkdir(parents=True, exist_ok=True)
     if dst.exists():
         current = sha256(dst)
@@ -65,6 +71,19 @@ def copy_verified(src: Path, dst: Path, expected: str) -> None:
             return
         raise RuntimeError(f"refuse overwrite of existing wrong artifact: {dst}")
     shutil.copy2(src, dst)
+
+def ignore_truncated_r249_master(r249: Path) -> None:
+    """r249 still ships the truncated master. Presence is not an install."""
+    bad = r249 / "q1-master.mp4"
+    if not bad.is_file():
+        print("r249 q1-master.mp4 absent; continuing with wav and cards only")
+        return
+    got = sha256(bad)
+    if got != BANNED_MASTER_SHA:
+        raise RuntimeError(
+            f"unexpected r249 q1-master.mp4 sha256={got}; refusing to continue"
+        )
+    print("ignored known-truncated r249 q1-master.mp4; installing r253 master only")
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Materialize verified Q1 release media locally.")
@@ -75,15 +94,15 @@ def main() -> int:
         r249, r253 = base / R249, base / R253
         gh_download(R249, r249)
         gh_download(R253, r253)
-
-        bad = r249 / "q1-master.mp4"
-        if bad.is_file() and sha256(bad) == BANNED_MASTER_SHA:
-            raise RuntimeError("refuse known-truncated r249 q1-master.mp4")
+        ignore_truncated_r249_master(r249)
 
         copy_verified(r249 / VO_NAME, PACKET / "vo" / VO_NAME, VO_SHA)
         for name, expected in CARD_SHA.items():
             copy_verified(r249 / name, PACKET / "cards" / name, expected)
         copy_verified(r253 / MASTER_NAME, PACKET / "export" / "master.mp4", MASTER_SHA)
+        installed = PACKET / "export" / "master.mp4"
+        if sha256(installed) == BANNED_MASTER_SHA:
+            raise RuntimeError("refuse known-truncated r249 q1-master.mp4 installed as export")
 
     print(f"materialized: {PACKET / 'vo' / VO_NAME}")
     print(f"cards: {len(CARD_SHA)}")

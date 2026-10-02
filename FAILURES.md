@@ -1,5 +1,11 @@
 # FAILURES
 
+## Run 270 — materialize aborted because the banned master was present
+- **Tried:** Run 269 added a workflow_dispatch production path and assumed `tools/materialize_q1_release.py` could fetch r249 wav/cards plus the r253 master.
+- **Evidence:** GitHub Actions run 36982959831 (job 110761451601) failed at Materialize verified Q1 media with `RuntimeError: refuse known-truncated r249 q1-master.mp4`. The Actions token downloaded the release. The guard treated the expected banned asset as a fatal fetch error before copying wav, cards, or the r253 master.
+- **Result:** The guard now ignores that known sha in the r249 download, refuses an unexpected r249 master sha, and still refuses installing the banned sha as `export/master.mp4`.
+- **Avoid:** Restoring the presence-only abort. Copying r249 `q1-master.mp4` onto `export/master.mp4`. Treating this as an OAuth failure.
+
 ## Run 265 — thumbnail left as a brief only
 - **Tried:** Runs 254-264 restated the publish hold after the description, captions, and chapters existed. thumbnail.md already had the on-image line. No PNG, and the uploader could not name one.
 - **Result:** thumbnail_draft.py writes thumbnail.png and an unapproved review. Q1 card committed. thumbnails.set stays uncalled.
