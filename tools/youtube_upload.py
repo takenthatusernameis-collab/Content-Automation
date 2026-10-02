@@ -383,59 +383,75 @@ def write_upload_state(packet: Path, state: dict) -> None:
 
 
 def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) -> dict:
-    if report["gate"] != "READY":
+    if report["gate"] not in {"READY", "FAIL"}:
         raise YouTubeAPIError(0, f"LOCAL_GATE_{report['gate']}")
     export = export_path(packet)
-    token = refresh_access_token()
+    prior = load_prior_state(packet)
+    prior_video_id = None
+    if prior and prior.get("fingerprint") == report["fingerprint"]:
+        candidate = str(prior.get("provider_video_id") or "").strip()
+        if candidate:
+            prior_video_id = candidate
+
     result = {
         "packet": packet.name,
         "generated": _now(),
         "fingerprint": report["fingerprint"],
         "privacy": report["privacy"],
-        "attempted_upload": True,
-        "provider_video_id": None,
-        "video_upload": {"status": "pending"},
-        "caption_upload": {"status": "not_attempted"},
-        "thumbnail_upload": {"status": "not_attempted"},
-        "comment_post": {"status": "not_attempted"},
+        "attempted_upload": bool(not prior_video_id),
+        "provider_video_id": prior_video_id,
+        "video_upload": {"status": "resuming" if prior_video_id else "pending"},
+        "caption_upload": prior.get("caption_upload", {"status": "not_attempted"}) if prior else {"status": "not_attempted"},
+        "thumbnail_upload": prior.get("thumbnail_upload", {"status": "not_attempted"}) if prior else {"status": "not_attempted"},
+        "comment_post": prior.get("comment_post", {"status": "not_attempted"}) if prior else {"status": "not_attempted"},
     }
     try:
-        video = upload_video(
-            token,
-            export_path=export,
-            metadata={
-                "snippet": {
-                    "title": report["meta"]["title"],
-                    "description": report["meta"]["description"],
-                    "tags": report["meta"]["tags"][:12],
-                    "categoryId": "27",
+        token = refresh_access_token()
+        if prior_video_id:
+            video_id = prior_video_id
+            result["video_upload"] = {"status": "already_uploaded", "video_id": video_id}
+        else:
+            video = upload_video(
+                token,
+                export_path=export,
+                metadata={
+                    "snippet": {
+                        "title": report["meta"]["title"],
+                        "description": report["meta"]["description"],
+                        "tags": report["meta"]["tags"][:12],
+                        "categoryId": "27",
+                    },
                 },
-            },
-            privacy=report["privacy"],
-        )
-        video_id = str(video.get("id") or "").strip()
-        if not video_id:
-            raise YouTubeAPIError(0, "upload_response_missing_video_id")
-        result["provider_video_id"] = video_id
-        result["video_upload"] = {"status": "uploaded", "video_id": video_id}
+                privacy=report["privacy"],
+            )
+            video_id = str(video.get("id") or "").strip()
+            if not video_id:
+                raise YouTubeAPIError(0, "upload_response_missing_video_id")
+            result["provider_video_id"] = video_id
+            result["video_upload"] = {"status": "uploaded", "video_id": video_id, "uploaded_at": _now()}
+            # Persist the provider ID immediately so a later caption/thumbnail failure
+            # can resume without re-uploading the video.
+            write_upload_state(packet, result)
 
         captions = packet / "captions.srt"
-        if captions.is_file():
+        if captions.is_file() and result["caption_upload"].get("status") not in {"uploaded", "already_uploaded"}:
             try:
                 cap = insert_caption(token, video_id=video_id, caption_path=captions)
                 result["caption_upload"] = {"status": "uploaded", "caption_id": cap.get("id")}
             except Exception as exc:
                 result["caption_upload"] = {"status": "failed", "error": compact_api_error(exc)}
+            write_upload_state(packet, result)
 
         thumb = packet / "thumbnail.png"
-        if thumb.is_file():
+        if thumb.is_file() and result["thumbnail_upload"].get("status") not in {"uploaded", "already_uploaded"}:
             try:
                 set_thumbnail(token, video_id=video_id, thumbnail_path=thumb)
                 result["thumbnail_upload"] = {"status": "uploaded"}
             except Exception as exc:
                 result["thumbnail_upload"] = {"status": "failed", "error": compact_api_error(exc)}
+            write_upload_state(packet, result)
 
-        if post_comment and report["meta"].get("pin_comment"):
+        if post_comment and report["meta"].get("pin_comment") and result["comment_post"].get("status") not in {"posted", "already_posted"}:
             try:
                 from youtube_api import get_channel_id
                 channel_id = get_channel_id(token)
@@ -448,16 +464,17 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
                 result["comment_post"] = {"status": "posted", "comment_id": comment.get("id")}
             except Exception as exc:
                 result["comment_post"] = {"status": "failed", "error": compact_api_error(exc)}
+            write_upload_state(packet, result)
 
         result["error_class"] = None
+        result["generated"] = _now()
         write_upload_state(packet, result)
         return result
     except Exception as exc:
-        result["video_upload"] = {"status": "failed", "error": compact_api_error(exc)}
+        result["video_upload"] = result.get("video_upload") or {"status": "failed"}
         result["error_class"] = compact_api_error(exc)
         write_upload_state(packet, result)
         raise
-
 
 def render_text(report: dict) -> str:
     lines = [
