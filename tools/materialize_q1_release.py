@@ -31,7 +31,7 @@ CARD_SHA = {
     "beat2-hand-writing-verb-object-place-on-a-ca.png": "e0f306a8c5d41dde81edbab5e2fa70544be075ebcad98dd5a38dc50e69f3af3d",
     "beat3-four-crossed-out-themes-replaced-by-on.png": "96e2ff34fe8f84b9f99f4094ed443a4606cb979758e084451d0fc1e3b5cc6b33",
     "beat4-night-card-morning-start-shutdown-rewr.png": "0510c7d67b550a6c87fff801238fd5da1430db8c06a417f404bacba8522a74cc",
-    "cta-cta-card-write-tomorrow-s-next-action-on.png": "b0f67d7c5ad085f5e2882fdcda67a2e363a171d544d854b8c43d3b492e56e9",
+    "cta-cta-card-write-tomorrow-s-next-action-on.png": "b0f67d7c5ad085f5e2882fdcda67a2e363a171d544d854b8c43d3b5d492e56e9",
 }
 
 def sha256(path: Path) -> str:
