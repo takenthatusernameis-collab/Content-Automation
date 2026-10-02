@@ -24,6 +24,14 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Live YouTube upload remains blocked by the NOT_BUILT authenticated adapter and provider authentication.
 - No media was fabricated, re-encoded, or uploaded.
 
+## Run 267 delta
+- Added fail-closed `tools/materialize_q1_release.py`: authenticated `gh` release fetch, per-file SHA256 verification, refusal of the known-truncated r249 master, and ignored-media materialization.
+- Added dependency-free authenticated YouTube API support in `tools/youtube_api.py`.
+- `tools/youtube_upload.py --execute` now performs the authenticated video upload and resumes safely for post-upload caption/thumbnail/comment failures without re-uploading the same fingerprint.
+- `tools/youtube_feedback.py --execute` now performs authenticated Analytics and comment-thread reads with a three-day freshness buffer.
+- Added a minimal selftest workflow. GitHub currently reports 0 workflow runs, so CI execution is not yet externally confirmed.
+- Approval-only Q1 metadata review remains delegated; provider credentials/authentication and actual media access remain external boundaries.
+
 ## Run 265 delta
 - Added tools/thumbnail_draft.py. It renders a 1280x720 PNG from thumbnail.md on-image text. Missing or over-long text refuses. It does not check boxes and does not call thumbnails.set.
 - Q1 thumbnail.png written (One Written Default). thumbnail_review.md says approval false. Dry-run uploader lists the file and sets uploaded=false.
@@ -62,7 +70,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
 | Estimated human min / video | 1.1 | 1.0 | thumbnail PNG drafted; publish boxes, caption spot-check, and OAuth remain |
-| Automated steps | 103 | 104 | thumbnail PNG from the brief; videos.insert and thumbnails.set still not called |
+| Automated steps | 104 | 104+ | release materialization + live YouTube adapter + feedback paths now built; no published video yet |
 | Videos produced | 0 | 0 | padded local master on q1-media-r253; not uploaded |
 
 ## Active constraints
