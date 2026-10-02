@@ -1,4 +1,7 @@
-Updated: 2026-10-02T03:20:00Z
+Updated: 2026-10-02T05:20:00Z
+
+## Run 263
+Q1 caption spot-check sheet written (5 checkpoints, 0 flagged). captions.md no longer assigns inventing the srt. Spot-check and publish boxes stay open. OAuth unchanged. Automated steps 102. Videos published 0.
 
 ## Run 261
 Q1 captions.srt drafted from wav speech gaps (103 cues). Human still spot-checks. Publish boxes and OAuth unchanged. Automated steps 101. Videos published 0.
@@ -12,6 +15,7 @@ Stale "delete No upload happened" instructions removed from pipeline_status, gat
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-10-02 Run 263 | ~1.2 estimate | 102 | caption review is five checkpoints; two publish boxes and OAuth remain |
 | 2026-10-02 Run 261 | ~1.5 estimate | 101 | caption draft from Selected VO; two publish boxes and OAuth remain |
 | 2026-10-02 Run 260 | ~1.5 estimate | 100 | operator pages match the drafted description; two boxes and OAuth remain |
 | 2026-10-02 Run 259 | ~1.5 estimate | 100 | description drafted; human checks two boxes; OAuth remains |
@@ -21,6 +25,7 @@ Stale "delete No upload happened" instructions removed from pipeline_status, gat
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 263: caption_review.py writes a non-approving spot-check sheet from an existing srt. Q1 sheet committed. Human listens to checkpoints instead of all cues.
 - Run 261: caption_align.py drafts captions.srt from packet DROP wav speech gaps and script WORDS. Refuses a missing wav. Not ASR. Q1 draft committed; spot-check stays open.
 - Run 260: remaining operator surfaces no longer assign a compose step that is already done. Q1 publish.md cannot be force-stubbed.
 - Run 259: publish.md no longer needs a human to compose the description. The human still must check Description edited and First comment approved. Agent must not check those boxes.

@@ -582,6 +582,7 @@ def main() -> int:
     failures.extend(check_q1_board_not_record())
     failures.extend(check_q1_publish_draft_locked())
     failures.extend(check_caption_align_fail_closed())
+    failures.extend(check_caption_review_fail_closed())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")
@@ -647,6 +648,51 @@ def check_caption_align_fail_closed() -> list[str]:
         if "Whisper" in text:
             failures.append("caption_align srt must not claim Whisper")
     return failures
+
+def check_caption_review_fail_closed() -> list[str]:
+    failures: list[str] = []
+    import tempfile
+    from caption_review import build
+
+    with tempfile.TemporaryDirectory() as tmp:
+        packet = Path(tmp) / "videos" / "009-caption-review"
+        packet.mkdir(parents=True)
+        try:
+            build(packet)
+            failures.append("caption_review must refuse a missing srt")
+        except FileNotFoundError as exc:
+            if "REFUSE" not in str(exc):
+                failures.append(f"caption_review refuse should say REFUSE: {exc}")
+        srt = packet / "captions.srt"
+        srt.write_text(
+            "1\n00:00:00,000 --> 00:00:01,200\nShort line.\n\n"
+            "2\n00:00:01,200 --> 00:00:03,000\n"
+            "This line is definitely longer than forty two characters.\n\n",
+            encoding="utf-8",
+        )
+        try:
+            review, info = build(packet)
+        except Exception as exc:  # noqa: BLE001
+            failures.append(f"caption_review should draft a sheet: {exc}")
+            return failures
+        if info.get("approval") is not False:
+            failures.append("caption_review must not approve")
+        if "- [x]" in review:
+            failures.append("caption_review must not check a box")
+        if "not an approval" not in review:
+            failures.append("caption_review must label itself not an approval")
+        if info.get("flagged", 0) < 1:
+            failures.append("caption_review should flag an overlong line")
+    q1 = Path(__file__).resolve().parents[1] / "videos" / "002-stop-deciding-what-to-work-on-every-morning" / "captions.md"
+    if q1.is_file():
+        body = q1.read_text(encoding="utf-8")
+        if "do not invent one here" in body:
+            failures.append("Q1 captions.md still assigns inventing the srt")
+        if "captions_review.md" not in body:
+            failures.append("Q1 captions.md must point at the spot-check sheet")
+    return failures
+
+
 
 
 if __name__ == "__main__":

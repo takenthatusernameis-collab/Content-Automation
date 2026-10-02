@@ -24,15 +24,16 @@ Repo-root `vo/` is not Selected VO. Cues below are script-derived, not take-alig
 - 04:40–06:00  Beat 4 —  (201w) — Run it for one workday as a closed loop. Tonight, pick the verb from work that is already open, not from a fantasy week. Write it on the surface. Put the list away. Sleep. Tomorrow, sit down and start the sentence before mail, chat, or the board. Use a two-minute timer if you need a fence. When the timer ends you may continue the same verb. You may not open the inventory to hunt a better feeling. If the sentence was wrong, replace it in writing after those two minutes, then start the new verb. Do not replace it in your head while scrolling titles. The replacement must land on the same surface. At shutdown, write tomorrow's sentence before you close the machine. That is the whole system. No new app. No extra review meeting. The weekly plan can stay where it is. The morning reads one line. After three mornings, look only at this: did you start the written verb before you reopened the list. If yes, keep the surface. If no, the surface is still losing to a list. Move the card closer to the first glance and make the sentence smaller. Do not add a second board.
 - 06:00–06:21  CTA  (51w) — Before you stand up, write one next-action sentence for tomorrow: verb, object, place. Put it on one surface you will see before any list. Add the stop rule: do not open the weekly list until that sentence is done or rewritten. That is the default. Use it in the morning.
 
-## Export names (when a human makes real captions)
+## Export names
 - Working text: `videos/002-stop-deciding-what-to-work-on-every-morning/captions.md` (this file)
-- Timed file later: `videos/002-stop-deciding-what-to-work-on-every-morning/captions.srt` (do not invent one here)
+- Timed draft: `videos/002-stop-deciding-what-to-work-on-every-morning/captions.srt` (Run 261 silence-proportional; lines wrapped to 42 characters in Run 262). Do not invent a second srt.
+- Spot-check sheet: `videos/002-stop-deciding-what-to-work-on-every-morning/captions_review.md` (five checkpoints; not an approval)
 - Selected VO drop from repo root: `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
 - VO path rules: `docs/narration.md`
 
 ## Human
-- [ ] Spot-check captions.srt against the selected VO take at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
-- [ ] Fix wording that was spoken differently than script.md
-- [ ] Split long lines for on-screen readability
+- [ ] Spot-check the five checkpoints in captions_review.md against the selected VO take. Do not re-read all 103 cues unless a checkpoint mismatches.
+- [ ] Fix wording only if a checkpoint was spoken differently than script.md
+- [x] Long lines wrapped to 42 characters (Run 262). Do not split again unless a line grew.
 - [ ] Do not upload estimated times as final captions
 - [ ] Do not invent a wav or treat repo-root `vo/` as Selected VO

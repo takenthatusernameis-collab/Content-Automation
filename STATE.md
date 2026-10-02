@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T04:15:00Z (Run 262)
+Updated: 2026-10-02T05:20:00Z (Run 263)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -16,6 +16,12 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Durable fetch: private release `q1-media-r253` (padded master) plus r249 wav/cards and Drive folder in HANDOFF.md
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Executive: SHIP after a human checks the two open publish.md boxes and YouTube OAuth. Do not re-encode. Do not upload r249. Do not expand architecture. Do not check those boxes from an agent run.
+
+## Run 263 delta
+- Added tools/caption_review.py. It writes captions_review.md from an existing captions.srt: five checkpoints plus duration/line/rate flags. Missing srt refuses. It does not regenerate timings and does not check boxes.
+- Q1 captions_review.md written (103 cues, 0 flagged). captions.md no longer tells a human to invent the srt or split lines already wrapped. Spot-check box stays open.
+- selftest locks the refuse, the no-approval rule, and the Q1 pointer. selftest PASS in this checkout.
+- Did not check publish boxes. Did not re-encode. Did not upload. Did not scaffold Q2.
 
 ## Run 262 delta
 - Dry-run uploader now carries captions.srt as a local track (present, cue count, sha256) and always sets uploaded=false. It still never calls videos.insert or captions.insert.

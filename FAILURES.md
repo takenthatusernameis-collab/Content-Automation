@@ -1,5 +1,10 @@
 # FAILURES
 
+## Run 263 — caption page still assigned inventing the srt
+- **Tried:** Run 261 wrote captions.srt and Run 262 wrapped lines, but captions.md still said invent the timed file and split long lines.
+- **Result:** captions_review.md is the human path (five checkpoints). The invent-srt line is gone. Spot-check stays unchecked.
+- **Avoid:** Another run that only reprints the publish hold. Checking the spot-check or publish boxes from an agent run. Regenerating the srt while the wav checksum matches.
+
 ## Run 261 — caption timing left as a blank task
 - **Tried:** Runs 254-260 kept restating the publish hold. captions.md still said do not invent an SRT, so every future video would need a human to time 900+ words.
 - **Result:** caption_align.py writes a labeled draft from the DROP wav. Q1 captions.srt exists. Approval stays unchecked.

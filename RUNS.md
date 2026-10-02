@@ -1,5 +1,17 @@
 # RUNS
 
+## 2026-10-02T05:20:00Z — Run 263
+
+- **Objective:** Cut the remaining caption review from a full SRT read to a reusable checkpoint sheet, without approving it.
+- **Inspected:** STATE/NEXT/RUNS after Run 262. Q1 captions.srt exists (103 cues, lines wrapped). captions.md still said invent the srt and split long lines. Publish boxes still open. OAuth still absent.
+- **Action taken:** Added tools/caption_review.py and wrote videos/002-stop-deciding-what-to-work-on-every-morning/captions_review.md (5 checkpoints, 0 flagged). Pointed captions.md at that sheet and marked the wrap step done. Did not check the spot-check box or publish boxes. Did not re-encode. Did not upload. Did not scaffold Q2.
+- **Result:** Human caption work is listen-to-five-checkpoints, not compose or retime. Estimated human minutes 1.4 -> 1.2. Automated steps 101 -> 102. Videos published stay 0. Packet status stays ready_for_vo.
+- **Verification status:** `python3 tools/selftest.py` printed SELFTEST PASS in this checkout. caption_review.py wrote the sheet and printed approval=False. Box check not claimed.
+- **Important discovery:** After the srt existed, captions.md still assigned inventing it and splitting lines. That is the same stale-instruction pattern as the deleted description stub.
+- **Blocker:** Human must check the two open publish boxes and spot-check the five caption checkpoints. YouTube OAuth still absent.
+- **Recommended next action:** Human reviews publish.md and captions_review.md checkpoints. Copy q1-master-r253.mp4 only onto export/master.mp4. Set OAuth. Do not record. Do not restore invent-the-srt.
+
+
 ## 2026-10-02T04:15:00Z — Run 262
 
 - **Objective:** Remove the last mechanical caption edit and stop a future upload step from losing the draft track.
