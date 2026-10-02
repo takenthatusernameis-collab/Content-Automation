@@ -1,3 +1,8 @@
+Updated: 2026-10-02T07:50:00Z
+
+## Run 268
+Selftest runner dependency fixed: GitHub Actions now installs ffmpeg, and Selftest Run 8 passed. Repository-side validation is green. No video published; provider authorization and runtime media access remain external.
+
 Updated: 2026-10-02T07:55:00Z
 
 ## Run 267
