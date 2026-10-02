@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T08:00:00Z (Run 269)
+Updated: 2026-10-02T08:22:00Z (Run 270)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -23,6 +23,14 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Thumbnail and caption approval remain evidence-gated because the connector cannot access the private binary/audio artifacts for sensory review.
 - Live YouTube upload is blocked only by the external provider-credential boundary and runtime access to the verified media set; the authenticated adapter is built.
 - No media was fabricated, re-encoded, or uploaded.
+
+
+## Run 270 delta
+- The production workflow's first dispatch (run 36982959831) failed because materialize aborted when r249 included the truncated master. Commit 9416aae ignores that known sha and still refuses installing it.
+- Second dispatch (run 36983196381) succeeded: materialize printed `ignored known-truncated r249 q1-master.mp4; installing r253 master only`. Upload step skipped. Dry-run gates passed except `oauth_complete` (empty YouTube secrets). No video was uploaded.
+- Local materialize in this checkout also installed VO sha `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2` and master sha `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546` (328.40s). Media stayed gitignored.
+- selftest now requires `ignore_truncated_r249_master` so the presence-only abort cannot return unnoticed.
+- Remaining external gate: GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`, then workflow_dispatch with execute=true. Do not re-encode.
 
 ## Run 269 delta
 - Added `.github/workflows/youtube-production.yml` as the external runtime path for the existing YouTube adapter.

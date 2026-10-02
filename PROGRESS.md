@@ -1,3 +1,7 @@
+## Run 270 — 2026-10-02T08:22:00Z
+- Production workflow dry-run is now externally verified after the truncated-master skip. Actions run 36983196381 succeeded. Videos published stay 0.
+- Automated materialize is no longer blocked by the expected r249 asset. Remaining publish gate is OAuth secrets only.
+
 Updated: 2026-10-02T07:50:00Z
 
 ## Run 268

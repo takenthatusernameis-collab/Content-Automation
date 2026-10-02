@@ -1,5 +1,7 @@
 # NEXT
 
+Run 270: production workflow dispatch 36983196381 succeeded (materialize skipped truncated r249 master; execute skipped; oauth_complete failed on empty secrets). Do not re-encode. Next external step is the three YouTube Actions secrets, then execute=true.
+
 Do these in order. Stop only when required evidence is unavailable or a genuine external authorization/credential boundary is reached. Approval-only decisions are delegated to the agent.
 
 1. **Highest value:** Do not record or regenerate Q1. Do not re-encode. Do not upload `q1-media-r249` `q1-master.mp4` (truncated, 308.40s, sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53`). Finished local export is private release `q1-media-r253` asset `q1-master-r253.mp4` (328.40s, sha256 `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546`). Fetch with `gh release download q1-media-r253 --repo takenthatusernameis-collab/Content-Automation -D /tmp/q1-media-r253`. Place that file at `videos/002-stop-deciding-what-to-work-on-every-morning/export/master.mp4` only as a local copy. Wav and PNGs come from `q1-media-r249` only. Do not `git add -f`.

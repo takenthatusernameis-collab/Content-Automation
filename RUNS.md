@@ -1,3 +1,14 @@
+## 2026-10-02T08:22:00Z — Run 270
+
+- **Objective:** Confirm the Q1 materializer no longer blocks the production workflow, and lock that behavior.
+- **Inspected:** Actions runs 36982959831 (failure) and 36983196381 (success), `tools/materialize_q1_release.py`, STATE/NEXT.
+- **Action taken:** Did not reopen the already-landed skip fix (9416aae). Added a selftest requirement for `ignore_truncated_r249_master`. Recorded local and Actions evidence.
+- **Result:** Workflow materialize succeeds and skips the truncated r249 master. Dry-run upload gates pass except missing OAuth. Videos published stay 0.
+- **Verification status:** completed for materialize and dry-run. Actions run https://github.com/takenthatusernameis-collab/Content-Automation/actions/runs/36983196381 succeeded. Execute step skipped. Local master sha matched `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546`.
+- **Important discovery:** The first production dispatch failed on an expected release asset, not on OAuth. Treating that as a credential problem would have hidden the bug.
+- **Blocker:** YouTube OAuth secrets are unset in Actions (`oauth_complete` FAIL).
+- **Recommended next action:** Add the three YouTube secrets, then dispatch `youtube-production` with execute=true. Do not re-encode. Do not upload the r249 master.
+
 ## 2026-10-02T08:00:00Z — Run 269
 
 - **Objective:** Convert the repository-side YouTube implementation into a genuine external runtime without moving secrets into Git.
