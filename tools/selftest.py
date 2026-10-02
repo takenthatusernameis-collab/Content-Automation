@@ -265,6 +265,13 @@ def check_upload_fail_closed() -> list[str]:
             failures.append(f"upload captions note missing, got {caps}")
         if "captions.insert" not in src:
             failures.append("upload adapter must keep captions.insert uncalled")
+        thumbs = body.get("local", {}).get("thumbnail") or {}
+        if thumbs.get("uploaded") is not False:
+            failures.append("upload dry-run must not claim the thumbnail was uploaded")
+        if "thumbnails.set is not called" not in str(thumbs.get("note", "")):
+            failures.append(f"upload thumbnail note missing, got {thumbs}")
+        if "thumbnails.set" not in src:
+            failures.append("upload adapter must keep thumbnails.set uncalled")
 
         (p / "publish.md").write_text(
             "## Title to upload\n\nFixture title\n\n"
@@ -584,6 +591,7 @@ def main() -> int:
     failures.extend(check_caption_align_fail_closed())
     failures.extend(check_caption_review_fail_closed())
     failures.extend(check_chapter_draft_fail_closed())
+    failures.extend(check_thumbnail_draft_fail_closed())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")
@@ -748,6 +756,52 @@ def check_caption_review_fail_closed() -> list[str]:
             failures.append("Q1 captions.md must point at the spot-check sheet")
     return failures
 
+
+
+
+def check_thumbnail_draft_fail_closed() -> list[str]:
+    failures = []
+    import tempfile
+    from thumbnail_draft import build
+
+    with tempfile.TemporaryDirectory() as tmp:
+        packet = Path(tmp) / "videos" / "009-thumb-fixture"
+        packet.mkdir(parents=True)
+        try:
+            build(packet)
+            failures.append("thumbnail_draft must refuse a missing brief")
+        except SystemExit as exc:
+            if "REFUSE:" not in str(exc):
+                failures.append(f"thumbnail_draft refuse should say REFUSE: {exc}")
+        (packet / "thumbnail.md").write_text("# Thumbnail\n\nOn-image text: One Written Default\n", encoding="utf-8")
+        try:
+            info = build(packet)
+        except SystemExit as exc:
+            failures.append(f"thumbnail_draft should render: {exc}")
+            info = {}
+        if info.get("approval") is not False:
+            failures.append("thumbnail_draft must not approve")
+        if info.get("uploaded") is not False:
+            failures.append("thumbnail_draft must not claim upload")
+        if info.get("width") != 1280 or info.get("height") != 720:
+            failures.append(f"thumbnail_draft size drift: {info}")
+        review = packet / "thumbnail_review.md"
+        if review.is_file() and "- [x]" in review.read_text(encoding="utf-8"):
+            failures.append("thumbnail_review must not check a box")
+        png = packet / "thumbnail.png"
+        if not png.is_file() or png.stat().st_size < 1000:
+            failures.append("thumbnail_draft png missing")
+    q1 = Path(__file__).resolve().parents[1] / "videos" / "002-stop-deciding-what-to-work-on-every-morning"
+    sheet = q1 / "thumbnail_review.md"
+    if sheet.is_file():
+        raw = sheet.read_text(encoding="utf-8")
+        if "approval: false" not in raw:
+            failures.append("Q1 thumbnail review must stay unapproved")
+        if "- [x]" in raw:
+            failures.append("Q1 thumbnail review must not check a box")
+        if not (q1 / "thumbnail.png").is_file():
+            failures.append("Q1 thumbnail.png missing beside the review")
+    return failures
 
 
 

@@ -267,7 +267,28 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
         "action": action,
         "prior": prior,
         "captions": caption_track(packet),
+        "thumbnail": thumbnail_track(packet),
         "generated": _now(),
+    }
+
+
+
+def thumbnail_track(packet: Path) -> dict:
+    """Local thumbnail draft for a later thumbnails.set. This adapter never uploads it."""
+    path = packet / "thumbnail.png"
+    if not path.is_file():
+        return {
+            "path": "thumbnail.png",
+            "present": False,
+            "uploaded": False,
+            "note": "missing draft; thumbnails.set is not called",
+        }
+    return {
+        "path": "thumbnail.png",
+        "present": True,
+        "sha256": file_sha256(path),
+        "uploaded": False,
+        "note": "draft only; not a design sign-off; thumbnails.set is not called",
     }
 
 
@@ -317,6 +338,12 @@ def request_body(report: dict) -> dict:
                 "uploaded": False,
                 "note": "captions.insert is not called",
             },
+            "thumbnail": report.get("thumbnail") or {
+                "path": "thumbnail.png",
+                "present": False,
+                "uploaded": False,
+                "note": "thumbnails.set is not called",
+            },
         },
     }
 
@@ -358,6 +385,11 @@ def render_text(report: dict) -> str:
         "an API key alone is not upload authorization",
         "a junk export/master.mp4 is not a master",
         "captions.srt is a draft track only; this adapter never calls captions.insert",
+        "thumbnail: {path} present={present} uploaded=no".format(
+            path=(report.get("thumbnail") or {}).get("path", "thumbnail.png"),
+            present="yes" if (report.get("thumbnail") or {}).get("present") else "no",
+        ),
+        "thumbnail.png is a draft only; this adapter never calls thumbnails.set",
     ]
     for c in report["checks"]:
         mark = "PASS" if c["ok"] else "FAIL"

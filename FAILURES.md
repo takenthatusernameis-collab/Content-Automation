@@ -1,5 +1,10 @@
 # FAILURES
 
+## Run 265 — thumbnail left as a brief only
+- **Tried:** Runs 254-264 restated the publish hold after the description, captions, and chapters existed. thumbnail.md already had the on-image line. No PNG, and the uploader could not name one.
+- **Result:** thumbnail_draft.py writes thumbnail.png and an unapproved review. Q1 card committed. thumbnails.set stays uncalled.
+- **Avoid:** Another run that only reprints the publish hold. Checking the design or publish boxes from an agent run. Regenerating the PNG while the on-image text matches. Calling the card a design sign-off.
+
 ## Run 264 — chapter timestamps left unassigned
 - **Tried:** Runs 254-263 kept restating the publish hold after the description, captions, and spot-check sheet already existed. No chapter list was drafted.
 - **Result:** chapter_draft.py writes chapters.md. Q1 lines are in the description draft. Approval stays unchecked.

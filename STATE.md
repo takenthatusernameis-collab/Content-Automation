@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T06:16:00Z (Run 264)
+Updated: 2026-10-02T07:20:00Z (Run 265)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -16,6 +16,12 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Durable fetch: private release `q1-media-r253` (padded master) plus r249 wav/cards and Drive folder in HANDOFF.md
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Executive: SHIP after a human checks the two open publish.md boxes and YouTube OAuth. Do not re-encode. Do not upload r249. Do not expand architecture. Do not check those boxes from an agent run.
+
+## Run 265 delta
+- Added tools/thumbnail_draft.py. It renders a 1280x720 PNG from thumbnail.md on-image text. Missing or over-long text refuses. It does not check boxes and does not call thumbnails.set.
+- Q1 thumbnail.png written (One Written Default). thumbnail_review.md says approval false. Dry-run uploader lists the file and sets uploaded=false.
+- selftest locks the refuse, the size, the open review, and the no-upload claim. selftest PASS in this checkout.
+- Did not check publish boxes. Did not re-encode. Did not upload. Did not scaffold Q2.
 
 ## Run 264 delta
 - Added tools/chapter_draft.py. It drafts YouTube chapter lines from script WORDS matched to captions.srt. Missing srt refuses. It does not edit publish.md and does not check boxes.
@@ -48,8 +54,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 1.2 | 1.1 | chapter lines drafted into the description; publish boxes and OAuth remain |
-| Automated steps | 102 | 103 | chapter draft from script + srt; videos.insert still not called |
+| Estimated human min / video | 1.1 | 1.0 | thumbnail PNG drafted; publish boxes, caption spot-check, and OAuth remain |
+| Automated steps | 103 | 104 | thumbnail PNG from the brief; videos.insert and thumbnails.set still not called |
 | Videos produced | 0 | 0 | padded local master on q1-media-r253; not uploaded |
 
 ## Active constraints
@@ -64,3 +70,5 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not check Description edited or First comment approved from an agent run
 - Do not restore the stub sentence `No upload happened` into publish.md
 - Do not tell the operator to delete that sentence; it is already gone
+- Do not regenerate thumbnail.png while the on-image text is unchanged
+- Do not call thumbnails.set or treat thumbnail_review.md as a checked design box

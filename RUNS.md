@@ -1,5 +1,16 @@
 # RUNS
 
+## 2026-10-02T07:20:00Z — Run 265
+
+- **Objective:** Stop leaving the thumbnail as a text brief after the on-image line was already locked.
+- **Inspected:** STATE/NEXT/RUNS/FAILURES after Run 264. Publish boxes still open. OAuth still absent. thumbnail.md already had a 3-word line. No PNG. Uploader did not name a thumbnail.
+- **Action taken:** Added tools/thumbnail_draft.py. Wrote thumbnail.png (1280x720) and thumbnail_review.md with approval false. Dry-run uploader lists the file and sets uploaded=false. Did not check boxes. Did not re-encode. Did not upload. Did not scaffold Q2.
+- **Result:** Future packets can draft a thumbnail card without a design pass. Estimated human minutes 1.1 -> 1.0. Automated steps 103 -> 104. Videos published stay 0. Packet status stays ready_for_vo.
+- **Verification status:** python3 tools/selftest.py printed SELFTEST PASS. thumbnail_draft.py printed THUMBNAIL_DRAFT words=3 size=1280x720 approval=False uploaded=False. SHA256 54a283e341cb2c2009574edd32f71d02d7bcba1777170ea5a4ef4bcefc5b69c8. Box check not claimed.
+- **Important discovery:** Runs 254-264 kept circling the same human boxes. The unblocked gap was the missing thumbnail file the upload adapter could not even name.
+- **Blocker:** Human must check the two open publish boxes, spot-check the five caption checkpoints, and confirm thumbnail readability. YouTube OAuth still absent.
+- **Recommended next action:** Human reviews publish.md, captions_review.md, and thumbnail.png. Copy q1-master-r253.mp4 only onto export/master.mp4. Set OAuth. Do not record. Do not regenerate the thumbnail while the on-image text matches.
+
 ## 2026-10-02T06:16:00Z — Run 264
 
 - **Objective:** Stop leaving YouTube chapter timestamps as an unassigned human compose step after captions.srt already existed.

@@ -1,4 +1,7 @@
-Updated: 2026-10-02T06:16:00Z
+Updated: 2026-10-02T07:20:00Z
+
+## Run 265
+Q1 thumbnail.png drafted from the locked on-image line (1280x720). Review stays unapproved. Uploader names it and sets uploaded=false. Automated steps 104. Videos published 0.
 
 ## Run 264
 Q1 chapter lines drafted from script + captions.srt (6 chapters) and copied into publish.md. Boxes stay open. Automated steps 103. Videos published 0.
@@ -18,6 +21,7 @@ Stale "delete No upload happened" instructions removed from pipeline_status, gat
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-10-02 Run 265 | ~1.0 estimate | 104 | thumbnail PNG drafted; two publish boxes, caption spot-check, and OAuth remain |
 | 2026-10-02 Run 264 | ~1.1 estimate | 103 | chapter lines drafted into the description; two publish boxes and OAuth remain |
 | 2026-10-02 Run 263 | ~1.2 estimate | 102 | caption review is five checkpoints; two publish boxes and OAuth remain |
 | 2026-10-02 Run 261 | ~1.5 estimate | 101 | caption draft from Selected VO; two publish boxes and OAuth remain |
@@ -29,6 +33,7 @@ Stale "delete No upload happened" instructions removed from pipeline_status, gat
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 265: thumbnail_draft.py writes a non-approving 1280x720 PNG from thumbnail.md. Q1 file committed. Dry-run never calls thumbnails.set.
 - Run 264: chapter_draft.py writes a non-approving YouTube chapter list from script WORDS and captions.srt. Q1 lines committed into chapters.md and the description draft.
 - Run 263: caption_review.py writes a non-approving spot-check sheet from an existing srt. Q1 sheet committed. Human listens to checkpoints instead of all cues.
 - Run 261: caption_align.py drafts captions.srt from packet DROP wav speech gaps and script WORDS. Refuses a missing wav. Not ASR. Q1 draft committed; spot-check stays open.
