@@ -23,7 +23,7 @@
 55. ffmpeg `--execute` after one packet has VO + cards and assemble.py prints READY_TO_ENCODE
 56. YouTube upload after packet QA passes AND youtube_upload.py is no longer YOUTUBE_AUTH_REQUIRED
 56b. Live Analytics/comment fetch after a real provider_video_id exists AND youtube_feedback.py is no longer YOUTUBE_AUTH_REQUIRED / HOLD_UNPUBLISHED
-56c. Compare-and-decide after experiment_loop.py sees real metrics and a documented baseline
+56c. Compare-and-decide after experiment_loop.py sees real metrics and a documented baseline. Run 271: collected feedback_state.json is now visible; baseline and decision still required.
 56d. Mark COMPLETE only after `tools/complete.py` prints gate COMPLETE with real evidence
 
 ## Not yet
@@ -58,5 +58,5 @@
 60. **Full media QA gate** — READY_FOR_MEDIA (Run 216 header + Run 223 levels + Run 224 export ftyp). Remaining: live VO/card files on the gate machine; ffmpeg stream probe after a real encode.
 61. **Credential-ready YouTube uploader** — READY_FOR_CREDENTIAL (Run 217 youtube_upload.py; Run 225 ftyp). Remaining: local master with ftyp + OAuth env; live videos.insert still NOT_BUILT.
 62. **YouTube feedback ingestion** — READY_FOR_CREDENTIAL (Run 219 youtube_feedback.py). Remaining: published video ID + OAuth env; live Analytics/comment fetch still NOT_BUILT.
-63. **Experiment/improvement loop** — PLAN_BUILT (Run 220 experiment_loop.py). Remaining: real metrics + documented baseline before keep/discard. Selftest lock on HEAD (Run 222).
+63. **Experiment/improvement loop** — PLAN_BUILT (Run 220 experiment_loop.py). Run 271 reads collected feedback_state.json only. Remaining: a real fetch plus a documented baseline before keep/discard. Selftest lock on HEAD (Run 222).
 64. **Completion gate** — PLAN_BUILT (Run 221 complete.py). Remaining: real VO, cards, master with ftyp, publish ID, metrics, and experiment result before COMPLETE. Selftest lock on HEAD (Run 222).

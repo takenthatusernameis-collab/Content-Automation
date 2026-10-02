@@ -20,6 +20,7 @@ if str(TOOLS) not in sys.path:
 
 from render_brief import selected_vo_drop  # noqa: E402
 from youtube_feedback import (  # noqa: E402
+    collected_metrics,
     inspect_feedback,
     load_upload_state,
     provider_video_id,
@@ -55,14 +56,14 @@ def inspect_experiment(
     feedback = inspect_feedback(packet, env=env, now=now)
     upload = load_upload_state(packet)
     video_id = provider_video_id(upload)
-    metrics = feedback.get("metrics")
+    metrics, metrics_detail = collected_metrics(packet, video_id)
     checks = []
 
     def add(name: str, ok: bool, detail: str) -> None:
         checks.append({"name": name, "ok": ok, "detail": detail})
 
     add("provider_video_id_present", bool(video_id), video_id or "no provider_video_id")
-    add("metrics_present", metrics is not None, "metrics stay empty until a live report exists")
+    add("metrics_present", metrics is not None, metrics_detail)
     add("no_invented_result", True, "result stays pending without comparable evidence")
     add("single_variable", True, "one material change per experiment when practical")
 
@@ -94,6 +95,7 @@ def inspect_experiment(
             "do not treat a single early outlier as a keep decision",
         ],
         "baseline": None,
+        "observed_metrics": metrics,
         "result": None,
         "decision": decision,
         "allowed_decisions": list(ALLOWED_DECISIONS),

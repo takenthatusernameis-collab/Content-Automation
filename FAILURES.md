@@ -1,5 +1,12 @@
 # FAILURES
 
+## Run 271 — collected feedback was invisible to the learning gates
+- **Tried:** Runs 219-220 built dry-run feedback and experiment adapters. `inspect_feedback()` always left metrics None, and both `experiment_loop.py` and `complete.py` used that field.
+- **Evidence:** Local inspection of those functions. A COLLECTED `feedback_state.json` was not an input. Selftest only covered the empty-metrics hold.
+- **Result:** `collected_metrics()` is the only evidence path. Mismatched ids and dry-run files stay HOLD_NO_EVIDENCE. Matching collected rows are READY_TO_COMPARE and still pending.
+- **Avoid:** Reading `inspect_feedback()["metrics"]` as observed evidence. Inventing a keep/discard because a fetch exists. Another run that only reprints the OAuth hold.
+
+
 ## Run 270 — materialize aborted because the banned master was present
 - **Tried:** Run 269 added a workflow_dispatch production path and assumed `tools/materialize_q1_release.py` could fetch r249 wav/cards plus the r253 master.
 - **Evidence:** GitHub Actions run 36982959831 (job 110761451601) failed at Materialize verified Q1 media with `RuntimeError: refuse known-truncated r249 q1-master.mp4`. The Actions token downloaded the release. The guard treated the expected banned asset as a fatal fetch error before copying wav, cards, or the r253 master.

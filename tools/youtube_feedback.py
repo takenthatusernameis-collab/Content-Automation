@@ -81,6 +81,40 @@ def load_upload_state(packet: Path) -> dict | None:
     return data if isinstance(data, dict) else None
 
 
+def load_feedback_state(packet: Path) -> dict | None:
+    path = packet / STATE_NAME
+    if not path.is_file():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def collected_metrics(packet: Path, video_id: str | None) -> tuple[list | None, str]:
+    """Return metrics only from a collected fetch for this video id.
+
+    Dry-run files, mismatched ids, and missing attempted_fetch stay empty.
+    Never invents a row.
+    """
+    if not video_id:
+        return None, "no provider_video_id"
+    state = load_feedback_state(packet)
+    if not state:
+        return None, "missing feedback_state.json"
+    if state.get("gate") != "COLLECTED" or state.get("attempted_fetch") is not True:
+        return None, "feedback_state is not a collected fetch"
+    if str(state.get("provider_video_id") or "").strip() != video_id:
+        return None, "feedback_state video id does not match upload_state"
+    metrics = state.get("metrics")
+    if not isinstance(metrics, list) or not metrics:
+        return None, "collected fetch has no metric rows"
+    if not all(isinstance(row, dict) and row for row in metrics):
+        return None, "collected metric rows are not objects"
+    return metrics, f"{len(metrics)} collected row(s) for {video_id}"
+
+
 def provider_video_id(state: dict | None) -> str | None:
     if not state:
         return None

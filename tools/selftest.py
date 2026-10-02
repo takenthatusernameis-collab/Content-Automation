@@ -373,6 +373,32 @@ def check_experiment_fail_closed() -> list[str]:
             )
         if (report2.get("record") or {}).get("result") is not None:
             failures.append("experiment must not invent a keep/discard from empty metrics")
+        (p / "feedback_state.json").write_text(
+            '{"gate":"COLLECTED","attempted_fetch":true,"provider_video_id":"other","metrics":[{"views":1}]}\n',
+            encoding="utf-8",
+        )
+        report3 = inspect_experiment(p, env={})
+        if report3["gate"] != "HOLD_NO_EVIDENCE":
+            failures.append(
+                f"mismatched feedback video id must stay HOLD_NO_EVIDENCE, got {report3['gate']}"
+            )
+        if (report3.get("record") or {}).get("result") is not None:
+            failures.append("mismatched feedback must not invent a result")
+        (p / "feedback_state.json").write_text(
+            '{"gate":"COLLECTED","attempted_fetch":true,"provider_video_id":"abc123","metrics":[{"views":4,"averageViewPercentage":32.0}]}\n',
+            encoding="utf-8",
+        )
+        report4 = inspect_experiment(p, env={})
+        if report4["gate"] != "READY_TO_COMPARE":
+            failures.append(
+                f"collected matching metrics must be READY_TO_COMPARE, got {report4['gate']}"
+            )
+        if report4.get("action") != "COMPARE_BLOCKED_NO_BASELINE":
+            failures.append(f"collected metrics must not decide, got {report4.get('action')}")
+        if (report4.get("record") or {}).get("result") is not None:
+            failures.append("collected metrics must not invent a keep/discard")
+        if (report4.get("record") or {}).get("observed_metrics") != [{"views": 4, "averageViewPercentage": 32.0}]:
+            failures.append("collected metrics were not passed through")
     return failures
 
 

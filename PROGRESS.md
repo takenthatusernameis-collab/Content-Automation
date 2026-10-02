@@ -1,3 +1,7 @@
+## Run 271 — 2026-10-02T09:15:00Z
+- Experiment and completion gates now read collected feedback metrics instead of the always-empty dry-run field. A real fetch will no longer look like HOLD_NO_EVIDENCE forever.
+- Local selftest passed. Videos published stay 0. OAuth secrets remain the publish boundary.
+
 ## Run 270 — 2026-10-02T08:22:00Z
 - Production workflow dry-run is now externally verified after the truncated-master skip. Actions run 36983196381 succeeded. Videos published stay 0.
 - Automated materialize is no longer blocked by the expected r249 asset. Remaining publish gate is OAuth secrets only.
@@ -38,6 +42,7 @@ Stale "delete No upload happened" instructions removed from pipeline_status, gat
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-10-02 Run 271 | ~0.5 estimate | 106 | collected feedback visible to experiment/complete; OAuth still blocks publish |
 | 2026-10-02 Run 265 | ~1.0 estimate | 104 | thumbnail PNG drafted; two publish boxes, caption spot-check, and OAuth remain |
 | 2026-10-02 Run 264 | ~1.1 estimate | 103 | chapter lines drafted into the description; two publish boxes and OAuth remain |
 | 2026-10-02 Run 263 | ~1.2 estimate | 102 | caption review is five checkpoints; two publish boxes and OAuth remain |

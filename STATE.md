@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T08:18:05Z (Run 270)
+Updated: 2026-10-02T09:15:00Z (Run 271)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -18,6 +18,12 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture.
 
+## Run 271 delta
+- OAuth secrets remain unset. Execute was not dispatched. Videos published stay 0.
+- `experiment_loop.py` and `complete.py` now read metrics only from a collected `feedback_state.json` whose video id matches `upload_state.json`.
+- A dry-run or mismatched feedback file stays HOLD_NO_EVIDENCE. Collected metrics become READY_TO_COMPARE / INCOMPLETE_LEARNING and still do not invent a keep/discard.
+- Selftest passed locally after the change.
+
 ## Run 270 delta
 - Dispatched the production workflow. First run 36982959831 failed because materialize treated the expected truncated r249 master as fatal.
 - Guard now ignores that known sha, refuses an unexpected r249 master sha, and still refuses installing the banned sha as export/master.mp4.
@@ -27,8 +33,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 1.0 | 0.5 | local publish gates passed on Actions; only OAuth secret entry remains before a private upload |
-| Automated steps | 104+ | 105 | verified Actions materialize + dry-run |
+| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; post-upload evidence path no longer drops collected metrics |
+| Automated steps | 105 | 106 | collected feedback is visible to experiment and complete gates |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
