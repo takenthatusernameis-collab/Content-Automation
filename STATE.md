@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T02:12:00Z (Run 260)
+Updated: 2026-10-02T03:20:00Z (Run 261)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,10 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Executive: SHIP after a human checks the two open publish.md boxes and YouTube OAuth. Do not re-encode. Do not upload r249. Do not expand architecture. Do not check those boxes from an agent run.
 
+## Run 261 delta
+- Added tools/caption_align.py. It drafts captions.srt from Selected VO speech gaps and script WORDS. Missing wav refuses. Not ASR. Not an approval.
+- Q1 captions.srt written (103 cues, 941 words, speech 208.38s of 308.40s). Human spot-check box stays open. Did not check publish boxes. Did not re-encode. Did not upload. Did not scaffold Q2.
+
 ## Run 260 delta
 - Operator pages and pipeline_status still told a human to delete `No upload happened` after Run 259 removed that sentence. Those pointers now name the two open boxes and forbid restoring the stub.
 - publish_brief refuses the Q1 packet so `--force` cannot overwrite the drafted description with the stub.
@@ -26,8 +30,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 1.5 | 1.5 | review drafted description and check two boxes; OAuth still manual |
-| Automated steps | 100 | 100 | no new production step; stale compose instruction removed from remaining printers |
+| Estimated human min / video | 1.5 | 1.5 | caption draft no longer a blank timing task; publish boxes and OAuth still manual |
+| Automated steps | 100 | 101 | caption draft from wav speech gaps; publish boxes and OAuth still manual |
 | Videos produced | 0 | 0 | padded local master on q1-media-r253; not uploaded |
 
 ## Active constraints

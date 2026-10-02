@@ -571,6 +571,7 @@ def main() -> int:
     failures.extend(check_timeline_card_match())
     failures.extend(check_q1_board_not_record())
     failures.extend(check_q1_publish_draft_locked())
+    failures.extend(check_caption_align_fail_closed())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")
@@ -586,6 +587,56 @@ def main() -> int:
     print("SELFTEST PASS")
     print("This command writes nothing.")
     return 0
+
+
+
+def check_caption_align_fail_closed() -> list[str]:
+    """Draft SRT requires a wav and must not invent cues without one."""
+    import wave
+    import struct
+    from caption_align import build
+
+    failures: list[str] = []
+    with tempfile.TemporaryDirectory() as tmp:
+        packet = Path(tmp) / "videos" / "009-caption-fixture"
+        # build() uses packet/vo when present; script lives beside it.
+        packet = Path(tmp) / "009-caption-fixture"
+        (packet / "vo").mkdir(parents=True)
+        script = (
+            "# Script\n\n"
+            "## Hook\n\nWORDS: One next action.\n\n"
+            "## CTA\n\nWORDS: Write the sentence tonight.\n"
+        )
+        (packet / "script.md").write_text(script, encoding="utf-8")
+        try:
+            build(packet)
+            failures.append("caption_align must refuse a missing wav")
+        except FileNotFoundError as exc:
+            if "REFUSE" not in str(exc):
+                failures.append(f"caption_align refuse should say REFUSE: {exc}")
+        wav = packet / "vo" / "009-caption-fixture-take-selected.wav"
+        rate = 8000
+        def tone(seconds: float, amp: int) -> bytes:
+            n = int(rate * seconds)
+            return b"".join(struct.pack("<h", amp if (i // 20) % 2 == 0 else -amp) for i in range(n))
+        pcm = tone(0.4, 8000) + tone(0.3, 0) + tone(0.4, 8000)
+        with wave.open(str(wav), "wb") as handle:
+            handle.setnchannels(1)
+            handle.setsampwidth(2)
+            handle.setframerate(rate)
+            handle.writeframes(pcm)
+        try:
+            text, info = build(packet)
+        except Exception as exc:  # noqa: BLE001
+            failures.append(f"caption_align should draft from a wav: {exc}")
+            return failures
+        if info.get("method") != "silence-proportional":
+            failures.append(f"caption_align method drift: {info}")
+        if "-->" not in text or info.get("cues", 0) < 1:
+            failures.append("caption_align draft missing cues")
+        if "Whisper" in text:
+            failures.append("caption_align srt must not claim Whisper")
+    return failures
 
 
 if __name__ == "__main__":

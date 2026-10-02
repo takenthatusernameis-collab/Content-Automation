@@ -1,6 +1,6 @@
 # HANDOFF
 
-Updated: 2026-10-02T02:12:00Z (Run 260)
+Updated: 2026-10-02T03:20:00Z (Run 261)
 
 This file is not Selected VO. Audio and card PNGs stay gitignored. Do not `git add -f`.
 
@@ -95,4 +95,4 @@ sha256sum "$PACKET/export/master.mp4"
 # expect 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546
 # expect duration 328.40
 ```
-Do not re-encode unless this asset is missing. Do not regenerate the wav or cards. The viewer description was drafted in Run 259 and must not contain "No upload happened". Before upload, a human checks Description edited and First comment approved. An agent must not check those boxes. Then set YouTube OAuth. Dry-run READY is not an upload.
+Do not re-encode unless this asset is missing. Do not regenerate the wav or cards. The viewer description was drafted in Run 259 and must not contain "No upload happened". captions.srt is a Run 261 silence-proportional draft, not ASR and not approved. Before upload, a human checks Description edited, First comment approved, and spot-checks captions.srt. An agent must not check those boxes. Then set YouTube OAuth. Dry-run READY is not an upload.

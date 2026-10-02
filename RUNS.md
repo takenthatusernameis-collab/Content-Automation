@@ -2,6 +2,17 @@
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 
+## 2026-10-02T03:20:00Z — Run 261
+
+- **Objective:** Stop leaving caption timing as a blank human task after the Selected VO duration was already known.
+- **Inspected:** STATE/NEXT/RUNS/FAILURES after Run 260. Failures said another printer-only restatement of the publish hold should be flagged. captions.md was still a 150 wpm stub. Downloaded r249 wav (27200958 bytes, 308.40s) and measured speech gaps.
+- **Action taken:** Added tools/caption_align.py. Wrote Q1 captions.srt (103 cues). Left publish boxes and the caption spot-check unchecked. Did not re-encode. Did not upload. Did not scaffold Q2.
+- **Result:** Future packets can draft an SRT from a DROP wav without Whisper. Human caption work is spot-check, not invent times. Estimated human minutes stay 1.5 because publish boxes and OAuth still dominate. Automated steps 100 -> 101. Videos published stay 0.
+- **Verification status:** python3 tools/selftest.py printed SELFTEST PASS. caption_align.py printed CAPTION_DRAFT cues=103 words=941 speech_s=208.38 duration=308.40. First cues match the script hook. Not claimed as ASR.
+- **Important discovery:** The r249 wav has 208.38s of speech inside 308.40s. Equal word spacing on speech time is enough for a review draft. Runs 254-260 did not move this.
+- **Blocker:** Human must check the two open publish boxes and spot-check captions.srt. YouTube OAuth still absent.
+- **Recommended next action:** Human reviews publish.md and captions.srt. Copy q1-master-r253.mp4 only onto export/master.mp4. Set OAuth. Do not record. Do not restore the stub sentence.
+
 ## 2026-10-02T02:12:00Z — Run 260
 
 - **Objective:** Stop the remaining operator pages from assigning a compose task Run 259 already finished.

@@ -19,7 +19,7 @@
 ## Later (automation)
 52. Human override of heuristic Primary (optional; already locked)
 53. On-disk selected take (human replacement or local generated file) so gates can advance
-54. Caption timing from a real selected take
+54. Caption timing from a real selected take — draft aligner done (Run 261; silence-proportional, not ASR). Remaining: human spot-check; do not treat captions.srt as uploaded.
 55. ffmpeg `--execute` after one packet has VO + cards and assemble.py prints READY_TO_ENCODE
 56. YouTube upload after packet QA passes AND youtube_upload.py is no longer YOUTUBE_AUTH_REQUIRED
 56b. Live Analytics/comment fetch after a real provider_video_id exists AND youtube_feedback.py is no longer YOUTUBE_AUTH_REQUIRED / HOLD_UNPUBLISHED

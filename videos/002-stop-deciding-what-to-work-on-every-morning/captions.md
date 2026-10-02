@@ -1,15 +1,16 @@
 # Captions
 
-Status: stub
+Status: draft-aligned
 Generated: 2026-09-13T09:15:08Z
 WPM assumption: 150
 Cue count: 7
 Spoken words: 952
 Estimated speech: 06:21 (not a video duration)
 
-This file is a caption intake stub from script.md WORDS. It is not Whisper,
-not an SRT file, and not proof that captions were burned or uploaded.
-Do not treat estimated times as aligned to a take.
+This file is the script cue list. Timed draft is captions.srt.
+Method: silence-proportional (PCM gaps + script WORDS in order). Not Whisper,
+not burned captions, and not approved for upload.
+The cue times below are still the 150 wpm stub. Use captions.srt for timing.
 
 DROP `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
 Repo-root `vo/` is not Selected VO. Cues below are script-derived, not take-aligned.
@@ -30,7 +31,7 @@ Repo-root `vo/` is not Selected VO. Cues below are script-derived, not take-alig
 - VO path rules: `docs/narration.md`
 
 ## Human
-- [ ] Read cues against the selected VO take at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
+- [ ] Spot-check captions.srt against the selected VO take at `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
 - [ ] Fix wording that was spoken differently than script.md
 - [ ] Split long lines for on-screen readability
 - [ ] Do not upload estimated times as final captions

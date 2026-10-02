@@ -1,5 +1,10 @@
 # FAILURES
 
+## Run 261 — caption timing left as a blank task
+- **Tried:** Runs 254-260 kept restating the publish hold. captions.md still said do not invent an SRT, so every future video would need a human to time 900+ words.
+- **Result:** caption_align.py writes a labeled draft from the DROP wav. Q1 captions.srt exists. Approval stays unchecked.
+- **Avoid:** Calling the draft Whisper or uploaded captions. Checking publish boxes from an agent run. Another run that only reprints the hold.
+
 ## Run 260 — compose instruction survived on the human pages
 - **Tried:** Run 259 updated next_action and hint, then left gate_machine, human_session, agent_session, HANDOFF, and pipeline_status telling the operator to delete `No upload happened`.
 - **Result:** Those surfaces now name the two open boxes and forbid restoring the stub. publish_brief refuses the Q1 packet.
