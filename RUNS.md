@@ -3,7 +3,7 @@
 - **Objective:** Remove approval-only human gates from the production bottleneck after explicit operator delegation.
 - **Inspected:** STATE/NEXT/publish.md/thumbnail_review.md/captions_review.md/QA. Q1 finished export is still q1-media-r253; provider OAuth is still absent.
 - **Action taken:** Updated the production prompt/rules/escalation/YouTube contract so approval-only review and publish-box actions are agent-authorized. Checked Q1 Description edited and First comment approved after reviewing the existing metadata. Left thumbnail/caption sensory review pending because the private PNG/audio binaries are not accessible in this environment.
-- **Result:** Approval-only labels no longer block the scheduler. Videos published remain 0 because YouTube OAuth is still required. No media was fabricated or uploaded.
+- **Result:** Approval-only labels no longer block the scheduler. Videos published remain 0 because the live authenticated YouTube adapter is still NOT_BUILT and provider OAuth is still required. No media was fabricated or uploaded.
 - **Verification status:** Main branch reconciled across scheduler/policy/state/publish/review pages. Full local selftest was not executable because no native repository checkout is available in this environment.
 
 # RUNS
