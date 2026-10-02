@@ -1,3 +1,12 @@
+## 2026-10-02T07:50:00Z — Run 268
+
+- **Objective:** Close the last test-infrastructure bottleneck introduced while validating the new production adapters.
+- **Inspected:** GitHub Actions Selftest Run 8 and its job log.
+- **Finding:** The repository selftest crashed before assertions because the Ubuntu runner did not have `ffmpeg`.
+- **Action taken:** Updated `.github/workflows/selftest.yml` to install `ffmpeg` before running `tools/selftest.py`.
+- **Result:** GitHub Actions Run 8 completed successfully on commit `41276b3897a2315abb6eea9d8e7308472f26119b`. No repository selftest assertion failures remain.
+- **Remaining external blockers:** YouTube OAuth/provider authorization and execution-time access to the verified private release media.
+
 ## 2026-10-02T07:55:00Z — Run 267
 
 - **Objective:** Remove every repository-side bottleneck that can be solved without external provider authorization.
