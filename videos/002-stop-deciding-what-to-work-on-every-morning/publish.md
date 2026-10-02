@@ -1,6 +1,6 @@
 # Publish
 
-Status: description and first-comment review approved by the delegated agent; YouTube upload still blocked only by provider authentication
+Status: description and first-comment review approved by the delegated agent; live YouTube uploader and provider authentication remain before upload
 Generated: 2026-09-13T11:14:00Z
 Description drafted: 2026-10-02T04:20:00Z
 
