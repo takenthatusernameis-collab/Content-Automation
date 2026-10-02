@@ -1,5 +1,16 @@
 # RUNS
 
+## 2026-10-02T06:16:00Z — Run 264
+
+- **Objective:** Stop leaving YouTube chapter timestamps as an unassigned human compose step after captions.srt already existed.
+- **Inspected:** STATE/NEXT/RUNS/FAILURES after Run 263. Publish boxes still open. OAuth still absent. captions.srt and script beats already on disk. No chapter list in publish.md.
+- **Action taken:** Added tools/chapter_draft.py. Wrote chapters.md (6 lines, first 0:00 The reopen). Copied those lines into the publish.md Description section. Left both publish boxes open. Did not re-encode. Did not upload. Did not scaffold Q2.
+- **Result:** Future packets can draft chapter lines without a human timing pass. Estimated human minutes 1.2 -> 1.1. Automated steps 102 -> 103. Videos published stay 0. Packet status stays ready_for_vo.
+- **Verification status:** python3 tools/selftest.py printed SELFTEST PASS. chapter_draft.py printed CHAPTER_DRAFT chapters=6 approval=False. Description box still open. Box check not claimed.
+- **Important discovery:** Runs 254-263 kept circling the same human boxes. The unblocked gap was chapter timestamps, which YouTube reads from the description. Payoff sits at 8.5s, so the 10s rule correctly dropped it.
+- **Blocker:** Human must check the two open publish boxes and spot-check the five caption checkpoints. YouTube OAuth still absent.
+- **Recommended next action:** Human reviews publish.md, including the chapter lines, and captions_review.md checkpoints. Copy q1-master-r253.mp4 only onto export/master.mp4. Set OAuth. Do not record. Do not regenerate chapters while the srt checksum matches.
+
 ## 2026-10-02T05:20:00Z — Run 263
 
 - **Objective:** Cut the remaining caption review from a full SRT read to a reusable checkpoint sheet, without approving it.

@@ -1,4 +1,7 @@
-Updated: 2026-10-02T05:20:00Z
+Updated: 2026-10-02T06:16:00Z
+
+## Run 264
+Q1 chapter lines drafted from script + captions.srt (6 chapters) and copied into publish.md. Boxes stay open. Automated steps 103. Videos published 0.
 
 ## Run 263
 Q1 caption spot-check sheet written (5 checkpoints, 0 flagged). captions.md no longer assigns inventing the srt. Spot-check and publish boxes stay open. OAuth unchanged. Automated steps 102. Videos published 0.
@@ -15,6 +18,7 @@ Stale "delete No upload happened" instructions removed from pipeline_status, gat
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-10-02 Run 264 | ~1.1 estimate | 103 | chapter lines drafted into the description; two publish boxes and OAuth remain |
 | 2026-10-02 Run 263 | ~1.2 estimate | 102 | caption review is five checkpoints; two publish boxes and OAuth remain |
 | 2026-10-02 Run 261 | ~1.5 estimate | 101 | caption draft from Selected VO; two publish boxes and OAuth remain |
 | 2026-10-02 Run 260 | ~1.5 estimate | 100 | operator pages match the drafted description; two boxes and OAuth remain |
@@ -25,6 +29,7 @@ Stale "delete No upload happened" instructions removed from pipeline_status, gat
 These numbers are **estimates**, not stopwatch data. Earlier rows remain in prior commits.
 
 ## Capability additions
+- Run 264: chapter_draft.py writes a non-approving YouTube chapter list from script WORDS and captions.srt. Q1 lines committed into chapters.md and the description draft.
 - Run 263: caption_review.py writes a non-approving spot-check sheet from an existing srt. Q1 sheet committed. Human listens to checkpoints instead of all cues.
 - Run 261: caption_align.py drafts captions.srt from packet DROP wav speech gaps and script WORDS. Refuses a missing wav. Not ASR. Q1 draft committed; spot-check stays open.
 - Run 260: remaining operator surfaces no longer assign a compose step that is already done. Q1 publish.md cannot be force-stubbed.

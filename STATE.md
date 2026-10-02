@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T05:20:00Z (Run 263)
+Updated: 2026-10-02T06:16:00Z (Run 264)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -16,6 +16,12 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Durable fetch: private release `q1-media-r253` (padded master) plus r249 wav/cards and Drive folder in HANDOFF.md
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Executive: SHIP after a human checks the two open publish.md boxes and YouTube OAuth. Do not re-encode. Do not upload r249. Do not expand architecture. Do not check those boxes from an agent run.
+
+## Run 264 delta
+- Added tools/chapter_draft.py. It drafts YouTube chapter lines from script WORDS matched to captions.srt. Missing srt refuses. It does not edit publish.md and does not check boxes.
+- Q1 chapters.md written (6 chapters, first 0:00). The same lines were copied into the publish.md Description section so the dry-run uploader carries them. Description edited and First comment approved stay open.
+- selftest locks the refuse, the 0:00 rule, and the open description box. selftest PASS in this checkout.
+- Did not check publish boxes. Did not re-encode. Did not upload. Did not scaffold Q2.
 
 ## Run 263 delta
 - Added tools/caption_review.py. It writes captions_review.md from an existing captions.srt: five checkpoints plus duration/line/rate flags. Missing srt refuses. It does not regenerate timings and does not check boxes.
@@ -42,8 +48,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 1.5 | 1.4 | caption line wrap no longer a human edit; publish boxes and OAuth remain |
-| Automated steps | 101 | 102 | dry-run upload request carries captions.srt; captions.insert still not called |
+| Estimated human min / video | 1.2 | 1.1 | chapter lines drafted into the description; publish boxes and OAuth remain |
+| Automated steps | 102 | 103 | chapter draft from script + srt; videos.insert still not called |
 | Videos produced | 0 | 0 | padded local master on q1-media-r253; not uploaded |
 
 ## Active constraints

@@ -1,5 +1,10 @@
 # FAILURES
 
+## Run 264 — chapter timestamps left unassigned
+- **Tried:** Runs 254-263 kept restating the publish hold after the description, captions, and spot-check sheet already existed. No chapter list was drafted.
+- **Result:** chapter_draft.py writes chapters.md. Q1 lines are in the description draft. Approval stays unchecked.
+- **Avoid:** Another run that only reprints the publish hold. Checking the description box from an agent run. Regenerating chapters while the srt checksum matches. Calling the times ASR.
+
 ## Run 263 — caption page still assigned inventing the srt
 - **Tried:** Run 261 wrote captions.srt and Run 262 wrapped lines, but captions.md still said invent the timed file and split long lines.
 - **Result:** captions_review.md is the human path (five checkpoints). The invent-srt line is gone. Spot-check stays unchecked.

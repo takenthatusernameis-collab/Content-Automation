@@ -583,6 +583,7 @@ def main() -> int:
     failures.extend(check_q1_publish_draft_locked())
     failures.extend(check_caption_align_fail_closed())
     failures.extend(check_caption_review_fail_closed())
+    failures.extend(check_chapter_draft_fail_closed())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")
@@ -648,6 +649,61 @@ def check_caption_align_fail_closed() -> list[str]:
         if "Whisper" in text:
             failures.append("caption_align srt must not claim Whisper")
     return failures
+
+
+def check_chapter_draft_fail_closed() -> list[str]:
+    failures: list[str] = []
+    import tempfile
+    from chapter_draft import build
+
+    with tempfile.TemporaryDirectory() as tmp:
+        packet = Path(tmp) / "videos" / "009-chapter-fixture"
+        packet.mkdir(parents=True)
+        (packet / "script.md").write_text(
+            "## Hook\nWORDS:\nAlpha one starts the open.\n\n"
+            "## Beat 1 —\nWORDS:\nBeta two names the stall in plain steps.\n\n"
+            "## CTA\nWORDS:\nGamma three writes tomorrow sentence now.\n",
+            encoding="utf-8",
+        )
+        try:
+            build(packet)
+            failures.append("chapter_draft must refuse a missing srt")
+        except FileNotFoundError as exc:
+            if "REFUSE" not in str(exc):
+                failures.append(f"chapter_draft refuse should say REFUSE: {exc}")
+        (packet / "captions.srt").write_text(
+            "1\n00:00:00,000 --> 00:00:04,000\nAlpha one starts the open.\n\n"
+            "2\n00:00:20,000 --> 00:00:24,000\nBeta two names the stall in plain steps.\n\n"
+            "3\n00:00:40,000 --> 00:00:44,000\nGamma three writes tomorrow sentence now.\n\n",
+            encoding="utf-8",
+        )
+        try:
+            sheet, info = build(packet)
+        except Exception as exc:  # noqa: BLE001
+            failures.append(f"chapter_draft should draft chapters: {exc}")
+            return failures
+        if info.get("approval") is not False:
+            failures.append("chapter_draft must not approve")
+        if "- [x]" in sheet:
+            failures.append("chapter_draft must not check a box")
+        if not info.get("lines") or not info["lines"][0].startswith("0:00"):
+            failures.append(f"chapter_draft first line must be 0:00: {info}")
+        if info.get("chapters", 0) < 3:
+            failures.append("chapter_draft fixture should keep 3 chapters")
+    q1 = Path(__file__).resolve().parents[1] / "videos" / "002-stop-deciding-what-to-work-on-every-morning"
+    chapters = q1 / "chapters.md"
+    publish = q1 / "publish.md"
+    if chapters.is_file() and publish.is_file():
+        sheet = chapters.read_text(encoding="utf-8")
+        body = publish.read_text(encoding="utf-8")
+        if "0:00 The reopen" not in sheet or "0:00 The reopen" not in body:
+            failures.append("Q1 chapter draft missing from chapters.md or publish.md")
+        if "- [x]" in sheet:
+            failures.append("Q1 chapters.md must not check a box")
+        if "- [ ] Description edited for search + honesty" not in body:
+            failures.append("chapter insert must leave the description box open")
+    return failures
+
 
 def check_caption_review_fail_closed() -> list[str]:
     failures: list[str] = []
