@@ -13,6 +13,11 @@ on:
         required: false
         type: boolean
         default: false
+      collect_feedback:
+        description: "Read-only Analytics and comment fetch after a provider video id exists. Does not upload."
+        required: false
+        type: boolean
+        default: false
 
 concurrency:
   group: youtube-production
@@ -35,8 +40,8 @@ jobs:
       - name: Checkout production branch
         uses: actions/checkout@v4
 
-      - name: Fail fast if execute was requested without OAuth secrets
-        if: ${{ inputs.execute == true }}
+      - name: Fail fast if an authenticated step was requested without OAuth secrets
+        if: ${{ inputs.execute == true || inputs.collect_feedback == true }}
         run: python3 tools/oauth_preflight.py
 
       - name: Set up Python
@@ -45,15 +50,17 @@ jobs:
           python-version: "3.11"
 
       - name: Install media inspection dependency
+        if: ${{ inputs.collect_feedback != true || inputs.execute == true }}
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg
 
       - name: Materialize verified Q1 media
+        if: ${{ inputs.collect_feedback != true || inputs.execute == true }}
         run: python3 tools/materialize_q1_release.py
 
       - name: Inspect upload gates without provider write
-        if: ${{ inputs.execute != true }}
+        if: ${{ inputs.execute != true && inputs.collect_feedback != true }}
         shell: bash
         run: |
           set +e
@@ -101,6 +108,50 @@ jobs:
           git commit -m "Persist YouTube upload state"
           git push origin HEAD:main
 
+      - name: Collect read-only YouTube feedback
+        if: ${{ inputs.collect_feedback == true }}
+        run: |
+          python3 tools/youtube_feedback.py "$PACKET" --execute
+          python3 tools/experiment_loop.py "$PACKET" --write-state
+
+      - name: Persist collected feedback state
+        if: ${{ inputs.collect_feedback == true }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          export STATE="$PACKET/feedback_state.json"
+          export EXP="$PACKET/experiment_state.json"
+          if [ ! -f "$STATE" ]; then
+            echo "No feedback_state.json produced; nothing to persist."
+            exit 0
+          fi
+          python3 - <<'PY'
+          import json, os, sys
+          path = os.environ["STATE"]
+          with open(path, encoding="utf-8") as fh:
+              data = json.load(fh)
+          if data.get("gate") != "COLLECTED" or data.get("attempted_fetch") is not True:
+              print("Feedback state is not a collected fetch; not committing.")
+              sys.exit(0)
+          provider_id = str(data.get("provider_video_id") or "").strip()
+          if not provider_id:
+              print("No provider_video_id on feedback state; not committing.")
+              sys.exit(0)
+          print(f"Persisting collected feedback for provider video {provider_id}.")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$STATE"
+          if [ -f "$EXP" ]; then
+            git add "$EXP"
+          fi
+          git diff --cached --quiet && {
+            echo "Feedback state unchanged; nothing to commit."
+            exit 0
+          }
+          git commit -m "Persist collected YouTube feedback state"
+          git push origin HEAD:main
+
       - name: Summarize runtime boundary
         if: ${{ always() }}
         run: |
@@ -108,3 +159,4 @@ jobs:
           echo "Initial YouTube privacy is private in tools/youtube_upload.py."
           echo "OAuth secrets are read only from GitHub Actions secrets."
           echo "Verified release media is materialized with checksum guards."
+          echo "collect_feedback is read-only and defaults off. It does not upload or invent metrics."

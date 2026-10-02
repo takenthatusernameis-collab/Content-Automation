@@ -42,12 +42,14 @@ The repository now includes `.github/workflows/youtube-production.yml` as the ex
 The workflow:
 
 1. checks out `main`;
-2. uses the built-in GitHub Actions token as `GH_TOKEN` to download the private Q1 releases;
-3. runs the checksum-locked Q1 materializer;
-4. performs the existing local upload gates;
-5. reads YouTube OAuth values only from GitHub Actions secrets;
-6. runs the existing `--execute` uploader when explicitly requested; and
-7. persists only redacted `upload_state.json` when a provider video ID exists, so a later run can resume instead of blindly re-uploading the same fingerprint.
+2. if `execute` or `collect_feedback` is true, runs `tools/oauth_preflight.py` before ffmpeg or materialize and exits 3 when any secret is empty;
+3. uses the built-in GitHub Actions token as `GH_TOKEN` to download the private Q1 releases, unless the dispatch is collect-only;
+4. runs the checksum-locked Q1 materializer on dry-run and execute; collect-only skips media download;
+5. performs the existing local upload gates on dry-run;
+6. reads YouTube OAuth values only from GitHub Actions secrets;
+7. runs the existing `--execute` uploader when explicitly requested;
+8. persists only redacted `upload_state.json` when a provider video ID exists, so a later run can resume instead of blindly re-uploading the same fingerprint; and
+9. when `collect_feedback=true`, runs `youtube_feedback.py --execute` then `experiment_loop.py --write-state`, and commits `feedback_state.json` only if gate is `COLLECTED`. Default is false. It does not upload and does not invent a baseline or decision.
 
 Required GitHub Actions secrets are:
 
@@ -57,7 +59,7 @@ Required GitHub Actions secrets are:
 
 The workflow keeps the uploader's initial privacy mode at `private`. Posting the optional first comment remains opt-in because the corresponding OAuth grant must include the comment-write scope used by the adapter.
 
-The workflow requires `contents: write` because its only persistent mutation is the non-secret upload state commit. It does not write media files to the repository.
+The workflow requires `contents: write` because its persistent mutations are the non-secret upload state and, after a real fetch, collected feedback state. It does not write media files to the repository.
 
 ## Authentication boundary
 

@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T13:30:00Z (Run 275)
+Updated: 2026-10-02T14:20:00Z (Run 276)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 276 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- `youtube-production.yml` now accepts `collect_feedback` (default false). Collect-only skips media materialize, runs `youtube_feedback.py --execute`, then writes experiment state. It commits feedback only when gate is COLLECTED. It does not invent a baseline or decision.
+- Authenticated dispatches still fail closed in `oauth_preflight.py` before media or provider calls. Selftest passed locally. Actions was not re-run.
 
 ## Run 275 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -43,8 +48,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; a reviewed keep/discard no longer needs a code edit |
-| Automated steps | 109 | 110 | explicit decision file is loaded fail-closed; Q1 decision not written |
+| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; post-publish fetch no longer needs a manual CLI |
+| Automated steps | 110 | 111 | collect_feedback dispatch exists and defaults off; no fetch ran |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints

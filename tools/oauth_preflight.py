@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail closed before media materialize when an execute dispatch lacks OAuth.
+"""Fail closed before media materialize or a provider read when an authenticated dispatch lacks OAuth.
 
 Prints secret names and presence booleans only. Never prints secret values.
 Exit 0 when all three are non-empty. Exit 3 when any are missing.
@@ -25,9 +25,9 @@ def main() -> int:
         print(f"{key}={'present' if ok else 'missing'}")
     if missing:
         print(
-            "REFUSE: execute dispatch needs GitHub Actions secrets "
+            "REFUSE: authenticated dispatch needs GitHub Actions secrets "
             + ", ".join(missing)
-            + ". Do not materialize media or call YouTube.",
+            + ". Do not materialize media, upload, or collect feedback.",
             file=sys.stderr,
         )
         return 3

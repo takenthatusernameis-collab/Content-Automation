@@ -1,5 +1,12 @@
 # FAILURES
 
+## Run 276 — feedback fetch stayed a manual CLI after upload
+- **Tried:** Runs 219 and 271 made `youtube_feedback.py --execute` and collected metrics visible to the learning gates. The production workflow persisted upload state and stopped.
+- **Evidence:** `youtube-production.yml` had no collect input. A later video would still need a human to run the feedback CLI after secrets exist.
+- **Result:** `collect_feedback` defaults off. Collect-only skips media materialize, fetches only through `--execute`, and commits feedback only when gate is COLLECTED. Not dispatched.
+- **Avoid:** Another manual-only feedback step. Dispatching collect_feedback before a provider video id exists. Inventing metrics, a baseline, or a decision because the input exists.
+
+
 ## Run 271 — collected feedback was invisible to the learning gates
 - **Tried:** Runs 219-220 built dry-run feedback and experiment adapters. `inspect_feedback()` always left metrics None, and both `experiment_loop.py` and `complete.py` used that field.
 - **Evidence:** Local inspection of those functions. A COLLECTED `feedback_state.json` was not an input. Selftest only covered the empty-metrics hold.

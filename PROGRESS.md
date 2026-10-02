@@ -1,3 +1,6 @@
+## Run 276 — 2026-10-02T14:20:00Z
+- Production workflow can collect read-only feedback after a provider video id exists. Default remains off. Collect-only does not download media or upload. No fetch ran. Videos published stay 0.
+
 ## Run 275 — 2026-10-02T13:30:00Z
 - Experiment ledger now records an explicit keep/discard/retest from `experiment_decision.json` after a numeric comparison. A delta still cannot decide by itself. No Q1 decision was written. Videos published stay 0.
 
@@ -54,6 +57,7 @@ Stale "delete No upload happened" instructions removed from pipeline_status, gat
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-10-02 Run 276 | ~0.5 estimate | 111 | collect_feedback dispatch exists; OAuth still blocks publish and fetch |
 | 2026-10-02 Run 275 | ~0.5 estimate | 110 | explicit decision file is loaded fail-closed; OAuth still blocks publish |
 | 2026-10-02 Run 274 | ~0.5 estimate | 109 | numeric delta is automatic; keep/discard still pending; OAuth still blocks publish |
 | 2026-10-02 Run 273 | ~0.5 estimate | 108 | baseline file is loaded fail-closed; OAuth still blocks publish |

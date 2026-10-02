@@ -887,6 +887,16 @@ def check_live_capabilities() -> list[str]:
         failures.append("production workflow must fail fast on missing OAuth before materialize")
     if workflow.find("tools/oauth_preflight.py") > workflow.find("tools/materialize_q1_release.py"):
         failures.append("oauth preflight must run before materialize")
+    if "collect_feedback:" not in workflow or "default: false" not in workflow:
+        failures.append("production workflow must keep collect_feedback default off")
+    if "tools/youtube_feedback.py" not in workflow or "--execute" not in workflow:
+        failures.append("production workflow must call youtube_feedback.py --execute only from the collect step")
+    if workflow.find("tools/youtube_feedback.py") < workflow.find("tools/youtube_upload.py"):
+        failures.append("feedback collect must stay after the upload step")
+    if "inputs.collect_feedback == true" not in workflow:
+        failures.append("feedback collect must be gated on collect_feedback")
+    if "inputs.execute == true || inputs.collect_feedback == true" not in workflow:
+        failures.append("oauth preflight must cover execute and collect_feedback")
     from oauth_preflight import presence
     empty = presence({})
     if any(empty.values()) or set(empty) != {"YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET", "YOUTUBE_REFRESH_TOKEN"}:

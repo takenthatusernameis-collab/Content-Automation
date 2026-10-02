@@ -1,3 +1,14 @@
+## 2026-10-02T14:20:00Z — Run 276
+
+- **Objective:** Remove the post-publish manual feedback CLI without retrying the OAuth stall or inventing metrics.
+- **Inspected:** STATE, NEXT, RUNS, BLOCKED, ROADMAP, `youtube-production.yml`, `youtube_feedback.py`, `oauth_preflight.py`, selftest.
+- **Action taken:** Added workflow input `collect_feedback` (default false). Authenticated execute or collect runs `oauth_preflight.py` first. Collect-only skips ffmpeg and materialize, then runs `youtube_feedback.py --execute` and `experiment_loop.py --write-state`. Persist commits feedback only when gate is COLLECTED and a provider video id exists. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute and collect were not dispatched. Videos published stay 0.
+- **Verification status:** completed for the workflow contract and local selftest. Actions was not re-run. No provider write or read.
+- **Important discovery:** The execute path persisted upload state and stopped. Every later video would still need a human to invoke the feedback CLI even after secrets exist.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` remain the publish and collect gate. Not polled. Flagged as a recurring external stall.
+- **Recommended next action:** Add those three secrets, then dispatch `youtube-production.yml` with execute=true. After a provider video id exists, dispatch collect_feedback=true. Do not invent a Q1 baseline or decision. Do not re-encode. Do not scaffold Q2.
+
 ## 2026-10-02T13:30:00Z — Run 275
 
 - **Objective:** Record an explicit keep/discard/retest without inferring it from the delta or retrying the OAuth stall.
