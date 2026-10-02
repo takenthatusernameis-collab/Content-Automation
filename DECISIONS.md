@@ -1,3 +1,6 @@
+## 2026-10-02 — Run 279: partial post-upload is not success
+A provider video id with a failed caption, thumbnail, or requested comment is `POST_UPLOAD_INCOMPLETE`. The job fails after `upload_state.json` is written. Persist runs even when the execute step fails. Collect does not run in the same dispatch as execute. A later execute resumes the same video id; it must not upload the master again.
+
 # DECISIONS
 
 Format: date | decision | why | revisit when

@@ -78,7 +78,7 @@ jobs:
           python3 tools/youtube_upload.py "$PACKET" --execute ${{ inputs.post_comment == true && '--post-comment' || '' }}
 
       - name: Persist non-secret upload state
-        if: ${{ inputs.execute == true }}
+        if: ${{ always() && inputs.execute == true }}
         shell: bash
         run: |
           set -euo pipefail
@@ -109,13 +109,13 @@ jobs:
           git push origin HEAD:main
 
       - name: Collect read-only YouTube feedback
-        if: ${{ inputs.collect_feedback == true }}
+        if: ${{ inputs.collect_feedback == true && inputs.execute != true }}
         run: |
           python3 tools/youtube_feedback.py "$PACKET" --execute
           python3 tools/experiment_loop.py "$PACKET" --write-state
 
       - name: Persist collected feedback state
-        if: ${{ inputs.collect_feedback == true }}
+        if: ${{ always() && inputs.collect_feedback == true && inputs.execute != true }}
         shell: bash
         run: |
           set -euo pipefail
@@ -162,3 +162,6 @@ jobs:
           echo "collect_feedback is read-only and defaults off. It does not upload or invent metrics."
           echo "collect_feedback refuses a missing or early uploaded_at and does not write COLLECTED."
           echo "A resumed upload keeps the existing uploaded_at. It does not invent one."
+          echo "A caption or thumbnail failure exits non-zero after the video id is written."
+          echo "Upload state is persisted even when that post-upload step fails."
+          echo "collect_feedback is skipped when execute is also true; the observation window cannot be due in that dispatch."

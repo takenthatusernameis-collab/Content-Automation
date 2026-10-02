@@ -1,3 +1,6 @@
+## Run 279 — 2026-10-02T17:20:00Z
+- A caption, thumbnail, or requested comment failure after a provider video id is now a failed job, and the upload state is still persisted. The same dispatch no longer collects feedback. No upload ran. Videos published stay 0.
+
 ## Run 278 — 2026-10-02T16:20:00Z
 - Upload resume now keeps an existing uploaded_at. A caption or thumbnail retry can no longer erase the 7-day observation clock. No upload ran. Videos published stay 0.
 

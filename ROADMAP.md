@@ -21,7 +21,7 @@
 53. On-disk selected take (human replacement or local generated file) so gates can advance
 54. Caption timing from a real selected take — draft aligner done (Run 261; silence-proportional, not ASR). Remaining: human spot-check; do not treat captions.srt as uploaded.
 55. ffmpeg `--execute` after one packet has VO + cards and assemble.py prints READY_TO_ENCODE
-56. YouTube upload after packet QA passes AND youtube_upload.py is no longer YOUTUBE_AUTH_REQUIRED
+56. YouTube upload after packet QA passes AND youtube_upload.py is no longer YOUTUBE_AUTH_REQUIRED. Run 279: caption/thumbnail/comment failure is POST_UPLOAD_INCOMPLETE and still persists the video id. Do not re-upload the master on that exit.
 56b. Live Analytics/comment fetch after a real provider_video_id exists AND youtube_feedback.py is no longer YOUTUBE_AUTH_REQUIRED / HOLD_UNPUBLISHED / OBSERVATION_WINDOW_NOT_DUE / OBSERVATION_WINDOW_UNKNOWN. Run 276: dispatch `collect_feedback=true` instead of a manual CLI. Run 277: collect requires uploaded_at plus 7 days. Still not executed.
 56c. Compare-and-decide after experiment_loop.py sees real metrics and a documented baseline. Run 271: collected feedback_state.json is visible. Run 273: a valid `experiment_baseline.json` loads fail-closed. Run 274: one numeric primary metric becomes `COMPARED` with decision still pending. Run 275: `experiment_decision.json` records keep/discard/retest only after that comparison. Q1 baseline and decision files still required and must not be invented.
 56d. Mark COMPLETE only after `tools/complete.py` prints gate COMPLETE with real evidence

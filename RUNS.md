@@ -1,3 +1,14 @@
+## 2026-10-02T17:20:00Z — Run 279
+
+- **Objective:** Stop a caption or thumbnail failure from looking like a finished upload, and stop that failure from dropping the provider video id, without retrying the OAuth stall.
+- **Inspected:** STATE, NEXT, RUNS, BLOCKED, ROADMAP, `youtube_upload.py`, `youtube-production.yml`, selftest.
+- **Action taken:** Added `incomplete_post_uploads()`. Execute writes state, then raises `POST_UPLOAD_INCOMPLETE` if caption, thumbnail, or requested comment status is failed. Persist step now runs with `always()` when execute was requested. Collect is skipped when execute is also true. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute and collect were not dispatched. Videos published stay 0.
+- **Verification status:** completed for the incomplete-upload contract and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** A failed caption previously left the execute step green, and a raised execute step skipped the persist step. Either path could lose the video id or hide a missing caption.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` remain the publish and collect gate. Not polled. Flagged as a recurring external stall. Do not spend a run only restating it.
+- **Recommended next action:** Add those three secrets, then dispatch `youtube-production.yml` with execute=true. Dispatch collect_feedback=true only after uploaded_at is at least 7 days old and not in the same dispatch as execute. Do not invent uploaded_at, a Q1 baseline, or a decision. Do not re-encode. Do not scaffold Q2.
+
 ## 2026-10-02T16:20:00Z — Run 278
 
 - **Objective:** Stop a resumed upload from erasing the observation clock, without retrying the OAuth stall or inventing a timestamp.

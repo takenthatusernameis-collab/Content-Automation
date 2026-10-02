@@ -71,6 +71,26 @@ STUB_DESCRIPTION_MARKERS = (
 )
 
 
+def incomplete_post_uploads(result: dict) -> list[str]:
+    """Return post-upload artifacts that failed after a provider video id existed.
+
+    A video id with a failed caption or thumbnail must not look like a finished upload.
+    Missing artifacts stay missing. This does not invent an upload timestamp.
+    """
+    failed = []
+    for key, label in (
+        ("caption_upload", "captions"),
+        ("thumbnail_upload", "thumbnail"),
+    ):
+        status = (result.get(key) or {}).get("status")
+        if status == "failed":
+            failed.append(label)
+    comment = result.get("comment_post") or {}
+    if comment.get("status") == "failed":
+        failed.append("comment")
+    return failed
+
+
 def unchecked_publish_items(text: str) -> list[str]:
     block = section(text, "Human before upload")
     open_items = []
@@ -487,11 +507,20 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
                 result["comment_post"] = {"status": "failed", "error": compact_api_error(exc)}
             write_upload_state(packet, result)
 
-        result["error_class"] = None
+        incomplete = incomplete_post_uploads(result)
         result["generated"] = _now()
+        if incomplete:
+            result["error_class"] = "POST_UPLOAD_INCOMPLETE:" + ",".join(incomplete)
+            write_upload_state(packet, result)
+            raise YouTubeAPIError(0, result["error_class"])
+        result["error_class"] = None
         write_upload_state(packet, result)
         return result
     except Exception as exc:
+        reason = getattr(exc, "reason", "")
+        if result.get("provider_video_id") and str(reason).startswith("POST_UPLOAD_INCOMPLETE"):
+            write_upload_state(packet, result)
+            raise
         result["video_upload"] = result.get("video_upload") or {"status": "failed"}
         result["error_class"] = compact_api_error(exc)
         write_upload_state(packet, result)
@@ -514,7 +543,7 @@ def render_text(report: dict) -> str:
         "dry-run default; --execute performs authenticated API calls only after all local gates pass",
         "an API key alone is not upload authorization",
         "a junk export/master.mp4 is not a master",
-        "captions.srt is a draft track only; this adapter never calls captions.insert",
+        "captions.srt stays a draft in dry-run; --execute calls captions.insert and fails closed if that call fails",
         "thumbnail: {path} present={present} uploaded=no".format(
             path=(report.get("thumbnail") or {}).get("path", "thumbnail.png"),
             present="yes" if (report.get("thumbnail") or {}).get("present") else "no",

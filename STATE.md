@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T16:20:00Z (Run 278)
+Updated: 2026-10-02T17:20:00Z (Run 279)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 279 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- `youtube_upload.py` now exits non-zero with `POST_UPLOAD_INCOMPLETE` when caption, thumbnail, or requested comment upload fails after a provider video id exists. The video id and any existing `uploaded_at` stay in `upload_state.json`.
+- `youtube-production.yml` persists that state even when the execute step fails. A same-dispatch `collect_feedback` is skipped because the 7-day window cannot be due. Selftest passed locally. Actions was not re-run.
 
 ## Run 278 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -57,7 +62,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
 | Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; resume no longer drops the observation clock |
-| Automated steps | 112 | 113 | resume keeps uploaded_at; no upload ran |
+| Automated steps | 113 | 114 | post-upload failure keeps video id and fails the job; no upload ran |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
@@ -78,3 +83,6 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not treat a collect before uploaded_at plus 7 days as COLLECTED
 - Do not invent uploaded_at
 - Do not drop an existing uploaded_at when an upload resumes
+- Do not treat a failed caption or thumbnail as a finished upload
+- Do not skip persisting upload_state.json after a post-upload failure
+- Do not collect feedback in the same dispatch as execute

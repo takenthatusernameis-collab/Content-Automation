@@ -389,6 +389,14 @@ def check_upload_stamp_preserved() -> list[str]:
     got2 = preserved_upload_stamp({"uploaded_at": stamp})
     if got2 != stamp:
         failures.append(f"resume must keep top-level uploaded_at, got {got2}")
+    from youtube_upload import incomplete_post_uploads
+    if incomplete_post_uploads({"caption_upload": {"status": "uploaded"}, "thumbnail_upload": {"status": "uploaded"}}) != []:
+        failures.append("finished caption and thumbnail must not be incomplete")
+    failed = incomplete_post_uploads({"caption_upload": {"status": "failed"}, "thumbnail_upload": {"status": "not_attempted"}})
+    if failed != ["captions"]:
+        failures.append(f"failed captions must fail closed, got {failed}")
+    if incomplete_post_uploads({"caption_upload": {"status": "not_attempted"}}) != []:
+        failures.append("missing caption attempt must not be treated as a failed upload")
     return failures
 
 
@@ -941,6 +949,12 @@ def check_live_capabilities() -> list[str]:
         failures.append("feedback collect must be gated on collect_feedback")
     if "inputs.execute == true || inputs.collect_feedback == true" not in workflow:
         failures.append("oauth preflight must cover execute and collect_feedback")
+    if "always() && inputs.execute == true" not in workflow:
+        failures.append("upload state persist must run after a post-upload failure")
+    if "inputs.collect_feedback == true && inputs.execute != true" not in workflow:
+        failures.append("collect must not run in the same dispatch as execute")
+    if "POST_UPLOAD_INCOMPLETE" not in upload:
+        failures.append("upload execute must fail closed when caption or thumbnail fails")
     if "OBSERVATION_WINDOW_NOT_DUE" not in feedback:
         failures.append("feedback collect must refuse an early observation window")
     from oauth_preflight import presence
