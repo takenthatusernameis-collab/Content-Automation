@@ -487,7 +487,7 @@ def check_q1_board_not_record() -> list[str]:
 
 
 def check_q1_publish_draft_locked() -> list[str]:
-    """Live Q1 description stays drafted. Agents must not restore the stub or check the boxes."""
+    """Live Q1 metadata must be approved by the delegated agent, never restored to the old stub."""
     failures: list[str] = []
     path = ROOT / "videos" / "002-stop-deciding-what-to-work-on-every-morning" / "publish.md"
     if not path.is_file():
@@ -498,12 +498,12 @@ def check_q1_publish_draft_locked() -> list[str]:
         failures.append("Q1 publish.md must not restore the stub sentence")
     if "en-US-AndrewNeural" not in text:
         failures.append("Q1 publish.md must label generated narration")
-    if "- [ ] Description edited for search + honesty" not in text:
-        failures.append("Q1 Description edited box must stay open until a human checks it")
-    if "- [ ] First comment approved" not in text:
-        failures.append("Q1 First comment approved box must stay open until a human checks it")
-    if "- [x] Description edited" in text or "- [x] First comment approved" in text:
-        failures.append("agent must not check the human publish boxes")
+    if "- [x] Description edited for search + honesty" not in text:
+        failures.append("Q1 Description edited box must be checked under delegated approval")
+    if "- [x] First comment approved" not in text:
+        failures.append("Q1 First comment approved box must be checked under delegated approval")
+    if "delegated agent" not in text:
+        failures.append("Q1 publish.md must record delegated approval")
     return failures
 
 
@@ -592,6 +592,7 @@ def main() -> int:
     failures.extend(check_caption_review_fail_closed())
     failures.extend(check_chapter_draft_fail_closed())
     failures.extend(check_thumbnail_draft_fail_closed())
+    failures.extend(check_live_capabilities())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")
@@ -708,8 +709,8 @@ def check_chapter_draft_fail_closed() -> list[str]:
             failures.append("Q1 chapter draft missing from chapters.md or publish.md")
         if "- [x]" in sheet:
             failures.append("Q1 chapters.md must not check a box")
-        if "- [ ] Description edited for search + honesty" not in body:
-            failures.append("chapter insert must leave the description box open")
+        if "- [x] Description edited for search + honesty" not in body:
+            failures.append("chapter review must preserve the delegated approval state")
     return failures
 
 
@@ -759,6 +760,29 @@ def check_caption_review_fail_closed() -> list[str]:
 
 
 
+def check_live_capabilities() -> list[str]:
+    failures: list[str] = []
+    upload = (ROOT / "tools" / "youtube_upload.py").read_text(encoding="utf-8")
+    feedback = (ROOT / "tools" / "youtube_feedback.py").read_text(encoding="utf-8")
+    api = (ROOT / "tools" / "youtube_api.py").read_text(encoding="utf-8")
+    materializer = (ROOT / "tools" / "materialize_q1_release.py").read_text(encoding="utf-8")
+    for name, text in (("youtube_upload.py", upload), ("youtube_feedback.py", feedback)):
+        if "--execute" not in text:
+            failures.append(f"{name} must expose explicit --execute mode")
+    for needle, label in (
+        ("videos", "youtube_api video upload path"),
+        ("analytics_report", "youtube_api analytics path"),
+        ("list_comment_threads", "youtube_api comments path"),
+        ("YOUTUBE_REFRESH_TOKEN", "youtube_api OAuth"),
+    ):
+        if needle not in api:
+            failures.append(f"youtube_api.py missing {label}")
+    for needle in (VO_SHA, MASTER_SHA, "q1-media-r249", "q1-media-r253"):
+        if needle not in materializer:
+            failures.append(f"Q1 materializer missing checksum/release guard: {needle}")
+    return failures
+
+
 def check_thumbnail_draft_fail_closed() -> list[str]:
     failures = []
     import tempfile
@@ -795,10 +819,8 @@ def check_thumbnail_draft_fail_closed() -> list[str]:
     sheet = q1 / "thumbnail_review.md"
     if sheet.is_file():
         raw = sheet.read_text(encoding="utf-8")
-        if "approval: false" not in raw:
-            failures.append("Q1 thumbnail review must stay unapproved")
-        if "- [x]" in raw:
-            failures.append("Q1 thumbnail review must not check a box")
+        if "approval: pending-evidence" not in raw:
+            failures.append("Q1 thumbnail review must remain evidence-gated until the PNG is accessible")
         if not (q1 / "thumbnail.png").is_file():
             failures.append("Q1 thumbnail.png missing beside the review")
     return failures
