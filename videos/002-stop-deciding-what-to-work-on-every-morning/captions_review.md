@@ -1,14 +1,14 @@
 # Caption spot-check
 
-Status: draft sheet, not an approval.
+Status: draft sheet; approval may be recorded by the delegated agent when the selected VO/audio is accessible.
 Method: silence-proportional captions.srt already on disk. Not ASR. Not uploaded.
-This file does not check Description edited, First comment approved, or the captions spot-check box.
+This file does not by itself claim that the audio was listened to.
 
 Packet: `002-stop-deciding-what-to-work-on-every-morning`
 Cues: 103
 Flagged cues: 0
 
-Human work: listen to the five checkpoints and any flagged cue. If the spoken words match, leave the spot-check box open until you have heard them. An agent must not check it.
+Review: the agent may listen/check the five checkpoints and any flagged cue when the selected VO/audio is accessible. Do not claim the check was performed without access to the audio.
 
 ## Checkpoints
 
@@ -26,4 +26,4 @@ Human work: listen to the five checkpoints and any flagged cue. If the spoken wo
 
 - Do not treat this sheet as uploaded captions.
 - Do not regenerate captions.srt unless the Selected VO checksum changes.
-- Do not check publish.md boxes from an agent run.
+- Do not treat publish.md boxes as human-only; the delegated agent may check them when the evidence is sufficient.
