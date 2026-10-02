@@ -217,6 +217,12 @@ def main() -> int:
     if not path.is_dir():
         print(f"not a directory: {path}", file=sys.stderr)
         return 1
+    if path.name == "002-stop-deciding-what-to-work-on-every-morning":
+        print(
+            "refuse: Q1 publish.md viewer draft is locked; do not restore the stub sentence",
+            file=sys.stderr,
+        )
+        return 1
 
     dest = path / "publish.md"
     existing = dest.read_text(encoding="utf-8") if dest.is_file() else ""

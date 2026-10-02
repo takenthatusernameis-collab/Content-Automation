@@ -13,7 +13,7 @@ Q1 is already scaffolded. Status stays `ready_for_vo` because the wav is gitigno
 
 - Packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - Fetch: `docs/gate_machine.md` and `HANDOFF.md` (wav/cards from r249 only; master from r253 only)
-- Remaining human edit: `publish.md` — delete the sentence `No upload happened. Human locks title, description, and tags before YouTube.` Check Description edited and First comment approved. Leave No YouTube upload checked.
+- Remaining human review: `publish.md` — description is already drafted. Do not delete a missing stub sentence and do not restore `No upload happened`. Check Description edited and First comment approved. Leave No YouTube upload checked.
 - After that copy is approved, YouTube OAuth (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`) is the credential gate. Dry-run READY is not an upload.
 - Keep `vo_origin.md` kind=generated. Do not `git add -f` media. Do not scaffold Q2.
 
@@ -161,9 +161,9 @@ python3 tools/qa_checklist.py videos/002-stop-deciding-what-to-work-on-every-mor
 
 7. After presence refresh (publish.md is not an upload)
 
-Open `videos/002-stop-deciding-what-to-work-on-every-morning/publish.md`. Tags and title are already usable (Run 117). The description body above the stub sentence is already usable. Remaining human boxes:
+Open `videos/002-stop-deciding-what-to-work-on-every-morning/publish.md`. Tags and title are already usable (Run 117). The viewer description was drafted in Run 259 and must not contain `No upload happened` (youtube_upload treats that sentence as HOLD_LOCAL). Remaining human boxes:
 
-- delete `No upload happened. Human locks title, description, and tags before YouTube.` (youtube_upload treats that sentence as HOLD_LOCAL)
+- review the drafted description; do not restore the stub sentence
 - check Description edited and First comment approved (the pin candidate is already a draft assignment; rewrite it only if it overclaims)
 - leave the No YouTube upload box checked
 

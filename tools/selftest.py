@@ -454,6 +454,10 @@ def check_q1_board_not_record() -> list[str]:
     report = format_report([row])
     if "Do not record" not in report:
         failures.append("pipeline_status Q1 detail must say Do not record")
+    if "delete 'No upload happened'" in report:
+        failures.append("pipeline_status Q1 detail must not tell the operator to delete the drafted stub")
+    if "Description edited" not in report or "First comment approved" not in report:
+        failures.append("pipeline_status Q1 detail must name the two open boxes")
     if "DROP `" in report:
         failures.append("pipeline_status Q1 detail must not print a DROP path")
     other = dict(row)
@@ -461,6 +465,28 @@ def check_q1_board_not_record() -> list[str]:
     other_report = format_report([other])
     if "DROP `" not in other_report:
         failures.append("pipeline_status non-Q1 missing VO must still print DROP")
+    return failures
+
+
+
+def check_q1_publish_draft_locked() -> list[str]:
+    """Live Q1 description stays drafted. Agents must not restore the stub or check the boxes."""
+    failures: list[str] = []
+    path = ROOT / "videos" / "002-stop-deciding-what-to-work-on-every-morning" / "publish.md"
+    if not path.is_file():
+        failures.append("Q1 publish.md missing")
+        return failures
+    text = path.read_text(encoding="utf-8")
+    if "No upload happened" in text:
+        failures.append("Q1 publish.md must not restore the stub sentence")
+    if "en-US-AndrewNeural" not in text:
+        failures.append("Q1 publish.md must label generated narration")
+    if "- [ ] Description edited for search + honesty" not in text:
+        failures.append("Q1 Description edited box must stay open until a human checks it")
+    if "- [ ] First comment approved" not in text:
+        failures.append("Q1 First comment approved box must stay open until a human checks it")
+    if "- [x] Description edited" in text or "- [x] First comment approved" in text:
+        failures.append("agent must not check the human publish boxes")
     return failures
 
 
@@ -544,6 +570,7 @@ def main() -> int:
     failures.extend(check_complete_fail_closed())
     failures.extend(check_timeline_card_match())
     failures.extend(check_q1_board_not_record())
+    failures.extend(check_q1_publish_draft_locked())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")

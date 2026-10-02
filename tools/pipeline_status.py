@@ -162,7 +162,7 @@ def format_report(rows: list[dict[str, object]]) -> str:
             if show_drop:
                 if row["name"] == "002-stop-deciding-what-to-work-on-every-morning":
                     lines.append(
-                        "    PUBLISH edit publish.md (delete 'No upload happened'; check Description edited and First comment approved). "
+                        "    PUBLISH review drafted publish.md (check Description edited and First comment approved; do not restore 'No upload happened'). "
                         "Fetch q1-media-r253 q1-master-r253.mp4 only. Do not record. Do not copy r249 q1-master.mp4. Follow docs/gate_machine.md."
                     )
                 else:

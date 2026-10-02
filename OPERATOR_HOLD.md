@@ -18,3 +18,4 @@ Run 250 verified `gh release download q1-media-r249` checksums and fixed extract
 Run 257: live-job pages and next_action no longer treat a new recording as the Q1 job. Human publish.md edit and YouTube OAuth remain. Do not regenerate.
 
 Run 258: gate_machine.md and pipeline_status no longer treat a new recording as the Q1 job. Human publish.md edit and YouTube OAuth remain. Do not regenerate.
+\nRun 260: operator pages no longer say delete `No upload happened`. Human publish.md check and YouTube OAuth remain. Do not regenerate. Do not restore the stub.\n

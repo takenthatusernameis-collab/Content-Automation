@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T04:20:00Z (Run 259)
+Updated: 2026-10-02T02:12:00Z (Run 260)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,17 +17,17 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Executive: SHIP after a human checks the two open publish.md boxes and YouTube OAuth. Do not re-encode. Do not upload r249. Do not expand architecture. Do not check those boxes from an agent run.
 
-## Run 259 delta
-- Replaced the Q1 publish.md process-note description with a drafted viewer description. Stub markers `No upload happened` and `Human locks title, description, and tags before YouTube` are gone. Narration is labeled generated. Description edited and First comment approved stay unchecked. That is not approval.
-- next_action and hint no longer tell the operator to delete a sentence that this run removed. They name the two open boxes.
-- selftest locks the missing stub, the open boxes, and the generated-voice line.
-- Releases still listed: `q1-media-r253` (2026-10-01T19:18:04Z) and `q1-media-r249`. Did not re-download. Did not re-encode. Did not upload. Did not scaffold Q2. Did not check the human boxes.
+## Run 260 delta
+- Operator pages and pipeline_status still told a human to delete `No upload happened` after Run 259 removed that sentence. Those pointers now name the two open boxes and forbid restoring the stub.
+- publish_brief refuses the Q1 packet so `--force` cannot overwrite the drafted description with the stub.
+- selftest locks the board text and the live publish.md draft (stub absent, generated voice labeled, both boxes open). selftest PASS in this checkout.
+- Did not re-download. Did not re-encode. Did not upload. Did not scaffold Q2. Did not check the human boxes.
 
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 2.0 | 1.5 | review drafted description and check two boxes; OAuth still manual |
-| Automated steps | 99 | 100 | stub description no longer the compose step |
+| Estimated human min / video | 1.5 | 1.5 | review drafted description and check two boxes; OAuth still manual |
+| Automated steps | 100 | 100 | no new production step; stale compose instruction removed from remaining printers |
 | Videos produced | 0 | 0 | padded local master on q1-media-r253; not uploaded |
 
 ## Active constraints
@@ -41,3 +41,4 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not scaffold Q2
 - Do not check Description edited or First comment approved from an agent run
 - Do not restore the stub sentence `No upload happened` into publish.md
+- Do not tell the operator to delete that sentence; it is already gone

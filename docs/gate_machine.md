@@ -9,7 +9,7 @@ The generated take, seven cards, and padded master already exist on private rele
 Do not record. Do not regenerate. Do not re-encode while that r253 asset exists. Do not copy `q1-media-r249` `q1-master.mp4` onto `export/master.mp4`.
 
 Remaining labor, in order:
-1. Human-edit `videos/002-stop-deciding-what-to-work-on-every-morning/publish.md`: delete the sentence `No upload happened`, then check Description edited and First comment approved. Do not invent a new description from this page.
+1. Human review `videos/002-stop-deciding-what-to-work-on-every-morning/publish.md`: the viewer description is already drafted (Run 259) and must not contain `No upload happened`. Check Description edited and First comment approved. Do not invent a new description from this page. An agent must not check those boxes.
 2. Copy only `q1-master-r253.mp4` onto `export/master.mp4` (fetch block below). Wav and PNGs come from `q1-media-r249` only.
 3. YouTube OAuth (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`), then `python3 tools/youtube_upload.py PATH`. Dry-run READY is not an upload.
 

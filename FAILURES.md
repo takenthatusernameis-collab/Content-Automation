@@ -1,5 +1,10 @@
 # FAILURES
 
+## Run 260 — compose instruction survived on the human pages
+- **Tried:** Run 259 updated next_action and hint, then left gate_machine, human_session, agent_session, HANDOFF, and pipeline_status telling the operator to delete `No upload happened`.
+- **Result:** Those surfaces now name the two open boxes and forbid restoring the stub. publish_brief refuses the Q1 packet.
+- **Avoid:** Another printer-only pass that does not change the human action. Checking the boxes from an agent run. Restoring the stub. Flag if Runs 261+ only restate this hold.
+
 ## Run 259 — stub description treated as a compose task
 - **Tried:** Runs 254–258 kept telling the operator to delete `No upload happened` and write the description. The script, title, tags, and pin draft already existed. That loop did not move the packet.
 - **Result:** Description is now a drafted viewer paragraph. Open boxes stay unchecked so approval is still human. next_action must not tell the operator to delete a sentence that is gone.

@@ -22,7 +22,7 @@ Reconstruct exists so agents can run contracts when clone fails. It is not the c
 - Selected VO path, if a local copy is needed: `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
 - Repo-root `vo/` is not Selected VO. Do not invent a wav. Do not `git add -f` ignored media.
 - Do not scaffold Q2. Do not treat WAVE 3 `doctor.py` / `queue_status.py` / `next_topic.py` as permission to start a new packet.
-- After the WAVE 3 board printers run, stop unless this run is editing a named tool. Remaining labor is a human edit of `publish.md` (remove `No upload happened`, check Description edited and First comment approved) plus YouTube OAuth. Fetch recipe: `docs/gate_machine.md`. Do not re-encode.
+- After the WAVE 3 board printers run, stop unless this run is editing a named tool. Remaining labor is a human review of the drafted `publish.md` (check Description edited and First comment approved; do not restore `No upload happened`) plus YouTube OAuth. Fetch recipe: `docs/gate_machine.md`. Do not re-encode.
 
 README already names this front door. This page must not send an agent back into fixture reconstruct or a new recording as if that were the remaining labor.
 
