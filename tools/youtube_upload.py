@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Credential-ready YouTube upload adapter.
+"""YouTube upload adapter.
 
-Dry-run only unless every local gate passes AND OAuth env vars exist.
-Never prints secret values. Never calls the YouTube API from this tool.
-Never bumps packet status. Never treats a named export as a master.
-A junk export/master.mp4 is not a master; require an ISO BMFF ftyp box.
+Dry-run is the default. --execute performs authenticated provider writes only after
+all local gates pass. Secrets are never printed or written to repository state.
 """
+
 
 from __future__ import annotations
 
@@ -25,6 +24,15 @@ from media_qa import mp4_header_ok  # noqa: E402
 from publish_brief import primary_title, section  # noqa: E402
 from render_brief import selected_vo_drop  # noqa: E402
 from timeline import END_SCREEN  # noqa: E402
+from youtube_api import (  # noqa: E402
+    YouTubeAPIError,
+    compact_api_error,
+    insert_caption,
+    insert_top_level_comment,
+    refresh_access_token,
+    set_thumbnail,
+    upload_video,
+)
 
 AUTH_STATE = "YOUTUBE_AUTH_REQUIRED"
 OAUTH_KEYS = ("YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET", "YOUTUBE_REFRESH_TOKEN")
@@ -367,6 +375,90 @@ def redacted_state(report: dict) -> dict:
     }
 
 
+def write_upload_state(packet: Path, state: dict) -> None:
+    dest = packet / STATE_NAME
+    tmp = dest.with_suffix(dest.suffix + ".tmp")
+    tmp.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    tmp.replace(dest)
+
+
+def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) -> dict:
+    if report["gate"] != "READY":
+        raise YouTubeAPIError(0, f"LOCAL_GATE_{report['gate']}")
+    export = export_path(packet)
+    token = refresh_access_token()
+    result = {
+        "packet": packet.name,
+        "generated": _now(),
+        "fingerprint": report["fingerprint"],
+        "privacy": report["privacy"],
+        "attempted_upload": True,
+        "provider_video_id": None,
+        "video_upload": {"status": "pending"},
+        "caption_upload": {"status": "not_attempted"},
+        "thumbnail_upload": {"status": "not_attempted"},
+        "comment_post": {"status": "not_attempted"},
+    }
+    try:
+        video = upload_video(
+            token,
+            export_path=export,
+            metadata={
+                "snippet": {
+                    "title": report["meta"]["title"],
+                    "description": report["meta"]["description"],
+                    "tags": report["meta"]["tags"][:12],
+                    "categoryId": "27",
+                },
+            },
+            privacy=report["privacy"],
+        )
+        video_id = str(video.get("id") or "").strip()
+        if not video_id:
+            raise YouTubeAPIError(0, "upload_response_missing_video_id")
+        result["provider_video_id"] = video_id
+        result["video_upload"] = {"status": "uploaded", "video_id": video_id}
+
+        captions = packet / "captions.srt"
+        if captions.is_file():
+            try:
+                cap = insert_caption(token, video_id=video_id, caption_path=captions)
+                result["caption_upload"] = {"status": "uploaded", "caption_id": cap.get("id")}
+            except Exception as exc:
+                result["caption_upload"] = {"status": "failed", "error": compact_api_error(exc)}
+
+        thumb = packet / "thumbnail.png"
+        if thumb.is_file():
+            try:
+                set_thumbnail(token, video_id=video_id, thumbnail_path=thumb)
+                result["thumbnail_upload"] = {"status": "uploaded"}
+            except Exception as exc:
+                result["thumbnail_upload"] = {"status": "failed", "error": compact_api_error(exc)}
+
+        if post_comment and report["meta"].get("pin_comment"):
+            try:
+                from youtube_api import get_channel_id
+                channel_id = get_channel_id(token)
+                comment = insert_top_level_comment(
+                    token,
+                    video_id=video_id,
+                    channel_id=channel_id,
+                    text=report["meta"]["pin_comment"],
+                )
+                result["comment_post"] = {"status": "posted", "comment_id": comment.get("id")}
+            except Exception as exc:
+                result["comment_post"] = {"status": "failed", "error": compact_api_error(exc)}
+
+        result["error_class"] = None
+        write_upload_state(packet, result)
+        return result
+    except Exception as exc:
+        result["video_upload"] = {"status": "failed", "error": compact_api_error(exc)}
+        result["error_class"] = compact_api_error(exc)
+        write_upload_state(packet, result)
+        raise
+
+
 def render_text(report: dict) -> str:
     lines = [
         f"packet: {report['packet']}",
@@ -381,7 +473,7 @@ def render_text(report: dict) -> str:
             present="yes" if (report.get("captions") or {}).get("present") else "no",
         ),
         f"auth: {report['auth']['state']}",
-        "youtube_upload never prints secret values and never calls the API",
+        "dry-run default; --execute performs authenticated API calls only after all local gates pass",
         "an API key alone is not upload authorization",
         "a junk export/master.mp4 is not a master",
         "captions.srt is a draft track only; this adapter never calls captions.insert",
@@ -402,13 +494,23 @@ def render_text(report: dict) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Dry-run YouTube upload adapter. No API. No secrets printed."
+        description="YouTube upload adapter. Dry-run by default; --execute performs authenticated writes."
     )
     parser.add_argument("packet", help="Path to packet folder")
     parser.add_argument(
         "--write-state",
         action="store_true",
-        help="Write redacted upload_state.json (never contains secrets)",
+        help="Write redacted dry-run upload_state.json (never contains secrets)",
+    )
+    parser.add_argument(
+        "--execute",
+        action="store_true",
+        help="Perform the authenticated video upload and available post-upload artifacts.",
+    )
+    parser.add_argument(
+        "--post-comment",
+        action="store_true",
+        help="Also post the approved first comment after upload; requires comment-write scope.",
     )
     args = parser.parse_args()
     path = Path(args.packet).resolve()
@@ -417,14 +519,33 @@ def main() -> int:
         return 1
     report = inspect_upload(path)
     sys.stdout.write(render_text(report))
+    if report["gate"] == AUTH_STATE and not args.execute:
+        if args.write_state:
+            dest = path / STATE_NAME
+            dest.write_text(json.dumps(redacted_state(report), indent=2) + "\n", encoding="utf-8")
+            print(dest)
+        return 3
+    if report["gate"] == "FAIL":
+        if args.write_state:
+            dest = path / STATE_NAME
+            dest.write_text(json.dumps(redacted_state(report), indent=2) + "\n", encoding="utf-8")
+            print(dest)
+        return 2
+    if args.execute:
+        try:
+            state = execute_upload(path, report, post_comment=args.post_comment)
+            print(json.dumps(state, indent=2, ensure_ascii=False))
+            return 0
+        except YouTubeAPIError as exc:
+            print(json.dumps({"error": compact_api_error(exc)}, ensure_ascii=False), file=sys.stderr)
+            return 3 if exc.reason == "YOUTUBE_AUTH_REQUIRED" else 4
+        except Exception as exc:
+            print(json.dumps({"error": compact_api_error(exc)}, ensure_ascii=False), file=sys.stderr)
+            return 4
     if args.write_state:
         dest = path / STATE_NAME
         dest.write_text(json.dumps(redacted_state(report), indent=2) + "\n", encoding="utf-8")
         print(dest)
-    if report["gate"] == AUTH_STATE:
-        return 3
-    if report["gate"] == "FAIL":
-        return 2
     return 0
 
 
