@@ -777,7 +777,7 @@ def check_live_capabilities() -> list[str]:
     ):
         if needle not in api:
             failures.append(f"youtube_api.py missing {label}")
-    for needle in (VO_SHA, MASTER_SHA, "q1-media-r249", "q1-media-r253"):
+    for needle in ("758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2", "4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546", "q1-media-r249", "q1-media-r253"):
         if needle not in materializer:
             failures.append(f"Q1 materializer missing checksum/release guard: {needle}")
     return failures
