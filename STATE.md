@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T14:20:00Z (Run 276)
+Updated: 2026-10-02T15:20:00Z (Run 277)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,10 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 277 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- `youtube_feedback.py` now refuses a collect until `upload_state.json` has `video_upload.uploaded_at` or `uploaded_at` at least 7 days old. Missing time is `OBSERVATION_WINDOW_UNKNOWN`. An earlier time is `OBSERVATION_WINDOW_NOT_DUE`. Neither path writes COLLECTED. Selftest passed locally. Actions was not re-run.
 
 ## Run 276 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -48,8 +52,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; post-publish fetch no longer needs a manual CLI |
-| Automated steps | 110 | 111 | collect_feedback dispatch exists and defaults off; no fetch ran |
+| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; early collect can no longer become evidence |
+| Automated steps | 111 | 112 | collect refuses an early or missing uploaded_at; no fetch ran |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
@@ -67,3 +71,5 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not invent experiment_baseline.json for Q1
 - Do not invent experiment_decision.json for Q1
 - Do not treat a decision file written before COMPARED as a result
+- Do not treat a collect before uploaded_at plus 7 days as COLLECTED
+- Do not invent uploaded_at

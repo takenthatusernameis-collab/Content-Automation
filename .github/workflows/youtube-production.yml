@@ -160,3 +160,4 @@ jobs:
           echo "OAuth secrets are read only from GitHub Actions secrets."
           echo "Verified release media is materialized with checksum guards."
           echo "collect_feedback is read-only and defaults off. It does not upload or invent metrics."
+          echo "collect_feedback refuses a missing or early uploaded_at and does not write COLLECTED."

@@ -1,3 +1,14 @@
+## 2026-10-02T15:20:00Z — Run 277
+
+- **Objective:** Stop an early feedback collect from becoming COLLECTED evidence, without retrying the OAuth stall or inventing metrics.
+- **Inspected:** STATE, NEXT, RUNS, BLOCKED, ROADMAP, `youtube_feedback.py`, `youtube-production.yml`, selftest.
+- **Action taken:** Collect now requires `video_upload.uploaded_at` or `uploaded_at` at least 7 days old. Missing time is `OBSERVATION_WINDOW_UNKNOWN`. An earlier time is `OBSERVATION_WINDOW_NOT_DUE` and exits 5 before any provider read. `execute_feedback` repeats the check. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute and collect were not dispatched. Videos published stay 0.
+- **Verification status:** completed for the window contract and local selftest. Actions was not re-run. No provider write or read.
+- **Important discovery:** Run 276 could dispatch collect as soon as a video id existed. That fetch would be committed as COLLECTED and could later be compared as if the 7-day window had elapsed.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` remain the publish and collect gate. Not polled. Flagged as a recurring external stall.
+- **Recommended next action:** Add those three secrets, then dispatch `youtube-production.yml` with execute=true. Dispatch collect_feedback=true only after uploaded_at is at least 7 days old. Do not invent uploaded_at, a Q1 baseline, or a decision. Do not re-encode. Do not scaffold Q2.
+
 ## 2026-10-02T14:20:00Z — Run 276
 
 - **Objective:** Remove the post-publish manual feedback CLI without retrying the OAuth stall or inventing metrics.

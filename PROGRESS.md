@@ -1,3 +1,6 @@
+## Run 277 — 2026-10-02T15:20:00Z
+- Feedback collect now fails closed until the documented 7-day window. An early or undated upload cannot be stored as COLLECTED. No fetch ran. Videos published stay 0.
+
 ## Run 276 — 2026-10-02T14:20:00Z
 - Production workflow can collect read-only feedback after a provider video id exists. Default remains off. Collect-only does not download media or upload. No fetch ran. Videos published stay 0.
 
@@ -57,6 +60,7 @@ Stale "delete No upload happened" instructions removed from pipeline_status, gat
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-10-02 Run 277 | ~0.5 estimate | 112 | early collect cannot become evidence; OAuth still blocks publish and fetch |
 | 2026-10-02 Run 276 | ~0.5 estimate | 111 | collect_feedback dispatch exists; OAuth still blocks publish and fetch |
 | 2026-10-02 Run 275 | ~0.5 estimate | 110 | explicit decision file is loaded fail-closed; OAuth still blocks publish |
 | 2026-10-02 Run 274 | ~0.5 estimate | 109 | numeric delta is automatic; keep/discard still pending; OAuth still blocks publish |

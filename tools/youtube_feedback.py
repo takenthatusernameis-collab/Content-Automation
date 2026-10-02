@@ -135,6 +135,62 @@ def observation_window(now: datetime | None = None, days: int = DEFAULT_WINDOW_D
     }
 
 
+def _parse_ts(raw) -> datetime | None:
+    if not isinstance(raw, str) or not raw.strip():
+        return None
+    text = raw.strip().replace("Z", "+00:00")
+    try:
+        parsed = datetime.fromisoformat(text)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def upload_timestamp(state: dict | None) -> datetime | None:
+    """Return a provider upload time. Never invent one from generated or fetched fields."""
+    if not state:
+        return None
+    candidates = []
+    video = state.get("video_upload")
+    if isinstance(video, dict):
+        candidates.append(video.get("uploaded_at"))
+    candidates.append(state.get("uploaded_at"))
+    for raw in candidates:
+        parsed = _parse_ts(raw)
+        if parsed is not None:
+            return parsed
+    return None
+
+
+def window_status(
+    upload: dict | None,
+    now: datetime | None = None,
+    days: int = DEFAULT_WINDOW_DAYS,
+) -> dict:
+    """A collect is due only after the documented window from a real upload timestamp."""
+    moment = now or _now()
+    uploaded = upload_timestamp(upload)
+    if uploaded is None:
+        return {
+            "due": False,
+            "reason": "missing_uploaded_at",
+            "uploaded_at": None,
+            "due_at": None,
+            "days": days,
+        }
+    due_at = uploaded + timedelta(days=days)
+    due = moment >= due_at
+    return {
+        "due": due,
+        "reason": "due" if due else "not_due",
+        "uploaded_at": _fmt(uploaded),
+        "due_at": _fmt(due_at),
+        "days": days,
+    }
+
+
 def inspect_feedback(
     packet: Path,
     env: dict[str, str] | None = None,
@@ -149,10 +205,16 @@ def inspect_feedback(
     def add(name: str, ok: bool, detail: str) -> None:
         checks.append({"name": name, "ok": ok, "detail": detail})
 
+    due = window_status(upload, now)
     add("upload_state_present", upload is not None, UPLOAD_STATE if upload else "missing upload_state.json")
     add("provider_video_id_present", bool(video_id), video_id or "no provider_video_id")
     add("oauth_complete", auth["complete"], auth["state"] if auth["complete"] else ",".join(auth["missing"]))
     add("not_api_key_only", not auth["api_key_alone"], "API key is not analytics authorization")
+    add(
+        "observation_window_due",
+        due["due"],
+        due["reason"] if due["due"] else f"{due['reason']}; due_at={due['due_at'] or 'unknown'}",
+    )
     add("no_invented_metrics", True, "metrics stay empty until a live report is fetched")
 
     if not video_id:
@@ -161,6 +223,13 @@ def inspect_feedback(
     elif not auth["complete"]:
         gate = AUTH_STATE
         action = "DRY_RUN"
+    elif not due["due"]:
+        gate = (
+            "OBSERVATION_WINDOW_UNKNOWN"
+            if due["reason"] == "missing_uploaded_at"
+            else "OBSERVATION_WINDOW_NOT_DUE"
+        )
+        action = "HOLD_WINDOW"
     else:
         gate = "READY"
         action = "FETCH_BLOCKED_NO_NETWORK"
@@ -171,6 +240,7 @@ def inspect_feedback(
         "provider_video_id": video_id,
         "auth": auth,
         "window": window,
+        "window_status": due,
         "metrics_requested": list(METRIC_NAMES),
         "comment_classes": list(COMMENT_CLASSES),
         "metrics": None,
@@ -194,6 +264,15 @@ def execute_feedback(packet: Path, report: dict, *, now: datetime | None = None)
     video_id = report.get("provider_video_id")
     if not video_id:
         raise YouTubeAPIError(0, "HOLD_UNPUBLISHED")
+    due = report.get("window_status") or window_status(load_upload_state(packet), now)
+    if not due.get("due"):
+        reason = due.get("reason") or "not_due"
+        gate = (
+            "OBSERVATION_WINDOW_UNKNOWN"
+            if reason == "missing_uploaded_at"
+            else "OBSERVATION_WINDOW_NOT_DUE"
+        )
+        raise YouTubeAPIError(0, gate)
     token = refresh_access_token()
     end = now or _now()
     end = end - timedelta(days=3)
@@ -294,6 +373,11 @@ def render_text(report: dict) -> str:
         f"drop: {report['drop']}",
         f"provider_video_id: {report['provider_video_id'] or 'none'}",
         f"window: {report['window']['start']} .. {report['window']['end']} ({report['window']['days']}d)",
+        "observation window: {reason} due_at={due}".format(
+            reason=(report.get("window_status") or {}).get("reason", "unknown"),
+            due=(report.get("window_status") or {}).get("due_at") or "unknown",
+        ),
+        "a collect before the documented window is not COLLECTED feedback",
         f"auth: {report['auth']['state']}",
         "dry-run default; --execute performs authenticated read-only Analytics and comment API calls",
         "missing provider_video_id is HOLD_UNPUBLISHED, not collected feedback",
@@ -340,6 +424,8 @@ def main() -> int:
             dest.write_text(json.dumps(redacted_state(report), indent=2) + "\n", encoding="utf-8")
             print(dest)
         return 3
+    if report["gate"] in {"OBSERVATION_WINDOW_NOT_DUE", "OBSERVATION_WINDOW_UNKNOWN"}:
+        return 5
     if args.execute:
         try:
             state = execute_feedback(path, report)

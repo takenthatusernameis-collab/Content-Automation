@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import sys
 import tempfile
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -342,10 +343,34 @@ def check_feedback_fail_closed() -> list[str]:
             "YOUTUBE_REFRESH_TOKEN": "z",
         }
         report3 = inspect_feedback(p, env=dummy)
-        if report3["gate"] != "READY":
-            failures.append(f"feedback with video id + OAuth env must be READY, got {report3['gate']}")
-        if report3["action"] != "FETCH_BLOCKED_NO_NETWORK":
-            failures.append(f"feedback READY action must stay offline, got {report3['action']}")
+        if report3["gate"] != "OBSERVATION_WINDOW_UNKNOWN":
+            failures.append(
+                f"feedback without uploaded_at must stay unknown, got {report3['gate']}"
+            )
+        if report3["action"] != "HOLD_WINDOW":
+            failures.append(f"missing upload time must HOLD_WINDOW, got {report3['action']}")
+        if report3["metrics"] is not None:
+            failures.append("early window must not invent metrics")
+        recent = (datetime.now(timezone.utc)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        with_id.write_text(
+            '{"provider_video_id":"abc123","video_upload":{"uploaded_at":"%s"}}\n' % recent,
+            encoding="utf-8",
+        )
+        report4 = inspect_feedback(p, env=dummy)
+        if report4["gate"] != "OBSERVATION_WINDOW_NOT_DUE":
+            failures.append(f"feedback inside 7d window must not be READY, got {report4['gate']}")
+        if report4["action"] != "HOLD_WINDOW":
+            failures.append(f"early collect must HOLD_WINDOW, got {report4['action']}")
+        old = (datetime.now(timezone.utc) - timedelta(days=8)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        with_id.write_text(
+            '{"provider_video_id":"abc123","video_upload":{"uploaded_at":"%s"}}\n' % old,
+            encoding="utf-8",
+        )
+        report5 = inspect_feedback(p, env=dummy)
+        if report5["gate"] != "READY":
+            failures.append(f"feedback after window + OAuth env must be READY, got {report5['gate']}")
+        if report5["action"] != "FETCH_BLOCKED_NO_NETWORK":
+            failures.append(f"feedback READY action must stay offline, got {report5['action']}")
     return failures
 
 
@@ -897,6 +922,8 @@ def check_live_capabilities() -> list[str]:
         failures.append("feedback collect must be gated on collect_feedback")
     if "inputs.execute == true || inputs.collect_feedback == true" not in workflow:
         failures.append("oauth preflight must cover execute and collect_feedback")
+    if "OBSERVATION_WINDOW_NOT_DUE" not in feedback:
+        failures.append("feedback collect must refuse an early observation window")
     from oauth_preflight import presence
     empty = presence({})
     if any(empty.values()) or set(empty) != {"YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET", "YOUTUBE_REFRESH_TOKEN"}:
