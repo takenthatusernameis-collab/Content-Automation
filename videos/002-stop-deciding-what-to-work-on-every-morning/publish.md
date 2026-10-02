@@ -1,10 +1,12 @@
 # Publish
 
-Status: stub (tags trimmed)
+Status: description drafted (Run 259); human boxes still open
 Generated: 2026-09-13T11:14:00Z
+Description drafted: 2026-10-02T04:20:00Z
 
 This file is upload metadata, not a published video. There is no YouTube API
-call here. Do not treat these fields as live channel copy.
+call here. Do not treat these fields as live channel copy. Checking the boxes
+below is the human approval. An agent draft is not that approval.
 
 ## Title to upload
 Stop Deciding What to Work on Every Morning
@@ -12,13 +14,15 @@ Stop Deciding What to Work on Every Morning
 ## Description
 Stop Deciding What to Work on Every Morning.
 
-After watching, the viewer can install a written next-action default so the morning starts execution instead of reopening the whole work list.
+If you already planned the week and still open the whole list before you start, the stall is the reopen, not the plan. This video installs one written next-action default: a verb, an object, and a place, on one surface you see before any list.
 
-If they reopen the whole work list every morning instead of starting, this video walks the default instead of a pep talk.
+Night-you writes the sentence. Morning-you starts that verb for two minutes before mail, chat, or the board. The stop rule sits on the same card: do not open the weekly list until the sentence is done or rewritten in writing.
 
-Built for people who already plan their week, then stall when it is time to start.
+Four ways it fails: a theme instead of a verb, three defaults (that is a list), the sentence living inside the inventory app, and rewriting the card every morning before starting. The fix is the same surface, made smaller, not a new system.
 
-No upload happened. Human locks title, description, and tags before YouTube.
+Narration is a generated voice (en-US-AndrewNeural), not a recorded host. No audience results are claimed.
+
+Write tomorrow's sentence before you close the machine: verb, object, place.
 
 ## Tags
 - focused work
