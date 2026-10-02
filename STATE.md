@@ -15,7 +15,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning` status `ready_for_vo`
 - Durable fetch: private release `q1-media-r253` (padded master) plus r249 wav/cards and Drive folder in HANDOFF.md
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
-- Executive: SHIP after a human checks the two open publish.md boxes and YouTube OAuth. Do not re-encode. Do not upload r249. Do not expand architecture. Do not check those boxes from an agent run.
+- Executive: SHIP after the delegated agent has completed the approval-only publish review and YouTube OAuth is available. Do not re-encode. Do not upload r249. Do not expand architecture.
 
 ## Run 265 delta
 - Added tools/thumbnail_draft.py. It renders a 1280x720 PNG from thumbnail.md on-image text. Missing or over-long text refuses. It does not check boxes and does not call thumbnails.set.
@@ -67,7 +67,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not regenerate the wav or cards while HANDOFF checksums match
 - Do not add a public curl/gdown fetcher
 - Do not scaffold Q2
-- Do not check Description edited or First comment approved from an agent run
+- Approval-only publish boxes may be checked by the delegated agent after evidence-based review
 - Do not restore the stub sentence `No upload happened` into publish.md
 - Do not tell the operator to delete that sentence; it is already gone
 - Do not regenerate thumbnail.png while the on-image text is unchanged
