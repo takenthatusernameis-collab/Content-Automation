@@ -8,10 +8,10 @@ Q1 paperwork is done. Status stays `ready_for_vo` because the wav is gitignored.
 The generated take, seven cards, and padded master already exist on private releases `q1-media-r249` (wav and PNGs only) and `q1-media-r253` (`q1-master-r253.mp4`, 328.40s).
 Do not record. Do not regenerate. Do not re-encode while that r253 asset exists. Do not copy `q1-media-r249` `q1-master.mp4` onto `export/master.mp4`.
 
-Remaining labor, in order:
-1. Human review `videos/002-stop-deciding-what-to-work-on-every-morning/publish.md`: the viewer description is already drafted (Run 259) and must not contain `No upload happened`. Check Description edited and First comment approved. Do not invent a new description from this page. An agent must not check those boxes.
-2. Copy only `q1-master-r253.mp4` onto `export/master.mp4` (fetch block below). Wav and PNGs come from `q1-media-r249` only.
-3. YouTube OAuth (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`), then `python3 tools/youtube_upload.py PATH`. Dry-run READY is not an upload.
+Remaining production work, in order:
+1. Run `python3 tools/materialize_q1_release.py` when authenticated `gh` access is available. It copies the verified WAV, seven PNG cards, and finished r253 master into the ignored packet paths.
+2. Run the existing narration/card/timeline/media-QA/assembly gates. Do not regenerate or re-encode while the verified r253 media set is present.
+3. Run `python3 tools/youtube_upload.py PATH --execute` when the required YouTube OAuth credentials are available. The command remains dry-run by default.
 
 Generated narration is the authorized fallback after `2026-09-19T00:00:00Z`
 (`OPERATOR_HOLD.md`). Keep `vo_origin.md` `kind: generated` unless a human
