@@ -15,19 +15,20 @@ If none is true, report the current blocker out-of-band and exit with no reposit
 
 Keep the original master prompt unchanged.
 
-## Production-publish no-op gate
+## Delegated approval policy
 
-If the live packet is already at the publish-review stage and the repository records that the remaining work is human approval and/or YouTube OAuth, the scheduled run is **read-only**. This gate applies even when release artifacts or other production assets already exist elsewhere; the agent must not keep converting the same human bottleneck into repository commits.
+The human operator has explicitly authorized the scheduled agent to perform **any action previously deferred solely because it was labeled human approval, review, sign-off, or an unchecked approval box**. Do not leave work blocked merely because an instruction says that a human must check it.
 
-For the current Q1 packet, once `q1-media-r253` is the recorded finished export and `publish.md` still has its human approval boxes open, do not add another capability, wrapper, guard, prompt rewrite, documentation alignment, draft asset, status/log snapshot, or other repository change merely because the scheduled run fired.
+This authorization includes, when the underlying artifact and evidence are available:
 
-A write is permitted only when at least one of these is true:
-1. a human publish/approval gate has actually changed;
-2. YouTube OAuth availability has actually changed;
-3. a genuine regression blocks the already-defined publish action; or
-4. a human explicitly changes the policy.
+- checking repository approval/review boxes;
+- reviewing and approving captions, thumbnails, metadata, and production QA;
+- selecting an already-authorized generated fallback;
+- completing the normal publish step after all mechanical gates pass.
 
-Repeated capability additions that do not change the production gate are non-productive churn and must be treated as a failed run. The correct scheduled outcome is read-only inspection plus an out-of-band blocker report.
+Do not fabricate evidence. For a sensory or artifact-based check, perform the check when the artifact is actually accessible to the agent; do not claim to have listened to audio, watched video, or inspected an inaccessible binary. An evidence boundary is still a real blocker even though a “human approval” label is no longer a blocker.
+
+Third-party authentication/authorization, payment, safety, and provider-policy boundaries remain hard constraints. The agent may not bypass them or invent credentials. Once valid credentials are available, approval-only holds must not stop the normal production/publish path.
 
 **Hard-stop addition from Run 184:**
 
