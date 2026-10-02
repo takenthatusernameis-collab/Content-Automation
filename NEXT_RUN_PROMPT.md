@@ -1,19 +1,19 @@
 # NEXT RUN PROMPT
 
-## Absolute no-op gate while OPERATOR_HOLD is active
+## External-media materialization gate
 
-Before doing anything else, inspect `OPERATOR_HOLD.md`. If it is active and the packet-relative Selected VO file is still missing, this run is complete after read-only inspection. **Do not modify any repository file and do not create a commit.** This includes `STATE.md`, `NEXT.md`, `RUNS.md`, prompts, logs, documentation, tests, lock files, and generated outputs. Do not “log the hold,” refresh timestamps, restate the blocker, or make any other bookkeeping change. A scheduled run that creates a commit under this condition is a failed/non-productive run.
+Before treating `OPERATOR_HOLD.md` as read-only, check whether the durable Q1 media releases are available and `gh` is authenticated. When they are, run:
 
-A write is permitted only if at least one of these is true:
+```bash
+python3 tools/materialize_q1_release.py
+```
 
-1. the real Selected VO file now exists at the packet-relative path;
-2. the blocker materially changed;
-3. a genuine regression prevents the already-defined next action; or
-4. a human explicitly changed the policy.
+This is a local media write only. It never commits WAV/PNG/MP4 files, verifies all known checksums, refuses the known-truncated r249 master, and can therefore clear the stale “missing Selected VO” handoff without human copying.
 
-If none is true, report the current blocker out-of-band and exit with no repository write.
+If the materializer succeeds, continue the existing narration -> cards -> timeline -> media-QA -> assembly gates. If `gh` is unavailable or the releases/checksums are unavailable, report the external media-access blocker and do not fabricate artifacts.
 
-Keep the original master prompt unchanged.
+The old absolute read-only rule below applies only when neither an authorized durable media source nor a genuine changed blocker is available.
+
 
 ## Delegated approval policy
 
@@ -38,15 +38,15 @@ Third-party authentication/authorization, payment, safety, and provider-policy b
 
 ## Production-first freeze after authorized fallback
 
-The selected-VO escalation has elapsed and generated narration is authorized, but the generated audio currently exists only in an ephemeral agent workspace and is not available to the gate machine. Therefore, until a packet-relative VO file is actually present on the gate machine:
+The selected-VO escalation has elapsed and generated narration is authorized. Do not add capability scaffolding while the live packet can be advanced through the existing production path.
 
-- Do **not** add more capability contracts, wrappers, guards, prompt rewrites, documentation alignment, or feedback/analytics scaffolding.
-- Do **not** treat `vo_origin.md kind: generated` as evidence that the file exists.
-- Do **not** create a commit merely to restate the same blocker.
-- The only productive path is to materialize the authorized generated take or a human take on the gate machine at the documented DROP path, then run the existing narration, card, timeline, media-QA, and assembly gates in order.
-- Once that file exists, resume normal progression and preserve the generated/human provenance label.
+The first action for a missing Q1 packet media set is `tools/materialize_q1_release.py` when authenticated `gh` access and the durable releases exist. Only when that source is unavailable should the run stop for the external media-access blocker.
 
-**This freeze supersedes the broader end-to-end capability progression below while the gate-machine media blocker remains unchanged.**
+Do not treat `vo_origin.md kind: generated` as proof that a file is on disk; the materializer or another verified copy operation must create the packet-relative files first.
+
+Once the files are present, resume the existing narration, card, timeline, media-QA, and assembly gates in order.
+
+**This freeze supersedes broad capability progression while the existing packet can be advanced through its defined production path.**
 
 Targeted addition from Run 233:
 
