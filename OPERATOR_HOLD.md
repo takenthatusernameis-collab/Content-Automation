@@ -11,9 +11,9 @@ Do not keep aligning documentation, adding guards, rewriting prompts, creating w
 
 A human take at the packet-relative DROP path may replace the generated fallback. Update `vo_origin.md` to `kind: human` only when that file is real.
 
-Run 248 left the already-verified generated wav and seven cards in the operator chat as `q1-handoff-verified.zip` (19908902 bytes). Copy those files onto the packet paths in `HANDOFF.md`. That zip is not Selected VO until the copy exists on the gate machine. Runs 239–248 have not performed that copy. Do not ask the next agent to re-download unless this zip was lost.
+Run 248 left a verified operator copy, and the durable releases `q1-media-r249` and `q1-media-r253` contain the same verified artifacts. The scheduled agent is now authorized to materialize those release assets with `tools/materialize_q1_release.py` when authenticated `gh` access is available. The media is still not Selected VO until it exists at the packet-relative path.
 
-Run 250 verified `gh release download q1-media-r249` checksums and fixed extract_words (multiline WORDS were ignored). Run 253 published the padded master on `q1-media-r253` (`q1-master-r253.mp4`, 328.40s). Run 256 removed the HANDOFF command that copied r249 `q1-master.mp4` onto export/master.mp4. Upload still needs the normal publish validation plus YouTube OAuth; publish.md approval-only edits may be completed by the delegated agent. `youtube_upload.py` refuses the truncated sha and the stub description.
+Run 250 verified `gh release download q1-media-r249` checksums and fixed extract_words (multiline WORDS were ignored). Run 253 published the padded master on `q1-media-r253` (`q1-master-r253.mp4`, 328.40s). Run 256 removed the HANDOFF command that copied r249 `q1-master.mp4` onto export/master.mp4. Upload still needs the normal publish validation, authenticated live uploader, and YouTube OAuth; publish.md approval-only edits may be completed by the delegated agent. `youtube_upload.py` refuses the truncated sha and the stub description.
 
 Run 257: live-job pages and next_action no longer treat a new recording as the Q1 job. Human publish.md edit and YouTube OAuth remain. Do not regenerate.
 
