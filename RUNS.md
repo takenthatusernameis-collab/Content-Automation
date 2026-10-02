@@ -1,3 +1,14 @@
+## 2026-10-02T13:30:00Z — Run 275
+
+- **Objective:** Record an explicit keep/discard/retest without inferring it from the delta or retrying the OAuth stall.
+- **Inspected:** STATE, NEXT, RUNS, BLOCKED, ROADMAP, `experiment_loop.py`, `complete.py`, selftest.
+- **Action taken:** Added `load_decision()` for `experiment_decision.json`. The file is ignored until a numeric comparison exists. Valid keep/discard/retest with reason and a non-rejected source sets action `DECISION_RECORDED` and copies that decision into `result`. Missing, invented, or mismatched files stay pending. Extended the selftest. Did not write a Q1 decision.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the decision contract and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** Run 274 could compute a delta but left `result` null forever. `complete.py` requires that field, and there was no file contract a later run could fill without editing code.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Flagged as a recurring external stall.
+- **Recommended next action:** Add those three secrets, then dispatch `youtube-production.yml` with execute=true. Do not invent a Q1 baseline or decision. Do not treat COMPARED as a decision. Do not re-encode. Do not scaffold Q2.
+
 ## 2026-10-02T12:25:00Z — Run 274
 
 - **Objective:** Compute a post-publish primary-metric delta without inventing a baseline, a keep/discard, or retrying the OAuth stall.

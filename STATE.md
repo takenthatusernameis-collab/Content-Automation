@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-02T12:25:00Z (Run 274)
+Updated: 2026-10-02T13:30:00Z (Run 275)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 275 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- `experiment_loop.py` now loads `experiment_decision.json` only after a numeric comparison. Valid keep/discard/retest with a reason and a non-invented source sets action `DECISION_RECORDED` and fills `result`. A missing, invented, or pre-comparison file stays pending.
+- No Q1 decision file was written. Selftest passed locally.
 
 ## Run 274 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -38,8 +43,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; post-publish comparison no longer needs a hand-computed delta |
-| Automated steps | 108 | 109 | numeric delta is computed; keep/discard still pending |
+| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; a reviewed keep/discard no longer needs a code edit |
+| Automated steps | 109 | 110 | explicit decision file is loaded fail-closed; Q1 decision not written |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
@@ -55,3 +60,5 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not invent experiment_baseline.json for Q1
 - Do not treat COMPARED or a numeric delta as a keep/discard
 - Do not invent experiment_baseline.json for Q1
+- Do not invent experiment_decision.json for Q1
+- Do not treat a decision file written before COMPARED as a result

@@ -28,7 +28,9 @@ from youtube_feedback import (  # noqa: E402
 
 STATE_NAME = "experiment_state.json"
 BASELINE_NAME = "experiment_baseline.json"
+DECISION_NAME = "experiment_decision.json"
 ALLOWED_DECISIONS = ("pending", "keep", "discard", "retest")
+RECORDED_DECISIONS = ("keep", "discard", "retest")
 ALLOWED_CHANGES = (
     "hook",
     "mechanism_framing",
@@ -133,6 +135,47 @@ def compare_primary(baseline: dict, metrics: list) -> tuple[dict | None, str]:
     }, f"{name} observed {observed} vs baseline {base} ({direction})"
 
 
+
+def load_decision(packet: Path, comparison: dict | None) -> tuple[dict | None, str]:
+    """Read an explicit keep/discard/retest. Never invent one.
+
+    A file is ignored until a numeric comparison exists. complete.py still
+    needs the other evidence rows; this only records the learning decision.
+    """
+    path = packet / DECISION_NAME
+    if comparison is None:
+        if path.is_file():
+            return None, "decision file ignored until a numeric comparison exists"
+        return None, "no experiment_decision.json; decision stays pending"
+    if not path.is_file():
+        return None, "no experiment_decision.json; decision stays pending"
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return None, "experiment_decision.json is not json"
+    if not isinstance(data, dict):
+        return None, "experiment_decision.json must be an object"
+    decision = str(data.get("decision") or "").strip().lower()
+    reason = str(data.get("reason") or "").strip()
+    source = str(data.get("source") or "").strip()
+    if decision not in RECORDED_DECISIONS:
+        return None, "decision must be keep, discard, or retest"
+    if not reason or not source:
+        return None, "decision missing reason or source"
+    if source.lower() in REJECTED_SOURCES:
+        return None, "decision source must be a documented review, not invented"
+    metric = str(data.get("primary_metric") or "").strip()
+    if metric and metric != comparison.get("primary_metric"):
+        return None, "decision primary_metric does not match the comparison"
+    return {
+        "decision": decision,
+        "reason": reason,
+        "source": source,
+        "primary_metric": comparison.get("primary_metric"),
+        "note": "explicit review recorded; not inferred from the delta",
+    }, f"recorded {decision}; not inferred from the delta"
+
+
 def inspect_experiment(
     packet: Path,
     env: dict[str, str] | None = None,
@@ -154,12 +197,15 @@ def inspect_experiment(
     comparison_detail = "comparison waits for a documented baseline and collected rows"
     if baseline is not None and metrics is not None:
         comparison, comparison_detail = compare_primary(baseline, metrics)
+    decision_file, decision_detail = load_decision(packet, comparison)
     add("baseline_documented", baseline is not None, baseline_detail)
     add("primary_metric_compared", comparison is not None, comparison_detail)
-    add("no_invented_result", True, "decision stays pending; a delta is not a keep/discard")
+    add("decision_recorded", decision_file is not None, decision_detail)
+    add("no_invented_result", True, "a delta is not a keep/discard; only experiment_decision.json records one")
     add("single_variable", baseline is None or baseline.get("change") in ALLOWED_CHANGES, "one material change per experiment when practical")
 
     decision = "pending"
+    result = None
     if not video_id:
         gate = "HOLD_UNPUBLISHED"
         action = "DRY_RUN"
@@ -172,9 +218,14 @@ def inspect_experiment(
     elif comparison is None:
         gate = "READY_TO_COMPARE"
         action = "COMPARE_BLOCKED_METRIC"
-    else:
+    elif decision_file is None:
         gate = "READY_TO_COMPARE"
         action = "COMPARED"
+    else:
+        gate = "READY_TO_COMPARE"
+        action = "DECISION_RECORDED"
+        decision = decision_file["decision"]
+        result = decision
 
     record = {
         "id": f"{packet.name}-exp-pending",
@@ -195,8 +246,10 @@ def inspect_experiment(
         "baseline_source": None if baseline is None else baseline["source"],
         "observed_metrics": metrics,
         "comparison": comparison,
-        "result": None,
+        "result": result,
         "decision": decision,
+        "decision_reason": None if decision_file is None else decision_file["reason"],
+        "decision_source": None if decision_file is None else decision_file["source"],
         "allowed_decisions": list(ALLOWED_DECISIONS),
         "window": feedback.get("window"),
     }
@@ -250,6 +303,7 @@ def render_text(report: dict) -> str:
         "empty metrics are HOLD_NO_EVIDENCE, not a keep/discard",
         "a documented baseline with one numeric primary metric is COMPARED; decision stays pending",
         "a missing or conflicting primary metric is COMPARE_BLOCKED_METRIC, not a keep/discard",
+        "experiment_decision.json records keep/discard/retest only after COMPARED; a missing file stays pending",
     ]
     for c in report["checks"]:
         mark = "PASS" if c["ok"] else "FAIL"

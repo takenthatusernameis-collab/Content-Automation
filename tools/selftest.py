@@ -436,6 +436,36 @@ def check_experiment_fail_closed() -> list[str]:
             failures.append("missing primary metric must not invent a comparison")
         if (report7.get("record") or {}).get("decision") != "pending":
             failures.append("missing primary metric must not decide")
+        (p / "experiment_decision.json").write_text(
+            '{"decision":"keep","reason":"looks better","source":"invented"}\n',
+            encoding="utf-8",
+        )
+        report8 = inspect_experiment(p, env={})
+        if report8.get("action") != "COMPARE_BLOCKED_METRIC":
+            failures.append(f"decision without comparison must stay blocked, got {report8.get('action')}")
+        if (report8.get("record") or {}).get("result") is not None:
+            failures.append("decision without comparison must not record a result")
+        (p / "experiment_baseline.json").write_text(
+            '{"hypothesis":"A narrower hook holds average view percentage","change":"hook","primary_metric":"averageViewPercentage","baseline":28.0,"source":"Q0 private upload analytics export 2026-09-01"}\n',
+            encoding="utf-8",
+        )
+        report9 = inspect_experiment(p, env={})
+        if report9.get("action") != "COMPARED":
+            failures.append(f"invented decision source must stay COMPARED, got {report9.get('action')}")
+        if (report9.get("record") or {}).get("decision") != "pending":
+            failures.append("invented decision source must not decide")
+        (p / "experiment_decision.json").write_text(
+            '{"decision":"keep","reason":"average view percentage rose 4 points versus the documented Q0 export","source":"operator review after COMPARED 2026-10-09","primary_metric":"averageViewPercentage"}\n',
+            encoding="utf-8",
+        )
+        report10 = inspect_experiment(p, env={})
+        rec10 = report10.get("record") or {}
+        if report10.get("action") != "DECISION_RECORDED":
+            failures.append(f"explicit decision must be DECISION_RECORDED, got {report10.get('action')}")
+        if rec10.get("decision") != "keep" or rec10.get("result") != "keep":
+            failures.append("explicit decision was not recorded")
+        if rec10.get("decision_source") != "operator review after COMPARED 2026-10-09":
+            failures.append("decision source was not passed through")
     return failures
 
 
