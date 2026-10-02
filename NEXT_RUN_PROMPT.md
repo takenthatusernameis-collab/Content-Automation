@@ -15,6 +15,20 @@ If none is true, report the current blocker out-of-band and exit with no reposit
 
 Keep the original master prompt unchanged.
 
+## Production-publish no-op gate
+
+If the live packet is already at the publish-review stage and the repository records that the remaining work is human approval and/or YouTube OAuth, the scheduled run is **read-only**. This gate applies even when release artifacts or other production assets already exist elsewhere; the agent must not keep converting the same human bottleneck into repository commits.
+
+For the current Q1 packet, once `q1-media-r253` is the recorded finished export and `publish.md` still has its human approval boxes open, do not add another capability, wrapper, guard, prompt rewrite, documentation alignment, draft asset, status/log snapshot, or other repository change merely because the scheduled run fired.
+
+A write is permitted only when at least one of these is true:
+1. a human publish/approval gate has actually changed;
+2. YouTube OAuth availability has actually changed;
+3. a genuine regression blocks the already-defined publish action; or
+4. a human explicitly changes the policy.
+
+Repeated capability additions that do not change the production gate are non-productive churn and must be treated as a failed run. The correct scheduled outcome is read-only inspection plus an out-of-band blocker report.
+
 **Hard-stop addition from Run 184:**
 
 - If `OPERATOR_HOLD.md` is active and the packet-relative Selected VO file is still missing, the run must be **read-only**: inspect state, report the blocker, and make **no repository changes and no commit**. Do not refresh `STATE.md`, `NEXT.md`, `RUNS.md`, or any other hold-status snapshot merely to record that the hold still exists.
