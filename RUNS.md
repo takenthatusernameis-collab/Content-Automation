@@ -1,3 +1,14 @@
+## 2026-10-03T22:20:00Z — Run 303
+
+- **Objective:** Stop a slow upload from being killed before the video id is persisted, without adding an HTTP status variant or polling OAuth.
+- **Inspected:** STATE, NEXT, RUNS, FAILURES, BLOCKED, youtube-production.yml, youtube_api.py. OAuth secrets were not polled (Actions secret list returned 403).
+- **Action taken:** Raised the production job timeout from 20 to 60 minutes. Chunk PUT timeout is now 180 seconds via `CHUNK_PUT_TIMEOUT`. Selftest refuses a 20-minute job and a retry budget that does not fit. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the timeout contract and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** The job budget was shorter than one 600-second PUT plus retries. A timeout kill is not an HTTP status; it just never writes `upload_state.json`.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall. Flagged, not re-worked as the only work.
+- **Recommended next action:** Follow `python3 tools/oauth_setup.py`, store the three secrets, then dispatch `youtube-production.yml` with execute=true. Do not restore the 20-minute job timeout. Do not add another HTTP status variant unless a live execute returned that status. Do not scaffold Q2.
+
 ## 2026-10-03T21:15:00Z — Run 302
 
 - **Objective:** Stop an omitted made-for-kids flag from uploading a video that Studio then blocks, without adding an upload HTTP status variant or polling OAuth.

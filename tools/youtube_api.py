@@ -284,6 +284,7 @@ def upload_related(
 
 # YouTube requires every non-final chunk to be a multiple of 256 KiB.
 RESUMABLE_CHUNK = 8 * 1024 * 1024
+CHUNK_PUT_TIMEOUT = 180  # must stay under the Actions job budget; see youtube-production.yml
 # Official resumable guide: 500/502/503/504 are resumeable, not permanent.
 # 408 and 429 are resumeable on an existing session. A new videos.insert is not.
 RESUMABLE_RETRYABLE = {408, 429, 500, 502, 503, 504}
@@ -527,7 +528,7 @@ def upload_video(
                     method="PUT",
                     headers=put_headers,
                     body=chunk,
-                    timeout=600,
+                    timeout=CHUNK_PUT_TIMEOUT,
                 )
             except YouTubeAPIError as exc:
                 if exc.status == 401:

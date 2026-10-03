@@ -1054,6 +1054,7 @@ def main() -> int:
     failures.extend(check_thumbnail_draft_fail_closed())
     failures.extend(check_live_capabilities())
     failures.extend(check_oauth_setup_recipe())
+    failures.extend(check_job_timeout_covers_upload())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")
@@ -1846,6 +1847,25 @@ def check_resumable_video_upload() -> list[str]:
         failures.append(f"unaligned Range must not start a second videos.insert: {align_calls}")
     if align_calls.count("PUT") != 1:
         failures.append(f"unaligned Range must not send the next chunk: {align_calls}")
+    return failures
+
+
+
+def check_job_timeout_covers_upload() -> list[str]:
+    """A killed Actions job drops the video id. The job must outlast one chunk retry budget."""
+    failures = []
+    workflow = (ROOT / ".github/workflows/youtube-production.yml").read_text(encoding="utf-8")
+    if "timeout-minutes: 60" not in workflow:
+        failures.append("youtube-production job timeout must stay 60 minutes")
+    if "timeout-minutes: 20" in workflow:
+        failures.append("do not restore the 20-minute job timeout; it can kill a chunk PUT before persist")
+    sys.path.insert(0, str(ROOT / "tools"))
+    import youtube_api
+    budget = youtube_api.RESUMABLE_RETRY_LIMIT * youtube_api.CHUNK_PUT_TIMEOUT
+    if budget >= 60 * 60:
+        failures.append(f"chunk retry budget {budget}s must fit inside the 60-minute job")
+    if youtube_api.CHUNK_PUT_TIMEOUT != 180:
+        failures.append("chunk PUT timeout must stay 180s so three retries fit before the runner is killed")
     return failures
 
 

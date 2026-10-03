@@ -1,3 +1,9 @@
+## Run 303 — a 20-minute job could drop a finished upload
+- **Tried:** Runs 287-302 made the resumable client survive HTTP 308/401/5xx, then persisted the video id only after `youtube_upload.py` exited. The workflow `timeout-minutes` stayed 20 while a chunk PUT waited up to 600 seconds and retried three times.
+- **Evidence:** `youtube-production.yml` timeout was 20. `upload_video` passed `timeout=600` to the chunk PUT. Actions kills the step when the job budget ends, so the script never writes `upload_state.json`. The next execute has no video id and can POST `videos.insert` again.
+- **Result:** Job timeout is 60 minutes. Chunk PUT timeout is 180 seconds. Selftest locks both and checks the retry budget fits. Actions was not re-run. No provider write.
+- **Avoid:** Restoring timeout-minutes 20 or a 600-second chunk PUT. Treating a runner kill as a reason to add an HTTP status variant. Polling OAuth secrets. Restating the secret hold as the only work.
+
 ## Run 302 — omitted made-for-kids flag would block the first upload in Studio
 - **Tried:** Runs 281-301 froze new HTTP status variants. `youtube_api.upload_video` still defaulted a missing `selfDeclaredMadeForKids` to false, and the execute path hardcoded false instead of reading the channel decision.
 - **Evidence:** YouTube leaves a video blocked from views until the audience is set when the field is absent. A silent default hides a dropped field. This channel is adult productivity, not made for kids.

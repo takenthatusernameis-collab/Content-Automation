@@ -29,7 +29,7 @@ permissions:
 jobs:
   youtube-production:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 60
     env:
       GH_TOKEN: ${{ github.token }}
       YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
@@ -180,6 +180,7 @@ jobs:
         run: |
           echo "Q1 production workflow completed."
           echo "Initial YouTube privacy is private in tools/youtube_upload.py."
+          echo "Job timeout is 60 minutes so a slow chunk PUT can finish and persist before the runner is killed."
           echo "A generated vo_origin sets status.containsSyntheticMedia. An unknown kind fails before the token refresh."
           echo "OAuth secrets are read only from GitHub Actions secrets."
           echo "Verified release media is materialized with checksum guards."
