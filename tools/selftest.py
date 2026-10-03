@@ -781,16 +781,44 @@ def check_persist_provider_state() -> list[str]:
 
     def run(cmd):
         calls.append(cmd)
-        if cmd[:2] == ["git", "push"] and len(calls) == 1:
+        if cmd[:2] == ["git", "push"] and sum(1 for c in calls if c[:2] == ["git", "push"]) == 1:
             return 1, "", "failed to push some refs: non-fast-forward"
+        if cmd[:3] == ["git", "rev-parse", "--is-shallow-repository"]:
+            return 0, "false\n", ""
         return 0, "", ""
 
     if persist.push_with_retry(run) != "pushed":
         failures.append("rejected push must succeed after fetch and rebase")
     if ["git", "push", "--force", "origin", "HEAD:main"] in calls or any("--force" in part for cmd in calls for part in cmd):
         failures.append("persist must not force-push")
-    if calls[1:3] != [["git", "fetch", "origin", "main"], ["git", "rebase", "origin/main"]]:
+    if calls[1:4] != [
+        ["git", "rev-parse", "--is-shallow-repository"],
+        ["git", "fetch", "origin", "main"],
+        ["git", "rebase", "origin/main"],
+    ]:
         failures.append(f"persist retry order drift: {calls}")
+    shallow_calls: list[list[str]] = []
+
+    def shallow_run(cmd):
+        shallow_calls.append(cmd)
+        if cmd[:2] == ["git", "push"] and sum(1 for c in shallow_calls if c[:2] == ["git", "push"]) == 1:
+            return 1, "", "updates were rejected"
+        if cmd[:3] == ["git", "rev-parse", "--is-shallow-repository"]:
+            return 0, "true\n", ""
+        return 0, "", ""
+
+    if persist.push_with_retry(shallow_run) != "pushed":
+        failures.append("shallow rejected push must succeed after unshallow and rebase")
+    if shallow_calls[1:5] != [
+        ["git", "rev-parse", "--is-shallow-repository"],
+        ["git", "fetch", "--unshallow", "origin"],
+        ["git", "fetch", "origin", "main"],
+        ["git", "rebase", "origin/main"],
+    ]:
+        failures.append(f"shallow persist retry order drift: {shallow_calls}")
+    src = (TOOLS / "persist_provider_state.py").read_text(encoding="utf-8")
+    if "--unshallow" not in src or "--is-shallow-repository" not in src:
+        failures.append("persist must unshallow a shallow checkout before rebase")
     workflow = (ROOT / ".github" / "workflows" / "youtube-production.yml").read_text(encoding="utf-8")
     if "tools/persist_provider_state.py" not in workflow:
         failures.append("production workflow must classify state before commit")

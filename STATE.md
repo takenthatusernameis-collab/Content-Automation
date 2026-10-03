@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-03T12:20:00Z (Run 297)
+Updated: 2026-10-03T14:20:00Z (Run 298)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 298 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- A rejected provider-state push on the Actions runner could still drop the video id. checkout@v4 is shallow, and `git rebase origin/main` has no merge base until the clone is unshallowed. `push_with_retry` now unshallows when `git rev-parse --is-shallow-repository` is true, then fetches and rebases. It does not force-push. A failed rebase aborts. Selftest passed locally. Actions was not re-run.
+- Flag still stands: do not add another upload HTTP status variant unless a live execute returned that status. Description angle brackets remain ungated and deferred on purpose.
 
 ## Run 297 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -152,12 +157,13 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; a rejected state push no longer drops the video id |
-| Automated steps | 130 | 131 | provider-state push retries without force; no upload ran |
+| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; a shallow rejected push no longer drops the video id |
+| Automated steps | 131 | 132 | shallow provider-state rebase unshallows before retry; no upload ran |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
 - Do not upload q1-media-r249 q1-master.mp4 as the finished export
+- Do not rebase a shallow provider-state commit without unshallow. Do not force-push that state.
 - Do not abort materialize merely because that banned asset is present in the r249 release
 - Finished local export is q1-media-r253 q1-master-r253.mp4 (328.40s, sha256 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546)
 - Do not re-encode while q1-media-r253 exists

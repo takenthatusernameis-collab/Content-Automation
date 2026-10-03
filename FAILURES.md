@@ -1,3 +1,9 @@
+## Run 298 — a shallow rebase would still drop the video id
+- **Tried:** Run 297 retried a rejected push with fetch and rebase. The production workflow checks out with actions/checkout@v4, which defaults to fetch-depth 1.
+- **Evidence:** A shallow clone does not contain the merge base once origin/main moves. `git rebase origin/main` then fails, `push_with_retry` raises STATE_PERSIST_REJECTED, and the provider video id stays only on the runner. The next execute can insert again.
+- **Result:** A rejected push now checks `git rev-parse --is-shallow-repository`. A shallow clone is unshallowed before fetch and rebase. A failed rebase is aborted. No force-push. Selftest covers both a full clone and a shallow clone. Actions was not re-run.
+- **Avoid:** Restoring a rebase that assumes a full history. Force-pushing provider state. Another HTTP status variant without a live execute status. Another run that only restates the OAuth secret hold.
+
 ## Run 297 — a rejected git push would drop the video id
 - **Tried:** Runs 279-296 kept the provider video id in upload_state.json, then the workflow pushed once. A non-fast-forward rejection left that id only on the runner, so the next execute could insert again. The Q1 board also still told the operator to check boxes that are already checked.
 - **Result:** Persist classifies state, retries a rejected push after fetch and rebase, and does not force-push. Board copy no longer re-opens Description edited or First comment approved.

@@ -1,17 +1,16 @@
-A rejected provider-state push now fetches, rebases, and retries instead of leaving the video id only on the runner. Estimated human minutes stay 0.5 until secrets exist. Automated steps 130 -> 131. Videos published stay 0. No provider write. Q1 publish boxes stay checked; do not re-open them. Do not add another upload HTTP status variant without a live execute status.
-
-## Run 296
-An unaligned resumable Range now stalls before the next PUT instead of sending a chunk YouTube rejects. Estimated human minutes stay 0.5 until secrets exist. Automated steps 129 -> 130. Videos published stay 0. No provider write. The upload status-variant loop (Runs 281-295) is flagged; do not extend it without a live status.
-
 # PROGRESS
 
-Updated: 2026-10-03T10:20:00Z (Run 295)
+Updated: 2026-10-03T14:20:00Z (Run 298)
 
 ## Latest measurable delta
-- Run 294 automated steps: 128. Run 295: 129.
-- New automated behavior: a 404 or 410 after an accepted completion persists a no-id hold and refuses a second videos.insert.
+- Run 297 automated steps: 131. Run 298: 132.
+- New automated behavior: a rejected provider-state push on a shallow Actions checkout unshallows before rebase, so the video id is not left only on the runner.
 - Human minutes per video remain 0.5. The remaining recurring human step is entering the three YouTube OAuth secrets.
 - Videos published: 0. No provider write.
+
+## Run 298
+A shallow rejected push now unshallows, fetches, and rebases instead of failing with no merge base. No force-push. Estimated human minutes stay 0.5. Automated steps 131 -> 132. Videos published stay 0. No provider write. Do not add another upload HTTP status variant without a live execute status.
+
 
 ## Run 295
 A finishing PUT whose session then returns 404 or 410 is `RESUMABLE_COMPLETED_SESSION_GONE`. The workflow commits `completed_without_id` and the next execute must not insert again. No provider video id is invented. Estimated human minutes stay 0.5. Automated steps 128 -> 129. Videos published stay 0. No provider write.

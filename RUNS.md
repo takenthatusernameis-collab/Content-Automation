@@ -1,3 +1,14 @@
+## 2026-10-03T14:20:00Z — Run 298
+
+- **Objective:** Stop a rejected provider-state push from dropping the video id on the shallow Actions checkout, without adding another upload status variant.
+- **Inspected:** STATE, NEXT, RUNS, FAILURES, `youtube-production.yml`, `tools/persist_provider_state.py`. OAuth secrets were not polled.
+- **Action taken:** `push_with_retry` unshallows when the clone is shallow, then fetches and rebases. A failed rebase aborts. No force-push. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the shallow retry order and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** Run 297's retry still fails on the default checkout depth. The publish gate is still the missing OAuth secrets.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall. Flagged, not re-worked as the only work.
+- **Recommended next action:** Add those three secrets from a token granted `youtube.upload` and `youtube.force-ssl` (or full `youtube`), then dispatch `youtube-production.yml` with execute=true. Do not force-push provider state. Do not rebase a shallow checkout without unshallow. Do not add another HTTP status variant unless a live execute returned that status. Do not scaffold Q2.
+
 ## 2026-10-03T12:20:00Z — Run 297
 
 - **Objective:** Stop a successful upload from being lost when the provider-state push is rejected, without adding another upload status variant.

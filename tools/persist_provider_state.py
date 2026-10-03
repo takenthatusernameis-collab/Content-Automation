@@ -54,11 +54,31 @@ def push_needs_retry(stderr: str) -> bool:
     return any(needle in text for needle in needles)
 
 
+def _is_shallow(run: Runner) -> bool:
+    """Actions checkout is shallow by default. A shallow rebase drops the video id."""
+    code, out, err = run(["git", "rev-parse", "--is-shallow-repository"])
+    if code != 0:
+        raise SystemExit(f"STATE_PERSIST_REJECTED {(err or out).strip()}")
+    return (out or "").strip() == "true"
+
+
+def _unshallow(run: Runner) -> None:
+    """Fetch full history so rebase has a merge base. Never force-push."""
+    code, out, err = run(["git", "fetch", "--unshallow", "origin"])
+    if code == 0:
+        return
+    text = (err or out or "").lower()
+    if "does not make sense" in text:
+        return
+    raise SystemExit(f"STATE_PERSIST_REJECTED {(err or out).strip()}")
+
+
 def push_with_retry(run: Runner, attempts: int = 3) -> str:
     """Push HEAD to origin/main. Rebase onto origin/main if the remote moved.
 
-    Does not force-push. A rejected rebase is STATE_PERSIST_REJECTED so the
-    operator can recover the video id instead of starting another insert.
+    A shallow checkout is unshallowed before that rebase. Does not force-push.
+    A rejected rebase is STATE_PERSIST_REJECTED so the operator can recover
+    the video id instead of starting another insert.
     """
     if attempts < 1:
         raise SystemExit("STATE_PERSIST_REJECTED attempts_exhausted")
@@ -70,11 +90,14 @@ def push_with_retry(run: Runner, attempts: int = 3) -> str:
         last_err = err or _out
         if not push_needs_retry(last_err) or attempt + 1 >= attempts:
             raise SystemExit(f"STATE_PERSIST_REJECTED {last_err.strip()}")
+        if _is_shallow(run):
+            _unshallow(run)
         fetch_code, _fetch_out, fetch_err = run(["git", "fetch", "origin", "main"])
         if fetch_code != 0:
             raise SystemExit(f"STATE_PERSIST_REJECTED {(fetch_err or _fetch_out).strip()}")
         rebase_code, _rebase_out, rebase_err = run(["git", "rebase", "origin/main"])
         if rebase_code != 0:
+            run(["git", "rebase", "--abort"])
             raise SystemExit(
                 f"STATE_PERSIST_REJECTED {(rebase_err or _rebase_out).strip()}"
             )
