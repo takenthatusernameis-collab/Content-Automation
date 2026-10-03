@@ -192,8 +192,11 @@ def _multipart_related(metadata: Mapping[str, Any], media: Path, media_type: str
 # Captions, thumbnails, and the pin comment are small multipart/JSON calls.
 # A 503 after videos.insert already spent the insert unit. Retry the artifact
 # call only. Do not open another videos.insert. A 400 stays permanent.
+# A 401 is an expired access token, not a reason to insert again. Refresh and
+# retry the same artifact call. An empty or unchanged token stops the loop.
 POST_UPLOAD_RETRYABLE = {408, 429, 500, 502, 503, 504}
 POST_UPLOAD_RETRY_LIMIT = 3
+POST_UPLOAD_REFRESH_LIMIT = 3
 
 
 def _request_retrying(
@@ -204,29 +207,48 @@ def _request_retrying(
     body: bytes | None,
     content_type: str | None,
     timeout: int,
+    token_refresher=None,
 ) -> bytes:
-    """Retry a post-upload call on transient statuses. Never used for videos.insert."""
+    """Retry a post-upload call. Never used for videos.insert."""
+    refresher = token_refresher or refresh_access_token
+    current = token
+    refreshes = 0
+    transient = 0
     last: YouTubeAPIError | None = None
-    for attempt in range(POST_UPLOAD_RETRY_LIMIT + 1):
+    while True:
         try:
             return _request(
                 url,
                 method=method,
-                token=token,
+                token=current,
                 body=body,
                 content_type=content_type,
                 timeout=timeout,
             )
         except YouTubeAPIError as exc:
             last = exc
+            if exc.status == 401:
+                if refreshes >= POST_UPLOAD_REFRESH_LIMIT:
+                    raise YouTubeAPIError(
+                        401, "POST_UPLOAD_TOKEN_REFRESH_EXHAUSTED", exc.reason
+                    ) from exc
+                fresh = str(refresher() or "")
+                if not fresh.strip() or fresh == current:
+                    raise YouTubeAPIError(
+                        401, "POST_UPLOAD_TOKEN_REFRESH_EXHAUSTED", "empty_or_unchanged"
+                    ) from exc
+                current = fresh
+                refreshes += 1
+                continue
             retryable = exc.status in POST_UPLOAD_RETRYABLE or exc.reason == "network_error"
-            if not retryable or attempt >= POST_UPLOAD_RETRY_LIMIT:
+            if not retryable or transient >= POST_UPLOAD_RETRY_LIMIT:
                 if retryable:
                     raise YouTubeAPIError(
                         exc.status, "POST_UPLOAD_RETRY_EXHAUSTED", exc.reason
                     ) from exc
                 raise
-            _sleep(RESUMABLE_BACKOFF_SECONDS[min(attempt, len(RESUMABLE_BACKOFF_SECONDS) - 1)])
+            transient += 1
+            _sleep(RESUMABLE_BACKOFF_SECONDS[min(transient - 1, len(RESUMABLE_BACKOFF_SECONDS) - 1)])
     raise last  # pragma: no cover
 
 
@@ -239,6 +261,7 @@ def upload_related(
     media_type: str,
     params: Mapping[str, Any] | None = None,
     timeout: int = 600,
+    token_refresher=None,
 ) -> dict[str, Any]:
     body, content_type = _multipart_related(metadata, media, media_type)
     raw = _request_retrying(
@@ -248,6 +271,7 @@ def upload_related(
         body=body,
         content_type=content_type,
         timeout=timeout,
+        token_refresher=token_refresher,
     )
     try:
         data = json.loads(raw.decode("utf-8"))
@@ -584,6 +608,7 @@ def insert_caption(
     caption_path: Path,
     language: str = "en",
     name: str = "English",
+    token_refresher=None,
 ) -> dict[str, Any]:
     metadata = {
         "snippet": {
@@ -600,10 +625,17 @@ def insert_caption(
         media=caption_path,
         media_type="application/octet-stream",
         params={"part": "snippet", "uploadType": "multipart"},
+        token_refresher=token_refresher,
     )
 
 
-def set_thumbnail(token: str, *, video_id: str, thumbnail_path: Path) -> dict[str, Any]:
+def set_thumbnail(
+    token: str,
+    *,
+    video_id: str,
+    thumbnail_path: Path,
+    token_refresher=None,
+) -> dict[str, Any]:
     mime = mimetypes.guess_type(thumbnail_path.name)[0] or "image/png"
     return upload_binary(
         "thumbnails/set",
@@ -611,6 +643,7 @@ def set_thumbnail(token: str, *, video_id: str, thumbnail_path: Path) -> dict[st
         media=thumbnail_path,
         media_type=mime,
         params={"videoId": video_id},
+        token_refresher=token_refresher,
     )
 
 
@@ -621,6 +654,7 @@ def upload_binary(
     media: Path,
     media_type: str,
     params: Mapping[str, Any] | None = None,
+    token_refresher=None,
 ) -> dict[str, Any]:
     raw = _request_retrying(
         _query_url(UPLOAD_BASE, path, params),
@@ -629,6 +663,7 @@ def upload_binary(
         body=media.read_bytes(),
         content_type=media_type,
         timeout=300,
+        token_refresher=token_refresher,
     )
     try:
         data = json.loads(raw.decode("utf-8"))
@@ -639,15 +674,36 @@ def upload_binary(
     return data
 
 
-def get_channel_id(token: str) -> str:
-    data = api_json("GET", "channels", token=token, params={"part": "id", "mine": "true"})
+def get_channel_id(token: str, token_refresher=None) -> str:
+    raw = _request_retrying(
+        _query_url(DATA_BASE, "channels", {"part": "id", "mine": "true"}),
+        method="GET",
+        token=token,
+        body=None,
+        content_type=None,
+        timeout=120,
+        token_refresher=token_refresher,
+    )
+    try:
+        data = json.loads(raw.decode("utf-8"))
+    except json.JSONDecodeError as exc:
+        raise YouTubeAPIError(0, "invalid_json_response") from exc
+    if not isinstance(data, dict):
+        raise YouTubeAPIError(0, "unexpected_json_shape")
     items = data.get("items") or []
     if not items or not items[0].get("id"):
         raise YouTubeAPIError(0, "channel_id_unavailable")
     return str(items[0]["id"])
 
 
-def insert_top_level_comment(token: str, *, video_id: str, channel_id: str, text: str) -> dict[str, Any]:
+def insert_top_level_comment(
+    token: str,
+    *,
+    video_id: str,
+    channel_id: str,
+    text: str,
+    token_refresher=None,
+) -> dict[str, Any]:
     body = {
         "snippet": {
             "channelId": channel_id,
@@ -662,6 +718,7 @@ def insert_top_level_comment(token: str, *, video_id: str, channel_id: str, text
         body=_json_bytes(body),
         content_type="application/json; charset=UTF-8",
         timeout=120,
+        token_refresher=token_refresher,
     )
     try:
         parsed = json.loads(raw.decode("utf-8"))

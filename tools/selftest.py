@@ -1421,6 +1421,66 @@ def check_resumable_video_upload() -> list[str]:
         youtube_api._request = original_request
         youtube_api._sleep = original_sleep
 
+    refresh_calls = {"n": 0}
+    seen_tokens: list[str] = []
+
+    def unauthorized_caption(url, *, method="GET", token=None, body=None, content_type=None, accept="application/json", timeout=120):
+        seen_tokens.append(str(token))
+        if "videos" in url and "captions" not in url:
+            raise youtube_api.YouTubeAPIError(0, "unexpected_videos_insert")
+        if token == "token-not-printed":
+            raise youtube_api.YouTubeAPIError(401, "authError", "Invalid Credentials")
+        return json.dumps({"id": "cap-401"}).encode()
+
+    def refresh_once():
+        refresh_calls["n"] += 1
+        return "token-refreshed"
+
+    youtube_api._request = unauthorized_caption
+    youtube_api._sleep = lambda _seconds: None
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            cap = Path(tmp) / "captions.srt"
+            cap.write_text("1\n00:00:00,000 --> 00:00:01,000\nhi\n", encoding="utf-8")
+            data = youtube_api.insert_caption(
+                "token-not-printed",
+                video_id="vid",
+                caption_path=cap,
+                token_refresher=refresh_once,
+            )
+    finally:
+        youtube_api._request = original_request
+        youtube_api._sleep = original_sleep
+    if data.get("id") != "cap-401":
+        failures.append(f"caption 401 must retry after refresh: {data}")
+    if refresh_calls["n"] != 1 or seen_tokens[-1] != "token-refreshed":
+        failures.append(f"caption 401 must use the refreshed token: {seen_tokens} {refresh_calls}")
+
+    def unchanged_caption(url, *, method="GET", token=None, body=None, content_type=None, accept="application/json", timeout=120):
+        raise youtube_api.YouTubeAPIError(401, "authError", "Invalid Credentials")
+
+    youtube_api._request = unchanged_caption
+    youtube_api._sleep = lambda _seconds: None
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            cap = Path(tmp) / "captions.srt"
+            cap.write_text("1\n00:00:00,000 --> 00:00:01,000\nhi\n", encoding="utf-8")
+            try:
+                youtube_api.insert_caption(
+                    "token-not-printed",
+                    video_id="vid",
+                    caption_path=cap,
+                    token_refresher=lambda: "token-not-printed",
+                )
+            except youtube_api.YouTubeAPIError as exc:
+                if exc.reason != "POST_UPLOAD_TOKEN_REFRESH_EXHAUSTED":
+                    failures.append(f"unchanged caption token must exhaust: {exc.reason}")
+            else:
+                failures.append("unchanged caption token must not succeed")
+    finally:
+        youtube_api._request = original_request
+        youtube_api._sleep = original_sleep
+
     auth_calls: list[tuple[str, str]] = []
 
     def unauthorized_http(url, *, method, headers, body, timeout):

@@ -1,3 +1,7 @@
+## Run 293 — post-upload 401 was still permanent
+
+Run 292 refreshed a 401 only on the resumable master. Caption, thumbnail, and pin-comment calls still raised the raw 401. An access token can expire during a multi-minute upload, so the next execute would see a video id and then fail the artifacts. Fixed by refreshing and retrying the artifact call only. Do not treat that 401 as a second videos.insert.
+
 ## Run 289 — a 308 without Range was treated as a received chunk
 - **Tried:** Run 287 resumed a chunk 308 from the Range header, and used `end+1` when Range was missing.
 - **Evidence:** The YouTube resumable guide says a 308 with no Range means nothing has been uploaded. The fallback would send the next chunk past bytes the server does not have.

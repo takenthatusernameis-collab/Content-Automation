@@ -122,6 +122,7 @@ Stale "delete No upload happened" instructions removed from pipeline_status, gat
 
 | When | Human min / video | Automated steps | Notes |
 |------|-------------------|-----------------|-------|
+| 2026-10-03 Run 293 | 0.5 | 127 | post-upload 401 refreshes and retries the artifact; OAuth remains |
 | 2026-10-02 Run 278 | 0.5 | 113 | resume keeps uploaded_at; OAuth remains |
 | 2026-10-02 Run 277 | ~0.5 estimate | 112 | early collect cannot become evidence; OAuth still blocks publish and fetch |
 | 2026-10-02 Run 276 | ~0.5 estimate | 111 | collect_feedback dispatch exists; OAuth still blocks publish and fetch |
