@@ -1,3 +1,6 @@
+## Run 285
+Overlapping caption cues and a PNG without IEND now fail before videos.insert. The insert body sets default audio and caption language to en so the later caption track matches. Q1 captions.srt and thumbnail.png still pass. Estimated human minutes stay 0.5. Automated steps 119 -> 120. Videos published stay 0.
+
 ## Run 284
 Caption cue order and title characters are now a pre-insert gate. A backward cue, a cue past the probed master, an empty title, or a title with angle brackets cannot create a private video that then stays POST_UPLOAD_INCOMPLETE. Q1 captions.srt still passes. Estimated human minutes stay 0.5. Automated steps 118 -> 119. Videos published stay 0.
 
@@ -9,7 +12,7 @@ Caption scope is now a pre-insert gate. An upload-only token cannot create a pri
 
 # PROGRESS
 
-Updated: 2026-10-02T23:20:00Z (Run 284)
+Updated: 2026-10-03T00:35:00Z (Run 285)
 
 ## Latest measurable delta
 - Run 280 automated steps: 115. Run 281: 116.

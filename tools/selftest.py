@@ -424,6 +424,12 @@ def check_artifact_limits() -> list[str]:
     )
     if artifact_block_reason(packet) != "captions_cues_out_of_order":
         failures.append("out-of-order caption cues must fail before videos.insert")
+    caps.write_text(
+        "1\n00:00:00,000 --> 00:00:02,000\nFirst\n\n2\n00:00:01,000 --> 00:00:03,000\nOverlap\n",
+        encoding="utf-8",
+    )
+    if artifact_block_reason(packet) != "captions_cues_overlap":
+        failures.append("overlapping caption cues must fail before videos.insert")
     if caption_timing_reason("1\n00:00:05,000 --> 00:00:06,000\nPast\n", 3.0) != "captions_past_video 6.00>4.00":
         failures.append("a cue past the known master must fail before videos.insert")
     caps.write_text("1\n00:00:00,000 --> 00:00:01,000\nHello\n", encoding="utf-8")
@@ -434,6 +440,14 @@ def check_artifact_limits() -> list[str]:
     reason = artifact_block_reason(packet)
     if not reason or not reason.startswith("thumbnail_too_large"):
         failures.append(f"thumbnail over 2MB must fail closed, got {reason}")
+    from youtube_upload import png_has_iend
+    _solid_png(thumb, 640, 360)
+    raw = thumb.read_bytes()
+    thumb.write_bytes(raw[:-12])
+    if png_has_iend(thumb):
+        failures.append("a PNG missing IEND must not count as complete")
+    if artifact_block_reason(packet) != "thumbnail_truncated_png":
+        failures.append("a truncated PNG must fail before videos.insert")
     return failures
 
 

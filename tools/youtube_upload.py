@@ -54,16 +54,20 @@ TITLE_MAX = 100
 DESCRIPTION_MAX = 5000
 TAG_COUNT_MAX = 12
 TAG_TOTAL_MAX = 500
-# thumbnails.set rejects files over 2MB and images narrower than 640px.
-# captions.insert rejects an empty track or a file with no cue timestamps.
-# Fail before videos.insert so a bad draft cannot create a private video
-# that then loops on POST_UPLOAD_INCOMPLETE.
+# thumbnails.set rejects files over 2MB, images narrower than 640px, and a
+# truncated PNG that has an IHDR but no IEND. captions.insert rejects an empty
+# track, a cue that is not forward, cues out of order, overlapping cues, and a
+# last cue past the known master. Fail before videos.insert so a bad draft
+# cannot create a private video that then loops on POST_UPLOAD_INCOMPLETE.
 THUMB_MAX_BYTES = 2 * 1024 * 1024
 THUMB_MIN_WIDTH = 640
 THUMB_MIN_HEIGHT = 360
 CAPTION_MAX_BYTES = 100 * 1024 * 1024
 COMMENT_MAX = 10000
 PNG_MAGIC = bytes((0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A))
+PNG_IEND = b"IEND"
+CAPTION_LANGUAGE = "en"
+CAPTION_NAME = "English"
 
 
 def _now() -> str:
@@ -159,6 +163,15 @@ def png_dimensions(path: Path) -> tuple[int, int] | None:
     return int.from_bytes(raw[16:20], "big"), int.from_bytes(raw[20:24], "big")
 
 
+def png_has_iend(path: Path) -> bool:
+    """True only if a PNG ends with the IEND chunk. IHDR alone is not enough."""
+    try:
+        raw = path.read_bytes()
+    except OSError:
+        return False
+    return len(raw) >= 12 and raw[-8:-4] == PNG_IEND
+
+
 CUE_TIME = re.compile(
     r"(\d{2}):(\d{2}):(\d{2}),(\d{3})\s*-->\s*(\d{2}):(\d{2}):(\d{2}),(\d{3})"
 )
@@ -174,13 +187,15 @@ def _cue_seconds(hours: str, minutes: str, seconds: str, millis: str) -> float |
 def caption_timing_reason(text: str, duration: float | None = None) -> str | None:
     """Refuse SRT cues captions.insert will reject after a video exists.
 
-    A missing cue stays missing. A present cue that runs backward, is
-    unparseable, or ends after the known master must not reach videos.insert.
-    Duration is optional so a packet without a probed export still checks order.
+    A missing cue stays missing. A present cue that runs backward, overlaps
+    the previous cue, is unparseable, or ends after the known master must not
+    reach videos.insert. Duration is optional so a packet without a probed
+    export still checks order and overlap.
     """
     blocks = [block for block in text.replace("\r\n", "\n").strip().split("\n\n") if block.strip()]
     seen = 0
-    previous = -1.0
+    previous_start = -1.0
+    previous_end = -1.0
     last_end = 0.0
     for block in blocks:
         match = CUE_TIME.search(block)
@@ -192,9 +207,12 @@ def caption_timing_reason(text: str, duration: float | None = None) -> str | Non
         end = _cue_seconds(*match.groups()[4:])
         if start is None or end is None or end <= start:
             return "captions_cue_not_forward" if start is not None and end is not None else "captions_invalid_timestamp"
-        if start < previous:
+        if start < previous_start:
             return "captions_cues_out_of_order"
-        previous = start
+        if previous_end >= 0 and start < previous_end:
+            return "captions_cues_overlap"
+        previous_start = start
+        previous_end = end
         last_end = end
         seen += 1
     if seen == 0:
@@ -221,6 +239,8 @@ def artifact_block_reason(packet: Path, meta: dict | None = None) -> str | None:
         width, height = dims
         if width < THUMB_MIN_WIDTH or height < THUMB_MIN_HEIGHT:
             return f"thumbnail_too_small {width}x{height}"
+        if not png_has_iend(thumb):
+            return "thumbnail_truncated_png"
     captions = packet / "captions.srt"
     if captions.is_file():
         size = captions.stat().st_size
@@ -597,6 +617,8 @@ def request_body(report: dict) -> dict:
             "description": meta["description"],
             "tags": meta["tags"],
             "categoryId": "27",
+            "defaultLanguage": CAPTION_LANGUAGE,
+            "defaultAudioLanguage": CAPTION_LANGUAGE,
         },
         "status": {
             "privacyStatus": report["privacy"],
@@ -714,6 +736,8 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
                         "description": report["meta"]["description"],
                         "tags": report["meta"]["tags"],
                         "categoryId": "27",
+                        "defaultLanguage": CAPTION_LANGUAGE,
+                        "defaultAudioLanguage": CAPTION_LANGUAGE,
                     },
                 },
                 privacy=report["privacy"],
@@ -732,7 +756,13 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
         captions = packet / "captions.srt"
         if captions.is_file() and result["caption_upload"].get("status") not in {"uploaded", "already_uploaded"}:
             try:
-                cap = insert_caption(token, video_id=video_id, caption_path=captions)
+                cap = insert_caption(
+                    token,
+                    video_id=video_id,
+                    caption_path=captions,
+                    language=CAPTION_LANGUAGE,
+                    name=CAPTION_NAME,
+                )
                 result["caption_upload"] = {"status": "uploaded", "caption_id": cap.get("id")}
             except Exception as exc:
                 result["caption_upload"] = {"status": "failed", "error": compact_api_error(exc)}

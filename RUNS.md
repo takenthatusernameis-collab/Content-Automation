@@ -1,3 +1,14 @@
+## 2026-10-03T00:35:00Z — Run 285
+
+- **Objective:** Stop overlapping captions or a truncated PNG from creating a private video that then loops on post-upload failure, without retrying the OAuth stall.
+- **Inspected:** STATE, NEXT, RUNS, `youtube_upload.py`, `youtube_api.py`, Q1 `captions.srt`, Q1 `thumbnail.png`, selftest.
+- **Action taken:** `caption_timing_reason()` now refuses a cue that starts before the previous cue ends. `png_has_iend()` refuses a PNG whose last chunk is not IEND. Inspect stays HOLD_LOCAL. Execute raises ARTIFACT_REJECTED before the token refresh. `videos.insert` sets `defaultLanguage` and `defaultAudioLanguage` to `en`, and `captions.insert` uses the same language. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Q1 captions.srt (103 cues, no overlap) and thumbnail.png (IEND present) pass. Execute and collect were not dispatched. Videos published stay 0.
+- **Verification status:** completed for the overlap and IEND contract and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** Run 284 checked cue start order only. A later cue could start inside the previous cue and still pass READY, then fail after `videos.insert`. A PNG with a valid IHDR and no IEND had the same hole for `thumbnails.set`.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish and collect gate. Not polled. Flagged as a recurring external stall. Do not spend a run only restating it. The refresh token must include caption scope, not only upload scope.
+- **Recommended next action:** Add those three secrets from a token granted `youtube.upload` and `youtube.force-ssl` (or full `youtube`), plus `yt-analytics.readonly` for later collect. Then dispatch `youtube-production.yml` with execute=true. Do not invent uploaded_at, a Q1 baseline, or a decision. Do not re-encode. Do not scaffold Q2.
+
 ## 2026-10-02T23:20:00Z — Run 284
 
 - **Objective:** Stop a caption draft with bad timing, or an empty or illegal title, from creating a private video that then loops on post-upload failure, without retrying the OAuth stall.
