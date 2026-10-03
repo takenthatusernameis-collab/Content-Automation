@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-03T05:20:00Z (Run 290)
+Updated: 2026-10-03T06:16:00Z (Run 291)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 291 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- Caption, thumbnail, and pin-comment calls now retry 408/429/5xx and network errors up to three times. A 400 stays permanent. This does not start another videos.insert. Selftest passed locally. Actions was not re-run.
+- Flag still stands: do not add another snippet micro-gate. Description angle brackets remain ungated and are deferred on purpose.
 
 ## Run 290 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.

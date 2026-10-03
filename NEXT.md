@@ -2,6 +2,8 @@
 
 Do these in order. Do not rediscover the resumable video upload (Run 287): `videos.insert` uses `uploadType=resumable` and 8 MiB chunks. Do not restore multipart for the master. Captions and thumbnails stay multipart. Stop only when required evidence is unavailable or a genuine external authorization/credential boundary is reached. Approval-only decisions are delegated to the agent.
 
+1e. **Do not rediscover the post-upload artifact retry.** Run 291 fixed it. `insert_caption`, `set_thumbnail`, and `insert_top_level_comment` retry 408, 429, 500, 502, 503, 504, and network errors up to three times. A 400 stays permanent (`captionExists` is not success). Do not open a second `videos.insert` because a caption 503 failed. Do not restore a single-shot multipart artifact call.
+
 1d. **Do not rediscover the session-start retry.** Run 290 fixed it. A `videos.insert` session POST that returns 408, 429, 500, 502, 503, 504, or a network error and no Location is retried up to three times. A Location on that response is the session. Do not start a second `videos.insert` when Location is present. Chunk 408 and 429 resume that session. Do not treat them as a permanent failure. Do not restore multipart for the master.
 
 1c. **Do not rediscover the missing-Range restart.** Run 289 fixed it. A 308 with no Range header means the server stored nothing. Resume at byte 0. Do not treat the chunk just sent as accepted. Three missing-Range responses are `RESUMABLE_STALLED`. Honor `Retry-After`, capped at 30 seconds. Do not restore the `end+1` fallback.

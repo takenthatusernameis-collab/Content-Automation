@@ -1377,6 +1377,49 @@ def check_resumable_video_upload() -> list[str]:
         failures.append(f"503 with Location must use that session: {data}")
     if hidden_calls.count("POST") != 1:
         failures.append(f"503 with Location must not start a second videos.insert: {hidden_calls}")
+
+    artifact_calls: list[int] = []
+
+    def artifact_request(url, *, method="GET", token=None, body=None, content_type=None, accept="application/json", timeout=120):
+        artifact_calls.append(1)
+        if len(artifact_calls) == 1:
+            raise youtube_api.YouTubeAPIError(503, "backendError")
+        return json.dumps({"id": "cap-1"}).encode()
+
+    original_request = youtube_api._request
+    youtube_api._request = artifact_request
+    youtube_api._sleep = lambda _seconds: None
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            cap = Path(tmp) / "captions.srt"
+            cap.write_text("1\n00:00:00,000 --> 00:00:01,000\nhi\n", encoding="utf-8")
+            data = youtube_api.insert_caption("token-not-printed", video_id="vid", caption_path=cap)
+    finally:
+        youtube_api._request = original_request
+        youtube_api._sleep = original_sleep
+    if data.get("id") != "cap-1":
+        failures.append(f"caption 503 must retry the same insert: {data}")
+    if len(artifact_calls) != 2:
+        failures.append(f"caption 503 must retry once then succeed: {len(artifact_calls)}")
+
+    def permanent_request(url, *, method="GET", token=None, body=None, content_type=None, accept="application/json", timeout=120):
+        raise youtube_api.YouTubeAPIError(400, "captionExists")
+
+    youtube_api._request = permanent_request
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            cap = Path(tmp) / "captions.srt"
+            cap.write_text("1\n00:00:00,000 --> 00:00:01,000\nhi\n", encoding="utf-8")
+            try:
+                youtube_api.insert_caption("token-not-printed", video_id="vid", caption_path=cap)
+            except youtube_api.YouTubeAPIError as exc:
+                if exc.reason != "captionExists":
+                    failures.append(f"caption 400 must stay permanent: {exc.reason}")
+            else:
+                failures.append("caption 400 must not be treated as success")
+    finally:
+        youtube_api._request = original_request
+        youtube_api._sleep = original_sleep
     return failures
 
 

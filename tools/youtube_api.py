@@ -188,6 +188,47 @@ def _multipart_related(metadata: Mapping[str, Any], media: Path, media_type: str
     return b"".join(chunks), f"multipart/related; boundary={boundary}"
 
 
+# Captions, thumbnails, and the pin comment are small multipart/JSON calls.
+# A 503 after videos.insert already spent the insert unit. Retry the artifact
+# call only. Do not open another videos.insert. A 400 stays permanent.
+POST_UPLOAD_RETRYABLE = {408, 429, 500, 502, 503, 504}
+POST_UPLOAD_RETRY_LIMIT = 3
+
+
+def _request_retrying(
+    url: str,
+    *,
+    method: str,
+    token: str,
+    body: bytes | None,
+    content_type: str | None,
+    timeout: int,
+) -> bytes:
+    """Retry a post-upload call on transient statuses. Never used for videos.insert."""
+    last: YouTubeAPIError | None = None
+    for attempt in range(POST_UPLOAD_RETRY_LIMIT + 1):
+        try:
+            return _request(
+                url,
+                method=method,
+                token=token,
+                body=body,
+                content_type=content_type,
+                timeout=timeout,
+            )
+        except YouTubeAPIError as exc:
+            last = exc
+            retryable = exc.status in POST_UPLOAD_RETRYABLE or exc.reason == "network_error"
+            if not retryable or attempt >= POST_UPLOAD_RETRY_LIMIT:
+                if retryable:
+                    raise YouTubeAPIError(
+                        exc.status, "POST_UPLOAD_RETRY_EXHAUSTED", exc.reason
+                    ) from exc
+                raise
+            _sleep(RESUMABLE_BACKOFF_SECONDS[min(attempt, len(RESUMABLE_BACKOFF_SECONDS) - 1)])
+    raise last  # pragma: no cover
+
+
 def upload_related(
     path: str,
     *,
@@ -199,7 +240,7 @@ def upload_related(
     timeout: int = 600,
 ) -> dict[str, Any]:
     body, content_type = _multipart_related(metadata, media, media_type)
-    raw = _request(
+    raw = _request_retrying(
         _query_url(UPLOAD_BASE, path, params),
         method="POST",
         token=token,
@@ -520,7 +561,7 @@ def upload_binary(
     media_type: str,
     params: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    raw = _request(
+    raw = _request_retrying(
         _query_url(UPLOAD_BASE, path, params),
         method="POST",
         token=token,
@@ -553,13 +594,21 @@ def insert_top_level_comment(token: str, *, video_id: str, channel_id: str, text
             "topLevelComment": {"snippet": {"textOriginal": text}},
         }
     }
-    return api_json(
-        "POST",
-        "commentThreads",
+    raw = _request_retrying(
+        _query_url(DATA_BASE, "commentThreads", {"part": "snippet"}),
+        method="POST",
         token=token,
-        params={"part": "snippet"},
-        body=body,
+        body=_json_bytes(body),
+        content_type="application/json; charset=UTF-8",
+        timeout=120,
     )
+    try:
+        parsed = json.loads(raw.decode("utf-8"))
+    except json.JSONDecodeError as exc:
+        raise YouTubeAPIError(0, "invalid_json_response") from exc
+    if not isinstance(parsed, dict):
+        raise YouTubeAPIError(0, "unexpected_json_shape")
+    return parsed
 
 
 def analytics_report(

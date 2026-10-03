@@ -1,3 +1,6 @@
+## Run 291
+Caption, thumbnail, and pin-comment calls retry a transient 408/429/5xx or network error instead of failing the workflow after the video id exists. A 400 stays permanent. Estimated human minutes stay 0.5 until secrets exist; one avoided re-dispatch after the first upload. Automated steps 125 -> 126. Videos published stay 0. No provider write.
+
 ## Run 290
 A session POST that returns 503 without Location is retried. A 503 that already returned Location is that session and is not a second videos.insert. Chunk 408 and 429 resume the existing session. Estimated human minutes stay 0.5. Automated steps 124 -> 125. Videos published stay 0. No provider write.
 

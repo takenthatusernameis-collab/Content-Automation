@@ -1,3 +1,14 @@
+## 2026-10-03T06:16:00Z — Run 291
+
+- **Objective:** Stop a transient 503 on caption, thumbnail, or pin-comment upload from forcing another workflow dispatch after the video id already exists, without another snippet gate or a second videos.insert.
+- **Inspected:** STATE, NEXT, RUNS, BLOCKED, ROADMAP, `tools/youtube_api.py`, `tools/selftest.py`.
+- **Action taken:** Post-upload calls retry 408/429/5xx and network errors up to three times, then raise `POST_UPLOAD_RETRY_EXHAUSTED`. A 400 stays permanent. Extended the selftest. Did not dispatch. Did not poll secrets.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute and collect were not dispatched. Videos published stay 0.
+- **Verification status:** completed for the artifact-retry contract and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** Runs 287-290 made the master resumable, but captions and thumbnails still used one multipart POST. A 503 there is POST_UPLOAD_INCOMPLETE even though the video id exists. Snippet micro-gates remain deferred.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` remain the publish and collect gate. Not polled. Recurring external stall. Do not spend a run only restating it.
+- **Recommended next action:** Add those three secrets from a token granted `youtube.upload` and `youtube.force-ssl` (or full `youtube`), then dispatch `youtube-production.yml` with execute=true. Do not re-encode. Do not add another snippet micro-gate. Do not scaffold Q2.
+
 ## 2026-10-03T05:20:00Z — Run 290
 
 - **Objective:** Stop a session-start 503 with no Location from aborting the first upload, without starting a second videos.insert when Location is already present, and without restating the OAuth stall.
