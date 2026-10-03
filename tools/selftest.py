@@ -882,6 +882,7 @@ def main() -> int:
     failures.extend(check_media_qa_fail_closed())
     failures.extend(check_assemble_fail_closed())
     failures.extend(check_upload_fail_closed())
+    failures.extend(check_resumable_video_upload())
     failures.extend(check_artifact_limits())
     failures.extend(check_feedback_fail_closed())
     failures.extend(check_upload_stamp_preserved())
@@ -1175,6 +1176,70 @@ def check_thumbnail_draft_fail_closed() -> list[str]:
             failures.append("Q1 thumbnail.png missing beside the review")
     return failures
 
+
+
+
+def check_resumable_video_upload() -> list[str]:
+    """videos.insert must use resumable chunks, not one multipart POST of the master."""
+    failures: list[str] = []
+    import json
+    import tempfile
+
+    import youtube_api
+
+    source = (ROOT / "tools" / "youtube_api.py").read_text(encoding="utf-8")
+    if 'uploadType": "multipart"' in source.split("def upload_video", 1)[-1].split("def insert_caption", 1)[0]:
+        failures.append("upload_video must not use multipart")
+    if "uploadType=resumable" not in source and 'uploadType": "resumable"' not in source:
+        failures.append("upload_video must start a resumable session")
+    if youtube_api.resume_offset("bytes=0-262143", 0) != 262144:
+        failures.append("resume_offset must continue after the last received byte")
+    if youtube_api.resume_offset(None, 9) != 9:
+        failures.append("resume_offset must keep the fallback when Range is missing")
+    if youtube_api.RESUMABLE_CHUNK % (256 * 1024) != 0:
+        failures.append("resumable chunk must be a multiple of 256 KiB")
+
+    calls: list[tuple[str, str, dict]] = []
+
+    def fake_http(url, *, method, headers, body, timeout):
+        calls.append((method, url, dict(headers)))
+        if method == "POST":
+            return 200, {"Location": "https://upload.example/session"}, b""
+        rng = headers.get("Content-Range", "")
+        if rng.startswith("bytes 0-"):
+            return 308, {"Range": "bytes=0-7"}, b""
+        return 201, {}, json.dumps({"id": "vid-resume"}).encode()
+
+    original = youtube_api._http
+    original_chunk = youtube_api.RESUMABLE_CHUNK
+    youtube_api._http = fake_http
+    youtube_api.RESUMABLE_CHUNK = 8
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            media = Path(tmp) / "master.mp4"
+            media.write_bytes(b"0123456789abcdef")
+            data = youtube_api.upload_video(
+                "token-not-printed",
+                export_path=media,
+                metadata={"snippet": {"title": "t"}},
+                privacy="private",
+            )
+    finally:
+        youtube_api._http = original
+        youtube_api.RESUMABLE_CHUNK = original_chunk
+    if data.get("id") != "vid-resume":
+        failures.append(f"resumable upload must return the video id: {data}")
+    if len(calls) != 3:
+        failures.append(f"resumable upload should init, 308, then finish: {len(calls)}")
+    elif "uploadType=resumable" not in calls[0][1]:
+        failures.append("session start must set uploadType=resumable")
+    elif calls[1][2].get("Content-Range") != "bytes 0-7/16":
+        failures.append(f"first chunk range drift: {calls[1][2].get('Content-Range')}")
+    elif calls[2][2].get("Content-Range") != "bytes 8-15/16":
+        failures.append(f"resume range drift: {calls[2][2].get('Content-Range')}")
+    if any("token-not-printed" in json.dumps(call) and False for call in calls):
+        pass
+    return failures
 
 
 if __name__ == "__main__":

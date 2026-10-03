@@ -1,6 +1,6 @@
 # NEXT
 
-Do these in order. Stop only when required evidence is unavailable or a genuine external authorization/credential boundary is reached. Approval-only decisions are delegated to the agent.
+Do these in order. Do not rediscover the resumable video upload (Run 287): `videos.insert` uses `uploadType=resumable` and 8 MiB chunks. Do not restore multipart for the master. Captions and thumbnails stay multipart. Stop only when required evidence is unavailable or a genuine external authorization/credential boundary is reached. Approval-only decisions are delegated to the agent.
 
 1. **Do not rediscover the materialize abort.** Run 270 fixed it. `tools/materialize_q1_release.py` must ignore the known-truncated r249 `q1-master.mp4` (sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53`) and install only `q1-media-r253` `q1-master-r253.mp4` (328.40s, sha256 `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546`). Do not restore a presence-only abort. Do not re-encode. Do not `git add -f` media.
 2. **Do not rediscover the evidence drop.** Run 271 fixed it. `experiment_loop.py` and `complete.py` must use `collected_metrics()` and ignore dry-run or mismatched `feedback_state.json`. Do not invent a keep/discard. A matching COLLECTED fetch is READY_TO_COMPARE, not a decision.

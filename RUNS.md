@@ -1,3 +1,14 @@
+## 2026-10-03T02:11:00Z — Run 287
+
+- **Objective:** Stop the first authenticated `videos.insert` from depending on one multipart POST of the multi-minute master.
+- **Inspected:** STATE, NEXT, RUNS, `tools/youtube_api.py`, `tools/youtube_upload.py`, workflow timeout, selftest.
+- **Action taken:** `upload_video` now starts a resumable session and PUTs 8 MiB chunks, continuing after HTTP 308. Captions and thumbnails stay multipart. Selftest covers Range parsing, chunk alignment, and a fake 308 resume. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the resumable contract and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** Runs 281-286 kept adding pre-insert snippet gates while the master still used multipart. That gate loop is diminishing and should stop unless a documented provider reject is still ungated. The transport hole was the remaining first-upload failure mode that local gates cannot catch.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall. Do not spend a run only restating it.
+- **Recommended next action:** Add those three secrets from a token granted `youtube.upload` and `youtube.force-ssl` (or full `youtube`), then dispatch `youtube-production.yml` with execute=true. Do not re-encode. Do not restore multipart for the master. Do not scaffold Q2.
+
 ## 2026-10-03T01:20:00Z — Run 286
 
 - **Objective:** Stop a tag list that is under a raw 500-character sum from reaching `videos.insert` when quotes and commas push it over the provider limit.

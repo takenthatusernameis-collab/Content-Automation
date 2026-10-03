@@ -216,6 +216,60 @@ def upload_related(
     return data
 
 
+# YouTube requires every non-final chunk to be a multiple of 256 KiB.
+RESUMABLE_CHUNK = 8 * 1024 * 1024
+
+
+def resume_offset(range_header: str | None, fallback: int) -> int:
+    """Byte offset after a 308 Range header. `bytes=0-262143` means resume at 262144."""
+    text = str(range_header or "")
+    if "bytes=" in text:
+        text = text.split("bytes=", 1)[1]
+    text = text.strip().split(",")[-1].strip()
+    if "-" not in text:
+        return fallback
+    end = text.split("-", 1)[1].strip()
+    if not end.isdigit():
+        return fallback
+    return int(end) + 1
+
+
+def _http(
+    url: str,
+    *,
+    method: str,
+    headers: Mapping[str, str],
+    body: bytes | None,
+    timeout: int,
+) -> tuple[int, dict[str, str], bytes]:
+    """Return status, headers, and body. 308 is a resumable progress signal, not a failure."""
+    req = urllib.request.Request(url, data=body, headers=dict(headers), method=method)
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            hdrs = {k: v for k, v in resp.headers.items()}
+            return int(resp.status), hdrs, resp.read()
+    except urllib.error.HTTPError as exc:
+        hdrs = {k: v for k, v in exc.headers.items()} if exc.headers else {}
+        try:
+            raw = exc.read(64 * 1024)
+        except Exception:
+            raw = b""
+        if int(exc.code) == 308:
+            return 308, hdrs, raw
+        status, reason, detail = _read_error(exc)
+        raise YouTubeAPIError(status, reason, detail) from exc
+    except urllib.error.URLError as exc:
+        raise YouTubeAPIError(0, "network_error", str(exc.reason)[:500]) from exc
+
+
+def _header(headers: Mapping[str, str], name: str) -> str:
+    want = name.lower()
+    for key, value in headers.items():
+        if key.lower() == want:
+            return str(value)
+    return ""
+
+
 def upload_video(
     token: str,
     *,
@@ -223,19 +277,80 @@ def upload_video(
     metadata: Mapping[str, Any],
     privacy: str,
 ) -> dict[str, Any]:
+    """Insert a video with the resumable protocol.
+
+    A single multipart POST of a multi-minute master is the wrong transport:
+    proxies and the 20-minute Actions job drop it, and a lost response can hide
+    a created video id. Captions and thumbnails stay multipart; they are small.
+    """
     body = dict(metadata)
     status = dict(body.get("status") or {})
     status["privacyStatus"] = privacy
     status.setdefault("selfDeclaredMadeForKids", False)
     body["status"] = status
-    return upload_related(
+    size = export_path.stat().st_size
+    if size <= 0:
+        raise YouTubeAPIError(0, "EXPORT_EMPTY")
+    init_headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json; charset=UTF-8",
+        "X-Upload-Content-Length": str(size),
+        "X-Upload-Content-Type": "video/mp4",
+        "User-Agent": "Content-Automation/1.0",
+    }
+    init_url = _query_url(
+        UPLOAD_BASE,
         "videos",
-        token=token,
-        metadata=body,
-        media=export_path,
-        media_type="video/mp4",
-        params={"part": "snippet,status", "uploadType": "multipart", "notifySubscribers": "false"},
+        {"part": "snippet,status", "uploadType": "resumable", "notifySubscribers": "false"},
     )
+    code, headers, _raw = _http(
+        init_url,
+        method="POST",
+        headers=init_headers,
+        body=_json_bytes(body),
+        timeout=120,
+    )
+    session = _header(headers, "Location")
+    if code not in {200, 201} or not session.startswith("https://"):
+        raise YouTubeAPIError(code, "RESUMABLE_SESSION_MISSING")
+    offset = 0
+    with export_path.open("rb") as handle:
+        while offset < size:
+            handle.seek(offset)
+            chunk = handle.read(RESUMABLE_CHUNK)
+            if not chunk:
+                raise YouTubeAPIError(0, "RESUMABLE_STALLED", f"offset={offset}")
+            end = offset + len(chunk) - 1
+            put_headers = {
+                "Authorization": f"Bearer {token}",
+                "Content-Type": "video/mp4",
+                "Content-Length": str(len(chunk)),
+                "Content-Range": f"bytes {offset}-{end}/{size}",
+                "User-Agent": "Content-Automation/1.0",
+            }
+            put_code, put_headers_out, raw = _http(
+                session,
+                method="PUT",
+                headers=put_headers,
+                body=chunk,
+                timeout=600,
+            )
+            if put_code in {200, 201}:
+                try:
+                    data = json.loads(raw.decode("utf-8"))
+                except json.JSONDecodeError as exc:
+                    raise YouTubeAPIError(put_code, "invalid_json_response") from exc
+                if not isinstance(data, dict) or not str(data.get("id") or "").strip():
+                    raise YouTubeAPIError(put_code, "RESUMABLE_MISSING_VIDEO_ID")
+                return data
+            if put_code == 308:
+                nxt = resume_offset(_header(put_headers_out, "Range"), end + 1)
+                if nxt <= offset:
+                    raise YouTubeAPIError(308, "RESUMABLE_STALLED", f"offset={offset}")
+                offset = nxt
+                continue
+            raise YouTubeAPIError(put_code, "RESUMABLE_UNEXPECTED_STATUS")
+    raise YouTubeAPIError(0, "RESUMABLE_STALLED", "loop_ended")
 
 
 def insert_caption(

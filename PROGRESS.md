@@ -1,3 +1,6 @@
+## Run 287
+videos.insert now uses resumable upload (8 MiB chunks, 308 resume) instead of one multipart POST of the master. Captions and thumbnails stay multipart. Estimated human minutes stay 0.5. Automated steps 121 -> 122. Videos published stay 0. No provider write.
+
 ## Run 286
 Tag lists now fail closed on the videos.insert keyword budget, not a raw character sum. Spaced tags count two wrapping quotes, and commas between tags count. Q1 tags still pass at 152. Estimated human minutes stay 0.5. Automated steps 120 -> 121. Videos published stay 0.
 
@@ -15,7 +18,7 @@ Caption scope is now a pre-insert gate. An upload-only token cannot create a pri
 
 # PROGRESS
 
-Updated: 2026-10-03T01:20:00Z (Run 286)
+Updated: 2026-10-03T02:11:00Z (Run 287)
 
 ## Latest measurable delta
 - Run 280 automated steps: 115. Run 281: 116.
