@@ -273,6 +273,19 @@ def check_upload_fail_closed() -> list[str]:
             failures.append(f"upload thumbnail note missing, got {thumbs}")
         if "thumbnails.set" not in src:
             failures.append("upload adapter must keep thumbnails.set uncalled")
+        from youtube_upload import synthetic_media_flag, vo_origin_kind
+        if synthetic_media_flag("generated") is not True or synthetic_media_flag("human") is not False:
+            failures.append("synthetic disclosure must be true for generated and false for human")
+        if synthetic_media_flag("unknown") is not None:
+            failures.append("unknown vo origin must not invent containsSyntheticMedia")
+        (p / "vo_origin.md").write_text("kind: generated\n", encoding="utf-8")
+        if vo_origin_kind(p) != "generated":
+            failures.append("vo_origin.md kind generated must be read")
+        body_gen = request_body({"packet": p.name, "export": "export/master.mp4", "fingerprint": "fixture", "meta": report2["meta"], "privacy": "private", "contains_synthetic_media": True, "captions": {}, "thumbnail": {}})
+        if body_gen.get("status", {}).get("containsSyntheticMedia") is not True:
+            failures.append("request_body must disclose generated narration")
+        if "containsSyntheticMedia" not in src:
+            failures.append("upload adapter must set status.containsSyntheticMedia")
 
         (p / "publish.md").write_text(
             "## Title to upload\n\nFixture title\n\n"

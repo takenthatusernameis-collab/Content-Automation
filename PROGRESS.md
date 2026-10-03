@@ -1,12 +1,15 @@
 # PROGRESS
 
-Updated: 2026-10-03T14:20:00Z (Run 298)
+Updated: 2026-10-03T15:20:00Z (Run 299)
 
 ## Latest measurable delta
-- Run 297 automated steps: 131. Run 298: 132.
-- New automated behavior: a rejected provider-state push on a shallow Actions checkout unshallows before rebase, so the video id is not left only on the runner.
+- Run 298 automated steps: 132. Run 299: 133.
+- New automated behavior: videos.insert discloses generated narration via status.containsSyntheticMedia, so the operator does not set the altered-content box in Studio.
 - Human minutes per video remain 0.5. The remaining recurring human step is entering the three YouTube OAuth secrets.
 - Videos published: 0. No provider write.
+
+## Run 299
+Generated narration now sets status.containsSyntheticMedia on videos.insert. Human narration sets false. Unknown origin fails before the token refresh. Estimated human minutes stay 0.5. Automated steps 132 -> 133. Videos published stay 0. No provider write. Do not add another upload HTTP status variant without a live execute status.
 
 ## Run 298
 A shallow rejected push now unshallows, fetches, and rebases instead of failing with no merge base. No force-push. Estimated human minutes stay 0.5. Automated steps 131 -> 132. Videos published stay 0. No provider write. Do not add another upload HTTP status variant without a live execute status.

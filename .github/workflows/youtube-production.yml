@@ -180,6 +180,7 @@ jobs:
         run: |
           echo "Q1 production workflow completed."
           echo "Initial YouTube privacy is private in tools/youtube_upload.py."
+          echo "A generated vo_origin sets status.containsSyntheticMedia. An unknown kind fails before the token refresh."
           echo "OAuth secrets are read only from GitHub Actions secrets."
           echo "Verified release media is materialized with checksum guards."
           echo "collect_feedback is read-only and defaults off. It does not upload or invent metrics."

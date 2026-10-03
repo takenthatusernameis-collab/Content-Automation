@@ -71,6 +71,8 @@ Required GitHub Actions secrets are:
 
 The workflow keeps the uploader's initial privacy mode at `private`. Posting the optional first comment remains opt-in because the corresponding OAuth grant must include the comment-write scope used by the adapter.
 
+`videos.insert` sets `status.containsSyntheticMedia` from packet `vo_origin.md`. `kind: generated` is true (Q1 edge-tts). `kind: human` is false. A missing or other kind is `SYNTHETIC_DISCLOSURE_UNKNOWN` and does not refresh a token or call `videos.insert`. Do not invent the flag.
+
 The workflow requires `contents: write` because its persistent mutations are the non-secret upload state and, after a real fetch, collected feedback state. It does not write media files to the repository.
 
 ## Authentication boundary

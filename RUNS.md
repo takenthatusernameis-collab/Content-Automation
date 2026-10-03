@@ -1,3 +1,14 @@
+## 2026-10-03T15:20:00Z — Run 299
+
+- **Objective:** Disclose generated narration on the first videos.insert, without adding another upload HTTP status variant.
+- **Inspected:** STATE, NEXT, RUNS, BLOCKED, youtube_upload.py, youtube_api.py, Q1 vo_origin.md. OAuth secrets were not polled.
+- **Action taken:** videos.insert now sets status.containsSyntheticMedia from vo_origin.md. kind generated is true. kind human is false. An unknown kind is SYNTHETIC_DISCLOSURE_UNKNOWN before the token refresh and does not insert. Q1 is generated. Extended the selftest. Did not dispatch.
+- **Result:** Local python3 tools/selftest.py printed SELFTEST PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the disclosure flag and local selftest. Actions was not re-run. No provider write. prove_locks.py still fails on the pre-existing words_contract.py placeholder check; not caused by this change.
+- **Important discovery:** The upload path set selfDeclaredMadeForKids but omitted containsSyntheticMedia. Q1 narration is edge-tts, so the first private upload would have left the altered-content disclosure for a Studio click.
+- **Blocker:** GitHub Actions secrets YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, and YOUTUBE_REFRESH_TOKEN remain the publish gate. Not polled. Recurring external stall. Flagged, not re-worked as the only work.
+- **Recommended next action:** Add those three secrets from a token granted youtube.upload and youtube.force-ssl (or full youtube), then dispatch youtube-production.yml with execute=true. Do not drop containsSyntheticMedia. Do not invent a vo origin. Do not add another HTTP status variant unless a live execute returned that status. Do not scaffold Q2.
+
 ## 2026-10-03T14:20:00Z — Run 298
 
 - **Objective:** Stop a rejected provider-state push from dropping the video id on the shallow Actions checkout, without adding another upload status variant.

@@ -559,8 +559,15 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
         existing != "mismatch",
         "no persisted video" if existing == "none" else existing,
     )
+    origin = vo_origin_kind(packet)
+    synthetic = synthetic_media_flag(origin)
+    add(
+        "synthetic_disclosure_known",
+        synthetic is not None,
+        f"containsSyntheticMedia={synthetic} kind={origin}" if synthetic is not None else "vo_origin.md kind must be generated or human",
+    )
 
-    hard_local = [c for c in checks if c["name"] in {"publish_md_present", "title_present", "master_export_present", "publish_copy_approved", "metadata_within_provider_limits", "artifacts_within_provider_limits"}]
+    hard_local = [c for c in checks if c["name"] in {"publish_md_present", "title_present", "master_export_present", "publish_copy_approved", "metadata_within_provider_limits", "artifacts_within_provider_limits", "synthetic_disclosure_known"}]
     local_ok = all(c["ok"] for c in hard_local)
     if not local_ok:
         gate = "FAIL"
@@ -593,6 +600,8 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
         "auth": auth,
         "fingerprint": fp,
         "privacy": DEFAULT_PRIVACY,
+        "contains_synthetic_media": synthetic,
+        "vo_origin_kind": origin,
         "checks": checks,
         "gate": gate,
         "action": action,
@@ -645,8 +654,39 @@ def caption_track(packet: Path) -> dict:
     }
 
 
+def vo_origin_kind(packet: Path) -> str:
+    """Return generated, human, or unknown. Do not invent a recording."""
+    path = packet / "vo_origin.md"
+    if not path.is_file():
+        return "unknown"
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.lower().startswith("kind:"):
+            kind = line.split(":", 1)[1].strip().lower()
+            return kind if kind in {"generated", "human"} else "unknown"
+    return "unknown"
+
+
+def synthetic_media_flag(kind: str) -> bool | None:
+    """YouTube status.containsSyntheticMedia. None means do not insert.
+
+    Generated narration is altered speech and must be disclosed. A human take
+    is disclosed as false. Text cards alone are not a reason to invent true.
+    """
+    if kind == "generated":
+        return True
+    if kind == "human":
+        return False
+    return None
+
+
 def request_body(report: dict) -> dict:
     meta = report["meta"]
+    status = {
+        "privacyStatus": report["privacy"],
+        "selfDeclaredMadeForKids": False,
+    }
+    if isinstance(report.get("contains_synthetic_media"), bool):
+        status["containsSyntheticMedia"] = report["contains_synthetic_media"]
     return {
         "snippet": {
             "title": meta["title"],
@@ -656,10 +696,7 @@ def request_body(report: dict) -> dict:
             "defaultLanguage": CAPTION_LANGUAGE,
             "defaultAudioLanguage": CAPTION_LANGUAGE,
         },
-        "status": {
-            "privacyStatus": report["privacy"],
-            "selfDeclaredMadeForKids": False,
-        },
+        "status": status,
         "local": {
             "packet": report["packet"],
             "export": report["export"],
@@ -716,6 +753,8 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
         raise YouTubeAPIError(0, f"ARTIFACT_REJECTED:{artifact_block}")
     if report.get("privacy") != DEFAULT_PRIVACY:
         raise YouTubeAPIError(0, "PRIVACY_NOT_PRIVATE")
+    if not isinstance(report.get("contains_synthetic_media"), bool):
+        raise YouTubeAPIError(0, "SYNTHETIC_DISCLOSURE_UNKNOWN")
     export = export_path(packet)
     prior = load_prior_state(packet)
     prior_video_id = None
@@ -776,6 +815,10 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
                         "categoryId": "27",
                         "defaultLanguage": CAPTION_LANGUAGE,
                         "defaultAudioLanguage": CAPTION_LANGUAGE,
+                    },
+                    "status": {
+                        "containsSyntheticMedia": report["contains_synthetic_media"],
+                        "selfDeclaredMadeForKids": False,
                     },
                 },
                 privacy=report["privacy"],

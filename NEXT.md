@@ -2,6 +2,8 @@
 
 Do these in order. Do not rediscover the resumable video upload (Run 287): `videos.insert` uses `uploadType=resumable` and 8 MiB chunks. Do not restore multipart for the master. Captions and thumbnails stay multipart. Stop only when required evidence is unavailable or a genuine external authorization/credential boundary is reached. Approval-only decisions are delegated to the agent.
 
+1l. **Do not rediscover the synthetic disclosure.** Run 299 set it. `videos.insert` sets `status.containsSyntheticMedia` from `vo_origin.md`. `kind: generated` is true. `kind: human` is false. An unknown kind is `SYNTHETIC_DISCLOSURE_UNKNOWN` before the token refresh and must not insert. Q1 is generated. Do not invent a kind. Do not drop the field.
+
 1k. **Do not rediscover the lost provider-state push.** Run 297 fixed the single push. Run 298 fixed the shallow Actions checkout. `persist_provider_state.py` commits a provider video id or a completed-without-id hold, skips transient and dry-run feedback, and retries a non-fast-forward push after unshallow (when the clone is shallow), fetch, and rebase. Do not force-push. Do not restore a single `git push origin HEAD:main`. Do not rebase a depth-1 checkout without unshallow. Do not re-open Q1 Description edited or First comment approved; those boxes are already checked.
 
 1j. **Do not rediscover the unaligned resume.** Run 296 fixed it. A 308 Range that is not a multiple of 256 KiB is `RESUMABLE_STALLED` with `unaligned_offset`. Do not send the next chunk. Do not treat that 400-prone offset as progress. Tests that shrink the chunk below 256 KiB stay exempt. Do not add another HTTP status variant unless a live execute returned that status. Runs 281-295 are the suspicious upload-gate loop.
