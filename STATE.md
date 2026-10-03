@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-03T02:11:00Z (Run 287)
+Updated: 2026-10-03T03:12:00Z (Run 288)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 288 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- `upload_video` now treats HTTP 500, 502, 503, and 504, and a network error on a chunk PUT, as resumeable. It queries the session with `Content-Range: bytes */size` and continues from the returned Range. Three failures at the same stage raise `RESUMABLE_RETRY_EXHAUSTED`. A 404 on that query is `RESUMABLE_SESSION_EXPIRED`. Captions and thumbnails stay multipart. Selftest passed locally. Actions was not re-run.
+- Flag still stands: do not add another snippet micro-gate. Description angle brackets remain ungated and are deferred on purpose.
 
 ## Run 287 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -100,8 +105,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; tag quote and comma budget now fails before videos.insert |
-| Automated steps | 121 | 122 | videos.insert uses resumable chunks; no upload ran |
+| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; a 503 on videos.insert now resumes the same session |
+| Automated steps | 122 | 123 | resumable 5xx queries the session and resumes; no upload ran |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
@@ -138,4 +143,6 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not drop defaultLanguage or defaultAudioLanguage from videos.insert
 - Do not treat a raw tag character sum as the videos.insert 500 limit when a tag contains a space
 - Do not put videos.insert back on multipart
+- Do not treat HTTP 500/502/503/504 on a chunk PUT as a permanent failure
+- Do not start a second videos.insert because a 503 hid the session
 - Do not add another snippet micro-gate unless a documented provider reject is still ungated

@@ -6,7 +6,7 @@ Keep the repository structurally ready for automated YouTube publishing so that,
 
 The live adapter is `tools/youtube_upload.py`. Dry-run remains the default; `--execute` performs authenticated `videos.insert` and, when the corresponding local files are present and the token is authorized, caption/thumbnail writes. It never prints secret values.
 
-`videos.insert` uses the resumable protocol (`uploadType=resumable`, 8 MiB chunks, 308 resume). A single multipart POST of the master is not the video path. Captions and thumbnails stay multipart. A missing session Location is `RESUMABLE_SESSION_MISSING`. A 308 that does not advance is `RESUMABLE_STALLED`. The final response must include a video id.
+`videos.insert` uses the resumable protocol (`uploadType=resumable`, 8 MiB chunks, 308 resume). A single multipart POST of the master is not the video path. Captions and thumbnails stay multipart. A missing session Location is `RESUMABLE_SESSION_MISSING`. A 308 that does not advance is `RESUMABLE_STALLED`. HTTP 500, 502, 503, and 504, and a network error on a chunk PUT, query the session with `Content-Range: bytes */size` and resume from the returned Range. Three failures at the same stage raise `RESUMABLE_RETRY_EXHAUSTED`. A 404 on that query is `RESUMABLE_SESSION_EXPIRED`. The final response must include a video id.
 
 The live feedback adapter is `tools/youtube_feedback.py`. Dry-run remains the default; `--execute` performs authenticated Analytics and comment-thread reads. It never invents metrics.
 

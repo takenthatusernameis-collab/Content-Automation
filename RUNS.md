@@ -1,3 +1,14 @@
+## 2026-10-03T03:12:00Z — Run 288
+
+- **Objective:** Stop a transient 5xx on the resumable master upload from looking like a permanent failure and inviting a second `videos.insert`.
+- **Inspected:** STATE, NEXT, RUNS, `tools/youtube_api.py`, `tools/selftest.py`, official resumable upload guide (500/502/503/504 are resumeable).
+- **Action taken:** A chunk PUT that returns 500, 502, 503, or 504, or a network error, now queries the session with `Content-Range: bytes */size` and resumes from the Range. Three failures at the same stage raise `RESUMABLE_RETRY_EXHAUSTED`. A 404 on that query is `RESUMABLE_SESSION_EXPIRED`. Captions and thumbnails stay multipart. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the 5xx resume contract and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** Run 287 resumed only on HTTP 308. A 503, which the official guide says to resume, still raised `RESUMABLE_UNEXPECTED_STATUS` and left no video id, so the next execute could open a second session.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall. Do not spend a run only restating it.
+- **Recommended next action:** Add those three secrets from a token granted `youtube.upload` and `youtube.force-ssl` (or full `youtube`), then dispatch `youtube-production.yml` with execute=true. Do not re-encode. Do not restore multipart for the master. Do not add another snippet micro-gate. Do not scaffold Q2.
+
 ## 2026-10-03T02:11:00Z — Run 287
 
 - **Objective:** Stop the first authenticated `videos.insert` from depending on one multipart POST of the multi-minute master.

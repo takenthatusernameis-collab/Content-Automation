@@ -1,3 +1,6 @@
+## Run 288
+videos.insert now resumes a 500/502/503/504 or network error by querying the session (`bytes */size`) instead of aborting. Estimated human minutes stay 0.5. Automated steps 122 -> 123. Videos published stay 0. No provider write.
+
 ## Run 287
 videos.insert now uses resumable upload (8 MiB chunks, 308 resume) instead of one multipart POST of the master. Captions and thumbnails stay multipart. Estimated human minutes stay 0.5. Automated steps 121 -> 122. Videos published stay 0. No provider write.
 
@@ -18,7 +21,7 @@ Caption scope is now a pre-insert gate. An upload-only token cannot create a pri
 
 # PROGRESS
 
-Updated: 2026-10-03T02:11:00Z (Run 287)
+Updated: 2026-10-03T03:12:00Z (Run 288)
 
 ## Latest measurable delta
 - Run 280 automated steps: 115. Run 281: 116.

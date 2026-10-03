@@ -1239,6 +1239,43 @@ def check_resumable_video_upload() -> list[str]:
         failures.append(f"resume range drift: {calls[2][2].get('Content-Range')}")
     if any("token-not-printed" in json.dumps(call) and False for call in calls):
         pass
+
+    retry_calls: list[tuple[str, str]] = []
+
+    def retry_http(url, *, method, headers, body, timeout):
+        retry_calls.append((method, headers.get("Content-Range", "")))
+        if method == "POST":
+            return 200, {"Location": "https://upload.example/session"}, b""
+        if headers.get("Content-Range", "").startswith("bytes */"):
+            return 308, {"Range": "bytes=0-7"}, b""
+        if headers.get("Content-Range", "").startswith("bytes 0-"):
+            raise youtube_api.YouTubeAPIError(503, "backendError")
+        return 201, {}, json.dumps({"id": "vid-503"}).encode()
+
+    original_sleep = youtube_api._sleep
+    youtube_api._http = retry_http
+    youtube_api._sleep = lambda _seconds: None
+    youtube_api.RESUMABLE_CHUNK = 8
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            media = Path(tmp) / "master.mp4"
+            media.write_bytes(b"0123456789abcdef")
+            data = youtube_api.upload_video(
+                "token-not-printed",
+                export_path=media,
+                metadata={"snippet": {"title": "t"}},
+                privacy="private",
+            )
+    finally:
+        youtube_api._http = original
+        youtube_api._sleep = original_sleep
+        youtube_api.RESUMABLE_CHUNK = original_chunk
+    if data.get("id") != "vid-503":
+        failures.append(f"503 must resume via status query, not abort: {data}")
+    if not any(rng.startswith("bytes */") for _method, rng in retry_calls):
+        failures.append(f"503 must query session with bytes */size: {retry_calls}")
+    if not any(rng == "bytes 8-15/16" for _method, rng in retry_calls):
+        failures.append(f"503 resume must continue after server Range: {retry_calls}")
     return failures
 
 

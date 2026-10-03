@@ -218,6 +218,14 @@ def upload_related(
 
 # YouTube requires every non-final chunk to be a multiple of 256 KiB.
 RESUMABLE_CHUNK = 8 * 1024 * 1024
+# Official resumable guide: 500/502/503/504 are resumeable, not permanent.
+RESUMABLE_RETRYABLE = {500, 502, 503, 504}
+RESUMABLE_RETRY_LIMIT = 3
+RESUMABLE_BACKOFF_SECONDS = (1, 2, 4)
+
+
+def _sleep(seconds: float) -> None:
+    time.sleep(seconds)
 
 
 def resume_offset(range_header: str | None, fallback: int) -> int:
@@ -314,6 +322,7 @@ def upload_video(
     if code not in {200, 201} or not session.startswith("https://"):
         raise YouTubeAPIError(code, "RESUMABLE_SESSION_MISSING")
     offset = 0
+    retries = 0
     with export_path.open("rb") as handle:
         while offset < size:
             handle.seek(offset)
@@ -328,29 +337,72 @@ def upload_video(
                 "Content-Range": f"bytes {offset}-{end}/{size}",
                 "User-Agent": "Content-Automation/1.0",
             }
-            put_code, put_headers_out, raw = _http(
-                session,
-                method="PUT",
-                headers=put_headers,
-                body=chunk,
-                timeout=600,
-            )
+            try:
+                put_code, put_headers_out, raw = _http(
+                    session,
+                    method="PUT",
+                    headers=put_headers,
+                    body=chunk,
+                    timeout=600,
+                )
+            except YouTubeAPIError as exc:
+                if exc.status not in RESUMABLE_RETRYABLE and exc.reason != "network_error":
+                    raise
+                put_code, put_headers_out, raw = exc.status, {}, b""
             if put_code in {200, 201}:
-                try:
-                    data = json.loads(raw.decode("utf-8"))
-                except json.JSONDecodeError as exc:
-                    raise YouTubeAPIError(put_code, "invalid_json_response") from exc
-                if not isinstance(data, dict) or not str(data.get("id") or "").strip():
-                    raise YouTubeAPIError(put_code, "RESUMABLE_MISSING_VIDEO_ID")
-                return data
+                return _video_resource(put_code, raw)
             if put_code == 308:
                 nxt = resume_offset(_header(put_headers_out, "Range"), end + 1)
                 if nxt <= offset:
                     raise YouTubeAPIError(308, "RESUMABLE_STALLED", f"offset={offset}")
                 offset = nxt
+                retries = 0
+                continue
+            if put_code in RESUMABLE_RETRYABLE or put_code == 0:
+                if retries >= RESUMABLE_RETRY_LIMIT:
+                    raise YouTubeAPIError(put_code, "RESUMABLE_RETRY_EXHAUSTED", f"offset={offset}")
+                _sleep(RESUMABLE_BACKOFF_SECONDS[min(retries, len(RESUMABLE_BACKOFF_SECONDS) - 1)])
+                retries += 1
+                status_code, status_headers, status_raw = _query_resumable(session, token, size)
+                if status_code in {200, 201}:
+                    return _video_resource(status_code, status_raw)
+                if status_code == 308:
+                    nxt = resume_offset(_header(status_headers, "Range"), offset)
+                    if nxt < 0 or nxt > size:
+                        raise YouTubeAPIError(308, "RESUMABLE_STALLED", f"offset={offset}")
+                    offset = nxt
+                    continue
+                if status_code == 404:
+                    raise YouTubeAPIError(404, "RESUMABLE_SESSION_EXPIRED", f"offset={offset}")
                 continue
             raise YouTubeAPIError(put_code, "RESUMABLE_UNEXPECTED_STATUS")
     raise YouTubeAPIError(0, "RESUMABLE_STALLED", "loop_ended")
+
+
+def _video_resource(status: int, raw: bytes) -> dict[str, Any]:
+    try:
+        data = json.loads(raw.decode("utf-8"))
+    except json.JSONDecodeError as exc:
+        raise YouTubeAPIError(status, "invalid_json_response") from exc
+    if not isinstance(data, dict) or not str(data.get("id") or "").strip():
+        raise YouTubeAPIError(status, "RESUMABLE_MISSING_VIDEO_ID")
+    return data
+
+
+def _query_resumable(session: str, token: str, size: int) -> tuple[int, dict[str, str], bytes]:
+    """Ask the session how many bytes it already has. Empty PUT, Content-Range bytes */size."""
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Length": "0",
+        "Content-Range": f"bytes */{size}",
+        "User-Agent": "Content-Automation/1.0",
+    }
+    try:
+        return _http(session, method="PUT", headers=headers, body=b"", timeout=120)
+    except YouTubeAPIError as exc:
+        if exc.status in RESUMABLE_RETRYABLE or exc.reason == "network_error" or exc.status == 404:
+            return exc.status, {}, b""
+        raise
 
 
 def insert_caption(
