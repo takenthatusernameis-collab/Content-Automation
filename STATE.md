@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-03T08:20:00Z (Run 293)
+Updated: 2026-10-03T09:15:00Z (Run 294)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 294 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- A finishing chunk PUT that returns 200 or 201 with an empty or id-less body now queries that same session once and uses the video resource. It does not open another videos.insert. A query that is not 200/201 still raises `RESUMABLE_MISSING_VIDEO_ID`. Selftest passed locally. Actions was not re-run.
+- Flag still stands: do not add another snippet micro-gate. The upload-transport loop is now covering lost completion bodies; do not keep adding status variants without a documented hole. Description angle brackets remain ungated and are deferred on purpose.
 
 ## Run 293 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -130,8 +135,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; a post-upload 401 refreshes and retries the artifact, not a second insert |
-| Automated steps | 126 | 127 | post-upload 401 refreshes and retries the artifact; no upload ran |
+| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; a lost completion body no longer invites a second insert |
+| Automated steps | 127 | 128 | empty 200/201 body queries the same session for the video id; no upload ran |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
@@ -178,3 +183,5 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not refresh into a second videos.insert when Location is already present
 - Do not treat a 401 on captions, thumbnail, or pin comment as a reason to start a second videos.insert
 - Do not treat an empty or unchanged post-upload refresh as success
+- Do not treat a 200/201 with an empty body as a missing video if the session can still return the id
+- Do not start a second videos.insert because the completion body was dropped

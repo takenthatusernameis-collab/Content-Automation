@@ -1,3 +1,14 @@
+## 2026-10-03T09:15:00Z — Run 294
+
+- **Objective:** Stop a finished resumable upload whose 200/201 body was dropped from looking like a missing video and inviting a second videos.insert.
+- **Inspected:** STATE, NEXT, RUNS, `tools/youtube_api.py`, `tools/selftest.py`. OAuth secrets were not polled.
+- **Action taken:** A completing PUT that returns 200 or 201 with an empty or id-less body queries the same session once and returns that video id. It does not open another videos.insert. A non-200/201 query stays `RESUMABLE_MISSING_VIDEO_ID`. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the empty-completion-body contract and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** Runs 287-293 resume 308, 5xx, 401, and post-upload artifact failures, but a 201 with an empty body still raised `RESUMABLE_MISSING_VIDEO_ID` without asking the session. That is the case where the server already has the video and the next execute would spend another insert.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall. Do not spend a run only restating it.
+- **Recommended next action:** Add those three secrets from a token granted `youtube.upload` and `youtube.force-ssl` (or full `youtube`), then dispatch `youtube-production.yml` with execute=true. Do not re-encode. Do not start a second videos.insert when a completion body is empty. Do not add another snippet micro-gate. Do not scaffold Q2.
+
 ## 2026-10-03T08:20:00Z — Run 293
 
 - **Objective:** Stop a 401 on caption, thumbnail, or pin-comment upload from looking permanent after the video id already exists, without a second videos.insert.

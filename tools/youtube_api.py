@@ -531,7 +531,7 @@ def upload_video(
                     raise YouTubeAPIError(404, "RESUMABLE_SESSION_EXPIRED", f"offset={offset}")
                 continue
             if put_code in {200, 201}:
-                return _video_resource(put_code, raw)
+                return _video_from_complete(put_code, raw, session, token, size)
             if put_code == 308:
                 nxt = received_offset(put_headers_out)
                 if nxt is None:
@@ -573,6 +573,30 @@ def upload_video(
                 continue
             raise YouTubeAPIError(put_code, "RESUMABLE_UNEXPECTED_STATUS")
     raise YouTubeAPIError(0, "RESUMABLE_STALLED", "loop_ended")
+
+
+def _video_from_complete(
+    status: int,
+    raw: bytes,
+    session: str,
+    token: str,
+    size: int,
+) -> dict[str, Any]:
+    """Return the video resource from a finished PUT.
+
+    A 200 or 201 means the server accepted the last byte. The body is supposed
+    to be the video resource. A dropped or empty body is not a missing video:
+    query the same session once. Do not start another videos.insert.
+    """
+    try:
+        return _video_resource(status, raw)
+    except YouTubeAPIError as exc:
+        if exc.reason not in {"RESUMABLE_MISSING_VIDEO_ID", "invalid_json_response"}:
+            raise
+    status_code, _headers, status_raw = _query_resumable(session, token, size)
+    if status_code in {200, 201}:
+        return _video_resource(status_code, status_raw)
+    raise YouTubeAPIError(status, "RESUMABLE_MISSING_VIDEO_ID", f"status_query={status_code}")
 
 
 def _video_resource(status: int, raw: bytes) -> dict[str, Any]:

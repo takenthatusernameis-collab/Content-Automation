@@ -1520,6 +1520,40 @@ def check_resumable_video_upload() -> list[str]:
         failures.append(f"401 must not start a second videos.insert: {posts}")
     if not any(item[0] == "PUT" and item[1].endswith("token-refreshed") for item in auth_calls):
         failures.append(f"401 resume must use the refreshed token: {auth_calls}")
+
+    empty_calls: list[tuple[str, str]] = []
+
+    def empty_complete_http(url, *, method, headers, body, timeout):
+        empty_calls.append((method, headers.get("Content-Range", "")))
+        if method == "POST":
+            return 200, {"Location": "https://upload.example/session"}, b""
+        rng = headers.get("Content-Range", "")
+        if rng.startswith("bytes */"):
+            return 200, {}, json.dumps({"id": "vid-empty-body"}).encode()
+        return 201, {}, b""
+
+    youtube_api._http = empty_complete_http
+    youtube_api.RESUMABLE_CHUNK = 8
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            media = Path(tmp) / "master.mp4"
+            media.write_bytes(b"0123456789abcdef")
+            data = youtube_api.upload_video(
+                "token-not-printed",
+                export_path=media,
+                metadata={"snippet": {"title": "t"}},
+                privacy="private",
+            )
+    finally:
+        youtube_api._http = original
+        youtube_api.RESUMABLE_CHUNK = original_chunk
+    if data.get("id") != "vid-empty-body":
+        failures.append(f"empty 201 body must recover the video id from the session: {data}")
+    posts = [item for item in empty_calls if item[0] == "POST"]
+    if len(posts) != 1:
+        failures.append(f"empty 201 body must not start a second videos.insert: {posts}")
+    if not any(rng.startswith("bytes */") for _method, rng in empty_calls):
+        failures.append(f"empty 201 body must query the same session: {empty_calls}")
     return failures
 
 

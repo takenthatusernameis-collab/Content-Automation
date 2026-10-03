@@ -1,12 +1,15 @@
 # PROGRESS
 
-Updated: 2026-10-03T07:20:00Z (Run 292)
+Updated: 2026-10-03T09:15:00Z (Run 294)
 
 ## Latest measurable delta
-- Run 291 automated steps: 125. Run 292: 126.
-- New automated behavior: a 401 on the resumable master refreshes the access token and resumes the same Location instead of aborting.
+- Run 293 automated steps: 127. Run 294: 128.
+- New automated behavior: a 200/201 completion with an empty body queries the same resumable session for the video id instead of aborting.
 - Human minutes per video remain 0.5. The remaining recurring human step is entering the three YouTube OAuth secrets.
 - Videos published: 0. No provider write.
+
+## Run 294
+A finishing chunk that returns 200 or 201 without a video id now queries that session once. An empty body is not treated as a missing video and does not start a second videos.insert. Estimated human minutes stay 0.5. Automated steps 127 -> 128. Videos published stay 0. No provider write.
 
 ## Run 291
 Caption, thumbnail, and pin-comment calls retry a transient 408/429/5xx or network error instead of failing the workflow after the video id exists. A 400 stays permanent. Estimated human minutes stay 0.5 until secrets exist; one avoided re-dispatch after the first upload. Automated steps 125 -> 126. Videos published stay 0. No provider write.

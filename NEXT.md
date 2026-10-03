@@ -2,6 +2,8 @@
 
 Do these in order. Do not rediscover the resumable video upload (Run 287): `videos.insert` uses `uploadType=resumable` and 8 MiB chunks. Do not restore multipart for the master. Captions and thumbnails stay multipart. Stop only when required evidence is unavailable or a genuine external authorization/credential boundary is reached. Approval-only decisions are delegated to the agent.
 
+1h. **Do not rediscover the empty completion body.** Run 294 fixed it. A chunk PUT that returns 200 or 201 with no video id queries that same session once and uses the resource. It must not POST `videos.insert` again. A status query that is not 200/201 stays `RESUMABLE_MISSING_VIDEO_ID`. Do not restore a body-only success path.
+
 1g. **Do not rediscover the post-upload 401 refresh.** Run 293 fixed it. A 401 on `insert_caption`, `set_thumbnail`, `insert_top_level_comment`, or `get_channel_id` refreshes the access token and retries that call. It must not POST `videos.insert` again. Three refreshes or an empty/unchanged token are `POST_UPLOAD_TOKEN_REFRESH_EXHAUSTED`. A 400 stays permanent. Do not restore a single-shot artifact call.
 
 1f. **Do not rediscover the 401 resume.** Run 292 fixed it. A chunk PUT 401 refreshes the access token and resumes the existing Location. A session-start 401 with no Location retries that start after refresh. Do not POST `videos.insert` again when Location is already present. Three refreshes or an empty token are `RESUMABLE_TOKEN_REFRESH_EXHAUSTED`. Do not restore multipart for the master.
