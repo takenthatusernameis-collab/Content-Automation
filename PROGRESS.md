@@ -1,3 +1,5 @@
+A rejected provider-state push now fetches, rebases, and retries instead of leaving the video id only on the runner. Estimated human minutes stay 0.5 until secrets exist. Automated steps 130 -> 131. Videos published stay 0. No provider write. Q1 publish boxes stay checked; do not re-open them. Do not add another upload HTTP status variant without a live execute status.
+
 ## Run 296
 An unaligned resumable Range now stalls before the next PUT instead of sending a chunk YouTube rejects. Estimated human minutes stay 0.5 until secrets exist. Automated steps 129 -> 130. Videos published stay 0. No provider write. The upload status-variant loop (Runs 281-295) is flagged; do not extend it without a live status.
 

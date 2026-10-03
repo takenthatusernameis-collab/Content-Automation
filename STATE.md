@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-03T11:20:00Z (Run 296)
+Updated: 2026-10-03T12:20:00Z (Run 297)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,12 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 297 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- Provider state persist no longer uses a single `git push origin HEAD:main`. A non-fast-forward rejection fetches and rebases, then retries. It does not force-push. A provider video id and a completed-without-id hold still commit. Transient failures and dry-run feedback still do not. Selftest passed locally. Actions was not re-run.
+- Q1 board copy no longer tells the operator to check Description edited or First comment approved. Those boxes are already checked. Do not re-open them.
+- Flag still stands: do not add another upload HTTP status variant unless a live execute returned that status. Description angle brackets remain ungated and deferred on purpose.
 
 ## Run 296 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -146,8 +152,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; an unaligned resume no longer sends a chunk YouTube rejects |
-| Automated steps | 129 | 130 | unaligned 308 Range stalls before the next PUT; no upload ran |
+| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; a rejected state push no longer drops the video id |
+| Automated steps | 130 | 131 | provider-state push retries without force; no upload ran |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
@@ -201,3 +207,5 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not treat HOLD_COMPLETED_WITHOUT_ID as a retry of videos.insert
 - Do not send a non-final resumable chunk from an offset that is not a multiple of 256 KiB
 - Do not add another upload HTTP status variant unless a live execute returned that status
+- Do not bare-push provider state; retry a non-fast-forward rejection and do not force-push
+- Do not re-open Q1 Description edited or First comment approved; those boxes are already checked

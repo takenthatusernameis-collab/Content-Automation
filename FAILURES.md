@@ -1,3 +1,8 @@
+## Run 297 — a rejected git push would drop the video id
+- **Tried:** Runs 279-296 kept the provider video id in upload_state.json, then the workflow pushed once. A non-fast-forward rejection left that id only on the runner, so the next execute could insert again. The Q1 board also still told the operator to check boxes that are already checked.
+- **Result:** Persist classifies state, retries a rejected push after fetch and rebase, and does not force-push. Board copy no longer re-opens Description edited or First comment approved.
+- **Avoid:** Restoring a single `git push origin HEAD:main`. Force-pushing provider state. Re-opening the approved Q1 boxes. Another HTTP status variant without a live execute status. Another run that only restates the OAuth secret hold.
+
 ## Run 296 — unaligned resume looked like progress, and the status loop is suspicious
 - **Tried:** Runs 281-295 each added a local snippet gate or an HTTP status variant on the resumable uploader. The publish gate stayed the missing OAuth secrets. A 308 Range of `bytes=0-99` would resume at byte 100 and send the next chunk.
 - **Evidence:** YouTube requires every non-final chunk to be a multiple of 256 KiB and to start on that boundary. An unaligned PUT is a 400, not a stored chunk. The next execute would open another videos.insert. The same runs never saw a live status; they kept extending the client anyway.

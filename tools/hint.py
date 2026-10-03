@@ -118,8 +118,8 @@ def commands_for(path: Path, row: dict[str, object], code: str) -> list[str]:
             return [
                 "# Do not regenerate Q1. Do not copy q1-media-r249 q1-master.mp4 onto export/master.mp4.",
                 "# Fetch wav/cards from q1-media-r249 and master from q1-media-r253 (HANDOFF.md).",
-                "# publish.md description is drafted and still unchecked. Check Description edited and First comment approved.",
-                "# Do not treat those open boxes as approval. YouTube OAuth is not configured. Dry-run READY is not an upload.",
+                "# publish.md Description edited and First comment approved are already checked. Do not re-open them.",
+                "# YouTube OAuth is not configured. Dry-run READY is not an upload.",
             ]
         return ["# YouTube OAuth is not configured. Review publish.md. Do not call the API."]
     if code == "analytics-unbuilt":

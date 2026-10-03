@@ -750,6 +750,57 @@ def check_timeline_card_match() -> list[str]:
 
 
 
+
+
+def check_persist_provider_state() -> list[str]:
+    """A provider video id must be committed, and a rejected push must retry without force."""
+    failures: list[str] = []
+    import persist_provider_state as persist
+
+    if persist.upload_commit_decision({"provider_video_id": "abc"}) != "commit_provider_video_id":
+        failures.append("upload state with a provider id must be committed")
+    if persist.upload_commit_decision({"error_class": "RESUMABLE_SESSION_EXPIRED"}) != "skip_transient":
+        failures.append("transient upload failure must not be committed")
+    gone = persist.upload_commit_decision(
+        {
+            "completed_without_id": True,
+            "error_class": "RESUMABLE_COMPLETED_SESSION_GONE",
+        }
+    )
+    if gone != "commit_completed_without_id":
+        failures.append("completed-without-id hold must be committed")
+    if persist.feedback_commit_decision({"gate": "COLLECTED", "attempted_fetch": True, "provider_video_id": "abc"}) != "commit_collected":
+        failures.append("collected feedback with a provider id must be committed")
+    if persist.feedback_commit_decision({"gate": "COLLECTED", "attempted_fetch": False, "provider_video_id": "abc"}) != "skip_not_collected":
+        failures.append("dry-run feedback must not be committed")
+    if not persist.push_needs_retry("failed to push some refs: updates were rejected"):
+        failures.append("non-fast-forward push must be retried")
+    if persist.push_needs_retry("protected branch"):
+        failures.append("unrelated push failure must not be treated as a retry")
+    calls: list[list[str]] = []
+
+    def run(cmd):
+        calls.append(cmd)
+        if cmd[:2] == ["git", "push"] and len(calls) == 1:
+            return 1, "", "failed to push some refs: non-fast-forward"
+        return 0, "", ""
+
+    if persist.push_with_retry(run) != "pushed":
+        failures.append("rejected push must succeed after fetch and rebase")
+    if ["git", "push", "--force", "origin", "HEAD:main"] in calls or any("--force" in part for cmd in calls for part in cmd):
+        failures.append("persist must not force-push")
+    if calls[1:3] != [["git", "fetch", "origin", "main"], ["git", "rebase", "origin/main"]]:
+        failures.append(f"persist retry order drift: {calls}")
+    workflow = (ROOT / ".github" / "workflows" / "youtube-production.yml").read_text(encoding="utf-8")
+    if "tools/persist_provider_state.py" not in workflow:
+        failures.append("production workflow must classify state before commit")
+    if "git push origin HEAD:main" in workflow or "git push --force" in workflow:
+        failures.append("production workflow must not bare-push or force-push provider state")
+    if "push_with_retry" not in workflow:
+        failures.append("production workflow must retry a rejected provider-state push")
+    return failures
+
+
 def check_q1_board_not_record() -> list[str]:
     """Live Q1 board must not send the operator back to a new DROP take."""
     failures: list[str] = []
@@ -773,8 +824,12 @@ def check_q1_board_not_record() -> list[str]:
         failures.append("pipeline_status Q1 detail must say Do not record")
     if "delete 'No upload happened'" in report:
         failures.append("pipeline_status Q1 detail must not tell the operator to delete the drafted stub")
+    if "already approved" not in report:
+        failures.append("pipeline_status Q1 detail must say publish copy is already approved")
+    if "check Description edited" in report or "still unchecked" in report:
+        failures.append("pipeline_status Q1 detail must not send the operator to re-check approved boxes")
     if "Description edited" not in report or "First comment approved" not in report:
-        failures.append("pipeline_status Q1 detail must name the two open boxes")
+        failures.append("pipeline_status Q1 detail must name the approved boxes")
     if "DROP `" in report:
         failures.append("pipeline_status Q1 detail must not print a DROP path")
     other = dict(row)
@@ -891,6 +946,7 @@ def main() -> int:
     failures.extend(check_timeline_card_match())
     failures.extend(check_q1_board_not_record())
     failures.extend(check_q1_publish_draft_locked())
+    failures.extend(check_persist_provider_state())
     failures.extend(check_caption_align_fail_closed())
     failures.extend(check_caption_review_fail_closed())
     failures.extend(check_chapter_draft_fail_closed())

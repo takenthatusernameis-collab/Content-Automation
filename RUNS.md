@@ -1,3 +1,14 @@
+## 2026-10-03T12:20:00Z — Run 297
+
+- **Objective:** Stop a successful upload from being lost when the provider-state push is rejected, without adding another upload status variant.
+- **Inspected:** STATE, NEXT, RUNS, FAILURES, `youtube-production.yml`, `next_action.py`, `hint.py`, `pipeline_status.py`. OAuth secrets were not polled.
+- **Action taken:** Added `tools/persist_provider_state.py`. Upload and feedback persist now classify before commit and retry a non-fast-forward push after fetch and rebase. No force-push. Q1 board copy no longer asks to check already approved publish boxes. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the persist classifier, retry order, and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** The video-id hold was only durable if `git push origin HEAD:main` succeeded on the first try. The publish gate is still the missing OAuth secrets.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall. Flagged, not re-worked as the only work.
+- **Recommended next action:** Add those three secrets from a token granted `youtube.upload` and `youtube.force-ssl` (or full `youtube`), then dispatch `youtube-production.yml` with execute=true. Do not force-push provider state. Do not re-open the approved Q1 boxes. Do not add another HTTP status variant unless a live execute returned that status. Do not scaffold Q2.
+
 ## 2026-10-03T11:20:00Z — Run 296
 
 - **Objective:** Stop the upload status-variant loop and close the unaligned resume hole that would send a chunk YouTube rejects.
