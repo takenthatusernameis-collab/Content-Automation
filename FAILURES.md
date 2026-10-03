@@ -1,3 +1,9 @@
+## Run 301 — drafted chapters could vanish from the uploaded description
+- **Tried:** Runs 281-300 froze new HTTP status variants. chapters.md and publish.md can still diverge. YouTube does not reject a description that drops timestamps; it uploads the video and ignores chapters.
+- **Evidence:** `videos.insert` sends `parse_publish()` description only. A missing `0:00` line, fewer than three timestamps, or a gap under 10 seconds is ignored, not a 400. Q1 currently has six matching lines.
+- **Result:** `chapter_sync_reason()` is a hard local check. Inspect is HOLD_LOCAL. Execute raises `METADATA_REJECTED` before the token refresh. A missing chapters.md stays missing. Selftest covers a matching list, a dropped line, a 5-second gap, and Q1. Actions was not re-run.
+- **Avoid:** Regenerating chapters.md or publish.md to satisfy this check while captions.srt is unchanged. Treating a chapter miss as a reason to add an HTTP status variant. Restating the OAuth hold as the only work.
+
 ## Run 300 — human page reopened closed approval boxes
 - **Tried:** Runs 281-299 kept extending upload gates while the publish gate stayed the missing OAuth secrets. `docs/human_session.md` still told the operator to check Description edited and First comment approved after Run 297 closed those boxes.
 - **Evidence:** Those boxes are already checked in Q1 publish.md. Re-asking is recurring labor, not a new gate.

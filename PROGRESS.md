@@ -1,3 +1,9 @@
+# PROGRESS
+
+## 2026-10-03T20:20:00Z — Run 301
+- Chapter lines drafted in chapters.md are now a fail-closed description check. A dropped or invalid list cannot reach videos.insert. Q1 already matched, so no publish copy was rewritten.
+- Automated steps 133 -> 134. Videos published stay 0. Human minutes per video stay 0.5. The OAuth secret stall is unchanged and was not polled.
+
 ## Run 300 — 2026-10-03T19:20:00Z
 - One-time OAuth setup research is now `tools/oauth_setup.py` (names and scopes only). Per-video human minutes stay 0.5. Videos published stay 0. Upload-status loop not extended.
 

@@ -1040,6 +1040,7 @@ def main() -> int:
     failures.extend(check_caption_align_fail_closed())
     failures.extend(check_caption_review_fail_closed())
     failures.extend(check_chapter_draft_fail_closed())
+    failures.extend(check_chapter_sync_before_insert())
     failures.extend(check_thumbnail_draft_fail_closed())
     failures.extend(check_live_capabilities())
     failures.extend(check_oauth_setup_recipe())
@@ -1161,6 +1162,55 @@ def check_chapter_draft_fail_closed() -> list[str]:
             failures.append("Q1 chapters.md must not check a box")
         if "- [x] Description edited for search + honesty" not in body:
             failures.append("chapter review must preserve the delegated approval state")
+    return failures
+
+
+
+def check_chapter_sync_before_insert() -> list[str]:
+    """Drafted chapter lines must be in the description before videos.insert."""
+    failures: list[str] = []
+    import tempfile
+    from youtube_upload import chapter_sync_reason
+
+    with tempfile.TemporaryDirectory() as tmp:
+        packet = Path(tmp) / "videos" / "009-chapter-sync"
+        packet.mkdir(parents=True)
+        (packet / "chapters.md").write_text(
+            "# Chapter draft\n\n## YouTube lines\n\n"
+            "0:00 The reopen\n"
+            "0:24 The stall\n"
+            "1:25 Install the default\n",
+            encoding="utf-8",
+        )
+        good = "Intro.\n\n0:00 The reopen\n0:24 The stall\n1:25 Install the default\n"
+        if chapter_sync_reason(packet, good) is not None:
+            failures.append("aligned chapter lines must pass")
+        missing = chapter_sync_reason(packet, "Intro only.\n")
+        if missing != "chapter_line_missing_from_description":
+            failures.append(f"dropped chapter line drift: {missing}")
+        short = "0:00 The reopen\n0:05 The stall\n1:25 Install the default\n"
+        (packet / "chapters.md").write_text(
+            "# Chapter draft\n\n## YouTube lines\n\n"
+            "0:00 The reopen\n0:05 The stall\n1:25 Install the default\n",
+            encoding="utf-8",
+        )
+        gap = chapter_sync_reason(packet, short)
+        if gap != "chapter_gap_under_10s":
+            failures.append(f"short chapter gap drift: {gap}")
+        if chapter_sync_reason(packet.parent, good) is not None:
+            failures.append("missing chapters.md must stay missing")
+    q1 = Path(__file__).resolve().parents[1] / "videos" / "002-stop-deciding-what-to-work-on-every-morning"
+    if (q1 / "chapters.md").is_file() and (q1 / "publish.md").is_file():
+        from youtube_upload import parse_publish
+        meta = parse_publish((q1 / "publish.md").read_text(encoding="utf-8"))
+        reason = chapter_sync_reason(q1, meta.get("description") or "")
+        if reason is not None:
+            failures.append(f"Q1 chapter sync failed: {reason}")
+    src = (Path(__file__).resolve().parent / "youtube_upload.py").read_text(encoding="utf-8")
+    if "METADATA_REJECTED:{chapter_block}" not in src:
+        failures.append("execute must refuse a drifted chapter list before insert")
+    if "chapters_in_description" not in src:
+        failures.append("inspect must report chapter sync")
     return failures
 
 

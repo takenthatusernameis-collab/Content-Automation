@@ -154,6 +154,85 @@ def metadata_block_reason(meta: dict) -> str | None:
     return None
 
 
+def chapter_lines(packet: Path) -> list[str]:
+    """YouTube chapter lines drafted in chapters.md. Empty if that file is absent."""
+    path = packet / "chapters.md"
+    if not path.is_file():
+        return []
+    lines = path.read_text(encoding="utf-8").splitlines()
+    start = None
+    for i, line in enumerate(lines):
+        if line.strip() == "## YouTube lines":
+            start = i + 1
+            break
+    if start is None:
+        return []
+    found = []
+    for line in lines[start:]:
+        if line.startswith("#"):
+            break
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if not re.match(r"^\d+:\d{2}(?:\s|$)", stripped):
+            continue
+        found.append(stripped)
+    return found
+
+
+def _chapter_seconds(stamp: str) -> int | None:
+    parts = stamp.split(":")
+    if len(parts) == 2:
+        minutes, seconds = parts
+        hours = "0"
+    elif len(parts) == 3:
+        hours, minutes, seconds = parts
+    else:
+        return None
+    if not (hours.isdigit() and minutes.isdigit() and seconds.isdigit()):
+        return None
+    if len(seconds) != 2 or not (1 <= len(minutes) <= 2) or len(hours) > 2:
+        return None
+    return int(hours) * 3600 + int(minutes) * 60 + int(seconds)
+
+
+def chapter_sync_reason(packet: Path, description: str) -> str | None:
+    """Refuse a drafted chapter list that videos.insert would upload without chapters.
+
+    YouTube ignores a description chapter list when the first line is not 0:00,
+    there are fewer than three timestamps, a gap is under 10 seconds, or the
+    lines are not at the start of their own description lines. A missing
+    chapters.md stays missing. This does not regenerate chapters.md.
+    """
+    lines = chapter_lines(packet)
+    if not lines:
+        return None
+    if len(lines) < 3:
+        return f"chapter_lines_too_few {len(lines)}<3"
+    stamps = []
+    for line in lines:
+        stamp = line.split()[0]
+        seconds = _chapter_seconds(stamp)
+        if seconds is None:
+            return "chapter_stamp_unparseable"
+        stamps.append(seconds)
+    if stamps[0] != 0:
+        return "chapter_first_not_zero"
+    for prev, cur in zip(stamps, stamps[1:]):
+        if cur - prev < 10:
+            return "chapter_gap_under_10s"
+    description_lines = [line.strip() for line in (description or "").splitlines()]
+    positions = []
+    for line in lines:
+        try:
+            positions.append(description_lines.index(line))
+        except ValueError:
+            return "chapter_line_missing_from_description"
+    if positions != sorted(positions):
+        return "chapter_lines_out_of_order"
+    return None
+
+
 def tag_budget(tags: list) -> int:
     """Characters videos.insert counts toward the 500 keyword limit.
 
@@ -534,6 +613,12 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
     add("publish_copy_approved", copy_block is None, copy_block or "description and human checklist approved")
     meta_block = metadata_block_reason(meta)
     add("metadata_within_provider_limits", meta_block is None, meta_block or "title, description, and tags fit videos.insert")
+    chapter_block = chapter_sync_reason(packet, meta.get("description") or "")
+    add(
+        "chapters_in_description",
+        chapter_block is None,
+        chapter_block or "drafted chapter lines are present and YouTube-shaped, or chapters.md is absent",
+    )
     artifact_block = artifact_block_reason(packet, meta)
     add(
         "artifacts_within_provider_limits",
@@ -567,7 +652,7 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
         f"containsSyntheticMedia={synthetic} kind={origin}" if synthetic is not None else "vo_origin.md kind must be generated or human",
     )
 
-    hard_local = [c for c in checks if c["name"] in {"publish_md_present", "title_present", "master_export_present", "publish_copy_approved", "metadata_within_provider_limits", "artifacts_within_provider_limits", "synthetic_disclosure_known"}]
+    hard_local = [c for c in checks if c["name"] in {"publish_md_present", "title_present", "master_export_present", "publish_copy_approved", "metadata_within_provider_limits", "artifacts_within_provider_limits", "chapters_in_description", "synthetic_disclosure_known"}]
     local_ok = all(c["ok"] for c in hard_local)
     if not local_ok:
         gate = "FAIL"
@@ -748,6 +833,9 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
     meta_block = metadata_block_reason(report.get("meta") or {})
     if meta_block:
         raise YouTubeAPIError(0, f"METADATA_REJECTED:{meta_block}")
+    chapter_block = chapter_sync_reason(packet, (report.get("meta") or {}).get("description") or "")
+    if chapter_block:
+        raise YouTubeAPIError(0, f"METADATA_REJECTED:{chapter_block}")
     artifact_block = artifact_block_reason(packet, report.get("meta") or {})
     if artifact_block:
         raise YouTubeAPIError(0, f"ARTIFACT_REJECTED:{artifact_block}")

@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-03T19:20:00Z (Run 300)
+Updated: 2026-10-03T20:20:00Z (Run 301)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,12 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 301 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- Drafted chapter lines must be in the description before videos.insert. Fewer than 3, a first stamp other than 0:00, a gap under 10 seconds, or a missing or reordered line is HOLD_LOCAL / METADATA_REJECTED. A missing chapters.md stays missing. Q1 already matches. Selftest passed locally. Actions was not re-run.
+- The production workflow already queues on `concurrency: youtube-production`. Do not rediscover that.
+- Flag still stands: do not add another upload HTTP status variant unless a live execute returned that status. Description angle brackets remain ungated and deferred on purpose.
 
 ## Run 300 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -168,12 +174,13 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 0.5 | 0.5 | One-time secret research is now a recipe; per-video minutes unchanged |
-| Automated steps | 133 | 133 | setup recipe added; no upload ran |
+| Estimated human min / video | 0.5 | 0.5 | Chapter drift is now a local hold; secret setup still one-time |
+| Automated steps | 133 | 134 | chapter-sync gate; no upload ran |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
 - Do not upload q1-media-r249 q1-master.mp4 as the finished export
+- Do not upload a description that drops drafted chapter lines. A missing chapters.md stays missing.
 - Do not omit status.containsSyntheticMedia. Q1 vo_origin kind is generated, so the flag is true. Do not invent a kind.
 - Do not rebase a shallow provider-state commit without unshallow. Do not force-push that state.
 - Do not abort materialize merely because that banned asset is present in the r249 release

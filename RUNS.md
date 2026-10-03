@@ -1,3 +1,14 @@
+## 2026-10-03T20:20:00Z — Run 301
+
+- **Objective:** Stop a drafted chapter list from being dropped at videos.insert, without adding an upload HTTP status variant or polling OAuth.
+- **Inspected:** STATE, NEXT, RUNS, FAILURES, BLOCKED, youtube-production.yml, youtube_upload.py. OAuth secrets were not polled. Concurrency group already exists.
+- **Action taken:** `chapter_sync_reason()` refuses a chapters.md list that is under 3 lines, does not start at 0:00, has a gap under 10 seconds, or is missing or reordered in the publish description. Inspect is HOLD_LOCAL. Execute raises METADATA_REJECTED before the token refresh. A missing chapters.md stays missing. Q1 lines already match. Extended the selftest. Did not dispatch. Did not regenerate chapters.md or publish.md.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the chapter-sync gate and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** The workflow already has `concurrency: youtube-production` with cancel-in-progress false. The publish gate is still the missing OAuth secrets. Chapter drop was a silent viewer miss, not an HTTP status.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall. Flagged, not re-worked as the only work.
+- **Recommended next action:** Follow `python3 tools/oauth_setup.py`, store the three secrets, then dispatch `youtube-production.yml` with execute=true. Do not add another HTTP status variant unless a live execute returned that status. Do not regenerate chapters.md while captions.srt is unchanged. Do not scaffold Q2.
+
 ## 2026-10-03T19:20:00Z — Run 300
 
 - **Objective:** Turn the recurring OAuth secret stall into a non-secret setup recipe, without adding another upload HTTP status variant or re-opening closed publish boxes.
