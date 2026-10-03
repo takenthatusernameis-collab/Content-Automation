@@ -1,3 +1,9 @@
+## Run 294 — empty 201 body looked like a missing video
+- **Tried:** Runs 287-293 treated a 200/201 from the last chunk as the video resource and raised `RESUMABLE_MISSING_VIDEO_ID` when the body had no id.
+- **Evidence:** The resumable protocol puts the resource in that response. A dropped body still means the server accepted the last byte. The next execute had no video id, so it would open another videos.insert.
+- **Result:** `_video_from_complete()` queries the same session once and uses that id. A query that is not 200/201 stays `RESUMABLE_MISSING_VIDEO_ID`. Selftest covers an empty 201 followed by a status query that returns the id, and asserts one POST.
+- **Avoid:** Treating an empty completion body as proof the video was not created. Starting a second videos.insert to recover an id the session can still return.
+
 ## Run 293 — post-upload 401 was still permanent
 
 Run 292 refreshed a 401 only on the resumable master. Caption, thumbnail, and pin-comment calls still raised the raw 401. An access token can expire during a multi-minute upload, so the next execute would see a video id and then fail the artifacts. Fixed by refreshing and retrying the artifact call only. Do not treat that 401 as a second videos.insert.
