@@ -242,6 +242,26 @@ def resume_offset(range_header: str | None, fallback: int) -> int:
     return int(end) + 1
 
 
+def received_offset(headers: Mapping[str, str]) -> int | None:
+    """Resume point from a 308. None means Range was omitted, so nothing is stored.
+
+    The YouTube resumable guide says a 308 with no Range header means the
+    server has not received any bytes. Do not treat that as the chunk just sent.
+    """
+    raw = _header(headers, "Range")
+    if not raw:
+        return None
+    return resume_offset(raw, 0)
+
+
+def _pause(headers: Mapping[str, str], retries: int) -> None:
+    """Backoff, and honor Retry-After when the guide says to wait before resume."""
+    backoff = RESUMABLE_BACKOFF_SECONDS[min(retries, len(RESUMABLE_BACKOFF_SECONDS) - 1)]
+    retry_after = _header(headers, "Retry-After").strip()
+    extra = int(retry_after) if retry_after.isdigit() else 0
+    _sleep(max(backoff, min(extra, 30)))
+
+
 def _http(
     url: str,
     *,
@@ -323,6 +343,7 @@ def upload_video(
         raise YouTubeAPIError(code, "RESUMABLE_SESSION_MISSING")
     offset = 0
     retries = 0
+    empty_ranges = 0
     with export_path.open("rb") as handle:
         while offset < size:
             handle.seek(offset)
@@ -352,22 +373,36 @@ def upload_video(
             if put_code in {200, 201}:
                 return _video_resource(put_code, raw)
             if put_code == 308:
-                nxt = resume_offset(_header(put_headers_out, "Range"), end + 1)
-                if nxt <= offset:
+                nxt = received_offset(put_headers_out)
+                if nxt is None:
+                    empty_ranges += 1
+                    if empty_ranges >= RESUMABLE_RETRY_LIMIT:
+                        raise YouTubeAPIError(308, "RESUMABLE_STALLED", f"offset={offset} missing_range")
+                    _pause(put_headers_out, empty_ranges - 1)
+                    offset = 0
+                    continue
+                if nxt <= offset or nxt > size:
                     raise YouTubeAPIError(308, "RESUMABLE_STALLED", f"offset={offset}")
                 offset = nxt
                 retries = 0
+                empty_ranges = 0
                 continue
             if put_code in RESUMABLE_RETRYABLE or put_code == 0:
                 if retries >= RESUMABLE_RETRY_LIMIT:
                     raise YouTubeAPIError(put_code, "RESUMABLE_RETRY_EXHAUSTED", f"offset={offset}")
-                _sleep(RESUMABLE_BACKOFF_SECONDS[min(retries, len(RESUMABLE_BACKOFF_SECONDS) - 1)])
+                _pause(put_headers_out, retries)
                 retries += 1
                 status_code, status_headers, status_raw = _query_resumable(session, token, size)
                 if status_code in {200, 201}:
                     return _video_resource(status_code, status_raw)
                 if status_code == 308:
-                    nxt = resume_offset(_header(status_headers, "Range"), offset)
+                    nxt = received_offset(status_headers)
+                    if nxt is None:
+                        empty_ranges += 1
+                        if empty_ranges >= RESUMABLE_RETRY_LIMIT:
+                            raise YouTubeAPIError(308, "RESUMABLE_STALLED", f"offset={offset} missing_range")
+                        offset = 0
+                        continue
                     if nxt < 0 or nxt > size:
                         raise YouTubeAPIError(308, "RESUMABLE_STALLED", f"offset={offset}")
                     offset = nxt

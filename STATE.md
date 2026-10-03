@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-03T03:12:00Z (Run 288)
+Updated: 2026-10-03T04:11:00Z (Run 289)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 289 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- A 308 with no Range header now restarts at byte 0. The YouTube resumable guide says that response means nothing is stored. The previous fallback treated the chunk just sent as accepted. Three missing-Range responses at the same stage raise `RESUMABLE_STALLED`. Retry-After is honored, capped at 30 seconds. Selftest passed locally. Actions was not re-run.
+- Flag still stands: do not add another snippet micro-gate. Description angle brackets remain ungated and are deferred on purpose.
 
 ## Run 288 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.

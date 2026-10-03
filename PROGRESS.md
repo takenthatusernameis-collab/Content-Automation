@@ -1,3 +1,6 @@
+## Run 289
+A 308 with no Range header now restarts the resumable upload at byte 0 instead of skipping the unconfirmed chunk. Retry-After is honored, capped at 30 seconds. Estimated human minutes stay 0.5. Automated steps 123 -> 124. Videos published stay 0. No provider write.
+
 ## Run 288
 videos.insert now resumes a 500/502/503/504 or network error by querying the session (`bytes */size`) instead of aborting. Estimated human minutes stay 0.5. Automated steps 122 -> 123. Videos published stay 0. No provider write.
 
@@ -21,7 +24,7 @@ Caption scope is now a pre-insert gate. An upload-only token cannot create a pri
 
 # PROGRESS
 
-Updated: 2026-10-03T03:12:00Z (Run 288)
+Updated: 2026-10-03T04:11:00Z (Run 289)
 
 ## Latest measurable delta
 - Run 280 automated steps: 115. Run 281: 116.

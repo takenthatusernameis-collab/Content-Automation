@@ -1,3 +1,14 @@
+## 2026-10-03T04:11:00Z — Run 289
+
+- **Objective:** Stop a 308 with no Range header from skipping bytes the server did not store.
+- **Inspected:** STATE, NEXT, RUNS, `tools/youtube_api.py`, `tools/selftest.py`, YouTube resumable upload guide (a 308 without Range means nothing has been uploaded).
+- **Action taken:** `received_offset()` returns None when Range is omitted. The upload loop restarts at byte 0, honors Retry-After up to 30 seconds, and raises `RESUMABLE_STALLED` after three missing-Range responses. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the missing-Range contract and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** Run 288 queried the session after a 5xx, but a chunk 308 without Range still used `end+1` as the resume point. That would send the next chunk past bytes YouTube says it does not have.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall. Do not spend a run only restating it.
+- **Recommended next action:** Add those three secrets from a token granted `youtube.upload` and `youtube.force-ssl` (or full `youtube`), then dispatch `youtube-production.yml` with execute=true. Do not re-encode. Do not treat a missing Range as received. Do not add another snippet micro-gate. Do not scaffold Q2.
+
 ## 2026-10-03T03:12:00Z — Run 288
 
 - **Objective:** Stop a transient 5xx on the resumable master upload from looking like a permanent failure and inviting a second `videos.insert`.

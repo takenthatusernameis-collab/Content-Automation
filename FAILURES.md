@@ -1,4 +1,11 @@
+## Run 289 — a 308 without Range was treated as a received chunk
+- **Tried:** Run 287 resumed a chunk 308 from the Range header, and used `end+1` when Range was missing.
+- **Evidence:** The YouTube resumable guide says a 308 with no Range means nothing has been uploaded. The fallback would send the next chunk past bytes the server does not have.
+- **Result:** `received_offset()` returns None when Range is omitted. The loop restarts at byte 0 and stalls after three missing-Range responses. Retry-After is honored, capped at 30 seconds. Selftest covers a 308 with no Range followed by a Range that advances.
+- **Avoid:** Restoring the `end+1` fallback for a missing Range. Treating that 308 as proof the chunk was stored.
+
 ## Run 283 — thumbnail and caption drafts could fail only after videos.insert
+
 - **Tried:** Runs 279-282 made post-upload failure resumable and refused missing caption scope and invalid snippets before insert.
 - **Evidence:** `execute_upload()` called `videos.insert` whenever the local gate was READY, then `thumbnails.set` and `captions.insert`. YouTube rejects thumbnails over 2MB, non-image bytes, and images under 640px wide, and rejects a caption file with no cue. Those checks were absent.
 - **Result:** `artifact_block_reason()` is a hard local check. Execute raises `ARTIFACT_REJECTED` before the token refresh. Missing files stay missing. Selftest covers non-png, undersize, oversize, missing timestamp, valid cue, and a 10001-character pin comment.
