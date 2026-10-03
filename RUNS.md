@@ -1,3 +1,14 @@
+## 2026-10-03T05:20:00Z — Run 290
+
+- **Objective:** Stop a session-start 503 with no Location from aborting the first upload, without starting a second videos.insert when Location is already present, and without restating the OAuth stall.
+- **Inspected:** STATE, NEXT, RUNS, `tools/youtube_api.py`, `tools/selftest.py`, `youtube-production.yml`.
+- **Action taken:** Session POST now retries 408/429/5xx and network errors only when Location is missing. A Location on a non-200 is used and not followed by another POST. Chunk 408 and 429 join the existing resume set. A status query that advances the offset clears the retry count. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute and collect were not dispatched. Videos published stay 0.
+- **Verification status:** completed for the session-start contract and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** Run 288 resumed a chunk PUT 503, but the session POST itself still treated 503 as `RESUMABLE_SESSION_MISSING`. That is the call that spends the insert quota unit. A 503 with no Location has nothing to resume. A 503 with Location must not be retried as a new insert.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` remain the publish and collect gate. Not polled. Flagged as a recurring external stall. Do not spend a run only restating it.
+- **Recommended next action:** Add those three secrets, then dispatch `youtube-production.yml` with execute=true. Do not re-encode. Do not scaffold Q2. Do not add another snippet micro-gate. Do not invent a baseline or decision.
+
 ## 2026-10-03T04:11:00Z — Run 289
 
 - **Objective:** Stop a 308 with no Range header from skipping bytes the server did not store.

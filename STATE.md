@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-03T04:11:00Z (Run 289)
+Updated: 2026-10-03T05:20:00Z (Run 290)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 290 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- Session start now retries a 408/429/5xx or network error only when the POST returns no Location. A Location on that response is the session and is not followed by a second videos.insert. Chunk 408 and 429 resume the existing session. A status query that advances the offset clears the retry count. Selftest passed locally. Actions was not re-run.
+- Flag still stands: do not add another snippet micro-gate. Description angle brackets remain ungated and are deferred on purpose.
 
 ## Run 289 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -110,8 +115,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; a 503 on videos.insert now resumes the same session |
-| Automated steps | 122 | 123 | resumable 5xx queries the session and resumes; no upload ran |
+| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; a session POST with no Location now retries instead of aborting |
+| Automated steps | 124 | 125 | session start retries only when Location is missing; no upload ran |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
@@ -150,4 +155,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not put videos.insert back on multipart
 - Do not treat HTTP 500/502/503/504 on a chunk PUT as a permanent failure
 - Do not start a second videos.insert because a 503 hid the session
+- Do not treat a session POST 503 with no Location as a permanent failure
+- Do not POST videos.insert again when that 503 already returned Location
+- Do not treat HTTP 408 or 429 on a chunk PUT as a permanent failure
 - Do not add another snippet micro-gate unless a documented provider reject is still ungated

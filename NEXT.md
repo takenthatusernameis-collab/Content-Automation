@@ -2,6 +2,8 @@
 
 Do these in order. Do not rediscover the resumable video upload (Run 287): `videos.insert` uses `uploadType=resumable` and 8 MiB chunks. Do not restore multipart for the master. Captions and thumbnails stay multipart. Stop only when required evidence is unavailable or a genuine external authorization/credential boundary is reached. Approval-only decisions are delegated to the agent.
 
+1d. **Do not rediscover the session-start retry.** Run 290 fixed it. A `videos.insert` session POST that returns 408, 429, 500, 502, 503, 504, or a network error and no Location is retried up to three times. A Location on that response is the session. Do not start a second `videos.insert` when Location is present. Chunk 408 and 429 resume that session. Do not treat them as a permanent failure. Do not restore multipart for the master.
+
 1c. **Do not rediscover the missing-Range restart.** Run 289 fixed it. A 308 with no Range header means the server stored nothing. Resume at byte 0. Do not treat the chunk just sent as accepted. Three missing-Range responses are `RESUMABLE_STALLED`. Honor `Retry-After`, capped at 30 seconds. Do not restore the `end+1` fallback.
 
 1b. **Do not rediscover the resumable 5xx retry.** Run 288 fixed it. A chunk PUT that returns 500, 502, 503, or 504, or a network error, must query the session with `Content-Range: bytes */size` and resume from the Range. Do not treat those statuses as a permanent failure. Do not start a second `videos.insert` because a 503 hid the session. Three failures at the same stage are `RESUMABLE_RETRY_EXHAUSTED`. A 404 on the status query is `RESUMABLE_SESSION_EXPIRED`. Captions and thumbnails stay multipart. Do not restore multipart for the master.

@@ -219,7 +219,8 @@ def upload_related(
 # YouTube requires every non-final chunk to be a multiple of 256 KiB.
 RESUMABLE_CHUNK = 8 * 1024 * 1024
 # Official resumable guide: 500/502/503/504 are resumeable, not permanent.
-RESUMABLE_RETRYABLE = {500, 502, 503, 504}
+# 408 and 429 are resumeable on an existing session. A new videos.insert is not.
+RESUMABLE_RETRYABLE = {408, 429, 500, 502, 503, 504}
 RESUMABLE_RETRY_LIMIT = 3
 RESUMABLE_BACKOFF_SECONDS = (1, 2, 4)
 
@@ -298,6 +299,46 @@ def _header(headers: Mapping[str, str], name: str) -> str:
     return ""
 
 
+
+def _start_resumable_session(
+    init_url: str,
+    init_headers: Mapping[str, str],
+    body: bytes,
+) -> tuple[str, int]:
+    """Start one resumable session. Retry only when no Location came back.
+
+    A 503 on the chunk PUT must not call this again. That session already
+    exists and a second videos.insert can hide it. A 503 on this POST with
+    no Location has no session to resume, so a bounded retry is the same
+    upload, not a second video.
+    """
+    last_code = 0
+    headers: dict[str, str] = {}
+    for attempt in range(RESUMABLE_RETRY_LIMIT):
+        try:
+            code, headers, _raw = _http(
+                init_url,
+                method="POST",
+                headers=init_headers,
+                body=body,
+                timeout=120,
+            )
+        except YouTubeAPIError as exc:
+            if exc.status not in RESUMABLE_RETRYABLE and exc.reason != "network_error":
+                raise
+            code, headers = exc.status, {}
+        session = _header(headers, "Location")
+        if session.startswith("https://"):
+            return session, code
+        last_code = code
+        if code not in RESUMABLE_RETRYABLE and code != 0:
+            return "", code
+        if attempt + 1 >= RESUMABLE_RETRY_LIMIT:
+            break
+        _pause(headers, attempt)
+    return "", last_code
+
+
 def upload_video(
     token: str,
     *,
@@ -331,15 +372,8 @@ def upload_video(
         "videos",
         {"part": "snippet,status", "uploadType": "resumable", "notifySubscribers": "false"},
     )
-    code, headers, _raw = _http(
-        init_url,
-        method="POST",
-        headers=init_headers,
-        body=_json_bytes(body),
-        timeout=120,
-    )
-    session = _header(headers, "Location")
-    if code not in {200, 201} or not session.startswith("https://"):
+    session, code = _start_resumable_session(init_url, init_headers, _json_bytes(body))
+    if not session.startswith("https://"):
         raise YouTubeAPIError(code, "RESUMABLE_SESSION_MISSING")
     offset = 0
     retries = 0
@@ -406,6 +440,7 @@ def upload_video(
                     if nxt < 0 or nxt > size:
                         raise YouTubeAPIError(308, "RESUMABLE_STALLED", f"offset={offset}")
                     offset = nxt
+                    retries = 0
                     continue
                 if status_code == 404:
                     raise YouTubeAPIError(404, "RESUMABLE_SESSION_EXPIRED", f"offset={offset}")

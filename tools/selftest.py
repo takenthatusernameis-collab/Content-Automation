@@ -1314,6 +1314,69 @@ def check_resumable_video_upload() -> list[str]:
         failures.append(f"308 without Range must re-PUT from byte 0: {missing_calls}")
     if any(rng.startswith("bytes 8-") and missing_calls.index(rng) < 3 for rng in missing_calls):
         failures.append(f"missing Range must not advance to the next chunk: {missing_calls}")
+
+    init_calls: list[str] = []
+
+    def init_retry_http(url, *, method, headers, body, timeout):
+        init_calls.append(method + " " + headers.get("Content-Range", ""))
+        if method == "POST" and init_calls.count("POST ") == 1:
+            return 503, {}, b""
+        if method == "POST":
+            return 200, {"Location": "https://upload.example/session"}, b""
+        return 201, {}, json.dumps({"id": "vid-init"}).encode()
+
+    youtube_api._http = init_retry_http
+    youtube_api._sleep = lambda _seconds: None
+    youtube_api.RESUMABLE_CHUNK = 8
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            media = Path(tmp) / "master.mp4"
+            media.write_bytes(b"0123456789abcdef")
+            data = youtube_api.upload_video(
+                "token-not-printed",
+                export_path=media,
+                metadata={"snippet": {"title": "t"}},
+                privacy="private",
+            )
+    finally:
+        youtube_api._http = original
+        youtube_api._sleep = original_sleep
+        youtube_api.RESUMABLE_CHUNK = original_chunk
+    if data.get("id") != "vid-init":
+        failures.append(f"session 503 without Location must retry the same insert: {data}")
+    posts = [row for row in init_calls if row.startswith("POST")]
+    if len(posts) != 2:
+        failures.append(f"session 503 without Location must POST twice, not abort: {init_calls}")
+
+    hidden_calls: list[str] = []
+
+    def hidden_session_http(url, *, method, headers, body, timeout):
+        hidden_calls.append(method)
+        if method == "POST":
+            return 503, {"Location": "https://upload.example/session"}, b""
+        return 201, {}, json.dumps({"id": "vid-hidden"}).encode()
+
+    youtube_api._http = hidden_session_http
+    youtube_api._sleep = lambda _seconds: None
+    youtube_api.RESUMABLE_CHUNK = 8
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            media = Path(tmp) / "master.mp4"
+            media.write_bytes(b"0123456789abcdef")
+            data = youtube_api.upload_video(
+                "token-not-printed",
+                export_path=media,
+                metadata={"snippet": {"title": "t"}},
+                privacy="private",
+            )
+    finally:
+        youtube_api._http = original
+        youtube_api._sleep = original_sleep
+        youtube_api.RESUMABLE_CHUNK = original_chunk
+    if data.get("id") != "vid-hidden":
+        failures.append(f"503 with Location must use that session: {data}")
+    if hidden_calls.count("POST") != 1:
+        failures.append(f"503 with Location must not start a second videos.insert: {hidden_calls}")
     return failures
 
 

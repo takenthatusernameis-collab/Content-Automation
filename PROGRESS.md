@@ -1,3 +1,6 @@
+## Run 290
+A session POST that returns 503 without Location is retried. A 503 that already returned Location is that session and is not a second videos.insert. Chunk 408 and 429 resume the existing session. Estimated human minutes stay 0.5. Automated steps 124 -> 125. Videos published stay 0. No provider write.
+
 ## Run 289
 A 308 with no Range header now restarts the resumable upload at byte 0 instead of skipping the unconfirmed chunk. Retry-After is honored, capped at 30 seconds. Estimated human minutes stay 0.5. Automated steps 123 -> 124. Videos published stay 0. No provider write.
 
@@ -24,7 +27,7 @@ Caption scope is now a pre-insert gate. An upload-only token cannot create a pri
 
 # PROGRESS
 
-Updated: 2026-10-03T04:11:00Z (Run 289)
+Updated: 2026-10-03T05:20:00Z (Run 290)
 
 ## Latest measurable delta
 - Run 280 automated steps: 115. Run 281: 116.
