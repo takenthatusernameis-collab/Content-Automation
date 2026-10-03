@@ -54,6 +54,9 @@ TITLE_MAX = 100
 DESCRIPTION_MAX = 5000
 TAG_COUNT_MAX = 12
 TAG_TOTAL_MAX = 500
+# videos.insert counts a comma between tags, and wraps a tag that contains a
+# space in quotes. Those extra characters count toward the 500 limit. A raw
+# sum can pass locally and still return invalidTags.
 # thumbnails.set rejects files over 2MB, images narrower than 640px, and a
 # truncated PNG that has an IHDR but no IEND. captions.insert rejects an empty
 # track, a cue that is not forward, cues out of order, overlapping cues, and a
@@ -142,13 +145,30 @@ def metadata_block_reason(meta: dict) -> str | None:
         return f"description_too_long {len(description)}>{DESCRIPTION_MAX}"
     if len(tags) > TAG_COUNT_MAX:
         return f"too_many_tags {len(tags)}>{TAG_COUNT_MAX}"
-    total = sum(len(tag) for tag in tags)
-    if total > TAG_TOTAL_MAX:
-        return f"tags_too_long {total}>{TAG_TOTAL_MAX}"
     for tag in tags:
         if not tag or tag != tag.strip() or "," in tag or "<" in tag or ">" in tag:
             return "tag_invalid"
+    total = tag_budget(tags)
+    if total > TAG_TOTAL_MAX:
+        return f"tags_too_long {total}>{TAG_TOTAL_MAX}"
     return None
+
+
+def tag_budget(tags: list) -> int:
+    """Characters videos.insert counts toward the 500 keyword limit.
+
+    A raw sum undercounts a tag that contains a space (the server wraps it in
+    quotes) and undercounts the comma separators between tags.
+    """
+    if not tags:
+        return 0
+    total = 0
+    for tag in tags:
+        total += len(tag)
+        if " " in tag:
+            total += 2
+    total += len(tags) - 1
+    return total
 
 
 

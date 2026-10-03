@@ -527,6 +527,13 @@ def check_upload_stamp_preserved() -> list[str]:
         failures.append("more than 12 tags must fail instead of being sliced")
     if metadata_block_reason({"title": "ok", "description": "d", "tags": ["bad,tag"]}) is None:
         failures.append("a comma inside a tag must fail")
+    spaced = ["ab cd" * 8] * 12
+    if sum(len(tag) for tag in spaced) > 500:
+        failures.append("tag budget fixture must stay under a raw 500 sum")
+    if metadata_block_reason({"title": "ok", "description": "d", "tags": spaced}) is None:
+        failures.append("quoted spaces and tag commas must count toward the 500 limit")
+    if metadata_block_reason({"title": "ok", "description": "d", "tags": ["focused work", "deep work"]}) is not None:
+        failures.append("short spaced tags must still pass")
     upload_only = {"https://www.googleapis.com/auth/youtube.upload"}
     full = {"https://www.googleapis.com/auth/youtube"}
     both = upload_only | {"https://www.googleapis.com/auth/youtube.force-ssl"}

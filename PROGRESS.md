@@ -1,3 +1,6 @@
+## Run 286
+Tag lists now fail closed on the videos.insert keyword budget, not a raw character sum. Spaced tags count two wrapping quotes, and commas between tags count. Q1 tags still pass at 152. Estimated human minutes stay 0.5. Automated steps 120 -> 121. Videos published stay 0.
+
 ## Run 285
 Overlapping caption cues and a PNG without IEND now fail before videos.insert. The insert body sets default audio and caption language to en so the later caption track matches. Q1 captions.srt and thumbnail.png still pass. Estimated human minutes stay 0.5. Automated steps 119 -> 120. Videos published stay 0.
 
@@ -12,7 +15,7 @@ Caption scope is now a pre-insert gate. An upload-only token cannot create a pri
 
 # PROGRESS
 
-Updated: 2026-10-03T00:35:00Z (Run 285)
+Updated: 2026-10-03T01:20:00Z (Run 286)
 
 ## Latest measurable delta
 - Run 280 automated steps: 115. Run 281: 116.
