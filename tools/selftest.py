@@ -1554,6 +1554,41 @@ def check_resumable_video_upload() -> list[str]:
         failures.append(f"empty 201 body must not start a second videos.insert: {posts}")
     if not any(rng.startswith("bytes */") for _method, rng in empty_calls):
         failures.append(f"empty 201 body must query the same session: {empty_calls}")
+
+    gone_calls: list[str] = []
+
+    def gone_after_complete(url, *, method, headers, body, timeout):
+        gone_calls.append(method)
+        if method == "POST":
+            return 200, {"Location": "https://upload.example/session-gone"}, b""
+        rng = headers.get("Content-Range", "")
+        if rng.startswith("bytes */"):
+            raise youtube_api.YouTubeAPIError(410, "gone", "session expired after complete")
+        return 201, {}, b""
+
+    youtube_api._http = gone_after_complete
+    youtube_api.RESUMABLE_CHUNK = 8
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            media = Path(tmp) / "master.mp4"
+            media.write_bytes(b"0123456789abcdef")
+            try:
+                youtube_api.upload_video(
+                    "token-not-printed",
+                    export_path=media,
+                    metadata={"snippet": {"title": "t"}},
+                    privacy="private",
+                )
+            except youtube_api.YouTubeAPIError as exc:
+                if exc.reason != "RESUMABLE_COMPLETED_SESSION_GONE":
+                    failures.append(f"410 after empty 201 must be session gone: {exc.reason}")
+            else:
+                failures.append("410 after empty 201 must not look like a recovered video")
+    finally:
+        youtube_api._http = original
+        youtube_api.RESUMABLE_CHUNK = original_chunk
+    if gone_calls.count("POST") != 1:
+        failures.append(f"410 after empty 201 must not start a second videos.insert: {gone_calls}")
     return failures
 
 

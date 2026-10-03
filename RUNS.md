@@ -1,3 +1,14 @@
+## 2026-10-03T10:20:00Z — Run 295
+
+- **Objective:** Stop a finished resumable upload whose session then returns 404 or 410 from inviting a second videos.insert.
+- **Inspected:** STATE, NEXT, FAILURES, `tools/youtube_api.py`, `tools/youtube_upload.py`, `youtube-production.yml`. OAuth secrets were not polled (Actions secret list is 403 for this token).
+- **Action taken:** A 200/201 with no id still queries the same session once. A 404 or 410 on that query is `RESUMABLE_COMPLETED_SESSION_GONE`. Execute persists `completed_without_id` and does not invent a video id. A matching fingerprint is `HOLD_COMPLETED_WITHOUT_ID`. The workflow commits that hold. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the completed-session-gone contract and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** Run 294 recovered an id only when the follow-up query returned 200/201. The documented expired-session responses after an accepted last byte were still a duplicate-insert path, and the workflow would not have committed the failure.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall since the execute path existed. Flagged, not re-worked this run.
+- **Recommended next action:** Add those three secrets from a token granted `youtube.upload` and `youtube.force-ssl` (or full `youtube`), then dispatch `youtube-production.yml` with execute=true. Do not re-encode. Do not start a second videos.insert after `RESUMABLE_COMPLETED_SESSION_GONE`. Do not invent a provider video id. Do not add another snippet micro-gate. Do not scaffold Q2.
+
 ## 2026-10-03T09:15:00Z — Run 294
 
 - **Objective:** Stop a finished resumable upload whose 200/201 body was dropped from looking like a missing video and inviting a second videos.insert.

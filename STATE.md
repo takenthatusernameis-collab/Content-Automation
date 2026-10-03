@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-03T09:15:00Z (Run 294)
+Updated: 2026-10-03T10:20:00Z (Run 295)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 295 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- A 200/201 whose follow-up session query returns 404 or 410 is now `RESUMABLE_COMPLETED_SESSION_GONE`. The last byte was accepted and the session can no longer return the id. Execute writes `completed_without_id` and does not invent a video id. A matching fingerprint is `HOLD_COMPLETED_WITHOUT_ID` and must not start another videos.insert. The workflow commits that hold. Selftest passed locally. Actions was not re-run.
+- Flag still stands: do not add another snippet micro-gate. Description angle brackets remain ungated and are deferred on purpose. The OAuth secret stall is still the publish gate. This run closed a documented duplicate-insert hole; it did not restate the secret hold as the only work.
 
 ## Run 294 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -135,8 +140,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; a lost completion body no longer invites a second insert |
-| Automated steps | 127 | 128 | empty 200/201 body queries the same session for the video id; no upload ran |
+| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; a gone session after a finished PUT no longer invites a second insert |
+| Automated steps | 128 | 129 | 404/410 after an accepted completion persists a no-id hold; no upload ran |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
@@ -185,3 +190,6 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not treat an empty or unchanged post-upload refresh as success
 - Do not treat a 200/201 with an empty body as a missing video if the session can still return the id
 - Do not start a second videos.insert because the completion body was dropped
+- Do not start a second videos.insert when a 200/201 follow-up returns 404 or 410
+- Do not invent a provider video id for RESUMABLE_COMPLETED_SESSION_GONE
+- Do not treat HOLD_COMPLETED_WITHOUT_ID as a retry of videos.insert

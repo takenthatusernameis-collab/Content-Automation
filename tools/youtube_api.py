@@ -596,6 +596,16 @@ def _video_from_complete(
     status_code, _headers, status_raw = _query_resumable(session, token, size)
     if status_code in {200, 201}:
         return _video_resource(status_code, status_raw)
+    # YouTube's resumable guide uses 404 for an expired session URI. The Data
+    # protocol uses 410 after a completed upload. Either one, after a 200/201,
+    # means the last byte was accepted and the session can no longer return the
+    # id. Do not treat that as a missing video.
+    if status_code in {404, 410}:
+        raise YouTubeAPIError(
+            status,
+            "RESUMABLE_COMPLETED_SESSION_GONE",
+            f"status_query={status_code}",
+        )
     raise YouTubeAPIError(status, "RESUMABLE_MISSING_VIDEO_ID", f"status_query={status_code}")
 
 
@@ -620,7 +630,7 @@ def _query_resumable(session: str, token: str, size: int) -> tuple[int, dict[str
     try:
         return _http(session, method="PUT", headers=headers, body=b"", timeout=120)
     except YouTubeAPIError as exc:
-        if exc.status in RESUMABLE_RETRYABLE or exc.reason == "network_error" or exc.status == 404:
+        if exc.status in RESUMABLE_RETRYABLE or exc.reason == "network_error" or exc.status in {404, 410}:
             return exc.status, {}, b""
         raise
 

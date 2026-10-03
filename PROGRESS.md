@@ -1,12 +1,15 @@
 # PROGRESS
 
-Updated: 2026-10-03T09:15:00Z (Run 294)
+Updated: 2026-10-03T10:20:00Z (Run 295)
 
 ## Latest measurable delta
-- Run 293 automated steps: 127. Run 294: 128.
-- New automated behavior: a 200/201 completion with an empty body queries the same resumable session for the video id instead of aborting.
+- Run 294 automated steps: 128. Run 295: 129.
+- New automated behavior: a 404 or 410 after an accepted completion persists a no-id hold and refuses a second videos.insert.
 - Human minutes per video remain 0.5. The remaining recurring human step is entering the three YouTube OAuth secrets.
 - Videos published: 0. No provider write.
+
+## Run 295
+A finishing PUT whose session then returns 404 or 410 is `RESUMABLE_COMPLETED_SESSION_GONE`. The workflow commits `completed_without_id` and the next execute must not insert again. No provider video id is invented. Estimated human minutes stay 0.5. Automated steps 128 -> 129. Videos published stay 0. No provider write.
 
 ## Run 294
 A finishing chunk that returns 200 or 201 without a video id now queries that session once. An empty body is not treated as a missing video and does not start a second videos.insert. Estimated human minutes stay 0.5. Automated steps 127 -> 128. Videos published stay 0. No provider write.

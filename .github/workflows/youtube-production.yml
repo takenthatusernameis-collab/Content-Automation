@@ -93,10 +93,14 @@ jobs:
           with open(path, encoding="utf-8") as fh:
               data = json.load(fh)
           provider_id = str(data.get("provider_video_id") or "").strip()
-          if not provider_id:
+          completed_without_id = data.get("completed_without_id") is True and str(data.get("error_class") or "").startswith("RESUMABLE_COMPLETED_SESSION_GONE")
+          if completed_without_id and not provider_id:
+              print("Persisting completed-without-id hold. Do not start another videos.insert.")
+          elif not provider_id:
               print("No provider_video_id; not committing transient failure state.")
               sys.exit(0)
-          print(f"Persisting redacted upload state for provider video {provider_id}.")
+          else:
+              print(f"Persisting redacted upload state for provider video {provider_id}.")
           PY
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -163,6 +167,7 @@ jobs:
           echo "collect_feedback refuses a missing or early uploaded_at and does not write COLLECTED."
           echo "A resumed upload keeps the existing uploaded_at. It does not invent one."
           echo "A caption or thumbnail failure exits non-zero after the video id is written."
+          echo "A 200/201 whose session then returns 404 or 410 is RESUMABLE_COMPLETED_SESSION_GONE. That state is committed and the next execute must not insert again."
           echo "A session POST that returns 503 without Location is retried. A 503 that returns Location is that session, not a second videos.insert."
           echo "Chunk 408 and 429 resume the existing session. They do not start another videos.insert."
           echo "A later execute resumes that video id when the export hash matches. It does not upload a second copy."

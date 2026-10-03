@@ -1,3 +1,9 @@
+## Run 295 — a finished upload with a gone session looked retryable
+- **Tried:** Run 294 queried the session once when a 200/201 body had no id. A follow-up 404 or 410 still raised `RESUMABLE_MISSING_VIDEO_ID` or the raw status, and the workflow refused to commit state without a provider video id.
+- **Evidence:** YouTube's resumable guide uses 404 for an expired session URI. The Google Data resumable protocol says a later PUT to a completed session returns 410 Gone. Either response after an accepted last byte means the video can exist and the id is no longer on that session. The next execute would open another videos.insert.
+- **Result:** That follow-up is `RESUMABLE_COMPLETED_SESSION_GONE`. Execute writes `completed_without_id` without inventing an id. Inspect and execute refuse a matching fingerprint with `HOLD_COMPLETED_WITHOUT_ID`. The workflow commits that hold. Selftest covers a 410 after an empty 201 and asserts one POST.
+- **Avoid:** Treating 404 or 410 after a completing 200/201 as a missing video. Starting a second videos.insert to recover an id the session can no longer return. Inventing a provider video id.
+
 ## Run 294 — empty 201 body looked like a missing video
 - **Tried:** Runs 287-293 treated a 200/201 from the last chunk as the video resource and raised `RESUMABLE_MISSING_VIDEO_ID` when the body had no id.
 - **Evidence:** The resumable protocol puts the resource in that response. A dropped body still means the server accepted the last byte. The next execute had no video id, so it would open another videos.insert.
