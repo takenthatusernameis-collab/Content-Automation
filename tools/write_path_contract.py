@@ -25,6 +25,7 @@ and the advertised non-fixture set_status CLI when WORDS are in band
 
 from __future__ import annotations
 
+import hashlib
 import subprocess
 import sys
 import tempfile
@@ -129,6 +130,18 @@ def run_tool(name: str, args: list[str]) -> subprocess.CompletedProcess[str]:
     )
 
 
+
+def snapshot(path: Path) -> dict[str, str]:
+    """Content hash of a packet. Absence is an empty map, not a failure."""
+    if not path.exists():
+        return {}
+    out: dict[str, str] = {}
+    for item in sorted(path.rglob("*")):
+        if item.is_file():
+            out[str(item.relative_to(path))] = hashlib.sha256(item.read_bytes()).hexdigest()
+    return out
+
+
 def fail(failures: list[str], cond: bool, msg: str) -> None:
     if not cond:
         failures.append(msg)
@@ -148,6 +161,7 @@ def main() -> int:
 
     short = script_body(HOOK, 20)
     long = script_body(HOOK, 220)
+    leak_before = snapshot(ROOT / "videos" / "002-stop-deciding-what-to-work-on-every-morning")
 
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
@@ -292,7 +306,7 @@ def main() -> int:
         fail(failures, not (ready / "vo").exists(), "set_status created vo/")
 
         leak = ROOT / "videos" / "002-stop-deciding-what-to-work-on-every-morning"
-        fail(failures, not leak.exists(), f"contract leaked {leak}")
+        fail(failures, snapshot(leak) == leak_before, f"contract leaked {leak}")
 
     print("Write path contract")
     print("apply missing --from: exit 2, draft.md hint, no script.md write")

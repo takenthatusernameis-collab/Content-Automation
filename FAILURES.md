@@ -1,3 +1,9 @@
+## Run 304 — prove_locks could not pass on this checkout
+- **Tried:** Run 299 noted prove_locks.py still fails on the words_contract.py placeholder check and left it. Later runs did not re-run the advertised post-write lock.
+- **Evidence:** placeholder_guard flags the contiguous needle. words_contract.py stored that needle as a string. write_path_contract.py then required `videos/002-stop-deciding-what-to-work-on-every-morning` to be absent. That packet is the live Q1 packet, so the second step always failed here.
+- **Result:** The scanner splits the needle. The leak check compares a content hash and fails only if the live packet changes. prove_locks printed PROVE LOCKS PASS. Selftest still passed. No provider write.
+- **Avoid:** Restoring the contiguous needle in words_contract.py. Restoring `not leak.exists()`. Treating a prove_locks fail on this checkout as expected. Adding an upload HTTP status variant. Polling OAuth secrets.
+
 ## Run 303 — a 20-minute job could drop a finished upload
 - **Tried:** Runs 287-302 made the resumable client survive HTTP 308/401/5xx, then persisted the video id only after `youtube_upload.py` exited. The workflow `timeout-minutes` stayed 20 while a chunk PUT waited up to 600 seconds and retried three times.
 - **Evidence:** `youtube-production.yml` timeout was 20. `upload_video` passed `timeout=600` to the chunk PUT. Actions kills the step when the job budget ends, so the script never writes `upload_state.json`. The next execute has no video id and can POST `videos.insert` again.

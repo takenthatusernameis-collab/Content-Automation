@@ -1,3 +1,6 @@
+## Run 304
+The post-write lock now passes on a checkout that already has Q1. A false prove_locks fail no longer hides a real write-path regression. Estimated human minutes stay 0.5. Automated steps stay 136. Videos published stay 0. No provider write. Do not add another upload HTTP status variant without a live execute status.
+
 ## Run 303
 The production job now outlasts a slow chunk PUT, so a finished upload can persist its video id instead of being killed at 20 minutes. Chunk PUT timeout is 180 seconds. Estimated human minutes stay 0.5. Automated steps 135 -> 136. Videos published stay 0. No provider write. Do not add another upload HTTP status variant without a live execute status.
 

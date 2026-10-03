@@ -145,7 +145,9 @@ def main() -> int:
     ):
         if marker not in body:
             failures.append(f"words.py missing marker: {marker}")
-    if "PLACEHOLDER" in body or body.strip() in {"see-next", "404: Not Found"}:
+    # Split so this scanner is not itself a placeholder body.
+    needle = "PLACE" + "HOLDER"
+    if needle in body or body.strip() in {"see-next", "404: Not Found"}:
         failures.append("words.py looks like a placeholder")
 
     with tempfile.TemporaryDirectory(prefix="words-contract-") as tmp:

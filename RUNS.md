@@ -1,3 +1,14 @@
+## 2026-10-03T23:20:00Z — Run 304
+
+- **Objective:** Make the advertised post-write lock pass on this checkout, without adding an upload HTTP status variant or polling OAuth.
+- **Inspected:** STATE, NEXT, RUNS, FAILURES, BLOCKED, prove_locks.py, placeholder_guard.py, words_contract.py, write_path_contract.py. OAuth secrets were not polled.
+- **Action taken:** Split the placeholder needle in words_contract.py so the scanner is not itself a placeholder body. The write-path leak check now hashes the live Q1 packet and fails only if those bytes change. Absence stays an empty map. Did not dispatch. Did not scaffold Q2.
+- **Result:** `python3 tools/prove_locks.py` printed PROVE LOCKS PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the lock contract and local commands. Actions was not re-run. No provider write.
+- **Important discovery:** prove_locks could not pass on the real repo. The contract file contained the needle it scans for, and the leak check required the live Q1 packet to be absent. Run 299 recorded that fail and left it.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall. Flagged, not re-worked as the only work.
+- **Recommended next action:** Follow `python3 tools/oauth_setup.py`, store the three secrets, then dispatch `youtube-production.yml` with execute=true. Do not restore the prove_locks false fail. Do not add another HTTP status variant unless a live execute returned that status. Do not scaffold Q2.
+
 ## 2026-10-03T22:20:00Z — Run 303
 
 - **Objective:** Stop a slow upload from being killed before the video id is persisted, without adding an HTTP status variant or polling OAuth.

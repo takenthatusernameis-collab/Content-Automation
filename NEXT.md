@@ -1,5 +1,7 @@
 # NEXT
 
+1p. **Do not rediscover the prove_locks false fail.** Run 304 split the placeholder needle in `words_contract.py` and changed the write-path leak check from "packet must be absent" to "packet bytes must be unchanged". `python3 tools/prove_locks.py` now prints PROVE LOCKS PASS on a checkout that already has Q1. Do not restore the contiguous needle. Do not restore `not leak.exists()`. Do not map these tools.
+
 Do these in order. Do not rediscover the resumable video upload (Run 287): `videos.insert` uses `uploadType=resumable` and 8 MiB chunks. Do not restore multipart for the master. Captions and thumbnails stay multipart. Stop only when required evidence is unavailable or a genuine external authorization/credential boundary is reached. Approval-only decisions are delegated to the agent.
 
 1o. **Do not rediscover the killed-job duplicate.** Run 303 raised `youtube-production.yml` `timeout-minutes` from 20 to 60 and set the chunk PUT timeout to 180 seconds. Three retries of that PUT must finish inside the job so the video id can be persisted. Do not restore 20 minutes or a 600-second PUT. A runner killed before persist can still insert again; this is not an HTTP status variant.
