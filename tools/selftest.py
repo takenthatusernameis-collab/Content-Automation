@@ -8,6 +8,7 @@ contracts instead of leaving runtime unverified.
 
 from __future__ import annotations
 
+import os
 import sys
 import tempfile
 from datetime import datetime, timedelta, timezone
@@ -903,6 +904,54 @@ def check_q1_publish_draft_locked() -> list[str]:
     return failures
 
 
+
+def check_oauth_setup_recipe() -> list[str]:
+    """The setup recipe must name the secrets and scopes and must not print values."""
+    failures = []
+    path = ROOT / "tools" / "oauth_setup.py"
+    source = path.read_text(encoding="utf-8")
+    for name in ("YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET", "YOUTUBE_REFRESH_TOKEN"):
+        if name not in source:
+            failures.append(f"oauth setup recipe missing {name}")
+    for scope in (
+        "https://www.googleapis.com/auth/youtube.upload",
+        "https://www.googleapis.com/auth/youtube.force-ssl",
+        "https://www.googleapis.com/auth/yt-analytics.readonly",
+    ):
+        if scope not in source:
+            failures.append(f"oauth setup recipe missing {scope}")
+    if "print(os.environ" in source or "os.environ.get(name" not in source:
+        failures.append("oauth setup recipe must check presence without printing values")
+    if "gh secret set" not in source:
+        failures.append("oauth setup recipe must name gh secret set")
+    sys.path.insert(0, str(ROOT / "tools"))
+    import oauth_setup
+    text = oauth_setup.recipe()
+    if "youtube.upload alone" not in text:
+        failures.append("oauth setup recipe must warn against an upload-only token")
+    saved = {name: os.environ.get(name) for name in oauth_setup.SECRET_NAMES}
+    try:
+        for name in oauth_setup.SECRET_NAMES:
+            os.environ.pop(name, None)
+        if oauth_setup.missing_names() != list(oauth_setup.SECRET_NAMES):
+            failures.append("oauth setup must report all three names missing when unset")
+        os.environ["YOUTUBE_CLIENT_ID"] = "not-a-real-client"
+        os.environ["YOUTUBE_CLIENT_SECRET"] = "not-a-real-secret"
+        os.environ["YOUTUBE_REFRESH_TOKEN"] = "not-a-real-token"
+        if oauth_setup.missing_names():
+            failures.append("oauth setup must treat non-empty values as present")
+        rendered = oauth_setup.recipe()
+        if "not-a-real" in rendered:
+            failures.append("oauth setup recipe must not echo env values")
+    finally:
+        for name, value in saved.items():
+            if value is None:
+                os.environ.pop(name, None)
+            else:
+                os.environ[name] = value
+    return failures
+
+
 def main() -> int:
     path = sample_packet()
     failures: list[str] = []
@@ -993,6 +1042,7 @@ def main() -> int:
     failures.extend(check_chapter_draft_fail_closed())
     failures.extend(check_thumbnail_draft_fail_closed())
     failures.extend(check_live_capabilities())
+    failures.extend(check_oauth_setup_recipe())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")

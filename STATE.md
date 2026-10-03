@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-03T15:20:00Z (Run 299)
+Updated: 2026-10-03T19:20:00Z (Run 300)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,12 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 300 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- The upload-status loop stays frozen. No new HTTP status variant. Description angle brackets stay ungated on purpose.
+- `tools/oauth_setup.py` prints the non-secret secret-entry recipe: console steps, required scopes, and `gh secret set` commands that read from the prompt. It reports missing secret names only. `docs/human_session.md` no longer tells the operator to re-open Description edited or First comment approved. Selftest passed locally. Actions was not re-run.
+- Flag still stands: do not add another upload HTTP status variant unless a live execute returned that status.
 
 ## Run 299 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -162,8 +168,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; synthetic disclosure no longer needs a Studio click |
-| Automated steps | 132 | 133 | generated narration sets containsSyntheticMedia; no upload ran |
+| Estimated human min / video | 0.5 | 0.5 | One-time secret research is now a recipe; per-video minutes unchanged |
+| Automated steps | 133 | 133 | setup recipe added; no upload ran |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints

@@ -1,3 +1,14 @@
+## 2026-10-03T19:20:00Z — Run 300
+
+- **Objective:** Turn the recurring OAuth secret stall into a non-secret setup recipe, without adding another upload HTTP status variant or re-opening closed publish boxes.
+- **Inspected:** STATE, NEXT, RUNS, BLOCKED, `docs/human_session.md`, `docs/youtube_integration.md`, `tools/youtube_upload.py`. OAuth secrets were not polled.
+- **Action taken:** Added `tools/oauth_setup.py`. It prints console steps, the required scopes, and `gh secret set` commands that read from the prompt. It reports missing secret names only and does not call Google. `docs/human_session.md` no longer asks to check Description edited or First comment approved. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the recipe and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** The live human page still told the operator to re-check boxes Run 297 already closed. That was recurring labor, not the credential gate. The upload-status loop remains frozen.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall. Flagged, not re-worked as the only work.
+- **Recommended next action:** Follow `python3 tools/oauth_setup.py`, store the three secrets, then dispatch `youtube-production.yml` with execute=true. Do not add another HTTP status variant unless a live execute returned that status. Do not re-open Description edited or First comment approved. Do not scaffold Q2.
+
 ## 2026-10-03T15:20:00Z — Run 299
 
 - **Objective:** Disclose generated narration on the first videos.insert, without adding another upload HTTP status variant.

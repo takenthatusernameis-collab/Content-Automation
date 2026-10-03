@@ -1,3 +1,6 @@
+## Run 300 — 2026-10-03T19:20:00Z
+- One-time OAuth setup research is now `tools/oauth_setup.py` (names and scopes only). Per-video human minutes stay 0.5. Videos published stay 0. Upload-status loop not extended.
+
 # PROGRESS
 
 Updated: 2026-10-03T15:20:00Z (Run 299)

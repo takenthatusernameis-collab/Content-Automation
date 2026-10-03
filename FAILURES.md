@@ -1,3 +1,9 @@
+## Run 300 — human page reopened closed approval boxes
+- **Tried:** Runs 281-299 kept extending upload gates while the publish gate stayed the missing OAuth secrets. `docs/human_session.md` still told the operator to check Description edited and First comment approved after Run 297 closed those boxes.
+- **Evidence:** Those boxes are already checked in Q1 publish.md. Re-asking is recurring labor, not a new gate.
+- **Result:** `tools/oauth_setup.py` prints the non-secret setup recipe and reports missing secret names only. The human page no longer re-opens those boxes. No Google call. No dispatch.
+- **Avoid:** Restoring the check-the-boxes instruction. Adding another HTTP status variant without a live execute status. Printing secret values from the recipe.
+
 ## Run 298 — a shallow rebase would still drop the video id
 - **Tried:** Run 297 retried a rejected push with fetch and rebase. The production workflow checks out with actions/checkout@v4, which defaults to fetch-depth 1.
 - **Evidence:** A shallow clone does not contain the merge base once origin/main moves. `git rebase origin/main` then fails, `push_with_retry` raises STATE_PERSIST_REJECTED, and the provider video id stays only on the runner. The next execute can insert again.

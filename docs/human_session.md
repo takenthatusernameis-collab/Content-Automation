@@ -13,8 +13,8 @@ Q1 is already scaffolded. Status stays `ready_for_vo` because the wav is gitigno
 
 - Packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - Fetch: `docs/gate_machine.md` and `HANDOFF.md` (wav/cards from r249 only; master from r253 only)
-- Remaining human review: `publish.md` — description is already drafted. Do not delete a missing stub sentence and do not restore `No upload happened`. Check Description edited and First comment approved. Leave No YouTube upload checked.
-- After that copy is approved, YouTube OAuth (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`) is the credential gate. Dry-run READY is not an upload.
+- Remaining human step is credential entry, not copy review. `publish.md` Description edited and First comment approved are already checked. Do not re-open them. Do not delete a missing stub sentence and do not restore `No upload happened`. Leave No YouTube upload checked.
+- YouTube OAuth (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`) is the credential gate. Run `python3 tools/oauth_setup.py` for the non-secret setup recipe. Dry-run READY is not an upload.
 - Keep `vo_origin.md` kind=generated. Do not `git add -f` media. Do not scaffold Q2.
 
 Do not start this session at `doctor.py` / `queue_status.py` / `new_packet.py`. Those commands are for a *new* packet. Do not record or synthesize another take while HANDOFF checksums match.
@@ -161,13 +161,13 @@ python3 tools/qa_checklist.py videos/002-stop-deciding-what-to-work-on-every-mor
 
 7. After presence refresh (publish.md is not an upload)
 
-Open `videos/002-stop-deciding-what-to-work-on-every-morning/publish.md`. Tags and title are already usable (Run 117). The viewer description was drafted in Run 259 and must not contain `No upload happened` (youtube_upload treats that sentence as HOLD_LOCAL). Remaining human boxes:
+Open `videos/002-stop-deciding-what-to-work-on-every-morning/publish.md`. Tags and title are already usable (Run 117). The viewer description was drafted in Run 259 and must not contain `No upload happened` (youtube_upload treats that sentence as HOLD_LOCAL). Description edited and First comment approved are already checked. Do not re-open them.
 
-- review the drafted description; do not restore the stub sentence
-- check Description edited and First comment approved (the pin candidate is already a draft assignment; rewrite it only if it overclaims)
+- do not restore the stub sentence
 - leave the No YouTube upload box checked
+- the remaining human step is the three Actions secrets; print the recipe with `python3 tools/oauth_setup.py`
 
-Do not call a YouTube API. Do not treat a filled description as published. Do not copy the r249 master. Do not scaffold Q2 from this page.
+Do not call a YouTube API from this page. Do not treat a filled description as published. Do not copy the r249 master. Do not scaffold Q2 from this page.
 
 If unsure of the next command after any step, re-run `python3 tools/doctor.py videos/002-stop-deciding-what-to-work-on-every-morning` and use the printed Command.
 
