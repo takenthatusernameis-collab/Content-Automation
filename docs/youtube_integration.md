@@ -73,6 +73,8 @@ The workflow keeps the uploader's initial privacy mode at `private`. Posting the
 
 `videos.insert` sets `status.containsSyntheticMedia` from packet `vo_origin.md`. `kind: generated` is true (Q1 edge-tts). `kind: human` is false. A missing or other kind is `SYNTHETIC_DISCLOSURE_UNKNOWN` and does not refresh a token or call `videos.insert`. Do not invent the flag.
 
+`videos.insert` also sets `status.selfDeclaredMadeForKids` from `docs/channel.md` `audience_designation`. `not_made_for_kids` is false. `made_for_kids` is true. A missing or other value is `AUDIENCE_UNKNOWN` and does not refresh a token or call `videos.insert`. The API layer does not default the field to false. Omitting it is not a successful upload: YouTube leaves the video blocked until Studio sets the audience.
+
 The workflow requires `contents: write` because its persistent mutations are the non-secret upload state and, after a real fetch, collected feedback state. It does not write media files to the repository.
 
 ## Authentication boundary

@@ -453,7 +453,8 @@ def upload_video(
     body = dict(metadata)
     status = dict(body.get("status") or {})
     status["privacyStatus"] = privacy
-    status.setdefault("selfDeclaredMadeForKids", False)
+    if not isinstance(status.get("selfDeclaredMadeForKids"), bool):
+        raise YouTubeAPIError(0, "AUDIENCE_UNKNOWN")
     body["status"] = status
     size = export_path.stat().st_size
     if size <= 0:

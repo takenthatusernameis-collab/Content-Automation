@@ -651,8 +651,15 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
         synthetic is not None,
         f"containsSyntheticMedia={synthetic} kind={origin}" if synthetic is not None else "vo_origin.md kind must be generated or human",
     )
+    designation = audience_designation()
+    kids = made_for_kids_flag(designation)
+    add(
+        "audience_known",
+        kids is not None,
+        f"selfDeclaredMadeForKids={kids} designation={designation}" if kids is not None else "docs/channel.md audience_designation must be not_made_for_kids or made_for_kids",
+    )
 
-    hard_local = [c for c in checks if c["name"] in {"publish_md_present", "title_present", "master_export_present", "publish_copy_approved", "metadata_within_provider_limits", "artifacts_within_provider_limits", "chapters_in_description", "synthetic_disclosure_known"}]
+    hard_local = [c for c in checks if c["name"] in {"publish_md_present", "title_present", "master_export_present", "publish_copy_approved", "metadata_within_provider_limits", "artifacts_within_provider_limits", "chapters_in_description", "synthetic_disclosure_known", "audience_known"}]
     local_ok = all(c["ok"] for c in hard_local)
     if not local_ok:
         gate = "FAIL"
@@ -687,6 +694,8 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
         "privacy": DEFAULT_PRIVACY,
         "contains_synthetic_media": synthetic,
         "vo_origin_kind": origin,
+        "made_for_kids": kids,
+        "audience_designation": designation,
         "checks": checks,
         "gate": gate,
         "action": action,
@@ -764,12 +773,41 @@ def synthetic_media_flag(kind: str) -> bool | None:
     return None
 
 
+def audience_designation(root: Path | None = None) -> str:
+    """Read docs/channel.md. Do not invent made-for-kids."""
+    path = (root or Path(__file__).resolve().parents[1]) / "docs" / "channel.md"
+    if not path.is_file():
+        return "unknown"
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.lower().startswith("audience_designation:"):
+            value = line.split(":", 1)[1].strip().lower()
+            return value if value in {"not_made_for_kids", "made_for_kids"} else "unknown"
+    return "unknown"
+
+
+def made_for_kids_flag(designation: str) -> bool | None:
+    """YouTube status.selfDeclaredMadeForKids. None means do not insert.
+
+    Omitting the field is not false. YouTube then blocks the video until Studio
+    sets the audience. This channel is not_made_for_kids unless channel.md changes.
+    """
+    if designation == "not_made_for_kids":
+        return False
+    if designation == "made_for_kids":
+        return True
+    return None
+
+
 def request_body(report: dict) -> dict:
     meta = report["meta"]
     status = {
         "privacyStatus": report["privacy"],
-        "selfDeclaredMadeForKids": False,
     }
+    kids = report.get("made_for_kids")
+    if not isinstance(kids, bool):
+        kids = made_for_kids_flag(audience_designation())
+    if isinstance(kids, bool):
+        status["selfDeclaredMadeForKids"] = kids
     if isinstance(report.get("contains_synthetic_media"), bool):
         status["containsSyntheticMedia"] = report["contains_synthetic_media"]
     return {
@@ -843,6 +881,8 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
         raise YouTubeAPIError(0, "PRIVACY_NOT_PRIVATE")
     if not isinstance(report.get("contains_synthetic_media"), bool):
         raise YouTubeAPIError(0, "SYNTHETIC_DISCLOSURE_UNKNOWN")
+    if not isinstance(report.get("made_for_kids"), bool):
+        raise YouTubeAPIError(0, "AUDIENCE_UNKNOWN")
     export = export_path(packet)
     prior = load_prior_state(packet)
     prior_video_id = None
@@ -906,7 +946,7 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
                     },
                     "status": {
                         "containsSyntheticMedia": report["contains_synthetic_media"],
-                        "selfDeclaredMadeForKids": False,
+                        "selfDeclaredMadeForKids": report["made_for_kids"],
                     },
                 },
                 privacy=report["privacy"],

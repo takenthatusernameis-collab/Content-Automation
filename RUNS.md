@@ -1,3 +1,14 @@
+## 2026-10-03T21:15:00Z — Run 302
+
+- **Objective:** Stop an omitted made-for-kids flag from uploading a video that Studio then blocks, without adding an upload HTTP status variant or polling OAuth.
+- **Inspected:** STATE, NEXT, RUNS, FAILURES, BLOCKED, youtube_upload.py, youtube_api.py, channel.md. OAuth secrets were not polled (Actions secret list returned 403).
+- **Action taken:** `docs/channel.md` records `audience_designation: not_made_for_kids`. Inspect holds when that line is missing or other. Execute raises `AUDIENCE_UNKNOWN` before the token refresh. `upload_video` no longer defaults a missing flag to false. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the audience gate and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** The field was already hardcoded false on the execute path, but a missing flag was still treated as false in the transport. YouTube treats absence as unset, not as false.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall. Flagged, not re-worked as the only work.
+- **Recommended next action:** Follow `python3 tools/oauth_setup.py`, store the three secrets, then dispatch `youtube-production.yml` with execute=true. Do not add another HTTP status variant unless a live execute returned that status. Do not change `audience_designation` unless the channel decision changes. Do not scaffold Q2.
+
 ## 2026-10-03T20:20:00Z — Run 301
 
 - **Objective:** Stop a drafted chapter list from being dropped at videos.insert, without adding an upload HTTP status variant or polling OAuth.

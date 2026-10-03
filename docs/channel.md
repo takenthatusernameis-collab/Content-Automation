@@ -8,6 +8,11 @@ Systems for doing focused work. Productivity as process design, not motivation.
 ## Audience
 People who already plan their week, then stall when it is time to start.
 
+## Audience designation
+audience_designation: not_made_for_kids
+
+YouTube `status.selfDeclaredMadeForKids` must be present and false for this channel. Omitting the field uploads a video that stays blocked until Studio sets the audience. Do not change this line to `made_for_kids` unless the channel decision changes. Do not omit it.
+
 ## Promise
 After each video the viewer can install one small default (cue, constraint, or checklist) the same day.
 

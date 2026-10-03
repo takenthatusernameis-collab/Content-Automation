@@ -1,3 +1,9 @@
+## Run 302 — omitted made-for-kids flag would block the first upload in Studio
+- **Tried:** Runs 281-301 froze new HTTP status variants. `youtube_api.upload_video` still defaulted a missing `selfDeclaredMadeForKids` to false, and the execute path hardcoded false instead of reading the channel decision.
+- **Evidence:** YouTube leaves a video blocked from views until the audience is set when the field is absent. A silent default hides a dropped field. This channel is adult productivity, not made for kids.
+- **Result:** `audience_designation` in `docs/channel.md` is `not_made_for_kids`. Inspect is HOLD_LOCAL when it is missing. Execute raises `AUDIENCE_UNKNOWN` before the token refresh. The transport refuses a missing bool and does not start a session. Selftest passed locally. Actions was not re-run.
+- **Avoid:** Restoring `setdefault` false. Inventing `made_for_kids`. Treating this as an HTTP status variant. Restating the OAuth hold as the only work.
+
 ## Run 301 — drafted chapters could vanish from the uploaded description
 - **Tried:** Runs 281-300 froze new HTTP status variants. chapters.md and publish.md can still diverge. YouTube does not reject a description that drops timestamps; it uploads the video and ignores chapters.
 - **Evidence:** `videos.insert` sends `parse_publish()` description only. A missing `0:00` line, fewer than three timestamps, or a gap under 10 seconds is ignored, not a 400. Q1 currently has six matching lines.

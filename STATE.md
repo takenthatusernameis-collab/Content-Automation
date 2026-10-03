@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-03T20:20:00Z (Run 301)
+Updated: 2026-10-03T21:15:00Z (Run 302)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 302 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- `videos.insert` must send `status.selfDeclaredMadeForKids` from `docs/channel.md` `audience_designation`. This channel is `not_made_for_kids`, so the flag is false. An unknown designation is `AUDIENCE_UNKNOWN` before the token refresh and does not insert. The API layer no longer defaults a missing flag to false. Omitting the field uploads a video that stays blocked until Studio sets the audience. Selftest passed locally. Actions was not re-run.
+- Flag still stands: do not add another upload HTTP status variant unless a live execute returned that status.
 
 ## Run 301 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -174,14 +179,15 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 0.5 | 0.5 | Chapter drift is now a local hold; secret setup still one-time |
-| Automated steps | 133 | 134 | chapter-sync gate; no upload ran |
+| Estimated human min / video | 0.5 | 0.5 | Audience omission is now a local hold; secret setup still one-time |
+| Automated steps | 134 | 135 | audience gate; no upload ran |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
 - Do not upload q1-media-r249 q1-master.mp4 as the finished export
 - Do not upload a description that drops drafted chapter lines. A missing chapters.md stays missing.
 - Do not omit status.containsSyntheticMedia. Q1 vo_origin kind is generated, so the flag is true. Do not invent a kind.
+- Do not omit status.selfDeclaredMadeForKids. This channel is not_made_for_kids, so the flag is false. Do not default a missing flag to false. Do not invent made_for_kids.
 - Do not rebase a shallow provider-state commit without unshallow. Do not force-push that state.
 - Do not abort materialize merely because that banned asset is present in the r249 release
 - Finished local export is q1-media-r253 q1-master-r253.mp4 (328.40s, sha256 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546)

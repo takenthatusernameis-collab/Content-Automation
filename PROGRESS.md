@@ -1,5 +1,8 @@
 # PROGRESS
 
+## Run 302
+`videos.insert` now refuses to start when `status.selfDeclaredMadeForKids` is missing. Channel designation is `not_made_for_kids`, so the flag is false. Estimated human minutes stay 0.5. Automated steps 134 -> 135. Videos published stay 0. No provider write. Do not add another upload HTTP status variant without a live execute status.
+
 ## 2026-10-03T20:20:00Z — Run 301
 - Chapter lines drafted in chapters.md are now a fail-closed description check. A dropped or invalid list cannot reach videos.insert. Q1 already matched, so no publish copy was rewritten.
 - Automated steps 133 -> 134. Videos published stay 0. Human minutes per video stay 0.5. The OAuth secret stall is unchanged and was not polled.

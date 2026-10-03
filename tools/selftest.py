@@ -287,6 +287,16 @@ def check_upload_fail_closed() -> list[str]:
             failures.append("request_body must disclose generated narration")
         if "containsSyntheticMedia" not in src:
             failures.append("upload adapter must set status.containsSyntheticMedia")
+        from youtube_upload import audience_designation, made_for_kids_flag
+        if audience_designation() != "not_made_for_kids" or made_for_kids_flag("not_made_for_kids") is not False:
+            failures.append("channel audience must stay not_made_for_kids until the channel decision changes")
+        if made_for_kids_flag("made_for_kids") is not True or made_for_kids_flag("unknown") is not None:
+            failures.append("unknown audience must not invent selfDeclaredMadeForKids")
+        if body_gen.get("status", {}).get("selfDeclaredMadeForKids") is not False:
+            failures.append("request_body must set selfDeclaredMadeForKids false for this channel")
+        api_src = Path(__file__).resolve().parent.joinpath("youtube_api.py").read_text(encoding="utf-8")
+        if "setdefault(\"selfDeclaredMadeForKids\"" in api_src or "AUDIENCE_UNKNOWN" not in api_src:
+            failures.append("upload transport must refuse a missing selfDeclaredMadeForKids instead of defaulting it")
 
         (p / "publish.md").write_text(
             "## Title to upload\n\nFixture title\n\n"
@@ -1418,9 +1428,21 @@ def check_resumable_video_upload() -> list[str]:
             data = youtube_api.upload_video(
                 "token-not-printed",
                 export_path=media,
-                metadata={"snippet": {"title": "t"}},
+                metadata={"snippet": {"title": "t"}, "status": {"selfDeclaredMadeForKids": False}},
                 privacy="private",
             )
+            try:
+                youtube_api.upload_video(
+                    "token-not-printed",
+                    export_path=media,
+                    metadata={"snippet": {"title": "t"}},
+                    privacy="private",
+                )
+            except youtube_api.YouTubeAPIError as exc:
+                if exc.reason != "AUDIENCE_UNKNOWN":
+                    failures.append(f"missing audience must be AUDIENCE_UNKNOWN, got {exc.reason}")
+            else:
+                failures.append("missing selfDeclaredMadeForKids must not start a session")
     finally:
         youtube_api._http = original
         youtube_api.RESUMABLE_CHUNK = original_chunk
@@ -1460,7 +1482,7 @@ def check_resumable_video_upload() -> list[str]:
             data = youtube_api.upload_video(
                 "token-not-printed",
                 export_path=media,
-                metadata={"snippet": {"title": "t"}},
+                metadata={"snippet": {"title": "t"}, "status": {"selfDeclaredMadeForKids": False}},
                 privacy="private",
             )
     finally:
@@ -1497,7 +1519,7 @@ def check_resumable_video_upload() -> list[str]:
             data = youtube_api.upload_video(
                 "token-not-printed",
                 export_path=media,
-                metadata={"snippet": {"title": "t"}},
+                metadata={"snippet": {"title": "t"}, "status": {"selfDeclaredMadeForKids": False}},
                 privacy="private",
             )
     finally:
@@ -1532,7 +1554,7 @@ def check_resumable_video_upload() -> list[str]:
             data = youtube_api.upload_video(
                 "token-not-printed",
                 export_path=media,
-                metadata={"snippet": {"title": "t"}},
+                metadata={"snippet": {"title": "t"}, "status": {"selfDeclaredMadeForKids": False}},
                 privacy="private",
             )
     finally:
@@ -1563,7 +1585,7 @@ def check_resumable_video_upload() -> list[str]:
             data = youtube_api.upload_video(
                 "token-not-printed",
                 export_path=media,
-                metadata={"snippet": {"title": "t"}},
+                metadata={"snippet": {"title": "t"}, "status": {"selfDeclaredMadeForKids": False}},
                 privacy="private",
             )
     finally:
@@ -1702,7 +1724,7 @@ def check_resumable_video_upload() -> list[str]:
             data = youtube_api.upload_video(
                 "token-not-printed",
                 export_path=media,
-                metadata={"snippet": {"title": "t"}},
+                metadata={"snippet": {"title": "t"}, "status": {"selfDeclaredMadeForKids": False}},
                 privacy="private",
                 token_refresher=lambda: "token-refreshed",
             )
@@ -1738,7 +1760,7 @@ def check_resumable_video_upload() -> list[str]:
             data = youtube_api.upload_video(
                 "token-not-printed",
                 export_path=media,
-                metadata={"snippet": {"title": "t"}},
+                metadata={"snippet": {"title": "t"}, "status": {"selfDeclaredMadeForKids": False}},
                 privacy="private",
             )
     finally:
@@ -1773,7 +1795,7 @@ def check_resumable_video_upload() -> list[str]:
                 youtube_api.upload_video(
                     "token-not-printed",
                     export_path=media,
-                    metadata={"snippet": {"title": "t"}},
+                    metadata={"snippet": {"title": "t"}, "status": {"selfDeclaredMadeForKids": False}},
                     privacy="private",
                 )
             except youtube_api.YouTubeAPIError as exc:
@@ -1809,7 +1831,7 @@ def check_resumable_video_upload() -> list[str]:
                 youtube_api.upload_video(
                     "token-not-printed",
                     export_path=media,
-                    metadata={"snippet": {"title": "t"}},
+                    metadata={"snippet": {"title": "t"}, "status": {"selfDeclaredMadeForKids": False}},
                     privacy="private",
                 )
             except youtube_api.YouTubeAPIError as exc:
