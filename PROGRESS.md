@@ -1,3 +1,6 @@
+## Run 296
+An unaligned resumable Range now stalls before the next PUT instead of sending a chunk YouTube rejects. Estimated human minutes stay 0.5 until secrets exist. Automated steps 129 -> 130. Videos published stay 0. No provider write. The upload status-variant loop (Runs 281-295) is flagged; do not extend it without a live status.
+
 # PROGRESS
 
 Updated: 2026-10-03T10:20:00Z (Run 295)

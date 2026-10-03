@@ -321,6 +321,25 @@ def received_offset(headers: Mapping[str, str]) -> int | None:
     return resume_offset(raw, 0)
 
 
+# YouTube rejects a non-final chunk that does not start on a 256 KiB boundary.
+RESUMABLE_ALIGN = 256 * 1024
+
+
+def sendable_offset(offset: int, size: int) -> bool:
+    """True when the next PUT may start at offset.
+
+    Production chunks are multiples of 256 KiB, so a resume offset must be too.
+    An unaligned Range is not a received chunk to continue: sending it returns
+    400 and the next execute would open another videos.insert. Tests that shrink
+    the chunk below 256 KiB stay exempt so the fake transport can use tiny files.
+    """
+    if offset < 0 or offset > size:
+        return False
+    if offset == size or RESUMABLE_CHUNK % RESUMABLE_ALIGN != 0:
+        return True
+    return offset % RESUMABLE_ALIGN == 0
+
+
 def _pause(headers: Mapping[str, str], retries: int) -> None:
     """Backoff, and honor Retry-After when the guide says to wait before resume."""
     backoff = RESUMABLE_BACKOFF_SECONDS[min(retries, len(RESUMABLE_BACKOFF_SECONDS) - 1)]
@@ -487,6 +506,8 @@ def upload_video(
         return _query_resumable(session, token, size)
     with export_path.open("rb") as handle:
         while offset < size:
+            if not sendable_offset(offset, size):
+                raise YouTubeAPIError(308, "RESUMABLE_STALLED", f"unaligned_offset={offset}")
             handle.seek(offset)
             chunk = handle.read(RESUMABLE_CHUNK)
             if not chunk:

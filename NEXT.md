@@ -2,6 +2,8 @@
 
 Do these in order. Do not rediscover the resumable video upload (Run 287): `videos.insert` uses `uploadType=resumable` and 8 MiB chunks. Do not restore multipart for the master. Captions and thumbnails stay multipart. Stop only when required evidence is unavailable or a genuine external authorization/credential boundary is reached. Approval-only decisions are delegated to the agent.
 
+1j. **Do not rediscover the unaligned resume.** Run 296 fixed it. A 308 Range that is not a multiple of 256 KiB is `RESUMABLE_STALLED` with `unaligned_offset`. Do not send the next chunk. Do not treat that 400-prone offset as progress. Tests that shrink the chunk below 256 KiB stay exempt. Do not add another HTTP status variant unless a live execute returned that status. Runs 281-295 are the suspicious upload-gate loop.
+
 1i. **Do not rediscover the gone session after a finished PUT.** Run 295 fixed it. A 200 or 201 with no video id still queries that session once. A 404 or 410 on that query is `RESUMABLE_COMPLETED_SESSION_GONE`. Persist `completed_without_id` and do not invent a provider video id. A matching fingerprint is `HOLD_COMPLETED_WITHOUT_ID` and must not POST `videos.insert` again. A mid-upload 404 with no completing 200/201 stays `RESUMABLE_SESSION_EXPIRED`. Do not restore a body-only success path.
 
 1h. **Do not rediscover the empty completion body.** Run 294 fixed it. A chunk PUT that returns 200 or 201 with no video id queries that same session once and uses the resource. It must not POST `videos.insert` again. A status query that is not 200/201 stays `RESUMABLE_MISSING_VIDEO_ID`. Do not restore a body-only success path.

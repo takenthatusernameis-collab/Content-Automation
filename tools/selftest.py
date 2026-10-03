@@ -1589,6 +1589,44 @@ def check_resumable_video_upload() -> list[str]:
         youtube_api.RESUMABLE_CHUNK = original_chunk
     if gone_calls.count("POST") != 1:
         failures.append(f"410 after empty 201 must not start a second videos.insert: {gone_calls}")
+
+    youtube_api.RESUMABLE_CHUNK = 8 * 1024 * 1024
+    if youtube_api.sendable_offset(100, 5000):
+        failures.append("unaligned resume offset must not be sendable")
+    if not youtube_api.sendable_offset(256 * 1024, 8 * 1024 * 1024):
+        failures.append("256 KiB resume offset must be sendable")
+    align_calls: list[str] = []
+
+    def unaligned_http(url, *, method, headers, body, timeout):
+        align_calls.append(method)
+        if method == "POST":
+            return 200, {"Location": "https://upload.example/session-align"}, b""
+        return 308, {"Range": "bytes=0-99"}, b""
+
+    youtube_api._http = unaligned_http
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            media = Path(tmp) / "master.mp4"
+            media.write_bytes(b"x" * (256 * 1024 + 10))
+            try:
+                youtube_api.upload_video(
+                    "token-not-printed",
+                    export_path=media,
+                    metadata={"snippet": {"title": "t"}},
+                    privacy="private",
+                )
+            except youtube_api.YouTubeAPIError as exc:
+                if exc.reason != "RESUMABLE_STALLED" or "unaligned_offset=100" not in exc.detail:
+                    failures.append(f"unaligned Range must stall: {exc.reason} {exc.detail}")
+            else:
+                failures.append("unaligned Range must not continue the upload")
+    finally:
+        youtube_api._http = original
+        youtube_api.RESUMABLE_CHUNK = original_chunk
+    if align_calls.count("POST") != 1:
+        failures.append(f"unaligned Range must not start a second videos.insert: {align_calls}")
+    if align_calls.count("PUT") != 1:
+        failures.append(f"unaligned Range must not send the next chunk: {align_calls}")
     return failures
 
 

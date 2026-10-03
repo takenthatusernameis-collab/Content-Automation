@@ -1,3 +1,9 @@
+## Run 296 — unaligned resume looked like progress, and the status loop is suspicious
+- **Tried:** Runs 281-295 each added a local snippet gate or an HTTP status variant on the resumable uploader. The publish gate stayed the missing OAuth secrets. A 308 Range of `bytes=0-99` would resume at byte 100 and send the next chunk.
+- **Evidence:** YouTube requires every non-final chunk to be a multiple of 256 KiB and to start on that boundary. An unaligned PUT is a 400, not a stored chunk. The next execute would open another videos.insert. The same runs never saw a live status; they kept extending the client anyway.
+- **Result:** `sendable_offset()` refuses that resume. The loop raises `RESUMABLE_STALLED` with `unaligned_offset` and does not send the next chunk. Selftest covers a 308 of `bytes=0-99` and asserts one POST and one PUT. Status-variant work is flagged. Do not add another unless a live execute returned that status.
+- **Avoid:** Sending the next chunk from an unaligned Range. Treating Runs 281-295 as a reason to invent the next status code. Restating the OAuth hold as the only work.
+
 ## Run 295 — a finished upload with a gone session looked retryable
 - **Tried:** Run 294 queried the session once when a 200/201 body had no id. A follow-up 404 or 410 still raised `RESUMABLE_MISSING_VIDEO_ID` or the raw status, and the workflow refused to commit state without a provider video id.
 - **Evidence:** YouTube's resumable guide uses 404 for an expired session URI. The Google Data resumable protocol says a later PUT to a completed session returns 410 Gone. Either response after an accepted last byte means the video can exist and the id is no longer on that session. The next execute would open another videos.insert.

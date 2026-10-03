@@ -1,3 +1,14 @@
+## 2026-10-03T11:20:00Z — Run 296
+
+- **Objective:** Stop the upload status-variant loop and close the unaligned resume hole that would send a chunk YouTube rejects.
+- **Inspected:** STATE, NEXT, ROADMAP, HANDOFF, FAILURES, BLOCKED, `youtube_api.py`, `youtube-production.yml`. OAuth secrets were not polled.
+- **Action taken:** A 308 Range that is not a multiple of 256 KiB is `RESUMABLE_STALLED` (`unaligned_offset`). The next chunk is not sent. Tiny-chunk tests stay exempt. Extended the selftest. Did not dispatch. Flagged Runs 281-295 as a suspicious loop.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the alignment guard and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** The client resumed any advancing Range. Byte 100 is not a legal non-final chunk start. More status classes would not fix that, and the publish gate is still the missing secrets.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall. Flagged, not re-worked as the only work.
+- **Recommended next action:** Add those three secrets from a token granted `youtube.upload` and `youtube.force-ssl` (or full `youtube`), then dispatch `youtube-production.yml` with execute=true. Do not re-encode. Do not send an unaligned resumable chunk. Do not add another HTTP status variant unless a live execute returned that status. Do not scaffold Q2.
+
 ## 2026-10-03T10:20:00Z — Run 295
 
 - **Objective:** Stop a finished resumable upload whose session then returns 404 or 410 from inviting a second videos.insert.
