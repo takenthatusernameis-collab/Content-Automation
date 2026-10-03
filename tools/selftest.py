@@ -1420,6 +1420,46 @@ def check_resumable_video_upload() -> list[str]:
     finally:
         youtube_api._request = original_request
         youtube_api._sleep = original_sleep
+
+    auth_calls: list[tuple[str, str]] = []
+
+    def unauthorized_http(url, *, method, headers, body, timeout):
+        auth = headers.get("Authorization", "")
+        auth_calls.append((method, auth))
+        if method == "POST":
+            return 200, {"Location": "https://upload.example/session-401"}, b""
+        if auth.endswith("token-not-printed"):
+            raise youtube_api.YouTubeAPIError(401, "authError", "Invalid Credentials")
+        rng = headers.get("Content-Range", "")
+        if rng.startswith("bytes */"):
+            return 308, {"Range": "bytes=0-7"}, b""
+        return 201, {}, json.dumps({"id": "vid-401"}).encode()
+
+    youtube_api._http = unauthorized_http
+    youtube_api.RESUMABLE_CHUNK = 8
+    youtube_api._sleep = lambda _seconds: None
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            media = Path(tmp) / "master.mp4"
+            media.write_bytes(b"0123456789abcdef")
+            data = youtube_api.upload_video(
+                "token-not-printed",
+                export_path=media,
+                metadata={"snippet": {"title": "t"}},
+                privacy="private",
+                token_refresher=lambda: "token-refreshed",
+            )
+    finally:
+        youtube_api._http = original
+        youtube_api.RESUMABLE_CHUNK = original_chunk
+        youtube_api._sleep = original_sleep
+    if data.get("id") != "vid-401":
+        failures.append(f"401 must resume the same session after refresh: {data}")
+    posts = [item for item in auth_calls if item[0] == "POST"]
+    if len(posts) != 1:
+        failures.append(f"401 must not start a second videos.insert: {posts}")
+    if not any(item[0] == "PUT" and item[1].endswith("token-refreshed") for item in auth_calls):
+        failures.append(f"401 resume must use the refreshed token: {auth_calls}")
     return failures
 
 

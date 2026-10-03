@@ -1,3 +1,14 @@
+## 2026-10-03T07:20:00Z — Run 292
+
+- **Objective:** Stop a 401 on the resumable master upload from aborting the session and inviting a second videos.insert.
+- **Inspected:** STATE, NEXT, RUNS, `tools/youtube_api.py`, `tools/selftest.py`. OAuth secrets were not polled.
+- **Action taken:** A chunk PUT 401, or a session-start 401 with no Location, refreshes the access token and continues the same upload. A Location already returned is not followed by another videos.insert. Three refreshes or an empty/unchanged token raise `RESUMABLE_TOKEN_REFRESH_EXHAUSTED`. Extended the selftest. Did not dispatch.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the 401 resume contract and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** Runs 287-291 covered 308, 5xx, missing Range, session-start 503, and post-upload artifact retries. A 401 still raised `RESUMABLE_UNEXPECTED_STATUS` and dropped the Location.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall. Do not spend a run only restating it.
+- **Recommended next action:** Add those three secrets from a token granted `youtube.upload` and `youtube.force-ssl` (or full `youtube`), then dispatch `youtube-production.yml` with execute=true. Do not re-encode. Do not start a second videos.insert on 401. Do not add another snippet micro-gate. Do not scaffold Q2.
+
 ## 2026-10-03T06:16:00Z — Run 291
 
 - **Objective:** Stop a transient 503 on caption, thumbnail, or pin-comment upload from forcing another workflow dispatch after the video id already exists, without another snippet gate or a second videos.insert.

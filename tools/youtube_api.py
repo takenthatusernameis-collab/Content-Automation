@@ -18,6 +18,7 @@ import urllib.parse
 import urllib.request
 import uuid
 from pathlib import Path
+from collections.abc import Callable
 from typing import Any, Mapping
 
 TOKEN_URL = "https://oauth2.googleapis.com/token"
@@ -380,18 +381,31 @@ def _start_resumable_session(
     return "", last_code
 
 
+def _refreshed_token(refresher: Callable[[], str], previous: str) -> str:
+    """Return a non-empty access token. Do not print it."""
+    fresh = str(refresher() or "").strip()
+    if not fresh:
+        raise YouTubeAPIError(401, "RESUMABLE_TOKEN_REFRESH_EXHAUSTED", "empty_token")
+    if fresh == previous:
+        raise YouTubeAPIError(401, "RESUMABLE_TOKEN_REFRESH_EXHAUSTED", "token_unchanged")
+    return fresh
+
+
 def upload_video(
     token: str,
     *,
     export_path: Path,
     metadata: Mapping[str, Any],
     privacy: str,
+    token_refresher: Callable[[], str] | None = None,
 ) -> dict[str, Any]:
     """Insert a video with the resumable protocol.
 
     A single multipart POST of a multi-minute master is the wrong transport:
     proxies and the 20-minute Actions job drop it, and a lost response can hide
     a created video id. Captions and thumbnails stay multipart; they are small.
+    A 401 refreshes the access token and resumes the same Location. It must not
+    open another videos.insert.
     """
     body = dict(metadata)
     status = dict(body.get("status") or {})
@@ -413,12 +427,40 @@ def upload_video(
         "videos",
         {"part": "snippet,status", "uploadType": "resumable", "notifySubscribers": "false"},
     )
-    session, code = _start_resumable_session(init_url, init_headers, _json_bytes(body))
+    refresher = token_refresher or refresh_access_token
+    auth_refreshes = 0
+    session = ""
+    code = 0
+    init_body = _json_bytes(body)
+    for _attempt in range(RESUMABLE_RETRY_LIMIT):
+        try:
+            session, code = _start_resumable_session(init_url, init_headers, init_body)
+        except YouTubeAPIError as exc:
+            if exc.status != 401:
+                raise
+            session, code = "", 401
+        if session.startswith("https://"):
+            break
+        if code != 401:
+            break
+        if auth_refreshes >= RESUMABLE_RETRY_LIMIT:
+            raise YouTubeAPIError(401, "RESUMABLE_TOKEN_REFRESH_EXHAUSTED", "session_start")
+        token = _refreshed_token(refresher, token)
+        auth_refreshes += 1
+        init_headers["Authorization"] = f"Bearer {token}"
     if not session.startswith("https://"):
         raise YouTubeAPIError(code, "RESUMABLE_SESSION_MISSING")
     offset = 0
     retries = 0
     empty_ranges = 0
+
+    def resume_after_auth(stage: str) -> tuple[int, dict[str, str], bytes]:
+        nonlocal token, auth_refreshes
+        if auth_refreshes >= RESUMABLE_RETRY_LIMIT:
+            raise YouTubeAPIError(401, "RESUMABLE_TOKEN_REFRESH_EXHAUSTED", stage)
+        token = _refreshed_token(refresher, token)
+        auth_refreshes += 1
+        return _query_resumable(session, token, size)
     with export_path.open("rb") as handle:
         while offset < size:
             handle.seek(offset)
@@ -442,9 +484,28 @@ def upload_video(
                     timeout=600,
                 )
             except YouTubeAPIError as exc:
-                if exc.status not in RESUMABLE_RETRYABLE and exc.reason != "network_error":
+                if exc.status == 401:
+                    put_code, put_headers_out, raw = 401, {}, b""
+                elif exc.status not in RESUMABLE_RETRYABLE and exc.reason != "network_error":
                     raise
-                put_code, put_headers_out, raw = exc.status, {}, b""
+                else:
+                    put_code, put_headers_out, raw = exc.status, {}, b""
+            if put_code == 401:
+                status_code, status_headers, status_raw = resume_after_auth(f"offset={offset}")
+                if status_code in {200, 201}:
+                    return _video_resource(status_code, status_raw)
+                if status_code == 308:
+                    nxt = received_offset(status_headers)
+                    if nxt is None:
+                        offset = 0
+                    elif 0 <= nxt <= size:
+                        offset = nxt
+                        retries = 0
+                    else:
+                        raise YouTubeAPIError(308, "RESUMABLE_STALLED", f"offset={offset}")
+                elif status_code == 404:
+                    raise YouTubeAPIError(404, "RESUMABLE_SESSION_EXPIRED", f"offset={offset}")
+                continue
             if put_code in {200, 201}:
                 return _video_resource(put_code, raw)
             if put_code == 308:

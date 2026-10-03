@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-03T06:16:00Z (Run 291)
+Updated: 2026-10-03T07:20:00Z (Run 292)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 292 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- A 401 on a chunk PUT, or on session start with no Location, refreshes the access token and resumes the same upload. A Location already returned is not followed by another videos.insert. Three refreshes or an empty/unchanged token raise `RESUMABLE_TOKEN_REFRESH_EXHAUSTED`. Selftest passed locally. Actions was not re-run.
+- Flag still stands: do not add another snippet micro-gate. Description angle brackets remain ungated and are deferred on purpose.
 
 ## Run 291 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -120,8 +125,8 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Metrics snapshot
 | Metric | Previous | Current | Notes |
 |--------|----------|---------|-------|
-| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; a session POST with no Location now retries instead of aborting |
-| Automated steps | 124 | 125 | session start retries only when Location is missing; no upload ran |
+| Estimated human min / video | 0.5 | 0.5 | OAuth secret entry remains; a 401 now refreshes and resumes the same session |
+| Automated steps | 125 | 126 | 401 resumes the existing Location; no upload ran |
 | Videos produced | 0 | 0 | no provider write |
 
 ## Active constraints
@@ -164,3 +169,5 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Do not POST videos.insert again when that 503 already returned Location
 - Do not treat HTTP 408 or 429 on a chunk PUT as a permanent failure
 - Do not add another snippet micro-gate unless a documented provider reject is still ungated
+- Do not treat a 401 on a chunk PUT as a reason to start a second videos.insert
+- Do not refresh into a second videos.insert when Location is already present
