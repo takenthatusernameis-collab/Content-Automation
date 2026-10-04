@@ -49,7 +49,9 @@ def idea_followup(title: str) -> list[str]:
     """Reprint suggested idea.md fields. Does not write idea.md."""
     lines = [
         "This command does not write idea.md.",
-        "Before expand_prompt, paste these into idea.md if the template fields are still blank:",
+        "Before expand_prompt, fill a blank idea.md with python3 tools/apply_idea.py PACKET --write.",
+        "That command does not write spoken WORDS and does not scaffold. A reviewed idea.md is refused.",
+        "Paste these only if you are not using that command:",
         f"  - topic: {title}",
     ]
     row = None

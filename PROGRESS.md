@@ -1,3 +1,6 @@
+## Run 320 (2026-10-04T19:30:00Z)
+- Blank idea.md after scaffold can be filled by `tools/apply_idea.py --write` from the locked queue paste. Reviewed idea.md is refused. Estimated human minutes saved at each later scaffold: about 3 (no hand paste). No video produced. Videos published stay 0. Automated steps stay 139 plus this fill command. Q2 was not scaffolded.
+
 
 ## Run 319 (2026-10-04T18:14:00Z)
 - Locked problem lines for Q2-Q5 in the topic queue. Future idea briefs reprint them. Estimated human minutes saved at each later scaffold: about 5, once Q1 has shipped. No video produced. Videos published stay 0.

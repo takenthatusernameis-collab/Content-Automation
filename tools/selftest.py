@@ -993,6 +993,23 @@ def check_oauth_setup_recipe() -> list[str]:
     return failures
 
 
+
+
+def check_apply_idea() -> list[str]:
+    """Blank idea.md fill must stay fail-closed and must not scaffold Q2."""
+    import subprocess
+    failures = []
+    tool = ROOT / "tools" / "apply_idea.py"
+    contract = ROOT / "tools" / "apply_idea_contract.py"
+    if not tool.is_file():
+        return ["apply_idea.py missing"]
+    if not contract.is_file():
+        return ["apply_idea_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0 or "APPLY IDEA CONTRACT PASS" not in proc.stdout:
+        failures.append(f"apply_idea_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}")
+    return failures
+
 def main() -> int:
     path = sample_packet()
     failures: list[str] = []
@@ -1090,6 +1107,7 @@ def main() -> int:
     failures.extend(check_upload_variant_freeze())
     failures.extend(check_stall_watch())
     failures.extend(check_prove_locks_on_push())
+    failures.extend(check_apply_idea())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")

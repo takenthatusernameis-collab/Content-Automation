@@ -1,5 +1,16 @@
 # STATE
 
+Updated: 2026-10-04T19:30:00Z (Run 320)
+
+## Run 320 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No Studio URL or end-screen sentence added. `STALL_OAUTH_AND_STUDIO` still stands.
+- Blank `idea.md` after scaffold was still a hand paste even though the queue paste is locked. `tools/apply_idea.py` fills that file from `paste_block` only when it is still the blank template or already equal. A reviewed idea.md is refused. It does not scaffold, does not write spoken WORDS, and does not mark the queue used.
+- `python3 tools/apply_idea_contract.py` printed APPLY IDEA CONTRACT PASS on a tempfile packet. `videos/003-put-the-start-cue-on-the-work-itself` was not created. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+- Q1 idea.md was not rewritten.
+
+# STATE
+
 Updated: 2026-10-04T18:14:00Z (Run 319)
 
 ## Run 319 delta

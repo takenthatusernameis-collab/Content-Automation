@@ -1,3 +1,14 @@
+## 2026-10-04T19:30:00Z — Run 320
+
+- **Objective:** Remove the hand paste of a blank idea.md after scaffold without creating Q2 or polling OAuth.
+- **Inspected:** STATE, NEXT, RUNS, topic_queue.md, idea_brief.py, new_packet.py, scaffold_contract.py. OAuth secrets were not polled. Execute was not dispatched.
+- **Action taken:** Added `tools/apply_idea.py` and `tools/apply_idea_contract.py`. Selftest runs the contract. `idea_followup` now names the command and still reprints the locked fields. Did not scaffold. Did not rewrite Q1 idea.md. Did not download or re-encode.
+- **Result:** `python3 tools/apply_idea_contract.py` printed APPLY IDEA CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. `videos/003-put-the-start-cue-on-the-work-itself` was not created. Videos published stay 0.
+- **Verification status:** completed for the idea fill lock and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** The queue paste was already complete. The remaining step was copying it into a blank idea.md by hand.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall.
+- **Recommended next action:** Store those three secrets, then dispatch `youtube-production.yml` with execute=true and skip_comment false. Do not scaffold Q2. Do not overwrite a reviewed idea.md with apply_idea.py.
+
 ## 2026-10-04T18:14:00Z — Run 319
 
 - **Objective:** Remove the handwritten problem step for the next four queued topics without scaffolding a packet or polling OAuth.

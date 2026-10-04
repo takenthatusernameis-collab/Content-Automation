@@ -1,3 +1,5 @@
+1zc. **Do not rediscover the idea.md hand paste.** Run 320 added `tools/apply_idea.py`. Dry-run default. `--write` fills a blank template `idea.md` from the locked queue paste, or rewrites it when it already matches. A different non-blank idea.md is refused. It does not scaffold, does not write spoken WORDS, and does not mark the queue used. Do not scaffold Q2 to try it. Do not overwrite Q1 idea.md.
+
 1zb. **Do not rediscover the missing queue problem line.** Run 319 added a `problem` column to `docs/topic_queue.md` for Q1-Q5. `tools/new_packet.py` `idea_followup` reprints that cell. Q1 still uses the pin sentence. Do not scaffold Q2. Do not delete the column. A blank cell may still say write one before expand.
 
 1za. **Do not rediscover the next-id 002 assumption.** Run 318: Q1 already occupies `videos/002-stop-deciding-what-to-work-on-every-morning`. The next scaffold path is whatever `tools/next_topic.py` prints (`videos/003-put-the-start-cue-on-the-work-itself` as of this run). Do not scaffold that folder while Q1 has not shipped. Do not restore the sentence that the next scaffold is `002-`.
