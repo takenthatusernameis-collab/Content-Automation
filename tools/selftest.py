@@ -1919,6 +1919,12 @@ def check_job_timeout_covers_upload() -> list[str]:
         failures.append("studio pin file must keep the URL and pinned false")
     if studio_handoff.pin_markdown({}) is not None:
         failures.append("studio pin file must not be written without a video id")
+    if not note or "end_screen: not_set" not in note or "https://studio.youtube.com/video/abc123/edit" not in note:
+        failures.append("studio pin file must keep the end screen unset and the editor URL")
+    if "end_screen: not_set" not in rendered or "https://studio.youtube.com/video/abc123/edit" not in rendered:
+        failures.append("studio handoff must print the unset end screen and editor URL")
+    if "studio.youtube.com" in empty:
+        failures.append("studio handoff must not invent an end-screen URL")
     if "fetch-depth: 0" not in workflow:
         failures.append("production checkout must be full history so provider-state rebase has a merge base")
     if "fetch-depth: 1" in workflow:

@@ -1,5 +1,15 @@
 # STATE
 
+Updated: 2026-10-04T11:20:00Z (Run 316)
+
+## Run 316 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. Upload-variant freeze, fetch-depth 0, and prove_locks stay in place.
+- `studio_pin.md` now also records the end screen the Data API cannot set. `end_screen: not_set`. The editor URL is written only when a provider video id exists. A missing id still does not invent a URL. `pinned` stays false. Do not re-encode for the end screen; the master already reserves the last 20 seconds.
+- Selftest, prove_locks, and upload_variant_freeze passed locally. Actions was not re-run.
+- Flag still stands: do not add another upload HTTP status variant unless a live execute returned that status. Do not spend a run only restating the OAuth hold.
+
+
 Updated: 2026-10-04T10:12:00Z (Run 315)
 
 ## Run 315 delta

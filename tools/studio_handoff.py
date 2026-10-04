@@ -49,12 +49,22 @@ def pin_markdown(state: dict, comment: str = "") -> str | None:
         "# Studio pin",
         "",
         "pinned: false",
+        "end_screen: not_set",
         "",
         "commentThreads.insert does not pin. This file is not a pin.",
+        "The Data API does not set an end screen. This file is not an end screen.",
         "",
         f"video_id: {video_id}",
         f"url: https://studio.youtube.com/video/{video_id}/comments",
+        f"editor_url: https://studio.youtube.com/video/{video_id}/edit",
         f"comment_post: {status}",
+        "",
+        "## End screen",
+        "",
+        "The master already reserves the last 20 seconds. Do not re-encode.",
+        "In the editor, add an end screen on that reserve only.",
+        "Lower-left: one video or playlist element. Lower-right: subscribe.",
+        "Leave the CTA card text readable. Do not cover the center.",
         "",
     ]
     if comment:
@@ -84,6 +94,8 @@ def render(state: dict, comment: str = "") -> str:
                 "status: no_video_id",
                 "pinned: false",
                 "pin_note: commentThreads.insert does not pin; no provider video id yet",
+                "end_screen: not_set",
+                "end_screen_note: no provider video id; do not invent an editor URL",
             ]
         )
     lines = [
@@ -93,7 +105,10 @@ def render(state: dict, comment: str = "") -> str:
         f"url: https://studio.youtube.com/video/{video_id}/comments",
         f"comment_post: {status}",
         "pinned: false",
-        "pin_note: commentThreads.insert does not pin; Studio pin stays the remaining human step",
+        "end_screen: not_set",
+        "editor_url: https://studio.youtube.com/video/{video_id}/edit".format(video_id=video_id),
+        "pin_note: commentThreads.insert does not pin; Studio pin stays a remaining human step",
+        "end_screen_note: Data API does not set an end screen; last 20s reserve, lower-left video or playlist, lower-right subscribe",
     ]
     if comment:
         lines.append("comment:")

@@ -1,3 +1,14 @@
+## 2026-10-04T11:20:00Z — Run 316
+
+- **Objective:** Put the Studio end-screen step in the same committed handoff as the pin URL, without a new upload reason or an OAuth poll.
+- **Inspected:** STATE, NEXT, RUNS, studio_handoff.py, youtube-production.yml, format.md. OAuth secrets were not polled. Execute was not dispatched.
+- **Action taken:** `studio_pin.md` and the Studio pin print now include `end_screen: not_set` and the editor URL only when upload_state.json has a provider video id. Lower-left video or playlist, lower-right subscribe, last 20 seconds already reserved. A missing id still writes nothing and prints no URL. No YouTube call. No new YouTubeAPIError reason.
+- **Result:** selftest, prove_locks, and upload_variant_freeze passed locally. A fixture id printed the editor URL and `end_screen: not_set`. An empty state wrote nothing. Videos published stay 0.
+- **Verification status:** completed for the handoff text and local locks. Actions was not re-run. No provider write.
+- **Important discovery:** Run 315 persisted the pin URL. The other Studio step the Data API cannot do, the end screen, was still only in format.md, so the operator would still search Studio after the first private upload.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall.
+- **Recommended next action:** Store those three secrets, then dispatch `youtube-production.yml` with execute=true and skip_comment false. Pin and add the end screen from `studio_pin.md` after that commit. Do not add a YouTubeAPIError reason without a live_status line. Do not scaffold Q2.
+
 ## 2026-10-04T10:12:00Z — Run 315
 
 - **Objective:** Persist the Studio pin URL with the video id so the operator does not depend on the Actions log, without a new upload reason or an OAuth poll.
