@@ -14,6 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 STATE = ROOT / "STATE.md"
 FLAG = "STALL_OAUTH_AND_STUDIO"
+INSTRUCTION_FLAG = "STALL_INSTRUCTION_LOCK"
 WINDOW = 3
 
 
@@ -27,24 +28,51 @@ def run_deltas(text: str) -> list[str]:
     return deltas
 
 
-def flag_text(text: str, window: int = WINDOW) -> list[str]:
-    deltas = run_deltas(text)[:window]
-    if len(deltas) < window:
-        return []
+def _oauth_stall(deltas: list[str]) -> bool:
+    if len(deltas) < WINDOW:
+        return False
     for delta in deltas:
         if "OAuth secrets were not polled" not in delta:
-            return []
+            return False
         if "Videos published stay 0" not in delta:
-            return []
-        lowered = delta.lower()
-        if "studio" not in lowered and "end screen" not in lowered and "end_screen" not in lowered:
-            return []
-    return [
-        FLAG,
-        f"last_{window}_runs: oauth_unpolled_and_studio_handoff",
-        "do_not: add another Studio URL or end-screen sentence while this flag is set",
-        "next: bind an existing constant, or wait for the three YouTube secrets",
-    ]
+            return False
+    return True
+
+
+def flag_text(text: str, window: int = WINDOW) -> list[str]:
+    deltas = run_deltas(text)[:window]
+    flags: list[str] = []
+    if _oauth_stall(deltas):
+        studio = True
+        for delta in deltas:
+            lowered = delta.lower()
+            if "studio" not in lowered and "end screen" not in lowered and "end_screen" not in lowered:
+                studio = False
+                break
+        if studio:
+            flags.extend([
+                FLAG,
+                f"last_{window}_runs: oauth_unpolled_and_studio_handoff",
+                "do_not: add another Studio URL or end-screen sentence while this flag is set",
+                "next: bind an existing constant, or wait for the three YouTube secrets",
+            ])
+        instruction = True
+        for delta in deltas:
+            lowered = delta.lower()
+            if not any(token in lowered for token in ("apply_idea", "fill-idea", "paste", "queue", "hint")):
+                instruction = False
+                break
+            if "provider video id" in lowered or "videos.insert" in lowered:
+                instruction = False
+                break
+        if instruction:
+            flags.extend([
+                INSTRUCTION_FLAG,
+                f"last_{window}_runs: oauth_unpolled_and_instruction_lock",
+                "do_not: add another paste, hint, or queue-column sentence while this flag is set",
+                "next: run tools/quality_scan.py on a new script before ready_for_vo; do not rewrite Q1 WORDS",
+            ])
+    return flags
 
 
 def main() -> int:

@@ -1,3 +1,14 @@
+## 2026-10-04T21:12:00Z — Run 322
+
+- **Objective:** Stop the instruction-lock loop and add a reusable script quality signal that does not rewrite Q1.
+- **Inspected:** STATE, NEXT, RUNS, stall_watch.py, content_quality.md, Q1 packet. OAuth secrets were not polled. Execute was not dispatched.
+- **Action taken:** stall_watch now prints STALL_INSTRUCTION_LOCK when the last three deltas are credential-idle instruction edits. quality_scan.py reports the content_quality phrases in script WORDS and writes nothing. Contracts lock both. Selftest runs them. Did not scaffold. Did not rewrite Q1 WORDS. Did not download or re-encode.
+- **Result:** Before the STATE delta, stall_watch printed STALL_INSTRUCTION_LOCK. quality_scan printed clear for Q1, the template, and the sample, hits 0. quality_scan_contract and stall_watch_contract passed. selftest printed SELFTEST PASS. Videos published stay 0.
+- **Verification status:** completed for the scanner and the stall printer. Actions was not re-run. No provider write.
+- **Important discovery:** Runs 319-321 each avoided OAuth and only locked operator copy. The Studio stall flag had gone clear because those deltas no longer said Studio, so the same no-progress pattern was invisible.
+- **Blocker:** GitHub Actions secrets YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, and YOUTUBE_REFRESH_TOKEN remain the publish gate. Not polled. Recurring external stall.
+- **Recommended next action:** Store those three secrets, then dispatch youtube-production.yml with execute=true and skip_comment false. On a new packet, run quality_scan.py before ready_for_vo. Do not rewrite Q1 WORDS. Do not add another instruction-only sentence while STALL_INSTRUCTION_LOCK is set.
+
 ## 2026-10-04T20:15:00Z — Run 321
 
 - **Objective:** Stop the fill-idea path from telling the operator to paste idea.md by hand after apply_idea.py already exists.

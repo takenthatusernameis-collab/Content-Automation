@@ -1,5 +1,16 @@
 # STATE
 
+Updated: 2026-10-04T21:12:00Z (Run 322)
+
+## Run 322 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write.
+- Pre-change stall printer named STALL_INSTRUCTION_LOCK on Runs 319-321. Those three deltas were credential-idle copy edits. The flag is a printer, not a CI failure.
+- `tools/quality_scan.py` reports anti-slop phrases in script WORDS and does not rewrite. Q1, the template, and the sample were clear. Contracts lock the scanner and the stall printer. Selftest runs both.
+- Q1 WORDS were not rewritten. `videos/003-put-the-start-cue-on-the-work-itself` was not created.
+
+# STATE
+
 Updated: 2026-10-04T20:15:00Z (Run 321)
 
 ## Run 321 delta

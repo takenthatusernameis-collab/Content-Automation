@@ -1,3 +1,7 @@
+## Run 322 (2026-10-04T21:12:00Z)
+- Script anti-slop phrases are now a reusable report (`tools/quality_scan.py`) instead of a reread of docs/content_quality.md. Estimated human minutes saved on each later script review: about 4, if the report is clear. Q1 was already clear, so this video does not change. Automated steps: 139 plus this report. Videos published stay 0. No provider write.
+- Instruction-only runs are now visible as STALL_INSTRUCTION_LOCK. That does not reduce minutes until the three YouTube secrets exist.
+
 ## Run 320 (2026-10-04T19:30:00Z)
 
 ## Run 321 — 2026-10-04T20:15:00Z

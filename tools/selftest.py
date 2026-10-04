@@ -996,6 +996,30 @@ def check_oauth_setup_recipe() -> list[str]:
 
 
 
+def check_quality_scan() -> list[str]:
+    """Anti-slop scan must report hits and must not rewrite script.md."""
+    import subprocess
+    contract = ROOT / "tools" / "quality_scan_contract.py"
+    if not contract.is_file():
+        return ["quality_scan_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0 or "QUALITY SCAN CONTRACT PASS" not in proc.stdout:
+        return [f"quality_scan_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    return []
+
+
+def check_stall_watch() -> list[str]:
+    """Instruction-lock and Studio stalls must stay machine-visible."""
+    import subprocess
+    contract = ROOT / "tools" / "stall_watch_contract.py"
+    if not contract.is_file():
+        return ["stall_watch_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0 or "STALL WATCH CONTRACT PASS" not in proc.stdout:
+        return [f"stall_watch_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    return []
+
+
 def check_idea_gate() -> list[str]:
     """fill-idea must name apply_idea and must not tell the operator to paste by hand."""
     import subprocess
@@ -1121,6 +1145,8 @@ def main() -> int:
     failures.extend(check_prove_locks_on_push())
     failures.extend(check_apply_idea())
     failures.extend(check_idea_gate())
+    failures.extend(check_quality_scan())
+    failures.extend(check_stall_watch())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")

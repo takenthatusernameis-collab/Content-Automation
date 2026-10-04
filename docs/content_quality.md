@@ -55,3 +55,7 @@ Before ready_for_vo or publishing, combine mechanical packet validation, evidenc
 Generated narration is acceptable when explicitly authorized by the operator, but it must not be represented as a human recording.
 
 The quality gate is about the content, not disguising the use of AI.
+
+## Scanner
+
+`python3 tools/quality_scan.py` reports the high-precision phrases in this file inside script.md WORDS. It does not rewrite the script, does not claim authorship, and does not block publish. `--strict` exits 1 only when a hit remains. Q1 was clear on Run 322. Do not rewrite Q1 WORDS to chase a later phrase list.
