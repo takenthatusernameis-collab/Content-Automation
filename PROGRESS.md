@@ -1,3 +1,6 @@
+## Run 315 — 2026-10-04T10:12:00Z
+- Studio pin URL now persists as `studio_pin.md` beside the video id. Estimated human search after upload drops from reading an Actions log to opening one packet file. Still one Studio click. Videos published stay 0.
+
 ## Run 313
 videos.insert now takes category and license from docs/channel.md instead of a hardcoded Education id. A missing channel file cannot invent category 27 or creativeCommon. Estimated human minutes stay 0.5 until secrets exist. Automated steps unchanged. Videos published stay 0. No provider write. Do not add a YouTubeAPIError reason without a live_status line.
 

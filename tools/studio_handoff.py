@@ -32,6 +32,47 @@ def pin_text(packet: Path) -> str:
     return "\n".join(lines).strip()
 
 
+PIN_NAME = "studio_pin.md"
+
+
+def pin_markdown(state: dict, comment: str = "") -> str | None:
+    """Durable Studio note. None when there is no provider video id.
+
+    Does not invent an id. Does not claim the comment is pinned.
+    """
+    video_id = str(state.get("provider_video_id") or "").strip()
+    if not video_id:
+        return None
+    posted = state.get("comment_post") or {}
+    status = str(posted.get("status") or "not_attempted")
+    lines = [
+        "# Studio pin",
+        "",
+        "pinned: false",
+        "",
+        "commentThreads.insert does not pin. This file is not a pin.",
+        "",
+        f"video_id: {video_id}",
+        f"url: https://studio.youtube.com/video/{video_id}/comments",
+        f"comment_post: {status}",
+        "",
+    ]
+    if comment:
+        lines.extend(["## Comment to pin", "", comment, ""])
+    else:
+        lines.extend(["comment: missing", ""])
+    return "\n".join(lines)
+
+
+def write_pin(packet: Path, state: dict, comment: str = "") -> str:
+    body = pin_markdown(state, comment)
+    path = packet / PIN_NAME
+    if body is None:
+        return "not_written"
+    path.write_text(body, encoding="utf-8")
+    return "written"
+
+
 def render(state: dict, comment: str = "") -> str:
     video_id = str(state.get("provider_video_id") or "").strip()
     posted = state.get("comment_post") or {}
@@ -63,10 +104,12 @@ def render(state: dict, comment: str = "") -> str:
 
 
 def main(argv: list[str]) -> int:
-    if len(argv) != 2:
-        print("usage: studio_handoff.py PACKET", file=sys.stderr)
+    write = "--write" in argv[1:]
+    args = [a for a in argv[1:] if a != "--write"]
+    if len(args) != 1:
+        print("usage: studio_handoff.py PACKET [--write]", file=sys.stderr)
         return 2
-    packet = Path(argv[1])
+    packet = Path(args[0])
     state_path = packet / "upload_state.json"
     if not state_path.is_file():
         print("STUDIO_PIN")
@@ -82,7 +125,11 @@ def main(argv: list[str]) -> int:
     if not isinstance(state, dict):
         print("status: upload_state_unreadable", file=sys.stderr)
         return 2
-    print(render(state, pin_text(packet)))
+    comment = pin_text(packet)
+    print(render(state, comment))
+    if write:
+        outcome = write_pin(packet, state, comment)
+        print(f"pin_file: {outcome}")
     return 0
 
 

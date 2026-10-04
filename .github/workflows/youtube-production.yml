@@ -96,7 +96,9 @@ jobs:
           # Data API insert is not a pin. Print the Studio URL when a video id exists.
           # Missing state is not a failure and must not start another videos.insert.
           if [ -f "$PACKET/upload_state.json" ]; then
-            python3 tools/studio_handoff.py "$PACKET"
+            # --write stores studio_pin.md only when a provider video id exists.
+            # A missing id does not invent a URL file. pinned stays false.
+            python3 tools/studio_handoff.py "$PACKET" --write
           else
             echo "STUDIO_PIN"
             echo "status: no_upload_state"
@@ -128,6 +130,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "$STATE"
+          # Persist the Studio URL with the video id. Skip when no id was written.
+          if [ -f "$PACKET/studio_pin.md" ]; then
+            git add "$PACKET/studio_pin.md"
+          fi
           git diff --cached --quiet && {
             echo "Upload state unchanged; nothing to commit."
             exit 0

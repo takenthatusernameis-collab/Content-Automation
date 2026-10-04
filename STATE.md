@@ -1,5 +1,15 @@
 # STATE
 
+Updated: 2026-10-04T10:12:00Z (Run 315)
+
+## Run 315 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. Upload-variant freeze, fetch-depth 0, and prove_locks stay in place.
+- `tools/studio_handoff.py --write` stores `studio_pin.md` only when upload_state.json has a provider video id. A missing id prints `not_written` and does not invent a URL file. `pinned` stays false. The production persist step commits that file with the video id.
+- Selftest, prove_locks, and upload_variant_freeze passed locally. Actions was not re-run.
+- Flag still stands: do not add another upload HTTP status variant unless a live execute returned that status. Do not spend a run only restating the OAuth hold.
+
+
 Updated: 2026-10-04T09:20:00Z (Run 314)
 
 ## Run 314 delta

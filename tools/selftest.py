@@ -1891,8 +1891,10 @@ def check_job_timeout_covers_upload() -> list[str]:
     workflow = (ROOT / ".github/workflows/youtube-production.yml").read_text(encoding="utf-8")
     if "skip_comment:" not in workflow or "--skip-comment" not in workflow:
         failures.append("production workflow must expose skip_comment and pass --skip-comment")
-    if "tools/studio_handoff.py" not in workflow:
-        failures.append("production workflow must print the Studio pin handoff after execute")
+    if "tools/studio_handoff.py" not in workflow or "--write" not in workflow:
+        failures.append("production workflow must write the Studio pin file after execute")
+    if 'git add "$PACKET/studio_pin.md"' not in workflow:
+        failures.append("production persist must commit studio_pin.md with the video id")
     if "pinned: false" not in (ROOT / "tools" / "studio_handoff.py").read_text(encoding="utf-8"):
         failures.append("studio handoff must not claim the comment is pinned")
     import studio_handoff
@@ -1909,6 +1911,14 @@ def check_job_timeout_covers_upload() -> list[str]:
     empty = studio_handoff.render({})
     if "no_video_id" not in empty or "studio.youtube.com" in empty:
         failures.append("studio handoff must not invent a video id")
+    note = studio_handoff.pin_markdown(
+        {"provider_video_id": "abc123", "comment_post": {"status": "posted"}},
+        "Pin this sentence.",
+    )
+    if not note or "https://studio.youtube.com/video/abc123/comments" not in note or "pinned: false" not in note:
+        failures.append("studio pin file must keep the URL and pinned false")
+    if studio_handoff.pin_markdown({}) is not None:
+        failures.append("studio pin file must not be written without a video id")
     if "fetch-depth: 0" not in workflow:
         failures.append("production checkout must be full history so provider-state rebase has a merge base")
     if "fetch-depth: 1" in workflow:

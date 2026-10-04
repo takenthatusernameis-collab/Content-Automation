@@ -1,3 +1,14 @@
+## 2026-10-04T10:12:00Z — Run 315
+
+- **Objective:** Persist the Studio pin URL with the video id so the operator does not depend on the Actions log, without a new upload reason or an OAuth poll.
+- **Inspected:** STATE, NEXT, RUNS, youtube-production.yml, studio_handoff.py, selftest. OAuth secrets were not polled. Execute was not dispatched.
+- **Action taken:** `studio_handoff.py --write` writes `videos/.../studio_pin.md` only when upload_state.json has a provider video id. The comments URL and pin-candidate text are in that file. `pinned` stays false. A missing id does not create the file. The production persist step commits `studio_pin.md` with the upload state. No YouTube call. No new YouTubeAPIError reason.
+- **Result:** selftest, prove_locks, and upload_variant_freeze passed locally. A fixture id wrote the Studio URL and `pinned: false`. An empty state wrote nothing. Videos published stay 0.
+- **Verification status:** completed for the writer, workflow commit line, and local locks. Actions was not re-run. No provider write.
+- **Important discovery:** Run 314 printed the URL only in the job log. A lost log still forced a Studio search even after the video id was committed.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall.
+- **Recommended next action:** Store those three secrets, then dispatch `youtube-production.yml` with execute=true and skip_comment false. Pin from `studio_pin.md` after that commit. Do not add a YouTubeAPIError reason without a live_status line. Do not scaffold Q2.
+
 ## 2026-10-04T09:20:00Z — Run 314
 
 - **Objective:** Make the remaining Studio pin a printed handoff after execute, without a new upload reason or an OAuth poll.
