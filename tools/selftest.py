@@ -1858,6 +1858,10 @@ def check_job_timeout_covers_upload() -> list[str]:
     """A killed Actions job drops the video id. The job must outlast one chunk retry budget."""
     failures = []
     workflow = (ROOT / ".github/workflows/youtube-production.yml").read_text(encoding="utf-8")
+    if "fetch-depth: 0" not in workflow:
+        failures.append("production checkout must be full history so provider-state rebase has a merge base")
+    if "fetch-depth: 1" in workflow:
+        failures.append("do not restore a depth-1 production checkout")
     if "timeout-minutes: 60" not in workflow:
         failures.append("youtube-production job timeout must stay 60 minutes")
     if "timeout-minutes: 20" in workflow:

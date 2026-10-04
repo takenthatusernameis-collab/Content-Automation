@@ -1,5 +1,8 @@
 # NEXT
 
+1s. **Do not rediscover the shallow production checkout.** Run 308 set `youtube-production.yml` checkout `fetch-depth: 0`. A depth-1 clone has no merge base, so a rejected provider-state push can drop the video id if `git fetch --unshallow` fails after the upload. The unshallow retry in `persist_provider_state.py` stays. Do not restore the default shallow checkout. Do not force-push.
+
+
 1r. **Do not rediscover the upload-variant freeze.** Run 307 added `tools/upload_variant_freeze.py`. A new `YouTubeAPIError` reason in `youtube_api.py` or `youtube_upload.py` fails selftest unless `docs/live_execute_evidence.md` has `live_status: REASON_CODE` from a real execute. Do not add the reason to the allowlist to bypass that file. Do not invent a live_status line. Existing reasons stay allowed.
 
 1q. **Do not rediscover the caption processing wait.** Run 305 polls `processingDetails` before `captions.insert`. `succeeded` and `terminated` are ready. `failed` is `VIDEO_PROCESSING_FAILED`. Still processing after 30 polls of 20 seconds (about 10 minutes) is `VIDEO_PROCESSING_NOT_READY`. Do not shrink that budget to six 10-second polls; a 60-second wait forces a second execute for the same caption. Neither starts another `videos.insert`. Do not treat that 400 as a reason to insert again. Do not drop the wait.

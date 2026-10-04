@@ -1,3 +1,9 @@
+## Run 308 — shallow checkout still sat under the unshallow retry
+- **Tried:** Run 298 unshallows a shallow clone before rebase. The production workflow still used the Actions default checkout.
+- **Evidence:** `actions/checkout@v4` had no `fetch-depth`. A rejected `git push` still needed `git fetch --unshallow` after the upload and caption wait. That fetch is the remaining way to drop a persisted video id without an HTTP status.
+- **Result:** Checkout is `fetch-depth: 0`. Selftest refuses `fetch-depth: 1`. Unshallow retry remains. No new YouTubeAPIError reason. No provider write.
+- **Avoid:** Restoring a depth-1 production checkout. Force-pushing provider state. Adding an upload status variant without a live execute. Polling OAuth secrets as the only work.
+
 ## Run 307 — prose flags did not stop the upload-status loop
 - **Tried:** Runs 296-306 recorded that new HTTP status variants are suspicious without a live execute. Later runs still added caption-wait and processing reasons.
 - **Evidence:** `YouTubeAPIError` reasons lived only in code. Nothing failed a future edit that added another one.

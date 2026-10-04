@@ -1,3 +1,6 @@
+## Run 308
+Production checkout is now full history (`fetch-depth: 0`). A rejected provider-state push can rebase without a mid-job unshallow after the upload. Estimated human minutes stay 0.5 until secrets exist. Automated steps stay 138. Videos published stay 0. No provider write. Do not restore a depth-1 production checkout. Do not add a YouTubeAPIError reason without a live_status line.
+
 ## Run 307
 New upload error reasons now fail the selftest unless a live execute recorded them. That stops the Run 281-306 status loop from growing on prose alone. Estimated human minutes stay 0.5 until secrets exist. Automated steps 137 -> 138. Videos published stay 0. No provider write. Do not add a YouTubeAPIError reason without a live_status line.
 
@@ -14,6 +17,7 @@ The post-write lock now passes on a checkout that already has Q1. A false prove_
 The production job now outlasts a slow chunk PUT, so a finished upload can persist its video id instead of being killed at 20 minutes. Chunk PUT timeout is 180 seconds. Estimated human minutes stay 0.5. Automated steps 135 -> 136. Videos published stay 0. No provider write. Do not add another upload HTTP status variant without a live execute status.
 
 # PROGRESS
+
 
 ## Run 302
 `videos.insert` now refuses to start when `status.selfDeclaredMadeForKids` is missing. Channel designation is `not_made_for_kids`, so the flag is false. Estimated human minutes stay 0.5. Automated steps 134 -> 135. Videos published stay 0. No provider write. Do not add another upload HTTP status variant without a live execute status.

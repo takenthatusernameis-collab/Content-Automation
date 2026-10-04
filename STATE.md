@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-04T02:15:00Z (Run 307)
+Updated: 2026-10-04T03:15:00Z (Run 308)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,12 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 308 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. The upload-variant freeze stays in place.
+- Production checkout was still the Actions default (depth 1). A rejected provider-state push then depended on `git fetch --unshallow` after the upload. That fetch can fail or eat the rest of the job, and the video id stays only on the runner. Checkout is now `fetch-depth: 0`. The unshallow retry remains for any other shallow caller. Selftest refuses `fetch-depth: 1`. prove_locks and the variant freeze passed. Actions was not re-run.
+- Flag still stands: do not add another upload HTTP status variant unless a live execute returned that status. Do not restore a shallow production checkout.
 
 ## Run 307 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.

@@ -1,3 +1,14 @@
+## 2026-10-04T03:15:00Z — Run 308
+
+- **Objective:** Stop a rejected provider-state push from depending on a mid-job unshallow after the upload, without adding an upload HTTP status variant or polling OAuth.
+- **Inspected:** STATE, NEXT, RUNS, FAILURES, youtube-production.yml, persist_provider_state.py. OAuth secrets were not polled.
+- **Action taken:** Production checkout is now `fetch-depth: 0`. Selftest refuses `fetch-depth: 1`. The existing unshallow-before-rebase path stays. Did not add a YouTubeAPIError reason. Did not dispatch. Did not scaffold Q2.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. `python3 tools/prove_locks.py` printed PROVE LOCKS PASS. `python3 tools/upload_variant_freeze.py` printed UPLOAD VARIANT FREEZE PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the checkout pin and local commands. Actions was not re-run. No provider write.
+- **Important discovery:** Run 298 unshallows only after a rejected push. The production job still checked out depth 1, so the video id commit still depended on a full fetch at the end of a long upload.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall. Flagged, not re-worked as the only work.
+- **Recommended next action:** Follow `python3 tools/oauth_setup.py`, store the three secrets, then dispatch `youtube-production.yml` with execute=true. Do not restore a shallow production checkout. Do not add a YouTubeAPIError reason without a live_status line. Do not scaffold Q2.
+
 ## 2026-10-04T02:15:00Z — Run 307
 
 - **Objective:** Stop future runs from adding another upload error reason while the publish gate is still the missing OAuth secrets.

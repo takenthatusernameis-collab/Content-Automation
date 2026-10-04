@@ -39,6 +39,11 @@ jobs:
     steps:
       - name: Checkout production branch
         uses: actions/checkout@v4
+        with:
+          # Full history so a rejected provider-state push can rebase without
+          # a mid-job unshallow. A depth-1 checkout has no merge base. Do not
+          # restore the default shallow checkout. Do not force-push.
+          fetch-depth: 0
 
       - name: Fail fast if an authenticated step was requested without OAuth secrets
         if: ${{ inputs.execute == true || inputs.collect_feedback == true }}
