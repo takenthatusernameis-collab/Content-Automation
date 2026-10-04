@@ -295,6 +295,21 @@ def check_upload_fail_closed() -> list[str]:
             failures.append("unknown audience must not invent selfDeclaredMadeForKids")
         if body_gen.get("status", {}).get("selfDeclaredMadeForKids") is not False:
             failures.append("request_body must set selfDeclaredMadeForKids false for this channel")
+        from youtube_upload import category_id, channel_license, ASSIGNABLE_CATEGORY_IDS, CHANNEL_LICENSES
+        if category_id() != "27" or channel_license() != "youtube":
+            failures.append("channel category_id must stay 27 and license youtube until the channel decision changes")
+        if category_id(Path("/tmp")) != "unknown" or channel_license(Path("/tmp")) != "unknown":
+            failures.append("missing channel.md must not invent category 27 or creativeCommon")
+        if body_gen.get("snippet", {}).get("categoryId") != "27":
+            failures.append("request_body must send channel categoryId 27")
+        if body_gen.get("status", {}).get("license") != "youtube":
+            failures.append("request_body must send channel license youtube")
+        if '"categoryId": "27"' in src:
+            failures.append("upload adapter must not hardcode categoryId 27")
+        if "METADATA_REJECTED:category_unknown" not in src or "METADATA_REJECTED:license_unknown" not in src:
+            failures.append("unknown category or license must be METADATA_REJECTED before the token refresh")
+        if "category_known" not in src or "license_known" not in src:
+            failures.append("inspect must HOLD_LOCAL on unknown category or license")
         api_src = Path(__file__).resolve().parent.joinpath("youtube_api.py").read_text(encoding="utf-8")
         if "setdefault(\"selfDeclaredMadeForKids\"" in api_src or "AUDIENCE_UNKNOWN" not in api_src:
             failures.append("upload transport must refuse a missing selfDeclaredMadeForKids instead of defaulting it")

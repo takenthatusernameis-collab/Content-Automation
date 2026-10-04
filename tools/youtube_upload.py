@@ -690,8 +690,20 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
         kids is not None,
         f"selfDeclaredMadeForKids={kids} designation={designation}" if kids is not None else "docs/channel.md audience_designation must be not_made_for_kids or made_for_kids",
     )
+    category = category_id()
+    add(
+        "category_known",
+        category in ASSIGNABLE_CATEGORY_IDS,
+        f"categoryId={category}" if category in ASSIGNABLE_CATEGORY_IDS else "docs/channel.md category_id must be an assignable videoCategories id",
+    )
+    license_value = channel_license()
+    add(
+        "license_known",
+        license_value in CHANNEL_LICENSES,
+        f"license={license_value}" if license_value in CHANNEL_LICENSES else "docs/channel.md license must be youtube or creativeCommon",
+    )
 
-    hard_local = [c for c in checks if c["name"] in {"publish_md_present", "title_present", "master_export_present", "publish_copy_approved", "metadata_within_provider_limits", "artifacts_within_provider_limits", "chapters_in_description", "synthetic_disclosure_known", "audience_known"}]
+    hard_local = [c for c in checks if c["name"] in {"publish_md_present", "title_present", "master_export_present", "publish_copy_approved", "metadata_within_provider_limits", "artifacts_within_provider_limits", "chapters_in_description", "synthetic_disclosure_known", "audience_known", "category_known", "license_known"}]
     local_ok = all(c["ok"] for c in hard_local)
     if not local_ok:
         gate = "FAIL"
@@ -728,6 +740,8 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
         "vo_origin_kind": origin,
         "made_for_kids": kids,
         "audience_designation": designation,
+        "category_id": category,
+        "license": license_value,
         "checks": checks,
         "gate": gate,
         "action": action,
@@ -805,16 +819,41 @@ def synthetic_media_flag(kind: str) -> bool | None:
     return None
 
 
-def audience_designation(root: Path | None = None) -> str:
-    """Read docs/channel.md. Do not invent made-for-kids."""
+# Assignable videoCategories as of the Data API list. Do not invent 27.
+ASSIGNABLE_CATEGORY_IDS = frozenset(
+    {"1", "2", "10", "15", "17", "19", "20", "22", "23", "24", "25", "26", "27", "28", "29"}
+)
+CHANNEL_LICENSES = frozenset({"youtube", "creativeCommon"})
+
+
+def channel_line(key: str, root: Path | None = None) -> str:
+    """Read one docs/channel.md field. Missing file or key is empty."""
     path = (root or Path(__file__).resolve().parents[1]) / "docs" / "channel.md"
     if not path.is_file():
-        return "unknown"
+        return ""
+    prefix = key.lower() + ":"
     for line in path.read_text(encoding="utf-8").splitlines():
-        if line.lower().startswith("audience_designation:"):
-            value = line.split(":", 1)[1].strip().lower()
-            return value if value in {"not_made_for_kids", "made_for_kids"} else "unknown"
-    return "unknown"
+        if line.lower().startswith(prefix):
+            return line.split(":", 1)[1].strip()
+    return ""
+
+
+def audience_designation(root: Path | None = None) -> str:
+    """Read docs/channel.md. Do not invent made-for-kids."""
+    value = channel_line("audience_designation", root).lower()
+    return value if value in {"not_made_for_kids", "made_for_kids"} else "unknown"
+
+
+def category_id(root: Path | None = None) -> str:
+    """Read snippet.categoryId. Do not default a missing id to 27."""
+    value = channel_line("category_id", root)
+    return value if value in ASSIGNABLE_CATEGORY_IDS else "unknown"
+
+
+def channel_license(root: Path | None = None) -> str:
+    """Read status.license. Do not invent creativeCommon."""
+    value = channel_line("license", root)
+    return value if value in CHANNEL_LICENSES else "unknown"
 
 
 def made_for_kids_flag(designation: str) -> bool | None:
@@ -842,15 +881,25 @@ def request_body(report: dict) -> dict:
         status["selfDeclaredMadeForKids"] = kids
     if isinstance(report.get("contains_synthetic_media"), bool):
         status["containsSyntheticMedia"] = report["contains_synthetic_media"]
+    category = report.get("category_id")
+    if category not in ASSIGNABLE_CATEGORY_IDS:
+        category = category_id()
+    license_value = report.get("license")
+    if license_value not in CHANNEL_LICENSES:
+        license_value = channel_license()
+    snippet = {
+        "title": meta["title"],
+        "description": meta["description"],
+        "tags": meta["tags"],
+        "defaultLanguage": CAPTION_LANGUAGE,
+        "defaultAudioLanguage": CAPTION_LANGUAGE,
+    }
+    if category in ASSIGNABLE_CATEGORY_IDS:
+        snippet["categoryId"] = category
+    if license_value in CHANNEL_LICENSES:
+        status["license"] = license_value
     return {
-        "snippet": {
-            "title": meta["title"],
-            "description": meta["description"],
-            "tags": meta["tags"],
-            "categoryId": "27",
-            "defaultLanguage": CAPTION_LANGUAGE,
-            "defaultAudioLanguage": CAPTION_LANGUAGE,
-        },
+        "snippet": snippet,
         "status": status,
         "local": {
             "packet": report["packet"],
@@ -915,6 +964,10 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
         raise YouTubeAPIError(0, "SYNTHETIC_DISCLOSURE_UNKNOWN")
     if not isinstance(report.get("made_for_kids"), bool):
         raise YouTubeAPIError(0, "AUDIENCE_UNKNOWN")
+    if report.get("category_id") not in ASSIGNABLE_CATEGORY_IDS:
+        raise YouTubeAPIError(0, "METADATA_REJECTED:category_unknown")
+    if report.get("license") not in CHANNEL_LICENSES:
+        raise YouTubeAPIError(0, "METADATA_REJECTED:license_unknown")
     export = export_path(packet)
     prior = load_prior_state(packet)
     prior_video_id = None
@@ -968,17 +1021,11 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
                 token,
                 export_path=export,
                 metadata={
-                    "snippet": {
-                        "title": report["meta"]["title"],
-                        "description": report["meta"]["description"],
-                        "tags": report["meta"]["tags"],
-                        "categoryId": "27",
-                        "defaultLanguage": CAPTION_LANGUAGE,
-                        "defaultAudioLanguage": CAPTION_LANGUAGE,
-                    },
+                    "snippet": request_body(report)["snippet"],
                     "status": {
                         "containsSyntheticMedia": report["contains_synthetic_media"],
                         "selfDeclaredMadeForKids": report["made_for_kids"],
+                        "license": report["license"],
                     },
                 },
                 privacy=report["privacy"],

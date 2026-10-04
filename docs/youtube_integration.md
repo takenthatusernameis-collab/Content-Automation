@@ -75,6 +75,9 @@ The workflow keeps the uploader's initial privacy mode at `private`. Posting the
 
 `videos.insert` also sets `status.selfDeclaredMadeForKids` from `docs/channel.md` `audience_designation`. `not_made_for_kids` is false. `made_for_kids` is true. A missing or other value is `AUDIENCE_UNKNOWN` and does not refresh a token or call `videos.insert`. The API layer does not default the field to false. Omitting it is not a successful upload: YouTube leaves the video blocked until Studio sets the audience.
 
+`videos.insert` sets `snippet.categoryId` and `status.license` from `docs/channel.md`. This channel is category `27` (Education) and license `youtube`. A missing or unknown category is `METADATA_REJECTED:category_unknown`. A missing or unknown license is `METADATA_REJECTED:license_unknown`. Neither refreshes a token or calls `videos.insert`. Do not default a missing category to 27. Do not invent `creativeCommon`.
+
+
 The workflow requires `contents: write` because its persistent mutations are the non-secret upload state and, after a real fetch, collected feedback state. It does not write media files to the repository.
 
 ## Authentication boundary

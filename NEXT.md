@@ -1,3 +1,5 @@
+1v. **Do not rediscover the category lock.** Run 313 reads `docs/channel.md` `category_id` and `license`. This channel is `27` and `youtube`. Inspect is HOLD_LOCAL on `category_known` or `license_known`. Execute raises `METADATA_REJECTED:category_unknown` or `METADATA_REJECTED:license_unknown` before the token refresh. Those are not new YouTubeAPIError reason prefixes. Do not hardcode `categoryId` 27. Do not default a missing id to 27. Do not invent creativeCommon. Do not change the channel lines unless the channel decision changes.
+
 # NEXT
 
 1u. **Do not rediscover the second dispatch for the pin comment.** Run 310 posts the first comment on the same execute when publish.md has `First comment approved` checked and the pin text is non-empty. `--post-comment` remains an extra request. Run 311 exposes workflow input `skip_comment`, which passes `--skip-comment` and wins over `post_comment`. A missing comment stays missing. `comment_post.pinned` stays false: `commentThreads.insert` does not pin. Studio pin remains manual. Do not require a second execute only to post that comment. Do not add a YouTubeAPIError reason for this. Do not claim the comment is pinned.

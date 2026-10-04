@@ -1,3 +1,14 @@
+## 2026-10-04T08:20:00Z — Run 313
+
+- **Objective:** Land the Run 312 category/license adapter so videos.insert cannot keep a hardcoded Education category after the channel file changes or goes missing.
+- **Inspected:** STATE, NEXT, RUNS, docs/run312.md, docs/channel.md, youtube_upload.py, selftest.py, upload_variant_freeze.py. OAuth secrets were not polled.
+- **Action taken:** `category_id()` and `channel_license()` read docs/channel.md. Inspect adds `category_known` and `license_known`. Execute raises METADATA_REJECTED for unknown values before the token refresh. request_body and the insert body send the channel values. Removed the `categoryId` 27 literal. Selftest locks the channel values, the missing-file refusal, and the absent literal. Did not add a YouTubeAPIError reason. Did not dispatch. Did not scaffold Q2.
+- **Result:** `python3 tools/selftest.py` printed SELFTEST PASS. prove_locks and upload_variant_freeze passed. Videos published stay 0. No provider write.
+- **Verification status:** completed locally. Actions was not re-run before the push; confirm the selftest workflow after the commit.
+- **Important discovery:** Run 312 recorded the design as partial because the 47k/101k file push did not land. The channel lines were already on main and the adapter still hardcoded 27.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Secret list API was not polled. Recurring external stall. Flagged, not re-worked as the only work.
+- **Recommended next action:** Follow `python3 tools/oauth_setup.py`, store the three secrets, then dispatch `youtube-production.yml` with execute=true. Leave `skip_comment` false. Pin the comment in Studio after upload. Do not add a YouTubeAPIError reason without a live_status line. Do not scaffold Q2.
+
 ## 2026-10-04T09:15:00Z — Run 311
 
 - **Objective:** Give the production dispatch a real opt-out for the approved first comment, and stop treating a Data API comment insert as a Studio pin, without adding an upload HTTP status variant or polling OAuth.

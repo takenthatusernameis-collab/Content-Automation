@@ -1,3 +1,6 @@
+## Run 313
+videos.insert now takes category and license from docs/channel.md instead of a hardcoded Education id. A missing channel file cannot invent category 27 or creativeCommon. Estimated human minutes stay 0.5 until secrets exist. Automated steps unchanged. Videos published stay 0. No provider write. Do not add a YouTubeAPIError reason without a live_status line.
+
 ## Run 311
 The production dispatch can opt out of the approved first comment with `skip_comment`. Skip wins over `post_comment`. A posted comment is recorded `pinned: false` because the Data API insert does not pin; Studio pin stays a one-time human step. Estimated human minutes stay 0.5 until secrets exist. Automated steps unchanged. Videos published stay 0. No provider write. Do not add another upload HTTP status variant without a live execute status.
 

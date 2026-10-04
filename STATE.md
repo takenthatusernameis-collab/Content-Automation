@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-04T09:15:00Z (Run 311)
+Updated: 2026-10-04T08:20:00Z (Run 313)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -16,7 +16,14 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Durable fetch: private release `q1-media-r253` (padded master) plus r249 wav/cards
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
-- Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. That execute now posts the already-approved first comment. skip_comment opts out. The Data API does not pin it. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+- Category and license now come from docs/channel.md (27 / youtube). Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. That execute now posts the already-approved first comment. skip_comment opts out. The Data API does not pin it. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 313 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. The upload-variant freeze stays in place. Production checkout stays `fetch-depth: 0`. prove_locks stays in selftest.yml.
+- Run 312 locked `category_id: 27` and `license: youtube` in `docs/channel.md` but the adapter still hardcoded `categoryId` 27. `youtube_upload.py` now reads both fields. Unknown or missing values are HOLD_LOCAL and `METADATA_REJECTED:category_unknown` or `METADATA_REJECTED:license_unknown` before the token refresh. A missing file does not invent 27 or creativeCommon. The insert body uses the channel values.
+- Selftest, prove_locks, and upload_variant_freeze passed locally. Actions was not re-run in this session after the push.
+- Flag still stands: do not add another upload HTTP status variant unless a live execute returned that status. Do not spend a run only restating the OAuth hold.
 
 ## Run 311 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
