@@ -30,6 +30,7 @@ from youtube_api import (  # noqa: E402
     access_token_scopes,
     compact_api_error,
     insert_caption,
+    wait_for_caption_ready,
     insert_top_level_comment,
     refresh_access_token,
     set_thumbnail,
@@ -965,6 +966,10 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
         captions = packet / "captions.srt"
         if captions.is_file() and result["caption_upload"].get("status") not in {"uploaded", "already_uploaded"}:
             try:
+                # Captions.insert before processing finishes is a 400. That status is
+                # permanent here, so wait first. A not-ready result is a caption miss,
+                # not a second videos.insert.
+                wait_for_caption_ready(token, video_id=video_id)
                 cap = insert_caption(
                     token,
                     video_id=video_id,

@@ -1,3 +1,9 @@
+## Run 305 — caption insert before processing looked like a bad caption file
+- **Tried:** Runs 281-304 hardened upload transport and local artifact gates. `captions.insert` still ran as soon as the video id existed. YouTube returns 400 until processingDetails is succeeded or terminated, and this client treats 400 as permanent.
+- **Evidence:** `insert_caption` had no processing poll. A 400 does not retry. The video id would persist, but the first execute would exit POST_UPLOAD_INCOMPLETE for a timing reason.
+- **Result:** `wait_for_caption_ready` polls first. failed is VIDEO_PROCESSING_FAILED. Still processing is VIDEO_PROCESSING_NOT_READY. Neither starts another videos.insert. Selftest passed locally. Not dispatched.
+- **Avoid:** Dropping the wait. Treating VIDEO_PROCESSING_NOT_READY as a reason to call videos.insert again. Adding another HTTP status variant without a live execute status.
+
 ## Run 304 — prove_locks could not pass on this checkout
 - **Tried:** Run 299 noted prove_locks.py still fails on the words_contract.py placeholder check and left it. Later runs did not re-run the advertised post-write lock.
 - **Evidence:** placeholder_guard flags the contiguous needle. words_contract.py stored that needle as a string. write_path_contract.py then required `videos/002-stop-deciding-what-to-work-on-every-morning` to be absent. That packet is the live Q1 packet, so the second step always failed here.

@@ -1,3 +1,6 @@
+## Run 305
+The first caption write now waits until YouTube processingDetails is succeeded or terminated. A still-processing video is VIDEO_PROCESSING_NOT_READY and does not start a second insert. Estimated human minutes stay 0.5. Automated steps 136 -> 137. Videos published stay 0. No provider write. Do not add another upload HTTP status variant without a live execute status.
+
 ## Run 304
 The post-write lock now passes on a checkout that already has Q1. A false prove_locks fail no longer hides a real write-path regression. Estimated human minutes stay 0.5. Automated steps stay 136. Videos published stay 0. No provider write. Do not add another upload HTTP status variant without a live execute status.
 

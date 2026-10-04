@@ -658,6 +658,69 @@ def _query_resumable(session: str, token: str, size: int) -> tuple[int, dict[str
         raise
 
 
+CAPTION_READY_STATUSES = {"succeeded", "terminated"}
+CAPTION_FAILED_STATUS = "failed"
+# captions.insert before processing finishes returns 400, which this client treats
+# as permanent. Poll processingDetails first. Do not open another videos.insert.
+CAPTION_READY_POLLS = 6
+CAPTION_READY_POLL_SECONDS = 10
+
+
+def caption_processing_status(payload: object) -> str:
+    """Return videos.list processingDetails.processingStatus, or empty."""
+    if not isinstance(payload, dict):
+        return ""
+    items = payload.get("items") or []
+    if not items or not isinstance(items[0], dict):
+        return ""
+    details = items[0].get("processingDetails") or {}
+    if not isinstance(details, dict):
+        return ""
+    return str(details.get("processingStatus") or "").strip().lower()
+
+
+def wait_for_caption_ready(
+    token: str,
+    *,
+    video_id: str,
+    token_refresher=None,
+    sleeper: Callable[[float], None] | None = None,
+    max_polls: int = CAPTION_READY_POLLS,
+    poll_seconds: float = CAPTION_READY_POLL_SECONDS,
+) -> str:
+    """Wait until processingDetails says the video can take a caption track.
+
+    succeeded and terminated are ready. failed is VIDEO_PROCESSING_FAILED.
+    Still processing, or a missing status, after the poll budget is
+    VIDEO_PROCESSING_NOT_READY. Neither path starts another videos.insert.
+    """
+    sleep = sleeper or time.sleep
+    last = ""
+    for attempt in range(max_polls):
+        raw = _request_retrying(
+            _query_url(DATA_BASE, "videos", {"part": "processingDetails", "id": video_id}),
+            method="GET",
+            token=token,
+            body=None,
+            content_type=None,
+            timeout=60,
+            token_refresher=token_refresher,
+        )
+        try:
+            data = json.loads(raw.decode("utf-8"))
+        except json.JSONDecodeError as exc:
+            raise YouTubeAPIError(0, "invalid_json_response") from exc
+        last = caption_processing_status(data)
+        if last in CAPTION_READY_STATUSES:
+            return last
+        if last == CAPTION_FAILED_STATUS:
+            raise YouTubeAPIError(0, "VIDEO_PROCESSING_FAILED")
+        if attempt + 1 >= max_polls:
+            break
+        sleep(poll_seconds)
+    raise YouTubeAPIError(0, "VIDEO_PROCESSING_NOT_READY", last or "missing")
+
+
 def insert_caption(
     token: str,
     *,

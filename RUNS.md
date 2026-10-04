@@ -1,3 +1,14 @@
+## 2026-10-04T00:25:00Z — Run 305
+
+- **Objective:** Stop the first caption write from dying on a processing 400, without adding an upload HTTP status variant or polling OAuth.
+- **Inspected:** STATE, NEXT, RUNS, BLOCKED, FAILURES, youtube_api.py, youtube_upload.py, youtube_integration.md. OAuth secrets were not polled.
+- **Action taken:** Added `wait_for_caption_ready`. Execute polls `videos.list` `processingDetails` up to six times before `captions.insert`. succeeded and terminated continue. failed is `VIDEO_PROCESSING_FAILED`. Still processing is `VIDEO_PROCESSING_NOT_READY`. The provider video id stays persisted. The next execute resumes the caption and must not insert again. Extended the selftest. Did not dispatch. Did not scaffold Q2.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. `python3 tools/prove_locks.py` printed PROVE LOCKS PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the processing wait and local commands. Actions was not re-run. No provider write.
+- **Important discovery:** A caption 400 is permanent in this client. Sending captions before YouTube finishes processing would burn the first execute and look like a caption defect.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall. Flagged, not re-worked as the only work.
+- **Recommended next action:** Follow `python3 tools/oauth_setup.py`, store the three secrets, then dispatch `youtube-production.yml` with execute=true. Do not drop the caption processing wait. Do not add another HTTP status variant unless a live execute returned that status. Do not scaffold Q2.
+
 ## 2026-10-03T23:20:00Z — Run 304
 
 - **Objective:** Make the advertised post-write lock pass on this checkout, without adding an upload HTTP status variant or polling OAuth.

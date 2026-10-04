@@ -1055,6 +1055,7 @@ def main() -> int:
     failures.extend(check_live_capabilities())
     failures.extend(check_oauth_setup_recipe())
     failures.extend(check_job_timeout_covers_upload())
+    failures.extend(check_caption_waits_for_processing())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")
@@ -1868,6 +1869,69 @@ def check_job_timeout_covers_upload() -> list[str]:
         failures.append("chunk PUT timeout must stay 180s so three retries fit before the runner is killed")
     return failures
 
+
+
+def check_caption_waits_for_processing() -> list[str]:
+    """captions.insert before processing finishes is a permanent 400. Wait first."""
+    failures = []
+    upload = (ROOT / "tools/youtube_upload.py").read_text(encoding="utf-8")
+    if "wait_for_caption_ready" not in upload:
+        failures.append("youtube_upload must wait for processing before captions.insert")
+    wait_at = upload.find("wait_for_caption_ready")
+    insert_at = upload.find("insert_caption(")
+    if wait_at < 0 or insert_at < 0 or wait_at > insert_at:
+        failures.append("wait_for_caption_ready must run before insert_caption")
+    sys.path.insert(0, str(ROOT / "tools"))
+    import youtube_api
+    if youtube_api.caption_processing_status({"items": [{"processingDetails": {"processingStatus": "succeeded"}}]}) != "succeeded":
+        failures.append("caption_processing_status must read processingDetails")
+    calls = []
+
+    def fake_request(url, **kwargs):
+        calls.append(url)
+        status = "processing" if len(calls) == 1 else "succeeded"
+        body = ('{"items":[{"processingDetails":{"processingStatus":"%s"}}]}' % status).encode()
+        return body
+
+    original = youtube_api._request_retrying
+    youtube_api._request_retrying = fake_request
+    try:
+        got = youtube_api.wait_for_caption_ready(
+            "token-not-printed",
+            video_id="vid",
+            sleeper=lambda _s: None,
+            max_polls=3,
+            poll_seconds=0,
+        )
+    finally:
+        youtube_api._request_retrying = original
+    if got != "succeeded":
+        failures.append(f"processing then succeeded must become ready, got {got}")
+    if len(calls) != 2:
+        failures.append(f"processing wait must poll again, calls={len(calls)}")
+    if any("videos.insert" in c or "uploadType" in c for c in calls):
+        failures.append("processing wait must not start videos.insert")
+
+    def always_processing(url, **kwargs):
+        return b'{"items":[{"processingDetails":{"processingStatus":"processing"}}]}'
+
+    youtube_api._request_retrying = always_processing
+    try:
+        try:
+            youtube_api.wait_for_caption_ready(
+                "token-not-printed",
+                video_id="vid",
+                sleeper=lambda _s: None,
+                max_polls=2,
+                poll_seconds=0,
+            )
+            failures.append("still processing must raise VIDEO_PROCESSING_NOT_READY")
+        except youtube_api.YouTubeAPIError as exc:
+            if exc.reason != "VIDEO_PROCESSING_NOT_READY":
+                failures.append(f"still processing reason was {exc.reason}")
+    finally:
+        youtube_api._request_retrying = original
+    return failures
 
 if __name__ == "__main__":
     raise SystemExit(main())

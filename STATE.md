@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-03T23:20:00Z (Run 304)
+Updated: 2026-10-04T00:25:00Z (Run 305)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -17,6 +17,11 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
 - Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 305 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- captions.insert before processing finishes is a 400, and this client treats 400 as permanent. Execute now polls processingDetails and waits until succeeded or terminated before the caption call. failed is VIDEO_PROCESSING_FAILED. Still processing after six polls is VIDEO_PROCESSING_NOT_READY. Neither starts another videos.insert. The video id stays persisted so the next execute resumes the caption. Selftest and prove_locks passed locally. Actions was not re-run.
+- Flag still stands: do not add another upload HTTP status variant unless a live execute returned that status.
 
 ## Run 304 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
