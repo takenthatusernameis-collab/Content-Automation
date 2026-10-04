@@ -1046,6 +1046,17 @@ def check_apply_idea() -> list[str]:
         failures.append(f"apply_idea_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}")
     return failures
 
+
+def check_packet_path() -> list[str]:
+    import subprocess
+    contract = ROOT / "tools" / "packet_path_contract.py"
+    if not contract.is_file():
+        return ["packet_path_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0:
+        return [f"packet_path_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    return []
+
 def main() -> int:
     path = sample_packet()
     failures: list[str] = []
@@ -1146,6 +1157,7 @@ def main() -> int:
     failures.extend(check_apply_idea())
     failures.extend(check_idea_gate())
     failures.extend(check_quality_scan())
+    failures.extend(check_packet_path())
     failures.extend(check_stall_watch())
 
     print(f"Fixture: {path.name}")
@@ -1995,6 +2007,10 @@ def check_job_timeout_covers_upload() -> list[str]:
         failures.append("production PACKET must come from the dispatch input, not a second hardcoded env")
     if "inputs.packet == 'videos/002-stop-deciding-what-to-work-on-every-morning'" not in workflow:
         failures.append("Q1 release materialize must stay limited to the Q1 packet path")
+    if "python3 tools/packet_path.py" not in workflow:
+        failures.append("production workflow must refuse a bad packet path before materialize")
+    if "_template" not in (ROOT / "tools" / "packet_path.py").read_text(encoding="utf-8"):
+        failures.append("packet path gate must keep refusing the template folder")
     if "fetch-depth: 0" not in workflow:
         failures.append("production checkout must be full history so provider-state rebase has a merge base")
     if "fetch-depth: 1" in workflow:

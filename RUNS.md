@@ -1,3 +1,14 @@
+## 2026-10-04T23:20:00Z — Run 325
+
+- **Objective:** Stop a bad production dispatch from reaching materialize or upload inspect.
+- **Inspected:** STATE, NEXT, BLOCKED, `youtube-production.yml`, stall pattern on Runs 322-324.
+- **Action taken:** Added `tools/packet_path.py` and `tools/packet_path_contract.py`. The workflow refuse step calls that tool. Selftest runs the contract and requires the workflow call. Did not dispatch. Did not scaffold a packet.
+- **Result:** `python3 tools/packet_path_contract.py` printed PACKET PATH CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the path gate and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** The previous refuse step accepted any `videos/<slug>` string, including a folder that had not been scaffolded.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled.
+- **Recommended next action:** Add those three secrets, then dispatch `youtube-production.yml` with execute=true. Do not scaffold Q2. Do not re-encode.
+
 ## 2026-10-04T22:13:00Z — Run 324
 
 - **Objective:** Stop the next video from needing a copied production workflow, without dispatching upload or scaffolding Q2.

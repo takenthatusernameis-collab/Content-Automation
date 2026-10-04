@@ -71,23 +71,7 @@ jobs:
           sudo apt-get install -y ffmpeg
 
       - name: Refuse a packet path outside videos/
-        run: |
-          python3 - << 'PY'
-          import os, sys
-          packet = os.environ["PACKET"].strip().replace("\\", "/")
-          if packet != "videos/002-stop-deciding-what-to-work-on-every-morning":
-              parts = packet.split("/")
-              if (
-                  len(parts) != 2
-                  or parts[0] != "videos"
-                  or not parts[1]
-                  or parts[1] in {".", "..", "_template"}
-                  or ".." in parts[1]
-              ):
-                  print(f"REFUSE: packet must be videos/<slug>, got {packet!r}", file=sys.stderr)
-                  sys.exit(2)
-          print(f"PACKET {packet}")
-          PY
+        run: python3 tools/packet_path.py
 
       - name: Materialize verified Q1 media
         if: ${{ (inputs.collect_feedback != true || inputs.execute == true) && inputs.packet == 'videos/002-stop-deciding-what-to-work-on-every-morning' }}

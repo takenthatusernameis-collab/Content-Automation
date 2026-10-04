@@ -242,3 +242,4 @@ These numbers are **estimates**, not stopwatch data. Earlier rows remain in prio
 - Run 253: Live Q1 padded master exists. Duration 328.40s, sha256 `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546`, private release `q1-media-r253`. Videos published stay 0.
 
 - Run 262 (2026-10-02): uploader dry-run names captions.srt and refuses to claim captions.insert. One overlong Q1 caption line wrapped. Human caption edit is wording spot-check only. Estimated human minutes 1.5 -> 1.4. Videos published stay 0.
+- Run 325: production dispatch refuses a missing or illegal packet path before materialize. Local selftest PASS. No upload.

@@ -1,3 +1,5 @@
+1zh. **Do not rediscover the packet path gate.** Run 325: `youtube-production.yml` runs `tools/packet_path.py` before materialize. Q1 still passes. A missing folder, `_template`, or a path outside `videos/<slug>` exits 2. Do not restore the inline path check that accepted a folder that does not exist. Do not scaffold Q2 to try the gate. Do not materialize Q1 releases into another packet.
+
 1zg. **Do not rediscover the hardcoded production packet.** Run 324: `youtube-production.yml` input `packet` defaults to `videos/002-stop-deciding-what-to-work-on-every-morning`. `PACKET` is `${{ inputs.packet }}`. Q1 materialize runs only when that input is the Q1 path. Do not restore a hardcoded PACKET env. Do not materialize the Q1 releases into another packet. Do not scaffold Q2 to try the input.
 
 1zf. **Do not rediscover the ready_for_vo quality gap.** Run 323: `tools/set_status.py` refuses `ready_for_vo` when `quality_scan` hits remain. The scanner still does not rewrite script.md. A missing script is not a hit. Q1 was already clear and was not rewritten. Do not scaffold Q2. Do not add a YouTubeAPIError reason for this.
