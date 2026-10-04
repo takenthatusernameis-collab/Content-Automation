@@ -1,3 +1,9 @@
+## Run 306 — a 60-second processing wait would burn the first execute
+- **Tried:** Run 305 polls processingDetails before captions.insert. The budget was six polls of 10 seconds.
+- **Evidence:** YouTube HD processing for a few-minute 1080p file commonly lasts several minutes. A 60-second wait returns VIDEO_PROCESSING_NOT_READY, persists the video id, and requires another execute dispatch for the same caption. That is recurring labor, not a new HTTP status.
+- **Result:** CAPTION_READY_POLLS is 30 and CAPTION_READY_POLL_SECONDS is 20 (about 10 minutes, inside the 60-minute job). Selftest refuses a budget under 8 minutes or over 15. prove_locks passed. No provider write.
+- **Avoid:** Shrinking the wait back to 60 seconds. Treating VIDEO_PROCESSING_NOT_READY as a reason to call videos.insert again. Adding another HTTP status variant without a live execute status.
+
 ## Run 305 — caption insert before processing looked like a bad caption file
 - **Tried:** Runs 281-304 hardened upload transport and local artifact gates. `captions.insert` still ran as soon as the video id existed. YouTube returns 400 until processingDetails is succeeded or terminated, and this client treats 400 as permanent.
 - **Evidence:** `insert_caption` had no processing poll. A 400 does not retry. The video id would persist, but the first execute would exit POST_UPLOAD_INCOMPLETE for a timing reason.

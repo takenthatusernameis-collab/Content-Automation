@@ -1,3 +1,14 @@
+## 2026-10-04T01:20:00Z — Run 306
+
+- **Objective:** Stop a normal HD processing delay from forcing a second execute for the same caption, without adding an upload HTTP status variant or polling OAuth.
+- **Inspected:** STATE, NEXT, RUNS, BLOCKED, FAILURES, youtube_api.py, youtube_upload.py, youtube-production.yml. OAuth secrets were not polled.
+- **Action taken:** Raised `wait_for_caption_ready` from six 10-second polls to 30 polls of 20 seconds (about 10 minutes). The 60-minute job still covers it. Selftest refuses a budget under 8 minutes or over 15. Did not dispatch. Did not scaffold Q2.
+- **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. `python3 tools/prove_locks.py` printed PROVE LOCKS PASS. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the wait budget and local commands. Actions was not re-run. No provider write.
+- **Important discovery:** Run 305 closed the permanent caption 400, but a 60-second budget would still exit VIDEO_PROCESSING_NOT_READY on a typical 1080p master and require another dispatch.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall. Flagged, not re-worked as the only work.
+- **Recommended next action:** Follow `python3 tools/oauth_setup.py`, store the three secrets, then dispatch `youtube-production.yml` with execute=true. Do not shrink the caption wait to 60 seconds. Do not add another HTTP status variant unless a live execute returned that status. Do not scaffold Q2.
+
 ## 2026-10-04T00:25:00Z — Run 305
 
 - **Objective:** Stop the first caption write from dying on a processing 400, without adding an upload HTTP status variant or polling OAuth.

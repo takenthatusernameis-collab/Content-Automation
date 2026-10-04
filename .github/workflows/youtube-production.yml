@@ -192,7 +192,7 @@ jobs:
           echo "A session POST that returns 503 without Location is retried. A 503 that returns Location is that session, not a second videos.insert."
           echo "Chunk 408 and 429 resume the existing session. They do not start another videos.insert."
           echo "A later execute resumes that video id when the export hash matches. It does not upload a second copy."
-          echo "Captions wait for processingDetails succeeded or terminated. A not-ready poll is VIDEO_PROCESSING_NOT_READY and must not insert again."
+          echo "Captions wait up to about 10 minutes for processingDetails succeeded or terminated. A not-ready poll is VIDEO_PROCESSING_NOT_READY and must not insert again."
           echo "Export identity is the file hash, not mtime, so rematerialize does not look like a new master."
           echo "Snippet fields over the provider limit fail before the token refresh. Tags are not sliced."
           echo "A token missing caption scope fails before videos.insert. It does not create an uncaptioned video."

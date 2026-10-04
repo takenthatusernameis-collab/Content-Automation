@@ -1,3 +1,6 @@
+## Run 306
+The caption processing wait now covers about 10 minutes instead of 60 seconds, so a normal 1080p processing delay does not force a second execute for the same caption. Estimated human minutes stay 0.5 until secrets exist; the saved dispatch is one future execute, not a per-video edit. Automated steps stay 137. Videos published stay 0. No provider write. Do not add another upload HTTP status variant without a live execute status.
+
 ## Run 305
 The first caption write now waits until YouTube processingDetails is succeeded or terminated. A still-processing video is VIDEO_PROCESSING_NOT_READY and does not start a second insert. Estimated human minutes stay 0.5. Automated steps 136 -> 137. Videos published stay 0. No provider write. Do not add another upload HTTP status variant without a live execute status.
 

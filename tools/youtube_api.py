@@ -662,8 +662,12 @@ CAPTION_READY_STATUSES = {"succeeded", "terminated"}
 CAPTION_FAILED_STATUS = "failed"
 # captions.insert before processing finishes returns 400, which this client treats
 # as permanent. Poll processingDetails first. Do not open another videos.insert.
-CAPTION_READY_POLLS = 6
-CAPTION_READY_POLL_SECONDS = 10
+# A 1080p master often stays processing for several minutes. Six 10-second
+# polls expire first and force another execute dispatch for the same caption.
+# 30 polls * 20 seconds is about 10 minutes of waiting, still inside the
+# 60-minute job. Do not shrink this back to 60 seconds.
+CAPTION_READY_POLLS = 30
+CAPTION_READY_POLL_SECONDS = 20
 
 
 def caption_processing_status(payload: object) -> str:

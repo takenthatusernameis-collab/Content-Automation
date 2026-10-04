@@ -1883,6 +1883,11 @@ def check_caption_waits_for_processing() -> list[str]:
         failures.append("wait_for_caption_ready must run before insert_caption")
     sys.path.insert(0, str(ROOT / "tools"))
     import youtube_api
+    budget = youtube_api.CAPTION_READY_POLLS * youtube_api.CAPTION_READY_POLL_SECONDS
+    if budget < 480:
+        failures.append("caption wait budget must cover several minutes of HD processing, not 60 seconds")
+    if budget > 15 * 60:
+        failures.append("caption wait budget must stay inside the 60-minute job")
     if youtube_api.caption_processing_status({"items": [{"processingDetails": {"processingStatus": "succeeded"}}]}) != "succeeded":
         failures.append("caption_processing_status must read processingDetails")
     calls = []
