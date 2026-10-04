@@ -1,3 +1,14 @@
+## 2026-10-04T05:20:00Z — Run 310
+
+- **Objective:** Remove the extra dispatch that would have been needed only to post the already-approved pin comment, without adding an upload HTTP status variant or polling OAuth.
+- **Inspected:** STATE, NEXT, RUNS, FAILURES, OPERATOR_HOLD, youtube_upload.py, youtube-production.yml. Materialized Q1 from the private releases. OAuth secrets were not polled.
+- **Action taken:** `should_post_comment` posts the pin comment on execute when `First comment approved` is checked and the text is non-empty. `--post-comment` stays an extra request. `--skip-comment` is the opt-out. Selftest covers the four cases. Did not add a YouTubeAPIError reason. Did not dispatch. Did not scaffold Q2.
+- **Result:** Local materialize ignored the truncated r249 master and installed the r253 master. Dry-run gate `YOUTUBE_AUTH_REQUIRED`. media_qa PASS. Q1 comment box checked, 199 characters. `python3 tools/selftest.py` printed SELFTEST PASS. prove_locks and upload_variant_freeze passed. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the comment decision and local commands. Actions was not re-run. No provider write.
+- **Important discovery:** The publish gate already refuses an unchecked first-comment box, but the workflow default left `post_comment` false. The first successful execute would have uploaded the video and still needed a second dispatch for the pin.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Secret list API returned 403. Not polled again. Recurring external stall. Flagged, not re-worked as the only work.
+- **Recommended next action:** Follow `python3 tools/oauth_setup.py`, store the three secrets, then dispatch `youtube-production.yml` with execute=true. That execute posts the approved pin comment. Do not add a YouTubeAPIError reason without a live_status line. Do not scaffold Q2.
+
 ## 2026-10-04T04:11:00Z — Run 309
 
 - **Objective:** Make the existing write-path lock run on every push, without adding an upload HTTP status variant or polling OAuth.

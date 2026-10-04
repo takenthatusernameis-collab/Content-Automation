@@ -498,6 +498,16 @@ def check_upload_stamp_preserved() -> list[str]:
         failures.append(f"failed captions must fail closed, got {failed}")
     if incomplete_post_uploads({"caption_upload": {"status": "not_attempted"}}) != []:
         failures.append("missing caption attempt must not be treated as a failed upload")
+    from youtube_upload import should_post_comment
+    approved = {"pin_comment": "Write tomorrow's next action on the card.", "comment_approved": True}
+    if not should_post_comment(approved):
+        failures.append("approved pin comment must post on execute without a second flag")
+    if should_post_comment(approved, skipped=True):
+        failures.append("skip-comment must opt out of the approved pin post")
+    if should_post_comment({"pin_comment": "draft", "comment_approved": False}):
+        failures.append("unchecked first comment must not post")
+    if should_post_comment({"pin_comment": "", "comment_approved": True}):
+        failures.append("empty pin comment must stay missing")
     from youtube_upload import existing_upload_action, fingerprint
     prior = {
         "provider_video_id": "abc123",

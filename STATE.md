@@ -1,6 +1,6 @@
 # STATE
 
-Updated: 2026-10-04T04:11:00Z (Run 309)
+Updated: 2026-10-04T05:20:00Z (Run 310)
 
 ## What this system is
 A YouTube production system under construction. Goal: reliable, repeatable videos with declining human minutes per video.
@@ -16,7 +16,14 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - Durable fetch: private release `q1-media-r253` (padded master) plus r249 wav/cards
 - r249 master is truncated (308.40s). Finished local export is `q1-media-r253` `q1-master-r253.mp4` (328.40s).
 - Actions dry-run 36983196381 materialized that set and reached `YOUTUBE_AUTH_REQUIRED`. Execute was not dispatched.
-- Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+- Executive: SHIP after the three YouTube OAuth secrets exist and `youtube-production.yml` is dispatched with execute=true. That execute now posts the already-approved pin comment. Do not re-encode. Do not upload r249. Do not expand architecture. Do not spend a run only restating the secret hold.
+
+## Run 310 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. The upload-variant freeze stays in place. Production checkout stays `fetch-depth: 0`. prove_locks stays in selftest.yml.
+- Local materialize installed the r253 master and ignored the truncated r249 master. Dry-run gate was `YOUTUBE_AUTH_REQUIRED`. media_qa PASS. Q1 first-comment box is checked (199 characters).
+- Execute now posts that pin comment on the same dispatch when the box is checked. `--skip-comment` opts out. A second execute only to post the comment is no longer required. Selftest, prove_locks, and upload_variant_freeze passed locally. Actions was not re-run.
+- Flag still stands: do not add another upload HTTP status variant unless a live execute returned that status. Do not spend a run only restating the OAuth hold.
 
 ## Run 309 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.

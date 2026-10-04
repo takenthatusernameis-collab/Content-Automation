@@ -81,6 +81,7 @@ jobs:
         if: ${{ inputs.execute == true }}
         run: |
           python3 tools/youtube_upload.py "$PACKET" --execute ${{ inputs.post_comment == true && '--post-comment' || '' }}
+          # An approved pin comment posts on this execute. post_comment=true is only an extra request. --skip-comment is the opt-out.
 
       - name: Persist non-secret upload state
         if: ${{ always() && inputs.execute == true }}

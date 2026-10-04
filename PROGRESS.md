@@ -21,6 +21,12 @@ The production job now outlasts a slow chunk PUT, so a finished upload can persi
 
 # PROGRESS
 
+## Run 310 — one less dispatch after the first upload
+- Approved pin comment posts on the same execute as the video, captions, and thumbnail.
+- Estimated human minutes saved: one workflow dispatch and one wait for a second job, on every future video whose first-comment box is already checked.
+- Videos published stay 0. OAuth secrets remain the publish gate.
+
+
 
 ## Run 302
 `videos.insert` now refuses to start when `status.selfDeclaredMadeForKids` is missing. Channel designation is `not_made_for_kids`, so the flag is false. Estimated human minutes stay 0.5. Automated steps 134 -> 135. Videos published stay 0. No provider write. Do not add another upload HTTP status variant without a live execute status.

@@ -363,6 +363,35 @@ def artifact_block_reason(packet: Path, meta: dict | None = None) -> str | None:
     return None
 
 
+def comment_approved(text: str) -> bool:
+    """True only when the delegated first-comment box is checked.
+
+    Execute already refuses unchecked publish copy. This keeps the pin
+    post tied to that box so a later gate change cannot post a draft.
+    """
+    for line in text.splitlines():
+        stripped = line.strip().lower()
+        if stripped.startswith("- [x]") and "first comment approved" in stripped:
+            return True
+    return False
+
+
+def should_post_comment(meta: dict, *, requested: bool = False, skipped: bool = False) -> bool:
+    """Post the pin comment on execute when it is approved and non-empty.
+
+    --post-comment remains an explicit request. --skip-comment is the opt-out.
+    A missing comment stays missing. This does not invent comment text.
+    """
+    if skipped:
+        return False
+    text = ((meta or {}).get("pin_comment") or "").strip()
+    if not text:
+        return False
+    if requested:
+        return True
+    return bool((meta or {}).get("comment_approved"))
+
+
 def incomplete_post_uploads(result: dict) -> list[str]:
     """Return post-upload artifacts that failed after a provider video id existed.
 
@@ -423,6 +452,7 @@ def parse_publish(text: str) -> dict:
         "description": description,
         "tags": tags,
         "pin_comment": comment,
+        "comment_approved": comment_approved(text),
         "word_count": len(description.split()) if description else 0,
     }
 
@@ -1086,7 +1116,12 @@ def main() -> int:
     parser.add_argument(
         "--post-comment",
         action="store_true",
-        help="Also post the approved first comment after upload; requires comment-write scope.",
+        help="Post the first comment even if the approval box parser missed it.",
+    )
+    parser.add_argument(
+        "--skip-comment",
+        action="store_true",
+        help="Do not post the approved first comment on this execute.",
     )
     args = parser.parse_args()
     path = Path(args.packet).resolve()
@@ -1109,7 +1144,12 @@ def main() -> int:
         return 2
     if args.execute:
         try:
-            state = execute_upload(path, report, post_comment=args.post_comment)
+            post_comment = should_post_comment(
+                report.get("meta") or {},
+                requested=args.post_comment,
+                skipped=args.skip_comment,
+            )
+            state = execute_upload(path, report, post_comment=post_comment)
             print(json.dumps(state, indent=2, ensure_ascii=False))
             return 0
         except YouTubeAPIError as exc:

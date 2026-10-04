@@ -1,5 +1,7 @@
 # NEXT
 
+1u. **Do not rediscover the second dispatch for the pin comment.** Run 310 posts the first comment on the same execute when publish.md has `First comment approved` checked and the pin text is non-empty. `--post-comment` remains an extra request. `--skip-comment` is the opt-out. A missing comment stays missing. Do not require a second execute only to post that comment. Do not add a YouTubeAPIError reason for this.
+
 1t. **Do not rediscover the write-path CI lock.** Run 309 runs `python3 tools/prove_locks.py` from `.github/workflows/selftest.yml` on every push. `selftest.py` fails if that step is removed. Do not map `prove_locks.py` in `needed.py`. Do not treat PROVE LOCKS PASS as apply --write or as a YouTube upload.
 
 1s. **Do not rediscover the shallow production checkout.** Run 308 set `youtube-production.yml` checkout `fetch-depth: 0`. A depth-1 clone has no merge base, so a rejected provider-state push can drop the video id if `git fetch --unshallow` fails after the upload. The unshallow retry in `persist_provider_state.py` stays. Do not restore the default shallow checkout. Do not force-push.

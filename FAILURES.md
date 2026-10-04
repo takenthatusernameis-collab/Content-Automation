@@ -1,3 +1,9 @@
+## Run 310 — approved pin comment still needed a second dispatch
+- **Tried:** Treating execute=true as the full publish step. The workflow default left post_comment false.
+- **Evidence:** publish.md already has First comment approved checked. youtube_upload.py posted the comment only when --post-comment was passed. The first execute would persist a video id and still leave the pin unposted.
+- **Result:** Execute posts the pin comment when that box is checked and the text is non-empty. --skip-comment opts out. No new YouTubeAPIError reason. No provider write.
+- **Avoid:** Requiring a second execute only to post that comment. Adding an upload status variant without a live execute. Polling OAuth secrets as the only work.
+
 ## Run 309 — prove_locks was a remembered command
 - **Tried:** Run 304 made prove_locks pass on a Q1 checkout. Later runs still invoked it by hand after a write.
 - **Evidence:** `.github/workflows/selftest.yml` ran `tools/selftest.py` only. A push could change apply_script.py or words.py without CI running placeholder_guard, words_contract, and verify_write_path.
