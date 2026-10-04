@@ -32,6 +32,7 @@ from set_status import check as status_check, is_fixture  # noqa: E402
 from validate_packet import packet_duration_warning, validate  # noqa: E402
 from youtube_feedback import inspect_feedback  # noqa: E402
 from youtube_upload import artifact_block_reason, caption_timing_reason, file_sha256, inspect_upload, master_block_reason, metadata_block_reason, missing_provider_scopes, png_dimensions  # noqa: E402
+from upload_variant_freeze import check_repo, check_texts  # noqa: E402
 
 # Printers that must reuse render_brief.selected_vo_drop, not a second builder.
 DROP_IMPORTERS = (
@@ -1056,6 +1057,7 @@ def main() -> int:
     failures.extend(check_oauth_setup_recipe())
     failures.extend(check_job_timeout_covers_upload())
     failures.extend(check_caption_waits_for_processing())
+    failures.extend(check_upload_variant_freeze())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")
@@ -1869,6 +1871,24 @@ def check_job_timeout_covers_upload() -> list[str]:
         failures.append("chunk PUT timeout must stay 180s so three retries fit before the runner is killed")
     return failures
 
+
+
+
+def check_upload_variant_freeze() -> list[str]:
+    failures = check_repo(ROOT)
+    injected = check_texts(
+        {"youtube_api.py": 'raise YouTubeAPIError(0, "RESUMABLE_NEW_STATUS")'},
+        "",
+    )
+    if not injected:
+        failures.append("upload variant freeze must reject a new reason without live evidence")
+    allowed = check_texts(
+        {"youtube_api.py": 'raise YouTubeAPIError(0, "RESUMABLE_NEW_STATUS")'},
+        "live_status: RESUMABLE_NEW_STATUS\nactions_run: 1\n",
+    )
+    if allowed:
+        failures.append(f"live_status line must allow a recorded reason, got {allowed}")
+    return failures
 
 
 def check_caption_waits_for_processing() -> list[str]:

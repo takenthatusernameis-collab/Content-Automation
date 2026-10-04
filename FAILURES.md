@@ -1,3 +1,9 @@
+## Run 307 — prose flags did not stop the upload-status loop
+- **Tried:** Runs 296-306 recorded that new HTTP status variants are suspicious without a live execute. Later runs still added caption-wait and processing reasons.
+- **Evidence:** `YouTubeAPIError` reasons lived only in code. Nothing failed a future edit that added another one.
+- **Result:** `tools/upload_variant_freeze.py` is now in the selftest. A new reason literal fails unless `docs/live_execute_evidence.md` contains `live_status: REASON_CODE`. Existing reasons stay allowed. No provider write.
+- **Avoid:** Adding a reason to the allowlist to bypass the evidence file. Treating this freeze as a new upload status. Inventing a live_status line. Polling OAuth secrets again as the only work.
+
 ## Run 306 — a 60-second processing wait would burn the first execute
 - **Tried:** Run 305 polls processingDetails before captions.insert. The budget was six polls of 10 seconds.
 - **Evidence:** YouTube HD processing for a few-minute 1080p file commonly lasts several minutes. A 60-second wait returns VIDEO_PROCESSING_NOT_READY, persists the video id, and requires another execute dispatch for the same caption. That is recurring labor, not a new HTTP status.

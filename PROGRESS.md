@@ -1,3 +1,6 @@
+## Run 307
+New upload error reasons now fail the selftest unless a live execute recorded them. That stops the Run 281-306 status loop from growing on prose alone. Estimated human minutes stay 0.5 until secrets exist. Automated steps 137 -> 138. Videos published stay 0. No provider write. Do not add a YouTubeAPIError reason without a live_status line.
+
 ## Run 306
 The caption processing wait now covers about 10 minutes instead of 60 seconds, so a normal 1080p processing delay does not force a second execute for the same caption. Estimated human minutes stay 0.5 until secrets exist; the saved dispatch is one future execute, not a per-video edit. Automated steps stay 137. Videos published stay 0. No provider write. Do not add another upload HTTP status variant without a live execute status.
 

@@ -1,5 +1,7 @@
 # NEXT
 
+1r. **Do not rediscover the upload-variant freeze.** Run 307 added `tools/upload_variant_freeze.py`. A new `YouTubeAPIError` reason in `youtube_api.py` or `youtube_upload.py` fails selftest unless `docs/live_execute_evidence.md` has `live_status: REASON_CODE` from a real execute. Do not add the reason to the allowlist to bypass that file. Do not invent a live_status line. Existing reasons stay allowed.
+
 1q. **Do not rediscover the caption processing wait.** Run 305 polls `processingDetails` before `captions.insert`. `succeeded` and `terminated` are ready. `failed` is `VIDEO_PROCESSING_FAILED`. Still processing after 30 polls of 20 seconds (about 10 minutes) is `VIDEO_PROCESSING_NOT_READY`. Do not shrink that budget to six 10-second polls; a 60-second wait forces a second execute for the same caption. Neither starts another `videos.insert`. Do not treat that 400 as a reason to insert again. Do not drop the wait.
 
 1p. **Do not rediscover the prove_locks false fail.** Run 304 split the placeholder needle in `words_contract.py` and changed the write-path leak check from "packet must be absent" to "packet bytes must be unchanged". `python3 tools/prove_locks.py` now prints PROVE LOCKS PASS on a checkout that already has Q1. Do not restore the contiguous needle. Do not restore `not leak.exists()`. Do not map these tools.
