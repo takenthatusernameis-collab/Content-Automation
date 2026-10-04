@@ -1,3 +1,14 @@
+## 2026-10-04T20:15:00Z — Run 321
+
+- **Objective:** Stop the fill-idea path from telling the operator to paste idea.md by hand after apply_idea.py already exists.
+- **Inspected:** STATE, NEXT, RUNS, hint.py, next_action.py, idea_brief.py, idea_gate_contract.py, apply_idea.py. OAuth secrets were not polled. Execute was not dispatched.
+- **Action taken:** fill-idea now prints doctor.py then apply_idea.py dry-run. The --write line is a comment. idea_brief, expand_prompt, next_topic, queue_status, production_rules, and human_session name apply_idea instead of a hand paste. idea_gate_contract locks that. selftest runs the contract. Did not scaffold. Did not rewrite Q1 idea.md. Did not download or re-encode.
+- **Result:** `python3 tools/idea_gate_contract.py` printed IDEA GATE CONTRACT PASS. `python3 tools/apply_idea_contract.py` printed APPLY IDEA CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. `videos/003-put-the-start-cue-on-the-work-itself` was not created. Videos published stay 0.
+- **Verification status:** completed for the hint lock and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** Run 320 added the writer, but the operator printers still said paste by hand. idea_gate_contract was already failing on HEAD because fill-idea did not start with doctor.py, and selftest did not run it.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall.
+- **Recommended next action:** Store those three secrets, then dispatch `youtube-production.yml` with execute=true and skip_comment false. Do not scaffold Q2. Do not overwrite a reviewed idea.md with apply_idea.py. Do not restore a hand-paste instruction for idea.md.
+
 ## 2026-10-04T19:30:00Z — Run 320
 
 - **Objective:** Remove the hand paste of a blank idea.md after scaffold without creating Q2 or polling OAuth.

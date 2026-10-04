@@ -65,7 +65,7 @@ python3 tools/idea_brief.py videos/002-stop-deciding-what-to-work-on-every-morni
 
 `idea_brief.py` writes nothing. It prints current idea.md fields and the suggested paste. `--block` prints only the paste-ready idea.md body. Still does not write idea.md.
 
-After you paste that body into idea.md by hand, confirm without writing:
+After the folder exists, fill a blank idea.md with `python3 tools/apply_idea.py PATH` then `--write` only if it is still the blank template. Do not paste by hand. Confirm without writing:
 
 ```bash
 python3 tools/idea_brief.py videos/002-stop-deciding-what-to-work-on-every-morning --check

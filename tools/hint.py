@@ -48,11 +48,12 @@ def commands_for(path: Path, row: dict[str, object], code: str) -> list[str]:
         return [f"python3 tools/set_status.py {p} --to draft"]
     if code == "fill-idea":
         return [
-            f"python3 tools/idea_brief.py {p}",
-            f"python3 tools/idea_brief.py {p} --block",
-            "# paste that --block body into idea.md by hand; idea_brief writes nothing",
+            f"python3 tools/doctor.py {p}",
+            f"python3 tools/apply_idea.py {p}",
+            f"# blank template only: python3 tools/apply_idea.py {p} --write",
+            "# reviewed idea.md is refused; apply_idea does not scaffold and does not write spoken WORDS",
             f"python3 tools/idea_brief.py {p} --check",
-            "# --check exit 2: paste still blank or mismatched; reprint --block",
+            "# --check exit 2: idea.md still blank or mismatched; rerun apply_idea dry-run",
             "# --check exit 0 PASTE READY: then expand off-repo; do not treat stdout as script.md",
         ]
     if code in {"write-script", "expand-script"}:

@@ -9,14 +9,14 @@ Apply to every video packet. QA checks what can be checked mechanically.
 - Status in `packet.md` must be one of: `draft`, `ready_for_vo`, `ready_for_edit`, `ready_to_publish`, `published`, `abandoned`
 - Field values stay on the same line as the key
 - `python3 tools/new_idea.py "topic"` / `python3 tools/new_packet.py "title"` copy the template and write generated titles/thumbs (if empty), `publish.md` (if empty), `captions.md` (if empty), `assets.md` (if empty), `render.md` (if empty), `vo_session.md` (if empty), `expand.md` (if empty), `research.md`, and `qa.md` unless `--no-generate`
-- Neither `new_packet.py` nor `idea_brief.py` writes idea.md. After a mark-needed folder exists, reprint then paste by hand:
-  - `python3 tools/idea_brief.py PATH --block`
-  - paste idea fields by hand into `PATH/idea.md`
+- Neither `new_packet.py` nor `idea_brief.py` writes idea.md. After a mark-needed folder exists, fill a blank idea.md with apply_idea (dry-run first). A reviewed idea.md is refused. Do not paste by hand:
+  - `python3 tools/apply_idea.py PATH`
+  - `python3 tools/apply_idea.py PATH --write`
   - `python3 tools/idea_brief.py PATH --check`
 - `python3 tools/doctor.py` is the session-start health check. It does not write files.
 - `python3 tools/pipeline_status.py` is the read-only board across packets. It does not write files.
-- `python3 tools/next_action.py` is the read-only next human step. It does not write files. fill-idea Why names idea_brief --block / paste / --check.
-- `python3 tools/hint.py` is the read-only copy-paste CLI for that step. It does not write files. `--write` is never the first command. After scaffold, fill-idea prints idea_brief; write-script/expand-script print words.py and PATH/draft.md apply lines.
+- `python3 tools/next_action.py` is the read-only next human step. It does not write files. fill-idea Why names apply_idea dry-run, then --write only for a blank template.
+- `python3 tools/hint.py` is the read-only copy-paste CLI for that step. It does not write files. `--write` is never the first command. After scaffold, fill-idea prints doctor.py then apply_idea.py (dry-run first); write-script/expand-script print words.py and PATH/draft.md apply lines.
 - `python3 tools/set_status.py PATH --to STATUS` is the only status writer. Dry-run default. `--write` required. Refuses fixture promote, skip-ahead, and evidence-free bumps.
 - After a GitHub write of a high-risk tool, run `python3 tools/prove_locks.py` first. PASS is not apply --write.
 
@@ -125,8 +125,8 @@ Selected VO: `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop
 After a mark-needed folder exists (new packet only) those printers, `docs/human_session.md`, `docs/agent_session.md` WAVE 3, README Human session, and this page name:
 
 ```bash
-python3 tools/idea_brief.py PATH --block
-# paste idea fields by hand into PATH/idea.md
+python3 tools/apply_idea.py PATH
+# blank template only: python3 tools/apply_idea.py PATH --write
 python3 tools/idea_brief.py PATH --check
 ```
 

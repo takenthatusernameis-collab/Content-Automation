@@ -1,3 +1,5 @@
+1zd. **Do not rediscover the idea.md hand paste.** Run 321 pointed fill-idea at `tools/apply_idea.py` (dry-run first). `--write` is a comment, not the first command. `idea_gate_contract.py` fails if that block says paste that or paste into. Selftest runs the contract. Do not restore a hand-paste instruction. Do not scaffold Q2. Do not overwrite Q1 idea.md.
+
 1zc. **Do not rediscover the idea.md hand paste.** Run 320 added `tools/apply_idea.py`. Dry-run default. `--write` fills a blank template `idea.md` from the locked queue paste, or rewrites it when it already matches. A different non-blank idea.md is refused. It does not scaffold, does not write spoken WORDS, and does not mark the queue used. Do not scaffold Q2 to try it. Do not overwrite Q1 idea.md.
 
 1zb. **Do not rediscover the missing queue problem line.** Run 319 added a `problem` column to `docs/topic_queue.md` for Q1-Q5. `tools/new_packet.py` `idea_followup` reprints that cell. Q1 still uses the pin sentence. Do not scaffold Q2. Do not delete the column. A blank cell may still say write one before expand.

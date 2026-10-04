@@ -87,7 +87,7 @@ def recommend(path: Path, row: dict[str, object]) -> tuple[str, str]:
     if idea_mechanism_blank(idea_text(path)):
         return (
             "fill-idea",
-            "idea.md mechanism is blank or template-default. Run idea_brief --block, paste by hand, then idea_brief --check. Do not treat that paste as spoken WORDS.",
+            "idea.md mechanism is blank or template-default. Dry-run apply_idea.py, then --write only if the file is still the blank template. Do not paste by hand. Do not treat the queue paste as spoken WORDS.",
         )
 
     incompletes = list(row["incompletes"])

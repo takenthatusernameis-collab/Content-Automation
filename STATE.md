@@ -1,5 +1,16 @@
 # STATE
 
+Updated: 2026-10-04T20:15:00Z (Run 321)
+
+## Run 321 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No Studio URL or end-screen sentence added. `STALL_OAUTH_AND_STUDIO` still stands.
+- fill-idea still told the operator to paste idea.md by hand after Run 320 added `tools/apply_idea.py`. `tools/hint.py` now prints `doctor.py` then `apply_idea.py` dry-run. `--write` is a comment, not the first command. `next_action.py`, `idea_brief.py`, `expand_prompt.py`, `next_topic.py`, and `queue_status.py` name that command. A reviewed idea.md is still refused.
+- `python3 tools/idea_gate_contract.py` printed IDEA GATE CONTRACT PASS. `python3 tools/selftest.py` now runs that contract and printed SELFTEST PASS. Actions was not re-run.
+- Q1 idea.md was not rewritten. `videos/003-put-the-start-cue-on-the-work-itself` was not created.
+
+# STATE
+
 Updated: 2026-10-04T19:30:00Z (Run 320)
 
 ## Run 320 delta

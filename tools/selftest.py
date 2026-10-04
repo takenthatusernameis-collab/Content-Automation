@@ -995,6 +995,18 @@ def check_oauth_setup_recipe() -> list[str]:
 
 
 
+
+def check_idea_gate() -> list[str]:
+    """fill-idea must name apply_idea and must not tell the operator to paste by hand."""
+    import subprocess
+    contract = ROOT / "tools" / "idea_gate_contract.py"
+    if not contract.is_file():
+        return ["idea_gate_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0 or "IDEA GATE CONTRACT PASS" not in proc.stdout:
+        return [f"idea_gate_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    return []
+
 def check_apply_idea() -> list[str]:
     """Blank idea.md fill must stay fail-closed and must not scaffold Q2."""
     import subprocess
@@ -1108,6 +1120,7 @@ def main() -> int:
     failures.extend(check_stall_watch())
     failures.extend(check_prove_locks_on_push())
     failures.extend(check_apply_idea())
+    failures.extend(check_idea_gate())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")

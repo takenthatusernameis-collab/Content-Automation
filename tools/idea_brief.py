@@ -178,7 +178,7 @@ def check_fields(current: str, title: str, packet: Path) -> tuple[int, list[str]
         lines.append("  INFO extra template fields still blank; --block now includes viewer / why now / related.")
         lines.append("  INFO those extras are not a --check gate.")
     if mismatches:
-        lines.append("PASTE INCOMPLETE. Paste --block into idea.md by hand, then re-run --check.")
+        lines.append("PASTE INCOMPLETE. Fill a blank idea.md with apply_idea.py PACKET --write, then re-run --check. Do not paste by hand.")
         lines.append(f"  {block_command(packet)}")
         lines.append("This command writes nothing.")
         return 2, lines
@@ -201,7 +201,7 @@ def print_queue_block(qid: str) -> int:
     title = row["working_title"]
     print(paste_block(title), end="")
     print(f"# Queue {row['id']} status={row['status']}. This command writes nothing.")
-    print("# Paste the block above into idea.md by hand after the packet folder exists.")
+    print("# After the packet folder exists, fill a blank idea.md with apply_idea.py PACKET --write. This reprint writes nothing.")
     print("# Do not treat this reprint as scaffold or as script.md.")
     return 0
 
@@ -257,7 +257,7 @@ def main() -> int:
 
     if args.block:
         print(paste_block(title), end="")
-        print("# This command writes nothing. Paste the block above into idea.md by hand.")
+        print("# This command writes nothing. Fill a blank idea.md with apply_idea.py PACKET --write. Do not paste by hand.")
         return 0
 
     print(f"Packet: {path.name}")

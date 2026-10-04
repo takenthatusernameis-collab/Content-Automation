@@ -52,6 +52,8 @@ def source_locks(failures: list[str]) -> None:
     if 'if code == "fill-idea":' in hint_src:
         block = hint_src.split('if code == "fill-idea":', 1)[1].split("if code", 1)[0]
     fail(failures, "doctor.py" in block, f"hint fill-idea block missing doctor.py: {block!r}")
+    fail(failures, "apply_idea.py" in block, f"hint fill-idea block missing apply_idea.py: {block!r}")
+    fail(failures, "paste that" not in block and "paste into" not in block, f"hint fill-idea still tells a hand paste: {block!r}")
 
 
 def blank_cases() -> list[str]:

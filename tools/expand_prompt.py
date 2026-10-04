@@ -237,7 +237,7 @@ def main() -> int:
             file=sys.stderr,
         )
         print(
-            "Paste idea_brief --block into idea.md by hand, then --check. "
+            "Fill a blank idea.md with apply_idea.py PACKET --write, then idea_brief --check. Do not paste by hand. "
             "This command does not write idea.md or script.md.",
             file=sys.stderr,
         )

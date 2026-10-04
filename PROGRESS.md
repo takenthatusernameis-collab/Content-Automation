@@ -1,4 +1,8 @@
 ## Run 320 (2026-10-04T19:30:00Z)
+
+## Run 321 — 2026-10-04T20:15:00Z
+fill-idea no longer tells the operator to paste idea.md by hand. Estimated human minutes for a future blank idea.md: one dry-run plus one --write, not a field copy. Automated steps unchanged (the writer already existed). Videos published stay 0. No provider write. Do not restore the hand paste. Do not add a YouTubeAPIError reason without a live_status line.
+
 - Blank idea.md after scaffold can be filled by `tools/apply_idea.py --write` from the locked queue paste. Reviewed idea.md is refused. Estimated human minutes saved at each later scaffold: about 3 (no hand paste). No video produced. Videos published stay 0. Automated steps stay 139 plus this fill command. Q2 was not scaffolded.
 
 

@@ -148,15 +148,15 @@ def report(text: str, folders: list[str], predicted_id: str, videos: Path) -> tu
     if mark_cmds:
         lines.append("Close queue drift (dry-run first):")
         lines.extend(mark_cmds)
-        lines.append("After that folder exists, fill idea.md from idea_brief (writes nothing):")
+        lines.append("After that folder exists, fill a blank idea.md (dry-run first; does not scaffold):")
         seen: set[str] = set()
         for folder in mark_folders:
             if folder in seen:
                 continue
             seen.add(folder)
             path = f"videos/{folder}"
-            lines.append(f"  python3 tools/idea_brief.py {path} --block")
-            lines.append(f"  # paste into {path}/idea.md by hand")
+            lines.append(f"  python3 tools/apply_idea.py {path}")
+            lines.append(f"  # blank template only: python3 tools/apply_idea.py {path} --write")
             lines.append(f"  python3 tools/idea_brief.py {path} --check")
     lines.append("Do not treat this board as permission to write the queue or invent WORDS.")
     return "\n".join(lines) + "\n", counts
