@@ -22,7 +22,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
 - No new YouTubeAPIError reason. The upload-variant freeze stays in place. Production checkout stays `fetch-depth: 0`. prove_locks stays in selftest.yml.
 - Dispatch input `skip_comment` passes `--skip-comment` and wins over `post_comment`. An approved first comment still posts when skip is false. `comment_post.pinned` stays false because `commentThreads.insert` does not pin. Studio pin remains a one-time human step after the private upload.
-- Selftest, prove_locks, and upload_variant_freeze passed locally. Actions was not re-run.
+- Selftest, prove_locks, and upload_variant_freeze passed locally. Actions run 37182446814 concluded success on `c95a5438abda65ff99f8d38049e0be7a4efed98c`.
 - Flag still stands: do not add another upload HTTP status variant unless a live execute returned that status. Do not spend a run only restating the OAuth hold.
 
 ## Run 310 delta
