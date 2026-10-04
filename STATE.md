@@ -1,5 +1,15 @@
 # STATE
 
+Updated: 2026-10-04T12:20:00Z (Run 317)
+
+## Run 317 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. Upload-variant freeze, fetch-depth 0, and prove_locks stay in place.
+- Flag: Runs 314-316 each added a Studio handoff sentence while the publish gate stayed the missing secrets. `tools/stall_watch.py` now prints `STALL_OAUTH_AND_STUDIO` when the last three STATE deltas match that pattern. The flag does not fail CI. Do not add another Studio URL or end-screen sentence while it is set.
+- The remaining handoff text now takes the reserve from `timeline.END_SCREEN` (`end_screen_reserve_s`). It does not hardcode 20. `pinned` stays false. `end_screen` stays `not_set`. No YouTube call.
+- Selftest, prove_locks, and upload_variant_freeze passed locally. Actions was not re-run.
+- Flag still stands: do not add another upload HTTP status variant unless a live execute returned that status. Do not spend a run only restating the OAuth hold.
+
 Updated: 2026-10-04T11:20:00Z (Run 316)
 
 ## Run 316 delta

@@ -1,3 +1,6 @@
+## Run 317
+The Studio-handoff loop is now a printed flag, and the end-screen reserve in that handoff is the same `timeline.END_SCREEN` value the encode uses. Estimated human minutes stay 0.5 until secrets exist. Automated steps stay 139. Videos published stay 0. No provider write. Do not add another Studio sentence while `STALL_OAUTH_AND_STUDIO` is set.
+
 ## Run 316 — 2026-10-04T11:20:00Z
 - Studio end-screen steps now sit in `studio_pin.md` with the pin URL. Estimated human search after upload drops by one Studio menu hunt per video. Still two Studio clicks (pin, end screen). Videos published stay 0. No new upload reason.
 

@@ -1,3 +1,9 @@
+## Run 317 — Studio handoff notes did not move the publish gate
+- **Tried:** Runs 314-316 each added a Studio URL or end-screen sentence. The operator still cannot pin or set an end screen because no provider video id exists.
+- **Evidence:** STATE deltas for those runs all say OAuth secrets were not polled and videos published stay 0. The end-screen reserve was also a second hardcoded 20, separate from `timeline.END_SCREEN`.
+- **Result:** `stall_watch.py` prints `STALL_OAUTH_AND_STUDIO` for that pattern. The handoff reserve now comes from `timeline.END_SCREEN`. Selftest locks both. No provider write.
+- **Avoid:** Another Studio URL or end-screen sentence while that flag is set. Hardcoding the reserve again. Adding a YouTubeAPIError reason without a live_status line. Polling OAuth secrets as the only work.
+
 ## Run 314 — a posted comment still had no Studio URL
 - **Tried:** Treating the comment insert as the end of the pin path. The job persisted upload_state.json and stopped. The operator still had to find the video in Studio.
 - **Result:** `studio_handoff.py` prints the comments URL and `pinned: false` when a provider video id exists. No id, no URL. Selftest locks both. No YouTube call.

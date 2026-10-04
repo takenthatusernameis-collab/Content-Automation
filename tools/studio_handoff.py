@@ -13,6 +13,8 @@ import json
 import sys
 from pathlib import Path
 
+from timeline import END_SCREEN
+
 
 def pin_text(packet: Path) -> str:
     publish = packet / "publish.md"
@@ -34,6 +36,12 @@ def pin_text(packet: Path) -> str:
 
 PIN_NAME = "studio_pin.md"
 
+def reserve_seconds() -> float:
+    """Encode reserve. Do not hardcode a second copy of this number."""
+    return float(END_SCREEN)
+
+
+
 
 def pin_markdown(state: dict, comment: str = "") -> str | None:
     """Durable Studio note. None when there is no provider video id.
@@ -45,11 +53,13 @@ def pin_markdown(state: dict, comment: str = "") -> str | None:
         return None
     posted = state.get("comment_post") or {}
     status = str(posted.get("status") or "not_attempted")
+    reserve = reserve_seconds()
     lines = [
         "# Studio pin",
         "",
         "pinned: false",
         "end_screen: not_set",
+        f"end_screen_reserve_s: {reserve:.0f}",
         "",
         "commentThreads.insert does not pin. This file is not a pin.",
         "The Data API does not set an end screen. This file is not an end screen.",
@@ -61,7 +71,7 @@ def pin_markdown(state: dict, comment: str = "") -> str | None:
         "",
         "## End screen",
         "",
-        "The master already reserves the last 20 seconds. Do not re-encode.",
+        f"The master already reserves the last {reserve:.0f} seconds. Do not re-encode.",
         "In the editor, add an end screen on that reserve only.",
         "Lower-left: one video or playlist element. Lower-right: subscribe.",
         "Leave the CTA card text readable. Do not cover the center.",
@@ -98,6 +108,7 @@ def render(state: dict, comment: str = "") -> str:
                 "end_screen_note: no provider video id; do not invent an editor URL",
             ]
         )
+    reserve = reserve_seconds()
     lines = [
         "STUDIO_PIN",
         "status: needs_studio_pin",
@@ -106,9 +117,10 @@ def render(state: dict, comment: str = "") -> str:
         f"comment_post: {status}",
         "pinned: false",
         "end_screen: not_set",
+        f"end_screen_reserve_s: {reserve:.0f}",
         "editor_url: https://studio.youtube.com/video/{video_id}/edit".format(video_id=video_id),
         "pin_note: commentThreads.insert does not pin; Studio pin stays a remaining human step",
-        "end_screen_note: Data API does not set an end screen; last 20s reserve, lower-left video or playlist, lower-right subscribe",
+        f"end_screen_note: Data API does not set an end screen; last {reserve:.0f}s reserve, lower-left video or playlist, lower-right subscribe",
     ]
     if comment:
         lines.append("comment:")

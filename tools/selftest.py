@@ -1088,6 +1088,7 @@ def main() -> int:
     failures.extend(check_job_timeout_covers_upload())
     failures.extend(check_caption_waits_for_processing())
     failures.extend(check_upload_variant_freeze())
+    failures.extend(check_stall_watch())
     failures.extend(check_prove_locks_on_push())
 
     print(f"Fixture: {path.name}")
@@ -1923,6 +1924,12 @@ def check_job_timeout_covers_upload() -> list[str]:
         failures.append("studio pin file must keep the end screen unset and the editor URL")
     if "end_screen: not_set" not in rendered or "https://studio.youtube.com/video/abc123/edit" not in rendered:
         failures.append("studio handoff must print the unset end screen and editor URL")
+    from timeline import END_SCREEN
+    reserve = f"end_screen_reserve_s: {END_SCREEN:.0f}"
+    if reserve not in rendered or reserve not in (note or ""):
+        failures.append("studio handoff reserve must come from timeline.END_SCREEN")
+    if "last 20 seconds" in (ROOT / "tools" / "studio_handoff.py").read_text(encoding="utf-8"):
+        failures.append("studio handoff must not hardcode the end-screen reserve")
     if "studio.youtube.com" in empty:
         failures.append("studio handoff must not invent an end-screen URL")
     if "fetch-depth: 0" not in workflow:
@@ -2042,5 +2049,25 @@ def check_prove_locks_on_push() -> list[str]:
         failures.append("selftest workflow must run prove_locks.py on every push")
     return failures
 
+
+def check_stall_watch() -> list[str]:
+    """The OAuth-and-Studio loop must be detectable. The flag does not fail CI."""
+    import stall_watch
+    failures = []
+    sample = ""
+    for n in (9, 8, 7):
+        sample += (
+            f"## Run {n} delta\n"
+            "- OAuth secrets were not polled\n"
+            "end_screen note in studio_pin.md\n"
+            "Videos published stay 0.\n\n"
+        )
+    if "STALL_OAUTH_AND_STUDIO" not in stall_watch.flag_text(sample):
+        failures.append("stall_watch must flag three OAuth-and-studio deltas")
+    if stall_watch.flag_text("## Run 1 delta\n- fixed assemble\n"):
+        failures.append("stall_watch must stay quiet without the repeated pattern")
+    return failures
+
 if __name__ == "__main__":
     raise SystemExit(main())
+

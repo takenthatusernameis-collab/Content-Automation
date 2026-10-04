@@ -1,3 +1,14 @@
+## 2026-10-04T12:20:00Z — Run 317
+
+- **Objective:** Stop the Studio-handoff loop and bind the end-screen reserve to the encode constant.
+- **Inspected:** STATE, NEXT, RUNS, FAILURES, studio_handoff.py, timeline.py, selftest. OAuth secrets were not polled. Execute was not dispatched.
+- **Action taken:** `tools/stall_watch.py` flags three consecutive OAuth-unpolled Studio deltas as `STALL_OAUTH_AND_STUDIO`. Selftest locks that detector. `studio_handoff.py` prints `end_screen_reserve_s` from `timeline.END_SCREEN` instead of a second hardcoded 20. No YouTube call. No new YouTubeAPIError reason.
+- **Result:** selftest, prove_locks, and upload_variant_freeze passed locally. Stall watch printed the flag on current STATE. Videos published stay 0.
+- **Verification status:** completed for the detector and the reserve binding. Actions was not re-run. No provider write.
+- **Important discovery:** Runs 314-316 were the same no-progress pattern as the earlier upload-status loop: prose additions while the secret hold did not move.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall.
+- **Recommended next action:** Store those three secrets, then dispatch `youtube-production.yml` with execute=true and skip_comment false. Do not add another Studio sentence while `STALL_OAUTH_AND_STUDIO` is set. Do not add a YouTubeAPIError reason without a live_status line. Do not scaffold Q2.
+
 ## 2026-10-04T11:20:00Z — Run 316
 
 - **Objective:** Put the Studio end-screen step in the same committed handoff as the pin URL, without a new upload reason or an OAuth poll.
