@@ -92,6 +92,12 @@ def check(packet: Path, target: str) -> list[str]:
         dur = packet_duration_warning(packet)
         if dur:
             errors.append(f"refusing ready_for_vo while duration WARN: {dur}")
+        from quality_scan import scan_path
+
+        found = scan_path(packet)
+        if found:
+            detail = ", ".join(phrase for phrase, _count in found)
+            errors.append(f"refusing ready_for_vo: quality_scan hits ({detail})")
 
     if target == "ready_for_edit":
         _label, _p, _m, by_role = disk_summary(packet)

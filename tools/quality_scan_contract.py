@@ -57,6 +57,28 @@ def main() -> int:
         )
         if clean.returncode != 0 or "clear" not in clean.stdout:
             return fail(clean.stdout + clean.stderr)
+        sys.path.insert(0, str(ROOT / "tools"))
+        from set_status import check
+
+        (packet / "packet.md").write_text(
+            "- id: contract\n- working_title: contract\n- status: draft\n",
+            encoding="utf-8",
+        )
+        script.write_text(
+            "# Script\n\n## Hook\nWORDS:\n"
+            "In today's fast-paced world you will learn to unlock your potential.\n",
+            encoding="utf-8",
+        )
+        blocked = check(packet, "ready_for_vo")
+        if not any("quality_scan hits" in item and "unlock your potential" in item for item in blocked):
+            return fail(f"set_status did not refuse slop: {blocked}")
+        script.write_text(
+            "# Script\n\n## Hook\nWORDS:\nWrite the next action on the card before you close the list.\n",
+            encoding="utf-8",
+        )
+        clean_status = check(packet, "ready_for_vo")
+        if any("quality_scan hits" in item for item in clean_status):
+            return fail(f"clear script refused: {clean_status}")
     print("QUALITY SCAN CONTRACT PASS")
     return 0
 

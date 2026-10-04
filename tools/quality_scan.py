@@ -2,8 +2,9 @@
 """Report anti-slop phrases in script.md WORDS. Does not rewrite the script.
 
 Patterns come from docs/content_quality.md. A hit is a revision signal, not
-an authorship claim and not a publish block. Default exit is 0 so a frozen
-Q1 script cannot fail the build. --strict exits 1 when any hit remains.
+an authorship claim. This tool does not rewrite script.md. Default exit is 0
+so a frozen Q1 script cannot fail the build. --strict exits 1 when any hit
+remains. set_status.py refuses ready_for_vo while a hit remains.
 """
 
 from __future__ import annotations

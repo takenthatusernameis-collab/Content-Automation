@@ -1,3 +1,5 @@
+1zf. **Do not rediscover the ready_for_vo quality gap.** Run 323: `tools/set_status.py` refuses `ready_for_vo` when `quality_scan` hits remain. The scanner still does not rewrite script.md. A missing script is not a hit. Q1 was already clear and was not rewritten. Do not scaffold Q2. Do not add a YouTubeAPIError reason for this.
+
 1ze. **Do not rediscover the instruction-lock loop.** Run 322: `tools/stall_watch.py` prints `STALL_INSTRUCTION_LOCK` when the last three STATE deltas left OAuth unpolled, left videos published at 0, and only edited operator copy. The flag does not fail CI. Do not add another operator-copy sentence while it is set. `tools/quality_scan.py` reports anti-slop phrases and does not rewrite script.md. Q1 was clear. Do not rewrite Q1 WORDS. Do not scaffold Q2.
 
 1zd. **Do not rediscover the idea.md hand paste.** Run 321 pointed fill-idea at `tools/apply_idea.py` (dry-run first). `--write` is a comment, not the first command. `idea_gate_contract.py` fails if that block says paste that or paste into. Selftest runs the contract. Do not restore a hand-paste instruction. Do not scaffold Q2. Do not overwrite Q1 idea.md.

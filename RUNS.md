@@ -1,3 +1,14 @@
+## 2026-10-04T21:20:00Z — Run 323
+
+- **Objective:** Bind the Run 322 anti-slop report to the status promotion so a later packet cannot reach ready_for_vo with those phrases.
+- **Inspected:** STATE, NEXT, RUNS, quality_scan.py, set_status.py, content_quality.md. OAuth secrets were not polled. Execute was not dispatched.
+- **Action taken:** set_status refuses ready_for_vo when scan_path finds a phrase. quality_scan_contract covers a slop refusal and a clear script. content_quality.md names that gate. Did not rewrite Q1 WORDS. Did not scaffold. Did not download or re-encode.
+- **Result:** quality_scan printed clear for Q1 and hits 0. quality_scan_contract printed QUALITY SCAN CONTRACT PASS. selftest printed SELFTEST PASS. Videos published stay 0.
+- **Verification status:** completed for the promotion gate and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** The scanner existed but promotion did not call it, so the recommended next action was still a remembered command.
+- **Blocker:** GitHub Actions secrets YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, and YOUTUBE_REFRESH_TOKEN remain the publish gate. Not polled. Recurring external stall.
+- **Recommended next action:** Store those three secrets, then dispatch youtube-production.yml with execute=true and skip_comment false. Do not rewrite Q1 WORDS. Do not scaffold Q2. Do not add another instruction-only sentence while STALL_INSTRUCTION_LOCK is set.
+
 ## 2026-10-04T21:12:00Z — Run 322
 
 - **Objective:** Stop the instruction-lock loop and add a reusable script quality signal that does not rewrite Q1.

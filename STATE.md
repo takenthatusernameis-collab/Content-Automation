@@ -1,5 +1,16 @@
 # STATE
 
+Updated: 2026-10-04T21:20:00Z (Run 323)
+
+## Run 323 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. Q1 WORDS were not rewritten. No new packet folder.
+- `tools/set_status.py` now refuses `ready_for_vo` when `quality_scan.scan_path` finds an anti-slop phrase. A missing script is not a hit. The scanner still does not rewrite script.md.
+- `python3 tools/quality_scan_contract.py` printed QUALITY SCAN CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+- Q1 quality_scan still printed clear. Promoting Q1 again still stops on already ready_for_vo.
+
+# STATE
+
 Updated: 2026-10-04T21:12:00Z (Run 322)
 
 ## Run 322 delta

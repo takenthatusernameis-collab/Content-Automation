@@ -1,3 +1,6 @@
+## Run 323 — 2026-10-04T21:20:00Z
+ready_for_vo now fails closed on quality_scan hits. Estimated human review of those phrases on later packets drops from a remembered read to a status refusal. Q1 unchanged. Videos published stay 0. Publish still waits on the three YouTube secrets.
+
 ## Run 322 (2026-10-04T21:12:00Z)
 - Script anti-slop phrases are now a reusable report (`tools/quality_scan.py`) instead of a reread of docs/content_quality.md. Estimated human minutes saved on each later script review: about 4, if the report is clear. Q1 was already clear, so this video does not change. Automated steps: 139 plus this report. Videos published stay 0. No provider write.
 - Instruction-only runs are now visible as STALL_INSTRUCTION_LOCK. That does not reduce minutes until the three YouTube secrets exist.
