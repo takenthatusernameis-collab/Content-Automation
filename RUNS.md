@@ -1,3 +1,14 @@
+## 2026-10-04T22:13:00Z — Run 324
+
+- **Objective:** Stop the next video from needing a copied production workflow, without dispatching upload or scaffolding Q2.
+- **Inspected:** STATE, NEXT, RUNS, stall_watch (clear), youtube-production.yml. OAuth secrets were not polled. Execute was not dispatched.
+- **Action taken:** Added workflow input `packet` defaulting to the Q1 path. Job `PACKET` reads that input. Materialize stays on the Q1 path only. A path outside `videos/<slug>` is refused. Selftest locks the default and the materialize guard.
+- **Result:** `python3 tools/selftest.py` printed SELFTEST PASS. Videos published stay 0.
+- **Verification status:** completed for the workflow contract and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** The upload job was still a Q1 constant, so video 2 would have required a workflow copy even after secrets exist.
+- **Blocker:** GitHub Actions secrets YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, and YOUTUBE_REFRESH_TOKEN remain the publish gate. Not polled.
+- **Recommended next action:** Store those three secrets, then dispatch youtube-production.yml with execute=true and skip_comment false. Leave packet at the default. Do not scaffold Q2. Do not point materialize at another packet.
+
 ## 2026-10-04T21:20:00Z — Run 323
 
 - **Objective:** Bind the Run 322 anti-slop report to the status promotion so a later packet cannot reach ready_for_vo with those phrases.

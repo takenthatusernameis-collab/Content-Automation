@@ -23,6 +23,11 @@ on:
         required: false
         type: boolean
         default: false
+      packet:
+        description: "Packet folder under videos/. Default is the live Q1 packet. A different folder is not materialized from the Q1 releases."
+        required: false
+        type: string
+        default: videos/002-stop-deciding-what-to-work-on-every-morning
 
 concurrency:
   group: youtube-production
@@ -40,7 +45,7 @@ jobs:
       YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
       YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
       YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
-      PACKET: videos/002-stop-deciding-what-to-work-on-every-morning
+      PACKET: ${{ inputs.packet }}
     steps:
       - name: Checkout production branch
         uses: actions/checkout@v4
@@ -65,8 +70,27 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ffmpeg
 
+      - name: Refuse a packet path outside videos/
+        run: |
+          python3 - << 'PY'
+          import os, sys
+          packet = os.environ["PACKET"].strip().replace("\\", "/")
+          if packet != "videos/002-stop-deciding-what-to-work-on-every-morning":
+              parts = packet.split("/")
+              if (
+                  len(parts) != 2
+                  or parts[0] != "videos"
+                  or not parts[1]
+                  or parts[1] in {".", "..", "_template"}
+                  or ".." in parts[1]
+              ):
+                  print(f"REFUSE: packet must be videos/<slug>, got {packet!r}", file=sys.stderr)
+                  sys.exit(2)
+          print(f"PACKET {packet}")
+          PY
+
       - name: Materialize verified Q1 media
-        if: ${{ inputs.collect_feedback != true || inputs.execute == true }}
+        if: ${{ (inputs.collect_feedback != true || inputs.execute == true) && inputs.packet == 'videos/002-stop-deciding-what-to-work-on-every-morning' }}
         run: python3 tools/materialize_q1_release.py
 
       - name: Inspect upload gates without provider write

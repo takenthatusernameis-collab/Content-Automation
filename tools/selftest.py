@@ -1989,6 +1989,12 @@ def check_job_timeout_covers_upload() -> list[str]:
         failures.append("studio handoff must not hardcode the end-screen reserve")
     if "studio.youtube.com" in empty:
         failures.append("studio handoff must not invent an end-screen URL")
+    if "inputs.packet" not in workflow or "videos/002-stop-deciding-what-to-work-on-every-morning" not in workflow:
+        failures.append("production workflow must keep the Q1 packet as the default dispatch input")
+    if "PACKET: ${{ inputs.packet }}" not in workflow:
+        failures.append("production PACKET must come from the dispatch input, not a second hardcoded env")
+    if "inputs.packet == 'videos/002-stop-deciding-what-to-work-on-every-morning'" not in workflow:
+        failures.append("Q1 release materialize must stay limited to the Q1 packet path")
     if "fetch-depth: 0" not in workflow:
         failures.append("production checkout must be full history so provider-state rebase has a merge base")
     if "fetch-depth: 1" in workflow:

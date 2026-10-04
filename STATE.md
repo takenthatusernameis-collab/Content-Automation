@@ -1,5 +1,15 @@
 # STATE
 
+Updated: 2026-10-04T22:13:00Z (Run 324)
+
+## Run 324 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. Q1 WORDS were not rewritten. No new packet folder.
+- `youtube-production.yml` now takes a `packet` dispatch input. The default is still `videos/002-stop-deciding-what-to-work-on-every-morning`. `PACKET` comes from that input. Q1 release materialize runs only for that path. Other `videos/<slug>` values are not filled from the Q1 releases. `_template` and `..` are refused.
+- `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
 Updated: 2026-10-04T21:20:00Z (Run 323)
 
 ## Run 323 delta
