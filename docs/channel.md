@@ -11,6 +11,14 @@ People who already plan their week, then stall when it is time to start.
 ## Audience designation
 audience_designation: not_made_for_kids
 
+category_id: 27
+
+YouTube snippet.categoryId. 27 is Education and matches the previous videos.insert hardcode. An unknown or missing id is METADATA_REJECTED before the token refresh. Do not omit it. Do not change it unless the channel decision changes.
+
+license: youtube
+
+YouTube status.license. youtube is the standard license. creativeCommon is the other accepted value. An unknown or missing license is METADATA_REJECTED before the token refresh. Do not invent creativeCommon.
+
 YouTube `status.selfDeclaredMadeForKids` must be present and false for this channel. Omitting the field uploads a video that stays blocked until Studio sets the audience. Do not change this line to `made_for_kids` unless the channel decision changes. Do not omit it.
 
 ## Promise
