@@ -1,3 +1,6 @@
+## Run 318 — stale next-id sentence
+`docs/topic_queue.md` still said the next scaffold is `002-` after Q1 occupied `videos/002-stop-deciding-what-to-work-on-every-morning`. `next_topic.py` already printed `videos/003-...`. Following the doc would collide with Q1. Fixed in the doc and locked in `queue_contract.py`. Do not treat the old sentence as current.
+
 ## Run 317 — Studio handoff notes did not move the publish gate
 - **Tried:** Runs 314-316 each added a Studio URL or end-screen sentence. The operator still cannot pin or set an end screen because no provider video id exists.
 - **Evidence:** STATE deltas for those runs all say OAuth secrets were not polled and videos published stay 0. The end-screen reserve was also a second hardcoded 20, separate from `timeline.END_SCREEN`.

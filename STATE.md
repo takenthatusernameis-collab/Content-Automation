@@ -1,5 +1,15 @@
 # STATE
 
+Updated: 2026-10-04T14:16:00Z (Run 318)
+
+## Run 318 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No Studio URL or end-screen sentence added. `STALL_OAUTH_AND_STUDIO` still stands.
+- `docs/topic_queue.md` no longer says the next scaffold is `002-`. Q1 already occupies `videos/002-stop-deciding-what-to-work-on-every-morning`. `tools/next_topic.py` still prints `videos/003-put-the-start-cue-on-the-work-itself`. `queue_contract.py` fails if the stale 002 sentence returns.
+- Release listing still shows `q1-media-r253` `q1-master-r253.mp4` digest `sha256:4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546` and the r249 wav digest `sha256:758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2`. Not re-downloaded. Not re-encoded.
+- `queue_contract.py` and `selftest.py` passed locally. Actions was not re-run.
+
+
 Updated: 2026-10-04T12:20:00Z (Run 317)
 
 ## Run 317 delta

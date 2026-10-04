@@ -1,3 +1,14 @@
+## 2026-10-04T14:16:00Z — Run 318
+
+- **Objective:** Remove the stale next-scaffold id so a later run cannot create a second `002-` packet, without another Studio sentence or an OAuth poll.
+- **Inspected:** STATE, NEXT, RUNS, OPERATOR_HOLD, topic_queue.md, next_topic.py, queue_status.py, queue_contract.py. OAuth secrets were not polled. Execute was not dispatched.
+- **Action taken:** Replaced the `topic_queue.md` claim that the next scaffold is `002-` with the current `next_topic.py` path `videos/003-put-the-start-cue-on-the-work-itself`. `queue_contract.py` now fails if that stale sentence returns. Listed `q1-media-r253` and `q1-media-r249` assets; digests still match the recorded master and wav. Did not download, re-encode, or scaffold.
+- **Result:** `python3 tools/queue_contract.py` printed QUEUE CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. `next_topic.py` still predicts `videos/003-put-the-start-cue-on-the-work-itself`. Videos published stay 0.
+- **Verification status:** completed for the doc lock and local contracts. Release listing verified. Actions was not re-run. No provider write.
+- **Important discovery:** The board tools already printed 003. The queue doc still told agents the next scaffold was 002, which would collide with Q1.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall.
+- **Recommended next action:** Store those three secrets, then dispatch `youtube-production.yml` with execute=true and skip_comment false. Do not add another Studio sentence while `STALL_OAUTH_AND_STUDIO` is set. Do not scaffold Q2. Do not restore the next-scaffold-is-002 sentence.
+
 ## 2026-10-04T12:20:00Z — Run 317
 
 - **Objective:** Stop the Studio-handoff loop and bind the end-screen reserve to the encode constant.

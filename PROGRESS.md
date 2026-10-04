@@ -1,3 +1,6 @@
+## Run 318
+The topic queue no longer tells the next agent to scaffold `002-` after Q1 already occupies that id. `queue_contract.py` fails if that sentence returns. Estimated human minutes stay 0.5 until secrets exist. Automated steps stay 139. Videos published stay 0. No provider write. No Studio sentence added.
+
 ## Run 317
 The Studio-handoff loop is now a printed flag, and the end-screen reserve in that handoff is the same `timeline.END_SCREEN` value the encode uses. Estimated human minutes stay 0.5 until secrets exist. Automated steps stay 139. Videos published stay 0. No provider write. Do not add another Studio sentence while `STALL_OAUTH_AND_STUDIO` is set.
 

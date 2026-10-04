@@ -51,6 +51,18 @@ def hold_before_scaffold(text: str) -> bool:
 
 def main() -> int:
     failures: list[str] = []
+    live_queue = (TOOLS.parent / "docs" / "topic_queue.md").read_text(encoding="utf-8")
+    fail(
+        failures,
+        "next scaffold is `002-" not in live_queue,
+        "topic_queue.md still says the next scaffold is 002; Q1 already occupies 002",
+    )
+    fail(
+        failures,
+        "videos/003-put-the-start-cue-on-the-work-itself" in live_queue,
+        "topic_queue.md must name the current next_topic path so agents do not invent 002",
+    )
+
 
     rows = parse_queue(QUEUE_TEXT)
     fail(failures, [r["id"] for r in rows] == ["Q1", "Q2", "Q3", "Q4", "Q5"], f"parse ids: {[r['id'] for r in rows]}")

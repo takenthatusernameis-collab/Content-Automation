@@ -21,7 +21,7 @@ Status values:
 
 A human (or an agent with an explicit human instruction) scaffolds with the printed `new_packet.py` line. Do not scaffold `sample-001`. Do not mark a row `used` until the packet folder exists.
 
-Numeric ids treat `sample-001-*` as 001, so the next scaffold is `002-...`.
+Numeric ids treat `sample-001-*` as 001. Q1 already occupies `002-stop-deciding-what-to-work-on-every-morning`. The next scaffold id is whatever `tools/next_topic.py` prints (currently `videos/003-put-the-start-cue-on-the-work-itself`). Do not assume the next folder is `002-`.
 
 | id | status | working_title | one_line |
 |----|--------|---------------|----------|
