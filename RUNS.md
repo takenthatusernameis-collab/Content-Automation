@@ -1,3 +1,14 @@
+## 2026-10-04T18:14:00Z — Run 319
+
+- **Objective:** Remove the handwritten problem step for the next four queued topics without scaffolding a packet or polling OAuth.
+- **Inspected:** STATE, NEXT, RUNS, topic_queue.md, new_packet.py, idea_brief.py, queue_lib.py, queue_contract.py. OAuth secrets were not polled. Execute was not dispatched.
+- **Action taken:** Added a problem column. Q2-Q5 now have locked problem lines. idea_followup reprints a non-empty problem cell. Q1 still reprints the existing pin sentence. queue_contract locks the four cells. Did not scaffold. Did not download or re-encode.
+- **Result:** `python3 tools/idea_brief.py --queue Q2` printed the locked problem and writes nothing. `python3 tools/queue_contract.py` printed QUEUE CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Videos published stay 0.
+- **Verification status:** completed for the queue problem lock and local contracts. Actions was not re-run. No provider write.
+- **Important discovery:** Only Q1 had a locked problem. The next scaffold reprint asked a human to write one before expand.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall.
+- **Recommended next action:** Store those three secrets, then dispatch `youtube-production.yml` with execute=true and skip_comment false. Do not scaffold Q2. Do not blank the problem column.
+
 ## 2026-10-04T14:16:00Z — Run 318
 
 - **Objective:** Remove the stale next-scaffold id so a later run cannot create a second `002-` packet, without another Studio sentence or an OAuth poll.

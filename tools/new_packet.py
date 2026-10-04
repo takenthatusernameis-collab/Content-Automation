@@ -56,8 +56,11 @@ def idea_followup(title: str) -> list[str]:
     if QUEUE.is_file():
         rows = parse_queue(QUEUE.read_text(encoding="utf-8"))
         row = matching_queue_row(title, rows)
+    locked = (row or {}).get("problem", "").strip()
     if row and row.get("id") == "Q1" and Q1_PROBLEM:
         lines.append(f"  - problem: {Q1_PROBLEM}")
+    elif locked:
+        lines.append(f"  - problem: {locked}")
     elif row:
         lines.append(
             "  - problem: (no locked problem line for this id; write one before expand)"

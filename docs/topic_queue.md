@@ -17,16 +17,16 @@ Status values:
 
 `tools/mark_topic.py` is the only writer of this table. Dry-run default. `--write` is required. It refuses to mark a row `used` until a matching non-fixture `videos/` folder exists. It refuses the sample-001 fixture.
 
-`tools/new_packet.py` reprints the matching `mark_topic --id QN` dry-run after scaffold. It also reprints suggested `idea.md` topic + mechanism from this table's `one_line`. It does not write this table and does not write idea.md.
+`tools/new_packet.py` reprints the matching `mark_topic --id QN` dry-run after scaffold. It also reprints suggested `idea.md` topic, problem, and mechanism. Mechanism comes from `one_line`. Problem comes from the `problem` column when that cell is non-empty. It does not write this table and does not write idea.md.
 
 A human (or an agent with an explicit human instruction) scaffolds with the printed `new_packet.py` line. Do not scaffold `sample-001`. Do not mark a row `used` until the packet folder exists.
 
 Numeric ids treat `sample-001-*` as 001. Q1 already occupies `002-stop-deciding-what-to-work-on-every-morning`. The next scaffold id is whatever `tools/next_topic.py` prints (currently `videos/003-put-the-start-cue-on-the-work-itself`). Do not assume the next folder is `002-`.
 
-| id | status | working_title | one_line |
-|----|--------|---------------|----------|
-| Q1 | used | Stop deciding what to work on every morning | Install a written next-action default so the morning does not reopen the whole list. |
-| Q2 | queued | Put the start cue on the work itself | Name one physical or file cue that means this is the first two minutes. |
-| Q3 | queued | One list, one next action | Collapse competing lists into a single next verb the viewer can do today. |
-| Q4 | queued | Close the extra tab before you open the work | A shutdown default that removes the stall of just checking one more thing. |
-| Q5 | queued | Keep the checklist where the stall happens | Put the constraint on the desk, file, or app that already absorbs the delay. |
+| id | status | working_title | one_line | problem |
+|----|--------|---------------|----------|---------|
+| Q1 | used | Stop deciding what to work on every morning | Install a written next-action default so the morning does not reopen the whole list. | they reopen the whole work list every morning instead of starting |
+| Q2 | queued | Put the start cue on the work itself | Name one physical or file cue that means this is the first two minutes. | the planned task has no visible start cue, so the morning reopens the list |
+| Q3 | queued | One list, one next action | Collapse competing lists into a single next verb the viewer can do today. | competing lists each claim a next action, so none of them starts |
+| Q4 | queued | Close the extra tab before you open the work | A shutdown default that removes the stall of just checking one more thing. | the extra tab is still open, so starting the work means checking one more thing |
+| Q5 | queued | Keep the checklist where the stall happens | Put the constraint on the desk, file, or app that already absorbs the delay. | the constraint lives away from the stall, so the delay has nothing to hit |

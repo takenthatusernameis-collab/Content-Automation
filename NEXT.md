@@ -1,3 +1,5 @@
+1zb. **Do not rediscover the missing queue problem line.** Run 319 added a `problem` column to `docs/topic_queue.md` for Q1-Q5. `tools/new_packet.py` `idea_followup` reprints that cell. Q1 still uses the pin sentence. Do not scaffold Q2. Do not delete the column. A blank cell may still say write one before expand.
+
 1za. **Do not rediscover the next-id 002 assumption.** Run 318: Q1 already occupies `videos/002-stop-deciding-what-to-work-on-every-morning`. The next scaffold path is whatever `tools/next_topic.py` prints (`videos/003-put-the-start-cue-on-the-work-itself` as of this run). Do not scaffold that folder while Q1 has not shipped. Do not restore the sentence that the next scaffold is `002-`.
 
 1z. **Do not rediscover the Studio-handoff loop.** Run 317 flags three OAuth-unpolled Studio deltas as `STALL_OAUTH_AND_STUDIO` via `tools/stall_watch.py`. The flag does not fail CI. Do not add another Studio URL or end-screen sentence while it is set. The reserve seconds come from `timeline.END_SCREEN`. Do not hardcode 20 in `studio_handoff.py`.

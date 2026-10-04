@@ -59,6 +59,7 @@ def parse_queue(text: str) -> list[dict[str, str]]:
                 "status": parts[1].lower(),
                 "working_title": parts[2],
                 "one_line": parts[3],
+                "problem": parts[4] if len(parts) > 4 else "",
                 "raw": line,
             }
         )

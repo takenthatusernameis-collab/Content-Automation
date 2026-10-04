@@ -63,6 +63,15 @@ def main() -> int:
         "topic_queue.md must name the current next_topic path so agents do not invent 002",
     )
 
+    for qid, problem in (
+        ("Q2", "the planned task has no visible start cue, so the morning reopens the list"),
+        ("Q3", "competing lists each claim a next action, so none of them starts"),
+        ("Q4", "the extra tab is still open, so starting the work means checking one more thing"),
+        ("Q5", "the constraint lives away from the stall, so the delay has nothing to hit"),
+    ):
+        fail(failures, f"| {qid} |" in live_queue and problem in live_queue, f"topic_queue.md missing locked problem for {qid}")
+    fail(failures, "problem" in live_queue.split("one_line", 1)[-1][:80], "topic_queue.md header missing problem column")
+
 
     rows = parse_queue(QUEUE_TEXT)
     fail(failures, [r["id"] for r in rows] == ["Q1", "Q2", "Q3", "Q4", "Q5"], f"parse ids: {[r['id'] for r in rows]}")

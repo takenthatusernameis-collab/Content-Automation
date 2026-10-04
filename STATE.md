@@ -1,5 +1,15 @@
 # STATE
 
+Updated: 2026-10-04T18:14:00Z (Run 319)
+
+## Run 319 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No handoff URL sentence added.
+- Queued topics Q2-Q5 had no locked problem line, so idea_brief asked for a handwritten problem before expand. `docs/topic_queue.md` now has a problem column. `idea_followup` reads that cell. Q1 still reprints the existing pin sentence. No packet folder was created.
+- `queue_contract.py` fails if those four problem cells disappear. `python3 tools/queue_contract.py` printed QUEUE CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+- `python3 tools/idea_brief.py --queue Q2` reprints the locked problem and writes nothing.
+
+
 Updated: 2026-10-04T14:16:00Z (Run 318)
 
 ## Run 318 delta
