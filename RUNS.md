@@ -1,3 +1,14 @@
+## 2026-10-04T09:20:00Z — Run 314
+
+- **Objective:** Make the remaining Studio pin a printed handoff after execute, without a new upload reason or an OAuth poll.
+- **Inspected:** STATE, NEXT, RUNS, BLOCKED, youtube-production.yml, youtube_upload.py. Materialized Q1 from r253. media_qa PASS. Upload dry-run gate YOUTUBE_AUTH_REQUIRED. OAuth secrets were not polled.
+- **Action taken:** Added `tools/studio_handoff.py`. After execute, the workflow prints the Studio comments URL, the pin-candidate text, and `pinned: false` when upload_state.json has a provider video id. No video id prints `no_video_id` and no URL. No YouTube call. No new YouTubeAPIError reason.
+- **Result:** selftest, prove_locks, and upload_variant_freeze passed locally. A fixture state printed `https://studio.youtube.com/video/vid42/comments` and `pinned: false`. Videos published stay 0.
+- **Verification status:** completed for the printer and local locks. Actions was not re-run. No provider write.
+- **Important discovery:** The Data API comment insert was already on the execute path. The remaining human step had no stable URL in the job log, so every future upload still needed a Studio search.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall.
+- **Recommended next action:** Store those three secrets, then dispatch `youtube-production.yml` with execute=true and skip_comment false. Pin from the STUDIO_PIN url in that job log. Do not add a YouTubeAPIError reason without a live_status line. Do not scaffold Q2.
+
 ## 2026-10-04T08:20:00Z — Run 313
 
 - **Objective:** Land the Run 312 category/license adapter so videos.insert cannot keep a hardcoded Education category after the channel file changes or goes missing.

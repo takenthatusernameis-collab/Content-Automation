@@ -89,6 +89,20 @@ jobs:
           # An approved first comment posts on this execute. post_comment=true is only an extra request.
           # skip_comment=true passes --skip-comment and wins over post_comment. Data API insert does not pin.
 
+      - name: Print Studio pin handoff
+        if: ${{ always() && inputs.execute == true }}
+        shell: bash
+        run: |
+          # Data API insert is not a pin. Print the Studio URL when a video id exists.
+          # Missing state is not a failure and must not start another videos.insert.
+          if [ -f "$PACKET/upload_state.json" ]; then
+            python3 tools/studio_handoff.py "$PACKET"
+          else
+            echo "STUDIO_PIN"
+            echo "status: no_upload_state"
+            echo "pinned: false"
+          fi
+
       - name: Persist non-secret upload state
         if: ${{ always() && inputs.execute == true }}
         shell: bash

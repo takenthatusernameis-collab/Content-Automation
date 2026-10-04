@@ -1891,6 +1891,24 @@ def check_job_timeout_covers_upload() -> list[str]:
     workflow = (ROOT / ".github/workflows/youtube-production.yml").read_text(encoding="utf-8")
     if "skip_comment:" not in workflow or "--skip-comment" not in workflow:
         failures.append("production workflow must expose skip_comment and pass --skip-comment")
+    if "tools/studio_handoff.py" not in workflow:
+        failures.append("production workflow must print the Studio pin handoff after execute")
+    if "pinned: false" not in (ROOT / "tools" / "studio_handoff.py").read_text(encoding="utf-8"):
+        failures.append("studio handoff must not claim the comment is pinned")
+    import studio_handoff
+    rendered = studio_handoff.render(
+        {"provider_video_id": "abc123", "comment_post": {"status": "posted"}},
+        "Pin this sentence.",
+    )
+    if "https://studio.youtube.com/video/abc123/comments" not in rendered:
+        failures.append("studio handoff must print the Studio comments URL")
+    if "pinned: false" not in rendered:
+        failures.append("studio handoff render must keep pinned false")
+    if "needs_studio_pin" not in rendered:
+        failures.append("studio handoff must name the remaining Studio pin")
+    empty = studio_handoff.render({})
+    if "no_video_id" not in empty or "studio.youtube.com" in empty:
+        failures.append("studio handoff must not invent a video id")
     if "fetch-depth: 0" not in workflow:
         failures.append("production checkout must be full history so provider-state rebase has a merge base")
     if "fetch-depth: 1" in workflow:

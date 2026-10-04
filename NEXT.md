@@ -1,3 +1,5 @@
+1w. **Do not rediscover the Studio pin handoff.** Run 314 prints `tools/studio_handoff.py` after execute. A provider video id prints `https://studio.youtube.com/video/VIDEO_ID/comments` and `pinned: false`. No video id prints `no_video_id` and no URL. `commentThreads.insert` still does not pin. Do not claim the comment is pinned. Do not add a YouTubeAPIError reason for the missing pin. Do not require a second execute to post an already-approved comment.
+
 1v. **Do not rediscover the category lock.** Run 313 reads `docs/channel.md` `category_id` and `license`. This channel is `27` and `youtube`. Inspect is HOLD_LOCAL on `category_known` or `license_known`. Execute raises `METADATA_REJECTED:category_unknown` or `METADATA_REJECTED:license_unknown` before the token refresh. Those are not new YouTubeAPIError reason prefixes. Do not hardcode `categoryId` 27. Do not default a missing id to 27. Do not invent creativeCommon. Do not change the channel lines unless the channel decision changes.
 
 # NEXT

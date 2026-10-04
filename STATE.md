@@ -1,5 +1,15 @@
 # STATE
 
+Updated: 2026-10-04T09:20:00Z (Run 314)
+
+## Run 314 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. Upload-variant freeze, fetch-depth 0, and prove_locks stay in place.
+- Q1 materialize installed the r253 master and ignored the truncated r249 master. media_qa PASS. Dry-run gate YOUTUBE_AUTH_REQUIRED.
+- `tools/studio_handoff.py` prints the Studio comments URL after execute when a provider video id exists. `pinned` stays false. A missing id does not invent a URL. The Data API still cannot pin.
+- Selftest, prove_locks, and upload_variant_freeze passed locally. Actions was not re-run.
+- Flag still stands: do not add another upload HTTP status variant unless a live execute returned that status. Do not spend a run only restating the OAuth hold.
+
 Updated: 2026-10-04T08:20:00Z (Run 313)
 
 ## What this system is
