@@ -9,7 +9,12 @@ on:
         type: boolean
         default: false
       post_comment:
-        description: "Post the approved first comment after upload"
+        description: "Extra request only. An approved first comment already posts on execute. Leave false unless forcing that request."
+        required: false
+        type: boolean
+        default: false
+      skip_comment:
+        description: "Opt out of posting the approved first comment on this execute. Wins over post_comment."
         required: false
         type: boolean
         default: false
@@ -80,8 +85,9 @@ jobs:
       - name: Execute authenticated YouTube upload
         if: ${{ inputs.execute == true }}
         run: |
-          python3 tools/youtube_upload.py "$PACKET" --execute ${{ inputs.post_comment == true && '--post-comment' || '' }}
-          # An approved pin comment posts on this execute. post_comment=true is only an extra request. --skip-comment is the opt-out.
+          python3 tools/youtube_upload.py "$PACKET" --execute ${{ inputs.post_comment == true && '--post-comment' || '' }} ${{ inputs.skip_comment == true && '--skip-comment' || '' }}
+          # An approved first comment posts on this execute. post_comment=true is only an extra request.
+          # skip_comment=true passes --skip-comment and wins over post_comment. Data API insert does not pin.
 
       - name: Persist non-secret upload state
         if: ${{ always() && inputs.execute == true }}

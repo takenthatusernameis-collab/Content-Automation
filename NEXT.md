@@ -1,6 +1,6 @@
 # NEXT
 
-1u. **Do not rediscover the second dispatch for the pin comment.** Run 310 posts the first comment on the same execute when publish.md has `First comment approved` checked and the pin text is non-empty. `--post-comment` remains an extra request. `--skip-comment` is the opt-out. A missing comment stays missing. Do not require a second execute only to post that comment. Do not add a YouTubeAPIError reason for this.
+1u. **Do not rediscover the second dispatch for the pin comment.** Run 310 posts the first comment on the same execute when publish.md has `First comment approved` checked and the pin text is non-empty. `--post-comment` remains an extra request. Run 311 exposes workflow input `skip_comment`, which passes `--skip-comment` and wins over `post_comment`. A missing comment stays missing. `comment_post.pinned` stays false: `commentThreads.insert` does not pin. Studio pin remains manual. Do not require a second execute only to post that comment. Do not add a YouTubeAPIError reason for this. Do not claim the comment is pinned.
 
 1t. **Do not rediscover the write-path CI lock.** Run 309 runs `python3 tools/prove_locks.py` from `.github/workflows/selftest.yml` on every push. `selftest.py` fails if that step is removed. Do not map `prove_locks.py` in `needed.py`. Do not treat PROVE LOCKS PASS as apply --write or as a YouTube upload.
 

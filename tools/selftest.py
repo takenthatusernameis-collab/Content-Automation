@@ -508,6 +508,11 @@ def check_upload_stamp_preserved() -> list[str]:
         failures.append("unchecked first comment must not post")
     if should_post_comment({"pin_comment": "", "comment_approved": True}):
         failures.append("empty pin comment must stay missing")
+    if should_post_comment(approved, requested=True, skipped=True):
+        failures.append("skip-comment must win over an extra post-comment request")
+    upload_src = (TOOLS / "youtube_upload.py").read_text(encoding="utf-8")
+    if '"pinned": False' not in upload_src:
+        failures.append("posted comment must stay unpinned; Data API insert is not a Studio pin")
     from youtube_upload import existing_upload_action, fingerprint
     prior = {
         "provider_video_id": "abc123",
@@ -1869,6 +1874,8 @@ def check_job_timeout_covers_upload() -> list[str]:
     """A killed Actions job drops the video id. The job must outlast one chunk retry budget."""
     failures = []
     workflow = (ROOT / ".github/workflows/youtube-production.yml").read_text(encoding="utf-8")
+    if "skip_comment:" not in workflow or "--skip-comment" not in workflow:
+        failures.append("production workflow must expose skip_comment and pass --skip-comment")
     if "fetch-depth: 0" not in workflow:
         failures.append("production checkout must be full history so provider-state rebase has a merge base")
     if "fetch-depth: 1" in workflow:

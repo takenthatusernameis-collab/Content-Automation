@@ -379,8 +379,9 @@ def comment_approved(text: str) -> bool:
 def should_post_comment(meta: dict, *, requested: bool = False, skipped: bool = False) -> bool:
     """Post the pin comment on execute when it is approved and non-empty.
 
-    --post-comment remains an explicit request. --skip-comment is the opt-out.
-    A missing comment stays missing. This does not invent comment text.
+    --post-comment remains an explicit request. --skip-comment is the opt-out
+    and wins over --post-comment. A missing comment stays missing. This does
+    not invent comment text. The Data API insert is not a Studio pin.
     """
     if skipped:
         return False
@@ -1031,7 +1032,12 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
                     channel_id=channel_id,
                     text=report["meta"]["pin_comment"],
                 )
-                result["comment_post"] = {"status": "posted", "comment_id": comment.get("id")}
+                result["comment_post"] = {
+                    "status": "posted",
+                    "comment_id": comment.get("id"),
+                    "pinned": False,
+                    "pin_note": "commentThreads.insert does not pin; Studio pin stays manual",
+                }
             except Exception as exc:
                 result["comment_post"] = {"status": "failed", "error": compact_api_error(exc)}
             write_upload_state(packet, result)

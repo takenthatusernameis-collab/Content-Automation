@@ -1,3 +1,8 @@
+## Run 311 — dispatch had no comment opt-out; insert is not a pin
+- **Tried:** Treating Run 310 as complete because the CLI had `--skip-comment`. The workflow_dispatch form still had only `post_comment` default false, and the execute step never passed `--skip-comment`. The posted comment was also easy to read as a pin.
+- **Result:** `skip_comment` is a dispatch input and passes `--skip-comment`. `comment_post.pinned` is false. Selftest locks both.
+- **Avoid:** Claiming the first comment is pinned. Adding a YouTubeAPIError reason to represent the missing pin. Polling OAuth secrets. Another upload HTTP status variant without a live execute status.
+
 ## Run 310 — approved pin comment still needed a second dispatch
 - **Tried:** Treating execute=true as the full publish step. The workflow default left post_comment false.
 - **Evidence:** publish.md already has First comment approved checked. youtube_upload.py posted the comment only when --post-comment was passed. The first execute would persist a video id and still leave the pin unposted.

@@ -1,3 +1,14 @@
+## 2026-10-04T09:15:00Z — Run 311
+
+- **Objective:** Give the production dispatch a real opt-out for the approved first comment, and stop treating a Data API comment insert as a Studio pin, without adding an upload HTTP status variant or polling OAuth.
+- **Inspected:** STATE, NEXT, RUNS, OPERATOR_HOLD, youtube-production.yml, youtube_upload.py, youtube_api.py. OAuth secrets were not polled.
+- **Action taken:** Added workflow input `skip_comment` (default false). Execute passes `--skip-comment` when that input is true. Skip wins over `post_comment`. `comment_post.pinned` stays false with a Studio-pin note. Selftest locks both. Did not add a YouTubeAPIError reason. Did not dispatch. Did not scaffold Q2.
+- **Result:** `python3 tools/selftest.py` printed SELFTEST PASS. prove_locks and upload_variant_freeze passed. Videos published stay 0. No provider write.
+- **Verification status:** completed locally. Actions not re-run; selftest.yml will run these checks on push.
+- **Important discovery:** Run 310 made the approved comment post on execute, but the dispatch form had no opt-out. `commentThreads.insert` does not pin. A human still pins in Studio after the first private upload.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Secret list API was not polled. Recurring external stall. Flagged, not re-worked as the only work.
+- **Recommended next action:** Follow `python3 tools/oauth_setup.py`, store the three secrets, then dispatch `youtube-production.yml` with execute=true. Leave `skip_comment` false to post the approved comment. Pin that comment in Studio after upload; the API does not pin it. Do not add a YouTubeAPIError reason without a live_status line. Do not scaffold Q2.
+
 ## 2026-10-04T05:20:00Z — Run 310
 
 - **Objective:** Remove the extra dispatch that would have been needed only to post the already-approved pin comment, without adding an upload HTTP status variant or polling OAuth.

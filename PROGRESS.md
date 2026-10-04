@@ -1,3 +1,6 @@
+## Run 311
+The production dispatch can opt out of the approved first comment with `skip_comment`. Skip wins over `post_comment`. A posted comment is recorded `pinned: false` because the Data API insert does not pin; Studio pin stays a one-time human step. Estimated human minutes stay 0.5 until secrets exist. Automated steps unchanged. Videos published stay 0. No provider write. Do not add another upload HTTP status variant without a live execute status.
+
 ## Run 309
 Write-path locks now run on every push via the selftest workflow, so a future agent does not have to remember `prove_locks.py` after a tool edit. Estimated human minutes stay 0.5 until secrets exist. Automated steps 138 -> 139. Videos published stay 0. No provider write. Do not map prove_locks in needed.py. Do not add a YouTubeAPIError reason without a live_status line.
 
