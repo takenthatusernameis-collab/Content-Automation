@@ -1058,6 +1058,7 @@ def main() -> int:
     failures.extend(check_job_timeout_covers_upload())
     failures.extend(check_caption_waits_for_processing())
     failures.extend(check_upload_variant_freeze())
+    failures.extend(check_prove_locks_on_push())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")
@@ -1960,6 +1961,19 @@ def check_caption_waits_for_processing() -> list[str]:
                 failures.append(f"still processing reason was {exc.reason}")
     finally:
         youtube_api._request_retrying = original
+    return failures
+
+
+def check_prove_locks_on_push() -> list[str]:
+    """Write-path locks must run on every push, not only when an agent remembers.
+
+    prove_locks.py stays unmapped in needed.py. This check only requires the
+    selftest workflow to invoke it. Do not treat PASS as apply --write.
+    """
+    failures = []
+    workflow = (ROOT / ".github/workflows/selftest.yml").read_text(encoding="utf-8")
+    if "python3 tools/prove_locks.py" not in workflow:
+        failures.append("selftest workflow must run prove_locks.py on every push")
     return failures
 
 if __name__ == "__main__":

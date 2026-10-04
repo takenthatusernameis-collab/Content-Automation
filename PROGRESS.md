@@ -1,3 +1,6 @@
+## Run 309
+Write-path locks now run on every push via the selftest workflow, so a future agent does not have to remember `prove_locks.py` after a tool edit. Estimated human minutes stay 0.5 until secrets exist. Automated steps 138 -> 139. Videos published stay 0. No provider write. Do not map prove_locks in needed.py. Do not add a YouTubeAPIError reason without a live_status line.
+
 ## Run 308
 Production checkout is now full history (`fetch-depth: 0`). A rejected provider-state push can rebase without a mid-job unshallow after the upload. Estimated human minutes stay 0.5 until secrets exist. Automated steps stay 138. Videos published stay 0. No provider write. Do not restore a depth-1 production checkout. Do not add a YouTubeAPIError reason without a live_status line.
 

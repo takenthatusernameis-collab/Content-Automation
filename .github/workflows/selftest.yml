@@ -24,3 +24,5 @@ jobs:
         run: python -m pip install --disable-pip-version-check --no-input Pillow
       - name: Run repository selftest
         run: python3 tools/selftest.py
+      - name: Prove write-path locks
+        run: python3 tools/prove_locks.py

@@ -1,3 +1,9 @@
+## Run 309 — prove_locks was a remembered command
+- **Tried:** Run 304 made prove_locks pass on a Q1 checkout. Later runs still invoked it by hand after a write.
+- **Evidence:** `.github/workflows/selftest.yml` ran `tools/selftest.py` only. A push could change apply_script.py or words.py without CI running placeholder_guard, words_contract, and verify_write_path.
+- **Result:** The selftest workflow now runs `python3 tools/prove_locks.py`. selftest fails if that line is removed. prove_locks stays unmapped in needed.py. No provider write.
+- **Avoid:** Mapping prove_locks in needed.py. Treating PROVE LOCKS PASS as apply --write. Dropping the CI step. Adding an upload status variant without a live execute. Polling OAuth secrets as the only work.
+
 ## Run 308 — shallow checkout still sat under the unshallow retry
 - **Tried:** Run 298 unshallows a shallow clone before rebase. The production workflow still used the Actions default checkout.
 - **Evidence:** `actions/checkout@v4` had no `fetch-depth`. A rejected `git push` still needed `git fetch --unshallow` after the upload and caption wait. That fetch is the remaining way to drop a persisted video id without an HTTP status.

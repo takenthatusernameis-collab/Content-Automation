@@ -19,3 +19,6 @@ Keep ORIGINAL_MASTER_PROMPT.md archival and unchanged.
 - Run 081: prove_locks.py is the first post-write command.
 
 See NEXT_RUN_PROMPT.md for the copy-paste addendum.
+
+## Run 309
+Evidence: prove_locks existed and passed locally, but CI did not run it. A remembered command is not a lock. Prefer wiring an existing check into the workflow that already runs on push over adding a new upload status reason while OAuth is still the publish gate.
