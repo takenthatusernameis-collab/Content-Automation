@@ -21,7 +21,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 ## Run 309 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
 - No new YouTubeAPIError reason. The upload-variant freeze stays in place. Production checkout stays `fetch-depth: 0`.
-- `prove_locks.py` was only a remembered command. `.github/workflows/selftest.yml` now runs it on every push. `selftest.py` fails if that step is removed. The tool stays unmapped in `needed.py`. Local selftest and prove_locks passed. Actions was not re-run in this session.
+- `prove_locks.py` was only a remembered command. `.github/workflows/selftest.yml` now runs it on every push. `selftest.py` fails if that step is removed. The tool stays unmapped in `needed.py`. Local selftest and prove_locks passed. Actions run 37176474403 concluded success on `20f05c8a20cec81271e06f75441aef4d659b505e`.
 - Flag still stands: do not add another upload HTTP status variant unless a live execute returned that status. Do not spend a run only restating the OAuth hold.
 
 ## Run 308 delta

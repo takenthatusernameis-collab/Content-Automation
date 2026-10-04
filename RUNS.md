@@ -4,7 +4,7 @@
 - **Inspected:** STATE, NEXT, RUNS, FAILURES, OPERATOR_HOLD, selftest.yml, prove_locks.py. OAuth secrets were not polled.
 - **Action taken:** Added a selftest workflow step that runs `python3 tools/prove_locks.py`. `selftest.py` now fails if that step is removed. Did not map prove_locks in needed.py. Did not dispatch. Did not scaffold Q2. Did not add a YouTubeAPIError reason.
 - **Result:** Local `python3 tools/selftest.py` printed SELFTEST PASS. Local `python3 tools/prove_locks.py` printed PROVE LOCKS PASS. Execute was not dispatched. Videos published stay 0.
-- **Verification status:** completed for the local commands and the workflow text lock. Actions was not re-run in this session. No provider write.
+- **Verification status:** completed. Local selftest and prove_locks passed. Actions run 37176474403 on `20f05c8a20cec81271e06f75441aef4d659b505e` concluded success, including the new Prove write-path locks step. No provider write.
 - **Important discovery:** Runs 304 and later treated prove_locks as a remembered post-write command. A push could land a write-path regression without CI running those three locks.
 - **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring external stall. Flagged, not re-worked as the only work.
 - **Recommended next action:** Follow `python3 tools/oauth_setup.py`, store the three secrets, then dispatch `youtube-production.yml` with execute=true. Do not drop the prove_locks CI step. Do not add a YouTubeAPIError reason without a live_status line. Do not scaffold Q2.
