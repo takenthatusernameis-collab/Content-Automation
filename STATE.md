@@ -22,7 +22,7 @@ manual -> assisted scaffolding -> monitored packets + Q1 ready_for_vo + Selected
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
 - No new YouTubeAPIError reason. The upload-variant freeze stays in place. Production checkout stays `fetch-depth: 0`. prove_locks stays in selftest.yml.
 - Local materialize installed the r253 master and ignored the truncated r249 master. Dry-run gate was `YOUTUBE_AUTH_REQUIRED`. media_qa PASS. Q1 first-comment box is checked (199 characters).
-- Execute now posts that pin comment on the same dispatch when the box is checked. `--skip-comment` opts out. A second execute only to post the comment is no longer required. Selftest, prove_locks, and upload_variant_freeze passed locally. Actions was not re-run.
+- Execute now posts that pin comment on the same dispatch when the box is checked. `--skip-comment` opts out. A second execute only to post the comment is no longer required. Selftest, prove_locks, and upload_variant_freeze passed locally. Actions run 37179477808 concluded success on `ec9d111de2f64fe697f76c59e1d7727c8a559341`.
 - Flag still stands: do not add another upload HTTP status variant unless a live execute returned that status. Do not spend a run only restating the OAuth hold.
 
 ## Run 309 delta
