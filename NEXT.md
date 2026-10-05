@@ -1,10 +1,12 @@
 # NEXT
 
-Updated: 2026-10-05T16:20:00Z (Run 341)
+Updated: 2026-10-05T17:15:00Z (Run 342)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Materialize installs `q1-media-r253` only. Do not restore multipart for the master. Do not start a second `videos.insert` when Location exists.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr8. **Do not rediscover the truncated RUNS file.** Run 342: `RUNS.md` keeps 12 newest entries. Older entries live in `docs/runs_archive.md`. `tools/runs_compact.py` moves extras. It does not delete history. Do not paste the archive back. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2.
 
 1zr7. **Do not rediscover the truncated NEXT file.** Run 341: `NEXT.md` keeps 12 newest notes. Older notes live in `docs/next_archive.md`. `tools/next_compact.py` moves extras. It does not delete history. Do not paste the archive back. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2.
 
@@ -27,5 +29,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zo. **Do not rediscover the OAuth-idle window.** Run 332: a 3-run topic flag clears when the subject changes. `tools/stall_watch.py` prints `STALL_OAUTH_IDLE` when the last eight STATE deltas left OAuth unpolled and videos published at 0. The flag does not fail CI. Do not add another scanner, Studio sentence, or playlist variant while it is set. Do not spend the run only restating the missing secrets. `invalid_playlist_id` exits 2. `playlist_id: not_set` still exits 0 and does not invent a PL id. Do not scaffold Q2.
 
 1zn. **Do not rediscover the playlist insert.** Run 331: `docs/channel.md` `playlist_id` is `not_set`. `tools/playlist_membership.py` skips and does not invent a PL id. A missing provider video id does not call playlistItems.insert and does not start videos.insert. The production job runs the tool after execute. Upload does not wait on this field. Do not scaffold Q2 to try it. Do not add a YouTubeAPIError reason for a missing playlist.
-
-1zm. **Do not rediscover the upload-only consent scope.** Run 330: dry-run now prints `consent_scopes: youtube.upload youtube.force-ssl yt-analytics.readonly` and the request body includes `required_scopes`. `youtube.upload` alone still fails captions.insert after a video exists. This is not a new scanner and not a new YouTubeAPIError. Do not mint an upload-only token. Do not scaffold Q2.

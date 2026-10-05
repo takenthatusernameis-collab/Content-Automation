@@ -1163,6 +1163,18 @@ def check_state_compact() -> list[str]:
     return []
 
 
+def check_runs_compact() -> list[str]:
+    """RUNS.md must stay short enough that a truncated fetch still shows the newest runs."""
+    import subprocess
+    contract = ROOT / "tools" / "runs_compact_contract.py"
+    if not contract.is_file():
+        return ["runs_compact_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0 or "RUNS COMPACT CONTRACT PASS" not in proc.stdout:
+        return [f"runs_compact_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    return []
+
+
 def check_stall_watch() -> list[str]:
     """Instruction-lock and Studio stalls must stay machine-visible."""
     import subprocess
