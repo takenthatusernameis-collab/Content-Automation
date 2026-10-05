@@ -1,5 +1,15 @@
 # STATE
 
+Updated: 2026-10-05T01:17:00Z (Run 327)
+
+## Run 327 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. Q1 titles.md and thumbnail.md were not rewritten. No new packet folder.
+- Spoken title shouts and an explicit thumbnail mismatch now fail `ready_for_vo`. `tools/title_scan.py` reports a 5+ letter all-caps word, or more than one 2-4 letter all-caps token, and `Matches title: No`. One short acronym stays allowed. The scanner does not rewrite. A missing titles.md is not a hit.
+- Q1 printed clear. `python3 tools/title_scan_contract.py` printed TITLE SCAN CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
 Updated: 2026-10-05T00:20:00Z (Run 326)
 
 ## Run 326 delta

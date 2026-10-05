@@ -1,3 +1,6 @@
+## Run 327 — 2026-10-05T01:17:00Z
+Shouted titles and an explicit thumbnail mismatch now refuse ready_for_vo. Estimated human minutes saved on each later title review: about 3, if the report is clear. Q1 was already clear, so this video does not change. Videos published stay 0. Publish still waits on the three YouTube secrets.
+
 ## Run 326 — 2026-10-05T00:20:00Z
 Unsourced spoken digits and survey hedges now refuse ready_for_vo. Estimated human minutes saved on each later script: about 5, because the status step catches the number instead of a remembered research read. Q1 was already clear, so this video does not change. Videos published stay 0. Publish still waits on the three YouTube secrets.
 

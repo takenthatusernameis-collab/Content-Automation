@@ -104,6 +104,12 @@ def check(packet: Path, target: str) -> list[str]:
         if claim_hits:
             detail = ", ".join(f"{kind}:{token}" for kind, token in claim_hits)
             errors.append(f"refusing ready_for_vo: claim_scan hits ({detail})")
+        from title_scan import scan_path as title_scan_path
+
+        title_hits = title_scan_path(packet)
+        if title_hits:
+            detail = ", ".join(f"{kind}:{token}" for kind, token in title_hits)
+            errors.append(f"refusing ready_for_vo: title_scan hits ({detail})")
 
     if target == "ready_for_edit":
         _label, _p, _m, by_role = disk_summary(packet)

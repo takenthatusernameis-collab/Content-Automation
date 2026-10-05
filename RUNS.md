@@ -1,3 +1,14 @@
+## 2026-10-05T01:17:00Z — Run 327
+
+- **Objective:** Fail closed on shouted titles and an explicit thumbnail mismatch before VO, without rewriting Q1 or retrying the OAuth stall.
+- **Inspected:** STATE, NEXT, RUNS, production title rules, `validate_packet.py`, `set_status.py`, Q1 titles.md and thumbnail.md.
+- **Action taken:** Added `tools/title_scan.py` and `tools/title_scan_contract.py`. `set_status.py` refuses `ready_for_vo` on those hits. Selftest runs the contract. Did not dispatch. Did not scaffold a packet. Did not rewrite Q1 titles.
+- **Result:** Contract printed TITLE SCAN CONTRACT PASS. Title scan printed clear for Q1. `python3 tools/selftest.py` printed SELFTEST PASS. Videos published stay 0.
+- **Verification status:** completed for the title gate and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** The production rule already banned all-caps title words except one acronym, but promotion only counted options and the 50-character option. A later packet could reach ready_for_vo with GRIND in the primary title, or with Matches title: No.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled.
+- **Recommended next action:** Add those three secrets, then dispatch `youtube-production.yml` with execute=true. Do not scaffold Q2. Do not rewrite Q1 titles. Do not re-encode.
+
 ## 2026-10-05T00:20:00Z — Run 326
 
 - **Objective:** Fail closed on unsourced spoken numbers and survey hedges before VO, without rewriting Q1 or retrying the OAuth stall.

@@ -62,7 +62,7 @@ Apply to every video packet. QA checks what can be checked mechanically.
 ## Titles
 - Provide at least 5 options
 - One must be under 50 characters
-- No ALL CAPS words except a single acronym
+- No ALL CAPS words except a single acronym. `tools/title_scan.py` reports those words and an explicit `Matches title: No`. It does not rewrite. `set_status.py` refuses `ready_for_vo` while a hit remains.
 - Numbered options stay on the same line as `1.` — blank `1.` is not a title
 - Scaffold fills titles/thumbs from `title_thumb_brief.py` only when `titles.md` parses empty
 
