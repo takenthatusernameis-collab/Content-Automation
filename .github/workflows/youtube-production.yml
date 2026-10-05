@@ -55,6 +55,11 @@ jobs:
           # restore the default shallow checkout. Do not force-push.
           fetch-depth: 0
 
+      - name: Print stall flags
+        run: python3 tools/stall_watch.py
+        # Existing printer. Non-zero is not expected. Do not fail the job on a flag.
+        # Does not add a scanner and does not poll secrets.
+
       - name: Fail fast if an authenticated step was requested without OAuth secrets
         if: ${{ inputs.execute == true || inputs.collect_feedback == true }}
         run: python3 tools/oauth_preflight.py

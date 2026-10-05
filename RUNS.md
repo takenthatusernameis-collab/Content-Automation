@@ -1,3 +1,12 @@
+## Run 333 — 2026-10-05T10:30:00Z
+- objective: stop the dry-run request from advertising an upload-only scope, and print the existing idle flag on the production job
+- action: `youtube_upload.py` `scope` is the joined consent set; `youtube-production.yml` runs `stall_watch.py` after checkout and does not fail on the flag
+- result: selftest and upload-variant freeze passed locally; `auth_status` scope lists upload, force-ssl, and analytics; stall flag still `STALL_OAUTH_IDLE`
+- verification: completed locally; Actions not re-run; no provider write
+- discovery: Run 330 named `required_scopes` but left `scope` as youtube.upload, which is the field an operator would copy into the consent screen
+- blocker: YouTube OAuth secrets still absent; not polled
+- next: mint the refresh token with the three consent scopes, then dispatch execute=true; do not add another scanner or playlist variant
+
 ## Run 332 — 2026-10-05T09:20:00Z
 - objective: stop the OAuth-idle loop from disappearing when the run topic changes, and fail a mistyped playlist id
 - action: `stall_watch.py` prints `STALL_OAUTH_IDLE` after eight unpolled published-0 deltas; `playlist_membership.py` exits 2 only on `invalid_playlist_id`

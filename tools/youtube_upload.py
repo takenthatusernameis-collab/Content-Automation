@@ -620,7 +620,7 @@ def auth_status(env: dict[str, str] | None = None) -> dict:
         "missing": missing,
         "api_key_alone": bool(str(source.get("YOUTUBE_API_KEY", "")).strip()) and bool(missing),
         "channel_id_set": bool(str(source.get("YOUTUBE_CHANNEL_ID", "")).strip()),
-        "scope": UPLOAD_SCOPE,
+        "scope": " ".join([UPLOAD_SCOPE, FORCE_SSL_SCOPE, ANALYTICS_SCOPE]),
         "required_scopes": [UPLOAD_SCOPE, FORCE_SSL_SCOPE, ANALYTICS_SCOPE],
         "scope_note": "youtube.upload alone can insert a video and then fail captions.insert",
         "state": AUTH_STATE if missing else "YOUTUBE_AUTH_PRESENT",
@@ -939,7 +939,7 @@ def request_body(report: dict) -> dict:
             "packet": report["packet"],
             "export": report["export"],
             "fingerprint": report["fingerprint"],
-            "scope": UPLOAD_SCOPE,
+            "scope": " ".join([UPLOAD_SCOPE, FORCE_SSL_SCOPE, ANALYTICS_SCOPE]),
             "required_scopes": [UPLOAD_SCOPE, FORCE_SSL_SCOPE, ANALYTICS_SCOPE],
             "scope_note": "do not mint a refresh token with youtube.upload alone",
             "captions": report.get("captions") or {

@@ -622,6 +622,10 @@ def check_upload_stamp_preserved() -> list[str]:
         failures.append("dry-run must name force-ssl and analytics consent scopes")
     if "youtube.upload alone fails captions.insert" not in upload_src:
         failures.append("dry-run must warn that upload scope alone fails captions")
+    if '"scope": UPLOAD_SCOPE' in upload_src:
+        failures.append("dry-run scope field must not be upload-only; copy the consent set")
+    if "join([UPLOAD_SCOPE, FORCE_SSL_SCOPE, ANALYTICS_SCOPE])" not in upload_src:
+        failures.append("dry-run scope field must list upload, force-ssl, and analytics")
     if "tags[:12]" in upload_src or '["tags"][:12]' in upload_src:
         failures.append("upload must not silently drop tags")
     if "METADATA_REJECTED" not in upload_src or "PRIVACY_NOT_PRIVATE" not in upload_src:
@@ -895,6 +899,8 @@ def check_persist_provider_state() -> list[str]:
     workflow = (ROOT / ".github" / "workflows" / "youtube-production.yml").read_text(encoding="utf-8")
     if "tools/persist_provider_state.py" not in workflow:
         failures.append("production workflow must classify state before commit")
+    if "tools/stall_watch.py" not in workflow:
+        failures.append("production workflow must print stall_watch before authenticated work")
     if "git push origin HEAD:main" in workflow or "git push --force" in workflow:
         failures.append("production workflow must not bare-push or force-push provider state")
     if "push_with_retry" not in workflow:
