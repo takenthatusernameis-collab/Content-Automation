@@ -25,7 +25,18 @@ LOCAL_GATE_TOKENS = (
     "title_scan",
     "content_rules",
     "packet_path",
-    "scanner",
+)
+# Bare "scanner" matched the boilerplate "No new scanner" and kept
+# STALL_LOCAL_GATE set after the subject had already changed.
+LOCAL_GATE_NEGATIONS = (
+    "no new scanner",
+    "no scanner",
+    "not a new scanner",
+    "not a scanner",
+    "no new quality_scan",
+    "no new claim_scan",
+    "no new title_scan",
+    "no new packet_path",
 )
 
 
@@ -86,7 +97,10 @@ def flag_text(text: str, window: int = WINDOW) -> list[str]:
         local_gate = True
         for delta in deltas:
             lowered = delta.lower()
-            if not any(token in lowered for token in LOCAL_GATE_TOKENS):
+            scrubbed = lowered
+            for phrase in LOCAL_GATE_NEGATIONS:
+                scrubbed = scrubbed.replace(phrase, "")
+            if not any(token in scrubbed for token in LOCAL_GATE_TOKENS):
                 local_gate = False
                 break
             if "provider video id" in lowered or "videos.insert" in lowered:

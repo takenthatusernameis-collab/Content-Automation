@@ -1,3 +1,10 @@
+## Run 339 — boilerplate kept the local-gate flag set
+
+- **Tried:** Treating `STALL_LOCAL_GATE` as still true because the printer said so after Runs 336-338.
+- **Evidence:** Those deltas said `No new scanner`. `LOCAL_GATE_TOKENS` included `scanner`, so the negation matched. After the token was removed, `tools/stall_watch.py` printed `STALL_OAUTH_IDLE` only.
+- **Result:** Contract locks the negated case. A real scan token still sets the flag. No provider write.
+- **Avoid:** Restoring the bare `scanner` token. Adding another scanner while `STALL_OAUTH_IDLE` is set. Polling OAuth secrets as the only work.
+
 ## Run 335 — day-7 collect was not a 7-day observation
 
 - **Tried:** The feedback gate treated upload plus 7 days as due, while the Analytics query ended 3 days before now.

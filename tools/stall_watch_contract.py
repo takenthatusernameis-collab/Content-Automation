@@ -54,6 +54,12 @@ def main() -> int:
     flags = flag_text(local_gate)
     if LOCAL_GATE_FLAG not in flags or FLAG in flags or INSTRUCTION_FLAG in flags:
         return fail(f"local gate window wrong: {flags}")
+    negated = delta(
+        "OAuth secrets were not polled. Videos published stay 0. No new scanner. No provider write."
+    ) * 3
+    flags = flag_text(negated)
+    if LOCAL_GATE_FLAG in flags or FLAG in flags or INSTRUCTION_FLAG in flags:
+        return fail(f"negated scanner boilerplate must not set local gate: {flags}")
     idle = delta(
         "OAuth secrets were not polled. Videos published stay 0. No new provider write."
     ) * 8

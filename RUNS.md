@@ -1,3 +1,12 @@
+## Run 339 — 2026-10-05T14:20:00Z
+- Objective: Stop the production stall printer from treating `No new scanner` as another local-gate run.
+- Action: Removed the bare `scanner` token from `tools/stall_watch.py` and scrub negation phrases before the local-gate match. Contract covers three boilerplate deltas. Real scan tokens still set `STALL_LOCAL_GATE`.
+- Result: `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. Current STATE prints `STALL_OAUTH_IDLE` only. `python3 tools/selftest.py` printed SELFTEST PASS. Videos published stay 0.
+- Verification: completed locally. Actions not re-run. No provider write.
+- Discovery: Runs 336-338 said `No new scanner` and that sentence kept `STALL_LOCAL_GATE` set, so later runs were told not to add a scanner they were not adding.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still `not_set`.
+- Next: Do not restore the bare scanner token. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 338 — 2026-10-05T12:30:00Z
 - Objective: Stop the production persist step from committing a COLLECTED analytics file that is not the first-calendar-days stamp.
 - Action: `feedback_commit_decision` returns `skip_unstamped_window` when kind is missing or `sliding_now`, days are not 7, or start/end dates are absent. A stamped file still returns `commit_collected`. Selftest locks both. Workflow summary states the commit rule. Date match against `uploaded_at` stays in `collected_metrics`.
