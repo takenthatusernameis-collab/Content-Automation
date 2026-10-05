@@ -108,12 +108,40 @@ def collected_metrics(packet: Path, video_id: str | None) -> tuple[list | None, 
         return None, "feedback_state is not a collected fetch"
     if str(state.get("provider_video_id") or "").strip() != video_id:
         return None, "feedback_state video id does not match upload_state"
+    ok, detail = collected_window_ok(state, load_upload_state(packet))
+    if not ok:
+        return None, detail
     metrics = state.get("metrics")
     if not isinstance(metrics, list) or not metrics:
         return None, "collected fetch has no metric rows"
     if not all(isinstance(row, dict) and row for row in metrics):
         return None, "collected metric rows are not objects"
     return metrics, f"{len(metrics)} collected row(s) for {video_id}"
+
+
+
+def collected_window_ok(state: dict, upload: dict | None) -> tuple[bool, str]:
+    """A collected file counts only if it queried this video's first calendar days.
+
+    A sliding now window, a missing kind, or dates that do not match uploaded_at
+    are not the 7-day observation. Does not fetch.
+    """
+    window = state.get("window")
+    if not isinstance(window, dict):
+        return False, "collected fetch has no window"
+    if window.get("kind") != "first_calendar_days":
+        return False, "collected window is not the video's first calendar days"
+    uploaded = upload_timestamp(upload)
+    if uploaded is None:
+        return False, "collected window cannot be checked without uploaded_at"
+    if window.get("days") != DEFAULT_WINDOW_DAYS:
+        return False, "collected window days are not the observation length"
+    start_s, end_s = analytics_range(uploaded, DEFAULT_WINDOW_DAYS)
+    got_start = str(window.get("start") or "")[:10]
+    got_end = str(window.get("end") or "")[:10]
+    if got_start != start_s or got_end != end_s:
+        return False, "collected window dates do not match the video's first calendar days"
+    return True, "first calendar days"
 
 
 def provider_video_id(state: dict | None) -> str | None:
@@ -315,7 +343,7 @@ def execute_feedback(packet: Path, report: dict, *, now: datetime | None = None)
     uploaded = upload_timestamp(load_upload_state(packet))
     if uploaded is None:
         raise YouTubeAPIError(0, "OBSERVATION_WINDOW_UNKNOWN")
-    start_s, end_s = analytics_range(uploaded, int(report["window"]["days"]))
+    start_s, end_s = analytics_range(uploaded, DEFAULT_WINDOW_DAYS)
     analytics = analytics_report(
         token,
         start_date=start_s,
@@ -346,7 +374,8 @@ def execute_feedback(packet: Path, report: dict, *, now: datetime | None = None)
         "window": {
             "start": start_s + "T00:00:00Z",
             "end": end_s + "T23:59:59Z",
-            "days": report["window"]["days"],
+            "days": DEFAULT_WINDOW_DAYS,
+            "kind": "first_calendar_days",
             "data_lag_days": DATA_LAG_DAYS,
             "note": "First calendar days of this video only. Collect waits for that end date plus the Analytics lag. Not a sliding now window.",
         },

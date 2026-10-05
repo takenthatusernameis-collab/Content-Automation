@@ -1,3 +1,12 @@
+## Run 337 — 2026-10-05T11:20:00Z
+- Objective: Stop a collected analytics file from counting as the first 7 days unless its window is that video's calendar range.
+- Action: `collected_window_ok` refuses a missing kind, `sliding_now`, or dates that do not match `analytics_range`. `execute_feedback` stamps `kind: first_calendar_days` and queries `DEFAULT_WINDOW_DAYS` from `uploaded_at`. Selftest covers a sliding file and a matching file. Experiment fixture now includes the matching window.
+- Result: `python3 tools/selftest.py` printed SELFTEST PASS. No Analytics call. Videos published stay 0.
+- Verification: completed locally. Actions not re-run. No provider write.
+- Discovery: Run 336 aligned the dry-run plan, but a COLLECTED file without kind still passed into experiment comparison.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still `not_set`.
+- Next: Do not treat an unstamped collected file as the 7-day observation. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 336 — 2026-10-05T10:20:00Z
 - Objective: Make the dry-run analytics plan use the same first-7-day dates the live fetch already uses.
 - Action: `video_window()` fills `inspect_feedback` window from `analytics_range` when `uploaded_at` exists. Missing upload time leaves query dates empty. `request_plan` reads those dates. Selftest fails if a ready plan is not the upload date through upload plus 6 days.

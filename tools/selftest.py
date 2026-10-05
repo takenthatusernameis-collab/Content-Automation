@@ -8,6 +8,7 @@ contracts instead of leaving runtime unverified.
 
 from __future__ import annotations
 
+import json
 import os
 import sys
 import tempfile
@@ -30,7 +31,7 @@ from next_action import recommend  # noqa: E402
 from pipeline_status import format_report, inspect  # noqa: E402
 from set_status import check as status_check, is_fixture  # noqa: E402
 from validate_packet import packet_duration_warning, validate  # noqa: E402
-from youtube_feedback import inspect_feedback, request_plan  # noqa: E402
+from youtube_feedback import collected_metrics, inspect_feedback, request_plan  # noqa: E402
 from youtube_upload import artifact_block_reason, caption_timing_reason, content_rule_reason, file_sha256, inspect_upload, master_block_reason, metadata_block_reason, missing_provider_scopes, png_dimensions  # noqa: E402
 from upload_variant_freeze import check_repo, check_texts  # noqa: E402
 
@@ -449,6 +450,40 @@ def check_feedback_fail_closed() -> list[str]:
             )
         if report3["window"].get("kind") != "unavailable" or report3["window"].get("start"):
             failures.append("missing uploaded_at must not advertise a sliding query window")
+        sliding = {
+            "gate": "COLLECTED",
+            "attempted_fetch": True,
+            "provider_video_id": "abc123",
+            "metrics": [{"views": 1}],
+            "window": {
+                "kind": "sliding_now",
+                "start": "2020-01-01T00:00:00Z",
+                "end": "2020-01-07T23:59:59Z",
+                "days": 7,
+            },
+        }
+        (p / "feedback_state.json").write_text(
+            json.dumps(sliding) + "\n", encoding="utf-8"
+        )
+        bad_metrics, bad_detail = collected_metrics(p, "abc123")
+        if bad_metrics is not None:
+            failures.append(f"sliding collected window must not count as evidence: {bad_detail}")
+        good = {
+            "gate": "COLLECTED",
+            "attempted_fetch": True,
+            "provider_video_id": "abc123",
+            "metrics": [{"views": 1}],
+            "window": {
+                "kind": "first_calendar_days",
+                "start": expect_start + "T00:00:00Z",
+                "end": expect_end + "T23:59:59Z",
+                "days": 7,
+            },
+        }
+        (p / "feedback_state.json").write_text(json.dumps(good) + "\n", encoding="utf-8")
+        good_metrics, good_detail = collected_metrics(p, "abc123")
+        if not good_metrics:
+            failures.append(f"matching calendar window must count as evidence: {good_detail}")
     return failures
 
 
@@ -672,7 +707,8 @@ def check_experiment_fail_closed() -> list[str]:
         if rec.get("decision") != "pending":
             failures.append(f"experiment decision must stay pending, got {rec.get('decision')}")
         (p / "upload_state.json").write_text(
-            '{"provider_video_id": "abc123"}\n', encoding="utf-8"
+            '{"provider_video_id":"abc123","video_upload":{"uploaded_at":"2026-01-01T12:00:00Z"}}\n',
+            encoding="utf-8",
         )
         report2 = inspect_experiment(p, env={})
         if report2["gate"] != "HOLD_NO_EVIDENCE":
@@ -693,7 +729,7 @@ def check_experiment_fail_closed() -> list[str]:
         if (report3.get("record") or {}).get("result") is not None:
             failures.append("mismatched feedback must not invent a result")
         (p / "feedback_state.json").write_text(
-            '{"gate":"COLLECTED","attempted_fetch":true,"provider_video_id":"abc123","metrics":[{"views":4,"averageViewPercentage":32.0}]}\n',
+            '{"gate":"COLLECTED","attempted_fetch":true,"provider_video_id":"abc123","metrics":[{"views":4,"averageViewPercentage":32.0}],"window":{"kind":"first_calendar_days","start":"2026-01-01T00:00:00Z","end":"2026-01-07T23:59:59Z","days":7}}\n',
             encoding="utf-8",
         )
         report4 = inspect_experiment(p, env={})

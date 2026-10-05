@@ -1,5 +1,16 @@
 # STATE
 
+Updated: 2026-10-05T11:20:00Z (Run 337)
+
+## Run 337 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
+- A COLLECTED feedback file with no window kind, or kind sliding_now, used to count as the 7-day observation. `collected_metrics` now refuses those files. Execute stamps `kind: first_calendar_days` and queries `DEFAULT_WINDOW_DAYS` from `uploaded_at`, not a report days field. No fetch was run.
+- `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
 Updated: 2026-10-05T10:20:00Z (Run 336)
 
 ## Run 336 delta

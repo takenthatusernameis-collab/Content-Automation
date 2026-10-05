@@ -1,3 +1,8 @@
+# PROGRESS
+
+Updated: 2026-10-05T11:20:00Z
+
+- Run 337: a collected analytics file no longer counts unless its window is the video's first 7 calendar days. Estimated agent minutes saved on the first comparison: about 15, by not treating a sliding or unstamped file as the observation. Human minutes per video unchanged. Videos published stay 0.
 
 ## Run 336 — 2026-10-05T10:20:00Z
 - Dry-run feedback plan now matches the first-7-calendar-day query. Removes a future wrong collect after secrets exist. Human minutes per video unchanged. Videos published stay 0.
