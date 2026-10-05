@@ -1,3 +1,11 @@
+# FAILURES
+
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
+## Run 348 — 2026-10-05T22:15:00Z
+- Failed approach not retried: treating the Location commit as enough once videos.insert has returned an id. Caption wait is long enough for a job kill. The id must be pushed before that wait.
+- Lesson: early persist must cover every durable row that would otherwise exist only on the runner. Do not print the URI.
+
 # LOG
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
@@ -74,7 +82,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 
 ## Run 333 — dry-run scope field still said upload-only
 Run 330 added `required_scopes` and a warning line, but `auth_status` and the request body still set `scope` to `youtube.upload` alone. An operator copying that field would mint a token that can insert a video and then fail captions.insert. Fixed by joining the consent set into `scope`. Do not restore the single-scope field. Do not treat this as a new YouTubeAPIError.
-
-## Run 332 — 3-run stall window reset
-The Studio, instruction, and local-gate flags only look at the last three deltas and require the same topic tokens. Runs 330-331 changed subject, so `stall_watch.py` printed clear while publish was still the missing secrets. Do not treat `status: clear` as evidence the idle loop ended. The 8-run `STALL_OAUTH_IDLE` flag is the counter for that reset.
 

@@ -209,3 +209,6 @@ Earlier failures remain in force in prior commits.
 - **Result:** `STALL_LOCAL_GATE` now prints for that window. Selftest still passes. No provider write.
 - **Avoid:** Another scanner, packet path gate, or content-rule refusal while that flag is set. Polling OAuth secrets as the only work. Scaffolding Q2 to try the flag.
 
+## Run 332 — 3-run stall window reset
+The Studio, instruction, and local-gate flags only look at the last three deltas and require the same topic tokens. Runs 330-331 changed subject, so `stall_watch.py` printed clear while publish was still the missing secrets. Do not treat `status: clear` as evidence the idle loop ended. The 8-run `STALL_OAUTH_IDLE` flag is the counter for that reset.
+

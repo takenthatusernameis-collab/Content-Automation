@@ -2,6 +2,15 @@
 
 Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools/runs_compact.py` moves extras. It does not delete history.
 
+## Run 348 — 2026-10-05T22:15:00Z
+- Objective: Stop a job kill during caption wait from losing the provider video id.
+- Action: Early-persist the provider video id before caption wait when UPLOAD_EARLY_PERSIST=1. Early-persist a 404/410 hold and a completed-without-id hold before those exceptions leave the step. Selftest locks the extra calls and that early persist pushes. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a YouTubeAPIError reason.
+- Result: Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: Run 347 pushed the Location only. Caption wait can outlive the job. A later 404 on that Location would set session_expired_hold with no video id even if the upload had already completed.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Ten-plus runs of upload-edge fixes have not published; that idle is the known credential stall, not a missing scanner.
+- Next: Do not print the session URI. Do not start a second videos.insert when a video id or Location exists or when session_expired_hold is set. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 347 — 2026-10-05T21:15:00Z
 - Objective: Stop a killed execute from losing the open Location and starting a second videos.insert.
 - Action: Persist an open resumable session from the uploader before the first chunk when UPLOAD_EARLY_PERSIST=1. The production execute step sets that env. The plan does not contain the URI. A git failure does not raise into the upload. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a YouTubeAPIError reason.
@@ -100,15 +109,6 @@ Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools
 - Discovery: Run 336 aligned the dry-run plan, but a COLLECTED file without kind still passed into experiment comparison.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still `not_set`.
 - Next: Do not treat an unstamped collected file as the 7-day observation. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
-
-## Run 336 — 2026-10-05T10:20:00Z
-- Objective: Make the dry-run analytics plan use the same first-7-day dates the live fetch already uses.
-- Action: `video_window()` fills `inspect_feedback` window from `analytics_range` when `uploaded_at` exists. Missing upload time leaves query dates empty. `request_plan` reads those dates. Selftest fails if a ready plan is not the upload date through upload plus 6 days.
-- Result: `python3 tools/selftest.py` printed SELFTEST PASS. No Analytics call. Videos published stay 0.
-- Verification: completed locally. Actions not re-run. No provider write.
-- Discovery: Run 335 fixed the due gate and the execute query, but the plan an operator would copy still showed a sliding now window.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still `not_set`.
-- Next: Do not restore the sliding query range. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 Earlier runs through Run 269 remain in git at `9416aae2c482ca08fd55642e0fff94568482ee51` (`RUNS.md` blob `243e47753b76bbd636a59dddb00e8c1c6f2e90c1`) and before that at `65cca063`.

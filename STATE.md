@@ -1,5 +1,16 @@
 # STATE
 
+Updated: 2026-10-05T22:15:00Z (Run 348)
+
+## Run 348 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
+- Run 347 pushed an open Location before the first chunk. A job kill during caption wait still happened after the video id existed and before the later persist step, so the next execute could see only the Location. If that Location then 404'd, the hold could hide a video that already existed. The uploader now early-persists the provider video id before caption wait, and early-persists a 404/410 hold and a completed-without-id hold before the step returns. The URI is not printed. The later persist step still runs.
+- `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
 Updated: 2026-10-05T21:15:00Z (Run 347)
 
 ## Run 347 delta
@@ -118,15 +129,4 @@ Updated: 2026-10-05T11:20:00Z (Run 337)
 # STATE
 
 Updated: 2026-10-05T10:20:00Z (Run 336)
-
-## Run 336 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
-- Run 335 due-gate was correct, but dry-run `window` and `request_plan` still used a sliding now window. `inspect_feedback` now sets `window` from the video's first 7 calendar days when `uploaded_at` exists. A missing upload time leaves start and end empty (`kind: unavailable`). `request_plan` uses those dates. The live fetch still uses `analytics_range`. No fetch was run.
-- `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
-
-# STATE
-
-Updated: 2026-10-05T09:11:00Z (Run 335)
 

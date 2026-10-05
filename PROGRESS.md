@@ -2,6 +2,14 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 348 — 2026-10-05T22:15:00Z
+- Early persist of the provider video id before caption wait, and of dead-session holds before the step returns. Estimated save: one Studio check and one blocked re-execute if the job dies after videos.insert returns an id. Human minutes per video unchanged. Videos published stay 0.
+- Automated step added: same UPLOAD_EARLY_PERSIST=1 path now covers the id and the holds. Remaining manual gate: YouTube OAuth secrets and Studio check before any session-hold release.
+
+# LOG
+
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
 ## Run 347 — 2026-10-05T21:15:00Z
 - Early persist of an open resumable Location before the first chunk. Estimated save: one duplicate videos.insert if the runner dies after the session POST. Human minutes per video unchanged. Videos published stay 0.
 - Automated step added: production execute sets UPLOAD_EARLY_PERSIST=1. Remaining manual gate: YouTube OAuth secrets and Studio check before any session-hold release.
@@ -70,7 +78,4 @@ Updated: 2026-10-05T11:20:00Z
 
 - Run 330: dry-run consent scope now includes force-ssl and analytics, not upload alone. Estimated human minutes saved on the first token mint: about 20, if the operator follows the dry-run line instead of the old scope field. Videos published stay 0. No new refusal.
 
-
-## Run 329 (2026-10-05T06:15:00Z)
-- Local-gate inflation is now a visible stall flag instead of a silent series of new scanners. Estimated agent minutes saved on the next runs: the rediscovery pass over Runs 326-328, about 10, if the flag is read first. No change to human minutes on Q1. Videos published stay 0. Publish still waits on the three YouTube secrets.
 

@@ -1,4 +1,6 @@
 ## 2026-10-05 — Run 344: an open Location is commit state
+
+- 2026-10-05 | Provider video id is early-persisted before caption wait when UPLOAD_EARLY_PERSIST=1. A 404/410 hold and a completed-without-id hold are early-persisted before the step returns. | Run 348: Location-only early persist still lost the id if the job died during caption wait, and a later 404 could hide a completed upload. | Do not print the URI. Do not start a second videos.insert when an id or Location exists.
 A resumable session URI is a bearer for that upload. It is stored in private `upload_state.json` so a later execute can resume it. It is not printed in logs or run notes. A missing video id with that URI is `commit_resumable_session`, not a transient skip. Do not start another videos.insert while it is present and the export fingerprint matches.
 
 ## 2026-10-02 — Run 279: partial post-upload is not success

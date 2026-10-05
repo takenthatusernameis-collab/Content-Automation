@@ -260,7 +260,7 @@ jobs:
           echo "A caption or thumbnail failure exits non-zero after the video id is written."
           echo "A 200/201 whose session then returns 404 or 410 is RESUMABLE_COMPLETED_SESSION_GONE. That state is committed and the next execute must not insert again."
           echo "A session POST that returns 503 without Location is retried. A 503 that returns Location is that session, not a second videos.insert."
-          echo "An open Location is written to upload_state.json and committed before the first chunk when UPLOAD_EARLY_PERSIST=1. The later persist step still runs. A killed execute must not start another videos.insert if that commit landed. Do not print the URI."
+          echo "An open Location is written to upload_state.json and committed before the first chunk when UPLOAD_EARLY_PERSIST=1. The later persist step still runs. A killed execute must not start another videos.insert if that commit landed. Do not print the URI. A provider video id is early-persisted before caption wait. A 404/410 hold and a completed-without-id hold are early-persisted before the step returns. Do not print the URI."
           echo "A saved Location that returns 404 or 410 is RESUMABLE_SESSION_EXPIRED. The hold is committed and the URI is dropped. The next execute raises that same reason and must not start another videos.insert."
           echo "session_expired_hold is cleared only by youtube_upload.py --release-session-expired-hold --studio-checked no_video_in_studio after Studio shows no video. This workflow has no such input and must not pass it."
           echo "Chunk 408 and 429 resume the existing session. They do not start another videos.insert."

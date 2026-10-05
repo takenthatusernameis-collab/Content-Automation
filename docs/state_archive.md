@@ -528,3 +528,14 @@ Updated: 2026-10-05T10:30:00Z (Run 333)
 
 Updated: 2026-10-05T08:17:14Z (Run 334)
 
+## Run 336 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
+- Run 335 due-gate was correct, but dry-run `window` and `request_plan` still used a sliding now window. `inspect_feedback` now sets `window` from the video's first 7 calendar days when `uploaded_at` exists. A missing upload time leaves start and end empty (`kind: unavailable`). `request_plan` uses those dates. The live fetch still uses `analytics_range`. No fetch was run.
+- `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
+Updated: 2026-10-05T09:11:00Z (Run 335)
+

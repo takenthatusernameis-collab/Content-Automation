@@ -261,3 +261,6 @@ Shouted titles and an explicit thumbnail mismatch now refuse ready_for_vo. Estim
 - Upload inspect now fails closed on the same quality, claim, and title hits that already block `ready_for_vo`.
 - Estimated effect: one less class of bad packet that can reach videos.insert after a later script or title edit. No change to human minutes on Q1. Videos published stay 0.
 
+## Run 329 (2026-10-05T06:15:00Z)
+- Local-gate inflation is now a visible stall flag instead of a silent series of new scanners. Estimated agent minutes saved on the next runs: the rediscovery pass over Runs 326-328, about 10, if the flag is read first. No change to human minutes on Q1. Videos published stay 0. Publish still waits on the three YouTube secrets.
+
