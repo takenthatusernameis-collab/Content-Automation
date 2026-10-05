@@ -200,3 +200,6 @@ Earlier failures remain in force in prior commits.
 - **Result:** `stall_watch.py` prints `STALL_OAUTH_AND_STUDIO` for that pattern. The handoff reserve now comes from `timeline.END_SCREEN`. Selftest locks both. No provider write.
 - **Avoid:** Another Studio URL or end-screen sentence while that flag is set. Hardcoding the reserve again. Adding a YouTubeAPIError reason without a live_status line. Polling OAuth secrets as the only work.
 
+## Run 318 — stale next-id sentence
+`docs/topic_queue.md` still said the next scaffold is `002-` after Q1 occupied `videos/002-stop-deciding-what-to-work-on-every-morning`. `next_topic.py` already printed `videos/003-...`. Following the doc would collide with Q1. Fixed in the doc and locked in `queue_contract.py`. Do not treat the old sentence as current.
+

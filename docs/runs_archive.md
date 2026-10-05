@@ -691,3 +691,12 @@ Older run log entries. Newest first inside each move. Do not paste these back in
 - discovery: Run 330 named `required_scopes` but left `scope` as youtube.upload, which is the field an operator would copy into the consent screen
 - blocker: YouTube OAuth secrets still absent; not polled
 - next: mint the refresh token with the three consent scopes, then dispatch execute=true; do not add another scanner or playlist variant
+
+## Run 334 — 2026-10-05T08:17:14Z
+- objective: stop a failed playlist insert from looking successful after a video id exists
+- action: `playlist_membership.py` exits 2 on auth_required and on not_added with a detail; those rows write playlist_plan.md; not_set and missing video id stay exit 0 and write nothing
+- result: playlist contract and selftest passed locally; Q1 playlist plan remains not_set
+- verification: completed locally; Actions not re-run; no provider write
+- discovery: Run 332 only failed a mistyped id; an API failure after a real PL id still exited 0 and skipped the plan file
+- blocker: YouTube OAuth secrets still absent; not polled
+- next: mint the refresh token with the three consent scopes, then dispatch execute=true; do not add another scanner

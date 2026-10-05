@@ -1,3 +1,13 @@
+# LOG
+
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
+## Run 346 — dead-session hold can be cleared after Studio shows no video
+- Estimated human minutes per video: unchanged. Publish still blocked on OAuth.
+- Automated step added: local hold release plus commit decision `commit_session_hold_released`. No provider write.
+- Remaining manual steps: YouTube OAuth secrets, playlist id, Studio check before any hold release, pin after comment insert.
+- Reliability: an expired Location no longer bricks later executes once a human confirms no video. The workflow cannot clear the hold by itself.
+
 # PROGRESS
 
 Updated: 2026-10-05T19:20:00Z
@@ -59,7 +69,4 @@ Updated: 2026-10-05T11:20:00Z
 ## Run 328 (2026-10-05T05:13:00Z)
 - Upload inspect now fails closed on the same quality, claim, and title hits that already block `ready_for_vo`.
 - Estimated effect: one less class of bad packet that can reach videos.insert after a later script or title edit. No change to human minutes on Q1. Videos published stay 0.
-
-## Run 327 — 2026-10-05T01:17:00Z
-Shouted titles and an explicit thumbnail mismatch now refuse ready_for_vo. Estimated human minutes saved on each later title review: about 3, if the report is clear. Q1 was already clear, so this video does not change. Videos published stay 0. Publish still waits on the three YouTube secrets.
 

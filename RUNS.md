@@ -2,6 +2,15 @@
 
 Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools/runs_compact.py` moves extras. It does not delete history.
 
+## Run 346 — 2026-10-05T20:15:00Z
+- Objective: Stop a committed dead-session hold from bricking the first upload after Studio shows no video.
+- Action: Added a local release that clears `session_expired_hold` only with studio token `no_video_in_studio`, no provider video id, and no remaining Location. Persist commits that release. The production workflow does not pass the flag. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a YouTubeAPIError reason.
+- Result: Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: Run 345 fail-closed on 404/410, but nothing could clear the hold, so the first expired session would block every later execute even after a human checked Studio.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Eight-plus runs of upload-edge fixes have not published; that idle is the known credential stall, not a missing scanner.
+- Next: Do not pass the release flag from Actions. Do not release without the Studio token. Do not start a second videos.insert when Location exists or when session_expired_hold is set. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 345 — 2026-10-05T19:20:00Z
 - Objective: Stop a dead resumable Location from being reused forever or turning into a second videos.insert.
 - Action: Probe a saved session URI before any chunk. A 404 or 410 drops the URI, sets session_expired_hold, and commits that hold. The next execute raises RESUMABLE_SESSION_EXPIRED and does not POST videos.insert. Did not add a reason. Did not poll secrets. Did not add a scanner. Did not scaffold Q2.
@@ -100,15 +109,6 @@ Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools
 - Discovery: The old due gate and the query end date disagreed, so the first experiment could be collected before the claimed window existed.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still `not_set`.
 - Next: Do not rediscover this lag. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
-
-## Run 334 — 2026-10-05T08:17:14Z
-- objective: stop a failed playlist insert from looking successful after a video id exists
-- action: `playlist_membership.py` exits 2 on auth_required and on not_added with a detail; those rows write playlist_plan.md; not_set and missing video id stay exit 0 and write nothing
-- result: playlist contract and selftest passed locally; Q1 playlist plan remains not_set
-- verification: completed locally; Actions not re-run; no provider write
-- discovery: Run 332 only failed a mistyped id; an API failure after a real PL id still exited 0 and skipped the plan file
-- blocker: YouTube OAuth secrets still absent; not polled
-- next: mint the refresh token with the three consent scopes, then dispatch execute=true; do not add another scanner
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 Earlier runs through Run 269 remain in git at `9416aae2c482ca08fd55642e0fff94568482ee51` (`RUNS.md` blob `243e47753b76bbd636a59dddb00e8c1c6f2e90c1`) and before that at `65cca063`.

@@ -984,6 +984,56 @@ def write_upload_state(packet: Path, state: dict) -> None:
     tmp.replace(dest)
 
 
+
+STUDIO_CHECKED_NO_VIDEO = "no_video_in_studio"
+
+
+class SessionHoldReleaseError(RuntimeError):
+    """Local operator gate. Not a provider status and not a videos.insert."""
+
+    def __init__(self, reason: str) -> None:
+        self.reason = reason
+        super().__init__(reason)
+
+
+def apply_session_hold_release(prior: dict, fingerprint: str, studio_checked: str) -> dict:
+    """Clear a dead-session hold only after Studio was checked for no video.
+
+    Does not call YouTube. Does not invent a video id. A live Location, a
+    provider video id, a fingerprint mismatch, or any other studio token
+    refuses. The production workflow must not pass this path.
+    """
+    if studio_checked != STUDIO_CHECKED_NO_VIDEO:
+        raise SessionHoldReleaseError("SESSION_HOLD_RELEASE_REFUSED")
+    if not isinstance(prior, dict) or prior.get("session_expired_hold") is not True:
+        raise SessionHoldReleaseError("SESSION_HOLD_RELEASE_REFUSED")
+    if str(prior.get("provider_video_id") or "").strip():
+        raise SessionHoldReleaseError("SESSION_HOLD_RELEASE_REFUSED")
+    if str(prior.get("resumable_session_uri") or "").strip().startswith("https://"):
+        raise SessionHoldReleaseError("SESSION_HOLD_RELEASE_REFUSED")
+    if prior.get("fingerprint") != fingerprint:
+        raise YouTubeAPIError(0, "EXISTING_VIDEO_FINGERPRINT_MISMATCH")
+    released = dict(prior)
+    released.pop("resumable_session_uri", None)
+    released["session_expired_hold"] = False
+    released["session_expired_released"] = True
+    released["studio_checked"] = STUDIO_CHECKED_NO_VIDEO
+    released["provider_video_id"] = None
+    released["attempted_upload"] = False
+    released["error_class"] = "SESSION_HOLD_RELEASED"
+    released["video_upload"] = {"status": "session_hold_released"}
+    return released
+
+
+def release_session_expired_hold(packet: Path, report: dict, studio_checked: str) -> dict:
+    prior = load_prior_state(packet)
+    released = apply_session_hold_release(prior or {}, report["fingerprint"], studio_checked)
+    released["packet"] = packet.name
+    released["generated"] = _now()
+    write_upload_state(packet, released)
+    return released
+
+
 def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) -> dict:
     meta_block = metadata_block_reason(report.get("meta") or {})
     if meta_block:
@@ -1247,6 +1297,16 @@ def main() -> int:
         action="store_true",
         help="Do not post the approved first comment on this execute.",
     )
+    parser.add_argument(
+        "--release-session-expired-hold",
+        action="store_true",
+        help="Clear a dead-session hold after Studio shows no video. Not used by the production workflow.",
+    )
+    parser.add_argument(
+        "--studio-checked",
+        default="",
+        help="Required token for hold release: no_video_in_studio. Any other value refuses.",
+    )
     args = parser.parse_args()
     path = Path(args.packet).resolve()
     if not path.is_dir():
@@ -1266,6 +1326,20 @@ def main() -> int:
             dest.write_text(json.dumps(redacted_state(report), indent=2) + "\n", encoding="utf-8")
             print(dest)
         return 2
+    if args.release_session_expired_hold:
+        if args.execute:
+            print("release-session-expired-hold cannot be combined with --execute", file=sys.stderr)
+            return 2
+        try:
+            state = release_session_expired_hold(path, report, args.studio_checked)
+            print(json.dumps(state, indent=2, ensure_ascii=False))
+            return 0
+        except SessionHoldReleaseError as exc:
+            print(json.dumps({"error": exc.reason}, ensure_ascii=False), file=sys.stderr)
+            return 2
+        except YouTubeAPIError as exc:
+            print(json.dumps({"error": compact_api_error(exc)}, ensure_ascii=False), file=sys.stderr)
+            return 4
     if args.execute:
         try:
             post_comment = should_post_comment(

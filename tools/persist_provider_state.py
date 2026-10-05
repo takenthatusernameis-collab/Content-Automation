@@ -29,6 +29,13 @@ def upload_commit_decision(data: dict) -> str:
         return "commit_provider_video_id"
     if data.get("session_expired_hold") is True:
         return "commit_session_expired_hold"
+    if (
+        data.get("session_expired_released") is True
+        and data.get("session_expired_hold") is not True
+        and not provider_id
+        and not str(data.get("resumable_session_uri") or "").strip().startswith("https://")
+    ):
+        return "commit_session_hold_released"
     session = str(data.get("resumable_session_uri") or "").strip()
     if session.startswith("https://"):
         return "commit_resumable_session"

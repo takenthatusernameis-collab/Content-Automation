@@ -1,3 +1,13 @@
+# LOG
+
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
+## Run 346 — dead-session hold had no recovery
+- **Tried:** Leaving `session_expired_hold` as a permanent execute refusal after Run 345.
+- **Evidence:** `execute_upload` raises `RESUMABLE_SESSION_EXPIRED` when the hold is set and there is no video id. No tool cleared it. Selftest now refuses a release without `no_video_in_studio`, with a video id, or with a remaining Location.
+- **Result:** Release is local and committed. Production workflow has no release input. No provider write.
+- **Avoid:** Passing `--release-session-expired-hold` from Actions. Releasing without the Studio token. Adding another scanner while `STALL_OAUTH_IDLE` is set. Polling OAuth secrets as the only work.
+
 # FAILURES
 
 Updated: 2026-10-05T18:20:00Z
@@ -64,7 +74,4 @@ The Studio, instruction, and local-gate flags only look at the last three deltas
 - **Evidence:** Each STATE delta says OAuth secrets were not polled and no provider write. `stall_watch.py` stayed clear because the edits were not Studio copy and not paste/hint sentences.
 - **Result:** `STALL_LOCAL_GATE` now prints for that window. Selftest still passes. No provider write.
 - **Avoid:** Another scanner, packet path gate, or content-rule refusal while that flag is set. Polling OAuth secrets as the only work. Scaffolding Q2 to try the flag.
-
-## Run 318 — stale next-id sentence
-`docs/topic_queue.md` still said the next scaffold is `002-` after Q1 occupied `videos/002-stop-deciding-what-to-work-on-every-morning`. `next_topic.py` already printed `videos/003-...`. Following the doc would collide with Q1. Fixed in the doc and locked in `queue_contract.py`. Do not treat the old sentence as current.
 

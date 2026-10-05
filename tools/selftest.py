@@ -907,6 +907,67 @@ def check_persist_provider_state() -> list[str]:
     )
     if expired_hold != "commit_session_expired_hold":
         failures.append("expired Location hold must be committed and must not stay an open session")
+    released = persist.upload_commit_decision(
+        {
+            "session_expired_hold": False,
+            "session_expired_released": True,
+            "studio_checked": "no_video_in_studio",
+            "error_class": "SESSION_HOLD_RELEASED",
+            "provider_video_id": None,
+        }
+    )
+    if released != "commit_session_hold_released":
+        failures.append(f"released dead-session hold must be committed, got {released}")
+    still_held = persist.upload_commit_decision(
+        {
+            "session_expired_hold": True,
+            "session_expired_released": True,
+        }
+    )
+    if still_held != "commit_session_expired_hold":
+        failures.append("a still-held session must not look released")
+    from youtube_upload import apply_session_hold_release, SessionHoldReleaseError
+    held = {
+        "session_expired_hold": True,
+        "fingerprint": "abc",
+        "provider_video_id": None,
+        "error_class": "RESUMABLE_SESSION_EXPIRED",
+    }
+    try:
+        apply_session_hold_release(held, "abc", "unchecked")
+        failures.append("hold release must refuse without the Studio token")
+    except SessionHoldReleaseError as exc:
+        if exc.reason != "SESSION_HOLD_RELEASE_REFUSED":
+            failures.append(f"bad studio token reason {exc.reason}")
+    except Exception as exc:
+        failures.append(f"bad studio token raised {type(exc).__name__}")
+    try:
+        apply_session_hold_release({**held, "provider_video_id": "vid"}, "abc", "no_video_in_studio")
+        failures.append("hold release must refuse when a video id exists")
+    except SessionHoldReleaseError:
+        pass
+    try:
+        apply_session_hold_release(
+            {**held, "resumable_session_uri": "https://upload.example/live"},
+            "abc",
+            "no_video_in_studio",
+        )
+        failures.append("hold release must refuse while a Location remains")
+    except SessionHoldReleaseError:
+        pass
+    try:
+        apply_session_hold_release(held, "other", "no_video_in_studio")
+        failures.append("hold release must refuse a fingerprint mismatch")
+    except Exception as exc:
+        if getattr(exc, "reason", "") != "EXISTING_VIDEO_FINGERPRINT_MISMATCH":
+            failures.append(f"fingerprint mismatch reason {getattr(exc, 'reason', exc)}")
+    cleared = apply_session_hold_release(held, "abc", "no_video_in_studio")
+    if cleared.get("session_expired_hold") is not False or cleared.get("session_expired_released") is not True:
+        failures.append("Studio no-video token must clear the hold without a video id")
+    if cleared.get("provider_video_id") or str(cleared.get("resumable_session_uri") or "").startswith("https://"):
+        failures.append("released hold must not invent a video id or Location")
+    if persist.upload_commit_decision(cleared) != "commit_session_hold_released":
+        failures.append("cleared hold must be the committed release row")
     if persist.upload_commit_decision({"resumable_session_uri": "https://upload.example/session"}) != "commit_resumable_session":
         failures.append("open resumable Location must be committed")
     if persist.upload_commit_decision({"resumable_session_uri": "not-a-url"}) != "skip_transient":
