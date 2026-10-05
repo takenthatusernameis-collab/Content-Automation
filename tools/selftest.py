@@ -906,8 +906,30 @@ def check_persist_provider_state() -> list[str]:
     )
     if gone != "commit_completed_without_id":
         failures.append("completed-without-id hold must be committed")
-    if persist.feedback_commit_decision({"gate": "COLLECTED", "attempted_fetch": True, "provider_video_id": "abc"}) != "commit_collected":
-        failures.append("collected feedback with a provider id must be committed")
+    if persist.feedback_commit_decision({"gate": "COLLECTED", "attempted_fetch": True, "provider_video_id": "abc"}) != "skip_unstamped_window":
+        failures.append("collected feedback without a first-calendar-days stamp must not be committed")
+    stamped = {
+        "gate": "COLLECTED",
+        "attempted_fetch": True,
+        "provider_video_id": "abc",
+        "window": {
+            "kind": "first_calendar_days",
+            "days": 7,
+            "start": "2026-01-01T00:00:00Z",
+            "end": "2026-01-07T23:59:59Z",
+        },
+    }
+    if persist.feedback_commit_decision(stamped) != "commit_collected":
+        failures.append("stamped collected feedback must be committed")
+    sliding = dict(stamped)
+    sliding["window"] = {
+        "kind": "sliding_now",
+        "days": 7,
+        "start": "2026-01-01T00:00:00Z",
+        "end": "2026-01-07T23:59:59Z",
+    }
+    if persist.feedback_commit_decision(sliding) != "skip_unstamped_window":
+        failures.append("sliding collected window must not be committed")
     if persist.feedback_commit_decision({"gate": "COLLECTED", "attempted_fetch": False, "provider_video_id": "abc"}) != "skip_not_collected":
         failures.append("dry-run feedback must not be committed")
     if not persist.push_needs_retry("failed to push some refs: updates were rejected"):

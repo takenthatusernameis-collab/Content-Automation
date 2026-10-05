@@ -30,15 +30,40 @@ def upload_commit_decision(data: dict) -> str:
     return "skip_transient"
 
 
-def feedback_commit_decision(data: dict) -> str:
-    """Return commit_collected only for a real COLLECTED fetch with a video id.
+def feedback_window_stamp_ok(data: dict) -> bool:
+    """True only for the execute stamp: first calendar days, length 7, dated.
 
-    A dry-run or mismatched feedback file stays uncommitted. Do not invent metrics.
+    A missing kind or sliding_now is not the observation. Does not fetch and
+    does not invent dates. Date match against uploaded_at stays in collected_metrics.
+    """
+    window = data.get("window")
+    if not isinstance(window, dict):
+        return False
+    if window.get("kind") != "first_calendar_days":
+        return False
+    if window.get("days") != 7:
+        return False
+    start = str(window.get("start") or "")[:10]
+    end = str(window.get("end") or "")[:10]
+    if len(start) != 10 or len(end) != 10 or start[4] != "-" or end[4] != "-":
+        return False
+    if start > end:
+        return False
+    return True
+
+
+def feedback_commit_decision(data: dict) -> str:
+    """Return commit_collected only for a stamped COLLECTED fetch with a video id.
+
+    A dry-run, a missing video id, or a collected file with no first-calendar-days
+    stamp stays uncommitted. Do not invent metrics or a window.
     """
     if str(data.get("gate") or "") != "COLLECTED" or data.get("attempted_fetch") is not True:
         return "skip_not_collected"
     if not str(data.get("provider_video_id") or "").strip():
         return "skip_missing_id"
+    if not feedback_window_stamp_ok(data):
+        return "skip_unstamped_window"
     return "commit_collected"
 
 

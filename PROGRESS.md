@@ -1,3 +1,6 @@
+## Run 338 — 2026-10-05T12:30:00Z
+Persist no longer commits a COLLECTED analytics file that lacks the first-calendar-days stamp. Estimated effect: one less way a sliding or unstamped window becomes the comparison evidence after a later collect. Videos published stay 0. Human minutes on Q1 unchanged.
+
 # PROGRESS
 
 Updated: 2026-10-05T11:20:00Z

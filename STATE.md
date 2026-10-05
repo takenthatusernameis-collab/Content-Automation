@@ -1,5 +1,16 @@
 # STATE
 
+Updated: 2026-10-05T12:30:00Z (Run 338)
+
+## Run 338 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
+- Run 337 refused an unstamped COLLECTED file as a comparison, but `feedback_commit_decision` still returned `commit_collected` for that file. Persist now returns `skip_unstamped_window` unless `window.kind` is `first_calendar_days`, `days` is 7, and start/end dates are present. A stamped file still commits. No fetch was run.
+- `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
 Updated: 2026-10-05T11:20:00Z (Run 337)
 
 ## Run 337 delta
