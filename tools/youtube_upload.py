@@ -1053,6 +1053,22 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
                 result["video_upload"]["uploaded_at"] = stamp
                 result["uploaded_at"] = stamp
         else:
+            prior_session = ""
+            if prior:
+                prior_session = str(prior.get("resumable_session_uri") or "").strip()
+                if prior_session.startswith("https://"):
+                    if prior.get("fingerprint") != report["fingerprint"]:
+                        raise YouTubeAPIError(0, "EXISTING_VIDEO_FINGERPRINT_MISMATCH")
+                else:
+                    prior_session = ""
+
+            def remember_session(uri: str) -> None:
+                result["resumable_session_uri"] = uri
+                result["attempted_upload"] = True
+                result["video_upload"] = {"status": "session_open"}
+                result["error_class"] = "RESUMABLE_SESSION_OPEN"
+                write_upload_state(packet, result)
+
             video = upload_video(
                 token,
                 export_path=export,
@@ -1065,6 +1081,8 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
                     },
                 },
                 privacy=report["privacy"],
+                session_uri=prior_session or None,
+                on_session=remember_session,
             )
             video_id = str(video.get("id") or "").strip()
             if not video_id:
@@ -1073,6 +1091,8 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
             stamp = _now()
             result["uploaded_at"] = stamp
             result["video_upload"] = {"status": "uploaded", "video_id": video_id, "uploaded_at": stamp}
+            if prior_session:
+                result["resumable_session_uri"] = prior_session
             # Persist the provider ID immediately so a later caption/thumbnail failure
             # can resume without re-uploading the video.
             write_upload_state(packet, result)

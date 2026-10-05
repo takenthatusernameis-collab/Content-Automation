@@ -1,10 +1,12 @@
 # NEXT
 
-Updated: 2026-10-05T17:25:00Z (Run 343)
+Updated: 2026-10-05T18:20:00Z (Run 344)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Materialize installs `q1-media-r253` only. Do not restore multipart for the master. Do not start a second `videos.insert` when Location exists.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr10. **Do not rediscover the uncommitted resumable Location.** Run 344: an https `resumable_session_uri` is committed even without a provider video id. The next execute resumes that URI and does not POST videos.insert. A fingerprint mismatch reuses `EXISTING_VIDEO_FINGERPRINT_MISMATCH`. Do not print the URI. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
 
 1zr9. **Do not rediscover the truncated PROGRESS and FAILURES files.** Run 343: each keeps 12 newest sections. Older sections live in `docs/progress_archive.md` and `docs/failures_archive.md`. `tools/log_compact.py` moves extras. It does not delete history. Do not paste the archives back. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2.
 
@@ -27,5 +29,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zq. **Do not rediscover the silent playlist insert failure.** Run 334: `auth_required` and `not_added` with a detail exit 2 and write `playlist_plan.md`. `already_present` exits 0 and writes the plan. `playlist_id: not_set` and a missing video id still exit 0, write nothing, and do not call videos.insert. Do not add a YouTubeAPIError reason for this. Do not add another scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2.
 
 1zp. **Do not rediscover the upload-only scope field.** Run 333: dry-run `scope` is the consent set (`youtube.upload youtube.force-ssl yt-analytics.readonly`), matching `required_scopes`. Do not restore `scope: youtube.upload` alone. The production job prints `tools/stall_watch.py` after checkout. The flag does not fail the job. Do not add another scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2.
-
-1zo. **Do not rediscover the OAuth-idle window.** Run 332: a 3-run topic flag clears when the subject changes. `tools/stall_watch.py` prints `STALL_OAUTH_IDLE` when the last eight STATE deltas left OAuth unpolled and videos published at 0. The flag does not fail CI. Do not add another scanner, Studio sentence, or playlist variant while it is set. Do not spend the run only restating the missing secrets. `invalid_playlist_id` exits 2. `playlist_id: not_set` still exits 0 and does not invent a PL id. Do not scaffold Q2.

@@ -442,6 +442,8 @@ def upload_video(
     metadata: Mapping[str, Any],
     privacy: str,
     token_refresher: Callable[[], str] | None = None,
+    session_uri: str | None = None,
+    on_session: Callable[[str], None] | None = None,
 ) -> dict[str, Any]:
     """Insert a video with the resumable protocol.
 
@@ -449,7 +451,9 @@ def upload_video(
     proxies and the 20-minute Actions job drop it, and a lost response can hide
     a created video id. Captions and thumbnails stay multipart; they are small.
     A 401 refreshes the access token and resumes the same Location. It must not
-    open another videos.insert.
+    open another videos.insert. A saved session_uri is that Location. It skips
+    the session POST. on_session runs once when a new Location is issued so the
+    caller can persist it before the first chunk. Do not print the URI.
     """
     body = dict(metadata)
     status = dict(body.get("status") or {})
@@ -474,25 +478,32 @@ def upload_video(
     )
     refresher = token_refresher or refresh_access_token
     auth_refreshes = 0
-    session = ""
+    session = str(session_uri or "").strip()
     code = 0
     init_body = _json_bytes(body)
-    for _attempt in range(RESUMABLE_RETRY_LIMIT):
-        try:
-            session, code = _start_resumable_session(init_url, init_headers, init_body)
-        except YouTubeAPIError as exc:
-            if exc.status != 401:
-                raise
-            session, code = "", 401
-        if session.startswith("https://"):
-            break
-        if code != 401:
-            break
-        if auth_refreshes >= RESUMABLE_RETRY_LIMIT:
-            raise YouTubeAPIError(401, "RESUMABLE_TOKEN_REFRESH_EXHAUSTED", "session_start")
-        token = _refreshed_token(refresher, token)
-        auth_refreshes += 1
-        init_headers["Authorization"] = f"Bearer {token}"
+    if session.startswith("https://"):
+        # Saved Location from an earlier execute. Do not POST videos.insert.
+        pass
+    else:
+        session = ""
+        for _attempt in range(RESUMABLE_RETRY_LIMIT):
+            try:
+                session, code = _start_resumable_session(init_url, init_headers, init_body)
+            except YouTubeAPIError as exc:
+                if exc.status != 401:
+                    raise
+                session, code = "", 401
+            if session.startswith("https://"):
+                if on_session is not None:
+                    on_session(session)
+                break
+            if code != 401:
+                break
+            if auth_refreshes >= RESUMABLE_RETRY_LIMIT:
+                raise YouTubeAPIError(401, "RESUMABLE_TOKEN_REFRESH_EXHAUSTED", "session_start")
+            token = _refreshed_token(refresher, token)
+            auth_refreshes += 1
+            init_headers["Authorization"] = f"Bearer {token}"
     if not session.startswith("https://"):
         raise YouTubeAPIError(code, "RESUMABLE_SESSION_MISSING")
     offset = 0

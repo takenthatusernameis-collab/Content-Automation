@@ -1,5 +1,16 @@
 # FAILURES
 
+Updated: 2026-10-05T18:20:00Z
+
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
+## Run 344 — open Location was not durable
+- **Tried:** Runs 340-343 each compacted a fetch file. That pattern is now suspicious if it continues with no production-path change. The upload path still dropped a Location that was not committed.
+- **Result:** Persist now commits `commit_resumable_session` for an https session URI. A saved URI skips the session POST. No live execute. No new YouTubeAPIError reason.
+- **Avoid:** Another compaction-only run while this URI rule is already locked. Printing the session URI. Starting a second videos.insert when Location exists. Adding a scanner while `STALL_OAUTH_IDLE` is set.
+
+# FAILURES
+
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 343 — truncated PROGRESS and FAILURES hid older lessons
@@ -57,9 +68,4 @@ The Studio, instruction, and local-gate flags only look at the last three deltas
 - **Evidence:** STATE deltas for those runs all say OAuth secrets were not polled and videos published stay 0. The end-screen reserve was also a second hardcoded 20, separate from `timeline.END_SCREEN`.
 - **Result:** `stall_watch.py` prints `STALL_OAUTH_AND_STUDIO` for that pattern. The handoff reserve now comes from `timeline.END_SCREEN`. Selftest locks both. No provider write.
 - **Avoid:** Another Studio URL or end-screen sentence while that flag is set. Hardcoding the reserve again. Adding a YouTubeAPIError reason without a live_status line. Polling OAuth secrets as the only work.
-
-## Run 314 — a posted comment still had no Studio URL
-- **Tried:** Treating the comment insert as the end of the pin path. The job persisted upload_state.json and stopped. The operator still had to find the video in Studio.
-- **Result:** `studio_handoff.py` prints the comments URL and `pinned: false` when a provider video id exists. No id, no URL. Selftest locks both. No YouTube call.
-- **Avoid:** Claiming the comment is pinned. Adding a YouTubeAPIError reason for the missing pin. Polling OAuth secrets. Another upload HTTP status variant without a live execute status.
 

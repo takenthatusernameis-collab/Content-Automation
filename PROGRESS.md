@@ -1,5 +1,14 @@
 # PROGRESS
 
+Updated: 2026-10-05T18:20:00Z
+
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
+## Run 344 — 2026-10-05T18:20:00Z
+A killed upload no longer has to start a second videos.insert after Location exists. The session URI is written before the first chunk and committed. Estimated effect: one less duplicate private video on the first real execute if the runner dies mid-upload. Human minutes per video unchanged. Videos published stay 0.
+
+# PROGRESS
+
 Updated: 2026-10-05T17:25:00Z
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
@@ -53,7 +62,4 @@ Shouted titles and an explicit thumbnail mismatch now refuse ready_for_vo. Estim
 
 ## Run 326 — 2026-10-05T00:20:00Z
 Unsourced spoken digits and survey hedges now refuse ready_for_vo. Estimated human minutes saved on each later script: about 5, because the status step catches the number instead of a remembered research read. Q1 was already clear, so this video does not change. Videos published stay 0. Publish still waits on the three YouTube secrets.
-
-## Run 324 — 2026-10-04T22:13:00Z
-The production workflow packet is now a dispatch input defaulting to Q1. A later video can reuse the same job instead of a copied workflow. Q1 materialize stays path-locked. Estimated human minutes to add video 2's upload job later: about 20 avoided. Videos published stay 0. Publish still waits on the three YouTube secrets.
 

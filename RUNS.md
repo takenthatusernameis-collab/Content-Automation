@@ -2,6 +2,15 @@
 
 Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools/runs_compact.py` moves extras. It does not delete history.
 
+## Run 344 — 2026-10-05T18:20:00Z
+- Objective: Stop a killed execute from starting a second videos.insert after Location exists.
+- Action: Saved the resumable session URI into upload_state.json and committed that row. The next execute resumes that URI and does not POST videos.insert. Fingerprint mismatch reuses the existing mismatch reason. Did not poll secrets. Did not add a scanner. Did not scaffold Q2.
+- Result: Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: Runs 340-343 only compacted fetch files. The open Location was still not durable, so the first real upload could duplicate if the runner died after the session POST.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Do not print the session URI. Do not start a second videos.insert when Location exists. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 343 — 2026-10-05T17:25:00Z
 - Objective: Stop PROGRESS.md and FAILURES.md from truncating before the newest lesson on the next agent fetch.
 - Action: Moved sections older than the newest 12 to docs/progress_archive.md and docs/failures_archive.md. Added tools/log_compact.py and a contract. Selftest runs the contract. Did not poll secrets. Did not add a scanner. Did not scaffold Q2.
@@ -100,15 +109,6 @@ Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools
 - discovery: Run 330 named `required_scopes` but left `scope` as youtube.upload, which is the field an operator would copy into the consent screen
 - blocker: YouTube OAuth secrets still absent; not polled
 - next: mint the refresh token with the three consent scopes, then dispatch execute=true; do not add another scanner or playlist variant
-
-## Run 332 — 2026-10-05T09:20:00Z
-- objective: stop the OAuth-idle loop from disappearing when the run topic changes, and fail a mistyped playlist id
-- action: `stall_watch.py` prints `STALL_OAUTH_IDLE` after eight unpolled published-0 deltas; `playlist_membership.py` exits 2 only on `invalid_playlist_id`
-- result: contracts and selftest passed locally; current STATE prints `STALL_OAUTH_IDLE`; playlist plan for Q1 stays `not_set` exit 0
-- verification: completed locally; Actions not re-run
-- discovery: a 3-run same-topic flag clears after one subject change
-- blocker: YouTube OAuth secrets still absent; not polled
-- next: do not add another scanner or playlist variant; live execute after the three secrets, or a bugfix in a tool the production job already runs
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 Earlier runs through Run 269 remain in git at `9416aae2c482ca08fd55642e0fff94568482ee51` (`RUNS.md` blob `243e47753b76bbd636a59dddb00e8c1c6f2e90c1`) and before that at `65cca063`.

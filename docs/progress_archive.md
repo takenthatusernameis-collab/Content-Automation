@@ -248,3 +248,6 @@ Playlist membership is now a skip-until-set step. After one human playlist id is
 ## Run 323 — 2026-10-04T21:20:00Z
 ready_for_vo now fails closed on quality_scan hits. Estimated human review of those phrases on later packets drops from a remembered read to a status refusal. Q1 unchanged. Videos published stay 0. Publish still waits on the three YouTube secrets.
 
+## Run 324 — 2026-10-04T22:13:00Z
+The production workflow packet is now a dispatch input defaulting to Q1. A later video can reuse the same job instead of a copied workflow. Q1 materialize stays path-locked. Estimated human minutes to add video 2's upload job later: about 20 avoided. Videos published stay 0. Publish still waits on the three YouTube secrets.
+

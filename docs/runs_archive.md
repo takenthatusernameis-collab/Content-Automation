@@ -673,3 +673,12 @@ Older run log entries. Newest first inside each move. Do not paste these back in
 - **Important discovery:** The Data API can add a video to a playlist with the already required force-ssl scope. Pin and end screen still cannot. The playlist id is the only missing human input, and it is once per channel, not once per video.
 - **Blocker:** GitHub Actions secrets YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN. Not polled. Playlist id is also unset and is not the publish gate.
 - **Recommended next action:** Add the three secrets with the consent scopes from oauth_setup.py, then dispatch youtube-production.yml with execute=true. Optionally create one series playlist and replace `playlist_id: not_set`. Do not scaffold Q2. Do not add another scanner.
+
+## Run 332 — 2026-10-05T09:20:00Z
+- objective: stop the OAuth-idle loop from disappearing when the run topic changes, and fail a mistyped playlist id
+- action: `stall_watch.py` prints `STALL_OAUTH_IDLE` after eight unpolled published-0 deltas; `playlist_membership.py` exits 2 only on `invalid_playlist_id`
+- result: contracts and selftest passed locally; current STATE prints `STALL_OAUTH_IDLE`; playlist plan for Q1 stays `not_set` exit 0
+- verification: completed locally; Actions not re-run
+- discovery: a 3-run same-topic flag clears after one subject change
+- blocker: YouTube OAuth secrets still absent; not polled
+- next: do not add another scanner or playlist variant; live execute after the three secrets, or a bugfix in a tool the production job already runs

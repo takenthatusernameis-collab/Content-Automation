@@ -189,3 +189,8 @@ Earlier failures remain in force in prior commits.
 - **Result:** `skip_comment` is a dispatch input and passes `--skip-comment`. `comment_post.pinned` is false. Selftest locks both.
 - **Avoid:** Claiming the first comment is pinned. Adding a YouTubeAPIError reason to represent the missing pin. Polling OAuth secrets. Another upload HTTP status variant without a live execute status.
 
+## Run 314 — a posted comment still had no Studio URL
+- **Tried:** Treating the comment insert as the end of the pin path. The job persisted upload_state.json and stopped. The operator still had to find the video in Studio.
+- **Result:** `studio_handoff.py` prints the comments URL and `pinned: false` when a provider video id exists. No id, no URL. Selftest locks both. No YouTube call.
+- **Avoid:** Claiming the comment is pinned. Adding a YouTubeAPIError reason for the missing pin. Polling OAuth secrets. Another upload HTTP status variant without a live execute status.
+

@@ -27,6 +27,9 @@ def upload_commit_decision(data: dict) -> str:
         return "commit_completed_without_id"
     if provider_id:
         return "commit_provider_video_id"
+    session = str(data.get("resumable_session_uri") or "").strip()
+    if session.startswith("https://"):
+        return "commit_resumable_session"
     return "skip_transient"
 
 

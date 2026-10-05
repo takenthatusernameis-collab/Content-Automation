@@ -1,3 +1,6 @@
+## 2026-10-05 — Run 344: an open Location is commit state
+A resumable session URI is a bearer for that upload. It is stored in private `upload_state.json` so a later execute can resume it. It is not printed in logs or run notes. A missing video id with that URI is `commit_resumable_session`, not a transient skip. Do not start another videos.insert while it is present and the export fingerprint matches.
+
 ## 2026-10-02 — Run 279: partial post-upload is not success
 A provider video id with a failed caption, thumbnail, or requested comment is `POST_UPLOAD_INCOMPLETE`. The job fails after `upload_state.json` is written. Persist runs even when the execute step fails. Collect does not run in the same dispatch as execute. A later execute resumes the same video id; it must not upload the master again.
 

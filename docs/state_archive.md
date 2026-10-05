@@ -484,3 +484,14 @@ Updated: 2026-10-05T06:15:00Z (Run 329)
 
 Updated: 2026-10-05T04:20:00Z (Run 330)
 
+## Run 332 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- The 3-run stall window had cleared after Runs 330-331 changed subject, even though the last eight deltas still left OAuth unpolled and videos published at 0. `tools/stall_watch.py` now also prints `STALL_OAUTH_IDLE` for that 8-run pattern. The flag does not fail CI.
+- `tools/playlist_membership.py` now exits 2 on `invalid_playlist_id`. `not_set` and a missing video id still exit 0 and do not call videos.insert. Current channel line remains `playlist_id: not_set`.
+- `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. `python3 tools/playlist_membership_contract.py` printed PLAYLIST MEMBERSHIP CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
+Updated: 2026-10-05T08:20:00Z (Run 331)
+

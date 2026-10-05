@@ -898,6 +898,10 @@ def check_persist_provider_state() -> list[str]:
         failures.append("upload state with a provider id must be committed")
     if persist.upload_commit_decision({"error_class": "RESUMABLE_SESSION_EXPIRED"}) != "skip_transient":
         failures.append("transient upload failure must not be committed")
+    if persist.upload_commit_decision({"resumable_session_uri": "https://upload.example/session"}) != "commit_resumable_session":
+        failures.append("open resumable Location must be committed")
+    if persist.upload_commit_decision({"resumable_session_uri": "not-a-url"}) != "skip_transient":
+        failures.append("a non-https session string must not be committed")
     gone = persist.upload_commit_decision(
         {
             "completed_without_id": True,
@@ -1757,6 +1761,41 @@ def check_resumable_video_upload() -> list[str]:
         failures.append(f"resume range drift: {calls[2][2].get('Content-Range')}")
     if any("token-not-printed" in json.dumps(call) and False for call in calls):
         pass
+
+    reuse_calls: list[tuple[str, str, dict]] = []
+    seen: list[str] = []
+
+    def reuse_http(url, *, method, headers, body, timeout):
+        reuse_calls.append((method, url, dict(headers)))
+        if method == "POST":
+            raise AssertionError("saved Location must not POST videos.insert")
+        return 201, {}, json.dumps({"id": "vid-reuse"}).encode()
+
+    youtube_api._http = reuse_http
+    youtube_api.RESUMABLE_CHUNK = 16
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            media = Path(tmp) / "master.mp4"
+            media.write_bytes(b"0123456789abcdef")
+            data = youtube_api.upload_video(
+                "token-not-printed",
+                export_path=media,
+                metadata={"snippet": {"title": "t"}, "status": {"selfDeclaredMadeForKids": False}},
+                privacy="private",
+                session_uri="https://upload.example/saved",
+                on_session=seen.append,
+            )
+    finally:
+        youtube_api._http = original
+        youtube_api.RESUMABLE_CHUNK = original_chunk
+    if data.get("id") != "vid-reuse":
+        failures.append(f"saved Location must finish on that session: {data}")
+    if any(method == "POST" for method, _url, _headers in reuse_calls):
+        failures.append("saved Location must not start a second videos.insert")
+    if seen:
+        failures.append("saved Location must not call on_session again")
+    if not reuse_calls or reuse_calls[0][1] != "https://upload.example/saved":
+        failures.append(f"saved Location must be the PUT target: {reuse_calls[:1]}")
 
     retry_calls: list[tuple[str, str]] = []
 
