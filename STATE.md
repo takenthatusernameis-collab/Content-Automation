@@ -1,5 +1,15 @@
 # STATE
 
+Updated: 2026-10-05T06:15:00Z (Run 329)
+
+## Run 329 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- Runs 326-328 each added a local scan or content-rule refusal while publish stayed on the missing secrets. `tools/stall_watch.py` now prints `STALL_LOCAL_GATE` for that pattern. The flag does not fail CI.
+- `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. `python3 tools/stall_watch.py` printed STALL_LOCAL_GATE on the current STATE. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
 Updated: 2026-10-05T05:13:00Z (Run 328)
 
 ## Run 328 delta

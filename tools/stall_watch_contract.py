@@ -10,7 +10,7 @@ TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
-from stall_watch import FLAG, INSTRUCTION_FLAG, flag_text  # noqa: E402
+from stall_watch import FLAG, INSTRUCTION_FLAG, LOCAL_GATE_FLAG, flag_text  # noqa: E402
 
 
 def delta(body: str) -> str:
@@ -42,6 +42,18 @@ def main() -> int:
     flags = flag_text(mixed)
     if flags:
         return fail(f"mixed window must be clear: {flags}")
+    local_gate = delta(
+        "OAuth secrets were not polled. Videos published stay 0. quality_scan contract only. No provider write."
+    )
+    local_gate += delta(
+        "OAuth secrets were not polled. Videos published stay 0. claim_scan hits. No provider write."
+    )
+    local_gate += delta(
+        "OAuth secrets were not polled. Videos published stay 0. title_scan content_rules. No provider write."
+    )
+    flags = flag_text(local_gate)
+    if LOCAL_GATE_FLAG not in flags or FLAG in flags or INSTRUCTION_FLAG in flags:
+        return fail(f"local gate window wrong: {flags}")
     print("STALL WATCH CONTRACT PASS")
     return 0
 

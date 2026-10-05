@@ -15,7 +15,16 @@ ROOT = Path(__file__).resolve().parents[1]
 STATE = ROOT / "STATE.md"
 FLAG = "STALL_OAUTH_AND_STUDIO"
 INSTRUCTION_FLAG = "STALL_INSTRUCTION_LOCK"
+LOCAL_GATE_FLAG = "STALL_LOCAL_GATE"
 WINDOW = 3
+LOCAL_GATE_TOKENS = (
+    "quality_scan",
+    "claim_scan",
+    "title_scan",
+    "content_rules",
+    "packet_path",
+    "scanner",
+)
 
 
 def run_deltas(text: str) -> list[str]:
@@ -71,6 +80,22 @@ def flag_text(text: str, window: int = WINDOW) -> list[str]:
                 f"last_{window}_runs: oauth_unpolled_and_instruction_lock",
                 "do_not: add another paste, hint, or queue-column sentence while this flag is set",
                 "next: run tools/quality_scan.py on a new script before ready_for_vo; do not rewrite Q1 WORDS",
+            ])
+        local_gate = True
+        for delta in deltas:
+            lowered = delta.lower()
+            if not any(token in lowered for token in LOCAL_GATE_TOKENS):
+                local_gate = False
+                break
+            if "provider video id" in lowered or "videos.insert" in lowered:
+                local_gate = False
+                break
+        if local_gate:
+            flags.extend([
+                LOCAL_GATE_FLAG,
+                f"last_{window}_runs: oauth_unpolled_and_local_gate",
+                "do_not: add another scanner, packet path gate, or content-rule refusal while this flag is set",
+                "next: add the three YouTube secrets, then dispatch execute=true; do not scaffold Q2",
             ])
     return flags
 

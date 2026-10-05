@@ -1,3 +1,14 @@
+## 2026-10-05T06:15:00Z — Run 329
+
+- **Objective:** Stop the local-scanner loop from looking like progress while publish is still blocked.
+- **Inspected:** STATE, NEXT, RUNS, stall_watch.py, Runs 326-328.
+- **Action taken:** `stall_watch.py` now prints `STALL_LOCAL_GATE` when the last three deltas are OAuth-unpolled, videos published 0, and each mentions a scanner or content-rule gate. Contract covers that window and still requires a mixed window to stay clear. No new scanner. No dispatch. No Q2 scaffold.
+- **Result:** Contract printed STALL WATCH CONTRACT PASS. Current STATE printed STALL_LOCAL_GATE. `python3 tools/selftest.py` printed SELFTEST PASS. Videos published stay 0.
+- **Verification status:** completed for the flag and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** Runs 326-328 repeated the same shape as the earlier upload-variant loop: a new local refusal, Q1 already clear, secrets still unset. The stall printer did not see it because it only matched Studio copy and instruction paste.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled.
+- **Recommended next action:** Add those three secrets, then dispatch `youtube-production.yml` with execute=true. Do not add another scanner while STALL_LOCAL_GATE is set. Do not scaffold Q2. Do not re-encode.
+
 ## 2026-10-05T05:13:00Z — Run 328
 
 - **Objective:** Fail closed on pre-VO content hits at upload time, not only at status promotion.
