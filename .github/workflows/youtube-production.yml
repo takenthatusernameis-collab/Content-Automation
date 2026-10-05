@@ -82,6 +82,23 @@ jobs:
         if: ${{ (inputs.collect_feedback != true || inputs.execute == true) && inputs.packet == 'videos/002-stop-deciding-what-to-work-on-every-morning' }}
         run: python3 tools/materialize_q1_release.py
 
+      - name: Probe export streams before any provider write
+        if: ${{ inputs.collect_feedback != true }}
+        shell: bash
+        run: |
+          # ftyp is not a master. A geometry or duration miss must not reach videos.insert.
+          # Absent export fails only on execute. This step does not encode or call YouTube.
+          set +e
+          python3 tools/export_probe.py "$PACKET"
+          status=$?
+          set -e
+          if [ "$status" -eq 1 ]; then
+            exit 1
+          fi
+          if [ "${{ inputs.execute }}" = "true" ] && [ "$status" -ne 0 ]; then
+            exit "$status"
+          fi
+
       - name: Inspect upload gates without provider write
         if: ${{ inputs.execute != true && inputs.collect_feedback != true }}
         shell: bash

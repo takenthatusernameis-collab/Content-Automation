@@ -2,6 +2,14 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 350 — 2026-10-05T23:20:00Z
+- Failed approach not retried: another upload-edge persist branch while videos published stay 0. `STALL_UPLOAD_EDGE` still stands.
+- Lesson: the remaining pre-insert hole was the master itself. ftyp-only acceptance could still upload the wrong picture size or a silent file. Probe streams before execute. Do not encode in that step.
+
+# FAILURES
+
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
 ## Run 349 — 2026-10-05T22:35:00Z
 - Failed approach not retried: another upload-edge branch as the run objective while videos published stay 0. Runs 344-348 did that. Caption status early-persist closes the last kill hole in that chain.
 - Lesson: `STALL_UPLOAD_EDGE` means stop. Do not add another Location, session hold, or early-persist call. The unpublished video is the missing OAuth secrets.
@@ -76,11 +84,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 - **Evidence:** Those deltas said `No new scanner`. `LOCAL_GATE_TOKENS` included `scanner`, so the negation matched. After the token was removed, `tools/stall_watch.py` printed `STALL_OAUTH_IDLE` only.
 - **Result:** Contract locks the negated case. A real scan token still sets the flag. No provider write.
 - **Avoid:** Restoring the bare `scanner` token. Adding another scanner while `STALL_OAUTH_IDLE` is set. Polling OAuth secrets as the only work.
-
-## Run 335 — day-7 collect was not a 7-day observation
-
-- **Tried:** The feedback gate treated upload plus 7 days as due, while the Analytics query ended 3 days before now.
-- **Evidence:** At the earliest allowed collect, the fetched end date was about 4 days after upload, and the start date was a sliding now window rather than the video's first day.
-- **Result:** Due time is upload plus 10 days. Query dates are the first 7 calendar days of that video. Day 8 stays not due. No metrics were invented.
-- **Avoid:** Restoring a 7-day due gate while the query still holds back 3 days. Treating a sliding now window as the first-video comparison.
 

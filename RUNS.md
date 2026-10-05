@@ -2,6 +2,15 @@
 
 Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools/runs_compact.py` moves extras. It does not delete history.
 
+## Run 350 — 2026-10-05T23:20:00Z
+- Objective: Stop a wrong-size or silent master from reaching videos.insert once OAuth exists.
+- Action: Added tools/export_probe.py. It requires 1920x1080, h264, an audio stream, and at least 20s when export/master.mp4 is present. The production workflow runs it before upload gates. Exit 1 fails the job. Exit 2 fails only on execute. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add an upload-edge persist call.
+- Result: Export probe contract passed. Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/export_probe_contract.py` printed EXPORT PROBE CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: media_qa still refuses to run ffmpeg and only hard-fails a missing ftyp box. That was not enough to reject a wrong geometry before the first insert.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: upload-edge fixes have not published a video. Do not add another one.
+- Next: Do not add another Location, session hold, or early-persist call. Do not treat ftyp as a finished master. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 349 — 2026-10-05T22:35:00Z
 - Objective: Stop a kill after captions.insert from retrying captions, and flag the upload-edge loop.
 - Action: Early-persist caption, thumbnail, and comment status after each write when UPLOAD_EARLY_PERSIST=1. stall_watch now sets STALL_UPLOAD_EDGE after four OAuth-idle upload-edge deltas. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a YouTubeAPIError reason.
@@ -100,15 +109,6 @@ Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools
 - Discovery: Runs 336-338 said `No new scanner` and that sentence kept `STALL_LOCAL_GATE` set, so later runs were told not to add a scanner they were not adding.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still `not_set`.
 - Next: Do not restore the bare scanner token. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
-
-## Run 338 — 2026-10-05T12:30:00Z
-- Objective: Stop the production persist step from committing a COLLECTED analytics file that is not the first-calendar-days stamp.
-- Action: `feedback_commit_decision` returns `skip_unstamped_window` when kind is missing or `sliding_now`, days are not 7, or start/end dates are absent. A stamped file still returns `commit_collected`. Selftest locks both. Workflow summary states the commit rule. Date match against `uploaded_at` stays in `collected_metrics`.
-- Result: `python3 tools/selftest.py` printed SELFTEST PASS. No Analytics call. Videos published stay 0.
-- Verification: completed locally. Actions not re-run. No provider write.
-- Discovery: Run 337 closed the comparison path only. The workflow still committed any COLLECTED file with a video id, so a sliding or unstamped file could become the durable evidence.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still `not_set`.
-- Next: Do not commit an unstamped collected file. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 Earlier runs through Run 269 remain in git at `9416aae2c482ca08fd55642e0fff94568482ee51` (`RUNS.md` blob `243e47753b76bbd636a59dddb00e8c1c6f2e90c1`) and before that at `65cca063`.

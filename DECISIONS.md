@@ -1,3 +1,7 @@
+## 2026-10-05 — Run 350: ftyp is not a finished master
+
+- 2026-10-05 | A present export/master.mp4 must pass `tools/export_probe.py` (1920x1080, h264, audio, duration >= 20s) before execute. Missing export fails execute only. | media_qa hard-fails a missing ftyp box and does not run ffprobe. A wrong-size file could still reach videos.insert. | Revisit if the format lock changes. Do not encode inside the probe. Do not add an upload-edge persist call while STALL_UPLOAD_EDGE is set.
+
 ## 2026-10-05 — Run 344: an open Location is commit state
 
 - 2026-10-05 | Provider video id is early-persisted before caption wait when UPLOAD_EARLY_PERSIST=1. A 404/410 hold and a completed-without-id hold are early-persisted before the step returns. | Run 348: Location-only early persist still lost the id if the job died during caption wait, and a later 404 could hide a completed upload. | Do not print the URI. Do not start a second videos.insert when an id or Location exists.

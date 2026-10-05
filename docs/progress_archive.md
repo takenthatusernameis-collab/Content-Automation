@@ -277,3 +277,12 @@ Shouted titles and an explicit thumbnail mismatch now refuse ready_for_vo. Estim
 - Run 330: dry-run consent scope now includes force-ssl and analytics, not upload alone. Estimated human minutes saved on the first token mint: about 20, if the operator follows the dry-run line instead of the old scope field. Videos published stay 0. No new refusal.
 
 
+## Run 338 — 2026-10-05T12:30:00Z
+Persist no longer commits a COLLECTED analytics file that lacks the first-calendar-days stamp. Estimated effect: one less way a sliding or unstamped window becomes the comparison evidence after a later collect. Videos published stay 0. Human minutes on Q1 unchanged.
+
+# PROGRESS
+
+Updated: 2026-10-05T11:20:00Z
+
+- Run 337: a collected analytics file no longer counts unless its window is the video's first 7 calendar days. Estimated agent minutes saved on the first comparison: about 15, by not treating a sliding or unstamped file as the observation. Human minutes per video unchanged. Videos published stay 0.
+

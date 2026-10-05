@@ -1443,6 +1443,7 @@ def main() -> int:
     failures.extend(check_next_compact())
     failures.extend(check_stall_watch())
     failures.extend(check_prove_locks_on_push())
+    failures.extend(check_export_probe())
     failures.extend(check_apply_idea())
     failures.extend(check_idea_gate())
     failures.extend(check_quality_scan())
@@ -2476,6 +2477,21 @@ def check_caption_waits_for_processing() -> list[str]:
     finally:
         youtube_api._request_retrying = original
     return failures
+
+
+def check_export_probe() -> list[str]:
+    """A present master must be 1920x1080 with audio before any provider write."""
+    import subprocess
+    contract = ROOT / "tools" / "export_probe_contract.py"
+    if not contract.is_file():
+        return ["export_probe_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], capture_output=True, text=True)
+    if proc.returncode != 0 or "EXPORT PROBE CONTRACT PASS" not in proc.stdout:
+        return [f"export_probe_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    workflow = (ROOT / ".github/workflows/youtube-production.yml").read_text(encoding="utf-8")
+    if "tools/export_probe.py" not in workflow:
+        return ["production workflow must probe export streams before provider write"]
+    return []
 
 
 def check_prove_locks_on_push() -> list[str]:

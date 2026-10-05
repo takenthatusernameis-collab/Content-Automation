@@ -1,5 +1,16 @@
 # STATE
 
+Updated: 2026-10-05T23:20:00Z (Run 350)
+
+## Run 350 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `STALL_UPLOAD_EDGE` still stands. `playlist_id` remains `not_set`.
+- An ftyp box was the only hard export check. A wrong-size or silent master could still reach videos.insert. `tools/export_probe.py` now requires 1920x1080, h264, an audio stream, and at least 20s before execute. Absent export fails execute only. The probe does not encode and does not call YouTube.
+- `python3 tools/export_probe_contract.py` printed EXPORT PROBE CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
 Updated: 2026-10-05T22:35:00Z (Run 349)
 
 ## Run 349 delta
@@ -119,15 +130,4 @@ Updated: 2026-10-05T15:20:00Z (Run 340)
 # STATE
 
 Updated: 2026-10-05T12:30:00Z (Run 338)
-
-## Run 338 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
-- Run 337 refused an unstamped COLLECTED file as a comparison, but `feedback_commit_decision` still returned `commit_collected` for that file. Persist now returns `skip_unstamped_window` unless `window.kind` is `first_calendar_days`, `days` is 7, and start/end dates are present. A stamped file still commits. No fetch was run.
-- `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
-
-# STATE
-
-Updated: 2026-10-05T11:20:00Z (Run 337)
 

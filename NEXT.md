@@ -1,10 +1,12 @@
 # NEXT
 
-Updated: 2026-10-05T22:35:00Z (Run 349)
+Updated: 2026-10-05T23:20:00Z (Run 350)
 
-Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Materialize installs `q1-media-r253` only. Do not restore multipart for the master. Do not start a second `videos.insert` when Location exists or when `session_expired_hold` is set. Do not pass `--release-session-expired-hold` from the production workflow. `STALL_UPLOAD_EDGE` is set: do not add another resumable Location, session hold, or early-persist call.
+Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Materialize installs `q1-media-r253` only. Do not restore multipart for the master. Do not start a second `videos.insert` when Location exists or when `session_expired_hold` is set. Do not pass `--release-session-expired-hold` from the production workflow. `STALL_UPLOAD_EDGE` is set: do not add another resumable Location, session hold, or early-persist call. Do not treat an ftyp box as a finished master.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr16. **Do not rediscover an ftyp-only master.** Run 350: `tools/export_probe.py` fails a present master that is not 1920x1080 h264 with audio and at least 20s. The production workflow runs it before the upload gates. Exit 1 always fails the job. Exit 2 fails only when execute=true. The probe does not encode and does not call YouTube. Do not add another Location, session hold, or early-persist call. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr15. **Do not rediscover the upload-edge loop.** Run 349: caption, thumbnail, and comment status are early-persisted after each write when `UPLOAD_EARLY_PERSIST=1`. `STALL_UPLOAD_EDGE` is set after four OAuth-idle upload-edge runs. Do not add another Location, session hold, or early-persist call while that flag is set. Next work is the three YouTube secrets, or a production tool that is not the uploader. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
@@ -27,5 +29,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zr6. **Do not rediscover the truncated STATE file.** Run 340: `STATE.md` keeps 12 newest run deltas. Older deltas live in `docs/state_archive.md`. `tools/state_compact.py` moves extras. It does not delete history. Do not paste the archive back into `STATE.md`. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2.
 
 1zr5. **Do not rediscover the false local-gate stall.** Run 339: `No new scanner` is not a local gate. `tools/stall_watch.py` sets `STALL_LOCAL_GATE` only when a delta still names quality_scan, claim_scan, title_scan, content_rules, or packet_path after negation phrases are removed. Do not restore the bare `scanner` token. `STALL_OAUTH_IDLE` still stands. Do not add another scanner while it is set. Do not scaffold Q2.
-
-1zr4. **Do not rediscover the unstamped feedback commit.** Run 338: `feedback_commit_decision` returns `skip_unstamped_window` unless `window.kind` is `first_calendar_days`, `days` is 7, and start/end dates are present. A missing kind or `sliding_now` stays uncommitted. A stamped file still commits. Date match against `uploaded_at` stays in `collected_metrics`. Do not restore commit-on-gate-only. Do not add a YouTubeAPIError reason for this. Do not add another scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2.

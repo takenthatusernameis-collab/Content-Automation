@@ -215,3 +215,10 @@ The Studio, instruction, and local-gate flags only look at the last three deltas
 ## Run 333 — dry-run scope field still said upload-only
 Run 330 added `required_scopes` and a warning line, but `auth_status` and the request body still set `scope` to `youtube.upload` alone. An operator copying that field would mint a token that can insert a video and then fail captions.insert. Fixed by joining the consent set into `scope`. Do not restore the single-scope field. Do not treat this as a new YouTubeAPIError.
 
+## Run 335 — day-7 collect was not a 7-day observation
+
+- **Tried:** The feedback gate treated upload plus 7 days as due, while the Analytics query ended 3 days before now.
+- **Evidence:** At the earliest allowed collect, the fetched end date was about 4 days after upload, and the start date was a sliding now window rather than the video's first day.
+- **Result:** Due time is upload plus 10 days. Query dates are the first 7 calendar days of that video. Day 8 stays not due. No metrics were invented.
+- **Avoid:** Restoring a 7-day due gate while the query still holds back 3 days. Treating a sliding now window as the first-video comparison.
+
