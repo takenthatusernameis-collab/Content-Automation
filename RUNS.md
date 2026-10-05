@@ -1,3 +1,12 @@
+## Run 334 — 2026-10-05T08:17:14Z
+- objective: stop a failed playlist insert from looking successful after a video id exists
+- action: `playlist_membership.py` exits 2 on auth_required and on not_added with a detail; those rows write playlist_plan.md; not_set and missing video id stay exit 0 and write nothing
+- result: playlist contract and selftest passed locally; Q1 playlist plan remains not_set
+- verification: completed locally; Actions not re-run; no provider write
+- discovery: Run 332 only failed a mistyped id; an API failure after a real PL id still exited 0 and skipped the plan file
+- blocker: YouTube OAuth secrets still absent; not polled
+- next: mint the refresh token with the three consent scopes, then dispatch execute=true; do not add another scanner
+
 ## Run 333 — 2026-10-05T10:30:00Z
 - objective: stop the dry-run request from advertising an upload-only scope, and print the existing idle flag on the production job
 - action: `youtube_upload.py` `scope` is the joined consent set; `youtube-production.yml` runs `stall_watch.py` after checkout and does not fail on the flag

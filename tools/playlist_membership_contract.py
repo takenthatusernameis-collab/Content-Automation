@@ -48,6 +48,24 @@ def main() -> int:
             failures.append(f"invalid playlist id must exit 2: {bad}")
         if pm.exit_code(unset) != 0 or pm.exit_code(no_id) != 0:
             failures.append("unset or missing video id must stay exit 0")
+        failed = {
+            "status": "not_added",
+            "playlist_id": "PLabcdefghijkl",
+            "provider_video_id": "abc12345678",
+            "membership": "not_added",
+            "detail": "PLAYLIST_INSERT_FAILED",
+            "request": None,
+        }
+        if pm.exit_code(failed) != 2 or pm.plan_markdown(failed) is None:
+            failures.append("failed insert must exit 2 and write a plan")
+        if "videos.insert: not_called" not in (pm.plan_markdown(failed) or ""):
+            failures.append("failed insert plan called videos.insert")
+        auth = dict(failed, status="auth_required", detail="YOUTUBE_AUTH_REQUIRED")
+        if pm.exit_code(auth) != 2:
+            failures.append("auth_required must exit 2")
+        present = dict(failed, status="already_present", membership="already_present", detail="")
+        if pm.exit_code(present) != 0 or pm.plan_markdown(present) is None:
+            failures.append("already_present must stay exit 0 and write a plan")
     text = (Path(__file__).resolve().parents[1] / "docs" / "channel.md").read_text(encoding="utf-8")
     if "playlist_id: not_set" not in text:
         failures.append("channel.md lost playlist_id: not_set")

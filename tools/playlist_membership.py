@@ -94,7 +94,9 @@ def plan(packet: Path, playlist_id: str | None = None) -> dict:
 
 
 def plan_markdown(row: dict) -> str | None:
-    if row["status"] != "ready" and row["membership"] == "not_added":
+    # not_set, invalid, and missing video id must not look like a membership attempt.
+    # A failed insert still writes so persist can record it. videos.insert is not called.
+    if row["status"] in {"not_set", "invalid_playlist_id", "no_video_id", "ready"}:
         return None
     lines = [
         "# Playlist membership",
@@ -174,8 +176,16 @@ def write_plan(packet: Path, row: dict) -> Path | None:
 
 
 def exit_code(row: dict) -> int:
-    """Unset playlist stays success. A typed-but-invalid id must fail the job."""
-    if row.get("status") == "invalid_playlist_id":
+    """Unset playlist and a missing video id stay success.
+
+    A typed-but-invalid id must fail the job. A ready insert that did not add
+    the video must also fail the job so a later run does not treat it as done.
+    Neither path calls videos.insert.
+    """
+    status = row.get("status")
+    if status in {"invalid_playlist_id", "auth_required"}:
+        return 2
+    if status == "not_added" and row.get("detail"):
         return 2
     return 0
 

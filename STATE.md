@@ -1,5 +1,16 @@
 # STATE
 
+Updated: 2026-10-05T08:17:14Z (Run 334)
+
+## Run 334 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
+- A failed `playlistItems.insert` used to exit 0 and write no plan, so a later run could treat membership as done. `tools/playlist_membership.py` now exits 2 on `auth_required` and on `not_added` with a detail, and writes `playlist_plan.md` for that failure and for `already_present`. `not_set` and a missing video id still exit 0, write no plan, and do not call videos.insert.
+- `python3 tools/playlist_membership_contract.py` printed PLAYLIST MEMBERSHIP CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
 Updated: 2026-10-05T10:30:00Z (Run 333)
 
 ## Run 333 delta
