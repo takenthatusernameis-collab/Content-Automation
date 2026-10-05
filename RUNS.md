@@ -1,3 +1,12 @@
+## Run 336 — 2026-10-05T10:20:00Z
+- Objective: Make the dry-run analytics plan use the same first-7-day dates the live fetch already uses.
+- Action: `video_window()` fills `inspect_feedback` window from `analytics_range` when `uploaded_at` exists. Missing upload time leaves query dates empty. `request_plan` reads those dates. Selftest fails if a ready plan is not the upload date through upload plus 6 days.
+- Result: `python3 tools/selftest.py` printed SELFTEST PASS. No Analytics call. Videos published stay 0.
+- Verification: completed locally. Actions not re-run. No provider write.
+- Discovery: Run 335 fixed the due gate and the execute query, but the plan an operator would copy still showed a sliding now window.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still `not_set`.
+- Next: Do not restore the sliding query range. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 335 — 2026-10-05T09:11:00Z
 - Objective: Stop the first analytics collect from treating a short, lag-cut window as the 7-day observation.
 - Action: `window_status` due time is upload plus 7 days plus `DATA_LAG_DAYS` (3). `analytics_range` is the first 7 calendar days of that video. Selftest expects day 8 to stay not due and day 11 to be READY offline. Workflow summary and `docs/feedback_loop.md` say the same.

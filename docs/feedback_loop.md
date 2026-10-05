@@ -23,7 +23,7 @@ Each published packet should accumulate a feedback record containing:
 
 Do not compare raw counts across videos of different ages without normalization or a documented reason. Prefer comparable observation windows.
 
-The first collect is the first 7 calendar days of that video. YouTube Analytics end dates lag about 3 days, so the collect is due at upload plus 10 days. A day-7 fetch would drop the last 3 days and still look like the 7-day window. Do not use a sliding now window for that first comparison.
+The first collect is the first 7 calendar days of that video. YouTube Analytics end dates lag about 3 days, so the collect is due at upload plus 10 days. A day-7 fetch would drop the last 3 days and still look like the 7-day window. Do not use a sliding now window for that first comparison. Dry-run `window` and `request_plan` dates are those same calendar days when `uploaded_at` exists. A missing upload time leaves the query dates empty. It does not advertise a sliding now window.
 
 ## Signal hierarchy
 

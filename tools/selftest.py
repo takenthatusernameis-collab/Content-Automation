@@ -30,7 +30,7 @@ from next_action import recommend  # noqa: E402
 from pipeline_status import format_report, inspect  # noqa: E402
 from set_status import check as status_check, is_fixture  # noqa: E402
 from validate_packet import packet_duration_warning, validate  # noqa: E402
-from youtube_feedback import inspect_feedback  # noqa: E402
+from youtube_feedback import inspect_feedback, request_plan  # noqa: E402
 from youtube_upload import artifact_block_reason, caption_timing_reason, content_rule_reason, file_sha256, inspect_upload, master_block_reason, metadata_block_reason, missing_provider_scopes, png_dimensions  # noqa: E402
 from upload_variant_freeze import check_repo, check_texts  # noqa: E402
 
@@ -435,6 +435,20 @@ def check_feedback_fail_closed() -> list[str]:
             failures.append(f"feedback after window plus lag must be READY, got {report5['gate']}")
         if report5["action"] != "FETCH_BLOCKED_NO_NETWORK":
             failures.append(f"feedback READY action must stay offline, got {report5['action']}")
+        if report5["window"].get("kind") != "first_calendar_days":
+            failures.append(f"ready window must be first calendar days, got {report5['window']}")
+        plan = request_plan(report5)
+        start = plan["analytics"]["startDate"]
+        end = plan["analytics"]["endDate"]
+        uploaded = datetime.fromisoformat(old.replace("Z", "+00:00")).date()
+        expect_start = uploaded.isoformat()
+        expect_end = (uploaded + timedelta(days=6)).isoformat()
+        if start != expect_start or end != expect_end:
+            failures.append(
+                f"request plan must query first 7 calendar days, got {start}..{end}"
+            )
+        if report3["window"].get("kind") != "unavailable" or report3["window"].get("start"):
+            failures.append("missing uploaded_at must not advertise a sliding query window")
     return failures
 
 

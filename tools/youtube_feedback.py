@@ -126,13 +126,36 @@ def provider_video_id(state: dict | None) -> str | None:
 
 
 def observation_window(now: datetime | None = None, days: int = DEFAULT_WINDOW_DAYS) -> dict:
+    """Sliding now window. Not the Analytics query. Kept so callers can see the rejected shape."""
     end = now or _now()
     start = end - timedelta(days=days)
     return {
         "start": _fmt(start),
         "end": _fmt(end),
         "days": days,
-        "note": "comparable window only; do not mix videos of different ages",
+        "kind": "sliding_now",
+        "note": "not the query range; first comparison uses the video calendar days",
+    }
+
+
+def video_window(upload: dict | None, days: int = DEFAULT_WINDOW_DAYS) -> dict:
+    """Query range shown to dry-run and request_plan. Same dates execute_feedback fetches."""
+    uploaded = upload_timestamp(upload)
+    if uploaded is None:
+        return {
+            "start": None,
+            "end": None,
+            "days": days,
+            "kind": "unavailable",
+            "note": "No uploaded_at. Not a query range. Do not collect.",
+        }
+    start_s, end_s = analytics_range(uploaded, days)
+    return {
+        "start": start_s + "T00:00:00Z",
+        "end": end_s + "T23:59:59Z",
+        "days": days,
+        "kind": "first_calendar_days",
+        "note": "First calendar days of this video only. Not a sliding now window.",
     }
 
 
@@ -214,7 +237,7 @@ def inspect_feedback(
     upload = load_upload_state(packet)
     video_id = provider_video_id(upload)
     auth = auth_status(env)
-    window = observation_window(now)
+    window = video_window(upload)
     checks = []
 
     def add(name: str, ok: bool, detail: str) -> None:
@@ -344,8 +367,8 @@ def request_plan(report: dict) -> dict:
     return {
         "analytics": {
             "ids": "channel==MINE",
-            "startDate": report["window"]["start"][:10],
-            "endDate": report["window"]["end"][:10],
+            "startDate": (report["window"].get("start") or "")[:10] or None,
+            "endDate": (report["window"].get("end") or "")[:10] or None,
             "metrics": ",".join(report["metrics_requested"]),
             "filters": f"video=={report['provider_video_id']}" if report["provider_video_id"] else None,
             "scope": ANALYTICS_SCOPE,
