@@ -1061,6 +1061,23 @@ def check_persist_provider_state() -> list[str]:
         failures.append("production workflow must not bare-push or force-push provider state")
     if "push_with_retry" not in workflow:
         failures.append("production workflow must retry a rejected provider-state push")
+    if "UPLOAD_EARLY_PERSIST" not in workflow:
+        failures.append("production execute must persist an open Location before chunks")
+    secret = "https://upload.example/session-secret"
+    plan = persist.early_persist_plan(
+        {"resumable_session_uri": secret, "error_class": "RESUMABLE_SESSION_OPEN"},
+        "videos/packet/upload_state.json",
+    )
+    if plan is None or plan[0][:3] != ["git", "add", "--"]:
+        failures.append("open Location must plan a git add before chunks")
+    blob = " ".join(" ".join(cmd) for cmd in plan or [])
+    if secret in blob or "https://" in blob:
+        failures.append("early persist plan must not contain the session URI")
+    if persist.early_persist_plan({"error_class": "quotaExceeded"}, "videos/packet/upload_state.json") is not None:
+        failures.append("transient upload state must not plan an early commit")
+    upload_src = (TOOLS / "youtube_upload.py").read_text(encoding="utf-8")
+    if "UPLOAD_EARLY_PERSIST" not in upload_src or "_early_persist_upload_state" not in upload_src:
+        failures.append("uploader must early-persist only when the execute step asks")
     return failures
 
 

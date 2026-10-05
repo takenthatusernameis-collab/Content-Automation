@@ -2,6 +2,14 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 347 — 2026-10-05T21:15:00Z
+- Early persist of an open resumable Location before the first chunk. Estimated save: one duplicate videos.insert if the runner dies after the session POST. Human minutes per video unchanged. Videos published stay 0.
+- Automated step added: production execute sets UPLOAD_EARLY_PERSIST=1. Remaining manual gate: YouTube OAuth secrets and Studio check before any session-hold release.
+
+# LOG
+
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
 ## Run 346 — dead-session hold can be cleared after Studio shows no video
 - Estimated human minutes per video: unchanged. Publish still blocked on OAuth.
 - Automated step added: local hold release plus commit decision `commit_session_hold_released`. No provider write.
@@ -65,8 +73,4 @@ Updated: 2026-10-05T11:20:00Z
 
 ## Run 329 (2026-10-05T06:15:00Z)
 - Local-gate inflation is now a visible stall flag instead of a silent series of new scanners. Estimated agent minutes saved on the next runs: the rediscovery pass over Runs 326-328, about 10, if the flag is read first. No change to human minutes on Q1. Videos published stay 0. Publish still waits on the three YouTube secrets.
-
-## Run 328 (2026-10-05T05:13:00Z)
-- Upload inspect now fails closed on the same quality, claim, and title hits that already block `ready_for_vo`.
-- Estimated effect: one less class of bad packet that can reach videos.insert after a later script or title edit. No change to human minutes on Q1. Videos published stay 0.
 

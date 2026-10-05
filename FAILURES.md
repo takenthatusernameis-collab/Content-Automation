@@ -2,6 +2,15 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 347 — post-step Location commit
+- What failed: Run 344 wrote the resumable Location on the runner and committed it only after the execute step returned. A killed or timed-out step never reached Persist non-secret upload state.
+- Why: `always()` does not run when the job itself is cancelled. The next execute could POST videos.insert again.
+- Do not: wait for the later persist step to be the only commit of an open Location. Do not print the URI.
+
+# LOG
+
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
 ## Run 346 — dead-session hold had no recovery
 - **Tried:** Leaving `session_expired_hold` as a permanent execute refusal after Run 345.
 - **Evidence:** `execute_upload` raises `RESUMABLE_SESSION_EXPIRED` when the hold is set and there is no video id. No tool cleared it. Selftest now refuses a release without `no_video_in_studio`, with a video id, or with a remaining Location.
@@ -68,10 +77,4 @@ Run 330 added `required_scopes` and a warning line, but `auth_status` and the re
 
 ## Run 332 — 3-run stall window reset
 The Studio, instruction, and local-gate flags only look at the last three deltas and require the same topic tokens. Runs 330-331 changed subject, so `stall_watch.py` printed clear while publish was still the missing secrets. Do not treat `status: clear` as evidence the idle loop ended. The 8-run `STALL_OAUTH_IDLE` flag is the counter for that reset.
-
-## Run 329 — local scanners did not move the publish gate
-- **Tried:** Runs 326-328 each added a scan or content-rule refusal (claim, title, upload content_rules). Q1 was already clear. Videos published stayed 0.
-- **Evidence:** Each STATE delta says OAuth secrets were not polled and no provider write. `stall_watch.py` stayed clear because the edits were not Studio copy and not paste/hint sentences.
-- **Result:** `STALL_LOCAL_GATE` now prints for that window. Selftest still passes. No provider write.
-- **Avoid:** Another scanner, packet path gate, or content-rule refusal while that flag is set. Polling OAuth secrets as the only work. Scaffolding Q2 to try the flag.
 

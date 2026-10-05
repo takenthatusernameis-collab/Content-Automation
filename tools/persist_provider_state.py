@@ -42,6 +42,50 @@ def upload_commit_decision(data: dict) -> str:
     return "skip_transient"
 
 
+def early_persist_plan(data: dict, state_path: str) -> list[list[str]] | None:
+    """Git commands that commit an open session before chunk upload finishes.
+
+    Returns None for a transient state. Command text must not contain the
+    session URI. Does not push and does not call YouTube.
+    """
+    decision = upload_commit_decision(data)
+    if not decision.startswith("commit_"):
+        return None
+    if "https://" in state_path or "://" in state_path:
+        raise SystemExit("STATE_PERSIST_REJECTED path")
+    return [
+        ["git", "add", "--", state_path],
+        ["git", "commit", "-m", f"Persist YouTube upload state ({decision})"],
+    ]
+
+
+def early_persist_file(path: Path, run: Runner) -> str:
+    """Commit and push provider state if it is durable. Never prints the URI.
+
+    A failed git command returns early_persist_failed and must not become a
+    second videos.insert. The later workflow persist step still runs.
+    """
+    data = _load(path)
+    plan = early_persist_plan(data, path.as_posix())
+    if plan is None:
+        return "skip_transient"
+    for cmd in plan:
+        code, out, err = run(cmd)
+        if code != 0:
+            # An unchanged index is not a failure. Other git errors stop here.
+            blob = f"{out}\n{err}"
+            if cmd[1] == "commit" and (
+                "nothing to commit" in blob or "no changes added to commit" in blob
+            ):
+                return "unchanged"
+            return "early_persist_failed"
+    try:
+        push_with_retry(run)
+    except SystemExit:
+        return "early_persist_failed"
+    return "pushed"
+
+
 def feedback_window_stamp_ok(data: dict) -> bool:
     """True only for the execute stamp: first calendar days, length 7, dated.
 

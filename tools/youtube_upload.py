@@ -984,6 +984,27 @@ def write_upload_state(packet: Path, state: dict) -> None:
     tmp.replace(dest)
 
 
+def _early_persist_upload_state(packet: Path) -> None:
+    """Persist an open Location only when the production execute step asks.
+
+    Does not print the URI. A git failure must not raise into videos.insert.
+    """
+    if os.environ.get("UPLOAD_EARLY_PERSIST") != "1":
+        return
+    try:
+        import subprocess
+        import persist_provider_state
+
+        def run(cmd: list[str]) -> tuple[int, str, str]:
+            proc = subprocess.run(cmd, capture_output=True, text=True)
+            return proc.returncode, proc.stdout, proc.stderr
+
+        status = persist_provider_state.early_persist_file(packet / STATE_NAME, run)
+        print(f"early_persist: {status}")
+    except Exception as exc:
+        print(f"early_persist_failed: {type(exc).__name__}", file=sys.stderr)
+
+
 
 STUDIO_CHECKED_NO_VIDEO = "no_video_in_studio"
 
@@ -1122,6 +1143,10 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
                 result["video_upload"] = {"status": "session_open"}
                 result["error_class"] = "RESUMABLE_SESSION_OPEN"
                 write_upload_state(packet, result)
+                # Commit the Location before chunks. A killed execute step
+                # never reaches the workflow persist step. Off unless the
+                # production execute step sets UPLOAD_EARLY_PERSIST=1.
+                _early_persist_upload_state(packet)
 
             video = upload_video(
                 token,

@@ -1,5 +1,16 @@
 # STATE
 
+Updated: 2026-10-05T21:15:00Z (Run 347)
+
+## Run 347 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
+- An open Location was committed only after the execute step returned. A killed step never reached that persist, so the next execute could POST another videos.insert. `remember_session` now calls `early_persist_file` when `UPLOAD_EARLY_PERSIST=1`. The production execute step sets that env. The plan does not contain the URI. A git failure does not raise into the upload. The later persist step still runs.
+- `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
 Updated: 2026-10-05T20:15:00Z (Run 346)
 
 ## Run 346 delta
@@ -118,15 +129,4 @@ Updated: 2026-10-05T10:20:00Z (Run 336)
 # STATE
 
 Updated: 2026-10-05T09:11:00Z (Run 335)
-
-## Run 335 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
-- A collect at upload+7 days used to query a sliding window ending 3 days ago, so the first comparison was short and not the video's first 7 days. `tools/youtube_feedback.py` now marks the window due at upload plus 7 days plus 3 days of Analytics lag, and the query dates are that video's first 7 calendar days. Day 8 stays `OBSERVATION_WINDOW_NOT_DUE`. No fetch was run.
-- `check_feedback_fail_closed` passed. Full selftest was not re-run.
-
-# STATE
-
-Updated: 2026-10-05T08:17:14Z (Run 334)
 

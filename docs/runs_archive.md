@@ -700,3 +700,12 @@ Older run log entries. Newest first inside each move. Do not paste these back in
 - discovery: Run 332 only failed a mistyped id; an API failure after a real PL id still exited 0 and skipped the plan file
 - blocker: YouTube OAuth secrets still absent; not polled
 - next: mint the refresh token with the three consent scopes, then dispatch execute=true; do not add another scanner
+
+## Run 335 — 2026-10-05T09:11:00Z
+- Objective: Stop the first analytics collect from treating a short, lag-cut window as the 7-day observation.
+- Action: `window_status` due time is upload plus 7 days plus `DATA_LAG_DAYS` (3). `analytics_range` is the first 7 calendar days of that video. Selftest expects day 8 to stay not due and day 11 to be READY offline. Workflow summary and `docs/feedback_loop.md` say the same.
+- Result: Local `check_feedback_fail_closed` returned no failures. No Analytics call. Videos published stay 0.
+- Verification: completed for the window math and the existing feedback selftest helper. Full `selftest.py` not re-run. Actions not re-run.
+- Discovery: The old due gate and the query end date disagreed, so the first experiment could be collected before the claimed window existed.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still `not_set`.
+- Next: Do not rediscover this lag. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.

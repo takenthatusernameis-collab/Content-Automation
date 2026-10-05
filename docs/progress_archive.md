@@ -257,3 +257,7 @@ Unsourced spoken digits and survey hedges now refuse ready_for_vo. Estimated hum
 ## Run 327 — 2026-10-05T01:17:00Z
 Shouted titles and an explicit thumbnail mismatch now refuse ready_for_vo. Estimated human minutes saved on each later title review: about 3, if the report is clear. Q1 was already clear, so this video does not change. Videos published stay 0. Publish still waits on the three YouTube secrets.
 
+## Run 328 (2026-10-05T05:13:00Z)
+- Upload inspect now fails closed on the same quality, claim, and title hits that already block `ready_for_vo`.
+- Estimated effect: one less class of bad packet that can reach videos.insert after a later script or title edit. No change to human minutes on Q1. Videos published stay 0.
+

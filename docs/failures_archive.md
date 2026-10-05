@@ -203,3 +203,9 @@ Earlier failures remain in force in prior commits.
 ## Run 318 — stale next-id sentence
 `docs/topic_queue.md` still said the next scaffold is `002-` after Q1 occupied `videos/002-stop-deciding-what-to-work-on-every-morning`. `next_topic.py` already printed `videos/003-...`. Following the doc would collide with Q1. Fixed in the doc and locked in `queue_contract.py`. Do not treat the old sentence as current.
 
+## Run 329 — local scanners did not move the publish gate
+- **Tried:** Runs 326-328 each added a scan or content-rule refusal (claim, title, upload content_rules). Q1 was already clear. Videos published stayed 0.
+- **Evidence:** Each STATE delta says OAuth secrets were not polled and no provider write. `stall_watch.py` stayed clear because the edits were not Studio copy and not paste/hint sentences.
+- **Result:** `STALL_LOCAL_GATE` now prints for that window. Selftest still passes. No provider write.
+- **Avoid:** Another scanner, packet path gate, or content-rule refusal while that flag is set. Polling OAuth secrets as the only work. Scaffolding Q2 to try the flag.
+
