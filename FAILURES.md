@@ -1,3 +1,10 @@
+## Run 340 — truncated STATE hid the current gate
+
+- **Tried:** Reading STATE.md as the current system state. The file was 52418 bytes. The fetch truncated before the publish-gate section.
+- **Evidence:** 67 `## Run ` sections. Stall watch only needs the newest 8. After the move, STATE.md has 12 sections and stall_watch still prints STALL_OAUTH_IDLE.
+- **Result:** Older deltas are in docs/state_archive.md. tools/state_compact.py keeps the cap. No provider write.
+- **Avoid:** Pasting the archive back into STATE.md. Adding another scanner while STALL_OAUTH_IDLE is set. Polling OAuth secrets as the only work.
+
 ## Run 339 — boilerplate kept the local-gate flag set
 
 - **Tried:** Treating `STALL_LOCAL_GATE` as still true because the printer said so after Runs 336-338.

@@ -1,3 +1,12 @@
+## Run 340 — 2026-10-05T15:20:00Z
+- Objective: Stop STATE.md from truncating before the current gate on the next agent fetch.
+- Action: Moved deltas older than the newest 12 from STATE.md to docs/state_archive.md. Added tools/state_compact.py and a contract. Selftest runs the contract.
+- Result: STATE.md is 12 run sections. Archive holds the older sections. stall_watch still prints STALL_OAUTH_IDLE. Videos published stay 0.
+- Verification: state_compact_contract printed STATE COMPACT CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: STATE.md was 52418 bytes and 67 run sections. The agent fetch truncated it before the publish-gate section.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Do not paste the archive back into STATE.md. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 339 — 2026-10-05T14:20:00Z
 - Objective: Stop the production stall printer from treating `No new scanner` as another local-gate run.
 - Action: Removed the bare `scanner` token from `tools/stall_watch.py` and scrub negation phrases before the local-gate match. Contract covers three boilerplate deltas. Real scan tokens still set `STALL_LOCAL_GATE`.
