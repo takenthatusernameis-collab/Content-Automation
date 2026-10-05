@@ -1,3 +1,12 @@
+## Run 341 — 2026-10-05T16:20:00Z
+- Objective: Stop NEXT.md from truncating before the older do-not-rediscover locks on the next agent fetch.
+- Action: Moved notes older than the newest 12 from NEXT.md to docs/next_archive.md. Added tools/next_compact.py and a contract. Selftest runs the contract. Left an active-lock line for the OAuth stall, Q2, materialize, and resumable upload.
+- Result: NEXT.md is 12 notes. Archive holds the older notes, including the materialize abort and multipart refusal. Videos published stay 0.
+- Verification: next_compact_contract printed NEXT COMPACT CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: NEXT.md was 28596 bytes. The agent fetch kept the newest notes and cut the upload locks that still prevent a second videos.insert.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Do not paste the archive back into NEXT.md. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 340 — 2026-10-05T15:20:00Z
 - Objective: Stop STATE.md from truncating before the current gate on the next agent fetch.
 - Action: Moved deltas older than the newest 12 from STATE.md to docs/state_archive.md. Added tools/state_compact.py and a contract. Selftest runs the contract.

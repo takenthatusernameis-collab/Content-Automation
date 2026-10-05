@@ -1139,6 +1139,18 @@ def check_quality_scan() -> list[str]:
     return []
 
 
+def check_next_compact() -> list[str]:
+    """NEXT.md must stay short enough that a truncated fetch still shows the newest locks."""
+    import subprocess
+    contract = ROOT / "tools" / "next_compact_contract.py"
+    if not contract.is_file():
+        return ["next_compact_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0 or "NEXT COMPACT CONTRACT PASS" not in proc.stdout:
+        return [f"next_compact_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    return []
+
+
 def check_state_compact() -> list[str]:
     """STATE.md must stay short enough that a truncated fetch still shows the current gate."""
     import subprocess
@@ -1307,6 +1319,7 @@ def main() -> int:
     failures.extend(check_caption_waits_for_processing())
     failures.extend(check_upload_variant_freeze())
     failures.extend(check_state_compact())
+    failures.extend(check_next_compact())
     failures.extend(check_stall_watch())
     failures.extend(check_prove_locks_on_push())
     failures.extend(check_apply_idea())
