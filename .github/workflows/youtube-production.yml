@@ -250,6 +250,7 @@ jobs:
           echo "Verified release media is materialized with checksum guards."
           echo "collect_feedback is read-only and defaults off. It does not upload or invent metrics."
           echo "collect_feedback refuses a missing or early uploaded_at and does not write COLLECTED."
+          echo "The observation is due at upload plus 7 days plus 3 days of Analytics lag. The query is the first 7 calendar days of that video, not a sliding now window."
           echo "A resumed upload keeps the existing uploaded_at. It does not invent one."
           echo "A caption or thumbnail failure exits non-zero after the video id is written."
           echo "A 200/201 whose session then returns 404 or 410 is RESUMABLE_COMPLETED_SESSION_GONE. That state is committed and the next execute must not insert again."

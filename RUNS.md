@@ -1,3 +1,12 @@
+## Run 335 — 2026-10-05T09:11:00Z
+- Objective: Stop the first analytics collect from treating a short, lag-cut window as the 7-day observation.
+- Action: `window_status` due time is upload plus 7 days plus `DATA_LAG_DAYS` (3). `analytics_range` is the first 7 calendar days of that video. Selftest expects day 8 to stay not due and day 11 to be READY offline. Workflow summary and `docs/feedback_loop.md` say the same.
+- Result: Local `check_feedback_fail_closed` returned no failures. No Analytics call. Videos published stay 0.
+- Verification: completed for the window math and the existing feedback selftest helper. Full `selftest.py` not re-run. Actions not re-run.
+- Discovery: The old due gate and the query end date disagreed, so the first experiment could be collected before the claimed window existed.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still `not_set`.
+- Next: Do not rediscover this lag. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 334 — 2026-10-05T08:17:14Z
 - objective: stop a failed playlist insert from looking successful after a video id exists
 - action: `playlist_membership.py` exits 2 on auth_required and on not_added with a detail; those rows write playlist_plan.md; not_set and missing video id stay exit 0 and write nothing

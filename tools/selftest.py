@@ -415,14 +415,24 @@ def check_feedback_fail_closed() -> list[str]:
             failures.append(f"feedback inside 7d window must not be READY, got {report4['gate']}")
         if report4["action"] != "HOLD_WINDOW":
             failures.append(f"early collect must HOLD_WINDOW, got {report4['action']}")
-        old = (datetime.now(timezone.utc) - timedelta(days=8)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        lag_short = (datetime.now(timezone.utc) - timedelta(days=8)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        with_id.write_text(
+            '{"provider_video_id":"abc123","video_upload":{"uploaded_at":"%s"}}\n' % lag_short,
+            encoding="utf-8",
+        )
+        report_lag = inspect_feedback(p, env=dummy)
+        if report_lag["gate"] != "OBSERVATION_WINDOW_NOT_DUE":
+            failures.append(
+                f"day-8 collect must wait for Analytics lag, got {report_lag['gate']}"
+            )
+        old = (datetime.now(timezone.utc) - timedelta(days=11)).strftime("%Y-%m-%dT%H:%M:%SZ")
         with_id.write_text(
             '{"provider_video_id":"abc123","video_upload":{"uploaded_at":"%s"}}\n' % old,
             encoding="utf-8",
         )
         report5 = inspect_feedback(p, env=dummy)
         if report5["gate"] != "READY":
-            failures.append(f"feedback after window + OAuth env must be READY, got {report5['gate']}")
+            failures.append(f"feedback after window plus lag must be READY, got {report5['gate']}")
         if report5["action"] != "FETCH_BLOCKED_NO_NETWORK":
             failures.append(f"feedback READY action must stay offline, got {report5['action']}")
     return failures

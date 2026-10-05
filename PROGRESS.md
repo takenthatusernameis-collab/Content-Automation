@@ -251,6 +251,7 @@ Stale "delete No upload happened" instructions removed from pipeline_status, gat
 | 2026-10-02 Run 261 | ~1.5 estimate | 101 | caption draft from Selected VO; two publish boxes and OAuth remain |
 | 2026-10-02 Run 260 | ~1.5 estimate | 100 | operator pages match the drafted description; two boxes and OAuth remain |
 | 2026-10-02 Run 259 | ~1.5 estimate | 100 | description drafted; human checks two boxes; OAuth remains |
+| 2026-10-05 Run 335 | ~1.4 estimate | 140 | first analytics collect waits for 7 video days plus 3-day lag; videos published stay 0 |
 | 2026-10-02 Run 258 | ~2.0 estimate | 99 | pipeline_status and gate_machine stop the record loop; publish edit and OAuth remain |
 | 2026-10-01 Run 253 | ~2.5 estimate | 96 | Padded master 328.40s on q1-media-r253; r249 truncated master must not be uploaded; OAuth still blocks publish |
 

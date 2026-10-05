@@ -27,6 +27,7 @@ OAUTH_KEYS = ("YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET", "YOUTUBE_REFRESH_TOK
 ANALYTICS_SCOPE = "https://www.googleapis.com/auth/yt-analytics.readonly"
 DATA_SCOPE = "https://www.googleapis.com/auth/youtube.readonly"
 DEFAULT_WINDOW_DAYS = 7
+DATA_LAG_DAYS = 3
 UPLOAD_STATE = "upload_state.json"
 STATE_NAME = "feedback_state.json"
 METRIC_NAMES = (
@@ -168,8 +169,13 @@ def window_status(
     upload: dict | None,
     now: datetime | None = None,
     days: int = DEFAULT_WINDOW_DAYS,
+    lag_days: int = DATA_LAG_DAYS,
 ) -> dict:
-    """A collect is due only after the documented window from a real upload timestamp."""
+    """A collect is due only after the video window plus Analytics lag.
+
+    The fetch end date is held back by lag_days. Due at upload+days would
+    query a short window and still call it the 7-day observation.
+    """
     moment = now or _now()
     uploaded = upload_timestamp(upload)
     if uploaded is None:
@@ -179,8 +185,9 @@ def window_status(
             "uploaded_at": None,
             "due_at": None,
             "days": days,
+            "lag_days": lag_days,
         }
-    due_at = uploaded + timedelta(days=days)
+    due_at = uploaded + timedelta(days=days + lag_days)
     due = moment >= due_at
     return {
         "due": due,
@@ -188,7 +195,15 @@ def window_status(
         "uploaded_at": _fmt(uploaded),
         "due_at": _fmt(due_at),
         "days": days,
+        "lag_days": lag_days,
     }
+
+
+def analytics_range(uploaded: datetime, days: int = DEFAULT_WINDOW_DAYS) -> tuple[str, str]:
+    """First `days` calendar dates of the video, inclusive. Not a sliding now window."""
+    start = uploaded.date()
+    end = (uploaded + timedelta(days=days - 1)).date()
+    return start.isoformat(), end.isoformat()
 
 
 def inspect_feedback(
@@ -274,13 +289,14 @@ def execute_feedback(packet: Path, report: dict, *, now: datetime | None = None)
         )
         raise YouTubeAPIError(0, gate)
     token = refresh_access_token()
-    end = now or _now()
-    end = end - timedelta(days=3)
-    start = end - timedelta(days=report["window"]["days"] - 1)
+    uploaded = upload_timestamp(load_upload_state(packet))
+    if uploaded is None:
+        raise YouTubeAPIError(0, "OBSERVATION_WINDOW_UNKNOWN")
+    start_s, end_s = analytics_range(uploaded, int(report["window"]["days"]))
     analytics = analytics_report(
         token,
-        start_date=start.strftime("%Y-%m-%d"),
-        end_date=end.strftime("%Y-%m-%d"),
+        start_date=start_s,
+        end_date=end_s,
         metrics=list(report["metrics_requested"]),
         video_id=video_id,
     )
@@ -305,11 +321,11 @@ def execute_feedback(packet: Path, report: dict, *, now: datetime | None = None)
         "action": "FETCHED",
         "provider_video_id": video_id,
         "window": {
-            "start": start.strftime("%Y-%m-%dT00:00:00Z"),
-            "end": end.strftime("%Y-%m-%dT23:59:59Z"),
+            "start": start_s + "T00:00:00Z",
+            "end": end_s + "T23:59:59Z",
             "days": report["window"]["days"],
-            "data_lag_days": 3,
-            "note": "Analytics end date is held three days back to avoid the documented processing-latency edge.",
+            "data_lag_days": DATA_LAG_DAYS,
+            "note": "First calendar days of this video only. Collect waits for that end date plus the Analytics lag. Not a sliding now window.",
         },
         "metrics": rows,
         "comment_count": len(comments),
@@ -377,7 +393,7 @@ def render_text(report: dict) -> str:
             reason=(report.get("window_status") or {}).get("reason", "unknown"),
             due=(report.get("window_status") or {}).get("due_at") or "unknown",
         ),
-        "a collect before the documented window is not COLLECTED feedback",
+        "a collect before the video window plus Analytics lag is not COLLECTED feedback",
         f"auth: {report['auth']['state']}",
         "dry-run default; --execute performs authenticated read-only Analytics and comment API calls",
         "missing provider_video_id is HOLD_UNPUBLISHED, not collected feedback",
