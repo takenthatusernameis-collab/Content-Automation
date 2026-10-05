@@ -1,3 +1,12 @@
+## Run 332 — 2026-10-05T09:20:00Z
+- objective: stop the OAuth-idle loop from disappearing when the run topic changes, and fail a mistyped playlist id
+- action: `stall_watch.py` prints `STALL_OAUTH_IDLE` after eight unpolled published-0 deltas; `playlist_membership.py` exits 2 only on `invalid_playlist_id`
+- result: contracts and selftest passed locally; current STATE prints `STALL_OAUTH_IDLE`; playlist plan for Q1 stays `not_set` exit 0
+- verification: completed locally; Actions not re-run
+- discovery: a 3-run same-topic flag clears after one subject change
+- blocker: YouTube OAuth secrets still absent; not polled
+- next: do not add another scanner or playlist variant; live execute after the three secrets, or a bugfix in a tool the production job already runs
+
 ## 2026-10-05T08:20:00Z — Run 331
 
 - **Objective:** Remove the repeated Studio step of adding each published video to a series playlist, without inventing an id or retrying the secret hold.

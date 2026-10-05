@@ -43,6 +43,11 @@ def main() -> int:
         no_id = pm.plan(empty, "PLabcdefghijkl")
         if no_id["status"] != "no_video_id" or no_id["request"] is not None:
             failures.append(f"missing video id still built a request: {no_id}")
+        bad = pm.plan(packet, "not-a-playlist")
+        if bad["status"] != "invalid_playlist_id" or pm.exit_code(bad) != 2:
+            failures.append(f"invalid playlist id must exit 2: {bad}")
+        if pm.exit_code(unset) != 0 or pm.exit_code(no_id) != 0:
+            failures.append("unset or missing video id must stay exit 0")
     text = (Path(__file__).resolve().parents[1] / "docs" / "channel.md").read_text(encoding="utf-8")
     if "playlist_id: not_set" not in text:
         failures.append("channel.md lost playlist_id: not_set")

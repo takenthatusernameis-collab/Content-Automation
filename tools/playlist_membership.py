@@ -173,6 +173,13 @@ def write_plan(packet: Path, row: dict) -> Path | None:
     return path
 
 
+def exit_code(row: dict) -> int:
+    """Unset playlist stays success. A typed-but-invalid id must fail the job."""
+    if row.get("status") == "invalid_playlist_id":
+        return 2
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     args = list(sys.argv[1:] if argv is None else argv)
     write = "--write" in args
@@ -185,7 +192,7 @@ def main(argv: list[str] | None = None) -> int:
     if write:
         write_plan(packet, row)
     print(render(row))
-    return 0
+    return exit_code(row)
 
 
 if __name__ == "__main__":

@@ -1,3 +1,6 @@
+## Run 332 — 3-run stall window reset
+The Studio, instruction, and local-gate flags only look at the last three deltas and require the same topic tokens. Runs 330-331 changed subject, so `stall_watch.py` printed clear while publish was still the missing secrets. Do not treat `status: clear` as evidence the idle loop ended. The 8-run `STALL_OAUTH_IDLE` flag is the counter for that reset.
+
 ## Run 329 — local scanners did not move the publish gate
 - **Tried:** Runs 326-328 each added a scan or content-rule refusal (claim, title, upload content_rules). Q1 was already clear. Videos published stayed 0.
 - **Evidence:** Each STATE delta says OAuth secrets were not polled and no provider write. `stall_watch.py` stayed clear because the edits were not Studio copy and not paste/hint sentences.

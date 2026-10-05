@@ -27,3 +27,6 @@ Evidence: prove_locks existed and passed locally, but CI did not run it. A remem
 Evidence: Runs 319-321 each avoided the credential boundary and only locked operator copy. The Studio stall flag cleared because the new deltas no longer said Studio. Lesson: a stall printer must key off no-progress plus the repeated kind of edit, not one topic word. Do not add another instruction-only task while that flag is set.
 
 - 2026-10-05 Run 330: a dry-run field that names only youtube.upload is an operator footgun even when execute already refuses that token. Fix the printed scope before adding another gate.
+
+## Run 332
+Evidence: same-topic stall flags reset when the next run changes subject. Future operating prompts should treat eight OAuth-unpolled published-0 deltas as idle even if the tools mentioned differ. Do not add a scanner to make progress while that flag is set.

@@ -16,7 +16,9 @@ STATE = ROOT / "STATE.md"
 FLAG = "STALL_OAUTH_AND_STUDIO"
 INSTRUCTION_FLAG = "STALL_INSTRUCTION_LOCK"
 LOCAL_GATE_FLAG = "STALL_LOCAL_GATE"
+IDLE_FLAG = "STALL_OAUTH_IDLE"
 WINDOW = 3
+IDLE_WINDOW = 8
 LOCAL_GATE_TOKENS = (
     "quality_scan",
     "claim_scan",
@@ -97,6 +99,17 @@ def flag_text(text: str, window: int = WINDOW) -> list[str]:
                 "do_not: add another scanner, packet path gate, or content-rule refusal while this flag is set",
                 "next: add the three YouTube secrets, then dispatch execute=true; do not scaffold Q2",
             ])
+    # A 3-run topic window clears when the next run switches subject.
+    # Runs 314-331 stayed OAuth-unpolled with videos published at 0 anyway.
+    idle_deltas = run_deltas(text)[:IDLE_WINDOW]
+    if _oauth_stall(idle_deltas) and len(idle_deltas) >= IDLE_WINDOW:
+        flags.extend([
+            IDLE_FLAG,
+            f"last_{IDLE_WINDOW}_runs: oauth_unpolled_videos_published_0",
+            "do_not: add another scanner, Studio sentence, or playlist variant while this flag is set",
+            "do_not: spend the run only restating the missing YouTube secrets",
+            "next: a live execute result, or a fix for an existing tool that already runs on the production job",
+        ])
     return flags
 
 

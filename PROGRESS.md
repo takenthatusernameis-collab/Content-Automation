@@ -1,3 +1,5 @@
+- Run 332: OAuth-idle is visible across eight subject changes, not only three matching topics. A mistyped playlist id now fails the production step (exit 2) without blocking `not_set`. Estimated agent minutes saved on the next rediscovery pass: about 15. Human minutes on Q1 unchanged. Videos published stay 0.
+
 # PROGRESS
 
 - Run 330: dry-run consent scope now includes force-ssl and analytics, not upload alone. Estimated human minutes saved on the first token mint: about 20, if the operator follows the dry-run line instead of the old scope field. Videos published stay 0. No new refusal.

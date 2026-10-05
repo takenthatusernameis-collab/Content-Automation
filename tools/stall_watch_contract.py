@@ -10,7 +10,7 @@ TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
-from stall_watch import FLAG, INSTRUCTION_FLAG, LOCAL_GATE_FLAG, flag_text  # noqa: E402
+from stall_watch import FLAG, IDLE_FLAG, INSTRUCTION_FLAG, LOCAL_GATE_FLAG, flag_text  # noqa: E402
 
 
 def delta(body: str) -> str:
@@ -54,6 +54,14 @@ def main() -> int:
     flags = flag_text(local_gate)
     if LOCAL_GATE_FLAG not in flags or FLAG in flags or INSTRUCTION_FLAG in flags:
         return fail(f"local gate window wrong: {flags}")
+    idle = delta(
+        "OAuth secrets were not polled. Videos published stay 0. No new provider write."
+    ) * 8
+    flags = flag_text(idle)
+    if IDLE_FLAG not in flags:
+        return fail(f"idle window missing: {flags}")
+    if flag_text(delta("OAuth secrets were not polled. Videos published stay 0. topic switch.") * 3):
+        return fail("three idle deltas must stay clear")
     print("STALL WATCH CONTRACT PASS")
     return 0
 
