@@ -898,6 +898,15 @@ def check_persist_provider_state() -> list[str]:
         failures.append("upload state with a provider id must be committed")
     if persist.upload_commit_decision({"error_class": "RESUMABLE_SESSION_EXPIRED"}) != "skip_transient":
         failures.append("transient upload failure must not be committed")
+    expired_hold = persist.upload_commit_decision(
+        {
+            "session_expired_hold": True,
+            "error_class": "RESUMABLE_SESSION_EXPIRED",
+            "resumable_session_uri": "https://upload.example/dead",
+        }
+    )
+    if expired_hold != "commit_session_expired_hold":
+        failures.append("expired Location hold must be committed and must not stay an open session")
     if persist.upload_commit_decision({"resumable_session_uri": "https://upload.example/session"}) != "commit_resumable_session":
         failures.append("open resumable Location must be committed")
     if persist.upload_commit_decision({"resumable_session_uri": "not-a-url"}) != "skip_transient":
@@ -1796,6 +1805,41 @@ def check_resumable_video_upload() -> list[str]:
         failures.append("saved Location must not call on_session again")
     if not reuse_calls or reuse_calls[0][1] != "https://upload.example/saved":
         failures.append(f"saved Location must be the PUT target: {reuse_calls[:1]}")
+    if reuse_calls and reuse_calls[0][2].get("Content-Range") != "bytes */16":
+        failures.append("saved Location must be probed before another chunk")
+
+    expired_calls: list[tuple[str, str]] = []
+
+    def expired_http(url, *, method, headers, body, timeout):
+        expired_calls.append((method, url))
+        if method == "POST":
+            raise AssertionError("expired Location must not POST videos.insert")
+        return 404, {}, b""
+
+    youtube_api._http = expired_http
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            media = Path(tmp) / "master.mp4"
+            media.write_bytes(b"0123456789abcdef")
+            try:
+                youtube_api.upload_video(
+                    "token-not-printed",
+                    export_path=media,
+                    metadata={"snippet": {"title": "t"}, "status": {"selfDeclaredMadeForKids": False}},
+                    privacy="private",
+                    session_uri="https://upload.example/expired",
+                )
+            except youtube_api.YouTubeAPIError as exc:
+                if exc.reason != "RESUMABLE_SESSION_EXPIRED":
+                    failures.append(f"expired Location must be RESUMABLE_SESSION_EXPIRED, got {exc.reason}")
+            else:
+                failures.append("expired Location must not start a new session")
+    finally:
+        youtube_api._http = original
+    if any(method == "POST" for method, _url in expired_calls):
+        failures.append("expired Location must not start a second videos.insert")
+    if not expired_calls or expired_calls[0] != ("PUT", "https://upload.example/expired"):
+        failures.append(f"expired Location must query the saved URI: {expired_calls[:1]}")
 
     retry_calls: list[tuple[str, str]] = []
 

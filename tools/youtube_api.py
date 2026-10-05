@@ -452,7 +452,7 @@ def upload_video(
     a created video id. Captions and thumbnails stay multipart; they are small.
     A 401 refreshes the access token and resumes the same Location. It must not
     open another videos.insert. A saved session_uri is that Location. It skips
-    the session POST. on_session runs once when a new Location is issued so the
+    the session POST. A 404 or 410 on that Location is RESUMABLE_SESSION_EXPIRED and must not open another videos.insert. on_session runs once when a new Location is issued so the
     caller can persist it before the first chunk. Do not print the URI.
     """
     body = dict(metadata)
@@ -481,9 +481,31 @@ def upload_video(
     session = str(session_uri or "").strip()
     code = 0
     init_body = _json_bytes(body)
-    if session.startswith("https://"):
+    saved_session = session.startswith("https://")
+    saved_offset = 0
+    if saved_session:
         # Saved Location from an earlier execute. Do not POST videos.insert.
-        pass
+        # Probe first. A 404/410 must not fall through into a new session POST.
+        status_code, status_headers, status_raw = _query_resumable(session, token, size)
+        if status_code == 401:
+            token = _refreshed_token(refresher, token)
+            auth_refreshes += 1
+            status_code, status_headers, status_raw = _query_resumable(session, token, size)
+        if status_code in {200, 201}:
+            return _video_resource(status_code, status_raw)
+        if status_code in {404, 410}:
+            raise YouTubeAPIError(status_code, "RESUMABLE_SESSION_EXPIRED", "saved_session")
+        if status_code != 308:
+            raise YouTubeAPIError(status_code, "RESUMABLE_UNEXPECTED_STATUS", "saved_session_probe")
+        nxt = received_offset(status_headers)
+        if nxt is None:
+            saved_offset = 0
+        elif nxt < 0 or nxt > size:
+            raise YouTubeAPIError(308, "RESUMABLE_STALLED", "saved_session_offset")
+        else:
+            saved_offset = nxt
+        if saved_offset >= size:
+            raise YouTubeAPIError(308, "RESUMABLE_STALLED", "saved_session_complete_without_resource")
     else:
         session = ""
         for _attempt in range(RESUMABLE_RETRY_LIMIT):
@@ -506,7 +528,7 @@ def upload_video(
             init_headers["Authorization"] = f"Bearer {token}"
     if not session.startswith("https://"):
         raise YouTubeAPIError(code, "RESUMABLE_SESSION_MISSING")
-    offset = 0
+    offset = saved_offset if saved_session else 0
     retries = 0
     empty_ranges = 0
 

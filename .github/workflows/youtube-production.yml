@@ -257,6 +257,7 @@ jobs:
           echo "A 200/201 whose session then returns 404 or 410 is RESUMABLE_COMPLETED_SESSION_GONE. That state is committed and the next execute must not insert again."
           echo "A session POST that returns 503 without Location is retried. A 503 that returns Location is that session, not a second videos.insert."
           echo "An open Location is written to upload_state.json and committed. The next execute resumes that URI. It does not start another videos.insert. Do not print the URI."
+          echo "A saved Location that returns 404 or 410 is RESUMABLE_SESSION_EXPIRED. The hold is committed and the URI is dropped. The next execute raises that same reason and must not start another videos.insert."
           echo "Chunk 408 and 429 resume the existing session. They do not start another videos.insert."
           echo "A later execute resumes that video id when the export hash matches. It does not upload a second copy."
           echo "Captions wait up to about 10 minutes for processingDetails succeeded or terminated. A not-ready poll is VIDEO_PROCESSING_NOT_READY and must not insert again."

@@ -4,6 +4,11 @@ Updated: 2026-10-05T18:20:00Z
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 345 — expired Location stayed committed as open
+- **Tried:** Run 344 committed the Location. An expired session was still `skip_transient`, so the dead URI remained the next execute target.
+- **Result:** Probe a saved Location. 404 or 410 sets `session_expired_hold`, drops the URI, and commits that hold. No new YouTubeAPIError reason. No provider write.
+- **Do not retry:** Do not treat `RESUMABLE_SESSION_EXPIRED` with `session_expired_hold` as skip_transient. Do not POST videos.insert to replace a dead Location automatically.
+
 ## Run 344 — open Location was not durable
 - **Tried:** Runs 340-343 each compacted a fetch file. That pattern is now suspicious if it continues with no production-path change. The upload path still dropped a Location that was not committed.
 - **Result:** Persist now commits `commit_resumable_session` for an https session URI. A saved URI skips the session POST. No live execute. No new YouTubeAPIError reason.
@@ -62,10 +67,4 @@ The Studio, instruction, and local-gate flags only look at the last three deltas
 
 ## Run 318 — stale next-id sentence
 `docs/topic_queue.md` still said the next scaffold is `002-` after Q1 occupied `videos/002-stop-deciding-what-to-work-on-every-morning`. `next_topic.py` already printed `videos/003-...`. Following the doc would collide with Q1. Fixed in the doc and locked in `queue_contract.py`. Do not treat the old sentence as current.
-
-## Run 317 — Studio handoff notes did not move the publish gate
-- **Tried:** Runs 314-316 each added a Studio URL or end-screen sentence. The operator still cannot pin or set an end screen because no provider video id exists.
-- **Evidence:** STATE deltas for those runs all say OAuth secrets were not polled and videos published stay 0. The end-screen reserve was also a second hardcoded 20, separate from `timeline.END_SCREEN`.
-- **Result:** `stall_watch.py` prints `STALL_OAUTH_AND_STUDIO` for that pattern. The handoff reserve now comes from `timeline.END_SCREEN`. Selftest locks both. No provider write.
-- **Avoid:** Another Studio URL or end-screen sentence while that flag is set. Hardcoding the reserve again. Adding a YouTubeAPIError reason without a live_status line. Polling OAuth secrets as the only work.
 

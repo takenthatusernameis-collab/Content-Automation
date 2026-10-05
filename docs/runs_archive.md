@@ -682,3 +682,12 @@ Older run log entries. Newest first inside each move. Do not paste these back in
 - discovery: a 3-run same-topic flag clears after one subject change
 - blocker: YouTube OAuth secrets still absent; not polled
 - next: do not add another scanner or playlist variant; live execute after the three secrets, or a bugfix in a tool the production job already runs
+
+## Run 333 — 2026-10-05T10:30:00Z
+- objective: stop the dry-run request from advertising an upload-only scope, and print the existing idle flag on the production job
+- action: `youtube_upload.py` `scope` is the joined consent set; `youtube-production.yml` runs `stall_watch.py` after checkout and does not fail on the flag
+- result: selftest and upload-variant freeze passed locally; `auth_status` scope lists upload, force-ssl, and analytics; stall flag still `STALL_OAUTH_IDLE`
+- verification: completed locally; Actions not re-run; no provider write
+- discovery: Run 330 named `required_scopes` but left `scope` as youtube.upload, which is the field an operator would copy into the consent screen
+- blocker: YouTube OAuth secrets still absent; not polled
+- next: mint the refresh token with the three consent scopes, then dispatch execute=true; do not add another scanner or playlist variant

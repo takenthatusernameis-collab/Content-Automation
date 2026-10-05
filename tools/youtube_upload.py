@@ -1013,6 +1013,10 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
         prior_video_id = str(prior.get("provider_video_id") or "").strip()
     if completed_without_id(prior, report["fingerprint"]):
         raise YouTubeAPIError(0, "HOLD_COMPLETED_WITHOUT_ID")
+    if prior and prior.get("session_expired_hold") is True and not str(prior.get("provider_video_id") or "").strip():
+        if prior.get("fingerprint") != report["fingerprint"]:
+            raise YouTubeAPIError(0, "EXISTING_VIDEO_FINGERPRINT_MISMATCH")
+        raise YouTubeAPIError(0, "RESUMABLE_SESSION_EXPIRED")
     if report["gate"] not in {"READY", "RESUME"} and not prior_video_id:
         raise YouTubeAPIError(0, f"LOCAL_GATE_{report['gate']}")
 
@@ -1167,6 +1171,15 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
             result["attempted_upload"] = True
             result["video_upload"] = {"status": "completed_session_gone"}
             result["error_class"] = "RESUMABLE_COMPLETED_SESSION_GONE"
+            write_upload_state(packet, result)
+            raise
+        if str(reason) == "RESUMABLE_SESSION_EXPIRED":
+            result.pop("resumable_session_uri", None)
+            result["provider_video_id"] = None
+            result["session_expired_hold"] = True
+            result["attempted_upload"] = True
+            result["video_upload"] = {"status": "session_expired"}
+            result["error_class"] = "RESUMABLE_SESSION_EXPIRED"
             write_upload_state(packet, result)
             raise
         result["video_upload"] = result.get("video_upload") or {"status": "failed"}

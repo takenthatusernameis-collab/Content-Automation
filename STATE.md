@@ -1,6 +1,17 @@
 # STATE
 
-Updated: 2026-10-05T18:20:00Z (Run 344)
+Updated: 2026-10-05T19:20:00Z (Run 345)
+
+## Run 345 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
+- A committed Location that later returned 404 stayed in git because `RESUMABLE_SESSION_EXPIRED` was skip_transient. The next execute would query that dead URI forever, or a future change could start another videos.insert. A saved Location is probed first. 200 returns the video id. 308 resumes that offset. 404 or 410 raises the existing `RESUMABLE_SESSION_EXPIRED`, drops the URI, and sets `session_expired_hold`. Persist commits `commit_session_expired_hold`. The next execute raises the same reason and does not POST videos.insert.
+- `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
+Updated: 2026-10-05T19:20:00Z (Run 345)
 
 ## Run 344 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -118,15 +129,4 @@ Updated: 2026-10-05T08:17:14Z (Run 334)
 # STATE
 
 Updated: 2026-10-05T10:30:00Z (Run 333)
-
-## Run 333 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
-- `STALL_OAUTH_IDLE` still prints. The production job now runs `tools/stall_watch.py` after checkout, before the OAuth preflight. The flag does not fail the job.
-- Dry-run `scope` is no longer upload-only. `auth_status` and the request body `scope` are the consent set: youtube.upload, youtube.force-ssl, and yt-analytics.readonly. `required_scopes` is unchanged. This is not a new refusal.
-- `python3 tools/selftest.py` printed SELFTEST PASS. `python3 tools/upload_variant_freeze.py` printed UPLOAD VARIANT FREEZE PASS. Actions was not re-run.
-
-# STATE
-
-Updated: 2026-10-05T09:20:00Z (Run 332)
 

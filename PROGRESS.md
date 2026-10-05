@@ -1,8 +1,11 @@
 # PROGRESS
 
-Updated: 2026-10-05T18:20:00Z
+Updated: 2026-10-05T19:20:00Z
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
+## Run 345 — 2026-10-05T19:20:00Z
+A dead resumable Location is no longer reused as an open session. 404 or 410 commits a hold and the next execute does not start another videos.insert. Estimated effect: one less duplicate private video if the first session expires before the runner can finish. Human minutes per video unchanged. Videos published stay 0.
 
 ## Run 344 — 2026-10-05T18:20:00Z
 A killed upload no longer has to start a second videos.insert after Location exists. The session URI is written before the first chunk and committed. Estimated effect: one less duplicate private video on the first real execute if the runner dies mid-upload. Human minutes per video unchanged. Videos published stay 0.
@@ -59,7 +62,4 @@ Updated: 2026-10-05T11:20:00Z
 
 ## Run 327 — 2026-10-05T01:17:00Z
 Shouted titles and an explicit thumbnail mismatch now refuse ready_for_vo. Estimated human minutes saved on each later title review: about 3, if the report is clear. Q1 was already clear, so this video does not change. Videos published stay 0. Publish still waits on the three YouTube secrets.
-
-## Run 326 — 2026-10-05T00:20:00Z
-Unsourced spoken digits and survey hedges now refuse ready_for_vo. Estimated human minutes saved on each later script: about 5, because the status step catches the number instead of a remembered research read. Q1 was already clear, so this video does not change. Videos published stay 0. Publish still waits on the three YouTube secrets.
 

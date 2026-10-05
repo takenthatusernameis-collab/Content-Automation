@@ -1,10 +1,12 @@
 # NEXT
 
-Updated: 2026-10-05T18:20:00Z (Run 344)
+Updated: 2026-10-05T19:20:00Z (Run 345)
 
-Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Materialize installs `q1-media-r253` only. Do not restore multipart for the master. Do not start a second `videos.insert` when Location exists.
+Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Materialize installs `q1-media-r253` only. Do not restore multipart for the master. Do not start a second `videos.insert` when Location exists or when `session_expired_hold` is set.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr11. **Do not rediscover the dead resumable Location.** Run 345: a saved https Location is probed before a chunk. 404 or 410 drops the URI, sets `session_expired_hold`, and commits `commit_session_expired_hold`. The next execute raises `RESUMABLE_SESSION_EXPIRED` and does not POST videos.insert. Do not add a new reason for this. Do not print the URI. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
 
 1zr10. **Do not rediscover the uncommitted resumable Location.** Run 344: an https `resumable_session_uri` is committed even without a provider video id. The next execute resumes that URI and does not POST videos.insert. A fingerprint mismatch reuses `EXISTING_VIDEO_FINGERPRINT_MISMATCH`. Do not print the URI. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
 
@@ -27,5 +29,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zr. **Do not rediscover the short analytics window.** Run 335: collect is due at upload plus 7 days plus 3 days of Analytics lag. The query is that video's first 7 calendar days, not a sliding now window. Day 8 stays `OBSERVATION_WINDOW_NOT_DUE`. Do not restore due-at-upload-plus-7 while the query still drops 3 days. Do not add a YouTubeAPIError reason for this. Do not add another scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2.
 
 1zq. **Do not rediscover the silent playlist insert failure.** Run 334: `auth_required` and `not_added` with a detail exit 2 and write `playlist_plan.md`. `already_present` exits 0 and writes the plan. `playlist_id: not_set` and a missing video id still exit 0, write nothing, and do not call videos.insert. Do not add a YouTubeAPIError reason for this. Do not add another scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2.
-
-1zp. **Do not rediscover the upload-only scope field.** Run 333: dry-run `scope` is the consent set (`youtube.upload youtube.force-ssl yt-analytics.readonly`), matching `required_scopes`. Do not restore `scope: youtube.upload` alone. The production job prints `tools/stall_watch.py` after checkout. The flag does not fail the job. Do not add another scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2.
