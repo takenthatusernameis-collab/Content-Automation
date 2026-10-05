@@ -2,6 +2,15 @@
 
 Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools/runs_compact.py` moves extras. It does not delete history.
 
+## Run 349 — 2026-10-05T22:35:00Z
+- Objective: Stop a kill after captions.insert from retrying captions, and flag the upload-edge loop.
+- Action: Early-persist caption, thumbnail, and comment status after each write when UPLOAD_EARLY_PERSIST=1. stall_watch now sets STALL_UPLOAD_EDGE after four OAuth-idle upload-edge deltas. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a YouTubeAPIError reason.
+- Result: Selftest passed. Stall contract passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. Actions not re-run. No provider write.
+- Discovery: Runs 344-348 each added a resumable or early-persist branch while OAuth stayed absent. That is the credential stall. Caption status was the remaining kill hole in that chain, and it is now the last early-persist call site while the flag is set.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: upload-edge fixes have not published a video. Do not add another one.
+- Next: Do not add another Location, session hold, or early-persist call. Do not add a scanner. Do not scaffold Q2. Do not poll secrets. Wait for the three YouTube secrets, or fix a production tool that is not the uploader.
+
 ## Run 348 — 2026-10-05T22:15:00Z
 - Objective: Stop a job kill during caption wait from losing the provider video id.
 - Action: Early-persist the provider video id before caption wait when UPLOAD_EARLY_PERSIST=1. Early-persist a 404/410 hold and a completed-without-id hold before those exceptions leave the step. Selftest locks the extra calls and that early persist pushes. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a YouTubeAPIError reason.
@@ -100,15 +109,6 @@ Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools
 - Discovery: Run 337 closed the comparison path only. The workflow still committed any COLLECTED file with a video id, so a sliding or unstamped file could become the durable evidence.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still `not_set`.
 - Next: Do not commit an unstamped collected file. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
-
-## Run 337 — 2026-10-05T11:20:00Z
-- Objective: Stop a collected analytics file from counting as the first 7 days unless its window is that video's calendar range.
-- Action: `collected_window_ok` refuses a missing kind, `sliding_now`, or dates that do not match `analytics_range`. `execute_feedback` stamps `kind: first_calendar_days` and queries `DEFAULT_WINDOW_DAYS` from `uploaded_at`. Selftest covers a sliding file and a matching file. Experiment fixture now includes the matching window.
-- Result: `python3 tools/selftest.py` printed SELFTEST PASS. No Analytics call. Videos published stay 0.
-- Verification: completed locally. Actions not re-run. No provider write.
-- Discovery: Run 336 aligned the dry-run plan, but a COLLECTED file without kind still passed into experiment comparison.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still `not_set`.
-- Next: Do not treat an unstamped collected file as the 7-day observation. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 Earlier runs through Run 269 remain in git at `9416aae2c482ca08fd55642e0fff94568482ee51` (`RUNS.md` blob `243e47753b76bbd636a59dddb00e8c1c6f2e90c1`) and before that at `65cca063`.

@@ -718,3 +718,12 @@ Older run log entries. Newest first inside each move. Do not paste these back in
 - Discovery: Run 335 fixed the due gate and the execute query, but the plan an operator would copy still showed a sliding now window.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still `not_set`.
 - Next: Do not restore the sliding query range. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
+
+## Run 337 — 2026-10-05T11:20:00Z
+- Objective: Stop a collected analytics file from counting as the first 7 days unless its window is that video's calendar range.
+- Action: `collected_window_ok` refuses a missing kind, `sliding_now`, or dates that do not match `analytics_range`. `execute_feedback` stamps `kind: first_calendar_days` and queries `DEFAULT_WINDOW_DAYS` from `uploaded_at`. Selftest covers a sliding file and a matching file. Experiment fixture now includes the matching window.
+- Result: `python3 tools/selftest.py` printed SELFTEST PASS. No Analytics call. Videos published stay 0.
+- Verification: completed locally. Actions not re-run. No provider write.
+- Discovery: Run 336 aligned the dry-run plan, but a COLLECTED file without kind still passed into experiment comparison.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still `not_set`.
+- Next: Do not treat an unstamped collected file as the 7-day observation. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.

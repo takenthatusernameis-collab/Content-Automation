@@ -1197,6 +1197,9 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
             except Exception as exc:
                 result["caption_upload"] = {"status": "failed", "error": compact_api_error(exc)}
             write_upload_state(packet, result)
+            # A kill after captions.insert and before the workflow persist step
+            # used to retry captions.insert. Push the status first. No URI.
+            _early_persist_upload_state(packet)
 
         thumb = packet / "thumbnail.png"
         if thumb.is_file() and result["thumbnail_upload"].get("status") not in {"uploaded", "already_uploaded"}:
@@ -1206,6 +1209,7 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
             except Exception as exc:
                 result["thumbnail_upload"] = {"status": "failed", "error": compact_api_error(exc)}
             write_upload_state(packet, result)
+            _early_persist_upload_state(packet)
 
         if post_comment and report["meta"].get("pin_comment") and result["comment_post"].get("status") not in {"posted", "already_posted"}:
             try:
@@ -1226,6 +1230,7 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
             except Exception as exc:
                 result["comment_post"] = {"status": "failed", "error": compact_api_error(exc)}
             write_upload_state(packet, result)
+            _early_persist_upload_state(packet)
 
         incomplete = incomplete_post_uploads(result)
         result["generated"] = _now()

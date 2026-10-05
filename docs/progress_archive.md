@@ -264,3 +264,16 @@ Shouted titles and an explicit thumbnail mismatch now refuse ready_for_vo. Estim
 ## Run 329 (2026-10-05T06:15:00Z)
 - Local-gate inflation is now a visible stall flag instead of a silent series of new scanners. Estimated agent minutes saved on the next runs: the rediscovery pass over Runs 326-328, about 10, if the flag is read first. No change to human minutes on Q1. Videos published stay 0. Publish still waits on the three YouTube secrets.
 
+## Run 336 — 2026-10-05T10:20:00Z
+- Dry-run feedback plan now matches the first-7-calendar-day query. Removes a future wrong collect after secrets exist. Human minutes per video unchanged. Videos published stay 0.
+- Run 334: a failed playlist insert now fails the production step and leaves a plan file, instead of exiting 0 with no record. Estimated human minutes saved after the first real upload: about 10, because Studio is not the only way to learn the video missed the series playlist. `not_set` still does not fail the upload. Videos published stay 0.
+
+- Run 333: dry-run `scope` now matches the consent set, so copying that field no longer mints an upload-only token. The production job prints the existing idle flag before preflight. Estimated human minutes saved on the first token mint: about 20, if the operator copies `scope`. Videos published stay 0. No new refusal.
+
+- Run 332: OAuth-idle is visible across eight subject changes, not only three matching topics. A mistyped playlist id now fails the production step (exit 2) without blocking `not_set`. Estimated agent minutes saved on the next rediscovery pass: about 15. Human minutes on Q1 unchanged. Videos published stay 0.
+
+# PROGRESS
+
+- Run 330: dry-run consent scope now includes force-ssl and analytics, not upload alone. Estimated human minutes saved on the first token mint: about 20, if the operator follows the dry-run line instead of the old scope field. Videos published stay 0. No new refusal.
+
+

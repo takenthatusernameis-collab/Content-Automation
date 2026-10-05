@@ -212,3 +212,6 @@ Earlier failures remain in force in prior commits.
 ## Run 332 — 3-run stall window reset
 The Studio, instruction, and local-gate flags only look at the last three deltas and require the same topic tokens. Runs 330-331 changed subject, so `stall_watch.py` printed clear while publish was still the missing secrets. Do not treat `status: clear` as evidence the idle loop ended. The 8-run `STALL_OAUTH_IDLE` flag is the counter for that reset.
 
+## Run 333 — dry-run scope field still said upload-only
+Run 330 added `required_scopes` and a warning line, but `auth_status` and the request body still set `scope` to `youtube.upload` alone. An operator copying that field would mint a token that can insert a video and then fail captions.insert. Fixed by joining the consent set into `scope`. Do not restore the single-scope field. Do not treat this as a new YouTubeAPIError.
+

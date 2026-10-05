@@ -1,10 +1,12 @@
 # NEXT
 
-Updated: 2026-10-05T22:15:00Z (Run 348)
+Updated: 2026-10-05T22:35:00Z (Run 349)
 
-Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Materialize installs `q1-media-r253` only. Do not restore multipart for the master. Do not start a second `videos.insert` when Location exists or when `session_expired_hold` is set. Do not pass `--release-session-expired-hold` from the production workflow.
+Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Materialize installs `q1-media-r253` only. Do not restore multipart for the master. Do not start a second `videos.insert` when Location exists or when `session_expired_hold` is set. Do not pass `--release-session-expired-hold` from the production workflow. `STALL_UPLOAD_EDGE` is set: do not add another resumable Location, session hold, or early-persist call.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr15. **Do not rediscover the upload-edge loop.** Run 349: caption, thumbnail, and comment status are early-persisted after each write when `UPLOAD_EARLY_PERSIST=1`. `STALL_UPLOAD_EDGE` is set after four OAuth-idle upload-edge runs. Do not add another Location, session hold, or early-persist call while that flag is set. Next work is the three YouTube secrets, or a production tool that is not the uploader. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr14. **Do not rediscover a video id that exists only on the runner.** Run 348: after `videos.insert` returns an id, that id is early-persisted before caption wait when `UPLOAD_EARLY_PERSIST=1`. A 404/410 hold and a completed-without-id hold are early-persisted before the step returns. The later persist step still runs. Do not print the URI. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
 
@@ -27,5 +29,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zr5. **Do not rediscover the false local-gate stall.** Run 339: `No new scanner` is not a local gate. `tools/stall_watch.py` sets `STALL_LOCAL_GATE` only when a delta still names quality_scan, claim_scan, title_scan, content_rules, or packet_path after negation phrases are removed. Do not restore the bare `scanner` token. `STALL_OAUTH_IDLE` still stands. Do not add another scanner while it is set. Do not scaffold Q2.
 
 1zr4. **Do not rediscover the unstamped feedback commit.** Run 338: `feedback_commit_decision` returns `skip_unstamped_window` unless `window.kind` is `first_calendar_days`, `days` is 7, and start/end dates are present. A missing kind or `sliding_now` stays uncommitted. A stamped file still commits. Date match against `uploaded_at` stays in `collected_metrics`. Do not restore commit-on-gate-only. Do not add a YouTubeAPIError reason for this. Do not add another scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2.
-
-1zr3. **Do not rediscover the unstamped collected window.** Run 337: `collected_metrics` returns no rows unless `window.kind` is `first_calendar_days` and the dates match `uploaded_at` through upload plus 6 days. Execute stamps that kind and ignores a report days field. A sliding or missing kind is not evidence. Do not restore a collected file with no kind as a comparison. Do not add a YouTubeAPIError reason for this. Do not add another scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2.

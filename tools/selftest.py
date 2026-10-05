@@ -1078,8 +1078,11 @@ def check_persist_provider_state() -> list[str]:
     upload_src = (TOOLS / "youtube_upload.py").read_text(encoding="utf-8")
     if "UPLOAD_EARLY_PERSIST" not in upload_src or "_early_persist_upload_state" not in upload_src:
         failures.append("uploader must early-persist only when the execute step asks")
-    if upload_src.count("_early_persist_upload_state(") < 3:
-        failures.append("uploader must early-persist the video id and the dead-session holds")
+    if upload_src.count("_early_persist_upload_state(") < 6:
+        failures.append("uploader must early-persist the video id, dead-session holds, and post-upload status")
+    caption_block = upload_src.split("wait_for_caption_ready(token, video_id=video_id)", 1)[-1].split("thumb = packet", 1)[0]
+    if "_early_persist_upload_state(" not in caption_block:
+        failures.append("caption status must early-persist before thumbnail work")
     if "push_with_retry" not in src.split("def early_persist_file", 1)[-1].split("def feedback_window_stamp_ok", 1)[0]:
         failures.append("early persist must push; a local commit dies with the runner")
     return failures

@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 349 — 2026-10-05T22:35:00Z
+- Failed approach not retried: another upload-edge branch as the run objective while videos published stay 0. Runs 344-348 did that. Caption status early-persist closes the last kill hole in that chain.
+- Lesson: `STALL_UPLOAD_EDGE` means stop. Do not add another Location, session hold, or early-persist call. The unpublished video is the missing OAuth secrets.
+
 ## Run 348 — 2026-10-05T22:15:00Z
 - Failed approach not retried: treating the Location commit as enough once videos.insert has returned an id. Caption wait is long enough for a job kill. The id must be pushed before that wait.
 - Lesson: early persist must cover every durable row that would otherwise exist only on the runner. Do not print the URI.
@@ -79,7 +83,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 - **Evidence:** At the earliest allowed collect, the fetched end date was about 4 days after upload, and the start date was a sliding now window rather than the video's first day.
 - **Result:** Due time is upload plus 10 days. Query dates are the first 7 calendar days of that video. Day 8 stays not due. No metrics were invented.
 - **Avoid:** Restoring a 7-day due gate while the query still holds back 3 days. Treating a sliding now window as the first-video comparison.
-
-## Run 333 — dry-run scope field still said upload-only
-Run 330 added `required_scopes` and a warning line, but `auth_status` and the request body still set `scope` to `youtube.upload` alone. An operator copying that field would mint a token that can insert a video and then fail captions.insert. Fixed by joining the consent set into `scope`. Do not restore the single-scope field. Do not treat this as a new YouTubeAPIError.
 

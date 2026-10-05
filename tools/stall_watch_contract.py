@@ -10,7 +10,7 @@ TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
-from stall_watch import FLAG, IDLE_FLAG, INSTRUCTION_FLAG, LOCAL_GATE_FLAG, flag_text  # noqa: E402
+from stall_watch import FLAG, IDLE_FLAG, INSTRUCTION_FLAG, LOCAL_GATE_FLAG, UPLOAD_EDGE_FLAG, flag_text  # noqa: E402
 
 
 def delta(body: str) -> str:
@@ -66,6 +66,26 @@ def main() -> int:
     flags = flag_text(idle)
     if IDLE_FLAG not in flags:
         return fail(f"idle window missing: {flags}")
+    edge = delta(
+        "OAuth secrets were not polled. Videos published stay 0. Early-persist the resumable Location."
+    ) * 4
+    flags = flag_text(edge)
+    if UPLOAD_EDGE_FLAG not in flags:
+        return fail(f"upload edge window missing: {flags}")
+    short_edge = delta(
+        "OAuth secrets were not polled. Videos published stay 0. Early-persist the resumable Location."
+    ) * 3
+    if UPLOAD_EDGE_FLAG in flag_text(short_edge):
+        return fail("three upload-edge deltas must not set the flag")
+    broken = edge + delta(
+        "OAuth secrets were not polled. Videos published stay 0. Fixed assemble only. No provider write."
+    )
+    # Newest delta is first in the file, so prepend the non-edge run.
+    broken = delta(
+        "OAuth secrets were not polled. Videos published stay 0. Fixed assemble only. No provider write."
+    ) + edge
+    if UPLOAD_EDGE_FLAG in flag_text(broken):
+        return fail("a non-edge newest delta must clear the upload-edge flag")
     if flag_text(delta("OAuth secrets were not polled. Videos published stay 0. topic switch.") * 3):
         return fail("three idle deltas must stay clear")
     print("STALL WATCH CONTRACT PASS")

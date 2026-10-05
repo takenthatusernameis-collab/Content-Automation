@@ -2,6 +2,14 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 349 — 2026-10-05T22:35:00Z
+- Caption, thumbnail, and comment status now early-persist before the next post-upload call. Estimated save: one duplicate captions.insert if the runner dies after the caption write. Human minutes per video unchanged. Videos published stay 0.
+- Automated step added: `STALL_UPLOAD_EDGE` after four OAuth-idle upload-edge runs. Remaining manual gate: YouTube OAuth secrets. Do not add another early-persist call while that flag is set.
+
+# LOG
+
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
 ## Run 348 — 2026-10-05T22:15:00Z
 - Early persist of the provider video id before caption wait, and of dead-session holds before the step returns. Estimated save: one Studio check and one blocked re-execute if the job dies after videos.insert returns an id. Human minutes per video unchanged. Videos published stay 0.
 - Automated step added: same UPLOAD_EARLY_PERSIST=1 path now covers the id and the holds. Remaining manual gate: YouTube OAuth secrets and Studio check before any session-hold release.
@@ -65,17 +73,4 @@ Persist no longer commits a COLLECTED analytics file that lacks the first-calend
 Updated: 2026-10-05T11:20:00Z
 
 - Run 337: a collected analytics file no longer counts unless its window is the video's first 7 calendar days. Estimated agent minutes saved on the first comparison: about 15, by not treating a sliding or unstamped file as the observation. Human minutes per video unchanged. Videos published stay 0.
-
-## Run 336 — 2026-10-05T10:20:00Z
-- Dry-run feedback plan now matches the first-7-calendar-day query. Removes a future wrong collect after secrets exist. Human minutes per video unchanged. Videos published stay 0.
-- Run 334: a failed playlist insert now fails the production step and leaves a plan file, instead of exiting 0 with no record. Estimated human minutes saved after the first real upload: about 10, because Studio is not the only way to learn the video missed the series playlist. `not_set` still does not fail the upload. Videos published stay 0.
-
-- Run 333: dry-run `scope` now matches the consent set, so copying that field no longer mints an upload-only token. The production job prints the existing idle flag before preflight. Estimated human minutes saved on the first token mint: about 20, if the operator copies `scope`. Videos published stay 0. No new refusal.
-
-- Run 332: OAuth-idle is visible across eight subject changes, not only three matching topics. A mistyped playlist id now fails the production step (exit 2) without blocking `not_set`. Estimated agent minutes saved on the next rediscovery pass: about 15. Human minutes on Q1 unchanged. Videos published stay 0.
-
-# PROGRESS
-
-- Run 330: dry-run consent scope now includes force-ssl and analytics, not upload alone. Estimated human minutes saved on the first token mint: about 20, if the operator follows the dry-run line instead of the old scope field. Videos published stay 0. No new refusal.
-
 

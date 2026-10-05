@@ -17,8 +17,18 @@ FLAG = "STALL_OAUTH_AND_STUDIO"
 INSTRUCTION_FLAG = "STALL_INSTRUCTION_LOCK"
 LOCAL_GATE_FLAG = "STALL_LOCAL_GATE"
 IDLE_FLAG = "STALL_OAUTH_IDLE"
+UPLOAD_EDGE_FLAG = "STALL_UPLOAD_EDGE"
 WINDOW = 3
 IDLE_WINDOW = 8
+UPLOAD_EDGE_WINDOW = 4
+UPLOAD_EDGE_TOKENS = (
+    "early-persist",
+    "early persist",
+    "early_persist",
+    "resumable",
+    "session_expired",
+    "session hold",
+)
 LOCAL_GATE_TOKENS = (
     "quality_scan",
     "claim_scan",
@@ -124,6 +134,23 @@ def flag_text(text: str, window: int = WINDOW) -> list[str]:
             "do_not: spend the run only restating the missing YouTube secrets",
             "next: a live execute result, or a fix for an existing tool that already runs on the production job",
         ])
+    # Runs 344-348 each patched resumable/early-persist edges while videos
+    # published stayed 0. That is the credential stall, not a missing session branch.
+    edge_deltas = run_deltas(text)[:UPLOAD_EDGE_WINDOW]
+    if _oauth_stall(edge_deltas) and len(edge_deltas) >= UPLOAD_EDGE_WINDOW:
+        edge = True
+        for delta in edge_deltas:
+            lowered = delta.lower()
+            if not any(token in lowered for token in UPLOAD_EDGE_TOKENS):
+                edge = False
+                break
+        if edge:
+            flags.extend([
+                UPLOAD_EDGE_FLAG,
+                f"last_{UPLOAD_EDGE_WINDOW}_runs: oauth_unpolled_and_upload_edge",
+                "do_not: add another resumable Location, session hold, or early-persist call while this flag is set",
+                "next: wait for the three YouTube secrets, or fix a production tool that is not the uploader",
+            ])
     return flags
 
 
