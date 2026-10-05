@@ -1,3 +1,14 @@
+## 2026-10-05T00:20:00Z — Run 326
+
+- **Objective:** Fail closed on unsourced spoken numbers and survey hedges before VO, without rewriting Q1 or retrying the OAuth stall.
+- **Inspected:** STATE, NEXT, RUNS, production_capabilities factual-claim gap, research_brief, set_status, Q1 script/research.
+- **Action taken:** Added `tools/claim_scan.py` and `tools/claim_scan_contract.py`. `set_status.py` refuses `ready_for_vo` on those hits. Selftest runs the contract. Did not dispatch. Did not scaffold a packet. Did not invent a source.
+- **Result:** Contract printed CLAIM SCAN CONTRACT PASS. Claim scan printed clear for Q1, the template, and the sample. `python3 tools/selftest.py` printed SELFTEST PASS. Videos published stay 0.
+- **Verification status:** completed for the claim gate and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** The production rule already said spoken numbers need a Sources line, but promotion only checked anti-slop phrases. A later script could reach ready_for_vo with an unsourced percentage.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled.
+- **Recommended next action:** Add those three secrets, then dispatch `youtube-production.yml` with execute=true. Do not scaffold Q2. Do not invent a Q1 source line. Do not re-encode.
+
 ## 2026-10-04T23:20:00Z — Run 325
 
 - **Objective:** Stop a bad production dispatch from reaching materialize or upload inspect.

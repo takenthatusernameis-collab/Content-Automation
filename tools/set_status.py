@@ -98,6 +98,12 @@ def check(packet: Path, target: str) -> list[str]:
         if found:
             detail = ", ".join(phrase for phrase, _count in found)
             errors.append(f"refusing ready_for_vo: quality_scan hits ({detail})")
+        from claim_scan import scan_path as claim_scan_path
+
+        claim_hits = claim_scan_path(packet)
+        if claim_hits:
+            detail = ", ".join(f"{kind}:{token}" for kind, token in claim_hits)
+            errors.append(f"refusing ready_for_vo: claim_scan hits ({detail})")
 
     if target == "ready_for_edit":
         _label, _p, _m, by_role = disk_summary(packet)

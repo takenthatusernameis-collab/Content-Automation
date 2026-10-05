@@ -1,3 +1,6 @@
+## Run 326 — 2026-10-05T00:20:00Z
+Unsourced spoken digits and survey hedges now refuse ready_for_vo. Estimated human minutes saved on each later script: about 5, because the status step catches the number instead of a remembered research read. Q1 was already clear, so this video does not change. Videos published stay 0. Publish still waits on the three YouTube secrets.
+
 ## Run 324 — 2026-10-04T22:13:00Z
 The production workflow packet is now a dispatch input defaulting to Q1. A later video can reuse the same job instead of a copied workflow. Q1 materialize stays path-locked. Estimated human minutes to add video 2's upload job later: about 20 avoided. Videos published stay 0. Publish still waits on the three YouTube secrets.
 

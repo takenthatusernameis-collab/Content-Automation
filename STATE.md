@@ -1,5 +1,15 @@
 # STATE
 
+Updated: 2026-10-05T00:20:00Z (Run 326)
+
+## Run 326 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. Q1 WORDS and research.md were not rewritten. No new packet folder.
+- Spoken digit tokens and survey hedges in script WORDS now fail `ready_for_vo` unless a non-placeholder Sources bullet cites that same token or phrase. `tools/claim_scan.py` does not rewrite. A missing script is not a hit.
+- Q1, the template, and the sample printed clear. `python3 tools/claim_scan_contract.py` printed CLAIM SCAN CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
 Updated: 2026-10-04T23:20:00Z (Run 325)
 
 ## Run 325 delta

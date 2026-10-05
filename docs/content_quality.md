@@ -59,3 +59,5 @@ The quality gate is about the content, not disguising the use of AI.
 ## Scanner
 
 `python3 tools/quality_scan.py` reports the high-precision phrases in this file inside script.md WORDS. It does not rewrite the script and does not claim authorship. `--strict` exits 1 only when a hit remains. `tools/set_status.py` refuses `ready_for_vo` while a hit remains. A missing script is not a hit. Q1 was clear on Run 322 and was not rewritten. Do not rewrite Q1 WORDS to chase a later phrase list.
+
+`python3 tools/claim_scan.py` reports digit tokens and survey hedges in script WORDS that have no non-placeholder Sources bullet citing that same token or phrase. It does not rewrite script.md or research.md. `--strict` exits 1 only when a hit remains. `tools/set_status.py` refuses `ready_for_vo` while a hit remains. A missing script is not a hit. Q1 had no spoken digits or hedges on Run 326 and was not rewritten.
