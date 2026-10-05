@@ -1,5 +1,14 @@
 # STATE
 
+Updated: 2026-10-05T05:13:00Z (Run 328)
+
+## Run 328 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. Q1 titles.md, script.md, and thumbnail.md were not rewritten. No new packet folder.
+- `youtube_upload.py` now treats quality_scan, claim_scan, and title_scan hits as a hard local gate (`content_rules_clear`). A missing titles.md or script.md is not a hit. The scanners still do not rewrite. Q1 and the sample printed clear.
+- `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+
 Updated: 2026-10-05T01:17:00Z (Run 327)
 
 ## Run 327 delta

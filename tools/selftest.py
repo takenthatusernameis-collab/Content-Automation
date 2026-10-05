@@ -31,7 +31,7 @@ from pipeline_status import format_report, inspect  # noqa: E402
 from set_status import check as status_check, is_fixture  # noqa: E402
 from validate_packet import packet_duration_warning, validate  # noqa: E402
 from youtube_feedback import inspect_feedback  # noqa: E402
-from youtube_upload import artifact_block_reason, caption_timing_reason, file_sha256, inspect_upload, master_block_reason, metadata_block_reason, missing_provider_scopes, png_dimensions  # noqa: E402
+from youtube_upload import artifact_block_reason, caption_timing_reason, content_rule_reason, file_sha256, inspect_upload, master_block_reason, metadata_block_reason, missing_provider_scopes, png_dimensions  # noqa: E402
 from upload_variant_freeze import check_repo, check_texts  # noqa: E402
 
 # Printers that must reuse render_brief.selected_vo_drop, not a second builder.
@@ -358,6 +358,20 @@ def check_upload_fail_closed() -> list[str]:
                 failures.append("VO-length master must not look upload-ready")
         else:
             failures.append("ffmpeg fixture for truncated end screen failed")
+        (p / "titles.md").write_text("Primary: GRIND harder today\n", encoding="utf-8")
+        reason = content_rule_reason(p)
+        if not reason or "title_scan" not in reason:
+            failures.append(f"shouted title must fail content_rule_reason, got {reason}")
+        report_shout = inspect_upload(p, env={})
+        names_shout = {c["name"]: c for c in report_shout["checks"]}
+        row_shout = names_shout.get("content_rules_clear")
+        if not row_shout or row_shout["ok"]:
+            failures.append(f"shouted title must fail content_rules_clear, got {row_shout}")
+        if report_shout["gate"] in {"READY", "YOUTUBE_AUTH_REQUIRED"}:
+            failures.append("shouted title must not look upload-ready")
+        if "content_rules_clear" not in src:
+            failures.append("upload hard local gates must include content_rules_clear")
+
     return failures
 
 

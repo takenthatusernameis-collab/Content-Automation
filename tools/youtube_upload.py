@@ -197,6 +197,31 @@ def _chapter_seconds(stamp: str) -> int | None:
     return int(hours) * 3600 + int(minutes) * 60 + int(seconds)
 
 
+def content_rule_reason(packet: Path) -> str | None:
+    """Refuse upload when a pre-VO scanner still hits. Does not rewrite packet files.
+
+    ready_for_vo already refuses these hits. This check covers a packet whose
+    status was set earlier, or whose titles/script changed after that status.
+    A missing titles.md or script.md is not a hit.
+    """
+    from claim_scan import scan_path as claim_scan_path
+    from quality_scan import scan_path as quality_scan_path
+    from title_scan import scan_path as title_scan_path
+
+    hits = []
+    for label, scanner in (
+        ("quality_scan", quality_scan_path),
+        ("claim_scan", claim_scan_path),
+        ("title_scan", title_scan_path),
+    ):
+        found = scanner(packet)
+        if found:
+            hits.append(f"{label}: {found[0]}")
+    if not hits:
+        return None
+    return "; ".join(hits[:3])
+
+
 def chapter_sync_reason(packet: Path, description: str) -> str | None:
     """Refuse a drafted chapter list that videos.insert would upload without chapters.
 
@@ -651,6 +676,12 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
         chapter_block is None,
         chapter_block or "drafted chapter lines are present and YouTube-shaped, or chapters.md is absent",
     )
+    content_block = content_rule_reason(packet)
+    add(
+        "content_rules_clear",
+        content_block is None,
+        content_block or "quality, claim, and title scans clear, or those files are absent",
+    )
     artifact_block = artifact_block_reason(packet, meta)
     add(
         "artifacts_within_provider_limits",
@@ -703,7 +734,7 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
         f"license={license_value}" if license_value in CHANNEL_LICENSES else "docs/channel.md license must be youtube or creativeCommon",
     )
 
-    hard_local = [c for c in checks if c["name"] in {"publish_md_present", "title_present", "master_export_present", "publish_copy_approved", "metadata_within_provider_limits", "artifacts_within_provider_limits", "chapters_in_description", "synthetic_disclosure_known", "audience_known", "category_known", "license_known"}]
+    hard_local = [c for c in checks if c["name"] in {"publish_md_present", "title_present", "master_export_present", "publish_copy_approved", "metadata_within_provider_limits", "artifacts_within_provider_limits", "chapters_in_description", "content_rules_clear", "synthetic_disclosure_known", "audience_known", "category_known", "license_known"}]
     local_ok = all(c["ok"] for c in hard_local)
     if not local_ok:
         gate = "FAIL"

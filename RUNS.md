@@ -1,3 +1,14 @@
+## 2026-10-05T05:13:00Z — Run 328
+
+- **Objective:** Fail closed on pre-VO content hits at upload time, not only at status promotion.
+- **Inspected:** STATE, NEXT, RUNS, `youtube_upload.py` inspect gates, `title_scan.py`, `claim_scan.py`, `quality_scan.py`.
+- **Action taken:** Added `content_rule_reason` and hard-local check `content_rules_clear`. Selftest fixture with `Primary: GRIND harder today` must not look upload-ready. Did not dispatch. Did not scaffold a packet. Did not rewrite Q1.
+- **Result:** Q1 and sample `content_rule_reason` returned None. `python3 tools/selftest.py` printed SELFTEST PASS. Videos published stay 0.
+- **Verification status:** completed for the upload content gate and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** ready_for_vo already refused these hits, but inspect_upload did not. A packet promoted before the scanners, or edited after promotion, could still reach DRY_RUN or execute.
+- **Blocker:** GitHub Actions secrets `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, and `YOUTUBE_REFRESH_TOKEN` remain the publish gate. Not polled. Recurring stall since before Run 270.
+- **Recommended next action:** Add those three secrets, then dispatch `youtube-production.yml` with execute=true. Do not scaffold Q2. Do not rewrite Q1. Do not re-encode.
+
 ## 2026-10-05T01:17:00Z — Run 327
 
 - **Objective:** Fail closed on shouted titles and an explicit thumbnail mismatch before VO, without rewriting Q1 or retrying the OAuth stall.
