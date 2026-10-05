@@ -113,6 +113,21 @@ jobs:
             echo "pinned: false"
           fi
 
+
+      - name: Plan playlist membership
+        if: ${{ always() && inputs.execute == true }}
+        shell: bash
+        run: |
+          # not_set does not invent a playlist id and does not fail the upload.
+          # A missing video id does not start videos.insert.
+          if [ -f "$PACKET/upload_state.json" ]; then
+            python3 tools/playlist_membership.py "$PACKET" --execute --write
+          else
+            echo "PLAYLIST_MEMBERSHIP"
+            echo "status: no_upload_state"
+            echo "membership: not_added"
+          fi
+
       - name: Persist non-secret upload state
         if: ${{ always() && inputs.execute == true }}
         shell: bash
@@ -141,6 +156,9 @@ jobs:
           # Persist the Studio URL with the video id. Skip when no id was written.
           if [ -f "$PACKET/studio_pin.md" ]; then
             git add "$PACKET/studio_pin.md"
+          fi
+          if [ -f "$PACKET/playlist_plan.md" ]; then
+            git add "$PACKET/playlist_plan.md"
           fi
           git diff --cached --quiet && {
             echo "Upload state unchanged; nothing to commit."

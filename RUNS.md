@@ -1,3 +1,14 @@
+## 2026-10-05T08:20:00Z — Run 331
+
+- **Objective:** Remove the repeated Studio step of adding each published video to a series playlist, without inventing an id or retrying the secret hold.
+- **Inspected:** STATE, NEXT, BLOCKED, stall flags, channel.md, youtube-production.yml, youtube_api.py.
+- **Action taken:** Added `playlist_id: not_set` and `tools/playlist_membership.py`. Dry-run default. `--execute` inserts only when a real PL id and a provider video id both exist. Unset and missing-id paths write no request. Workflow calls the tool after execute and persists `playlist_plan.md` only when that file is written. Contract locks the unset path.
+- **Result:** Contract and selftest passed locally. Execute was not dispatched. Videos published stay 0.
+- **Verification status:** completed for the skip path and local selftest. Actions was not re-run. No provider write.
+- **Important discovery:** The Data API can add a video to a playlist with the already required force-ssl scope. Pin and end screen still cannot. The playlist id is the only missing human input, and it is once per channel, not once per video.
+- **Blocker:** GitHub Actions secrets YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN. Not polled. Playlist id is also unset and is not the publish gate.
+- **Recommended next action:** Add the three secrets with the consent scopes from oauth_setup.py, then dispatch youtube-production.yml with execute=true. Optionally create one series playlist and replace `playlist_id: not_set`. Do not scaffold Q2. Do not add another scanner.
+
 ## 2026-10-05T04:20:00Z — Run 330
 
 - **Objective:** Stop the dry-run from telling the operator to mint a youtube.upload-only token, without adding another local gate.

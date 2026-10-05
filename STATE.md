@@ -1,5 +1,15 @@
 # STATE
 
+Updated: 2026-10-05T08:20:00Z (Run 331)
+
+## Run 331 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. Q1 was not rewritten. No new packet folder.
+- `docs/channel.md` now has `playlist_id: not_set`. `tools/playlist_membership.py` does not invent a PL id. A missing video id does not build a playlistItems.insert body and does not start videos.insert. The production job calls it after execute and skips when the id is unset.
+- `python3 tools/playlist_membership_contract.py` printed PLAYLIST MEMBERSHIP CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
 Updated: 2026-10-05T04:20:00Z (Run 330)
 
 ## Run 330 delta

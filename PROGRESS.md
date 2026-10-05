@@ -261,3 +261,6 @@ These numbers are **estimates**, not stopwatch data. Earlier rows remain in prio
 
 - Run 262 (2026-10-02): uploader dry-run names captions.srt and refuses to claim captions.insert. One overlong Q1 caption line wrapped. Human caption edit is wording spot-check only. Estimated human minutes 1.5 -> 1.4. Videos published stay 0.
 - Run 325: production dispatch refuses a missing or illegal packet path before materialize. Local selftest PASS. No upload.
+
+## Run 331 (2026-10-05T08:20:00Z)
+Playlist membership is now a skip-until-set step. After one human playlist id is written to `docs/channel.md`, later uploads can call playlistItems.insert instead of a per-video Studio add. Estimated human minutes saved after that id exists: about 2 per video. Until then the tool prints not_set and does not invent an id. Videos published stay 0. Automated steps stay 139 plus this skip command.

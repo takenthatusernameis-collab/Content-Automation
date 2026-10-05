@@ -1100,6 +1100,17 @@ def check_packet_path() -> list[str]:
         return [f"packet_path_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
     return []
 
+
+def check_playlist_membership() -> list[str]:
+    import subprocess
+    contract = ROOT / "tools" / "playlist_membership_contract.py"
+    if not contract.is_file():
+        return ["playlist_membership_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], capture_output=True, text=True)
+    if proc.returncode != 0 or "PLAYLIST MEMBERSHIP CONTRACT PASS" not in proc.stdout:
+        return [f"playlist_membership_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    return []
+
 def main() -> int:
     path = sample_packet()
     failures: list[str] = []
@@ -1204,6 +1215,7 @@ def main() -> int:
     failures.extend(check_title_scan())
     failures.extend(check_packet_path())
     failures.extend(check_stall_watch())
+    failures.extend(check_playlist_membership())
 
     print(f"Fixture: {path.name}")
     print(f"Gate: {row['gate']}")

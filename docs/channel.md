@@ -17,6 +17,10 @@ YouTube snippet.categoryId. 27 is Education and matches the previous videos.inse
 
 license: youtube
 
+playlist_id: not_set
+
+One series playlist for this channel. not_set means do not call playlistItems.insert and do not invent a PL id. Upload does not wait on this field. After a human creates the playlist in Studio, replace this line with that id. The production job then adds the provider video id. A missing id still does not start videos.insert.
+
 YouTube status.license. youtube is the standard license. creativeCommon is the other accepted value. An unknown or missing license is METADATA_REJECTED before the token refresh. Do not invent creativeCommon.
 
 YouTube `status.selfDeclaredMadeForKids` must be present and false for this channel. Omitting the field uploads a video that stays blocked until Studio sets the audience. Do not change this line to `made_for_kids` unless the channel decision changes. Do not omit it.
