@@ -1163,6 +1163,17 @@ def check_state_compact() -> list[str]:
     return []
 
 
+def check_log_compact() -> list[str]:
+    import subprocess
+    contract = ROOT / "tools" / "log_compact_contract.py"
+    if not contract.is_file():
+        return ["log_compact_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], capture_output=True, text=True)
+    if proc.returncode != 0 or "LOG COMPACT CONTRACT PASS" not in proc.stdout:
+        return [f"log_compact_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    return []
+
+
 def check_runs_compact() -> list[str]:
     """RUNS.md must stay short enough that a truncated fetch still shows the newest runs."""
     import subprocess

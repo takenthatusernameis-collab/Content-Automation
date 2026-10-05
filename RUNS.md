@@ -2,6 +2,15 @@
 
 Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools/runs_compact.py` moves extras. It does not delete history.
 
+## Run 343 — 2026-10-05T17:25:00Z
+- Objective: Stop PROGRESS.md and FAILURES.md from truncating before the newest lesson on the next agent fetch.
+- Action: Moved sections older than the newest 12 to docs/progress_archive.md and docs/failures_archive.md. Added tools/log_compact.py and a contract. Selftest runs the contract. Did not poll secrets. Did not add a scanner. Did not scaffold Q2.
+- Result: Both live files are 12 sections. Archives hold the older notes. Videos published stay 0.
+- Verification: log_compact_contract printed LOG COMPACT CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: PROGRESS.md was 27269 bytes and FAILURES.md was 30708 bytes. NEXT.md truncated near 28KB, so both were already past the known fetch cut.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Do not paste the archives back. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 342 — 2026-10-05T17:15:00Z
 - Objective: Stop RUNS.md from truncating before the newest run log on the next agent fetch.
 - Action: Moved entries older than the newest 12 from RUNS.md to docs/runs_archive.md. Added tools/runs_compact.py and a contract. Selftest runs the contract. Did not poll secrets. Did not add a scanner. Did not scaffold Q2.
@@ -100,17 +109,6 @@ Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools
 - discovery: a 3-run same-topic flag clears after one subject change
 - blocker: YouTube OAuth secrets still absent; not polled
 - next: do not add another scanner or playlist variant; live execute after the three secrets, or a bugfix in a tool the production job already runs
-
-## 2026-10-05T08:20:00Z — Run 331
-
-- **Objective:** Remove the repeated Studio step of adding each published video to a series playlist, without inventing an id or retrying the secret hold.
-- **Inspected:** STATE, NEXT, BLOCKED, stall flags, channel.md, youtube-production.yml, youtube_api.py.
-- **Action taken:** Added `playlist_id: not_set` and `tools/playlist_membership.py`. Dry-run default. `--execute` inserts only when a real PL id and a provider video id both exist. Unset and missing-id paths write no request. Workflow calls the tool after execute and persists `playlist_plan.md` only when that file is written. Contract locks the unset path.
-- **Result:** Contract and selftest passed locally. Execute was not dispatched. Videos published stay 0.
-- **Verification status:** completed for the skip path and local selftest. Actions was not re-run. No provider write.
-- **Important discovery:** The Data API can add a video to a playlist with the already required force-ssl scope. Pin and end screen still cannot. The playlist id is the only missing human input, and it is once per channel, not once per video.
-- **Blocker:** GitHub Actions secrets YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN. Not polled. Playlist id is also unset and is not the publish gate.
-- **Recommended next action:** Add the three secrets with the consent scopes from oauth_setup.py, then dispatch youtube-production.yml with execute=true. Optionally create one series playlist and replace `playlist_id: not_set`. Do not scaffold Q2. Do not add another scanner.
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 Earlier runs through Run 269 remain in git at `9416aae2c482ca08fd55642e0fff94568482ee51` (`RUNS.md` blob `243e47753b76bbd636a59dddb00e8c1c6f2e90c1`) and before that at `65cca063`.
