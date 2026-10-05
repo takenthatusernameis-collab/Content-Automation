@@ -1,3 +1,5 @@
+1zm. **Do not rediscover the upload-only consent scope.** Run 330: dry-run now prints `consent_scopes: youtube.upload youtube.force-ssl yt-analytics.readonly` and the request body includes `required_scopes`. `youtube.upload` alone still fails captions.insert after a video exists. This is not a new scanner and not a new YouTubeAPIError. Do not mint an upload-only token. Do not scaffold Q2.
+
 1zl. **Do not rediscover the local-gate loop.** Run 329: `tools/stall_watch.py` prints `STALL_LOCAL_GATE` when the last three STATE deltas left OAuth unpolled, left videos published at 0, and each mentioned a scanner or content-rule gate. The flag does not fail CI. Do not add another scanner, packet path gate, or content-rule refusal while it is set. Do not scaffold Q2. The publish gate is still the three YouTube secrets.
 
 1zk. **Do not rediscover the upload content-rule gap.** Run 328: `youtube_upload.py` refuses a dry-run or execute when `quality_scan`, `claim_scan`, or `title_scan` still hits (`content_rules_clear`). A missing titles.md or script.md is not a hit. The scanners do not rewrite. Q1 was clear. Do not invent a title or source line. Do not scaffold Q2.

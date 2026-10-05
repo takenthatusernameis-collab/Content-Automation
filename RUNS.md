@@ -1,3 +1,14 @@
+## 2026-10-05T04:20:00Z — Run 330
+
+- **Objective:** Stop the dry-run from telling the operator to mint a youtube.upload-only token, without adding another local gate.
+- **Inspected:** STATE, NEXT, BLOCKED, stall_watch, youtube_upload.py, oauth_setup.py, Q1 materialize.
+- **Action taken:** Named the three consent scopes on the dry-run text and request body. Locked that warning in selftest. Materialized Q1 and confirmed media_qa PASS and YOUTUBE_AUTH_REQUIRED. Did not dispatch. Did not add a scanner.
+- **Result:** selftest, upload_variant_freeze, and prove_locks passed locally. Videos published stay 0.
+- **Verification status:** completed for the dry-run scope text and local gates. Actions was not re-run. No provider write.
+- **Important discovery:** The execute path already refused an upload-only token, but the dry-run JSON still listed only youtube.upload. That was the operator-facing setup signal.
+- **Blocker:** GitHub Actions secrets YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN. Not polled.
+- **Recommended next action:** Add those three secrets with the consent scopes from oauth_setup.py, then dispatch youtube-production.yml with execute=true. Do not scaffold Q2. Do not add another scanner while publish stays at 0.
+
 ## 2026-10-05T06:15:00Z — Run 329
 
 - **Objective:** Stop the local-scanner loop from looking like progress while publish is still blocked.

@@ -1,5 +1,16 @@
 # STATE
 
+Updated: 2026-10-05T04:20:00Z (Run 330)
+
+## Run 330 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- Local materialize installed the r253 master and ignored the truncated r249 master. media_qa PASS. Dry-run gate YOUTUBE_AUTH_REQUIRED. Exit 3. Not an upload.
+- Dry-run still printed only youtube.upload as the consent scope. That token can insert a video and then fail captions.insert. The dry-run text and request body now name youtube.upload, youtube.force-ssl, and yt-analytics.readonly. This is not a new refusal.
+- python3 tools/selftest.py printed SELFTEST PASS. python3 tools/upload_variant_freeze.py printed UPLOAD VARIANT FREEZE PASS. python3 tools/prove_locks.py printed PROVE LOCKS PASS. Actions was not re-run.
+
+# STATE
+
 Updated: 2026-10-05T06:15:00Z (Run 329)
 
 ## Run 329 delta

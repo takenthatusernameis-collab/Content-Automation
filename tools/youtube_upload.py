@@ -46,6 +46,7 @@ TRUNCATED_MASTER_SHA256 = {
 UPLOAD_SCOPE = "https://www.googleapis.com/auth/youtube.upload"
 MANAGE_SCOPE = "https://www.googleapis.com/auth/youtube"
 FORCE_SSL_SCOPE = "https://www.googleapis.com/auth/youtube.force-ssl"
+ANALYTICS_SCOPE = "https://www.googleapis.com/auth/yt-analytics.readonly"
 DEFAULT_PRIVACY = "private"
 EXPORT_REL = "export/master.mp4"
 STATE_NAME = "upload_state.json"
@@ -620,6 +621,8 @@ def auth_status(env: dict[str, str] | None = None) -> dict:
         "api_key_alone": bool(str(source.get("YOUTUBE_API_KEY", "")).strip()) and bool(missing),
         "channel_id_set": bool(str(source.get("YOUTUBE_CHANNEL_ID", "")).strip()),
         "scope": UPLOAD_SCOPE,
+        "required_scopes": [UPLOAD_SCOPE, FORCE_SSL_SCOPE, ANALYTICS_SCOPE],
+        "scope_note": "youtube.upload alone can insert a video and then fail captions.insert",
         "state": AUTH_STATE if missing else "YOUTUBE_AUTH_PRESENT",
     }
 
@@ -937,6 +940,8 @@ def request_body(report: dict) -> dict:
             "export": report["export"],
             "fingerprint": report["fingerprint"],
             "scope": UPLOAD_SCOPE,
+            "required_scopes": [UPLOAD_SCOPE, FORCE_SSL_SCOPE, ANALYTICS_SCOPE],
+            "scope_note": "do not mint a refresh token with youtube.upload alone",
             "captions": report.get("captions") or {
                 "path": "captions.srt",
                 "present": False,
@@ -1163,6 +1168,8 @@ def render_text(report: dict) -> str:
             present="yes" if (report.get("captions") or {}).get("present") else "no",
         ),
         f"auth: {report['auth']['state']}",
+        "consent_scopes: youtube.upload youtube.force-ssl yt-analytics.readonly",
+        "youtube.upload alone fails captions.insert after the video exists; do not mint that token",
         "dry-run default; --execute performs authenticated API calls only after all local gates pass",
         "an API key alone is not upload authorization",
         "a junk export/master.mp4 is not a master",

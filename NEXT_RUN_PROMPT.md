@@ -1,3 +1,5 @@
+Run 330 note: dry-run consent scopes are upload + force-ssl + analytics. Do not rediscover that. Do not add a scanner while videos published stay 0. Next human step is the three Actions secrets, then dispatch execute=true.
+
 # NEXT RUN PROMPT
 
 ## External-media materialization gate

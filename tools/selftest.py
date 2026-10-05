@@ -618,6 +618,10 @@ def check_upload_stamp_preserved() -> list[str]:
         "https://www.googleapis.com/auth/youtube.upload"
     ]:
         failures.append("empty grant must refuse videos.insert")
+    if "required_scopes" not in upload_src or "yt-analytics.readonly" not in upload_src:
+        failures.append("dry-run must name force-ssl and analytics consent scopes")
+    if "youtube.upload alone fails captions.insert" not in upload_src:
+        failures.append("dry-run must warn that upload scope alone fails captions")
     if "tags[:12]" in upload_src or '["tags"][:12]' in upload_src:
         failures.append("upload must not silently drop tags")
     if "METADATA_REJECTED" not in upload_src or "PRIVACY_NOT_PRIVATE" not in upload_src:
