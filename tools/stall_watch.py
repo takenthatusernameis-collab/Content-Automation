@@ -18,9 +18,11 @@ INSTRUCTION_FLAG = "STALL_INSTRUCTION_LOCK"
 LOCAL_GATE_FLAG = "STALL_LOCAL_GATE"
 IDLE_FLAG = "STALL_OAUTH_IDLE"
 UPLOAD_EDGE_FLAG = "STALL_UPLOAD_EDGE"
+PREUPLOAD_FLAG = "STALL_PREUPLOAD_PROBE"
 WINDOW = 3
 IDLE_WINDOW = 8
 UPLOAD_EDGE_WINDOW = 4
+PREUPLOAD_WINDOW = 4
 UPLOAD_EDGE_TOKENS = (
     "early-persist",
     "early persist",
@@ -28,6 +30,15 @@ UPLOAD_EDGE_TOKENS = (
     "resumable",
     "session_expired",
     "session hold",
+)
+# Runs 350-353 each added an export, media, or caption probe while videos
+# published stayed 0. Do not match the bare "do not add another" lock unless
+# the delta also names the tool that was wired.
+PREUPLOAD_TOKENS = (
+    "caption_gate",
+    "media_qa",
+    "export_probe",
+    "export probe",
 )
 LOCAL_GATE_TOKENS = (
     "quality_scan",
@@ -150,6 +161,23 @@ def flag_text(text: str, window: int = WINDOW) -> list[str]:
                 f"last_{UPLOAD_EDGE_WINDOW}_runs: oauth_unpolled_and_upload_edge",
                 "do_not: add another resumable Location, session hold, or early-persist call while this flag is set",
                 "next: wait for the three YouTube secrets, or fix a production tool that is not the uploader",
+            ])
+    # Runs 350-353 each wired a pre-upload probe while videos published stayed 0.
+    # That is the credential stall, not a missing checker.
+    probe_deltas = run_deltas(text)[:PREUPLOAD_WINDOW]
+    if _oauth_stall(probe_deltas) and len(probe_deltas) >= PREUPLOAD_WINDOW:
+        probe = True
+        for delta in probe_deltas:
+            lowered = delta.lower()
+            if not any(token in lowered for token in PREUPLOAD_TOKENS):
+                probe = False
+                break
+        if probe:
+            flags.extend([
+                PREUPLOAD_FLAG,
+                f"last_{PREUPLOAD_WINDOW}_runs: oauth_unpolled_and_preupload_probe",
+                "do_not: add another export probe, media checker, or caption cue gate while this flag is set",
+                "next: wait for the three YouTube secrets; do not wire another pre-upload checker",
             ])
     return flags
 

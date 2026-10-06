@@ -10,7 +10,7 @@ TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
-from stall_watch import FLAG, IDLE_FLAG, INSTRUCTION_FLAG, LOCAL_GATE_FLAG, UPLOAD_EDGE_FLAG, flag_text  # noqa: E402
+from stall_watch import FLAG, IDLE_FLAG, INSTRUCTION_FLAG, LOCAL_GATE_FLAG, PREUPLOAD_FLAG, UPLOAD_EDGE_FLAG, flag_text  # noqa: E402
 
 
 def delta(body: str) -> str:
@@ -88,6 +88,22 @@ def main() -> int:
         return fail("a non-edge newest delta must clear the upload-edge flag")
     if flag_text(delta("OAuth secrets were not polled. Videos published stay 0. topic switch.") * 3):
         return fail("three idle deltas must stay clear")
+    probe = delta(
+        "OAuth secrets were not polled. Videos published stay 0. tools/export_probe.py wired. No provider write."
+    ) * 4
+    flags = flag_text(probe)
+    if PREUPLOAD_FLAG not in flags:
+        return fail(f"preupload probe window missing: {flags}")
+    short_probe = delta(
+        "OAuth secrets were not polled. Videos published stay 0. tools/caption_gate.py wired. No provider write."
+    ) * 3
+    if PREUPLOAD_FLAG in flag_text(short_probe):
+        return fail("three preupload deltas must not set the flag")
+    cleared = delta(
+        "OAuth secrets were not polled. Videos published stay 0. Fixed assemble only. No provider write."
+    ) + probe
+    if PREUPLOAD_FLAG in flag_text(cleared):
+        return fail("a non-probe newest delta must clear the preupload flag")
     print("STALL WATCH CONTRACT PASS")
     return 0
 

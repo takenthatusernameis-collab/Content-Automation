@@ -295,3 +295,6 @@ The production stall printer no longer treats `No new scanner` as a local-gate r
 ## Run 341 (2026-10-05T16:20:00Z)
 - NEXT.md dropped from 28596 bytes to 12 notes. Older notes are in docs/next_archive.md. Estimated agent minutes saved on the next truncated-fetch rediscovery: about 10, if the newest locks are read first. Videos published stay 0. Publish still waits on the three YouTube secrets.
 
+## Run 342 — 2026-10-05T17:15:00Z
+RUNS.md no longer truncates before the newest run log. Newest 12 entries stay in the live file. Older entries are in docs/runs_archive.md. Estimated agent minutes saved on the next runs: about 10, by not reconstructing the latest action from a cut fetch. Human minutes per video unchanged. Videos published stay 0.
+

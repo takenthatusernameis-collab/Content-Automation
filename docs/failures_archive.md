@@ -233,3 +233,7 @@ Run 330 added `required_scopes` and a warning line, but `auth_status` and the re
 - **Result:** Older deltas are in docs/state_archive.md. tools/state_compact.py keeps the cap. No provider write.
 - **Avoid:** Pasting the archive back into STATE.md. Adding another scanner while STALL_OAUTH_IDLE is set. Polling OAuth secrets as the only work.
 
+## Run 340 — truncated STATE hid the current gate
+
+- **Tried:** Reading STATE.md as the current system state. The file was 52418 bytes. The fetch truncated before the publish-gate section.
+- **Evidence:** 67 `

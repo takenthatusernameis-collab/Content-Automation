@@ -754,3 +754,12 @@ Older run log entries. Newest first inside each move. Do not paste these back in
 - Discovery: STATE.md was 52418 bytes and 67 run sections. The agent fetch truncated it before the publish-gate section.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Do not paste the archive back into STATE.md. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
+## Run 342 — 2026-10-05T17:15:00Z
+- Objective: Stop RUNS.md from truncating before the newest run log on the next agent fetch.
+- Action: Moved entries older than the newest 12 from RUNS.md to docs/runs_archive.md. Added tools/runs_compact.py and a contract. Selftest runs the contract. Did not poll secrets. Did not add a scanner. Did not scaffold Q2.
+- Result: RUNS.md keeps 12 entries plus the permanent footer. Archive holds the older entries, including Run 270. Videos published stay 0.
+- Verification: runs_compact_contract printed RUNS COMPACT CONTRACT PASS. python3 tools/selftest.py printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: RUNS.md was 108696 bytes and 71 entries. The agent fetch cut the newest section before the recommended next action.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Do not paste the archive back into RUNS.md. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

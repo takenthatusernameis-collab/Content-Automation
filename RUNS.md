@@ -2,6 +2,15 @@
 
 Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools/runs_compact.py` moves extras. It does not delete history.
 
+## Run 354 — 2026-10-06T03:20:00Z
+- Objective: Stop the next run from adding another pre-upload checker while videos published stay 0.
+- Action: `tools/stall_watch.py` now prints `STALL_PREUPLOAD_PROBE` when the newest four OAuth-idle deltas each name `export_probe`, `media_qa`, or `caption_gate`. The flag does not fail the job. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add an upload-edge persist call. Did not add an export-probe lock. Did not add another media checker. Did not add another caption cue gate.
+- Result: Contract passed. Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. `python3 tools/stall_watch.py` printed `STALL_PREUPLOAD_PROBE`. `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: Runs 350-353 each wired a probe that already existed or a cue check, and none published a video. The same shape already stopped the upload-edge loop. The unpublished video is still the missing OAuth secrets.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: pre-upload probe patches have not published a video. Do not add another one.
+- Next: Do not install the r249 master. Do not add another Location, session hold, or early-persist call. Do not add another export-probe lock. Do not add another media checker. Do not add another caption cue gate. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 353 — 2026-10-06T02:20:00Z
 - Objective: Stop a bad captions.srt from reaching captions.insert after media QA.
 - Action: Production workflow now runs `tools/caption_gate.py` after media QA and before the export probe. A present empty, overlapping, reversed, overlong, or past-wav cue fails the job. A missing srt fails only when execute=true. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add an upload-edge persist call. Did not add an export-probe lock. Did not add another media checker.
@@ -100,15 +109,6 @@ Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools
 - Discovery: PROGRESS.md was 27269 bytes and FAILURES.md was 30708 bytes. NEXT.md truncated near 28KB, so both were already past the known fetch cut.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Do not paste the archives back. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 342 — 2026-10-05T17:15:00Z
-- Objective: Stop RUNS.md from truncating before the newest run log on the next agent fetch.
-- Action: Moved entries older than the newest 12 from RUNS.md to docs/runs_archive.md. Added tools/runs_compact.py and a contract. Selftest runs the contract. Did not poll secrets. Did not add a scanner. Did not scaffold Q2.
-- Result: RUNS.md keeps 12 entries plus the permanent footer. Archive holds the older entries, including Run 270. Videos published stay 0.
-- Verification: runs_compact_contract printed RUNS COMPACT CONTRACT PASS. python3 tools/selftest.py printed SELFTEST PASS. Actions not re-run. No provider write.
-- Discovery: RUNS.md was 108696 bytes and 71 entries. The agent fetch cut the newest section before the recommended next action.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Do not paste the archive back into RUNS.md. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 Earlier runs through Run 269 remain in git at `9416aae2c482ca08fd55642e0fff94568482ee51` (`RUNS.md` blob `243e47753b76bbd636a59dddb00e8c1c6f2e90c1`) and before that at `65cca063`.

@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 354 — 2026-10-06T03:20:00Z
+- Failed approach not retried: another export-probe lock, media checker, or caption cue gate while videos published stay 0.
+- Lesson: Runs 350-353 each wired a pre-upload checker and published nothing. `STALL_PREUPLOAD_PROBE` is the stop. The unpublished video is the missing OAuth secrets.
+
 ## Run 353 — 2026-10-06T02:20:00Z
 - Failed approach not retried: another export-probe lock or another media checker while videos published stay 0.
 - Lesson: media QA and the export probe never read captions.srt. Wire the cue check. Do not invent a second media checker.
@@ -79,7 +83,3 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 - **Result:** tools/runs_compact.py keeps the cap. No provider write.
 - **Avoid:** Pasting the archive back into RUNS.md. Adding another scanner while STALL_OAUTH_IDLE is set. Polling OAuth secrets as the only work.
 
-## Run 340 — truncated STATE hid the current gate
-
-- **Tried:** Reading STATE.md as the current system state. The file was 52418 bytes. The fetch truncated before the publish-gate section.
-- **Evidence:** 67 `

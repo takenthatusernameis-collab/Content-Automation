@@ -1,5 +1,16 @@
 # STATE
 
+Updated: 2026-10-06T03:20:00Z (Run 354)
+
+## Run 354 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. Do not add another upload-edge persist call. Do not add another export-probe lock. Do not add another media checker. Do not add another caption cue gate.
+- Runs 350-353 each wired a pre-upload checker (`tools/export_probe.py`, `tools/media_qa.py`, `tools/caption_gate.py`) while videos published stayed 0. `tools/stall_watch.py` now prints `STALL_PREUPLOAD_PROBE` after four such deltas. The flag does not fail the job. It does not call YouTube. Do not wire another export probe, media checker, or caption cue gate while it is set.
+- `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
 Updated: 2026-10-06T02:20:00Z (Run 353)
 
 ## Run 353 delta
@@ -123,15 +134,4 @@ Updated: 2026-10-05T17:25:00Z (Run 343)
 # STATE
 
 Updated: 2026-10-05T17:15:00Z (Run 342)
-
-## Run 342 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
-- RUNS.md was 108696 bytes and 71 entries. A fetch truncated it before the newest recommended next action. Newest 12 entries stay in RUNS.md. Older entries moved to `docs/runs_archive.md`. `tools/runs_compact.py` moves extras. It does not delete history.
-- `python3 tools/runs_compact_contract.py` printed RUNS COMPACT CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
-
-# STATE
-
-Updated: 2026-10-05T16:20:00Z (Run 341)
 

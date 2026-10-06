@@ -2558,6 +2558,16 @@ def check_stall_watch() -> list[str]:
         failures.append("stall_watch must flag three OAuth-and-studio deltas")
     if stall_watch.flag_text("## Run 1 delta\n- fixed assemble\n"):
         failures.append("stall_watch must stay quiet without the repeated pattern")
+    probe = ""
+    for n in (4, 3, 2, 1):
+        probe += (
+            f"## Run {n} delta\n"
+            "- OAuth secrets were not polled\n"
+            "tools/export_probe.py wired\n"
+            "Videos published stay 0.\n\n"
+        )
+    if "STALL_PREUPLOAD_PROBE" not in stall_watch.flag_text(probe):
+        failures.append("stall_watch must flag four OAuth-idle preupload probe deltas")
     return failures
 
 if __name__ == "__main__":

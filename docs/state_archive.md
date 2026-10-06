@@ -579,3 +579,14 @@ Updated: 2026-10-05T12:30:00Z (Run 338)
 - STATE.md had 67 run deltas and 52418 bytes. A fetch of this file truncated before the publish-gate section. Newest 12 deltas stay here. Older deltas moved to `docs/state_archive.md`. `tools/state_compact.py` moves extras there and keeps 12. It does not refuse the file.
 - `python3 tools/state_compact_contract.py` printed STATE COMPACT CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
 
+## Run 342 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
+- RUNS.md was 108696 bytes and 71 entries. A fetch truncated it before the newest recommended next action. Newest 12 entries stay in RUNS.md. Older entries moved to `docs/runs_archive.md`. `tools/runs_compact.py` moves extras. It does not delete history.
+- `python3 tools/runs_compact_contract.py` printed RUNS COMPACT CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
+Updated: 2026-10-05T16:20:00Z (Run 341)
+

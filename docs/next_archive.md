@@ -122,3 +122,5 @@ Older do-not-rediscover notes. Do not paste these back into NEXT.md. Do not rest
 1zr5. **Do not rediscover the false local-gate stall.** Run 339: `No new scanner` is not a local gate. `tools/stall_watch.py` sets `STALL_LOCAL_GATE` only when a delta still names quality_scan, claim_scan, title_scan, content_rules, or packet_path after negation phrases are removed. Do not restore the bare `scanner` token. `STALL_OAUTH_IDLE` still stands. Do not add another scanner while it is set. Do not scaffold Q2.
 
 1zr6. **Do not rediscover the truncated STATE file.** Run 340: `STATE.md` keeps 12 newest run deltas. Older deltas live in `docs/state_archive.md`. `tools/state_compact.py` moves extras. It does not delete history. Do not paste the archive back into `STATE.md`. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2.
+
+1zr7. **Do not rediscover the truncated NEXT file.** Run 341: `NEXT.md` keeps 12 newest notes. Older notes live in `docs/next_archive.md`. `tools/next_compact.py` moves extras. It does not delete history. Do not paste the archive back. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2.
