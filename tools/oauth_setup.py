@@ -49,7 +49,7 @@ The publish gate is still these three GitHub Actions secrets:
 6. Exchange the consent code locally. Do not paste the code or the refresh token into the repository, STATE.md, or a workflow log.
      python3 tools/oauth_exchange.py
      python3 tools/oauth_exchange.py --exchange --out /tmp/youtube-refresh-token
-   The first command prints a consent URL when YOUTUBE_CLIENT_ID is set and does not print that id by itself on failure. The second reads the code on stdin and writes the refresh token only outside this repo.
+   The first command prints a consent URL when YOUTUBE_CLIENT_ID is set and does not print that id by itself on failure. The browser will not load http://localhost. Paste the full address-bar URL on stdin. The second reads that URL or a raw code and writes the refresh token only outside this repo.
 7. Store the three values as Actions secrets by pasting into the prompt, not into the command line:
      gh secret set {SECRET_NAMES[0]} --repo {REPO}
      gh secret set {SECRET_NAMES[1]} --repo {REPO}

@@ -14,7 +14,7 @@ Q1 is already scaffolded. Status stays `ready_for_vo` because the wav is gitigno
 - Packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - Fetch: `docs/gate_machine.md` and `HANDOFF.md` (wav/cards from r249 only; master from r253 only)
 - Remaining human step is credential entry, not copy review. `publish.md` Description edited and First comment approved are already checked. Do not re-open them. Do not delete a missing stub sentence and do not restore `No upload happened`. Leave No YouTube upload checked.
-- YouTube OAuth (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`) is the credential gate. Run `python3 tools/oauth_setup.py` for the non-secret setup recipe. Dry-run READY is not an upload.
+- YouTube OAuth (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`) is the credential gate. Run `python3 tools/oauth_setup.py` for the non-secret setup recipe. Then `python3 tools/oauth_exchange.py`. The browser will not load localhost. Paste the full address-bar URL into `python3 tools/oauth_exchange.py --exchange --out /tmp/youtube-refresh-token`. Dry-run READY is not an upload.
 - Keep `vo_origin.md` kind=generated. Do not `git add -f` media. Do not scaffold Q2.
 
 Do not start this session at `doctor.py` / `queue_status.py` / `new_packet.py`. Those commands are for a *new* packet. Do not record or synthesize another take while HANDOFF checksums match.

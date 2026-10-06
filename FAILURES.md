@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 359 — 2026-10-06T08:11:00Z
+- Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Polling secrets was not the run.
+- Lesson: a pasted localhost redirect is the normal Desktop consent result. Extract the code. Do not print it. Do not treat a raw-code-only exchange as finished.
+
 ## Run 358 — 2026-10-06T07:15:00Z
 - Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Polling secrets was not the run.
 - Lesson: the remaining human step was an unscripted token exchange. Script the exchange and refuse a repo path. Do not print the token.
@@ -54,15 +58,5 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 - Why: `always()` does not run when the job itself is cancelled. The next execute could POST videos.insert again.
 - Do not: wait for the later persist step to be the only commit of an open Location. Do not print the URI.
 
-
-
-## Run 346 — dead-session hold had no recovery
-- **Tried:** Leaving `session_expired_hold` as a permanent execute refusal after Run 345.
-- **Evidence:** `execute_upload` raises `RESUMABLE_SESSION_EXPIRED` when the hold is set and there is no video id. No tool cleared it. Selftest now refuses a release without `no_video_in_studio`, with a video id, or with a remaining Location.
-- **Result:** Release is local and committed. Production workflow has no release input. No provider write.
-- **Avoid:** Passing `--release-session-expired-hold` from Actions. Releasing without the Studio token. Adding another scanner while `STALL_OAUTH_IDLE` is set. Polling OAuth secrets as the only work.
-
-
-Updated: 2026-10-05T18:20:00Z
 
 

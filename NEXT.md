@@ -1,6 +1,6 @@
 # NEXT
 
-Updated: 2026-10-06T07:15:00Z (Run 358)
+Updated: 2026-10-06T08:11:00Z (Run 359)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not prepend a second `# STATE` header; add a `## Run N delta` under the existing header. Do not prepend a second `# FAILURES` or `# PROGRESS` header. Do not finish a STATE bullet with the header token the state contract counts. `tools/state_compact.py` collapses a stacked header if one is prepended anyway.
 
@@ -9,6 +9,8 @@ Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaff
 .
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr23. **Do not rediscover a raw-code-only token exchange.** Run 359: `tools/oauth_exchange.py` accepts the full localhost redirect URL or a raw code. It does not print the code. The refresh token is still written only outside the repo. Do not commit that file. Do not add another export probe, media checker, or caption cue gate. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr22. **Do not rediscover an unscripted token exchange.** Run 358: `tools/oauth_exchange.py` builds the consent URL and writes a refresh token only outside the repo. Do not commit that file. Do not print the token. Do not add another export probe, media checker, or caption cue gate. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
@@ -31,5 +33,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zr13. **Do not rediscover the post-step-only Location commit.** Run 347: an https Location is committed from the uploader before the first chunk when `UPLOAD_EARLY_PERSIST=1`. The production execute step sets that env. A killed execute must not start another videos.insert if that commit landed. The later persist step still runs. Do not print the URI. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
 
 1zr12. **Do not rediscover a permanent dead-session brick.** Run 346: `session_expired_hold` still blocks insert. It clears only via `youtube_upload.py --release-session-expired-hold --studio-checked no_video_in_studio` after Studio shows no video. Any other token refuses. A video id or a remaining https Location refuses. Persist commits `commit_session_hold_released`. The workflow has no such input. Do not add a YouTubeAPIError reason for this. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
-
-1zr11. **Do not rediscover the dead resumable Location.** Run 345: a saved https Location is probed before a chunk. 404 or 410 drops the URI, sets `session_expired_hold`, and commits `commit_session_expired_hold`. The next execute raises `RESUMABLE_SESSION_EXPIRED` and does not POST videos.insert. Do not add a new reason for this. Do not print the URI. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.

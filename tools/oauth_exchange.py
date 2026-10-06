@@ -51,6 +51,28 @@ def outside_repo(path: Path) -> bool:
     return False
 
 
+def extract_code(raw: str) -> str:
+    """Accept a raw auth code or the localhost redirect URL. Never print it.
+
+    Desktop consent leaves the browser on a failed localhost load. The code is
+    in the address bar. A human pastes that whole URL. Do not require them to
+    cut the code parameter out by hand.
+    """
+    text = raw.strip().strip('"').strip("'")
+    if not text:
+        raise ValueError("CODE_MISSING")
+    if "code=" in text or text.startswith("http://") or text.startswith("https://"):
+        parsed = urllib.parse.urlparse(text if "://" in text else "http://localhost/?" + text.lstrip("?"))
+        query = urllib.parse.parse_qs(parsed.query)
+        if query.get("error") and not query.get("code"):
+            raise ValueError("CONSENT_DENIED")
+        values = query.get("code") or []
+        text = values[0].strip() if values else ""
+    if not text or any(ch.isspace() for ch in text) or "://" in text:
+        raise ValueError("CODE_MISSING")
+    return text
+
+
 def exchange(client_id: str, client_secret: str, code: str) -> str:
     body = urllib.parse.urlencode(
         {
@@ -94,11 +116,8 @@ def main() -> int:
         if not client_id.strip() or not client_secret.strip():
             print("REFUSE: set YOUTUBE_CLIENT_ID and YOUTUBE_CLIENT_SECRET in the environment. Values are not printed.", file=sys.stderr)
             return 3
-        code = sys.stdin.read()
-        if not code.strip():
-            print("REFUSE: pass the auth code on stdin, not as an argument.", file=sys.stderr)
-            return 3
         try:
+            code = extract_code(sys.stdin.read())
             token = exchange(client_id, client_secret, code)
             write_token(Path(args.out), token)
         except ValueError as exc:
@@ -118,7 +137,7 @@ def main() -> int:
         return 3
     sys.stdout.write(url + "\n")
     print("SCOPES " + ",".join(SCOPES))
-    print("Redirect URI is http://localhost. Register that URI on the Desktop client. Do not commit the code.")
+    print("Redirect URI is http://localhost. The browser will not load that page. Paste the full address-bar URL on stdin. Do not commit the code.")
     return 0
 
 

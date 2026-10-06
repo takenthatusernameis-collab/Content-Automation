@@ -2,6 +2,9 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 359 — 2026-10-06T08:11:00Z
+The local OAuth exchange accepts the full localhost redirect URL, so the human does not cut the code out of the address bar. Estimated human minutes saved on the first credential setup: about 10, plus one avoided failed token POST. Human minutes per video otherwise unchanged. Videos published stay 0.
+
 ## Run 358 — 2026-10-06T07:15:00Z
 Local OAuth exchange writes the refresh token only outside the repo and requests the caption and analytics scopes. Estimated human minutes saved on the first credential setup: about 15, plus one avoided private video if the token had been upload-only. Human minutes per video otherwise unchanged. Videos published stay 0.
 
@@ -55,12 +58,6 @@ Log compact now collapses stacked file headers. FAILURES.md and PROGRESS.md each
 ## Run 348 — 2026-10-05T22:15:00Z
 - Early persist of the provider video id before caption wait, and of dead-session holds before the step returns. Estimated save: one Studio check and one blocked re-execute if the job dies after videos.insert returns an id. Human minutes per video unchanged. Videos published stay 0.
 - Automated step added: same UPLOAD_EARLY_PERSIST=1 path now covers the id and the holds. Remaining manual gate: YouTube OAuth secrets and Studio check before any session-hold release.
-
-
-
-## Run 347 — 2026-10-05T21:15:00Z
-- Early persist of an open resumable Location before the first chunk. Estimated save: one duplicate videos.insert if the runner dies after the session POST. Human minutes per video unchanged. Videos published stay 0.
-- Automated step added: production execute sets UPLOAD_EARLY_PERSIST=1. Remaining manual gate: YouTube OAuth secrets and Studio check before any session-hold release.
 
 
 

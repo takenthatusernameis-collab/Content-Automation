@@ -43,6 +43,20 @@ def main() -> int:
             return fail(f"unexpected refuse {exc}")
     else:
         return fail("write_token accepted a repo path")
+    pasted = oauth_exchange.extract_code(
+        "http://localhost/?code=4/0Aea-sample&scope=https://www.googleapis.com/auth/youtube.upload"
+    )
+    if pasted != "4/0Aea-sample":
+        return fail("redirect URL must yield the code parameter")
+    if oauth_exchange.extract_code("raw-code") != "raw-code":
+        return fail("raw code must pass through")
+    try:
+        oauth_exchange.extract_code("http://localhost/?error=access_denied")
+    except ValueError as exc:
+        if str(exc) != "CONSENT_DENIED":
+            return fail(f"unexpected consent refuse {exc}")
+    else:
+        return fail("denied redirect must be refused")
     print("OAUTH EXCHANGE CONTRACT PASS")
     return 0
 

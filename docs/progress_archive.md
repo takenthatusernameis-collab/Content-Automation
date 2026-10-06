@@ -319,3 +319,9 @@ A dead resumable Location is no longer reused as an open session. 404 or 410 com
 Updated: 2026-10-05T19:20:00Z
 
 
+## Run 347 — 2026-10-05T21:15:00Z
+- Early persist of an open resumable Location before the first chunk. Estimated save: one duplicate videos.insert if the runner dies after the session POST. Human minutes per video unchanged. Videos published stay 0.
+- Automated step added: production execute sets UPLOAD_EARLY_PERSIST=1. Remaining manual gate: YouTube OAuth secrets and Studio check before any session-hold release.
+
+
+

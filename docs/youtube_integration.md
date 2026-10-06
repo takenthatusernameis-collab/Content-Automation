@@ -33,7 +33,7 @@ The final manual bottleneck is provider authorization material, stored outside G
 - optional `YOUTUBE_API_KEY` for public-read/quota diagnostics
 - optional `YOUTUBE_CHANNEL_ID` as a non-secret routing value
 
-Never commit any of these values. The non-secret setup order is `python3 tools/oauth_setup.py`. The local exchange is `python3 tools/oauth_exchange.py`. It writes a refresh token only outside the repo and does not call GitHub. It prints secret names and scopes only. Do not put them in `publish.md`, `STATE.md`, logs, test fixtures, or workflow output.
+Never commit any of these values. The non-secret setup order is `python3 tools/oauth_setup.py`. The local exchange is `python3 tools/oauth_exchange.py`. It writes a refresh token only outside the repo and does not call GitHub. It accepts a raw code or the full `http://localhost` redirect URL and does not print the code. It prints secret names and scopes only. Do not put them in `publish.md`, `STATE.md`, logs, test fixtures, or workflow output.
 
 For uploads, an OAuth 2.0 authorization token is required; an API key by itself is not sufficient for `videos.insert`. Use the minimum upload scope needed by the implementation.
 

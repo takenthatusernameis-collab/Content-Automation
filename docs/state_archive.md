@@ -622,3 +622,10 @@ Updated: 2026-10-05T17:15:00Z (Run 342)
 - A committed `session_expired_hold` used to be permanent. The next execute raises `RESUMABLE_SESSION_EXPIRED` and does not insert, which is correct until Studio is checked. `apply_session_hold_release` clears that hold only when `studio_checked` is `no_video_in_studio`, no video id exists, and no https Location remains. Persist commits `commit_session_hold_released`. The production workflow has no release input.
 - `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
 
+## Run 347 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
+- An open Location was committed only after the execute step returned. A killed step never reached that persist, so the next execute could POST another videos.insert. `remember_session` now calls `early_persist_file` when `UPLOAD_EARLY_PERSIST=1`. The production execute step sets that env. The plan does not contain the URI. A git failure does not raise into the upload. The later persist step still runs.
+- `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+

@@ -262,3 +262,13 @@ Run 330 added `required_scopes` and a warning line, but `auth_status` and the re
 - **Result:** Probe a saved Location. 404 or 410 sets `session_expired_hold`, drops the URI, and commits that hold. No new YouTubeAPIError reason. No provider write.
 - **Do not retry:** Do not treat `RESUMABLE_SESSION_EXPIRED` with `session_expired_hold` as skip_transient. Do not POST videos.insert to replace a dead Location automatically.
 
+## Run 346 — dead-session hold had no recovery
+- **Tried:** Leaving `session_expired_hold` as a permanent execute refusal after Run 345.
+- **Evidence:** `execute_upload` raises `RESUMABLE_SESSION_EXPIRED` when the hold is set and there is no video id. No tool cleared it. Selftest now refuses a release without `no_video_in_studio`, with a video id, or with a remaining Location.
+- **Result:** Release is local and committed. Production workflow has no release input. No provider write.
+- **Avoid:** Passing `--release-session-expired-hold` from Actions. Releasing without the Studio token. Adding another scanner while `STALL_OAUTH_IDLE` is set. Polling OAuth secrets as the only work.
+
+
+Updated: 2026-10-05T18:20:00Z
+
+

@@ -1,6 +1,12 @@
 # STATE
 
-Updated: 2026-10-06T07:15:00Z (Run 358)
+Updated: 2026-10-06T08:11:00Z (Run 359)
+
+## Run 359 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `STALL_PREUPLOAD_PROBE` still stands. `playlist_id` remains `not_set`. Do not add another export probe, media checker, or caption cue gate.
+- `tools/oauth_exchange.py` accepts a raw auth code or the full localhost redirect URL and still writes the refresh token only outside the repo. It does not print the code. This does not call YouTube.
 
 ## Run 358 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -75,12 +81,5 @@ Updated: 2026-10-06T07:15:00Z (Run 358)
 - No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
 - Run 347 pushed an open Location before the first chunk. A job kill during caption wait still happened after the video id existed and before the later persist step, so the next execute could see only the Location. If that Location then 404'd, the hold could hide a video that already existed. The uploader now early-persists the provider video id before caption wait, and early-persists a 404/410 hold and a completed-without-id hold before the step returns. The URI is not printed. The later persist step still runs.
-- `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
-
-## Run 347 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
-- An open Location was committed only after the execute step returned. A killed step never reached that persist, so the next execute could POST another videos.insert. `remember_session` now calls `early_persist_file` when `UPLOAD_EARLY_PERSIST=1`. The production execute step sets that env. The plan does not contain the URI. A git failure does not raise into the upload. The later persist step still runs.
 - `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
 
