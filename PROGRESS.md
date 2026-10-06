@@ -2,6 +2,11 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 368 — 2026-10-06T18:12:00Z
+- Improvement: a failed playlist insert no longer fails the production job. Estimated save: one extra execute dispatch after the first private insert, which could start another videos.insert, about 15 human minutes plus a duplicate private video.
+- Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
+- Verification: selftest PASS. No provider write. Videos published stay 0.
+
 ## Run 367 — 2026-10-06T17:11:00Z
 - Improvement: the first Studio end-screen note no longer asks for a playlist element while playlist_id is not_set. Estimated save: one failed end-screen setup after the first private insert, about 5 human minutes.
 - Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
@@ -38,9 +43,4 @@ Local OAuth exchange writes the refresh token only outside the repo and requests
 
 ## Run 357 — 2026-10-06T06:20:00Z
 Log compact now collapses stacked file headers. FAILURES.md and PROGRESS.md each show one header and 12 sections. Estimated effect: a truncated fetch no longer hides the newest lesson behind a second file header. Human minutes per video unchanged. Videos published stay 0.
-
-## Run 356 — 2026-10-06T05:11:00Z
-- Improvement: the current-gate file is one header again. A truncated fetch no longer lands on a second `# STATE` that looks like a new file, and compact can no longer cut a delta in half by treating the next header as part of the previous section.
-- Efficiency: estimated human minutes per video unchanged. Saves a future agent from reconstructing which delta is current. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
-- Verification: state compact contract PASS. Videos published stay 0.
 

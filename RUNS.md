@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 368 — 2026-10-06T18:12:00Z
+- Objective: Stop a failed playlist insert from painting the job red after videos.insert.
+- Action: The playlist membership step treats exit 2 as `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exits 0. Selftest requires that marker. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not dispatch the workflow.
+- Result: Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: Run 367 said a failed playlistItems.insert is not an upload failure, but the step still returned that exit code. A red job is the signal that invites a second execute.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
+- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 367 — 2026-10-06T17:11:00Z
 - Objective: Stop the first Studio pass from asking for a playlist end-screen element while playlist_id is not_set.
 - Action: `tools/studio_handoff.py` names a video element (best for viewer) until a playlist id is set. A set id still names a playlist element. The workflow comment no longer says a failed playlistItems.insert prevents videos.insert. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not dispatch the workflow.
@@ -98,14 +107,3 @@
 - Discovery: Run 356 collapsed STATE headers only. FAILURES and PROGRESS still had stacked headers.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Do not prepend a second file header. Do not add another probe. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 356 — 2026-10-06T05:11:00Z
-- Objective: Stop stacked STATE headers from hiding or truncating the current gate.
-- Action: `state_compact.py` now keeps one preamble and strips later `# STATE` headers before the size cap. Collapsed the live file from 13 headers to 1. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload probe.
-- Result: Contract passed. Videos published stay 0. No live execute.
-- Verification: `python3 tools/state_compact_contract.py` printed STATE COMPACT CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
-- Discovery: Each run prepended a full `# STATE` file. Compact counted `## Run` only, so the Run 343 body was already cut and a dangling header remained.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Do not prepend a second `# STATE` header. Do not add another export probe, media checker, or caption cue gate. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools/runs_compact.py` moves extras. It does not delete history.

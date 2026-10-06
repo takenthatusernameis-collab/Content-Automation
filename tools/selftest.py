@@ -2443,6 +2443,8 @@ def check_job_timeout_covers_upload() -> list[str]:
             failures.append("studio pin file must keep the not_set end-screen element note")
     if "does not start videos.insert" in workflow and "failed playlistItems.insert exits 2 and does not start" in workflow:
         failures.append("playlist step comment must not say a failed insert prevents videos.insert")
+    if "PLAYLIST_INSERT_NOT_UPLOAD_FAILURE" not in workflow:
+        failures.append("playlist step must not fail the job when playlistItems.insert exits 2")
     if "studio.youtube.com" in empty:
         failures.append("studio handoff must not invent an end-screen URL")
     if "inputs.packet" not in workflow or "videos/002-stop-deciding-what-to-work-on-every-morning" not in workflow:

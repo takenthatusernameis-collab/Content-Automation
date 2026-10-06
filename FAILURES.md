@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 368 — 2026-10-06T18:12:00Z
+- Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0. Execute was not dispatched.
+- Lesson: a workflow comment that says exit 2 is not an upload failure does not change the job result. The step must exit 0 after printing `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE`. Do not poll secrets.
+
 ## Run 367 — 2026-10-06T17:11:00Z
 - Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0. A playlist end-screen element was not requested.
 - Lesson: playlist_id not_set must not become a Studio instruction to add a playlist element. Ask for one video element (best for viewer). A failed playlistItems.insert does not mean videos.insert did not run. Do not poll secrets.
@@ -45,8 +49,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 357 — 2026-10-06T06:20:00Z
 - Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set.
 - Lesson: a second `# FAILURES` or `# PROGRESS` header is the same cut-fetch bug as a second STATE header. Collapse it in log compact. Do not finish a STATE bullet with the header token the contract counts.
-
-## Run 356 — 2026-10-06T05:11:00Z
-- Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set.
-- Lesson: prepending a whole `# STATE` file looked like a log update and left a dangling header. Compact must collapse headers. Do not treat a second header as a new gate.
 

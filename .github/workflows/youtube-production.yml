@@ -183,8 +183,18 @@ jobs:
           # This step runs after videos.insert. not_set does not invent a playlist id and does not fail the job.
           # A missing video id does not start videos.insert.
           # A failed playlistItems.insert exits 2. That is not an upload failure. Do not dispatch execute again to retry it.
+          # Exit 2 must not fail this step. A red job after videos.insert looks like an upload failure.
           if [ -f "$PACKET/upload_state.json" ]; then
+            set +e
             python3 tools/playlist_membership.py "$PACKET" --execute --write
+            status=$?
+            set -e
+            if [ "$status" -eq 2 ]; then
+              echo "PLAYLIST_INSERT_NOT_UPLOAD_FAILURE"
+              echo "playlistItems.insert failed. Do not dispatch execute again to retry it."
+              exit 0
+            fi
+            exit "$status"
           else
             echo "PLAYLIST_MEMBERSHIP"
             echo "status: no_upload_state"

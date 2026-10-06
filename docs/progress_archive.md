@@ -358,3 +358,8 @@ Updated: 2026-10-05T19:20:00Z
 - Estimated human minutes saved on the first upload: about 5 (description and pin edit in Studio after insert). The strip also covers a future packet that still has the old stub sentence.
 - Automated steps unchanged. Remaining manual step is still the three YouTube secrets. Videos published stay 0.
 
+## Run 356 — 2026-10-06T05:11:00Z
+- Improvement: the current-gate file is one header again. A truncated fetch no longer lands on a second `# STATE` that looks like a new file, and compact can no longer cut a delta in half by treating the next header as part of the previous section.
+- Efficiency: estimated human minutes per video unchanged. Saves a future agent from reconstructing which delta is current. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
+- Verification: state compact contract PASS. Videos published stay 0.
+

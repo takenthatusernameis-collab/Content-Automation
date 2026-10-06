@@ -1,6 +1,12 @@
 # STATE
 
-Updated: 2026-10-06T17:11:00Z (Run 367)
+Updated: 2026-10-06T18:12:00Z (Run 368)
+
+## Run 368 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- The playlist membership step no longer fails the job when `playlist_membership.py` exits 2. It prints `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exits 0. A red job after `videos.insert` is not a reason to dispatch execute again. This does not call YouTube.
 
 ## Run 367 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -70,10 +76,4 @@ Updated: 2026-10-06T17:11:00Z (Run 367)
 - No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
 - `STALL_OAUTH_IDLE` still stands. `STALL_PREUPLOAD_PROBE` still stands. `playlist_id` remains `not_set`. Do not add another export probe, media checker, or caption cue gate.
 - `tools/log_compact.py` now drops a later `# FAILURES`, `# PROGRESS`, or `# LOG` header and a repeated archive pointer before the size cap. Live FAILURES.md and PROGRESS.md each keep one header and 12 sections. The Run 356 STATE bullet that ended on a dangling backtick is finished. This does not call YouTube.
-
-## Run 356 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
-- `STALL_OAUTH_IDLE` still stands. `STALL_PREUPLOAD_PROBE` still stands. `playlist_id` remains `not_set`. Do not add another export probe, media checker, or caption cue gate.
-- STATE.md had 13 stacked file headers. Compact collapsed them to one. The fetch cut this bullet mid-line. Do not treat a dangling backtick as a new gate.
 
