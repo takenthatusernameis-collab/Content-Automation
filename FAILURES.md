@@ -2,6 +2,12 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 356 — 2026-10-06T05:11:00Z
+- Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set.
+- Lesson: prepending a whole `# STATE` file looked like a log update and left a dangling header. Compact must collapse headers. Do not treat a second header as a new gate.
+
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
 ## Run 355 — 2026-10-06T04:15:00Z
 - Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set.
 - Lesson: approved boxes were checked on copy that still told viewers the chapters were a draft and the pin was not posted. Strip those notes in `parse_publish`. Do not treat a checked box as proof the section is viewer-facing.

@@ -2,6 +2,13 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 356 — 2026-10-06T05:11:00Z
+- Improvement: the current-gate file is one header again. A truncated fetch no longer lands on a second `# STATE` that looks like a new file, and compact can no longer cut a delta in half by treating the next header as part of the previous section.
+- Efficiency: estimated human minutes per video unchanged. Saves a future agent from reconstructing which delta is current. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
+- Verification: state compact contract PASS. Videos published stay 0.
+
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
 ## Run 355 — 2026-10-06T04:15:00Z
 - Viewer-facing upload copy no longer includes the chapter-draft label or the draft-pin sentence.
 - Estimated human minutes saved on the first upload: about 5 (description and pin edit in Studio after insert). The strip also covers a future packet that still has the old stub sentence.

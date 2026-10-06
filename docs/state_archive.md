@@ -601,3 +601,10 @@ Updated: 2026-10-05T16:20:00Z (Run 341)
 
 Updated: 2026-10-05T17:15:00Z (Run 342)
 
+## Run 344 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
+- An open resumable Location used to stay off git. A killed execute could start another videos.insert. `upload_video` now accepts a saved session URI and skips the session POST. `on_session` writes `resumable_session_uri` before the first chunk. Persist commits that row as `commit_resumable_session`. A fingerprint mismatch reuses `EXISTING_VIDEO_FINGERPRINT_MISMATCH`. The URI is not printed.
+- `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+

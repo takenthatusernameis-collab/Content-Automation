@@ -42,6 +42,22 @@ def main() -> int:
     again, _, moved_again = state_compact.compact_text(new_state, new_archive)
     if moved_again != 0 or again != new_state:
         return fail("second compact must be a no-op")
+    if new_state.count("# STATE") != 1:
+        return fail("compact left more than one STATE header")
+    stacked = ""
+    for i in range(15, 0, -1):
+        stacked += f"# STATE\n\nUpdated: run {i}\n\n## Run {i} delta\n- filler\n\n"
+    stacked_state, stacked_archive, stacked_moved = state_compact.compact_text(
+        stacked, "# STATE ARCHIVE\n\n"
+    )
+    if stacked_state.count("# STATE") != 1:
+        return fail("stacked headers were not collapsed")
+    if stacked_moved != 3 or stacked_state.count("## Run ") != 12:
+        return fail(f"stacked compact moved {stacked_moved}")
+    if "Updated: run 15" not in stacked_state or "## Run 3 delta" not in stacked_archive:
+        return fail("stacked compact kept the wrong end")
+    if state.count("# STATE") != 1:
+        return fail(f"STATE.md has {state.count('# STATE')} headers; compact before commit")
     print("STATE COMPACT CONTRACT PASS")
     return 0
 
