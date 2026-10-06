@@ -161,3 +161,7 @@ After the operational/unstick check, act as the admin YouTube manager and perfor
 For the current pre-publication state, default to SHIP: prioritize completing the first valid video over adding more governance. Move to BUILD only when a missing capability directly blocks completion; SIMPLIFY when machinery is growing without output; PIVOT only when evidence supports changing a material assumption; HOLD only for a genuine external dependency.
 
 Record evidence and the primary decision, but do not create a daily commit just to log an unchanged decision. A decision should produce repository change only when it changes the next action, capability priority, or channel-process policy.
+
+Targeted addition from Run 360:
+
+- Do not add another OAuth exchange parser. `next_compact.py` must keep one Active locks block. The human step is the three GitHub Actions secrets.

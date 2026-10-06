@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 360 — 2026-10-06T09:11:00Z
+- Failed approach not retried: another OAuth exchange parser, export probe, media checker, or caption cue gate while videos published stay 0.
+- Lesson: Runs 358-359 scripted the token exchange and published nothing. A second Active locks block hid the same human step. Collapse the copy. Do not add another exchange parser.
+
 ## Run 359 — 2026-10-06T08:11:00Z
 - Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Polling secrets was not the run.
 - Lesson: a pasted localhost redirect is the normal Desktop consent result. Extract the code. Do not print it. Do not treat a raw-code-only exchange as finished.
@@ -50,13 +54,6 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 348 — 2026-10-05T22:15:00Z
 - Failed approach not retried: treating the Location commit as enough once videos.insert has returned an id. Caption wait is long enough for a job kill. The id must be pushed before that wait.
 - Lesson: early persist must cover every durable row that would otherwise exist only on the runner. Do not print the URI.
-
-
-
-## Run 347 — post-step Location commit
-- What failed: Run 344 wrote the resumable Location on the runner and committed it only after the execute step returned. A killed or timed-out step never reached Persist non-secret upload state.
-- Why: `always()` does not run when the job itself is cancelled. The next execute could POST videos.insert again.
-- Do not: wait for the later persist step to be the only commit of an open Location. Do not print the URI.
 
 
 

@@ -325,3 +325,9 @@ Updated: 2026-10-05T19:20:00Z
 
 
 
+## Run 348 — 2026-10-05T22:15:00Z
+- Early persist of the provider video id before caption wait, and of dead-session holds before the step returns. Estimated save: one Studio check and one blocked re-execute if the job dies after videos.insert returns an id. Human minutes per video unchanged. Videos published stay 0.
+- Automated step added: same UPLOAD_EARLY_PERSIST=1 path now covers the id and the holds. Remaining manual gate: YouTube OAuth secrets and Studio check before any session-hold release.
+
+
+

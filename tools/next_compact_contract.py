@@ -49,6 +49,17 @@ def main() -> int:
     again, _, moved_again = next_compact.compact_text(new_next, new_archive)
     if moved_again != 0 or again != new_next:
         return fail("second compact must be a no-op")
+    dup = "# NEXT\n\nActive locks: one.\n\nActive locks: two longer.\n\n.\n\n1. note\n"
+    collapsed, _, moved_dup = next_compact.compact_text(dup, "# NEXT ARCHIVE\n\n")
+    if moved_dup != 0:
+        return fail("duplicate locks must not archive the note")
+    if collapsed.count("Active locks:") != 1 or "Active locks: two" in collapsed:
+        return fail("duplicate active locks not collapsed")
+    if "\n.\n" in collapsed or collapsed.strip().splitlines()[-1] == ".":
+        return fail("dot paragraph kept")
+    again_dup, _, moved_dup2 = next_compact.compact_text(collapsed, "# NEXT ARCHIVE\n\n")
+    if moved_dup2 != 0 or again_dup != collapsed:
+        return fail("collapsed preamble must be stable")
     print("NEXT COMPACT CONTRACT PASS")
     return 0
 

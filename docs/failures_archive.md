@@ -272,3 +272,10 @@ Run 330 added `required_scopes` and a warning line, but `auth_status` and the re
 Updated: 2026-10-05T18:20:00Z
 
 
+## Run 347 — post-step Location commit
+- What failed: Run 344 wrote the resumable Location on the runner and committed it only after the execute step returned. A killed or timed-out step never reached Persist non-secret upload state.
+- Why: `always()` does not run when the job itself is cancelled. The next execute could POST videos.insert again.
+- Do not: wait for the later persist step to be the only commit of an open Location. Do not print the URI.
+
+
+

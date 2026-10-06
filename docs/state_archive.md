@@ -629,3 +629,10 @@ Updated: 2026-10-05T17:15:00Z (Run 342)
 - An open Location was committed only after the execute step returned. A killed step never reached that persist, so the next execute could POST another videos.insert. `remember_session` now calls `early_persist_file` when `UPLOAD_EARLY_PERSIST=1`. The production execute step sets that env. The plan does not contain the URI. A git failure does not raise into the upload. The later persist step still runs.
 - `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
 
+## Run 348 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
+- Run 347 pushed an open Location before the first chunk. A job kill during caption wait still happened after the video id existed and before the later persist step, so the next execute could see only the Location. If that Location then 404'd, the hold could hide a video that already existed. The uploader now early-persists the provider video id before caption wait, and early-persists a 404/410 hold and a completed-without-id hold before the step returns. The URI is not printed. The later persist step still runs.
+- `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+

@@ -30,3 +30,6 @@ Evidence: Runs 319-321 each avoided the credential boundary and only locked oper
 
 ## Run 332
 Evidence: same-topic stall flags reset when the next run changes subject. Future operating prompts should treat eight OAuth-unpolled published-0 deltas as idle even if the tools mentioned differ. Do not add a scanner to make progress while that flag is set.
+
+## Run 360 — 2026-10-06T09:11:00Z
+Evidence: two Active locks blocks in NEXT.md hid the human secret step. Collapse repeated lock blocks. Do not add another OAuth exchange parser while videos published stay 0.

@@ -41,11 +41,37 @@ def split_items(text: str) -> tuple[str, list[str]]:
     return pre, items
 
 
+def collapse_preamble(pre: str) -> str:
+    """Keep one Active locks block. A second copy hides the human step in a truncated fetch.
+
+    A lone '.' paragraph is leftover separator noise, not a lock.
+    """
+    blocks = [block.strip() for block in pre.split("\n\n") if block.strip()]
+    kept: list[str] = []
+    seen_locks = False
+    for block in blocks:
+        if block == ".":
+            continue
+        if block.startswith("Active locks:"):
+            if seen_locks:
+                continue
+            seen_locks = True
+        kept.append(block)
+    text = "\n\n".join(kept)
+    if text:
+        text += "\n\n"
+    return text
+
+
 def compact_text(text: str, archive_text: str, max_items: int = MAX_ITEMS) -> tuple[str, str, int]:
     """Return new NEXT, new archive, and how many notes were moved."""
     preamble, items = split_items(text)
+    preamble = collapse_preamble(preamble)
     if len(items) <= max_items:
-        return text if text.endswith("\n") else text + "\n", archive_text, 0
+        new_next = preamble + "\n".join(items)
+        if new_next and not new_next.endswith("\n"):
+            new_next += "\n"
+        return new_next, archive_text, 0
     kept = items[:max_items]
     older = items[max_items:]
     moved = []
@@ -78,6 +104,10 @@ def main() -> int:
     )
     new_next, new_archive, moved = compact_text(NEXT.read_text(), archive_text)
     if moved == 0:
+        if new_next != NEXT.read_text():
+            NEXT.write_text(new_next)
+            print(f"NEXT COMPACT OK items={len(split_items(new_next)[1])} moved=0 collapsed=1")
+            return 0
         print(f"NEXT COMPACT OK items={len(split_items(new_next)[1])} moved=0")
         return 0
     ARCHIVE.parent.mkdir(parents=True, exist_ok=True)
