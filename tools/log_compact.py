@@ -7,6 +7,7 @@ This tool does not delete them, does not poll OAuth, and does not write packets.
 
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -14,12 +15,34 @@ ROOT = Path(__file__).resolve().parents[1]
 MAX_SECTIONS = 12
 SPLIT = "## Run "
 
+BARE_RUN = re.compile(r"^(\d{2,4}) — (\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z)\s*$")
+
 
 TITLES = {"# FAILURES", "# PROGRESS", "# LOG"}
 POINTERS = (
     "Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.",
     "Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.",
 )
+
+
+def promote_bare_run_headers(text: str) -> str:
+    """A bare `360 — timestamp` line is a section, not body text.
+
+    Compact splits on `## Run `. Run 360 wrote the timestamp line without that
+    prefix, so the section was glued to Run 361 and a size cap could drop it.
+    """
+    lines = text.splitlines()
+    out = []
+    for line in lines:
+        stripped = line.strip()
+        if BARE_RUN.match(stripped):
+            out.append("## Run " + stripped)
+        else:
+            out.append(line)
+    joined = "\n".join(out)
+    if text.endswith("\n"):
+        joined += "\n"
+    return joined
 
 
 def split_sections(text: str) -> tuple[str, list[str]]:
@@ -50,6 +73,7 @@ def collapse_headers(text: str) -> str:
 
 
 def compact_text(text: str, archive_text: str, max_sections: int = MAX_SECTIONS) -> tuple[str, str, int]:
+    text = promote_bare_run_headers(text)
     text = collapse_headers(text)
     preamble, sections = split_sections(text)
     if len(sections) <= max_sections:

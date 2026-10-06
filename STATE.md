@@ -1,6 +1,12 @@
 # STATE
 
-Updated: 2026-10-06T11:20:00Z (Run 362)
+Updated: 2026-10-06T12:20:00Z (Run 363)
+
+## Run 363 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- PROGRESS.md Run 360 was a bare `360 — timestamp` line, so log compact did not count it. `tools/log_compact.py` now promotes that shape to a Run heading before the size cap. The live heading is restored. Run 351 and Run 350 progress sections moved to `docs/progress_archive.md`. This does not call YouTube.
 
 ## Run 362 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -72,18 +78,3 @@ Updated: 2026-10-06T11:20:00Z (Run 362)
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. `tools/stall_watch.py` was not given a new flag. Do not add another upload-edge persist call. Do not add another export-probe lock.
 - The production job materialized Q1 and then probed the master, but it never ran `tools/media_qa.py`. A bad take or a wrong-size card could still reach the upload gates. The workflow now runs media QA after materialize and before the export probe. It does not encode and does not call YouTube. Q1 must pass. A non-Q1 missing take fails the job only when execute=true.
 - Local Q1 media from `q1-media-r253` and the r249 wav/cards printed media_qa gate PASS (308.4s wav, 7/7 cards, export ftyp). `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
-
-## Run 351 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. `tools/stall_watch.py` printed `STALL_OAUTH_IDLE` only. The newest four deltas are no longer all upload-edge, so `STALL_UPLOAD_EDGE` did not print. The NEXT.md lock against another upload-session patch remains.
-- `tools/export_probe.py` accepted the known truncated r249 master because 308s still cleared the 20s floor and the file is 1920x1080 h264 with audio. It now refuses that sha as `EXPORT_BANNED_MASTER` before ffprobe. A present master must also be 30fps yuv420p with stereo AAC at 48000 Hz. The r253 master probed PASS at 328.40s. The probe still does not encode and does not call YouTube.
-- `python3 tools/export_probe_contract.py` printed EXPORT PROBE CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
-
-## Run 350 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
-- `STALL_OAUTH_IDLE` still stands. `STALL_UPLOAD_EDGE` still stands. `playlist_id` remains `not_set`.
-- An ftyp box was the only hard export check. A wrong-size or silent master could still reach videos.insert. `tools/export_probe.py` now requires 1920x1080, h264, an audio stream, and at least 20s before execute. Absent export fails execute only. The probe does not encode and does not call YouTube.
-- `python3 tools/export_probe_contract.py` printed EXPORT PROBE CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
-

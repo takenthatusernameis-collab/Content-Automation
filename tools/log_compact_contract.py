@@ -73,6 +73,23 @@ def main() -> int:
     again_h, _, _ = log_compact.compact_text(collapsed, "# ARCHIVE\n")
     if again_h != collapsed:
         return fail("header collapse is not stable")
+    bare = (
+        "# PROGRESS\n\n"
+        "Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.\n\n"
+        "## Run 361 — 2026-10-06T10:12:00Z\nnote\n\n"
+        "360 — 2026-10-06T09:11:00Z\nnote\n\n"
+        "## Run 359 — 2026-10-06T08:11:00Z\nnote\n"
+    )
+    promoted, _, moved_bare = log_compact.compact_text(bare, "# ARCHIVE\n")
+    if moved_bare != 0:
+        return fail("bare header promotion must not archive")
+    if "## Run 360 — 2026-10-06T09:11:00Z" not in promoted:
+        return fail("bare run header was not promoted")
+    if promoted.count("## Run ") != 3:
+        return fail(f"bare promotion section count {promoted.count('## Run ')}")
+    again_b, _, moved_b = log_compact.compact_text(promoted, "# ARCHIVE\n")
+    if moved_b != 0 or again_b != promoted:
+        return fail("bare promotion is not stable")
     print("LOG COMPACT CONTRACT PASS")
     return 0
 
