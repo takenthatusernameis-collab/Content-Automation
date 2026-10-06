@@ -2,6 +2,15 @@
 
 Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools/runs_compact.py` moves extras. It does not delete history.
 
+## Run 351 — 2026-10-06T00:20:00Z
+- Objective: Stop the known truncated r249 master, and an off-rate or silent-codec master, from passing the production export probe.
+- Action: `tools/export_probe.py` now returns EXPORT_BANNED_MASTER for the r249 master sha before ffprobe. A present master must be 30fps yuv420p h264 with stereo AAC at 48000 Hz, still 1920x1080 and at least 20s. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add an upload-edge persist call.
+- Result: Export probe contract passed. Selftest passed. The r253 master probed PASS at 328.40s. Videos published stay 0. No live execute.
+- Verification: `python3 tools/export_probe_contract.py` printed EXPORT PROBE CONTRACT PASS. `python3 tools/export_probe.py` on the r253 file printed PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: Run 350's 20s floor still accepted the 308.40s truncated master. The stream lock matches the only approved master and the format note in docs/format.md.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: upload-edge fixes have not published a video. Do not add another one.
+- Next: Do not install the r249 master. Do not add another Location, session hold, or early-persist call. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 350 — 2026-10-05T23:20:00Z
 - Objective: Stop a wrong-size or silent master from reaching videos.insert once OAuth exists.
 - Action: Added tools/export_probe.py. It requires 1920x1080, h264, an audio stream, and at least 20s when export/master.mp4 is present. The production workflow runs it before upload gates. Exit 1 fails the job. Exit 2 fails only on execute. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add an upload-edge persist call.
@@ -100,15 +109,6 @@ Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools
 - Discovery: STATE.md was 52418 bytes and 67 run sections. The agent fetch truncated it before the publish-gate section.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Do not paste the archive back into STATE.md. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 339 — 2026-10-05T14:20:00Z
-- Objective: Stop the production stall printer from treating `No new scanner` as another local-gate run.
-- Action: Removed the bare `scanner` token from `tools/stall_watch.py` and scrub negation phrases before the local-gate match. Contract covers three boilerplate deltas. Real scan tokens still set `STALL_LOCAL_GATE`.
-- Result: `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. Current STATE prints `STALL_OAUTH_IDLE` only. `python3 tools/selftest.py` printed SELFTEST PASS. Videos published stay 0.
-- Verification: completed locally. Actions not re-run. No provider write.
-- Discovery: Runs 336-338 said `No new scanner` and that sentence kept `STALL_LOCAL_GATE` set, so later runs were told not to add a scanner they were not adding.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still `not_set`.
-- Next: Do not restore the bare scanner token. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 Earlier runs through Run 269 remain in git at `9416aae2c482ca08fd55642e0fff94568482ee51` (`RUNS.md` blob `243e47753b76bbd636a59dddb00e8c1c6f2e90c1`) and before that at `65cca063`.

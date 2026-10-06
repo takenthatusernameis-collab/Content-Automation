@@ -2,6 +2,14 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 351 — 2026-10-06T00:20:00Z
+- The production export probe now refuses the known truncated r249 master and a present master that is not 30fps yuv420p h264 with stereo AAC at 48000 Hz. Estimated save: one private upload of the truncated file if execute starts before a human checks duration. Human minutes per video unchanged until secrets exist. Videos published stay 0.
+- Automated step changed: existing `tools/export_probe.py` on the production job. Remaining manual gate: YouTube OAuth secrets. Do not add another early-persist call while `STALL_UPLOAD_EDGE` is set.
+
+# LOG
+
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
 ## Run 350 — 2026-10-05T23:20:00Z
 - A present master is now rejected before videos.insert unless it is 1920x1080 h264 with audio and at least 20s. Estimated save: one bad private upload and one Studio cleanup if the first execute used a wrong-size file. Human minutes per video unchanged until secrets exist. Videos published stay 0.
 - Automated step added: `tools/export_probe.py` in the production workflow before upload gates. Remaining manual gate: YouTube OAuth secrets. Do not add another early-persist call while `STALL_UPLOAD_EDGE` is set.
@@ -69,7 +77,4 @@ RUNS.md no longer truncates before the newest run log. Newest 12 entries stay in
 
 ## Run 340 (2026-10-05T15:20:00Z)
 - STATE.md dropped from 52418 bytes and 67 run sections to 12 sections. Older deltas are in docs/state_archive.md. Estimated agent minutes saved on the next truncated-fetch rediscovery: about 10, if the newest gate is read first. Videos published stay 0. Publish still waits on the three YouTube secrets.
-
-## Run 339 — 2026-10-05T14:20:00Z
-The production stall printer no longer treats `No new scanner` as a local-gate run. Estimated agent minutes saved on the next runs: about 10, by not following a false `STALL_LOCAL_GATE` that Runs 336-338 kept rewriting. Human minutes per video unchanged. Videos published stay 0.
 

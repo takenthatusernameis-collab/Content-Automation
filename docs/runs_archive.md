@@ -736,3 +736,12 @@ Older run log entries. Newest first inside each move. Do not paste these back in
 - Discovery: Run 337 closed the comparison path only. The workflow still committed any COLLECTED file with a video id, so a sliding or unstamped file could become the durable evidence.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still `not_set`.
 - Next: Do not commit an unstamped collected file. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
+
+## Run 339 — 2026-10-05T14:20:00Z
+- Objective: Stop the production stall printer from treating `No new scanner` as another local-gate run.
+- Action: Removed the bare `scanner` token from `tools/stall_watch.py` and scrub negation phrases before the local-gate match. Contract covers three boilerplate deltas. Real scan tokens still set `STALL_LOCAL_GATE`.
+- Result: `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. Current STATE prints `STALL_OAUTH_IDLE` only. `python3 tools/selftest.py` printed SELFTEST PASS. Videos published stay 0.
+- Verification: completed locally. Actions not re-run. No provider write.
+- Discovery: Runs 336-338 said `No new scanner` and that sentence kept `STALL_LOCAL_GATE` set, so later runs were told not to add a scanner they were not adding.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still `not_set`.
+- Next: Do not restore the bare scanner token. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.

@@ -286,3 +286,6 @@ Updated: 2026-10-05T11:20:00Z
 
 - Run 337: a collected analytics file no longer counts unless its window is the video's first 7 calendar days. Estimated agent minutes saved on the first comparison: about 15, by not treating a sliding or unstamped file as the observation. Human minutes per video unchanged. Videos published stay 0.
 
+## Run 339 — 2026-10-05T14:20:00Z
+The production stall printer no longer treats `No new scanner` as a local-gate run. Estimated agent minutes saved on the next runs: about 10, by not following a false `STALL_LOCAL_GATE` that Runs 336-338 kept rewriting. Human minutes per video unchanged. Videos published stay 0.
+

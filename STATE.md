@@ -1,5 +1,16 @@
 # STATE
 
+Updated: 2026-10-06T00:20:00Z (Run 351)
+
+## Run 351 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. `tools/stall_watch.py` printed `STALL_OAUTH_IDLE` only. The newest four deltas are no longer all upload-edge, so `STALL_UPLOAD_EDGE` did not print. The NEXT.md lock against another upload-session patch remains.
+- `tools/export_probe.py` accepted the known truncated r249 master because 308s still cleared the 20s floor and the file is 1920x1080 h264 with audio. It now refuses that sha as `EXPORT_BANNED_MASTER` before ffprobe. A present master must also be 30fps yuv420p with stereo AAC at 48000 Hz. The r253 master probed PASS at 328.40s. The probe still does not encode and does not call YouTube.
+- `python3 tools/export_probe_contract.py` printed EXPORT PROBE CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
 Updated: 2026-10-05T23:20:00Z (Run 350)
 
 ## Run 350 delta
@@ -119,15 +130,4 @@ Updated: 2026-10-05T15:20:00Z (Run 340)
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
 - STATE.md had 67 run deltas and 52418 bytes. A fetch of this file truncated before the publish-gate section. Newest 12 deltas stay here. Older deltas moved to `docs/state_archive.md`. `tools/state_compact.py` moves extras there and keeps 12. It does not refuse the file.
 - `python3 tools/state_compact_contract.py` printed STATE COMPACT CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
-
-## Run 339 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new packet folder. Q1 was not rewritten.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
-- `STALL_LOCAL_GATE` was a false positive. The token `scanner` matched the boilerplate `No new scanner` in Runs 336-338, so the flag stayed set after the subject had already left local gates. `tools/stall_watch.py` no longer treats that phrase as a local gate. A real quality_scan, claim_scan, title_scan, content_rules, or packet_path delta still sets the flag.
-- `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. `python3 tools/stall_watch.py` printed STALL_OAUTH_IDLE and did not print STALL_LOCAL_GATE. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
-
-# STATE
-
-Updated: 2026-10-05T12:30:00Z (Run 338)
 

@@ -32,8 +32,14 @@ def encode(path: Path, size: str, seconds: float) -> None:
             "libx264",
             "-pix_fmt",
             "yuv420p",
+            "-r",
+            "30",
             "-c:a",
             "aac",
+            "-ar",
+            "48000",
+            "-ac",
+            "2",
             "-t",
             str(seconds),
             str(path),
@@ -66,6 +72,11 @@ def main() -> int:
         geom = probe_file(bad, min_duration=1.0)
         if geom["ok"] or "geometry" not in geom["detail"]:
             print(f"small master must fail geometry, got {geom}")
+            return 1
+        from export_probe import _sha256
+        banned = probe_file(good, min_duration=1.0, banned_sha=_sha256(good))
+        if banned["code"] != "EXPORT_BANNED_MASTER":
+            print(f"known truncated sha must be banned, got {banned}")
             return 1
     print("EXPORT PROBE CONTRACT PASS")
     return 0

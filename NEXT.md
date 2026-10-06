@@ -1,8 +1,10 @@
 # NEXT
 
-Updated: 2026-10-05T23:20:00Z (Run 350)
+Updated: 2026-10-06T00:20:00Z (Run 351)
 
-Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Materialize installs `q1-media-r253` only. Do not restore multipart for the master. Do not start a second `videos.insert` when Location exists or when `session_expired_hold` is set. Do not pass `--release-session-expired-hold` from the production workflow. `STALL_UPLOAD_EDGE` is set: do not add another resumable Location, session hold, or early-persist call. Do not treat an ftyp box as a finished master.
+Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Materialize installs `q1-media-r253` only. Do not restore multipart for the master. Do not start a second `videos.insert` when Location exists or when `session_expired_hold` is set. Do not pass `--release-session-expired-hold` from the production workflow. `STALL_UPLOAD_EDGE` is set: do not add another resumable Location, session hold, or early-persist call. Do not treat an ftyp box as a finished master. Do not treat a 20s floor as proof the r249 master was rejected. A present master must match the r253 stream lock or the job stops before upload gates1zr17. **Do not rediscover the truncated r249 master.** Run 351: `tools/export_probe.py` returns `EXPORT_BANNED_MASTER` for sha `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53` before ffprobe. A present master must also be 30fps yuv420p h264 with stereo AAC at 48000 Hz. The r253 master still passes. Exit 1 always fails the job. Exit 2 fails only when execute=true. Do not add another Location, session hold, or early-persist call. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
+.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
 
