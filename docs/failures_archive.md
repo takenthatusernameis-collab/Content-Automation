@@ -285,3 +285,6 @@ Updated: 2026-10-05T18:20:00Z
 
 
 
+## Run 353 — 2026-10-06T02:20:00Z
+- Failed approach not retried: another export-probe lock or another media checker while videos published stay 0.
+- Lesson: media QA and the export probe never read captions.srt. Wire the cue check. Do not invent a second media checker.

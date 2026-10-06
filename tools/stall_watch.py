@@ -220,9 +220,11 @@ def flag_text(text: str, window: int = WINDOW) -> list[str]:
                 "next: wait for the three YouTube secrets; do not wire another pre-upload checker",
             ])
     # Count the whole file, not the 8-delta flag window. A cleared newest
-    # delta resets the streak to 0. This does not poll secrets.
+    # delta resets the streak to 0. A zero streak is not a flag: callers
+    # treat a non-empty list as a stall. This does not poll secrets.
     streak = idle_streak(run_deltas(text))
-    flags.append(f"idle_streak: {streak}")
+    if streak:
+        flags.append(f"idle_streak: {streak}")
     if streak >= IDLE_WINDOW:
         flags.append("suspicious: oauth_idle_without_publish")
         flags.append(

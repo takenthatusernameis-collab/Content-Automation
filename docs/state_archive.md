@@ -644,3 +644,17 @@ Updated: 2026-10-05T17:15:00Z (Run 342)
 - Caption, thumbnail, and comment status are early-persisted after each of those writes when `UPLOAD_EARLY_PERSIST=1`. A kill after `captions.insert` no longer loses the uploaded status. The URI is not printed. The later persist step still runs. This is the last early-persist call site for that stall.
 - `python3 tools/selftest.py` printed SELFTEST PASS. `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. Actions was not re-run.
 
+## Run 352 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. `tools/stall_watch.py` was not given a new flag. Do not add another upload-edge persist call. Do not add another export-probe lock.
+- The production job materialized Q1 and then probed the master, but it never ran `tools/media_qa.py`. A bad take or a wrong-size card could still reach the upload gates. The workflow now runs media QA after materialize and before the export probe. It does not encode and does not call YouTube. Q1 must pass. A non-Q1 missing take fails the job only when execute=true.
+- Local Q1 media from `q1-media-r253` and the r249 wav/cards printed media_qa gate PASS (308.4s wav, 7/7 cards, export ftyp). `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+## Run 353 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. `tools/stall_watch.py` was not given a new flag. Do not add another upload-edge persist call. Do not add another export-probe lock. Do not add another media checker.
+- The production job ran media QA and the export probe, then still called captions.insert on any present srt. An overlapping cue, a line over 42 characters, or a cue past the selected wav could reach the provider. `tools/caption_gate.py` now runs after media QA. A present bad cue fails the job. A missing srt fails only when execute=true. It does not rewrite captions and does not call YouTube.
+- Local Q1 captions printed caption_gate PASS (103 cues). `python3 tools/caption_gate_contract.py` printed CAPTION GATE CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+

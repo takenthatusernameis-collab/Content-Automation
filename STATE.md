@@ -1,6 +1,13 @@
 # STATE
 
-Updated: 2026-10-06T13:22:00Z (Run 364)
+Updated: 2026-10-06T15:20:00Z (Run 365)
+
+## Run 365 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Selftest was red. `tools/stall_watch.py` appended `idle_streak: 0` on a quiet file, so `flag_text` was never empty and the quiet check failed twice. A zero streak is no longer a flag. `idle_streak()` still returns 0. A positive streak and the suspicious line at 8 or more stay. This does not call YouTube.
+- STATE.md and NEXT.md each had 13 sections after Run 364. Compact moved the oldest of each into the archive. Live caps are 12 again. This does not poll secrets.
 
 ## Run 364 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -72,16 +79,3 @@ Updated: 2026-10-06T13:22:00Z (Run 364)
 - Runs 350-353 each wired a pre-upload checker (`tools/export_probe.py`, `tools/media_qa.py`, `tools/caption_gate.py`) while videos published stayed 0. `tools/stall_watch.py` now prints `STALL_PREUPLOAD_PROBE` after four such deltas. The flag does not fail the job. It does not call YouTube. Do not wire another export probe, media checker, or caption cue gate while it is set.
 - `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
 
-## Run 353 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. `tools/stall_watch.py` was not given a new flag. Do not add another upload-edge persist call. Do not add another export-probe lock. Do not add another media checker.
-- The production job ran media QA and the export probe, then still called captions.insert on any present srt. An overlapping cue, a line over 42 characters, or a cue past the selected wav could reach the provider. `tools/caption_gate.py` now runs after media QA. A present bad cue fails the job. A missing srt fails only when execute=true. It does not rewrite captions and does not call YouTube.
-- Local Q1 captions printed caption_gate PASS (103 cues). `python3 tools/caption_gate_contract.py` printed CAPTION GATE CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
-
-## Run 352 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. `tools/stall_watch.py` was not given a new flag. Do not add another upload-edge persist call. Do not add another export-probe lock.
-- The production job materialized Q1 and then probed the master, but it never ran `tools/media_qa.py`. A bad take or a wrong-size card could still reach the upload gates. The workflow now runs media QA after materialize and before the export probe. It does not encode and does not call YouTube. Q1 must pass. A non-Q1 missing take fails the job only when execute=true.
-- Local Q1 media from `q1-media-r253` and the r249 wav/cards printed media_qa gate PASS (308.4s wav, 7/7 cards, export ftyp). `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.

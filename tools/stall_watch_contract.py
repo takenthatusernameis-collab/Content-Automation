@@ -10,7 +10,7 @@ TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
-from stall_watch import FLAG, IDLE_FLAG, INSTRUCTION_FLAG, LOCAL_GATE_FLAG, PREUPLOAD_FLAG, UPLOAD_EDGE_FLAG, flag_text, idle_streak  # noqa: E402
+from stall_watch import FLAG, IDLE_FLAG, INSTRUCTION_FLAG, LOCAL_GATE_FLAG, PREUPLOAD_FLAG, UPLOAD_EDGE_FLAG, flag_text, idle_streak, run_deltas  # noqa: E402
 
 
 def delta(body: str) -> str:
@@ -115,8 +115,10 @@ def main() -> int:
         return fail("upload-edge lock boilerplate must not set the flag")
     published = delta("OAuth secrets were present. Videos published stay 1.") + idle
     flags = flag_text(published)
-    if "idle_streak: 0" not in flags:
-        return fail(f"a published newest delta must reset the streak: {flags}")
+    if any(line.startswith("idle_streak:") for line in flags):
+        return fail(f"a published newest delta must reset the streak to empty: {flags}")
+    if idle_streak(run_deltas(published)) != 0:
+        return fail("a published newest delta must reset idle_streak() to 0")
     if "suspicious: oauth_idle_without_publish" in flags:
         return fail("a published newest delta must clear suspicious")
     if IDLE_FLAG in flags:
