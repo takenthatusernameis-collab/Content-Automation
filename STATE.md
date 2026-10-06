@@ -1,6 +1,12 @@
 # STATE
 
-Updated: 2026-10-06T10:12:00Z (Run 361)
+Updated: 2026-10-06T11:20:00Z (Run 362)
+
+## Run 362 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `tools/oauth_setup.py` now prints the exact `gh workflow dispatch` for the first private execute, with `collect_feedback=false`. It does not call GitHub and does not print secret values. This does not call YouTube.
 
 ## Run 361 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.

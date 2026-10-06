@@ -54,7 +54,9 @@ The publish gate is still these three GitHub Actions secrets:
      gh secret set {SECRET_NAMES[0]} --repo {REPO}
      gh secret set {SECRET_NAMES[1]} --repo {REPO}
      gh secret set {SECRET_NAMES[2]} --repo {REPO}
-8. Dispatch .github/workflows/youtube-production.yml with execute=true. Initial privacy stays private.
+8. After the three secrets exist, dispatch the production workflow once. Initial privacy stays private.
+   Do not pass collect_feedback on this dispatch. Do not pass a different packet.
+     gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false
    After a provider video id exists and uploaded_at is at least 7 days old, dispatch collect_feedback=true.
    Do not dispatch either input while any secret is empty.
 

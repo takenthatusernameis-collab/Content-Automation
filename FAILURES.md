@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 362 — 2026-10-06T11:20:00Z
+- Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0. Dispatch was not run.
+- Lesson: naming execute=true is not the command. Print the `gh workflow dispatch` line and keep collect_feedback false on the first dispatch. Do not poll secrets.
+
 ## Run 361 — 2026-10-06T10:12:00Z
 - Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0.
 - Lesson: a do-not-add sentence is not a wired probe. Scrub it before the stall token check. A last chapter inside the final 10 seconds is ignored by YouTube. Refuse that shape when duration is known. Do not invent duration.

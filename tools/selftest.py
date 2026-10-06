@@ -1193,6 +1193,8 @@ def check_oauth_setup_recipe() -> list[str]:
         failures.append("oauth setup recipe must check presence without printing values")
     if "gh secret set" not in source:
         failures.append("oauth setup recipe must name gh secret set")
+    if "gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false" not in source:
+        failures.append("oauth setup recipe must name the private execute dispatch")
     sys.path.insert(0, str(ROOT / "tools"))
     import oauth_setup
     text = oauth_setup.recipe()
