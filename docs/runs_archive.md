@@ -846,3 +846,12 @@ Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools
 - Discovery: Run 356 collapsed STATE headers only. FAILURES and PROGRESS still had stacked headers.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Do not prepend a second file header. Do not add another probe. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
+## Run 358 — 2026-10-06T07:15:00Z
+- Objective: Cut the manual OAuth token exchange down to one local command that cannot commit the refresh token.
+- Action: Added `tools/oauth_exchange.py` and a contract. The recipe now points at it. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload probe.
+- Result: Contract passed. Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/oauth_exchange_contract.py` printed OAUTH EXCHANGE CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: The setup recipe named the scopes but still left the consent URL and token POST to an unscripted browser step. A wrong scope still creates a private video that cannot take captions.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human runs the exchange once and stores the three secrets. Do not add another probe. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

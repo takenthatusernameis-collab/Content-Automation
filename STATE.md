@@ -1,6 +1,12 @@
 # STATE
 
-Updated: 2026-10-06T19:12:00Z (Run 369)
+Updated: 2026-10-06T21:16:00Z (Run 370)
+
+## Run 370 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- The Studio pin step prints `STUDIO_PIN_NOT_INSERT_FAILURE` and exits 0 when `studio_handoff.py` exits non-zero. The persist step prints `PERSIST_PUSH_NOT_INSERT_FAILURE` and exits 0 when a provider video id exists and the commit or push fails. A red job after `videos.insert` is not a reason to dispatch execute again. A persist miss without that video id still fails the step. This does not call YouTube.
 
 ## Run 369 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -70,10 +76,4 @@ Updated: 2026-10-06T19:12:00Z (Run 369)
 - No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
 - `STALL_OAUTH_IDLE` still stands. `STALL_PREUPLOAD_PROBE` still stands. `playlist_id` remains `not_set`. Do not add another export probe, media checker, or caption cue gate.
 - `tools/oauth_exchange.py` accepts a raw auth code or the full localhost redirect URL and still writes the refresh token only outside the repo. It does not print the code. This does not call YouTube.
-
-## Run 358 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
-- `STALL_OAUTH_IDLE` still stands. `STALL_PREUPLOAD_PROBE` still stands. `playlist_id` remains `not_set`. Do not add another export probe, media checker, or caption cue gate.
-- `tools/oauth_exchange.py` prints a consent URL with upload, force-ssl, and analytics scopes, then exchanges one stdin code. The refresh token is written only to an absolute path outside the repo. It does not call GitHub and does not print the token. This does not call YouTube.
 

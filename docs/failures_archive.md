@@ -304,3 +304,7 @@ Updated: 2026-10-05T18:20:00Z
 - Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set.
 - Lesson: a second `# FAILURES` or `# PROGRESS` header is the same cut-fetch bug as a second STATE header. Collapse it in log compact. Do not finish a STATE bullet with the header token the contract counts.
 
+## Run 358 — 2026-10-06T07:15:00Z
+- Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Polling secrets was not the run.
+- Lesson: the remaining human step was an unscripted token exchange. Script the exchange and refuse a repo path. Do not print the token.
+

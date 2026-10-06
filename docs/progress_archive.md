@@ -366,3 +366,6 @@ Updated: 2026-10-05T19:20:00Z
 ## Run 357 — 2026-10-06T06:20:00Z
 Log compact now collapses stacked file headers. FAILURES.md and PROGRESS.md each show one header and 12 sections. Estimated effect: a truncated fetch no longer hides the newest lesson behind a second file header. Human minutes per video unchanged. Videos published stay 0.
 
+## Run 358 — 2026-10-06T07:15:00Z
+Local OAuth exchange writes the refresh token only outside the repo and requests the caption and analytics scopes. Estimated human minutes saved on the first credential setup: about 15, plus one avoided private video if the token had been upload-only. Human minutes per video otherwise unchanged. Videos published stay 0.
+

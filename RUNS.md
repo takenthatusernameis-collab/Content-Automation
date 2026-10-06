@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 370 — 2026-10-06T21:16:00Z
+- Objective: Stop a Studio pin miss or a rejected provider-state push from painting the job red after videos.insert.
+- Action: The Studio pin step prints `STUDIO_PIN_NOT_INSERT_FAILURE` and exits 0 when `studio_handoff.py` exits non-zero. The persist step prints `PERSIST_PUSH_NOT_INSERT_FAILURE` and exits 0 when a provider video id exists and the commit or push fails. A persist miss without that id still fails the step. Selftest requires both markers. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not add an early-persist call. Did not dispatch the workflow.
+- Result: Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: Runs 368 and 369 stopped a red playlist step and a red post-upload step from inviting a second execute. The Studio pin step and the persist step could still fail the job after a video id existed.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
+- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 369 — 2026-10-06T19:12:00Z
 - Objective: Stop a caption, thumbnail, or comment miss from painting the job red after videos.insert.
 - Action: The execute step treats exit 4 with a saved provider video id and `POST_UPLOAD_INCOMPLETE` as `POST_UPLOAD_NOT_INSERT_FAILURE` and exits 0. An insert failure without that id still fails the step. Selftest requires that marker. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not add an early-persist call. Did not dispatch the workflow.
@@ -98,12 +107,3 @@
 - Discovery: Desktop consent does not load localhost. The code is in the address bar. A raw-code-only stdin read would send that URL to the token endpoint.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: OAuth-idle runs have not published a video. Do not add another probe.
 - Next: A human runs the exchange once and stores the three secrets. Paste the full redirect URL. Do not add another probe. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 358 — 2026-10-06T07:15:00Z
-- Objective: Cut the manual OAuth token exchange down to one local command that cannot commit the refresh token.
-- Action: Added `tools/oauth_exchange.py` and a contract. The recipe now points at it. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload probe.
-- Result: Contract passed. Selftest passed. Videos published stay 0. No live execute.
-- Verification: `python3 tools/oauth_exchange_contract.py` printed OAUTH EXCHANGE CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
-- Discovery: The setup recipe named the scopes but still left the consent URL and token POST to an unscripted browser step. A wrong scope still creates a private video that cannot take captions.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human runs the exchange once and stores the three secrets. Do not add another probe. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

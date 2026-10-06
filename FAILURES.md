@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 370 — 2026-10-06T21:16:00Z
+- Failed approach not retried: another exchange parser, scanner, pre-upload checker, or early-persist call while videos published stay 0. Execute was not dispatched.
+- Lesson: a Studio pin miss or a rejected provider-state push after the video id is written must not fail the job. Print `STUDIO_PIN_NOT_INSERT_FAILURE` or `PERSIST_PUSH_NOT_INSERT_FAILURE` and exit 0. Do not dispatch execute again to retry videos.insert. Do not poll secrets.
+
 ## Run 369 — 2026-10-06T19:12:00Z
 - Failed approach not retried: another exchange parser, scanner, pre-upload checker, or early-persist call while videos published stay 0. Execute was not dispatched.
 - Lesson: a caption, thumbnail, or comment miss after the video id is written must not fail the job. Print `POST_UPLOAD_NOT_INSERT_FAILURE` and exit 0. Do not dispatch execute again to retry videos.insert. Do not poll secrets.
@@ -45,8 +49,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 359 — 2026-10-06T08:11:00Z
 - Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Polling secrets was not the run.
 - Lesson: a pasted localhost redirect is the normal Desktop consent result. Extract the code. Do not print it. Do not treat a raw-code-only exchange as finished.
-
-## Run 358 — 2026-10-06T07:15:00Z
-- Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Polling secrets was not the run.
-- Lesson: the remaining human step was an unscripted token exchange. Script the exchange and refuse a repo path. Do not print the token.
 

@@ -684,3 +684,9 @@ Updated: 2026-10-05T17:15:00Z (Run 342)
 - `STALL_OAUTH_IDLE` still stands. `STALL_PREUPLOAD_PROBE` still stands. `playlist_id` remains `not_set`. Do not add another export probe, media checker, or caption cue gate.
 - `tools/log_compact.py` now drops a later `# FAILURES`, `# PROGRESS`, or `# LOG` header and a repeated archive pointer before the size cap. Live FAILURES.md and PROGRESS.md each keep one header and 12 sections. The Run 356 STATE bullet that ended on a dangling backtick is finished. This does not call YouTube.
 
+## Run 358 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `STALL_PREUPLOAD_PROBE` still stands. `playlist_id` remains `not_set`. Do not add another export probe, media checker, or caption cue gate.
+- `tools/oauth_exchange.py` prints a consent URL with upload, force-ssl, and analytics scopes, then exchanges one stdin code. The refresh token is written only to an absolute path outside the repo. It does not call GitHub and does not print the token. This does not call YouTube.
+

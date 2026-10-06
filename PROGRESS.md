@@ -2,6 +2,9 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 370 — 2026-10-06T21:16:00Z
+- The execute job no longer turns red when the Studio pin printer fails or when a provider-state commit/push fails after a video id is written. That removes a false signal to dispatch execute again. Human minutes per video unchanged. Videos published stay 0. Automated post-insert steps that must not fail the job: playlist exit 2, post-upload exit 4 with a video id, Studio pin non-zero, persist miss with a video id.
+
 ## Run 369 — 2026-10-06T19:12:00Z
 - Improvement: a post-upload caption, thumbnail, or comment miss no longer fails the production job when the video id is already written. Estimated save: one extra execute dispatch after the first private insert, which could start another videos.insert, about 15 human minutes plus a duplicate private video.
 - Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
@@ -42,7 +45,4 @@ NEXT.md now has one Active locks block and names the three secrets as the only h
 
 ## Run 359 — 2026-10-06T08:11:00Z
 The local OAuth exchange accepts the full localhost redirect URL, so the human does not cut the code out of the address bar. Estimated human minutes saved on the first credential setup: about 10, plus one avoided failed token POST. Human minutes per video otherwise unchanged. Videos published stay 0.
-
-## Run 358 — 2026-10-06T07:15:00Z
-Local OAuth exchange writes the refresh token only outside the repo and requests the caption and analytics scopes. Estimated human minutes saved on the first credential setup: about 15, plus one avoided private video if the token had been upload-only. Human minutes per video otherwise unchanged. Videos published stay 0.
 

@@ -185,7 +185,16 @@ jobs:
           if [ -f "$PACKET/upload_state.json" ]; then
             # --write stores studio_pin.md only when a provider video id exists.
             # A missing id does not invent a URL file. pinned stays false.
+            # An unreadable state is not an insert failure. Do not dispatch execute again.
+            set +e
             python3 tools/studio_handoff.py "$PACKET" --write
+            status=$?
+            set -e
+            if [ "$status" -ne 0 ]; then
+              echo "STUDIO_PIN_NOT_INSERT_FAILURE"
+              echo "Studio pin print failed. Do not dispatch execute again to retry videos.insert."
+              exit 0
+            fi
           else
             echo "STUDIO_PIN"
             echo "status: no_upload_state"
@@ -254,9 +263,16 @@ jobs:
             echo "Upload state unchanged; nothing to commit."
             exit 0
           }
+          # A rejected commit or push must not paint the job red after a video id exists.
+          # That red job invites another videos.insert. Do not dispatch execute again.
+          set +e
           git commit -m "Persist YouTube upload state"
-          # A rejected push must not drop the video id. Retry after fetch. Never force-push.
-          python3 - <<'PY'
+          commit_status=$?
+          set -e
+          push_status=0
+          if [ "$commit_status" -eq 0 ]; then
+            set +e
+            python3 - <<'PY'
           import subprocess
           import sys
           sys.path.insert(0, "tools")
@@ -268,6 +284,17 @@ jobs:
 
           print(push_with_retry(run))
           PY
+            push_status=$?
+            set -e
+          fi
+          if [ "$commit_status" -ne 0 ] || [ "$push_status" -ne 0 ]; then
+            if python3 -c 'import json,os,sys; from pathlib import Path; row=json.loads(Path(os.environ["STATE"]).read_text(encoding="utf-8")); sys.exit(0 if str(row.get("provider_video_id") or "").strip() else 1)'; then
+              echo "PERSIST_PUSH_NOT_INSERT_FAILURE"
+              echo "Provider state was not committed. The video id is already written. Do not dispatch execute again to retry videos.insert."
+              exit 0
+            fi
+            exit 1
+          fi
 
       - name: Collect read-only YouTube feedback
         if: ${{ inputs.collect_feedback == true && inputs.execute != true }}
@@ -338,6 +365,7 @@ jobs:
                     echo "collect_feedback is read-only and defaults off. It does not upload or invent metrics."
           echo "collect_feedback refuses a missing or early uploaded_at and does not write COLLECTED."
           echo "collect_feedback does not commit a COLLECTED file unless window.kind is first_calendar_days."
+          echo "A Studio pin miss or a rejected provider-state push after a video id is not an insert failure. Do not dispatch execute again."
           echo "The observation is due at upload plus 7 days plus 3 days of Analytics lag. The query is the first 7 calendar days of that video, not a sliding now window."
           echo "A resumed upload keeps the existing uploaded_at. It does not invent one."
           echo "A caption or thumbnail failure exits non-zero after the video id is written."
