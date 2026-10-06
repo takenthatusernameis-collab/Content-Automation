@@ -1163,6 +1163,17 @@ def check_q1_publish_draft_locked() -> list[str]:
 
 
 
+
+def check_oauth_exchange() -> list[str]:
+    """Consent URL must include caption and analytics scopes and must not write into the repo."""
+    import subprocess
+    contract = ROOT / "tools" / "oauth_exchange_contract.py"
+    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0 or "OAUTH EXCHANGE CONTRACT PASS" not in proc.stdout:
+        return [proc.stderr.strip() or proc.stdout.strip() or "oauth exchange contract failed"]
+    return []
+
+
 def check_oauth_setup_recipe() -> list[str]:
     """The setup recipe must name the secrets and scopes and must not print values."""
     failures = []
@@ -1449,6 +1460,7 @@ def main() -> int:
     failures.extend(check_thumbnail_draft_fail_closed())
     failures.extend(check_live_capabilities())
     failures.extend(check_oauth_setup_recipe())
+    failures.extend(check_oauth_exchange())
     failures.extend(check_job_timeout_covers_upload())
     failures.extend(check_caption_waits_for_processing())
     failures.extend(check_upload_variant_freeze())

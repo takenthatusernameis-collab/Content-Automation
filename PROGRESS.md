@@ -2,6 +2,9 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 358 — 2026-10-06T07:15:00Z
+Local OAuth exchange writes the refresh token only outside the repo and requests the caption and analytics scopes. Estimated human minutes saved on the first credential setup: about 15, plus one avoided private video if the token had been upload-only. Human minutes per video otherwise unchanged. Videos published stay 0.
+
 ## Run 357 — 2026-10-06T06:20:00Z
 Log compact now collapses stacked file headers. FAILURES.md and PROGRESS.md each show one header and 12 sections. Estimated effect: a truncated fetch no longer hides the newest lesson behind a second file header. Human minutes per video unchanged. Videos published stay 0.
 
@@ -59,15 +62,5 @@ Log compact now collapses stacked file headers. FAILURES.md and PROGRESS.md each
 - Early persist of an open resumable Location before the first chunk. Estimated save: one duplicate videos.insert if the runner dies after the session POST. Human minutes per video unchanged. Videos published stay 0.
 - Automated step added: production execute sets UPLOAD_EARLY_PERSIST=1. Remaining manual gate: YouTube OAuth secrets and Studio check before any session-hold release.
 
-
-
-## Run 346 — dead-session hold can be cleared after Studio shows no video
-- Estimated human minutes per video: unchanged. Publish still blocked on OAuth.
-- Automated step added: local hold release plus commit decision `commit_session_hold_released`. No provider write.
-- Remaining manual steps: YouTube OAuth secrets, playlist id, Studio check before any hold release, pin after comment insert.
-- Reliability: an expired Location no longer bricks later executes once a human confirms no video. The workflow cannot clear the hold by itself.
-
-
-Updated: 2026-10-05T19:20:00Z
 
 

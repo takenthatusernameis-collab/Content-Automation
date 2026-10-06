@@ -46,7 +46,10 @@ The publish gate is still these three GitHub Actions secrets:
      {ANALYTICS_SCOPE}
    or the full scope {FULL_SCOPE} plus {ANALYTICS_SCOPE}.
    youtube.upload alone can insert a video and then fail captions.insert. Do not create that token.
-6. Exchange the consent code with the token endpoint. Do not paste the code or the refresh token into the repository, STATE.md, or a workflow log.
+6. Exchange the consent code locally. Do not paste the code or the refresh token into the repository, STATE.md, or a workflow log.
+     python3 tools/oauth_exchange.py
+     python3 tools/oauth_exchange.py --exchange --out /tmp/youtube-refresh-token
+   The first command prints a consent URL when YOUTUBE_CLIENT_ID is set and does not print that id by itself on failure. The second reads the code on stdin and writes the refresh token only outside this repo.
 7. Store the three values as Actions secrets by pasting into the prompt, not into the command line:
      gh secret set {SECRET_NAMES[0]} --repo {REPO}
      gh secret set {SECRET_NAMES[1]} --repo {REPO}

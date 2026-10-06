@@ -309,3 +309,13 @@ Updated: 2026-10-05T17:25:00Z
 ## Run 345 — 2026-10-05T19:20:00Z
 A dead resumable Location is no longer reused as an open session. 404 or 410 commits a hold and the next execute does not start another videos.insert. Estimated effect: one less duplicate private video if the first session expires before the runner can finish. Human minutes per video unchanged. Videos published stay 0.
 
+## Run 346 — dead-session hold can be cleared after Studio shows no video
+- Estimated human minutes per video: unchanged. Publish still blocked on OAuth.
+- Automated step added: local hold release plus commit decision `commit_session_hold_released`. No provider write.
+- Remaining manual steps: YouTube OAuth secrets, playlist id, Studio check before any hold release, pin after comment insert.
+- Reliability: an expired Location no longer bricks later executes once a human confirms no video. The workflow cannot clear the hold by itself.
+
+
+Updated: 2026-10-05T19:20:00Z
+
+

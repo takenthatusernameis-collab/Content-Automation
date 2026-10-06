@@ -257,3 +257,8 @@ Run 330 added `required_scopes` and a warning line, but `auth_status` and the re
 
 
 
+## Run 345 — expired Location stayed committed as open
+- **Tried:** Run 344 committed the Location. An expired session was still `skip_transient`, so the dead URI remained the next execute target.
+- **Result:** Probe a saved Location. 404 or 410 sets `session_expired_hold`, drops the URI, and commits that hold. No new YouTubeAPIError reason. No provider write.
+- **Do not retry:** Do not treat `RESUMABLE_SESSION_EXPIRED` with `session_expired_hold` as skip_transient. Do not POST videos.insert to replace a dead Location automatically.
+
