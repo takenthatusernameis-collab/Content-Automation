@@ -2,6 +2,9 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 364 — 2026-10-06T13:22:00Z
+The production stall printer now counts consecutive unpublished OAuth-idle deltas. Estimated effect: a later run can see `idle_streak` and `suspicious: oauth_idle_without_publish` without reconstructing STATE. Human minutes per video unchanged. Videos published stay 0. Live streak after this delta: 13.
+
 ## Run 363 — 2026-10-06T12:20:00Z
 A bare `360 — timestamp` progress line is now a real section. Log compact promotes that shape before the size cap, and the live Run 360 heading is restored. Estimated effect: a truncated fetch no longer drops the Run 360 lesson into the previous section. Human minutes per video unchanged. Videos published stay 0.
 
@@ -41,7 +44,3 @@ Log compact now collapses stacked file headers. FAILURES.md and PROGRESS.md each
 ## Run 353 — 2026-10-06T02:20:00Z
 - A present captions.srt is now rejected before captions.insert when a cue is empty, overlapping, reversed, longer than 42 characters, or past the selected wav. Estimated save: one private video with unreadable or late captions if execute starts before a human opens the srt. Human minutes per video unchanged until secrets exist. Videos published stay 0.
 - Automated step added: `tools/caption_gate.py` on the production job after media QA. Remaining manual gate: YouTube OAuth secrets. Do not add another early-persist call. Do not add another export-probe lock. Do not add another media checker.
-
-## Run 352 — 2026-10-06T01:15:00Z
-- The production job now runs media QA after materialize. Estimated save: one private upload of a wrong-size card or a clipped take if execute starts before a human opens the packet. Human minutes per video unchanged until secrets exist. Videos published stay 0.
-- Automated step changed: existing `tools/media_qa.py` on the production job. Remaining manual gate: YouTube OAuth secrets. Do not add another early-persist call. Do not add another export-probe lock.

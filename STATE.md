@@ -1,6 +1,13 @@
 # STATE
 
-Updated: 2026-10-06T12:20:00Z (Run 363)
+Updated: 2026-10-06T13:22:00Z (Run 364)
+
+## Run 364 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `tools/stall_watch.py` now prints `idle_streak` for every newest STATE delta that still says OAuth was not polled and videos published stay 0. A streak of 8 or more also prints `suspicious: oauth_idle_without_publish`. A published or polled newest delta resets the streak. This does not call YouTube and does not add a scanner.
+- Live STATE before this delta already had 12 such newest deltas (Runs 363-352). After this delta the streak is 13. That repetition is suspicious. Do not treat another restatement as progress.
 
 ## Run 363 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.

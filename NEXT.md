@@ -1,12 +1,14 @@
 # NEXT
 
-Updated: 2026-10-06T12:20:00Z (Run 363)
+Updated: 2026-10-06T13:22:00Z (Run 364)
 
-Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser while videos published stay 0. The unpublished video is the three GitHub Actions secrets.
+Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate.
 
 One human step: run `python3 tools/oauth_setup.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then run `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr28. **Do not rediscover an uncounted OAuth idle streak.** Run 364: `tools/stall_watch.py` prints `idle_streak` and, at 8 or more, `suspicious: oauth_idle_without_publish`. The live streak is 13 after this delta. Do not treat another restatement as progress. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr27. **Do not rediscover a bare progress timestamp as a section.** Run 363: `tools/log_compact.py` promotes `360 — 2026-10-06T09:11:00Z` to a Run 360 heading before the size cap. Do not write a progress or failure section without the Run heading. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 

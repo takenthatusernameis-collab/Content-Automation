@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 364 — 2026-10-06T13:22:00Z
+- Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0.
+- Lesson: an idle flag without a count still looks like a fresh note. Print `idle_streak`. At 8 or more, print `suspicious: oauth_idle_without_publish`. Do not poll secrets.
+
 ## Run 363 — 2026-10-06T12:20:00Z
 - Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0.
 - Lesson: a progress line that omits the Run heading is invisible to log compact and can be cut with the previous section. Promote that shape. Do not poll secrets.
@@ -45,7 +49,3 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 353 — 2026-10-06T02:20:00Z
 - Failed approach not retried: another export-probe lock or another media checker while videos published stay 0.
 - Lesson: media QA and the export probe never read captions.srt. Wire the cue check. Do not invent a second media checker.
-
-## Run 352 — 2026-10-06T01:15:00Z
-- Failed approach not retried: another export-probe lock or upload-edge persist branch while videos published stay 0.
-- Lesson: the job materialized media and then only probed the master. VO levels and card size already had a fail-closed tool. Wire that tool. Do not invent a second media checker.
