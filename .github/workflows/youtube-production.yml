@@ -82,6 +82,25 @@ jobs:
         if: ${{ (inputs.collect_feedback != true || inputs.execute == true) && inputs.packet == 'videos/002-stop-deciding-what-to-work-on-every-morning' }}
         run: python3 tools/materialize_q1_release.py
 
+      - name: Fail closed on VO cards and export media QA
+        if: ${{ inputs.collect_feedback != true }}
+        shell: bash
+        run: |
+          # Does not encode and does not call YouTube. ftyp-only is not this gate.
+          # Q1 dry-run must pass after materialize. A different packet has no release
+          # install, so a missing take fails the job only when execute=true.
+          set +e
+          python3 tools/media_qa.py "$PACKET"
+          status=$?
+          set -e
+          if [ "$status" -eq 0 ]; then
+            exit 0
+          fi
+          if [ "${{ inputs.execute }}" = "true" ] || [ "$PACKET" = "videos/002-stop-deciding-what-to-work-on-every-morning" ]; then
+            exit "$status"
+          fi
+          echo "media_qa exit $status; not execute and not the Q1 packet; continuing"
+
       - name: Probe export streams before any provider write
         if: ${{ inputs.collect_feedback != true }}
         shell: bash
@@ -269,6 +288,7 @@ jobs:
           echo "A generated vo_origin sets status.containsSyntheticMedia. An unknown kind fails before the token refresh."
           echo "OAuth secrets are read only from GitHub Actions secrets."
           echo "Verified release media is materialized with checksum guards."
+          echo "media_qa runs after materialize. It does not encode or call YouTube. Q1 must pass. A non-Q1 missing take fails only when execute=true."
           echo "collect_feedback is read-only and defaults off. It does not upload or invent metrics."
           echo "collect_feedback refuses a missing or early uploaded_at and does not write COLLECTED."
           echo "collect_feedback does not commit a COLLECTED file unless window.kind is first_calendar_days."

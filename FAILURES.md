@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 352 — 2026-10-06T01:15:00Z
+- Failed approach not retried: another export-probe lock or upload-edge persist branch while videos published stay 0.
+- Lesson: the job materialized media and then only probed the master. VO levels and card size already had a fail-closed tool. Wire that tool. Do not invent a second media checker.
+
 ## Run 350 — 2026-10-05T23:20:00Z
 - Failed approach not retried: another upload-edge persist branch while videos published stay 0. `STALL_UPLOAD_EDGE` still stands.
 - Lesson: the remaining pre-insert hole was the master itself. ftyp-only acceptance could still upload the wrong picture size or a silent file. Probe streams before execute. Do not encode in that step.
@@ -77,11 +81,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 - **Evidence:** 67 `## Run ` sections. Stall watch only needs the newest 8. After the move, STATE.md has 12 sections and stall_watch still prints STALL_OAUTH_IDLE.
 - **Result:** Older deltas are in docs/state_archive.md. tools/state_compact.py keeps the cap. No provider write.
 - **Avoid:** Pasting the archive back into STATE.md. Adding another scanner while STALL_OAUTH_IDLE is set. Polling OAuth secrets as the only work.
-
-## Run 339 — boilerplate kept the local-gate flag set
-
-- **Tried:** Treating `STALL_LOCAL_GATE` as still true because the printer said so after Runs 336-338.
-- **Evidence:** Those deltas said `No new scanner`. `LOCAL_GATE_TOKENS` included `scanner`, so the negation matched. After the token was removed, `tools/stall_watch.py` printed `STALL_OAUTH_IDLE` only.
-- **Result:** Contract locks the negated case. A real scan token still sets the flag. No provider write.
-- **Avoid:** Restoring the bare `scanner` token. Adding another scanner while `STALL_OAUTH_IDLE` is set. Polling OAuth secrets as the only work.
 

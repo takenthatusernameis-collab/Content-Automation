@@ -40,7 +40,7 @@ Local printer: `tools/complete.py` (PLAN_BUILT; fail-closed). Markdown-only pack
 
 ### 5. QA
 - packet gate: script, status, metadata, selected VO, cards, export
-- media gate: `tools/media_qa.py` (READY_FOR_MEDIA; fail-closed VO header + PCM levels + 1920x1080 PNG IHDR + assembly readiness; no ffmpeg; no status bump)
+- media gate: `tools/media_qa.py` (READY_FOR_MEDIA; fail-closed VO header + PCM levels + 1920x1080 PNG IHDR + assembly readiness; no ffmpeg; no status bump). Run 352: the production job runs it after materialize. Q1 must pass. A non-Q1 missing take fails only when execute=true.
 - completion gate: `tools/complete.py` (PLAN_BUILT; fail-closed evidence rollup; no writes; no APIs)
 - content-quality gate: anti-slop/originality/read-aloud review
 - factual-claim gate: every consequential number or factual assertion has a source or is rewritten qualitatively

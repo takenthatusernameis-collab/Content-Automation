@@ -2,6 +2,10 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 352 — 2026-10-06T01:15:00Z
+- The production job now runs media QA after materialize. Estimated save: one private upload of a wrong-size card or a clipped take if execute starts before a human opens the packet. Human minutes per video unchanged until secrets exist. Videos published stay 0.
+- Automated step changed: existing `tools/media_qa.py` on the production job. Remaining manual gate: YouTube OAuth secrets. Do not add another early-persist call. Do not add another export-probe lock.
+
 ## Run 351 — 2026-10-06T00:20:00Z
 - The production export probe now refuses the known truncated r249 master and a present master that is not 30fps yuv420p h264 with stereo AAC at 48000 Hz. Estimated save: one private upload of the truncated file if execute starts before a human checks duration. Human minutes per video unchanged until secrets exist. Videos published stay 0.
 - Automated step changed: existing `tools/export_probe.py` on the production job. Remaining manual gate: YouTube OAuth secrets. Do not add another early-persist call while `STALL_UPLOAD_EDGE` is set.
@@ -74,7 +78,4 @@ RUNS.md no longer truncates before the newest run log. Newest 12 entries stay in
 
 ## Run 341 (2026-10-05T16:20:00Z)
 - NEXT.md dropped from 28596 bytes to 12 notes. Older notes are in docs/next_archive.md. Estimated agent minutes saved on the next truncated-fetch rediscovery: about 10, if the newest locks are read first. Videos published stay 0. Publish still waits on the three YouTube secrets.
-
-## Run 340 (2026-10-05T15:20:00Z)
-- STATE.md dropped from 52418 bytes and 67 run sections to 12 sections. Older deltas are in docs/state_archive.md. Estimated agent minutes saved on the next truncated-fetch rediscovery: about 10, if the newest gate is read first. Videos published stay 0. Publish still waits on the three YouTube secrets.
 

@@ -2,6 +2,15 @@
 
 Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools/runs_compact.py` moves extras. It does not delete history.
 
+## Run 352 — 2026-10-06T01:15:00Z
+- Objective: Stop a bad take or wrong-size card from reaching the upload gates after materialize.
+- Action: Production workflow now runs `tools/media_qa.py` after materialize and before the export probe. Q1 must pass. A non-Q1 missing take fails only when execute=true. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add an upload-edge persist call. Did not add an export-probe lock.
+- Result: Local Q1 media printed media_qa gate PASS. Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/media_qa.py` on the r253 master plus r249 wav/cards printed gate PASS (308.4s, 7/7 cards, export ftyp). `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: The job probed the master and never checked VO levels or card size. Those checks already existed and passed on the release files.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: upload-edge and export-probe patches have not published a video. Do not add another one.
+- Next: Do not install the r249 master. Do not add another Location, session hold, or early-persist call. Do not add another export-probe lock. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 351 — 2026-10-06T00:20:00Z
 - Objective: Stop the known truncated r249 master, and an off-rate or silent-codec master, from passing the production export probe.
 - Action: `tools/export_probe.py` now returns EXPORT_BANNED_MASTER for the r249 master sha before ffprobe. A present master must be 30fps yuv420p h264 with stereo AAC at 48000 Hz, still 1920x1080 and at least 20s. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add an upload-edge persist call.
@@ -100,15 +109,6 @@ Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools
 - Discovery: NEXT.md was 28596 bytes. The agent fetch kept the newest notes and cut the upload locks that still prevent a second videos.insert.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Do not paste the archive back into NEXT.md. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 340 — 2026-10-05T15:20:00Z
-- Objective: Stop STATE.md from truncating before the current gate on the next agent fetch.
-- Action: Moved deltas older than the newest 12 from STATE.md to docs/state_archive.md. Added tools/state_compact.py and a contract. Selftest runs the contract.
-- Result: STATE.md is 12 run sections. Archive holds the older sections. stall_watch still prints STALL_OAUTH_IDLE. Videos published stay 0.
-- Verification: state_compact_contract printed STATE COMPACT CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
-- Discovery: STATE.md was 52418 bytes and 67 run sections. The agent fetch truncated it before the publish-gate section.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Do not paste the archive back into STATE.md. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 Earlier runs through Run 269 remain in git at `9416aae2c482ca08fd55642e0fff94568482ee51` (`RUNS.md` blob `243e47753b76bbd636a59dddb00e8c1c6f2e90c1`) and before that at `65cca063`.

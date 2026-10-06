@@ -289,3 +289,6 @@ Updated: 2026-10-05T11:20:00Z
 ## Run 339 — 2026-10-05T14:20:00Z
 The production stall printer no longer treats `No new scanner` as a local-gate run. Estimated agent minutes saved on the next runs: about 10, by not following a false `STALL_LOCAL_GATE` that Runs 336-338 kept rewriting. Human minutes per video unchanged. Videos published stay 0.
 
+## Run 340 (2026-10-05T15:20:00Z)
+- STATE.md dropped from 52418 bytes and 67 run sections to 12 sections. Older deltas are in docs/state_archive.md. Estimated agent minutes saved on the next truncated-fetch rediscovery: about 10, if the newest gate is read first. Videos published stay 0. Publish still waits on the three YouTube secrets.
+

@@ -1444,6 +1444,7 @@ def main() -> int:
     failures.extend(check_stall_watch())
     failures.extend(check_prove_locks_on_push())
     failures.extend(check_export_probe())
+    failures.extend(check_media_qa_workflow())
     failures.extend(check_apply_idea())
     failures.extend(check_idea_gate())
     failures.extend(check_quality_scan())
@@ -2477,6 +2478,21 @@ def check_caption_waits_for_processing() -> list[str]:
     finally:
         youtube_api._request_retrying = original
     return failures
+
+
+
+def check_media_qa_workflow() -> list[str]:
+    """Production must run media_qa after materialize and before a provider write.
+
+    The check is the workflow text only. It does not invent media and does not
+    call YouTube. A non-Q1 packet may continue a dry-run when the take is absent.
+    """
+    workflow = (ROOT / ".github/workflows/youtube-production.yml").read_text(encoding="utf-8")
+    if "tools/media_qa.py" not in workflow:
+        return ["production workflow must run media_qa before provider write"]
+    if "not execute and not the Q1 packet" not in workflow:
+        return ["production workflow must not fail a non-Q1 dry-run solely for a missing take"]
+    return []
 
 
 def check_export_probe() -> list[str]:

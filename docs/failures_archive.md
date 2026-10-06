@@ -222,3 +222,10 @@ Run 330 added `required_scopes` and a warning line, but `auth_status` and the re
 - **Result:** Due time is upload plus 10 days. Query dates are the first 7 calendar days of that video. Day 8 stays not due. No metrics were invented.
 - **Avoid:** Restoring a 7-day due gate while the query still holds back 3 days. Treating a sliding now window as the first-video comparison.
 
+## Run 339 — boilerplate kept the local-gate flag set
+
+- **Tried:** Treating `STALL_LOCAL_GATE` as still true because the printer said so after Runs 336-338.
+- **Evidence:** Those deltas said `No new scanner`. `LOCAL_GATE_TOKENS` included `scanner`, so the negation matched. After the token was removed, `tools/stall_watch.py` printed `STALL_OAUTH_IDLE` only.
+- **Result:** Contract locks the negated case. A real scan token still sets the flag. No provider write.
+- **Avoid:** Restoring the bare `scanner` token. Adding another scanner while `STALL_OAUTH_IDLE` is set. Polling OAuth secrets as the only work.
+
