@@ -10,7 +10,7 @@ TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
-from stall_watch import FLAG, IDLE_FLAG, INSTRUCTION_FLAG, LOCAL_GATE_FLAG, PREUPLOAD_FLAG, UPLOAD_EDGE_FLAG, flag_text  # noqa: E402
+from stall_watch import FLAG, IDLE_FLAG, INSTRUCTION_FLAG, LOCAL_GATE_FLAG, PREUPLOAD_FLAG, UPLOAD_EDGE_FLAG, flag_text, idle_streak  # noqa: E402
 
 
 def delta(body: str) -> str:
@@ -40,8 +40,8 @@ def main() -> int:
     mixed += delta("OAuth secrets were not polled. Videos published stay 0. fill-idea paste hint.")
     mixed += delta("OAuth secrets were not polled. Videos published stay 0. queue column.")
     flags = flag_text(mixed)
-    if flags:
-        return fail(f"mixed window must be clear: {flags}")
+    if flags != ["idle_streak: 3"]:
+        return fail(f"mixed window must be streak only: {flags}")
     local_gate = delta(
         "OAuth secrets were not polled. Videos published stay 0. quality_scan contract only. No provider write."
     )
@@ -66,6 +66,8 @@ def main() -> int:
     flags = flag_text(idle)
     if IDLE_FLAG not in flags:
         return fail(f"idle window missing: {flags}")
+    if "idle_streak: 8" not in flags or "suspicious: oauth_idle_without_publish" not in flags:
+        return fail(f"idle streak missing: {flags}")
     edge = delta(
         "OAuth secrets were not polled. Videos published stay 0. Early-persist the resumable Location."
     ) * 4
@@ -77,17 +79,14 @@ def main() -> int:
     ) * 3
     if UPLOAD_EDGE_FLAG in flag_text(short_edge):
         return fail("three upload-edge deltas must not set the flag")
-    broken = edge + delta(
-        "OAuth secrets were not polled. Videos published stay 0. Fixed assemble only. No provider write."
-    )
-    # Newest delta is first in the file, so prepend the non-edge run.
     broken = delta(
         "OAuth secrets were not polled. Videos published stay 0. Fixed assemble only. No provider write."
     ) + edge
     if UPLOAD_EDGE_FLAG in flag_text(broken):
         return fail("a non-edge newest delta must clear the upload-edge flag")
-    if flag_text(delta("OAuth secrets were not polled. Videos published stay 0. topic switch.") * 3):
-        return fail("three idle deltas must stay clear")
+    three = flag_text(delta("OAuth secrets were not polled. Videos published stay 0. topic switch.") * 3)
+    if three != ["idle_streak: 3"]:
+        return fail(f"three idle deltas must stay clear except streak: {three}")
     probe = delta(
         "OAuth secrets were not polled. Videos published stay 0. tools/export_probe.py wired. No provider write."
     ) * 4
@@ -114,6 +113,16 @@ def main() -> int:
     ) * 4
     if UPLOAD_EDGE_FLAG in flag_text(edge_lock):
         return fail("upload-edge lock boilerplate must not set the flag")
+    published = delta("OAuth secrets were present. Videos published stay 1.") + idle
+    flags = flag_text(published)
+    if "idle_streak: 0" not in flags:
+        return fail(f"a published newest delta must reset the streak: {flags}")
+    if "suspicious: oauth_idle_without_publish" in flags:
+        return fail("a published newest delta must clear suspicious")
+    if IDLE_FLAG in flags:
+        return fail("a published newest delta must clear idle flag")
+    if idle_streak([]) != 0:
+        return fail("empty streak must be 0")
     print("STALL WATCH CONTRACT PASS")
     return 0
 

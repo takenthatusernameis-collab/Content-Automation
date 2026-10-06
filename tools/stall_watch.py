@@ -4,6 +4,10 @@
 Runs 314-316 each added a Studio handoff note while OAuth stayed unpolled
 and videos published stayed 0. Prose flags did not stop the next run.
 This printer makes that pattern machine-visible.
+
+idle_streak counts every newest STATE delta that still says OAuth was not
+polled and videos published stay 0. A streak at or above the idle window is
+suspicious: the same blocker is being restated without a publish.
 """
 
 from __future__ import annotations
@@ -92,15 +96,24 @@ def run_deltas(text: str) -> list[str]:
     return deltas
 
 
+def _oauth_unpolled(delta: str) -> bool:
+    return "OAuth secrets were not polled" in delta and "Videos published stay 0" in delta
+
+
 def _oauth_stall(deltas: list[str]) -> bool:
     if len(deltas) < WINDOW:
         return False
+    return all(_oauth_unpolled(delta) for delta in deltas)
+
+
+def idle_streak(deltas: list[str]) -> int:
+    """Newest-first count of OAuth-unpolled, unpublished deltas."""
+    streak = 0
     for delta in deltas:
-        if "OAuth secrets were not polled" not in delta:
-            return False
-        if "Videos published stay 0" not in delta:
-            return False
-    return True
+        if not _oauth_unpolled(delta):
+            break
+        streak += 1
+    return streak
 
 
 def flag_text(text: str, window: int = WINDOW) -> list[str]:
@@ -206,15 +219,25 @@ def flag_text(text: str, window: int = WINDOW) -> list[str]:
                 "do_not: add another export probe, media checker, or caption cue gate while this flag is set",
                 "next: wait for the three YouTube secrets; do not wire another pre-upload checker",
             ])
+    # Count the whole file, not the 8-delta flag window. A cleared newest
+    # delta resets the streak to 0. This does not poll secrets.
+    streak = idle_streak(run_deltas(text))
+    flags.append(f"idle_streak: {streak}")
+    if streak >= IDLE_WINDOW:
+        flags.append("suspicious: oauth_idle_without_publish")
+        flags.append(
+            "suspicious_note: the same OAuth-absent unpublished state has repeated; do not treat another restatement as progress"
+        )
     return flags
 
 
 def main() -> int:
     text = STATE.read_text(encoding="utf-8") if STATE.is_file() else ""
     flags = flag_text(text)
-    if not flags:
+    if flags == ["idle_streak: 0"] or not flags:
         print("STALL_WATCH")
         print("status: clear")
+        print("idle_streak: 0")
         return 0
     print("STALL_WATCH")
     for line in flags:
