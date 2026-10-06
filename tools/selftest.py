@@ -1311,15 +1311,44 @@ def check_runs_compact() -> list[str]:
 
 
 def check_stall_watch() -> list[str]:
-    """Instruction-lock and Studio stalls must stay machine-visible."""
+    """Instruction-lock and Studio stalls must stay machine-visible.
+
+    One definition. A later copy used to shadow this contract, so selftest
+    could pass while stall_watch_contract.py was never executed.
+    """
     import subprocess
+    import stall_watch
+    failures = []
     contract = ROOT / "tools" / "stall_watch_contract.py"
     if not contract.is_file():
-        return ["stall_watch_contract.py missing"]
-    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
-    if proc.returncode != 0 or "STALL WATCH CONTRACT PASS" not in proc.stdout:
-        return [f"stall_watch_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
-    return []
+        failures.append("stall_watch_contract.py missing")
+    else:
+        proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+        if proc.returncode != 0 or "STALL WATCH CONTRACT PASS" not in proc.stdout:
+            failures.append(f"stall_watch_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}")
+    sample = ""
+    for n in (9, 8, 7):
+        sample += (
+            f"## Run {n} delta\n"
+            "- OAuth secrets were not polled\n"
+            "end_screen note in studio_pin.md\n"
+            "Videos published stay 0.\n\n"
+        )
+    if "STALL_OAUTH_AND_STUDIO" not in stall_watch.flag_text(sample):
+        failures.append("stall_watch must flag three OAuth-and-studio deltas")
+    if stall_watch.flag_text("## Run 1 delta\n- fixed assemble\n"):
+        failures.append("stall_watch must stay quiet without the repeated pattern")
+    probe = ""
+    for n in (4, 3, 2, 1):
+        probe += (
+            f"## Run {n} delta\n"
+            "- OAuth secrets were not polled\n"
+            "tools/export_probe.py wired\n"
+            "Videos published stay 0.\n\n"
+        )
+    if "STALL_PREUPLOAD_PROBE" not in stall_watch.flag_text(probe):
+        failures.append("stall_watch must flag four OAuth-idle preupload probe deltas")
+    return failures
 
 
 def check_idea_gate() -> list[str]:
@@ -1479,7 +1508,6 @@ def main() -> int:
     failures.extend(check_claim_scan())
     failures.extend(check_title_scan())
     failures.extend(check_packet_path())
-    failures.extend(check_stall_watch())
     failures.extend(check_playlist_membership())
 
     print(f"Fixture: {path.name}")
@@ -2580,34 +2608,6 @@ def check_prove_locks_on_push() -> list[str]:
         failures.append("selftest workflow must run prove_locks.py on every push")
     return failures
 
-
-def check_stall_watch() -> list[str]:
-    """The OAuth-and-Studio loop must be detectable. The flag does not fail CI."""
-    import stall_watch
-    failures = []
-    sample = ""
-    for n in (9, 8, 7):
-        sample += (
-            f"## Run {n} delta\n"
-            "- OAuth secrets were not polled\n"
-            "end_screen note in studio_pin.md\n"
-            "Videos published stay 0.\n\n"
-        )
-    if "STALL_OAUTH_AND_STUDIO" not in stall_watch.flag_text(sample):
-        failures.append("stall_watch must flag three OAuth-and-studio deltas")
-    if stall_watch.flag_text("## Run 1 delta\n- fixed assemble\n"):
-        failures.append("stall_watch must stay quiet without the repeated pattern")
-    probe = ""
-    for n in (4, 3, 2, 1):
-        probe += (
-            f"## Run {n} delta\n"
-            "- OAuth secrets were not polled\n"
-            "tools/export_probe.py wired\n"
-            "Videos published stay 0.\n\n"
-        )
-    if "STALL_PREUPLOAD_PROBE" not in stall_watch.flag_text(probe):
-        failures.append("stall_watch must flag four OAuth-idle preupload probe deltas")
-    return failures
 
 if __name__ == "__main__":
     raise SystemExit(main())

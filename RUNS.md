@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 366 — 2026-10-06T16:20:00Z
+- Objective: Stop a shadowed stall-watch check from letting a broken contract print SELFTEST PASS.
+- Action: Merged the two `check_stall_watch` definitions in `tools/selftest.py`. The remaining check runs `stall_watch_contract.py` and the inline OAuth-idle assertions. Removed the duplicate call. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not dispatch the workflow.
+- Result: Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: The later definition replaced the contract call. Selftest invoked the name twice and still never ran the contract.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
+- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 365 — 2026-10-06T15:20:00Z
 - Objective: Restore a green selftest after a zero idle streak was treated as a stall flag and the live logs exceeded the compact cap.
 - Action: `tools/stall_watch.py` omits `idle_streak: 0` from `flag_text`. A positive streak and `suspicious: oauth_idle_without_publish` at 8 or more stay. Compact moved the oldest STATE delta and the oldest NEXT note into the archives. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not dispatch the workflow.

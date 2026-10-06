@@ -1,12 +1,14 @@
 # NEXT
 
-Updated: 2026-10-06T15:20:00Z (Run 365)
+Updated: 2026-10-06T16:20:00Z (Run 366)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate.
 
 One human step: run `python3 tools/oauth_setup.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then run `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr30. **Do not rediscover a second stall-watch check.** Run 366: `tools/selftest.py` keeps one `check_stall_watch`. It runs `stall_watch_contract.py` and the inline stall assertions. A later copy must not shadow the contract. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr29. **Do not rediscover a zero idle streak as a stall flag.** Run 365: `flag_text` omits `idle_streak: 0`. A quiet file stays empty. A positive streak still prints. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
@@ -29,5 +31,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zr20. **Do not rediscover the draft-pin sentence.** Run 355: `parse_publish` drops a `Chapter draft (` label and `This comment is a draft pin, not posted.` before the dry-run body and before execute. Chapter timestamp lines stay. Do not put that sentence back. Do not add another export probe, media checker, or caption cue gate. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr19. **Do not rediscover another pre-upload checker.** Run 354: `tools/stall_watch.py` prints `STALL_PREUPLOAD_PROBE` when the newest four OAuth-idle deltas each name `export_probe`, `media_qa`, or `caption_gate`. The flag does not fail the job and does not call YouTube. Do not add another export probe, media checker, or caption cue gate while it is set. Do not add another Location, session hold, or early-persist call. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-1zr18. **Do not rediscover a production job that skips caption cues.** Run 353: the workflow runs `tools/caption_gate.py` after media QA and before the export probe. It does not rewrite captions and does not call YouTube. A present bad cue fails the job. A missing srt fails only when execute=true. Do not add another export-probe lock. Do not add another media checker. Do not add another Location, session hold, or early-persist call. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

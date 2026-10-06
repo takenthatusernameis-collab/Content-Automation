@@ -2,6 +2,11 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 366 — 2026-10-06T16:20:00Z
+- Improvement: selftest now executes `stall_watch_contract.py` again. A later duplicate function had shadowed that call since the inline checks were added.
+- Efficiency: a broken stall contract fails here instead of on a later run that happens to invoke the contract alone. Estimated human minutes per video unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
+- Verification: selftest PASS. No provider write. Videos published stay 0.
+
 ## Run 365 — 2026-10-06T15:20:00Z
 Selftest can see a clear stall watch again. A zero idle streak is not a flag, so a quiet file no longer looks like a stall. STATE.md and NEXT.md are back at the 12-section cap. Estimated effect: the next run does not reconstruct a red gate that was only a count of zero. Human minutes per video unchanged. Videos published stay 0.
 
@@ -38,9 +43,4 @@ Log compact now collapses stacked file headers. FAILURES.md and PROGRESS.md each
 - Viewer-facing upload copy no longer includes the chapter-draft label or the draft-pin sentence.
 - Estimated human minutes saved on the first upload: about 5 (description and pin edit in Studio after insert). The strip also covers a future packet that still has the old stub sentence.
 - Automated steps unchanged. Remaining manual step is still the three YouTube secrets. Videos published stay 0.
-
-## Run 354 — 2026-10-06T03:20:00Z
-- Improvement: a repeated pre-upload probe is now machine-visible. `STALL_PREUPLOAD_PROBE` stops the next run from wiring another export, media, or caption checker while videos published stay 0.
-- Efficiency: avoids another probe-only run. Estimated human minutes per video unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
-- Verification: stall watch contract PASS. Selftest PASS. No provider write.
 

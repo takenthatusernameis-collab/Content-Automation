@@ -288,3 +288,7 @@ Updated: 2026-10-05T18:20:00Z
 ## Run 353 — 2026-10-06T02:20:00Z
 - Failed approach not retried: another export-probe lock or another media checker while videos published stay 0.
 - Lesson: media QA and the export probe never read captions.srt. Wire the cue check. Do not invent a second media checker.
+## Run 354 — 2026-10-06T03:20:00Z
+- Failed approach not retried: another export-probe lock, media checker, or caption cue gate while videos published stay 0.
+- Lesson: Runs 350-353 each wired a pre-upload checker and published nothing. `STALL_PREUPLOAD_PROBE` is the stop. The unpublished video is the missing OAuth secrets.
+

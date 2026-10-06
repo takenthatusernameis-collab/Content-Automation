@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 366 — 2026-10-06T16:20:00Z
+- Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0.
+- Lesson: a second `check_stall_watch` later in selftest replaces the contract call. Keep one definition. Do not poll secrets.
+
 ## Run 365 — 2026-10-06T15:20:00Z
 - Failed approach not retried: treating `idle_streak: 0` as a stall flag, or leaving STATE.md and NEXT.md over the compact cap.
 - Lesson: a count of zero must stay quiet. Print the streak only when it is positive. Compact before the live file exceeds 12 sections. Do not poll secrets.
@@ -45,8 +49,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 355 — 2026-10-06T04:15:00Z
 - Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set.
 - Lesson: approved boxes were checked on copy that still told viewers the chapters were a draft and the pin was not posted. Strip those notes in `parse_publish`. Do not treat a checked box as proof the section is viewer-facing.
-
-## Run 354 — 2026-10-06T03:20:00Z
-- Failed approach not retried: another export-probe lock, media checker, or caption cue gate while videos published stay 0.
-- Lesson: Runs 350-353 each wired a pre-upload checker and published nothing. `STALL_PREUPLOAD_PROBE` is the stop. The unpublished video is the missing OAuth secrets.
 
