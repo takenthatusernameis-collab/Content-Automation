@@ -590,3 +590,14 @@ Updated: 2026-10-05T12:30:00Z (Run 338)
 
 Updated: 2026-10-05T16:20:00Z (Run 341)
 
+## Run 343 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
+- PROGRESS.md was 27269 bytes. FAILURES.md was 30708 bytes. Both were past the NEXT truncation size. Newest 12 sections stay live. Older sections moved to `docs/progress_archive.md` and `docs/failures_archive.md`. `tools/log_compact.py` moves extras. It does not delete history.
+- `python3 tools/log_compact_contract.py` printed LOG COMPACT CONTRACT PASS. Selftest includes the contract. Actions was not re-run.
+
+# STATE
+
+Updated: 2026-10-05T17:15:00Z (Run 342)
+

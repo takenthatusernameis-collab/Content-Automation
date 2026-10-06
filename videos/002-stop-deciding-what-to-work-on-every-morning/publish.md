@@ -24,9 +24,6 @@ Narration is a generated voice (en-US-AndrewNeural), not a recorded host. No aud
 
 Write tomorrow's sentence before you close the machine: verb, object, place.
 
-
-Chapter draft (not ASR, not an approval; confirm while the description box stays open):
-
 0:00 The reopen
 0:24 The stall
 1:25 Install the default
@@ -49,7 +46,7 @@ Chapter draft (not ASR, not an approval; confirm while the description box stays
 Removed as stopwords / title fragments: stop, deciding, work, every, morning, people.
 
 ## First comment (pin candidate)
-Assignment: install a written next-action default so the morning does not reopen the whole list before the next work block. Reply with the cue you wrote down. This comment is a draft pin, not posted.
+Assignment: install a written next-action default so the morning does not reopen the whole list before the next work block. Reply with the cue you wrote down.
 
 ## End screen / cards
 - Last 20s reserved for YouTube end screen (see docs/editor.md)

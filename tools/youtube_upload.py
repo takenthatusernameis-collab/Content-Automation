@@ -99,6 +99,37 @@ STUB_DESCRIPTION_MARKERS = (
     "Human locks title, description, and tags before YouTube",
 )
 
+# Production notes that must not reach videos.insert or commentThreads.insert.
+# Stripping them does not approve copy and does not call YouTube.
+INTERNAL_DESCRIPTION_PREFIXES = (
+    "Chapter draft (",
+)
+INTERNAL_COMMENT_SENTENCES = (
+    "This comment is a draft pin, not posted.",
+)
+
+
+def viewer_description(text: str) -> str:
+    """Drop internal chapter-draft labels. Keep timestamp lines YouTube reads."""
+    kept = []
+    for line in (text or "").splitlines():
+        stripped = line.strip()
+        if any(stripped.startswith(prefix) for prefix in INTERNAL_DESCRIPTION_PREFIXES):
+            continue
+        kept.append(line.rstrip())
+    cleaned = "\n".join(kept).strip()
+    while "\n\n\n" in cleaned:
+        cleaned = cleaned.replace("\n\n\n", "\n\n")
+    return cleaned
+
+
+def viewer_comment(text: str) -> str:
+    """Drop the stub sentence so an approved pin is viewer-facing."""
+    cleaned = text or ""
+    for sentence in INTERNAL_COMMENT_SENTENCES:
+        cleaned = cleaned.replace(sentence, "")
+    return " ".join(cleaned.split()).strip()
+
 
 
 def missing_provider_scopes(
@@ -473,10 +504,10 @@ def parse_publish(text: str) -> dict:
             tag = line[2:].strip()
             if tag:
                 tags.append(tag)
-    comment = section(text, "First comment (pin candidate)").strip()
+    comment = viewer_comment(section(text, "First comment (pin candidate)"))
     return {
         "title": title,
-        "description": description,
+        "description": viewer_description(description),
         "tags": tags,
         "pin_comment": comment,
         "comment_approved": comment_approved(text),

@@ -2,6 +2,14 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 355 — 2026-10-06T04:15:00Z
+- Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set.
+- Lesson: approved boxes were checked on copy that still told viewers the chapters were a draft and the pin was not posted. Strip those notes in `parse_publish`. Do not treat a checked box as proof the section is viewer-facing.
+
+# FAILURES
+
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
 ## Run 354 — 2026-10-06T03:20:00Z
 - Failed approach not retried: another export-probe lock, media checker, or caption cue gate while videos published stay 0.
 - Lesson: Runs 350-353 each wired a pre-upload checker and published nothing. `STALL_PREUPLOAD_PROBE` is the stop. The unpublished video is the missing OAuth secrets.
@@ -75,11 +83,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 - **Evidence:** After the move, each live file has 12 sections. Archives hold the older notes.
 - **Result:** tools/log_compact.py keeps the cap. No provider write.
 - **Avoid:** Pasting the archives back. Adding another scanner while STALL_OAUTH_IDLE is set. Polling OAuth secrets as the only work.
-
-## Run 342 — truncated RUNS hid the newest action
-
-- **Tried:** Reading RUNS.md as the permanent run log. The file was 108696 bytes and 71 entries. The fetch truncated before the newest recommended next action.
-- **Evidence:** After the move, RUNS.md has 12 entries and the permanent footer. docs/runs_archive.md holds the older entries, including Run 270.
-- **Result:** tools/runs_compact.py keeps the cap. No provider write.
-- **Avoid:** Pasting the archive back into RUNS.md. Adding another scanner while STALL_OAUTH_IDLE is set. Polling OAuth secrets as the only work.
 

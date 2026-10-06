@@ -1,5 +1,16 @@
 # STATE
 
+Updated: 2026-10-06T04:15:00Z (Run 355)
+
+## Run 355 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `STALL_PREUPLOAD_PROBE` still stands. `playlist_id` remains `not_set`. Do not add another export probe, media checker, or caption cue gate. Do not add another upload-edge persist call.
+- The approved Q1 description still contained `Chapter draft (not ASR, not an approval...)` and the approved pin still ended with `This comment is a draft pin, not posted.` `videos.insert` and `commentThreads.insert` would have published those notes. `parse_publish` now drops that chapter label and that pin sentence. Chapter timestamp lines stay. `publish.md` and `publish_brief.py` no longer emit them. This does not call YouTube.
+- Local dry-run still HOLD_LOCAL (missing master in this checkout, missing OAuth). Chapter label and draft-pin sentence were absent from the dry-run text. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
 Updated: 2026-10-06T03:20:00Z (Run 354)
 
 ## Run 354 delta
@@ -123,15 +134,4 @@ Updated: 2026-10-05T19:20:00Z (Run 345)
 # STATE
 
 Updated: 2026-10-05T17:25:00Z (Run 343)
-
-## Run 343 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
-- PROGRESS.md was 27269 bytes. FAILURES.md was 30708 bytes. Both were past the NEXT truncation size. Newest 12 sections stay live. Older sections moved to `docs/progress_archive.md` and `docs/failures_archive.md`. `tools/log_compact.py` moves extras. It does not delete history.
-- `python3 tools/log_compact_contract.py` printed LOG COMPACT CONTRACT PASS. Selftest includes the contract. Actions was not re-run.
-
-# STATE
-
-Updated: 2026-10-05T17:15:00Z (Run 342)
 

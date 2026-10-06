@@ -1,3 +1,12 @@
+# PROGRESS
+
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
+## Run 355 — 2026-10-06T04:15:00Z
+- Viewer-facing upload copy no longer includes the chapter-draft label or the draft-pin sentence.
+- Estimated human minutes saved on the first upload: about 5 (description and pin edit in Studio after insert). The strip also covers a future packet that still has the old stub sentence.
+- Automated steps unchanged. Remaining manual step is still the three YouTube secrets. Videos published stay 0.
+
 # LOG
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
@@ -78,7 +87,4 @@ A killed upload no longer has to start a second videos.insert after Location exi
 Updated: 2026-10-05T17:25:00Z
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
-
-## Run 343 — 2026-10-05T17:25:00Z
-PROGRESS.md and FAILURES.md no longer sit past the known fetch cut. Newest 12 sections stay live. Older notes are in docs/progress_archive.md and docs/failures_archive.md. Estimated agent minutes saved on the next runs: about 10, by not reconstructing a cut lesson. Human minutes per video unchanged. Videos published stay 0.
 

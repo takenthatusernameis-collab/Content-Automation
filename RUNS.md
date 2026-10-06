@@ -2,6 +2,15 @@
 
 Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools/runs_compact.py` moves extras. It does not delete history.
 
+## Run 355 — 2026-10-06T04:15:00Z
+- Objective: Stop the first upload from publishing internal production notes in the description and pinned comment.
+- Action: `parse_publish` drops a `Chapter draft (` label and the sentence `This comment is a draft pin, not posted.` Q1 `publish.md` and `publish_brief.py` no longer contain them. Chapter timestamp lines stay. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a probe, media checker, or caption cue gate. Did not add an upload-edge persist call.
+- Result: Dry-run copy no longer contains those notes. Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/youtube_upload.py` on Q1 printed chapters_in_description PASS and did not print the chapter label or draft-pin sentence. `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: Delegated approval had checked the description and first-comment boxes while the viewer-facing sections still said the chapter list was unapproved and the pin was not posted.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: pre-upload probe patches have not published a video. Do not add another one.
+- Next: Do not install the r249 master. Do not add another Location, session hold, or early-persist call. Do not add another export probe, media checker, or caption cue gate. Do not add a scanner. Do not scaffold Q2. Do not poll secrets. Do not put the draft-pin sentence back into the pin.
+
 ## Run 354 — 2026-10-06T03:20:00Z
 - Objective: Stop the next run from adding another pre-upload checker while videos published stay 0.
 - Action: `tools/stall_watch.py` now prints `STALL_PREUPLOAD_PROBE` when the newest four OAuth-idle deltas each name `export_probe`, `media_qa`, or `caption_gate`. The flag does not fail the job. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add an upload-edge persist call. Did not add an export-probe lock. Did not add another media checker. Did not add another caption cue gate.
@@ -100,15 +109,6 @@ Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools
 - Discovery: Runs 340-343 only compacted fetch files. The open Location was still not durable, so the first real upload could duplicate if the runner died after the session POST.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Do not print the session URI. Do not start a second videos.insert when Location exists. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 343 — 2026-10-05T17:25:00Z
-- Objective: Stop PROGRESS.md and FAILURES.md from truncating before the newest lesson on the next agent fetch.
-- Action: Moved sections older than the newest 12 to docs/progress_archive.md and docs/failures_archive.md. Added tools/log_compact.py and a contract. Selftest runs the contract. Did not poll secrets. Did not add a scanner. Did not scaffold Q2.
-- Result: Both live files are 12 sections. Archives hold the older notes. Videos published stay 0.
-- Verification: log_compact_contract printed LOG COMPACT CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
-- Discovery: PROGRESS.md was 27269 bytes and FAILURES.md was 30708 bytes. NEXT.md truncated near 28KB, so both were already past the known fetch cut.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Do not paste the archives back. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 Earlier runs through Run 269 remain in git at `9416aae2c482ca08fd55642e0fff94568482ee51` (`RUNS.md` blob `243e47753b76bbd636a59dddb00e8c1c6f2e90c1`) and before that at `65cca063`.

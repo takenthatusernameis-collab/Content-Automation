@@ -237,3 +237,10 @@ Run 330 added `required_scopes` and a warning line, but `auth_status` and the re
 
 - **Tried:** Reading STATE.md as the current system state. The file was 52418 bytes. The fetch truncated before the publish-gate section.
 - **Evidence:** 67 `
+## Run 342 — truncated RUNS hid the newest action
+
+- **Tried:** Reading RUNS.md as the permanent run log. The file was 108696 bytes and 71 entries. The fetch truncated before the newest recommended next action.
+- **Evidence:** After the move, RUNS.md has 12 entries and the permanent footer. docs/runs_archive.md holds the older entries, including Run 270.
+- **Result:** tools/runs_compact.py keeps the cap. No provider write.
+- **Avoid:** Pasting the archive back into RUNS.md. Adding another scanner while STALL_OAUTH_IDLE is set. Polling OAuth secrets as the only work.
+

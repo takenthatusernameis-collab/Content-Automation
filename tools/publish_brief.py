@@ -160,7 +160,7 @@ def render(packet: Path) -> str:
     tags = tag_list(src, title)
     comment = (
         f"Assignment: install {first_action} before the next work block. "
-        "Reply with the cue you wrote down. This comment is a draft pin, not posted."
+        "Reply with the cue you wrote down."
     )
     return f"""# Publish
 

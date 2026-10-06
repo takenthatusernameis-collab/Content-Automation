@@ -1146,6 +1146,19 @@ def check_q1_publish_draft_locked() -> list[str]:
         failures.append("Q1 First comment approved box must be checked under delegated approval")
     if "delegated agent" not in text:
         failures.append("Q1 publish.md must record delegated approval")
+    if "Chapter draft" in text or "draft pin" in text:
+        failures.append("Q1 publish.md must not ship an internal chapter or pin note")
+    from youtube_upload import parse_publish, viewer_comment, viewer_description
+    parsed = parse_publish(text)
+    if "draft pin" in parsed["pin_comment"] or "Chapter draft" in parsed["description"]:
+        failures.append("parse_publish must drop internal chapter and pin notes")
+    dirty = "Reply with the cue you wrote down. This comment is a draft pin, not posted."
+    if "draft pin" in viewer_comment(dirty):
+        failures.append("viewer_comment must drop the stub pin sentence")
+    labeled = "Place.\n\nChapter draft (not ASR, not an approval):\n\n0:00 The reopen\n"
+    cleaned = viewer_description(labeled)
+    if "Chapter draft" in cleaned or "0:00 The reopen" not in cleaned:
+        failures.append("viewer_description must keep chapter stamps and drop the label")
     return failures
 
 
