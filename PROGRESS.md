@@ -2,6 +2,11 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 369 — 2026-10-06T19:12:00Z
+- Improvement: a post-upload caption, thumbnail, or comment miss no longer fails the production job when the video id is already written. Estimated save: one extra execute dispatch after the first private insert, which could start another videos.insert, about 15 human minutes plus a duplicate private video.
+- Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
+- Verification: selftest PASS. No provider write. Videos published stay 0.
+
 ## Run 368 — 2026-10-06T18:12:00Z
 - Improvement: a failed playlist insert no longer fails the production job. Estimated save: one extra execute dispatch after the first private insert, which could start another videos.insert, about 15 human minutes plus a duplicate private video.
 - Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
@@ -40,7 +45,4 @@ The local OAuth exchange accepts the full localhost redirect URL, so the human d
 
 ## Run 358 — 2026-10-06T07:15:00Z
 Local OAuth exchange writes the refresh token only outside the repo and requests the caption and analytics scopes. Estimated human minutes saved on the first credential setup: about 15, plus one avoided private video if the token had been upload-only. Human minutes per video otherwise unchanged. Videos published stay 0.
-
-## Run 357 — 2026-10-06T06:20:00Z
-Log compact now collapses stacked file headers. FAILURES.md and PROGRESS.md each show one header and 12 sections. Estimated effect: a truncated fetch no longer hides the newest lesson behind a second file header. Human minutes per video unchanged. Videos published stay 0.
 

@@ -300,3 +300,7 @@ Updated: 2026-10-05T18:20:00Z
 - Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set.
 - Lesson: prepending a whole `# STATE` file looked like a log update and left a dangling header. Compact must collapse headers. Do not treat a second header as a new gate.
 
+## Run 357 — 2026-10-06T06:20:00Z
+- Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set.
+- Lesson: a second `# FAILURES` or `# PROGRESS` header is the same cut-fetch bug as a second STATE header. Collapse it in log compact. Do not finish a STATE bullet with the header token the contract counts.
+

@@ -363,3 +363,6 @@ Updated: 2026-10-05T19:20:00Z
 - Efficiency: estimated human minutes per video unchanged. Saves a future agent from reconstructing which delta is current. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
 - Verification: state compact contract PASS. Videos published stay 0.
 
+## Run 357 — 2026-10-06T06:20:00Z
+Log compact now collapses stacked file headers. FAILURES.md and PROGRESS.md each show one header and 12 sections. Estimated effect: a truncated fetch no longer hides the newest lesson behind a second file header. Human minutes per video unchanged. Videos published stay 0.
+

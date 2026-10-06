@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 369 — 2026-10-06T19:12:00Z
+- Failed approach not retried: another exchange parser, scanner, pre-upload checker, or early-persist call while videos published stay 0. Execute was not dispatched.
+- Lesson: a caption, thumbnail, or comment miss after the video id is written must not fail the job. Print `POST_UPLOAD_NOT_INSERT_FAILURE` and exit 0. Do not dispatch execute again to retry videos.insert. Do not poll secrets.
+
 ## Run 368 — 2026-10-06T18:12:00Z
 - Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0. Execute was not dispatched.
 - Lesson: a workflow comment that says exit 2 is not an upload failure does not change the job result. The step must exit 0 after printing `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE`. Do not poll secrets.
@@ -45,8 +49,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 358 — 2026-10-06T07:15:00Z
 - Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Polling secrets was not the run.
 - Lesson: the remaining human step was an unscripted token exchange. Script the exchange and refuse a repo path. Do not print the token.
-
-## Run 357 — 2026-10-06T06:20:00Z
-- Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set.
-- Lesson: a second `# FAILURES` or `# PROGRESS` header is the same cut-fetch bug as a second STATE header. Collapse it in log compact. Do not finish a STATE bullet with the header token the contract counts.
 

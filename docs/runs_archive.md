@@ -837,3 +837,12 @@ Older run log entries. Newest first inside each move. Do not paste these back in
 - Next: Do not prepend a second `# STATE` header. Do not add another export probe, media checker, or caption cue gate. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools/runs_compact.py` moves extras. It does not delete history.
+
+## Run 357 — 2026-10-06T06:20:00Z
+- Objective: Stop stacked FAILURES and PROGRESS headers from hiding the newest lesson.
+- Action: `log_compact.py` drops a later file header and a repeated archive pointer. Both live logs now have one header and 12 sections. Finished the cut Run 356 STATE bullet. Did not poll secrets. Did not add a scanner or a probe.
+- Result: Contracts passed. Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/log_compact_contract.py` printed LOG COMPACT CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: Run 356 collapsed STATE headers only. FAILURES and PROGRESS still had stacked headers.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Do not prepend a second file header. Do not add another probe. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

@@ -2445,6 +2445,8 @@ def check_job_timeout_covers_upload() -> list[str]:
         failures.append("playlist step comment must not say a failed insert prevents videos.insert")
     if "PLAYLIST_INSERT_NOT_UPLOAD_FAILURE" not in workflow:
         failures.append("playlist step must not fail the job when playlistItems.insert exits 2")
+    if "POST_UPLOAD_NOT_INSERT_FAILURE" not in workflow:
+        failures.append("execute step must not fail the job when a video id exists and post-upload work is incomplete")
     if "studio.youtube.com" in empty:
         failures.append("studio handoff must not invent an end-screen URL")
     if "inputs.packet" not in workflow or "videos/002-stop-deciding-what-to-work-on-every-morning" not in workflow:

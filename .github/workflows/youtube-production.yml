@@ -152,12 +152,29 @@ jobs:
         if: ${{ inputs.execute == true }}
         env:
           UPLOAD_EARLY_PERSIST: "1"
+        shell: bash
         run: |
           # Location is committed from the uploader before the first chunk.
           # A killed step never reaches Persist non-secret upload state.
+          # A caption, thumbnail, or comment miss after the video id is written is not an insert failure.
+          # Exit 4 with POST_UPLOAD_INCOMPLETE must not paint the job red. Do not dispatch execute again.
+          set +e
           python3 tools/youtube_upload.py "$PACKET" --execute ${{ inputs.post_comment == true && '--post-comment' || '' }} ${{ inputs.skip_comment == true && '--skip-comment' || '' }}
+          status=$?
+          set -e
           # An approved first comment posts on this execute. post_comment=true is only an extra request.
           # skip_comment=true passes --skip-comment and wins over post_comment. Data API insert does not pin.
+          if [ "$status" -eq 0 ]; then
+            exit 0
+          fi
+          if [ "$status" -eq 4 ] && [ -f "$PACKET/upload_state.json" ]; then
+            if python3 -c 'import json,os,sys; from pathlib import Path; row=json.loads((Path(os.environ["PACKET"])/"upload_state.json").read_text(encoding="utf-8")); vid=str(row.get("provider_video_id") or "").strip(); err=str(row.get("error_class") or ""); sys.exit(0 if vid and err.startswith("POST_UPLOAD_INCOMPLETE") else 1)'; then
+              echo "POST_UPLOAD_NOT_INSERT_FAILURE"
+              echo "Caption, thumbnail, or comment did not finish. The video id is already written. Do not dispatch execute again to retry videos.insert."
+              exit 0
+            fi
+          fi
+          exit "$status"
 
       - name: Print Studio pin handoff
         if: ${{ always() && inputs.execute == true }}
