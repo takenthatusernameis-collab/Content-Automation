@@ -369,3 +369,6 @@ Log compact now collapses stacked file headers. FAILURES.md and PROGRESS.md each
 ## Run 358 — 2026-10-06T07:15:00Z
 Local OAuth exchange writes the refresh token only outside the repo and requests the caption and analytics scopes. Estimated human minutes saved on the first credential setup: about 15, plus one avoided private video if the token had been upload-only. Human minutes per video otherwise unchanged. Videos published stay 0.
 
+## Run 359 — 2026-10-06T08:11:00Z
+The local OAuth exchange accepts the full localhost redirect URL, so the human does not cut the code out of the address bar. Estimated human minutes saved on the first credential setup: about 10, plus one avoided failed token POST. Human minutes per video otherwise unchanged. Videos published stay 0.
+

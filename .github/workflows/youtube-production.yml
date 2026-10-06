@@ -208,19 +208,19 @@ jobs:
         run: |
           # This step runs after videos.insert. not_set does not invent a playlist id and does not fail the job.
           # A missing video id does not start videos.insert.
-          # A failed playlistItems.insert exits 2. That is not an upload failure. Do not dispatch execute again to retry it.
-          # Exit 2 must not fail this step. A red job after videos.insert looks like an upload failure.
+          # Exit 2 is a failed playlistItems.insert. Any other non-zero is a crash or a bad id.
+          # Neither is an upload failure. A red job after videos.insert looks like an upload failure.
+          # Do not dispatch execute again to retry videos.insert.
           if [ -f "$PACKET/upload_state.json" ]; then
             set +e
             python3 tools/playlist_membership.py "$PACKET" --execute --write
             status=$?
             set -e
-            if [ "$status" -eq 2 ]; then
+            if [ "$status" -ne 0 ]; then
               echo "PLAYLIST_INSERT_NOT_UPLOAD_FAILURE"
-              echo "playlistItems.insert failed. Do not dispatch execute again to retry it."
+              echo "playlist membership exited $status. Do not dispatch execute again to retry videos.insert."
               exit 0
             fi
-            exit "$status"
           else
             echo "PLAYLIST_MEMBERSHIP"
             echo "status: no_upload_state"
@@ -368,7 +368,8 @@ jobs:
           echo "A Studio pin miss or a rejected provider-state push after a video id is not an insert failure. Do not dispatch execute again."
           echo "The observation is due at upload plus 7 days plus 3 days of Analytics lag. The query is the first 7 calendar days of that video, not a sliding now window."
           echo "A resumed upload keeps the existing uploaded_at. It does not invent one."
-          echo "A caption or thumbnail failure exits non-zero after the video id is written."
+          echo "A caption or thumbnail miss after the video id is written prints POST_UPLOAD_NOT_INSERT_FAILURE and exits 0. Do not dispatch execute again."
+          echo "A playlist membership miss after upload state exists prints PLAYLIST_INSERT_NOT_UPLOAD_FAILURE and exits 0. It does not start another videos.insert."
           echo "A 200/201 whose session then returns 404 or 410 is RESUMABLE_COMPLETED_SESSION_GONE. That state is committed and the next execute must not insert again."
           echo "A session POST that returns 503 without Location is retried. A 503 that returns Location is that session, not a second videos.insert."
           echo "An open Location is written to upload_state.json and committed before the first chunk when UPLOAD_EARLY_PERSIST=1. The later persist step still runs. A killed execute must not start another videos.insert if that commit landed. Do not print the URI. A provider video id is early-persisted before caption wait. Caption, thumbnail, and comment status are early-persisted after each of those writes. A 404/410 hold and a completed-without-id hold are early-persisted before the step returns. Do not print the URI. STALL_UPLOAD_EDGE means do not add another early-persist call."

@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 371 — 2026-10-06T23:13:00Z
+- Failed approach not retried: another exchange parser, scanner, pre-upload checker, or early-persist call while videos published stay 0. Execute was not dispatched.
+- Lesson: swallowing only playlist exit 2 still leaves a crash as a red job. Print `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exit 0 on any non-zero membership exit after upload state exists. Do not leave the summary saying a caption miss exits non-zero after the video id is written. Do not dispatch execute again. Do not poll secrets.
+
 ## Run 370 — 2026-10-06T21:16:00Z
 - Failed approach not retried: another exchange parser, scanner, pre-upload checker, or early-persist call while videos published stay 0. Execute was not dispatched.
 - Lesson: a Studio pin miss or a rejected provider-state push after the video id is written must not fail the job. Print `STUDIO_PIN_NOT_INSERT_FAILURE` or `PERSIST_PUSH_NOT_INSERT_FAILURE` and exit 0. Do not dispatch execute again to retry videos.insert. Do not poll secrets.
@@ -45,8 +49,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 360 — 2026-10-06T09:11:00Z
 - Failed approach not retried: another OAuth exchange parser, export probe, media checker, or caption cue gate while videos published stay 0.
 - Lesson: Runs 358-359 scripted the token exchange and published nothing. A second Active locks block hid the same human step. Collapse the copy. Do not add another exchange parser.
-
-## Run 359 — 2026-10-06T08:11:00Z
-- Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Polling secrets was not the run.
-- Lesson: a pasted localhost redirect is the normal Desktop consent result. Extract the code. Do not print it. Do not treat a raw-code-only exchange as finished.
 

@@ -1,12 +1,14 @@
 # NEXT
 
-Updated: 2026-10-06T21:16:00Z (Run 370)
+Updated: 2026-10-06T23:13:00Z (Run 371)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate.
 
 One human step: run `python3 tools/oauth_setup.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then run `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr35. **Do not rediscover a playlist crash or a caption-miss summary as an insert failure.** Run 371: the playlist step prints `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exits 0 on any non-zero exit after upload state exists, not only exit 2. The job summary no longer says a caption or thumbnail miss exits non-zero after the video id is written. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr34. **Do not rediscover a red persist or Studio pin step as an insert failure.** Run 370: the Studio pin step prints `STUDIO_PIN_NOT_INSERT_FAILURE` and exits 0 when the handoff printer fails. The persist step prints `PERSIST_PUSH_NOT_INSERT_FAILURE` and exits 0 when a provider video id exists and the commit or push fails. Do not dispatch execute again to retry `videos.insert`. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
@@ -29,5 +31,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zr25. **Do not rediscover a lock sentence as a wired probe.** Run 361: `tools/stall_watch.py` ignores a do-not-add lock sentence before `STALL_PREUPLOAD_PROBE` and `STALL_UPLOAD_EDGE`. A wired tool still sets the flag. `chapter_sync_reason` refuses a last chapter inside the final 10 seconds when duration is known. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr24. **Do not rediscover a second Active locks block.** Run 360: `tools/next_compact.py` keeps one `Active locks:` block and drops a lone `.` paragraph. The human step is the three secrets, not another exchange parser. Do not add another export probe, media checker, or caption cue gate. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-1zr23. **Do not rediscover a raw-code-only token exchange.** Run 359: `tools/oauth_exchange.py` accepts the full localhost redirect URL or a raw code. It does not print the code. The refresh token is still written only outside the repo. Do not commit that file. Do not add another export probe, media checker, or caption cue gate. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

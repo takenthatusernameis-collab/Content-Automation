@@ -308,3 +308,7 @@ Updated: 2026-10-05T18:20:00Z
 - Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Polling secrets was not the run.
 - Lesson: the remaining human step was an unscripted token exchange. Script the exchange and refuse a repo path. Do not print the token.
 
+## Run 359 — 2026-10-06T08:11:00Z
+- Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Polling secrets was not the run.
+- Lesson: a pasted localhost redirect is the normal Desktop consent result. Extract the code. Do not print it. Do not treat a raw-code-only exchange as finished.
+

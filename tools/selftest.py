@@ -2445,6 +2445,13 @@ def check_job_timeout_covers_upload() -> list[str]:
         failures.append("playlist step comment must not say a failed insert prevents videos.insert")
     if "PLAYLIST_INSERT_NOT_UPLOAD_FAILURE" not in workflow:
         failures.append("playlist step must not fail the job when playlistItems.insert exits 2")
+    playlist_step = workflow.split("Plan playlist membership", 1)[-1].split("Persist non-secret upload state", 1)[0]
+    if 'exit "$status"' in playlist_step:
+        failures.append("playlist step must not fail the job when membership exits non-zero")
+    if "A caption or thumbnail failure exits non-zero after the video id is written." in workflow:
+        failures.append("summary must not say a caption miss fails the job after the video id is written")
+    if "POST_UPLOAD_NOT_INSERT_FAILURE and exits 0" not in workflow:
+        failures.append("summary must say a caption miss exits 0 after the video id is written")
     if "POST_UPLOAD_NOT_INSERT_FAILURE" not in workflow:
         failures.append("execute step must not fail the job when a video id exists and post-upload work is incomplete")
     if "STUDIO_PIN_NOT_INSERT_FAILURE" not in workflow:
