@@ -254,13 +254,14 @@ def content_rule_reason(packet: Path) -> str | None:
     return "; ".join(hits[:3])
 
 
-def chapter_sync_reason(packet: Path, description: str) -> str | None:
+def chapter_sync_reason(packet: Path, description: str, duration: float | None = None) -> str | None:
     """Refuse a drafted chapter list that videos.insert would upload without chapters.
 
     YouTube ignores a description chapter list when the first line is not 0:00,
-    there are fewer than three timestamps, a gap is under 10 seconds, or the
-    lines are not at the start of their own description lines. A missing
-    chapters.md stays missing. This does not regenerate chapters.md.
+    there are fewer than three timestamps, a gap is under 10 seconds, the last
+    chapter starts inside the final 10 seconds, or the lines are not at the
+    start of their own description lines. A missing chapters.md stays missing.
+    Unknown duration does not invent an end. This does not regenerate chapters.md.
     """
     lines = chapter_lines(packet)
     if not lines:
@@ -288,6 +289,8 @@ def chapter_sync_reason(packet: Path, description: str) -> str | None:
             return "chapter_line_missing_from_description"
     if positions != sorted(positions):
         return "chapter_lines_out_of_order"
+    if duration is not None and stamps[-1] > float(duration) - 10:
+        return "chapter_last_under_10s_before_end"
     return None
 
 
@@ -704,7 +707,7 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
     add("publish_copy_approved", copy_block is None, copy_block or "description and human checklist approved")
     meta_block = metadata_block_reason(meta)
     add("metadata_within_provider_limits", meta_block is None, meta_block or "title, description, and tags fit videos.insert")
-    chapter_block = chapter_sync_reason(packet, meta.get("description") or "")
+    chapter_block = chapter_sync_reason(packet, meta.get("description") or "", probe_duration(exp) if exp.is_file() else None)
     add(
         "chapters_in_description",
         chapter_block is None,
@@ -814,6 +817,7 @@ def inspect_upload(packet: Path, env: dict[str, str] | None = None) -> dict:
         "captions": caption_track(packet),
         "thumbnail": thumbnail_track(packet),
         "generated": _now(),
+        "duration_s": probe_duration(exp) if exp.is_file() else None,
     }
 
 
@@ -1090,7 +1094,7 @@ def execute_upload(packet: Path, report: dict, *, post_comment: bool = False) ->
     meta_block = metadata_block_reason(report.get("meta") or {})
     if meta_block:
         raise YouTubeAPIError(0, f"METADATA_REJECTED:{meta_block}")
-    chapter_block = chapter_sync_reason(packet, (report.get("meta") or {}).get("description") or "")
+    chapter_block = chapter_sync_reason(packet, (report.get("meta") or {}).get("description") or "", report.get("duration_s"))
     if chapter_block:
         raise YouTubeAPIError(0, f"METADATA_REJECTED:{chapter_block}")
     artifact_block = artifact_block_reason(packet, report.get("meta") or {})

@@ -636,3 +636,11 @@ Updated: 2026-10-05T17:15:00Z (Run 342)
 - Run 347 pushed an open Location before the first chunk. A job kill during caption wait still happened after the video id existed and before the later persist step, so the next execute could see only the Location. If that Location then 404'd, the hold could hide a video that already existed. The uploader now early-persists the provider video id before caption wait, and early-persists a 404/410 hold and a completed-without-id hold before the step returns. The URI is not printed. The later persist step still runs.
 - `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
 
+## Run 349 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
+- Runs 344-348 each patched a resumable or early-persist edge while videos published stayed 0. That pattern is now `STALL_UPLOAD_EDGE`. Do not add another Location, session hold, or early-persist call while it is set.
+- Caption, thumbnail, and comment status are early-persisted after each of those writes when `UPLOAD_EARLY_PERSIST=1`. A kill after `captions.insert` no longer loses the uploaded status. The URI is not printed. The later persist step still runs. This is the last early-persist call site for that stall.
+- `python3 tools/selftest.py` printed SELFTEST PASS. `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. Actions was not re-run.
+

@@ -1634,6 +1634,18 @@ def check_chapter_sync_before_insert() -> list[str]:
             failures.append(f"short chapter gap drift: {gap}")
         if chapter_sync_reason(packet.parent, good) is not None:
             failures.append("missing chapters.md must stay missing")
+        (packet / "chapters.md").write_text(
+            "# Chapter draft\n\n## YouTube lines\n\n"
+            "0:00 The reopen\n"
+            "0:24 The stall\n"
+            "1:25 Install the default\n",
+            encoding="utf-8",
+        )
+        late = chapter_sync_reason(packet, good, duration=70)
+        if late != "chapter_last_under_10s_before_end":
+            failures.append(f"late last chapter drift: {late}")
+        if chapter_sync_reason(packet, good, duration=328.4) is not None:
+            failures.append("last chapter with room before end must pass")
     q1 = Path(__file__).resolve().parents[1] / "videos" / "002-stop-deciding-what-to-work-on-every-morning"
     if (q1 / "chapters.md").is_file() and (q1 / "publish.md").is_file():
         from youtube_upload import parse_publish

@@ -104,6 +104,16 @@ def main() -> int:
     ) + probe
     if PREUPLOAD_FLAG in flag_text(cleared):
         return fail("a non-probe newest delta must clear the preupload flag")
+    lock_only = delta(
+        "OAuth secrets were not polled. Videos published stay 0. Do not add another export probe, media checker, or caption cue gate."
+    ) * 4
+    if PREUPLOAD_FLAG in flag_text(lock_only):
+        return fail("preupload lock boilerplate must not set the flag")
+    edge_lock = delta(
+        "OAuth secrets were not polled. Videos published stay 0. Do not add another Location, session hold, or early-persist call."
+    ) * 4
+    if UPLOAD_EDGE_FLAG in flag_text(edge_lock):
+        return fail("upload-edge lock boilerplate must not set the flag")
     print("STALL WATCH CONTRACT PASS")
     return 0
 

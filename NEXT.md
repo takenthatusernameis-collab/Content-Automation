@@ -1,12 +1,14 @@
 # NEXT
 
-Updated: 2026-10-06T09:11:00Z (Run 360)
+Updated: 2026-10-06T10:12:00Z (Run 361)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser while videos published stay 0. The unpublished video is the three GitHub Actions secrets.
 
 One human step: run `python3 tools/oauth_setup.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then dispatch `youtube-production.yml` with execute=true. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr25. **Do not rediscover a lock sentence as a wired probe.** Run 361: `tools/stall_watch.py` ignores a do-not-add lock sentence before `STALL_PREUPLOAD_PROBE` and `STALL_UPLOAD_EDGE`. A wired tool still sets the flag. `chapter_sync_reason` refuses a last chapter inside the final 10 seconds when duration is known. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr24. **Do not rediscover a second Active locks block.** Run 360: `tools/next_compact.py` keeps one `Active locks:` block and drops a lone `.` paragraph. The human step is the three secrets, not another exchange parser. Do not add another export probe, media checker, or caption cue gate. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
@@ -29,5 +31,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zr15. **Do not rediscover the upload-edge loop.** Run 349: caption, thumbnail, and comment status are early-persisted after each write when `UPLOAD_EARLY_PERSIST=1`. `STALL_UPLOAD_EDGE` is set after four OAuth-idle upload-edge runs. Do not add another Location, session hold, or early-persist call while that flag is set. Next work is the three YouTube secrets, or a production tool that is not the uploader. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr14. **Do not rediscover a video id that exists only on the runner.** Run 348: after `videos.insert` returns an id, that id is early-persisted before caption wait when `UPLOAD_EARLY_PERSIST=1`. A 404/410 hold and a completed-without-id hold are early-persisted before the step returns. The later persist step still runs. Do not print the URI. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.
-
-1zr13. **Do not rediscover the post-step-only Location commit.** Run 347: an https Location is committed from the uploader before the first chunk when `UPLOAD_EARLY_PERSIST=1`. The production execute step sets that env. A killed execute must not start another videos.insert if that commit landed. The later persist step still runs. Do not print the URI. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets.

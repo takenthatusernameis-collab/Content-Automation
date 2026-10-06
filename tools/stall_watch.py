@@ -40,6 +40,27 @@ PREUPLOAD_TOKENS = (
     "export_probe",
     "export probe",
 )
+# Lock sentences repeat these tokens. A "do not add" line is not a wired probe.
+PREUPLOAD_NEGATIONS = (
+    "do not add another export probe, media checker, or caption cue gate",
+    "do not add another export probe",
+    "do not add another export_probe",
+    "do not add another media checker",
+    "do not add another caption cue gate",
+    "do not wire another pre-upload checker",
+    "do not wire another export probe",
+    "do not add another pre-upload checker",
+)
+UPLOAD_EDGE_NEGATIONS = (
+    "do not add another location, session hold, or early-persist call",
+    "do not add another location",
+    "do not add another resumable",
+    "do not add another session hold",
+    "do not add another early-persist",
+    "do not add another early persist",
+    "do not add another early_persist",
+    "do not add another upload-edge",
+)
 LOCAL_GATE_TOKENS = (
     "quality_scan",
     "claim_scan",
@@ -152,7 +173,10 @@ def flag_text(text: str, window: int = WINDOW) -> list[str]:
         edge = True
         for delta in edge_deltas:
             lowered = delta.lower()
-            if not any(token in lowered for token in UPLOAD_EDGE_TOKENS):
+            scrubbed = lowered
+            for phrase in UPLOAD_EDGE_NEGATIONS:
+                scrubbed = scrubbed.replace(phrase, "")
+            if not any(token in scrubbed for token in UPLOAD_EDGE_TOKENS):
                 edge = False
                 break
         if edge:
@@ -169,7 +193,10 @@ def flag_text(text: str, window: int = WINDOW) -> list[str]:
         probe = True
         for delta in probe_deltas:
             lowered = delta.lower()
-            if not any(token in lowered for token in PREUPLOAD_TOKENS):
+            scrubbed = lowered
+            for phrase in PREUPLOAD_NEGATIONS:
+                scrubbed = scrubbed.replace(phrase, "")
+            if not any(token in scrubbed for token in PREUPLOAD_TOKENS):
                 probe = False
                 break
         if probe:

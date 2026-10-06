@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 361 — 2026-10-06T10:12:00Z
+- Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0.
+- Lesson: a do-not-add sentence is not a wired probe. Scrub it before the stall token check. A last chapter inside the final 10 seconds is ignored by YouTube. Refuse that shape when duration is known. Do not invent duration.
+
 ## Run 360 — 2026-10-06T09:11:00Z
 - Failed approach not retried: another OAuth exchange parser, export probe, media checker, or caption cue gate while videos published stay 0.
 - Lesson: Runs 358-359 scripted the token exchange and published nothing. A second Active locks block hid the same human step. Collapse the copy. Do not add another exchange parser.
@@ -50,10 +54,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 349 — 2026-10-05T22:35:00Z
 - Failed approach not retried: another upload-edge branch as the run objective while videos published stay 0. Runs 344-348 did that. Caption status early-persist closes the last kill hole in that chain.
 - Lesson: `STALL_UPLOAD_EDGE` means stop. Do not add another Location, session hold, or early-persist call. The unpublished video is the missing OAuth secrets.
-
-## Run 348 — 2026-10-05T22:15:00Z
-- Failed approach not retried: treating the Location commit as enough once videos.insert has returned an id. Caption wait is long enough for a job kill. The id must be pushed before that wait.
-- Lesson: early persist must cover every durable row that would otherwise exist only on the runner. Do not print the URI.
-
-
 

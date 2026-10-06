@@ -279,3 +279,9 @@ Updated: 2026-10-05T18:20:00Z
 
 
 
+## Run 348 — 2026-10-05T22:15:00Z
+- Failed approach not retried: treating the Location commit as enough once videos.insert has returned an id. Caption wait is long enough for a job kill. The id must be pushed before that wait.
+- Lesson: early persist must cover every durable row that would otherwise exist only on the runner. Do not print the URI.
+
+
+

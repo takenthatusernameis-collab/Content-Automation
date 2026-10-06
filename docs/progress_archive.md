@@ -331,3 +331,9 @@ Updated: 2026-10-05T19:20:00Z
 
 
 
+## Run 349 — 2026-10-05T22:35:00Z
+- Caption, thumbnail, and comment status now early-persist before the next post-upload call. Estimated save: one duplicate captions.insert if the runner dies after the caption write. Human minutes per video unchanged. Videos published stay 0.
+- Automated step added: `STALL_UPLOAD_EDGE` after four OAuth-idle upload-edge runs. Remaining manual gate: YouTube OAuth secrets. Do not add another early-persist call while that flag is set.
+
+
+

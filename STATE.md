@@ -1,6 +1,13 @@
 # STATE
 
-Updated: 2026-10-06T09:11:00Z (Run 360)
+Updated: 2026-10-06T10:12:00Z (Run 361)
+
+## Run 361 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `tools/stall_watch.py` now ignores a do-not-add lock sentence when deciding `STALL_PREUPLOAD_PROBE` and `STALL_UPLOAD_EDGE`. A wired tool still sets the flag. A lock sentence alone does not. This does not call YouTube.
+- `chapter_sync_reason` refuses a last chapter that starts inside the final 10 seconds when duration is known. Unknown duration does not invent an end. Q1 lines still pass at 328.4s. This does not regenerate chapters and does not call YouTube.
 
 ## Run 360 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -73,12 +80,4 @@ Updated: 2026-10-06T09:11:00Z (Run 360)
 - `STALL_OAUTH_IDLE` still stands. `STALL_UPLOAD_EDGE` still stands. `playlist_id` remains `not_set`.
 - An ftyp box was the only hard export check. A wrong-size or silent master could still reach videos.insert. `tools/export_probe.py` now requires 1920x1080, h264, an audio stream, and at least 20s before execute. Absent export fails execute only. The probe does not encode and does not call YouTube.
 - `python3 tools/export_probe_contract.py` printed EXPORT PROBE CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
-
-## Run 349 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
-- Runs 344-348 each patched a resumable or early-persist edge while videos published stayed 0. That pattern is now `STALL_UPLOAD_EDGE`. Do not add another Location, session hold, or early-persist call while it is set.
-- Caption, thumbnail, and comment status are early-persisted after each of those writes when `UPLOAD_EARLY_PERSIST=1`. A kill after `captions.insert` no longer loses the uploaded status. The URI is not printed. The later persist step still runs. This is the last early-persist call site for that stall.
-- `python3 tools/selftest.py` printed SELFTEST PASS. `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. Actions was not re-run.
 
