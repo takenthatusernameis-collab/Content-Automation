@@ -41,6 +41,23 @@ def reserve_seconds() -> float:
     return float(END_SCREEN)
 
 
+def end_screen_element_note() -> str:
+    """Playlist element only when a playlist id is already set.
+
+    playlist_id not_set must not become a Studio instruction to add a playlist
+    element. This does not invent a playlist id and does not call YouTube.
+    """
+    from playlist_membership import channel_playlist_id
+
+    if channel_playlist_id():
+        return "Lower-left: one playlist element. Lower-right: subscribe."
+    return (
+        "Lower-left: one video element (best for viewer). "
+        "Do not add a playlist element while playlist_id is not_set. "
+        "Lower-right: subscribe."
+    )
+
+
 
 
 def pin_markdown(state: dict, comment: str = "") -> str | None:
@@ -73,7 +90,7 @@ def pin_markdown(state: dict, comment: str = "") -> str | None:
         "",
         f"The master already reserves the last {reserve:.0f} seconds. Do not re-encode.",
         "In the editor, add an end screen on that reserve only.",
-        "Lower-left: one video or playlist element. Lower-right: subscribe.",
+        end_screen_element_note(),
         "Leave the CTA card text readable. Do not cover the center.",
         "",
     ]
@@ -118,9 +135,9 @@ def render(state: dict, comment: str = "") -> str:
         "pinned: false",
         "end_screen: not_set",
         f"end_screen_reserve_s: {reserve:.0f}",
-        "editor_url: https://studio.youtube.com/video/{video_id}/edit".format(video_id=video_id),
+        f"editor_url: https://studio.youtube.com/video/{video_id}/edit",
         "pin_note: commentThreads.insert does not pin; Studio pin stays a remaining human step",
-        f"end_screen_note: Data API does not set an end screen; last {reserve:.0f}s reserve, lower-left video or playlist, lower-right subscribe",
+        f"end_screen_note: Data API does not set an end screen; last {reserve:.0f}s reserve; {end_screen_element_note()}",
     ]
     if comment:
         lines.append("comment:")

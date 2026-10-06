@@ -353,3 +353,8 @@ Updated: 2026-10-05T19:20:00Z
 - Efficiency: avoids another probe-only run. Estimated human minutes per video unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
 - Verification: stall watch contract PASS. Selftest PASS. No provider write.
 
+## Run 355 — 2026-10-06T04:15:00Z
+- Viewer-facing upload copy no longer includes the chapter-draft label or the draft-pin sentence.
+- Estimated human minutes saved on the first upload: about 5 (description and pin edit in Studio after insert). The strip also covers a future packet that still has the old stub sentence.
+- Automated steps unchanged. Remaining manual step is still the three YouTube secrets. Videos published stay 0.
+

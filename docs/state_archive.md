@@ -665,3 +665,10 @@ Updated: 2026-10-05T17:15:00Z (Run 342)
 - Runs 350-353 each wired a pre-upload checker (`tools/export_probe.py`, `tools/media_qa.py`, `tools/caption_gate.py`) while videos published stayed 0. `tools/stall_watch.py` now prints `STALL_PREUPLOAD_PROBE` after four such deltas. The flag does not fail the job. It does not call YouTube. Do not wire another export probe, media checker, or caption cue gate while it is set.
 - `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
 
+## Run 355 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `STALL_PREUPLOAD_PROBE` still stands. `playlist_id` remains `not_set`. Do not add another export probe, media checker, or caption cue gate. Do not add another upload-edge persist call.
+- The approved Q1 description still contained `Chapter draft (not ASR, not an approval...)` and the approved pin still ended with `This comment is a draft pin, not posted.` `videos.insert` and `commentThreads.insert` would have published those notes. `parse_publish` now drops that chapter label and that pin sentence. Chapter timestamp lines stay. `publish.md` and `publish_brief.py` no longer emit them. This does not call YouTube.
+- Local dry-run still HOLD_LOCAL (missing master in this checkout, missing OAuth). Chapter label and draft-pin sentence were absent from the dry-run text. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+

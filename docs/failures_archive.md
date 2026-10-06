@@ -292,3 +292,7 @@ Updated: 2026-10-05T18:20:00Z
 - Failed approach not retried: another export-probe lock, media checker, or caption cue gate while videos published stay 0.
 - Lesson: Runs 350-353 each wired a pre-upload checker and published nothing. `STALL_PREUPLOAD_PROBE` is the stop. The unpublished video is the missing OAuth secrets.
 
+## Run 355 — 2026-10-06T04:15:00Z
+- Failed approach not retried: another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set.
+- Lesson: approved boxes were checked on copy that still told viewers the chapters were a draft and the pin was not posted. Strip those notes in `parse_publish`. Do not treat a checked box as proof the section is viewer-facing.
+

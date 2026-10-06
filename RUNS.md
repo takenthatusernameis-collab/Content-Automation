@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 367 — 2026-10-06T17:11:00Z
+- Objective: Stop the first Studio pass from asking for a playlist end-screen element while playlist_id is not_set.
+- Action: `tools/studio_handoff.py` names a video element (best for viewer) until a playlist id is set. A set id still names a playlist element. The workflow comment no longer says a failed playlistItems.insert prevents videos.insert. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not dispatch the workflow.
+- Result: Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: The pin note said lower-left video or playlist. playlist_id is not_set, so that instruction would stall the end screen the same way a missing playlist stalls membership.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
+- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 366 — 2026-10-06T16:20:00Z
 - Objective: Stop a shadowed stall-watch check from letting a broken contract print SELFTEST PASS.
 - Action: Merged the two `check_stall_watch` definitions in `tools/selftest.py`. The remaining check runs `stall_watch_contract.py` and the inline OAuth-idle assertions. Removed the duplicate call. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not dispatch the workflow.

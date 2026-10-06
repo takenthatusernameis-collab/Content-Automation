@@ -2,6 +2,11 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 367 — 2026-10-06T17:11:00Z
+- Improvement: the first Studio end-screen note no longer asks for a playlist element while playlist_id is not_set. Estimated save: one failed end-screen setup after the first private insert, about 5 human minutes.
+- Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
+- Verification: selftest PASS. No provider write. Videos published stay 0.
+
 ## Run 366 — 2026-10-06T16:20:00Z
 - Improvement: selftest now executes `stall_watch_contract.py` again. A later duplicate function had shadowed that call since the inline checks were added.
 - Efficiency: a broken stall contract fails here instead of on a later run that happens to invoke the contract alone. Estimated human minutes per video unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
@@ -38,9 +43,4 @@ Log compact now collapses stacked file headers. FAILURES.md and PROGRESS.md each
 - Improvement: the current-gate file is one header again. A truncated fetch no longer lands on a second `# STATE` that looks like a new file, and compact can no longer cut a delta in half by treating the next header as part of the previous section.
 - Efficiency: estimated human minutes per video unchanged. Saves a future agent from reconstructing which delta is current. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
 - Verification: state compact contract PASS. Videos published stay 0.
-
-## Run 355 — 2026-10-06T04:15:00Z
-- Viewer-facing upload copy no longer includes the chapter-draft label or the draft-pin sentence.
-- Estimated human minutes saved on the first upload: about 5 (description and pin edit in Studio after insert). The strip also covers a future packet that still has the old stub sentence.
-- Automated steps unchanged. Remaining manual step is still the three YouTube secrets. Videos published stay 0.
 

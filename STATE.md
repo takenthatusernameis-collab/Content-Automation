@@ -1,6 +1,12 @@
 # STATE
 
-Updated: 2026-10-06T16:20:00Z (Run 366)
+Updated: 2026-10-06T17:11:00Z (Run 367)
+
+## Run 367 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `tools/studio_handoff.py` no longer tells the operator to add a playlist end-screen element while `playlist_id` is `not_set`. The note is one video element (best for viewer). A set playlist id still names a playlist element. The workflow comment no longer says a failed `playlistItems.insert` prevents `videos.insert`. This does not call YouTube.
 
 ## Run 366 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -70,11 +76,4 @@ Updated: 2026-10-06T16:20:00Z (Run 366)
 - No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
 - `STALL_OAUTH_IDLE` still stands. `STALL_PREUPLOAD_PROBE` still stands. `playlist_id` remains `not_set`. Do not add another export probe, media checker, or caption cue gate.
 - STATE.md had 13 stacked file headers. Compact collapsed them to one. The fetch cut this bullet mid-line. Do not treat a dangling backtick as a new gate.
-
-## Run 355 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
-- `STALL_OAUTH_IDLE` still stands. `STALL_PREUPLOAD_PROBE` still stands. `playlist_id` remains `not_set`. Do not add another export probe, media checker, or caption cue gate. Do not add another upload-edge persist call.
-- The approved Q1 description still contained `Chapter draft (not ASR, not an approval...)` and the approved pin still ended with `This comment is a draft pin, not posted.` `videos.insert` and `commentThreads.insert` would have published those notes. `parse_publish` now drops that chapter label and that pin sentence. Chapter timestamp lines stay. `publish.md` and `publish_brief.py` no longer emit them. This does not call YouTube.
-- Local dry-run still HOLD_LOCAL (missing master in this checkout, missing OAuth). Chapter label and draft-pin sentence were absent from the dry-run text. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
 

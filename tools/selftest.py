@@ -2431,6 +2431,18 @@ def check_job_timeout_covers_upload() -> list[str]:
         failures.append("studio handoff reserve must come from timeline.END_SCREEN")
     if "last 20 seconds" in (ROOT / "tools" / "studio_handoff.py").read_text(encoding="utf-8"):
         failures.append("studio handoff must not hardcode the end-screen reserve")
+    from playlist_membership import channel_playlist_id
+    element = studio_handoff.end_screen_element_note()
+    if channel_playlist_id():
+        if "playlist element" not in element:
+            failures.append("studio handoff must name a playlist element only when playlist_id is set")
+    else:
+        if "best for viewer" not in element or "playlist_id is not_set" not in element:
+            failures.append("studio handoff must not ask for a playlist element while playlist_id is not_set")
+        if "best for viewer" not in (note or "") or "best for viewer" not in rendered:
+            failures.append("studio pin file must keep the not_set end-screen element note")
+    if "does not start videos.insert" in workflow and "failed playlistItems.insert exits 2 and does not start" in workflow:
+        failures.append("playlist step comment must not say a failed insert prevents videos.insert")
     if "studio.youtube.com" in empty:
         failures.append("studio handoff must not invent an end-screen URL")
     if "inputs.packet" not in workflow or "videos/002-stop-deciding-what-to-work-on-every-morning" not in workflow:
