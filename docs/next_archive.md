@@ -126,3 +126,5 @@ Older do-not-rediscover notes. Do not paste these back into NEXT.md. Do not rest
 1zr7. **Do not rediscover the truncated NEXT file.** Run 341: `NEXT.md` keeps 12 newest notes. Older notes live in `docs/next_archive.md`. `tools/next_compact.py` moves extras. It does not delete history. Do not paste the archive back. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2.
 
 1zr8. **Do not rediscover the truncated RUNS file.** Run 342: `RUNS.md` keeps 12 newest entries. Older entries live in `docs/runs_archive.md`. `tools/runs_compact.py` moves extras. It does not delete history. Do not paste the archive back. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2.
+
+1zr9. **Do not rediscover the truncated PROGRESS and FAILURES files.** Run 343: each keeps 12 newest sections. Older sections live in `docs/progress_archive.md` and `docs/failures_archive.md`. `tools/log_compact.py` moves extras. It does not delete history. Do not paste the archives back. Do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2.

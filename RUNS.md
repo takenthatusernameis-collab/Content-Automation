@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 357 — 2026-10-06T06:20:00Z
+- Objective: Stop stacked FAILURES and PROGRESS headers from hiding the newest lesson.
+- Action: `log_compact.py` drops a later file header and a repeated archive pointer. Both live logs now have one header and 12 sections. Finished the cut Run 356 STATE bullet. Did not poll secrets. Did not add a scanner or a probe.
+- Result: Contracts passed. Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/log_compact_contract.py` printed LOG COMPACT CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: Run 356 collapsed STATE headers only. FAILURES and PROGRESS still had stacked headers.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Do not prepend a second file header. Do not add another probe. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 356 — 2026-10-06T05:11:00Z
 - Objective: Stop stacked STATE headers from hiding or truncating the current gate.
 - Action: `state_compact.py` now keeps one preamble and strips later `# STATE` headers before the size cap. Collapsed the live file from 13 headers to 1. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload probe.
@@ -100,24 +109,6 @@ Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools
 - Discovery: Run 345 fail-closed on 404/410, but nothing could clear the hold, so the first expired session would block every later execute even after a human checked Studio.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Eight-plus runs of upload-edge fixes have not published; that idle is the known credential stall, not a missing scanner.
 - Next: Do not pass the release flag from Actions. Do not release without the Studio token. Do not start a second videos.insert when Location exists or when session_expired_hold is set. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 345 — 2026-10-05T19:20:00Z
-- Objective: Stop a dead resumable Location from being reused forever or turning into a second videos.insert.
-- Action: Probe a saved session URI before any chunk. A 404 or 410 drops the URI, sets session_expired_hold, and commits that hold. The next execute raises RESUMABLE_SESSION_EXPIRED and does not POST videos.insert. Did not add a reason. Did not poll secrets. Did not add a scanner. Did not scaffold Q2.
-- Result: Selftest passed. Videos published stay 0. No live execute.
-- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
-- Discovery: Run 344 committed the Location, but an expired session was skip_transient, so the dead URI stayed the next execute target.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Do not start a second videos.insert when Location exists or when session_expired_hold is set. Do not print the URI. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 344 — 2026-10-05T18:20:00Z
-- Objective: Stop a killed execute from starting a second videos.insert after Location exists.
-- Action: Saved the resumable session URI into upload_state.json and committed that row. The next execute resumes that URI and does not POST videos.insert. Fingerprint mismatch reuses the existing mismatch reason. Did not poll secrets. Did not add a scanner. Did not scaffold Q2.
-- Result: Selftest passed. Videos published stay 0. No live execute.
-- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
-- Discovery: Runs 340-343 only compacted fetch files. The open Location was still not durable, so the first real upload could duplicate if the runner died after the session POST.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Do not print the session URI. Do not start a second videos.insert when Location exists. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 Earlier runs through Run 269 remain in git at `9416aae2c482ca08fd55642e0fff94568482ee51` (`RUNS.md` blob `243e47753b76bbd636a59dddb00e8c1c6f2e90c1`) and before that at `65cca063`.

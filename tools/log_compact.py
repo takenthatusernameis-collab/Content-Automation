@@ -15,12 +15,42 @@ MAX_SECTIONS = 12
 SPLIT = "## Run "
 
 
+TITLES = {"# FAILURES", "# PROGRESS", "# LOG"}
+POINTERS = (
+    "Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.",
+    "Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.",
+)
+
+
 def split_sections(text: str) -> tuple[str, list[str]]:
     parts = text.split(SPLIT)
     return parts[0], parts[1:]
 
 
+def collapse_headers(text: str) -> str:
+    """Keep one file header. A later # FAILURES or # PROGRESS is not a new log."""
+    found = [ln.strip() for ln in text.splitlines() if ln.strip() in TITLES]
+    pointer_hits = sum(text.count(line) for line in POINTERS)
+    if len(found) <= 1 and pointer_hits <= 1:
+        return text
+    title = found[0] if found else "# LOG"
+    kept_pointer = False
+    out = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if stripped in TITLES:
+            continue
+        if stripped in POINTERS:
+            if kept_pointer:
+                continue
+            kept_pointer = True
+        out.append(line)
+    body = "\n".join(out).strip() + "\n"
+    return title + "\n\n" + body
+
+
 def compact_text(text: str, archive_text: str, max_sections: int = MAX_SECTIONS) -> tuple[str, str, int]:
+    text = collapse_headers(text)
     preamble, sections = split_sections(text)
     if len(sections) <= max_sections:
         if text and not text.endswith("\n"):

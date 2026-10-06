@@ -244,3 +244,16 @@ Run 330 added `required_scopes` and a warning line, but `auth_status` and the re
 - **Result:** tools/runs_compact.py keeps the cap. No provider write.
 - **Avoid:** Pasting the archive back into RUNS.md. Adding another scanner while STALL_OAUTH_IDLE is set. Polling OAuth secrets as the only work.
 
+## Run 343 — truncated PROGRESS and FAILURES hid older lessons
+
+- **Tried:** Reading PROGRESS.md and FAILURES.md as the cumulative lesson log. They were 27269 and 30708 bytes.
+- **Evidence:** After the move, each live file has 12 sections. Archives hold the older notes.
+- **Result:** tools/log_compact.py keeps the cap. No provider write.
+- **Avoid:** Pasting the archives back. Adding another scanner while STALL_OAUTH_IDLE is set. Polling OAuth secrets as the only work.
+## Run 344 — open Location was not durable
+- **Tried:** Runs 340-343 each compacted a fetch file. That pattern is now suspicious if it continues with no production-path change. The upload path still dropped a Location that was not committed.
+- **Result:** Persist now commits `commit_resumable_session` for an https session URI. A saved URI skips the session POST. No live execute. No new YouTubeAPIError reason.
+- **Avoid:** Another compaction-only run while this URI rule is already locked. Printing the session URI. Starting a second videos.insert when Location exists. Adding a scanner while `STALL_OAUTH_IDLE` is set.
+
+
+

@@ -301,3 +301,11 @@ RUNS.md no longer truncates before the newest run log. Newest 12 entries stay in
 ## Run 343 — 2026-10-05T17:25:00Z
 PROGRESS.md and FAILURES.md no longer sit past the known fetch cut. Newest 12 sections stay live. Older notes are in docs/progress_archive.md and docs/failures_archive.md. Estimated agent minutes saved on the next runs: about 10, by not reconstructing a cut lesson. Human minutes per video unchanged. Videos published stay 0.
 
+## Run 344 — 2026-10-05T18:20:00Z
+A killed upload no longer has to start a second videos.insert after Location exists. The session URI is written before the first chunk and committed. Estimated effect: one less duplicate private video on the first real execute if the runner dies mid-upload. Human minutes per video unchanged. Videos published stay 0.
+
+
+Updated: 2026-10-05T17:25:00Z
+## Run 345 — 2026-10-05T19:20:00Z
+A dead resumable Location is no longer reused as an open session. 404 or 410 commits a hold and the next execute does not start another videos.insert. Estimated effect: one less duplicate private video if the first session expires before the runner can finish. Human minutes per video unchanged. Videos published stay 0.
+

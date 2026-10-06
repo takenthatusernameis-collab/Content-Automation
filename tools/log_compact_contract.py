@@ -53,6 +53,26 @@ def main() -> int:
     again, _, moved_again = log_compact.compact_text(new_text, new_archive)
     if moved_again != 0 or again != new_text:
         return fail("second compact must be a no-op")
+    stacked = (
+        "# FAILURES\n\n"
+        "Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.\n\n"
+        "## Run 3 — a\nnote\n\n"
+        "# FAILURES\n\n"
+        "Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.\n\n"
+        "## Run 2 — b\nnote\n"
+    )
+    collapsed, _, moved_headers = log_compact.compact_text(stacked, "# ARCHIVE\n")
+    if moved_headers != 0:
+        return fail("header collapse must not archive")
+    if collapsed.count("# FAILURES") != 1:
+        return fail(f"stacked header survived: {collapsed.count('# FAILURES')}")
+    if collapsed.count("Older failure notes live") != 1:
+        return fail("stacked pointer survived")
+    if "## Run 3 —" not in collapsed or "## Run 2 —" not in collapsed:
+        return fail("collapse dropped a section")
+    again_h, _, _ = log_compact.compact_text(collapsed, "# ARCHIVE\n")
+    if again_h != collapsed:
+        return fail("header collapse is not stable")
     print("LOG COMPACT CONTRACT PASS")
     return 0
 

@@ -1,12 +1,18 @@
 # STATE
 
-Updated: 2026-10-06T05:11:00Z (Run 356)
+Updated: 2026-10-06T06:20:00Z (Run 357)
+
+## Run 357 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `STALL_PREUPLOAD_PROBE` still stands. `playlist_id` remains `not_set`. Do not add another export probe, media checker, or caption cue gate.
+- `tools/log_compact.py` now drops a later `# FAILURES`, `# PROGRESS`, or `# LOG` header and a repeated archive pointer before the size cap. Live FAILURES.md and PROGRESS.md each keep one header and 12 sections. The Run 356 STATE bullet that ended on a dangling backtick is finished. This does not call YouTube.
 
 ## Run 356 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
 - No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
 - `STALL_OAUTH_IDLE` still stands. `STALL_PREUPLOAD_PROBE` still stands. `playlist_id` remains `not_set`. Do not add another export probe, media checker, or caption cue gate.
-- `STATE.md` had 13 `
+- STATE.md had 13 stacked file headers. Compact collapsed them to one. The fetch cut this bullet mid-line. Do not treat a dangling backtick as a new gate.
 
 ## Run 355 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -77,12 +83,5 @@ Updated: 2026-10-06T05:11:00Z (Run 356)
 - No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
 - A committed `session_expired_hold` used to be permanent. The next execute raises `RESUMABLE_SESSION_EXPIRED` and does not insert, which is correct until Studio is checked. `apply_session_hold_release` clears that hold only when `studio_checked` is `no_video_in_studio`, no video id exists, and no https Location remains. Persist commits `commit_session_hold_released`. The production workflow has no release input.
-- `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
-
-## Run 345 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
-- A committed Location that later returned 404 stayed in git because `RESUMABLE_SESSION_EXPIRED` was skip_transient. The next execute would query that dead URI forever, or a future change could start another videos.insert. A saved Location is probed first. 200 returns the video id. 308 resumes that offset. 404 or 410 raises the existing `RESUMABLE_SESSION_EXPIRED`, drops the URI, and sets `session_expired_hold`. Persist commits `commit_session_expired_hold`. The next execute raises the same reason and does not POST videos.insert.
 - `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
 
