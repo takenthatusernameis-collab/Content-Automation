@@ -1444,6 +1444,7 @@ def main() -> int:
     failures.extend(check_stall_watch())
     failures.extend(check_prove_locks_on_push())
     failures.extend(check_export_probe())
+    failures.extend(check_caption_gate())
     failures.extend(check_media_qa_workflow())
     failures.extend(check_apply_idea())
     failures.extend(check_idea_gate())
@@ -2479,6 +2480,24 @@ def check_caption_waits_for_processing() -> list[str]:
         youtube_api._request_retrying = original
     return failures
 
+
+
+
+def check_caption_gate() -> list[str]:
+    """A present captions.srt must be cue-safe before any provider write."""
+    import subprocess
+    contract = ROOT / "tools" / "caption_gate_contract.py"
+    if not contract.is_file():
+        return ["caption_gate_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], capture_output=True, text=True)
+    if proc.returncode != 0 or "CAPTION GATE CONTRACT PASS" not in proc.stdout:
+        return [f"caption_gate_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    workflow = (ROOT / ".github/workflows/youtube-production.yml").read_text(encoding="utf-8")
+    if "tools/caption_gate.py" not in workflow:
+        return ["production workflow must run caption_gate before provider write"]
+    if "A missing srt fails only when execute=true" not in workflow:
+        return ["production workflow must not fail a dry-run solely for a missing srt"]
+    return []
 
 
 def check_media_qa_workflow() -> list[str]:

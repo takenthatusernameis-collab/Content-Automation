@@ -2,6 +2,15 @@
 
 Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools/runs_compact.py` moves extras. It does not delete history.
 
+## Run 353 — 2026-10-06T02:20:00Z
+- Objective: Stop a bad captions.srt from reaching captions.insert after media QA.
+- Action: Production workflow now runs `tools/caption_gate.py` after media QA and before the export probe. A present empty, overlapping, reversed, overlong, or past-wav cue fails the job. A missing srt fails only when execute=true. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add an upload-edge persist call. Did not add an export-probe lock. Did not add another media checker.
+- Result: Local Q1 captions printed caption_gate PASS (103 cues). Contract passed. Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/caption_gate.py` on the Q1 packet printed PASS. `python3 tools/caption_gate_contract.py` printed CAPTION GATE CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: media QA and the export probe never read captions.srt. The file is committed and the dry-run only checked that it exists.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: pre-upload probe patches have not published a video. Do not add another export-probe lock or another media checker.
+- Next: Do not install the r249 master. Do not add another Location, session hold, or early-persist call. Do not add another export-probe lock. Do not add another media checker. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 352 — 2026-10-06T01:15:00Z
 - Objective: Stop a bad take or wrong-size card from reaching the upload gates after materialize.
 - Action: Production workflow now runs `tools/media_qa.py` after materialize and before the export probe. Q1 must pass. A non-Q1 missing take fails only when execute=true. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add an upload-edge persist call. Did not add an export-probe lock.
@@ -100,15 +109,6 @@ Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools
 - Discovery: RUNS.md was 108696 bytes and 71 entries. The agent fetch cut the newest section before the recommended next action.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Do not paste the archive back into RUNS.md. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 341 — 2026-10-05T16:20:00Z
-- Objective: Stop NEXT.md from truncating before the older do-not-rediscover locks on the next agent fetch.
-- Action: Moved notes older than the newest 12 from NEXT.md to docs/next_archive.md. Added tools/next_compact.py and a contract. Selftest runs the contract. Left an active-lock line for the OAuth stall, Q2, materialize, and resumable upload.
-- Result: NEXT.md is 12 notes. Archive holds the older notes, including the materialize abort and multipart refusal. Videos published stay 0.
-- Verification: next_compact_contract printed NEXT COMPACT CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
-- Discovery: NEXT.md was 28596 bytes. The agent fetch kept the newest notes and cut the upload locks that still prevent a second videos.insert.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Do not paste the archive back into NEXT.md. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 Permanent log. Newest first. If the same action repeats across runs with no progress, flag it.
 Earlier runs through Run 269 remain in git at `9416aae2c482ca08fd55642e0fff94568482ee51` (`RUNS.md` blob `243e47753b76bbd636a59dddb00e8c1c6f2e90c1`) and before that at `65cca063`.

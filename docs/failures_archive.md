@@ -229,3 +229,7 @@ Run 330 added `required_scopes` and a warning line, but `auth_status` and the re
 - **Result:** Contract locks the negated case. A real scan token still sets the flag. No provider write.
 - **Avoid:** Restoring the bare `scanner` token. Adding another scanner while `STALL_OAUTH_IDLE` is set. Polling OAuth secrets as the only work.
 
+## Run ` sections. Stall watch only needs the newest 8. After the move, STATE.md has 12 sections and stall_watch still prints STALL_OAUTH_IDLE.
+- **Result:** Older deltas are in docs/state_archive.md. tools/state_compact.py keeps the cap. No provider write.
+- **Avoid:** Pasting the archive back into STATE.md. Adding another scanner while STALL_OAUTH_IDLE is set. Polling OAuth secrets as the only work.
+

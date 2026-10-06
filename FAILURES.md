@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 353 — 2026-10-06T02:20:00Z
+- Failed approach not retried: another export-probe lock or another media checker while videos published stay 0.
+- Lesson: media QA and the export probe never read captions.srt. Wire the cue check. Do not invent a second media checker.
+
 ## Run 352 — 2026-10-06T01:15:00Z
 - Failed approach not retried: another export-probe lock or upload-edge persist branch while videos published stay 0.
 - Lesson: the job materialized media and then only probed the master. VO levels and card size already had a fail-closed tool. Wire that tool. Do not invent a second media checker.
@@ -78,7 +82,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 340 — truncated STATE hid the current gate
 
 - **Tried:** Reading STATE.md as the current system state. The file was 52418 bytes. The fetch truncated before the publish-gate section.
-- **Evidence:** 67 `## Run ` sections. Stall watch only needs the newest 8. After the move, STATE.md has 12 sections and stall_watch still prints STALL_OAUTH_IDLE.
-- **Result:** Older deltas are in docs/state_archive.md. tools/state_compact.py keeps the cap. No provider write.
-- **Avoid:** Pasting the archive back into STATE.md. Adding another scanner while STALL_OAUTH_IDLE is set. Polling OAuth secrets as the only work.
-
+- **Evidence:** 67 `

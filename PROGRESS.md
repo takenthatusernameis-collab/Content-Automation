@@ -2,6 +2,10 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 353 — 2026-10-06T02:20:00Z
+- A present captions.srt is now rejected before captions.insert when a cue is empty, overlapping, reversed, longer than 42 characters, or past the selected wav. Estimated save: one private video with unreadable or late captions if execute starts before a human opens the srt. Human minutes per video unchanged until secrets exist. Videos published stay 0.
+- Automated step added: `tools/caption_gate.py` on the production job after media QA. Remaining manual gate: YouTube OAuth secrets. Do not add another early-persist call. Do not add another export-probe lock. Do not add another media checker.
+
 ## Run 352 — 2026-10-06T01:15:00Z
 - The production job now runs media QA after materialize. Estimated save: one private upload of a wrong-size card or a clipped take if execute starts before a human opens the packet. Human minutes per video unchanged until secrets exist. Videos published stay 0.
 - Automated step changed: existing `tools/media_qa.py` on the production job. Remaining manual gate: YouTube OAuth secrets. Do not add another early-persist call. Do not add another export-probe lock.
@@ -75,7 +79,4 @@ PROGRESS.md and FAILURES.md no longer sit past the known fetch cut. Newest 12 se
 
 ## Run 342 — 2026-10-05T17:15:00Z
 RUNS.md no longer truncates before the newest run log. Newest 12 entries stay in the live file. Older entries are in docs/runs_archive.md. Estimated agent minutes saved on the next runs: about 10, by not reconstructing the latest action from a cut fetch. Human minutes per video unchanged. Videos published stay 0.
-
-## Run 341 (2026-10-05T16:20:00Z)
-- NEXT.md dropped from 28596 bytes to 12 notes. Older notes are in docs/next_archive.md. Estimated agent minutes saved on the next truncated-fetch rediscovery: about 10, if the newest locks are read first. Videos published stay 0. Publish still waits on the three YouTube secrets.
 

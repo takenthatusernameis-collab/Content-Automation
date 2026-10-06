@@ -101,6 +101,23 @@ jobs:
           fi
           echo "media_qa exit $status; not execute and not the Q1 packet; continuing"
 
+      - name: Fail closed on caption cues before any provider write
+        if: ${{ inputs.collect_feedback != true }}
+        shell: bash
+        run: |
+          # Does not rewrite captions and does not call YouTube.
+          # A present bad cue fails the job. A missing srt fails only when execute=true.
+          set +e
+          python3 tools/caption_gate.py "$PACKET"
+          status=$?
+          set -e
+          if [ "$status" -eq 1 ]; then
+            exit 1
+          fi
+          if [ "${{ inputs.execute }}" = "true" ] && [ "$status" -ne 0 ]; then
+            exit "$status"
+          fi
+
       - name: Probe export streams before any provider write
         if: ${{ inputs.collect_feedback != true }}
         shell: bash
@@ -289,6 +306,7 @@ jobs:
           echo "OAuth secrets are read only from GitHub Actions secrets."
           echo "Verified release media is materialized with checksum guards."
           echo "media_qa runs after materialize. It does not encode or call YouTube. Q1 must pass. A non-Q1 missing take fails only when execute=true."
+          echo "caption_gate runs after media_qa. It does not rewrite captions or call YouTube. A present bad cue fails the job. A missing srt fails only when execute=true."
           echo "collect_feedback is read-only and defaults off. It does not upload or invent metrics."
           echo "collect_feedback refuses a missing or early uploaded_at and does not write COLLECTED."
           echo "collect_feedback does not commit a COLLECTED file unless window.kind is first_calendar_days."

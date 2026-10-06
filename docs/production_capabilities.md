@@ -40,6 +40,7 @@ Local printer: `tools/complete.py` (PLAN_BUILT; fail-closed). Markdown-only pack
 
 ### 5. QA
 - packet gate: script, status, metadata, selected VO, cards, export
+- caption gate: `tools/caption_gate.py` (present captions.srt; empty, overlap, reversed, line over 42, or past the selected wav fails; missing srt exits 2; no rewrite; no YouTube). Run 353: the production job runs it after media_qa. A present bad cue fails the job. A missing srt fails only when execute=true.
 - media gate: `tools/media_qa.py` (READY_FOR_MEDIA; fail-closed VO header + PCM levels + 1920x1080 PNG IHDR + assembly readiness; no ffmpeg; no status bump). Run 352: the production job runs it after materialize. Q1 must pass. A non-Q1 missing take fails only when execute=true.
 - completion gate: `tools/complete.py` (PLAN_BUILT; fail-closed evidence rollup; no writes; no APIs)
 - content-quality gate: anti-slop/originality/read-aloud review

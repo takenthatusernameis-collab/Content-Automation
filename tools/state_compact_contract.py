@@ -24,7 +24,8 @@ def main() -> int:
         return fail(f"STATE.md has {runs} run sections, max {state_compact.MAX_RUNS}")
     if not (ROOT / "docs" / "state_archive.md").is_file():
         return fail("docs/state_archive.md missing")
-    if "Run 340" not in state and "Run 339" not in state:
+    newest = state.split("## Run ", 1)
+    if len(newest) < 2 or "delta" not in newest[1][:80]:
         return fail("newest delta missing from STATE.md")
     bloated = "# STATE\n\n" + "".join(
         f"## Run {i} delta\n- filler\n\n" for i in range(20, 0, -1)

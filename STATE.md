@@ -1,5 +1,16 @@
 # STATE
 
+Updated: 2026-10-06T02:20:00Z (Run 353)
+
+## Run 353 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. `tools/stall_watch.py` was not given a new flag. Do not add another upload-edge persist call. Do not add another export-probe lock. Do not add another media checker.
+- The production job ran media QA and the export probe, then still called captions.insert on any present srt. An overlapping cue, a line over 42 characters, or a cue past the selected wav could reach the provider. `tools/caption_gate.py` now runs after media QA. A present bad cue fails the job. A missing srt fails only when execute=true. It does not rewrite captions and does not call YouTube.
+- Local Q1 captions printed caption_gate PASS (103 cues). `python3 tools/caption_gate_contract.py` printed CAPTION GATE CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
+
+# STATE
+
 Updated: 2026-10-06T01:15:00Z (Run 352)
 
 ## Run 352 delta
@@ -123,15 +134,4 @@ Updated: 2026-10-05T17:15:00Z (Run 342)
 # STATE
 
 Updated: 2026-10-05T16:20:00Z (Run 341)
-
-## Run 341 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`.
-- NEXT.md was 28596 bytes. A fetch truncated it before the older upload locks. Newest 12 notes stay in NEXT.md. Older notes moved to `docs/next_archive.md`. `tools/next_compact.py` moves extras. It does not delete history.
-- `python3 tools/next_compact_contract.py` printed NEXT COMPACT CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions was not re-run.
-
-# STATE
-
-Updated: 2026-10-05T15:20:00Z (Run 340)
 
