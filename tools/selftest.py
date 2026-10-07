@@ -1282,6 +1282,26 @@ def check_next_compact() -> list[str]:
     return []
 
 
+
+def check_compact_all() -> list[str]:
+    """One command must compact every live log. A later prepend still fails the cap."""
+    import subprocess
+    tool = ROOT / "tools" / "compact_all.py"
+    if not tool.is_file():
+        return ["compact_all.py missing"]
+    proc = subprocess.run(
+        [sys.executable, str(tool), "--check"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+    )
+    if proc.returncode != 0 or "COMPACT ALL OK" not in proc.stdout:
+        return [f"compact_all --check failed: {proc.stdout[-300:]} {proc.stderr[-300:]}"]
+    if "mode=check" not in proc.stdout:
+        return ["compact_all --check must not claim a write"]
+    return []
+
+
 def check_state_compact() -> list[str]:
     """STATE.md must stay short enough that a truncated fetch still shows the current gate."""
     import subprocess

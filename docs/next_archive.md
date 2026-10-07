@@ -166,3 +166,5 @@ Older do-not-rediscover notes. Do not paste these back into NEXT.md. Do not rest
 1zr29. **Do not rediscover a zero idle streak as a stall flag.** Run 365: `flag_text` omits `idle_streak: 0`. A quiet file stays empty. A positive streak still prints. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr30. **Do not rediscover a second stall-watch check.** Run 366: `tools/selftest.py` keeps one `check_stall_watch`. It runs `stall_watch_contract.py` and the inline stall assertions. A later copy must not shadow the contract. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
+1zr31. **Do not rediscover a playlist end-screen element while playlist_id is not_set.** Run 367: `tools/studio_handoff.py` asks for one video element (best for viewer) until a playlist id is set. Do not invent a playlist id. A failed playlist insert is not a reason to dispatch execute again. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

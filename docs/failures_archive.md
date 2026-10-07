@@ -344,3 +344,7 @@ Updated: 2026-10-05T18:20:00Z
 - Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0. A playlist end-screen element was not requested.
 - Lesson: playlist_id not_set must not become a Studio instruction to add a playlist element. Ask for one video element (best for viewer). A failed playlistItems.insert does not mean videos.insert did not run. Do not poll secrets.
 
+## Run 368 — 2026-10-06T18:12:00Z
+- Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0. Execute was not dispatched.
+- Lesson: a workflow comment that says exit 2 is not an upload failure does not change the job result. The step must exit 0 after printing `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE`. Do not poll secrets.
+

@@ -746,3 +746,9 @@ Updated: 2026-10-05T17:15:00Z (Run 342)
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - `tools/studio_handoff.py` no longer tells the operator to add a playlist end-screen element while `playlist_id` is `not_set`. The note is one video element (best for viewer). A set playlist id still names a playlist element. The workflow comment no longer says a failed `playlistItems.insert` prevents `videos.insert`. This does not call YouTube.
 
+## Run 368 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- The playlist membership step no longer fails the job when `playlist_membership.py` exits 2. It prints `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exits 0. A red job after `videos.insert` is not a reason to dispatch execute again. This does not call YouTube.
+

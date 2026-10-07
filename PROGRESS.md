@@ -2,6 +2,11 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 380 — 2026-10-07T08:11:00Z
+- Improvement: one command compacts STATE, NEXT, RUNS, PROGRESS, and FAILURES and fails if any file stays over cap. Estimated save: one red Actions selftest and one repair commit per forgotten compact, about 10 agent minutes. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: automated log-cap step is now one command instead of four. Remaining manual step is still the three YouTube secrets.
+- Verification: compact_all and selftest on this commit. No provider write.
+
 ## Run 379 — 2026-10-07T07:16:00Z
 - Improvement: a red Actions selftest is fixed by the existing compact tools, not by another recovery edge. Estimated save: one failed selftest cycle and one agent run spent diagnosing a cap miss, about 10 minutes, on every future run that prepends a section and forgets to archive.
 - Efficiency: human minutes per video unchanged. Videos published stay 0. Remaining manual step is still the three YouTube secrets.
@@ -43,11 +48,6 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 
 ## Run 369 — 2026-10-06T19:12:00Z
 - Improvement: a post-upload caption, thumbnail, or comment miss no longer fails the production job when the video id is already written. Estimated save: one extra execute dispatch after the first private insert, which could start another videos.insert, about 15 human minutes plus a duplicate private video.
-- Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
-- Verification: selftest PASS. No provider write. Videos published stay 0.
-
-## Run 368 — 2026-10-06T18:12:00Z
-- Improvement: a failed playlist insert no longer fails the production job. Estimated save: one extra execute dispatch after the first private insert, which could start another videos.insert, about 15 human minutes plus a duplicate private video.
 - Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
 - Verification: selftest PASS. No provider write. Videos published stay 0.
 
