@@ -2,6 +2,12 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 375 — 2026-10-07T03:11:00Z
+- Failed approach not retried: treating a green persist step as proof the video id is on main, or another exchange parser, scanner, or pre-upload checker while videos published stay 0.
+- Lesson: `PERSIST_PUSH_NOT_INSERT_FAILURE` keeps the job green and can still drop the id. The artifact `provider-upload-state` is the recovery copy. Do not dispatch execute again until that file is on main. Do not poll secrets.
+
+
+
 ## Run 374 — 2026-10-07T02:13:00Z
 - Failed approach not retried: exiting 0 on a classify miss before `git add`, or another exchange parser, scanner, or pre-upload checker while videos published stay 0.
 - Lesson: a green persist step that skips the commit leaves the video id on the runner. Print `PERSIST_CLASSIFY_MISS_STILL_COMMIT` and commit. Status 2 still skips. Do not poll secrets.
@@ -45,8 +51,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 364 — 2026-10-06T13:22:00Z
 - Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0.
 - Lesson: an idle flag without a count still looks like a fresh note. Print `idle_streak`. At 8 or more, print `suspicious: oauth_idle_without_publish`. Do not poll secrets.
-
-## Run 363 — 2026-10-06T12:20:00Z
-- Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0.
-- Lesson: a progress line that omits the Run heading is invisible to log compact and can be cut with the previous section. Promote that shape. Do not poll secrets.
 

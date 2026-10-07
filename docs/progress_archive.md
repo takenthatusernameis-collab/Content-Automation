@@ -381,3 +381,6 @@ Stall flags no longer stay set only because the lock sentence repeats the tool n
 ## Run 362 — 2026-10-06T11:20:00Z
 The setup recipe now prints the exact private execute dispatch, including collect_feedback=false. Estimated save: one wrong first dispatch that asks for analytics before a video id exists, about 5 human minutes. Human minutes per video otherwise unchanged. Videos published stay 0.
 
+## Run 363 — 2026-10-06T12:20:00Z
+A bare `360 — timestamp` progress line is now a real section. Log compact promotes that shape before the size cap, and the live Run 360 heading is restored. Estimated effect: a truncated fetch no longer drops the Run 360 lesson into the previous section. Human minutes per video unchanged. Videos published stay 0.
+

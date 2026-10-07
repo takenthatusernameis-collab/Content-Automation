@@ -324,3 +324,7 @@ Updated: 2026-10-05T18:20:00Z
 - Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0. Dispatch was not run.
 - Lesson: naming execute=true is not the command. Print the `gh workflow dispatch` line and keep collect_feedback false on the first dispatch. Do not poll secrets.
 
+## Run 363 — 2026-10-06T12:20:00Z
+- Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0.
+- Lesson: a progress line that omits the Run heading is invisible to log compact and can be cut with the previous section. Promote that shape. Do not poll secrets.
+

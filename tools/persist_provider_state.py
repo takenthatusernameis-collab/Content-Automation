@@ -15,7 +15,15 @@ import sys
 from pathlib import Path
 from typing import Callable
 
-Runner = Callable[[list[str]], tuple[int, str, str]]
+RECOVERY_ARTIFACT = "provider-upload-state"
+RECOVERY_REPO = "takenthatusernameis-collab/Content-Automation"
+
+
+def artifact_recovery_command(
+    repo: str = RECOVERY_REPO, artifact: str = RECOVERY_ARTIFACT
+) -> str:
+    """How to fetch the video id if git push was rejected. Does not call GitHub."""
+    return f"gh run download --repo {repo} --name {artifact}"
 
 
 def upload_commit_decision(data: dict) -> str:
@@ -203,6 +211,11 @@ def _git_run(cmd: list[str]) -> tuple[int, str, str]:
 
 def main(argv: list[str] | None = None) -> int:
     args = list(sys.argv[1:] if argv is None else argv)
+    if len(args) == 1 and args[0] == "recover":
+        # Printed after a rejected push. Does not download and does not call YouTube.
+        print(artifact_recovery_command())
+        print("Do not dispatch execute again. Copy upload_state.json onto main before another insert.")
+        return 0
     if len(args) == 1 and args[0] == "push":
         # Workflow calls this. Do not inline push_with_retry in a YAML heredoc:
         # a spaced PY terminator never closes, so the video id is not pushed.
@@ -210,7 +223,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if len(args) != 2 or args[0] not in {"classify-upload", "classify-feedback"}:
         print(
-            "usage: persist_provider_state.py classify-upload|classify-feedback FILE | push",
+            "usage: persist_provider_state.py classify-upload|classify-feedback FILE | push | recover",
             file=sys.stderr,
         )
         return 1

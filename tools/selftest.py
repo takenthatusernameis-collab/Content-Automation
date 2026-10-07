@@ -2472,6 +2472,19 @@ def check_job_timeout_covers_upload() -> list[str]:
         failures.append("persist step must treat a classify miss with a video id as not an insert failure")
     if "PERSIST_CLASSIFY_MISS_STILL_COMMIT" not in persist_step:
         failures.append("classify miss with a video id must still commit that id")
+    if "actions: write" not in workflow:
+        failures.append("production workflow needs actions: write so a rejected push can still save the video id")
+    if "actions/upload-artifact@v4" not in workflow or "provider-upload-state" not in workflow:
+        failures.append("production workflow must upload upload_state.json as provider-upload-state")
+    artifact_step = workflow.split("- name: Keep provider video id if git push is rejected", 1)[-1].split("- name: Collect read-only YouTube feedback", 1)[0]
+    if "continue-on-error: true" not in artifact_step:
+        failures.append("artifact backup must not fail the job when upload-artifact misses")
+    if "persist_provider_state.py recover" not in persist_step:
+        failures.append("rejected push must print the artifact recovery command")
+    from persist_provider_state import artifact_recovery_command
+    recovery = artifact_recovery_command()
+    if "provider-upload-state" not in recovery or "gh run download" not in recovery:
+        failures.append("artifact recovery command must name the provider-upload-state artifact")
     classified = persist_step.split("Provider state was not classified", 1)[-1]
     before_add = classified.split('git add "$STATE"', 1)[0]
     if "exit 0" in before_add:

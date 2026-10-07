@@ -35,6 +35,7 @@ concurrency:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   youtube-production:
@@ -287,11 +288,22 @@ jobs:
           if [ "$commit_status" -ne 0 ] || [ "$push_status" -ne 0 ]; then
             if python3 -c 'import json,os,sys; from pathlib import Path; row=json.loads(Path(os.environ["STATE"]).read_text(encoding="utf-8")); sys.exit(0 if str(row.get("provider_video_id") or "").strip() else 1)'; then
               echo "PERSIST_PUSH_NOT_INSERT_FAILURE"
-              echo "Provider state was not committed. The video id is already written. Do not dispatch execute again to retry videos.insert."
+              echo "Provider state was not pushed to main. The video id is already written. Do not dispatch execute again to retry videos.insert."
+              python3 tools/persist_provider_state.py recover
               exit 0
             fi
             exit 1
           fi
+
+      - name: Keep provider video id if git push is rejected
+        if: ${{ always() && inputs.execute == true }}
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: provider-upload-state
+          path: ${{ inputs.packet }}/upload_state.json
+          if-no-files-found: ignore
+          retention-days: 90
 
       - name: Collect read-only YouTube feedback
         if: ${{ inputs.collect_feedback == true && inputs.execute != true }}

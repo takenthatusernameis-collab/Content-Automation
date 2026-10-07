@@ -1,4 +1,8 @@
-## 2026-10-05 — Run 350: ftyp is not a finished master
+## 2026-10-07 — Run 375: a rejected push needs an artifact, not only a green job
+
+- 2026-10-07 | After videos.insert, upload `upload_state.json` as Actions artifact `provider-upload-state` (`actions: write`, continue-on-error, 90 days). Print `persist_provider_state.py recover` when the push is rejected. | Runs 370-374 exit 0 so a red job does not invite another insert. A green job with the id only on the runner still invites a second insert on the next checkout. | Revisit if the artifact name changes. Do not put the refresh token in that file. Do not poll secrets.
+
+
 
 - 2026-10-05 | A present export/master.mp4 must pass `tools/export_probe.py` (1920x1080, h264, audio, duration >= 20s) before execute. Missing export fails execute only. | media_qa hard-fails a missing ftyp box and does not run ffprobe. A wrong-size file could still reach videos.insert. | Revisit if the format lock changes. Do not encode inside the probe. Do not add an upload-edge persist call while STALL_UPLOAD_EDGE is set.
 

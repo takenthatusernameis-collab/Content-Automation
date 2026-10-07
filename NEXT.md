@@ -1,12 +1,14 @@
 # NEXT
 
-Updated: 2026-10-07T02:13:00Z (Run 374)
+Updated: 2026-10-07T03:11:00Z (Run 375)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate.
 
 One human step: run `python3 tools/oauth_setup.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then run `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr39. **Do not rediscover a rejected push as a lost video id.** Run 375: the execute job uploads `upload_state.json` as `provider-upload-state`. A rejected push prints `python3 tools/persist_provider_state.py recover`. Copy that file onto main before another execute. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr38. **Do not rediscover a classify miss as a reason to skip the commit.** Run 374: a non-zero `classify-upload` with a provider video id prints `PERSIST_CLASSIFY_MISS_STILL_COMMIT` and still runs `git add`. Status 2 still skips. A miss without that id still fails. Do not exit 0 before the commit. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 1zr37. **Do not rediscover a spaced heredoc as a provider-state push.** Run 373: both persist steps call `python3 tools/persist_provider_state.py push`. A `<<'PY'` block closed by `          PY` never ends, so `push_with_retry` does not run and the video id stays off main. Do not put that heredoc back. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
@@ -30,5 +32,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zr28. **Do not rediscover an uncounted OAuth idle streak.** Run 364: `tools/stall_watch.py` prints `idle_streak` and, at 8 or more, `suspicious: oauth_idle_without_publish`. The live streak is 13 after this delta. Do not treat another restatement as progress. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr27. **Do not rediscover a bare progress timestamp as a section.** Run 363: `tools/log_compact.py` promotes `360 — 2026-10-06T09:11:00Z` to a Run 360 heading before the size cap. Do not write a progress or failure section without the Run heading. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-1zr26. **Do not rediscover an unscripted workflow dispatch.** Run 362: `tools/oauth_setup.py` prints `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not pass collect_feedback on the first dispatch. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
