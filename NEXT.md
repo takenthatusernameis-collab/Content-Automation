@@ -1,12 +1,14 @@
 # NEXT
 
-Updated: 2026-10-07T13:23:00Z (Run 385)
+Updated: 2026-10-07T17:12:00Z (Run 387)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser or provider-state recovery edge while videos published stay 0. Do not extend operator_card while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate. `recovery_freeze.py` fails the build if the recovery surface grows. `operator_card_freeze.py` fails the build if the card surface grows.
 
 One human step: run `python3 tools/operator_card.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then run `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets. Do not extend the card.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr51. **Do not rediscover a stale NEXT header as the latest lock.** Run 387: `python3 tools/record_run.py --note NOTE.json` refreshes the one `Updated:` line and still compacts in the same process. Do not add a freeze module to remember that. Do not open a second OAuth issue; the human step is issue 1. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not extend the card.
 
 1zr50. **Do not rediscover a green selftest that ran before the log prepend.** Run 386: `check_compact_all()` is called from selftest `main`. `python3 tools/record_run.py --note NOTE.json` prepends STATE, NEXT, RUNS, PROGRESS, and FAILURES, then runs `compact_all.py`. Do not add a freeze module to remember that. Do not open a second OAuth issue; the human step is issue 1. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not extend the card.
 
@@ -29,5 +31,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zr41. **Do not rediscover the newest production run as the video id.** Run 377: `python3 tools/persist_provider_state.py recover` walks the last 20 `youtube-production.yml` runs and downloads `provider-upload-state` from the first run that has it. A later execute=false dispatch has no artifact. An empty run id must not become a bare `gh run download --name`. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr40. **Do not rediscover a bare artifact download.** Run 376: `python3 tools/persist_provider_state.py recover` pins `youtube-production.yml` with `gh run list` before `gh run download --name provider-upload-state`. A bare download uses the newest run. That is often selftest, which has no video id. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-1zr39. **Do not rediscover a rejected push as a lost video id.** Run 375: the execute job uploads `upload_state.json` as `provider-upload-state`. A rejected push prints `python3 tools/persist_provider_state.py recover`. Copy that file onto main before another execute. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

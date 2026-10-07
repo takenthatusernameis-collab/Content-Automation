@@ -61,6 +61,11 @@ def main() -> int:
             return fail("record_run accepted a root with no compact_all.py")
         if "Run 2 delta" not in (root / "STATE.md").read_text():
             return fail("state prepend did not land before compact refused")
+        nxt = (root / "NEXT.md").read_text()
+        if "Updated: 2026-10-07T16:13:00Z (Run 2)" not in nxt:
+            return fail("NEXT header was not refreshed from the note")
+        if nxt.count("Updated:") != 1:
+            return fail("NEXT grew a second Updated line")
     print("RECORD RUN CONTRACT PASS")
     return 0
 

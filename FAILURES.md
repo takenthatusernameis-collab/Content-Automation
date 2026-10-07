@@ -2,11 +2,16 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 387 — 2026-10-07T17:12:00Z
+- Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, secret poll, freeze module, or second OAuth issue while videos published stay 0.
+- Lesson: Run 386 left the NEXT `Updated:` line on Run 385. Refresh that one line in `record_run.py`. Do not add a freeze module to remember it. oauth_idle_without_publish remains; do not spend the next run only restating it.
+
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
 ## Run 386 — 2026-10-07T16:13:00Z
 - Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, secret poll, or second OAuth issue while videos published stay 0.
 - Lesson: Run 380 claimed selftest calls `compact_all.py --check`. The function was dead. Call it. Use `record_run.py` for the next prepend. Do not add a freeze module to remember that. oauth_idle_without_publish remains; do not spend the next run only restating it.
 
-Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 385 — 2026-10-07T13:23:00Z
 - Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
@@ -50,10 +55,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 376 — 2026-10-07T04:12:00Z
 - Failed approach not retried: a bare `gh run download --name provider-upload-state`, or another exchange parser, scanner, or pre-upload checker while videos published stay 0.
 - Lesson: the newest run after an agent commit is often selftest.yml. That run has no video id. Pin `youtube-production.yml` before download. Do not dispatch execute again. Do not poll secrets.
-
-## Run 375 — 2026-10-07T03:11:00Z
-- Failed approach not retried: treating a green persist step as proof the video id is on main, or another exchange parser, scanner, or pre-upload checker while videos published stay 0.
-- Lesson: `PERSIST_PUSH_NOT_INSERT_FAILURE` keeps the job green and can still drop the id. The artifact `provider-upload-state` is the recovery copy. Do not dispatch execute again until that file is on main. Do not poll secrets.
-
-
 

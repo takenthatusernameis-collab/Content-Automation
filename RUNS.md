@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 387 — 2026-10-07T17:12:00Z
+- Objective: Stop the NEXT header from staying on an older run after a log prepend.
+- Action: `prepend_next` replaces the single `Updated:` line from the note. The contract fails if that line is missing or doubled. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Did not extend operator_card. Did not add a scanner. Did not scaffold Q2. Did not add a freeze module.
+- Result: Videos published stay 0. NEXT header now matches the note that wrote it. No live execute.
+- Verification: `python3 tools/record_run_contract.py` printed RECORD RUN CONTRACT PASS. This entry was written by `record_run.py`, which also runs compact. No provider write.
+- Discovery: Run 386 prepended note 1zr50 and left `Updated: ... (Run 385)`. Suspicious: oauth_idle_without_publish still has no publish since before Run 270, and Runs 375-386 stacked recovery, card, and freeze tooling instead of a publish. Do not add another freeze for that stall.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not open a second issue. Do not extend the card. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 386 — 2026-10-07T16:13:00Z
 - Objective: Stop a green selftest from shipping an over-cap log when the section is prepended afterward.
 - Action: Called the existing `check_compact_all()` from selftest `main`. Added `tools/record_run.py`, which prepends the five live logs and runs `compact_all.py` before it exits. Opened issue 1 with the operator-card text. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Did not extend operator_card. Did not add a scanner. Did not scaffold Q2.
@@ -100,12 +109,3 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Run 375 uploaded the artifact, then printed a bare `gh run download --name`. After the next agent commit, the newest run is selftest.yml, which has no `provider-upload-state`. That download misses the video id and invites another execute.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
 - Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. If push is rejected, run `python3 tools/persist_provider_state.py recover` and commit that file before another execute. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 375 — 2026-10-07T03:11:00Z
-- Objective: Keep a provider video id recoverable when git push is rejected after videos.insert.
-- Action: The production workflow has `actions: write` and uploads `upload_state.json` as `provider-upload-state` with continue-on-error. A rejected push prints `python3 tools/persist_provider_state.py recover` (`gh run download --repo takenthatusernameis-collab/Content-Automation --name provider-upload-state`). Selftest refuses a workflow that lacks that artifact. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not add an early-persist call. Did not dispatch the workflow.
-- Result: Selftest passed. Videos published stay 0. No live execute.
-- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
-- Discovery: Runs 370-374 exit 0 after a rejected push so the job stays green. That still leaves the video id off main. The next execute can insert again. The artifact is the copy that survives the runner.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
-- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. If push is rejected, download `provider-upload-state` and commit it before another execute. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

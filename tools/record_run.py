@@ -32,7 +32,7 @@ def prepend_state(text: str, updated: str, delta: str) -> str:
     return _insert_after_header(text, "# STATE", block)
 
 
-def prepend_next(text: str, item: str) -> str:
+def prepend_next(text: str, item: str, updated: str = "") -> str:
     marker = "Older do-not-rediscover notes live in `docs/next_archive.md`."
     idx = text.find(marker)
     if idx < 0:
@@ -42,6 +42,26 @@ def prepend_next(text: str, item: str) -> str:
         raise ValueError("NEXT archive marker has no line end")
     head = text[: line_end + 1]
     tail = text[line_end + 1 :]
+    stamp = updated.strip()
+    if stamp:
+        lines = head.splitlines()
+        replaced = False
+        out = []
+        for line in lines:
+            if line.startswith("Updated:") and not replaced:
+                out.append(stamp)
+                replaced = True
+            else:
+                out.append(line)
+        if not replaced:
+            # Keep a single header. Insert the stamp after # NEXT.
+            if out and out[0].startswith("# NEXT"):
+                out = [out[0], "", stamp, *out[1:]]
+            else:
+                out.insert(0, stamp)
+        head = "\n".join(out)
+        if not head.endswith("\n"):
+            head += "\n"
     return head + "\n" + item.strip() + "\n\n" + tail.lstrip("\n")
 
 
@@ -60,7 +80,7 @@ def apply(root: Path, note: dict) -> None:
     progress = root / "PROGRESS.md"
     failures = root / "FAILURES.md"
     state.write_text(prepend_state(state.read_text(), note["updated"], note["state"]))
-    nxt.write_text(prepend_next(nxt.read_text(), note["next"]))
+    nxt.write_text(prepend_next(nxt.read_text(), note["next"], note["updated"]))
     runs.write_text(prepend_runs(runs.read_text(), note["runs"]))
     progress.write_text(prepend_log(progress.read_text(), "# PROGRESS", note["progress"]))
     failures.write_text(prepend_log(failures.read_text(), "# FAILURES", note["failures"]))

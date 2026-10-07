@@ -171,3 +171,8 @@ Targeted addition from Run 360:
 Targeted addition from Run 382:
 
 - Do not add another provider-state recovery edge. `python3 tools/recovery_freeze.py` fails if `youtube-production.yml` has a second `provider-upload-state` artifact or a second `persist_provider_state.py recover` call. A lock sentence does not clear that failure. The human step is still the three GitHub Actions secrets.
+
+
+Targeted addition from Run 387:
+
+- `tools/record_run.py` refreshes the single NEXT `Updated:` line from the note. Do not leave that header on an older run. Do not add a freeze module for it. Do not poll secrets. The human step is still issue 1, then dispatch execute=true.

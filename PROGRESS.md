@@ -2,12 +2,18 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 387 — 2026-10-07T17:12:00Z
+- Improvement: the NEXT header is refreshed in the same process as the note prepend, so a truncated fetch no longer shows Run 385 as current after a later note. Estimated save: about 5 minutes per future run spent reconciling a stale header, and one wrong lock if the header is treated as the newest decision. Videos published stay 0. Human OAuth step unchanged in kind; it is still issue 1.
+- Efficiency: automated header refresh. Remaining manual step is still the three YouTube secrets.
+- Verification: record_run contract. No provider write.
+
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
 ## Run 386 — 2026-10-07T16:13:00Z
 - Improvement: a log prepend that skips compact now fails selftest, and `record_run.py` compacts in the same process. Estimated save: one red Actions selftest and one repair commit per forgotten compact, about 10 agent minutes. Videos published stay 0. Human OAuth step unchanged in kind; it is now issue 1.
 - Efficiency: automated cap check is actually invoked. Remaining manual step is still the three YouTube secrets.
 - Verification: record_run contract and selftest. No provider write.
 
-Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
 ## Run 385 — 2026-10-07T13:23:00Z
 - Improvement: another operator-card function now fails selftest instead of waiting for three later deltas to set `STALL_OPERATOR_CARD`. Estimated save: one agent run spent reprinting console steps, about 10 minutes, on every future run that would have grown the card. Videos published stay 0. Human OAuth step unchanged in kind.
@@ -55,8 +61,4 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 
 ## Run 376 — 2026-10-07T04:12:00Z
 - Improvement: rejected-push recovery now selects the production workflow run, not the newest Actions run. Estimated save: one missed `provider-upload-state` download and one duplicate `videos.insert` after a later selftest run, about 15 human minutes plus a duplicate private video. Videos published stay 0. Human OAuth step unchanged.
-
-## Run 375 — 2026-10-07T03:11:00Z
-- Improvement: a rejected provider-state push still leaves `upload_state.json` as the `provider-upload-state` artifact for 90 days. Estimated save: one duplicate `videos.insert` when main never received the video id, about 15 human minutes plus a duplicate private video. Videos published stay 0. Human OAuth step unchanged.
-
 
