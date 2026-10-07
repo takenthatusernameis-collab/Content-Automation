@@ -1337,6 +1337,26 @@ def check_runs_compact() -> list[str]:
     return []
 
 
+def check_recovery_freeze() -> list[str]:
+    """A new provider-upload-state artifact or recover call fails the build.
+
+    Runs 368-378 stacked recovery edges while videos published stayed 0.
+    This does not add a recovery edge and does not poll secrets.
+    """
+    import subprocess
+    contract = ROOT / "tools" / "recovery_freeze_contract.py"
+    freeze = ROOT / "tools" / "recovery_freeze.py"
+    if not contract.is_file() or not freeze.is_file():
+        return ["recovery_freeze.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0 or "RECOVERY FREEZE CONTRACT PASS" not in proc.stdout:
+        return [f"recovery_freeze_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    live = subprocess.run([sys.executable, str(freeze)], cwd=ROOT, text=True, capture_output=True)
+    if live.returncode != 0 or "RECOVERY FREEZE PASS" not in live.stdout:
+        return [f"recovery_freeze failed: {live.stdout[-400:]} {live.stderr[-200:]}"]
+    return []
+
+
 def check_stall_watch() -> list[str]:
     """Instruction-lock and Studio stalls must stay machine-visible.
 
@@ -1545,6 +1565,7 @@ def main() -> int:
     failures.extend(check_state_compact())
     failures.extend(check_next_compact())
     failures.extend(check_stall_watch())
+    failures.extend(check_recovery_freeze())
     failures.extend(check_prove_locks_on_push())
     failures.extend(check_export_probe())
     failures.extend(check_caption_gate())

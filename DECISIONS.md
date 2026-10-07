@@ -1,3 +1,7 @@
+## 2026-10-07 — Run 382: freeze the recovery surface until a video id is on main
+
+- 2026-10-07 | `tools/recovery_freeze.py` fails selftest if `youtube-production.yml` grows a second `provider-upload-state` artifact or a second `persist_provider_state.py recover` call. | Runs 368-378 stacked recover paths and a later stall flag did not stop the next edge. | Revisit after a provider video id is on main. Do not add an edge to clear the freeze. Do not poll secrets.
+
 ## 2026-10-07 — Run 375: a rejected push needs an artifact, not only a green job
 
 - 2026-10-07 | After videos.insert, upload `upload_state.json` as Actions artifact `provider-upload-state` (`actions: write`, continue-on-error, 90 days). Print `persist_provider_state.py recover` when the push is rejected. | Runs 370-374 exit 0 so a red job does not invite another insert. A green job with the id only on the runner still invites a second insert on the next checkout. | Revisit if the artifact name changes. Do not put the refresh token in that file. Do not poll secrets.

@@ -410,3 +410,5 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
 - Verification: selftest PASS. No provider write. Videos published stay 0.
 
+## Run 370 — 2026-10-06T21:16:00Z
+- The execute job no longer turns red when the Studio pin printer fails or when a provider-state commit/push fails after a video id is written. That removes a false signal to dispatch execute again. Human minutes per video unchanged. Videos published stay 0. Automated post-insert steps that must not fail the job: playlist exit 2, post-upload exit 4 with a video id, Studio pin non-zero, persist miss with a video id.

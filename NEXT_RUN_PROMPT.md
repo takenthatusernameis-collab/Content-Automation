@@ -167,3 +167,7 @@ Record evidence and the primary decision, but do not create a daily commit just 
 Targeted addition from Run 360:
 
 - Do not add another OAuth exchange parser. `next_compact.py` must keep one Active locks block. The human step is the three GitHub Actions secrets.
+
+Targeted addition from Run 382:
+
+- Do not add another provider-state recovery edge. `python3 tools/recovery_freeze.py` fails if `youtube-production.yml` has a second `provider-upload-state` artifact or a second `persist_provider_state.py recover` call. A lock sentence does not clear that failure. The human step is still the three GitHub Actions secrets.

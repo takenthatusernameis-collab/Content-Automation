@@ -40,3 +40,6 @@ Evidence: Run 378 printed SELFTEST PASS locally and Actions run 37580716646 fail
 ## Run 381 — 2026-10-07T09:13:00Z
 - Evidence: Runs 368-378 added recovery edges while videos published stayed 0. Prose in FAILURES.md did not stop the next edge.
 - Change: stall_watch names `STALL_RECOVERY_EDGE`. Do not treat a lock sentence as the flag. Do not modify ORIGINAL_MASTER_PROMPT.md.
+
+## Run 382
+Evidence: Runs 368-378 stacked provider-state recovery edges while videos published stayed 0. Run 381 flagged the pattern after four deltas. The flag did not stop the next edge by itself. Selftest now fails if the production workflow grows another `provider-upload-state` artifact or another `persist_provider_state.py recover` call. Do not add an edge to clear that failure. Do not poll secrets.

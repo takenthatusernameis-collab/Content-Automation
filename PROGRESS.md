@@ -2,6 +2,13 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 382 — 2026-10-07T10:14:00Z
+- Improvement: a new provider-state recovery edge now fails selftest instead of waiting for four later deltas to set `STALL_RECOVERY_EDGE`. Estimated save: one agent run spent wiring another recover path, about 15 minutes, on every future run that would have grown the surface. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: automated freeze covers the existing artifact and recover call. Remaining manual step is still the three YouTube secrets.
+- Verification: recovery freeze contract and selftest. Release master sha256 matched. No provider write.
+
+
+
 ## Run 381 — 2026-10-07T09:13:00Z
 - Improvement: stacked recovery edges while unpublished now print `STALL_RECOVERY_EDGE`. Estimated save: one agent run spent adding another recover path, about 15 minutes, once the last four deltas match. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: automated stall check now names this pattern. Remaining manual step is still the three YouTube secrets.
@@ -48,7 +55,4 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Improvement: a playlist membership crash no longer fails the production job after upload state exists, and the job summary no longer tells the operator that a caption miss fails the job. Estimated save: one extra execute dispatch after the first private insert, which could start another videos.insert, about 15 human minutes plus a duplicate private video.
 - Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
 - Verification: selftest PASS. No provider write. Videos published stay 0.
-
-## Run 370 — 2026-10-06T21:16:00Z
-- The execute job no longer turns red when the Studio pin printer fails or when a provider-state commit/push fails after a video id is written. That removes a false signal to dispatch execute again. Human minutes per video unchanged. Videos published stay 0. Automated post-insert steps that must not fail the job: playlist exit 2, post-upload exit 4 with a video id, Studio pin non-zero, persist miss with a video id.
 

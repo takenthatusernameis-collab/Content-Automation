@@ -1,6 +1,12 @@
 # STATE
 
-Updated: 2026-10-07T09:13:00Z (Run 381)
+Updated: 2026-10-07T10:14:00Z (Run 382)
+
+## Run 382 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- The provider-state recovery surface is frozen. `tools/recovery_freeze.py` fails if `youtube-production.yml` grows another `provider-upload-state` artifact or another `persist_provider_state.py recover` call. This does not call YouTube or GitHub. Release `q1-media-r253` master still matches sha256 `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546` and ffprobe 1920x1080 h264 30fps yuv420p stereo AAC 48000 Hz, duration 328.40s. That check did not encode and did not upload.
 
 ## Run 381 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -74,10 +80,4 @@ Updated: 2026-10-07T05:11:00Z (Run 377)
 - No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - The playlist membership step now prints `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exits 0 on any non-zero exit, not only exit 2. A crash after `upload_state.json` exists is not an insert failure. The job summary no longer says a caption or thumbnail miss exits non-zero after the video id is written. It says that miss prints `POST_UPLOAD_NOT_INSERT_FAILURE` and exits 0. This does not call YouTube.
-
-## Run 370 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- The Studio pin step prints `STUDIO_PIN_NOT_INSERT_FAILURE` and exits 0 when `studio_handoff.py` exits non-zero. The persist step prints `PERSIST_PUSH_NOT_INSERT_FAILURE` and exits 0 when a provider video id exists and the commit or push fails. A red job after `videos.insert` is not a reason to dispatch execute again. A persist miss without that video id still fails the step. This does not call YouTube.
 
