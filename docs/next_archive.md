@@ -162,3 +162,7 @@ Older do-not-rediscover notes. Do not paste these back into NEXT.md. Do not rest
 1zr27. **Do not rediscover a bare progress timestamp as a section.** Run 363: `tools/log_compact.py` promotes `360 — 2026-10-06T09:11:00Z` to a Run 360 heading before the size cap. Do not write a progress or failure section without the Run heading. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr28. **Do not rediscover an uncounted OAuth idle streak.** Run 364: `tools/stall_watch.py` prints `idle_streak` and, at 8 or more, `suspicious: oauth_idle_without_publish`. The live streak is 13 after this delta. Do not treat another restatement as progress. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
+1zr29. **Do not rediscover a zero idle streak as a stall flag.** Run 365: `flag_text` omits `idle_streak: 0`. A quiet file stays empty. A positive streak still prints. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
+1zr30. **Do not rediscover a second stall-watch check.** Run 366: `tools/selftest.py` keeps one `check_stall_watch`. It runs `stall_watch_contract.py` and the inline stall assertions. A later copy must not shadow the contract. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

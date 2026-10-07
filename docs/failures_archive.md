@@ -336,3 +336,11 @@ Updated: 2026-10-05T18:20:00Z
 - Failed approach not retried: treating `idle_streak: 0` as a stall flag, or leaving STATE.md and NEXT.md over the compact cap.
 - Lesson: a count of zero must stay quiet. Print the streak only when it is positive. Compact before the live file exceeds 12 sections. Do not poll secrets.
 
+## Run 366 — 2026-10-06T16:20:00Z
+- Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0.
+- Lesson: a second `check_stall_watch` later in selftest replaces the contract call. Keep one definition. Do not poll secrets.
+
+## Run 367 — 2026-10-06T17:11:00Z
+- Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0. A playlist end-screen element was not requested.
+- Lesson: playlist_id not_set must not become a Studio instruction to add a playlist element. Ask for one video element (best for viewer). A failed playlistItems.insert does not mean videos.insert did not run. Do not poll secrets.
+

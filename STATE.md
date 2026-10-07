@@ -1,6 +1,12 @@
 # STATE
 
-Updated: 2026-10-07T06:14:00Z (Run 378)
+Updated: 2026-10-07T07:16:00Z (Run 379)
+
+## Run 379 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Run 378 claimed a local selftest pass and left STATE.md and NEXT.md at 13 sections. Actions run 37580716646 failed: `STATE.md has 13 run sections, max 12` and `NEXT.md has 13 notes, max 12`. This run only ran the existing compact tools. A red selftest is not a reason to add another recovery edge.
 
 ## Run 378 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -69,16 +75,4 @@ Updated: 2026-10-07T05:11:00Z (Run 377)
 - No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker.
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - The playlist membership step no longer fails the job when `playlist_membership.py` exits 2. It prints `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exits 0. A red job after `videos.insert` is not a reason to dispatch execute again. This does not call YouTube.
-
-## Run 367 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- `tools/studio_handoff.py` no longer tells the operator to add a playlist end-screen element while `playlist_id` is `not_set`. The note is one video element (best for viewer). A set playlist id still names a playlist element. The workflow comment no longer says a failed `playlistItems.insert` prevents `videos.insert`. This does not call YouTube.
-
-## Run 366 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- `tools/selftest.py` had two `check_stall_watch` definitions. The later one shadowed the contract call, so a broken `stall_watch_contract.py` could still print SELFTEST PASS. One definition now runs the contract and the inline stall assertions. This does not call YouTube.
 

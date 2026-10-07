@@ -2,6 +2,11 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 379 — 2026-10-07T07:16:00Z
+- Improvement: a red Actions selftest is fixed by the existing compact tools, not by another recovery edge. Estimated save: one failed selftest cycle and one agent run spent diagnosing a cap miss, about 10 minutes, on every future run that prepends a section and forgets to archive.
+- Efficiency: human minutes per video unchanged. Videos published stay 0. Remaining manual step is still the three YouTube secrets.
+- Verification: Actions run 37580716646 failed on the 12-section cap. Compact tools moved the overflow into the archives.
+
 ## Run 378 — 2026-10-07T06:14:00Z
 - Improvement: rejected-push recovery skips a newer artifact with no provider video id. Estimated save: one duplicate `videos.insert` if a later failed execute hid the first id, about 15 human minutes plus a duplicate private video. Videos published stay 0. Human OAuth step unchanged. Q1 materialize and media QA still PASS.
 
@@ -44,15 +49,5 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 ## Run 368 — 2026-10-06T18:12:00Z
 - Improvement: a failed playlist insert no longer fails the production job. Estimated save: one extra execute dispatch after the first private insert, which could start another videos.insert, about 15 human minutes plus a duplicate private video.
 - Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
-- Verification: selftest PASS. No provider write. Videos published stay 0.
-
-## Run 367 — 2026-10-06T17:11:00Z
-- Improvement: the first Studio end-screen note no longer asks for a playlist element while playlist_id is not_set. Estimated save: one failed end-screen setup after the first private insert, about 5 human minutes.
-- Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
-- Verification: selftest PASS. No provider write. Videos published stay 0.
-
-## Run 366 — 2026-10-06T16:20:00Z
-- Improvement: selftest now executes `stall_watch_contract.py` again. A later duplicate function had shadowed that call since the inline checks were added.
-- Efficiency: a broken stall contract fails here instead of on a later run that happens to invoke the contract alone. Estimated human minutes per video unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
 - Verification: selftest PASS. No provider write. Videos published stay 0.
 

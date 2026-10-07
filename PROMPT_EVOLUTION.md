@@ -33,3 +33,6 @@ Evidence: same-topic stall flags reset when the next run changes subject. Future
 
 ## Run 360 — 2026-10-06T09:11:00Z
 Evidence: two Active locks blocks in NEXT.md hid the human secret step. Collapse repeated lock blocks. Do not add another OAuth exchange parser while videos published stay 0.
+
+## Run 379 — 2026-10-07T07:16:00Z
+Evidence: Run 378 printed SELFTEST PASS locally and Actions run 37580716646 failed because STATE.md and NEXT.md had 13 sections (max 12). A local pass is not a green push. Compact the live logs in the same commit that prepends a section. Do not treat a red selftest as a reason to add another recovery edge.

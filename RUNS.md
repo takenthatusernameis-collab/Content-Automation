@@ -2,6 +2,15 @@
 
 Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 
+## Run 379 — 2026-10-07T07:16:00Z
+- Objective: Make Actions selftest green again after Run 378 overflowed the log caps.
+- Action: Ran `state_compact.py`, `next_compact.py`, `runs_compact.py`, and `log_compact.py`. Archived the oldest sections. Did not change recovery, upload, or OAuth code. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add an exchange parser. Did not dispatch the workflow.
+- Result: Live logs are back at the 12-section cap before this entry is compacted. Videos published stay 0. No live execute.
+- Verification: Actions run 37580716646 failed with STATE.md 13 sections and NEXT.md 13 notes. Local compact tools printed COMPACT OK. Selftest is the verification for this commit.
+- Discovery: A local SELFTEST PASS does not mean the commit stayed under the cap. Run 378 added a section and did not archive one. Suspicious: oauth_idle_without_publish still stands, and log_cap_overflow is a separate repeated risk if each run prepends without compacting.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Do not spend another run only restating that blocker. Do not add another recovery edge while this selftest was red.
+- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. If push is rejected, run `python3 tools/persist_provider_state.py recover` and commit only the file that prints RECOVERED_RUN. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 378 — 2026-10-07T06:14:00Z
 - Objective: Stop a rejected-push recovery from keeping a newer production artifact that has no provider video id.
 - Action: `artifact_recovery_command` clears the download dir each run, skips a missing artifact, and skips `upload_state.json` unless `provider_video_id` is a non-empty string. Selftest refuses a break before that check. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not add an early-persist call. Did not dispatch the workflow.
@@ -98,23 +107,5 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Result: Selftest passed. Videos published stay 0. No live execute.
 - Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
 - Discovery: Run 367 said a failed playlistItems.insert is not an upload failure, but the step still returned that exit code. A red job is the signal that invites a second execute.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
-- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 367 — 2026-10-06T17:11:00Z
-- Objective: Stop the first Studio pass from asking for a playlist end-screen element while playlist_id is not_set.
-- Action: `tools/studio_handoff.py` names a video element (best for viewer) until a playlist id is set. A set id still names a playlist element. The workflow comment no longer says a failed playlistItems.insert prevents videos.insert. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not dispatch the workflow.
-- Result: Selftest passed. Videos published stay 0. No live execute.
-- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
-- Discovery: The pin note said lower-left video or playlist. playlist_id is not_set, so that instruction would stall the end screen the same way a missing playlist stalls membership.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
-- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 366 — 2026-10-06T16:20:00Z
-- Objective: Stop a shadowed stall-watch check from letting a broken contract print SELFTEST PASS.
-- Action: Merged the two `check_stall_watch` definitions in `tools/selftest.py`. The remaining check runs `stall_watch_contract.py` and the inline OAuth-idle assertions. Removed the duplicate call. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not dispatch the workflow.
-- Result: Selftest passed. Videos published stay 0. No live execute.
-- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
-- Discovery: The later definition replaced the contract call. Selftest invoked the name twice and still never ran the contract.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
 - Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

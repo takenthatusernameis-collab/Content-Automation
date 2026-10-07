@@ -390,3 +390,13 @@ The production stall printer now counts consecutive unpublished OAuth-idle delta
 ## Run 365 — 2026-10-06T15:20:00Z
 Selftest can see a clear stall watch again. A zero idle streak is not a flag, so a quiet file no longer looks like a stall. STATE.md and NEXT.md are back at the 12-section cap. Estimated effect: the next run does not reconstruct a red gate that was only a count of zero. Human minutes per video unchanged. Videos published stay 0.
 
+## Run 366 — 2026-10-06T16:20:00Z
+- Improvement: selftest now executes `stall_watch_contract.py` again. A later duplicate function had shadowed that call since the inline checks were added.
+- Efficiency: a broken stall contract fails here instead of on a later run that happens to invoke the contract alone. Estimated human minutes per video unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
+- Verification: selftest PASS. No provider write. Videos published stay 0.
+
+## Run 367 — 2026-10-06T17:11:00Z
+- Improvement: the first Studio end-screen note no longer asks for a playlist element while playlist_id is not_set. Estimated save: one failed end-screen setup after the first private insert, about 5 human minutes.
+- Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
+- Verification: selftest PASS. No provider write. Videos published stay 0.
+
