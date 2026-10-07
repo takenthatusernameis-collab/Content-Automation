@@ -1337,6 +1337,28 @@ def check_runs_compact() -> list[str]:
     return []
 
 
+
+def check_operator_card() -> list[str]:
+    """The human publish step must stay the oauth_setup dispatch.
+
+    Does not poll secrets and does not add a recovery edge.
+    """
+    import subprocess
+    contract = ROOT / "tools" / "operator_card_contract.py"
+    card = ROOT / "tools" / "operator_card.py"
+    if not contract.is_file() or not card.is_file():
+        return ["operator_card.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0 or "OPERATOR CARD CONTRACT PASS" not in proc.stdout:
+        return [f"operator_card_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    live = subprocess.run([sys.executable, str(card)], cwd=ROOT, text=True, capture_output=True)
+    if live.returncode != 0 or "OPERATOR CARD PASS" not in live.stdout:
+        return [f"operator_card failed: {live.stdout[-400:]} {live.stderr[-200:]}"]
+    if "gh secret list" in live.stdout and "Do not run gh secret list" not in live.stdout:
+        return ["operator_card polled secrets"]
+    return []
+
+
 def check_recovery_freeze() -> list[str]:
     """A new provider-upload-state artifact or recover call fails the build.
 
@@ -1565,6 +1587,7 @@ def main() -> int:
     failures.extend(check_state_compact())
     failures.extend(check_next_compact())
     failures.extend(check_stall_watch())
+    failures.extend(check_operator_card())
     failures.extend(check_recovery_freeze())
     failures.extend(check_prove_locks_on_push())
     failures.extend(check_export_probe())

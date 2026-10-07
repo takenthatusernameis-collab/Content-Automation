@@ -964,3 +964,12 @@ Permanent log. Newest first. Do not paste the archive back into this file.
 - Discovery: Runs 368 and 369 stopped a red playlist step and a red post-upload step from inviting a second execute. The Studio pin step and the persist step could still fail the job after a video id existed.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
 - Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
+## Run 371 — 2026-10-06T23:13:00Z
+- Objective: Stop a playlist-step crash and a contradictory job summary from looking like an insert failure after videos.insert.
+- Action: The playlist membership step prints `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exits 0 on any non-zero exit when upload state exists, not only exit 2. The job summary now says a caption or thumbnail miss prints `POST_UPLOAD_NOT_INSERT_FAILURE` and exits 0. Selftest refuses the old non-zero summary sentence and a playlist `exit "$status"`. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not add an early-persist call. Did not dispatch the workflow.
+- Result: Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
+- Discovery: Run 368 only swallowed playlist exit 2. A crash still exited 1 and failed the job. The summary still said a caption or thumbnail failure exits non-zero after the video id is written, which invites another execute.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
+- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

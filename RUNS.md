@@ -2,6 +2,15 @@
 
 Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 
+## Run 383 — 2026-10-07T11:17:00Z
+- Objective: Keep the remaining human publish step in one command that cannot drift from the OAuth recipe.
+- Action: Added `tools/operator_card.py`. It prints the three secret-set commands and the dispatch line from `oauth_setup.py`, and fails if HANDOFF loses the documented master sha. Selftest runs the contract. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge.
+- Result: Videos published stay 0. Operator card PASS. Dispatch line matches the recipe.
+- Verification: `python3 tools/operator_card_contract.py` and `python3 tools/operator_card.py`. No provider write.
+- Discovery: Runs 368-382 froze and flagged recovery edges, but the human step was still reconstructed from NEXT notes. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human runs `python3 tools/operator_card.py` and stores the three secrets. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 382 — 2026-10-07T10:14:00Z
 - Objective: Stop another provider-state recovery edge from landing while videos published stay 0.
 - Action: Added `tools/recovery_freeze.py`. Selftest fails if the production workflow grows a second `provider-upload-state` artifact or a second `persist_provider_state.py recover` call. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Downloaded `q1-media-r253` `q1-master-r253.mp4` and matched the documented sha256 and stream shape.
@@ -98,14 +107,5 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Result: Selftest passed. Videos published stay 0. No live execute.
 - Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
 - Discovery: Run 370 swallowed a rejected commit or push. A non-zero `classify-upload` still exited the step and could invite another execute.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
-- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 371 — 2026-10-06T23:13:00Z
-- Objective: Stop a playlist-step crash and a contradictory job summary from looking like an insert failure after videos.insert.
-- Action: The playlist membership step prints `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exits 0 on any non-zero exit when upload state exists, not only exit 2. The job summary now says a caption or thumbnail miss prints `POST_UPLOAD_NOT_INSERT_FAILURE` and exits 0. Selftest refuses the old non-zero summary sentence and a playlist `exit "$status"`. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not add an early-persist call. Did not dispatch the workflow.
-- Result: Selftest passed. Videos published stay 0. No live execute.
-- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
-- Discovery: Run 368 only swallowed playlist exit 2. A crash still exited 1 and failed the job. The summary still said a caption or thumbnail failure exits non-zero after the video id is written, which invites another execute.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
 - Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

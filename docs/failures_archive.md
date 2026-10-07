@@ -355,3 +355,7 @@ Updated: 2026-10-05T18:20:00Z
 ## Run 370 — 2026-10-06T21:16:00Z
 - Failed approach not retried: another exchange parser, scanner, pre-upload checker, or early-persist call while videos published stay 0. Execute was not dispatched.
 - Lesson: a Studio pin miss or a rejected provider-state push after the video id is written must not fail the job. Print `STUDIO_PIN_NOT_INSERT_FAILURE` or `PERSIST_PUSH_NOT_INSERT_FAILURE` and exit 0. Do not dispatch execute again to retry videos.insert. Do not poll secrets.
+## Run 371 — 2026-10-06T23:13:00Z
+- Failed approach not retried: another exchange parser, scanner, pre-upload checker, or early-persist call while videos published stay 0. Execute was not dispatched.
+- Lesson: swallowing only playlist exit 2 still leaves a crash as a red job. Print `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exit 0 on any non-zero membership exit after upload state exists. Do not leave the summary saying a caption miss exits non-zero after the video id is written. Do not dispatch execute again. Do not poll secrets.
+

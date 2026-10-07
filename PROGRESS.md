@@ -2,6 +2,11 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 383 — 2026-10-07T11:17:00Z
+- Improvement: one command prints the human publish step and fails if it drifts from the OAuth recipe or the documented master sha. Estimated save: about 5 minutes per future run spent reconstructing the human step from NEXT notes, and one wrong dispatch if the recipe and the notes diverge. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: automated check covers the dispatch line. Remaining manual step is still the three YouTube secrets.
+- Verification: operator card contract. No provider write.
+
 ## Run 382 — 2026-10-07T10:14:00Z
 - Improvement: a new provider-state recovery edge now fails selftest instead of waiting for four later deltas to set `STALL_RECOVERY_EDGE`. Estimated save: one agent run spent wiring another recover path, about 15 minutes, on every future run that would have grown the surface. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: automated freeze covers the existing artifact and recover call. Remaining manual step is still the three YouTube secrets.
@@ -50,9 +55,4 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Improvement: a persist classify miss after a provider video id exists no longer fails the job. Estimated save: one avoided second execute after videos.insert, about 10 human minutes if the first insert already landed.
 - Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets. Videos published stay 0.
 - Verification: selftest PASS. No provider write.
-
-## Run 371 — 2026-10-06T23:13:00Z
-- Improvement: a playlist membership crash no longer fails the production job after upload state exists, and the job summary no longer tells the operator that a caption miss fails the job. Estimated save: one extra execute dispatch after the first private insert, which could start another videos.insert, about 15 human minutes plus a duplicate private video.
-- Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
-- Verification: selftest PASS. No provider write. Videos published stay 0.
 

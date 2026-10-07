@@ -1,8 +1,13 @@
 # STATE
 
-Updated: 2026-10-07T10:14:00Z (Run 382)
+Updated: 2026-10-07T11:17:00Z (Run 383)
 
-## Run 382 delta
+## Run 383 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- The one human step is now `python3 tools/operator_card.py`. It prints the same dispatch line as `oauth_setup.py` and fails if HANDOFF loses the documented master sha. This does not call YouTube or GitHub.
+
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
 - No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge.
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.

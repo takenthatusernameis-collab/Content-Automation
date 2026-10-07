@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 383 — 2026-10-07T11:17:00Z
+- Failed approach not retried: another provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: freeze and stall flags did not give the human one command. `operator_card.py` is that command. Do not add an edge to make the card pass. Do not poll secrets. oauth_idle_without_publish remains; do not spend the next run only restating it.
+
 ## Run 382 — 2026-10-07T10:14:00Z
 - Failed approach not retried: another provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: a stall flag after four edges did not stop the next edge. `recovery_freeze.py` fails the build when the artifact or recover call count grows. Do not add an edge to clear it. Do not poll secrets. oauth_idle_without_publish remains; do not spend the next run only restating it.
@@ -50,8 +54,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 372 — 2026-10-07T00:15:00Z
 - Failed approach not retried: another exchange parser, scanner, pre-upload checker, or early-persist call while videos published stay 0. Execute was not dispatched.
 - Lesson: swallowing only a rejected commit or push still leaves a classify miss as a red job. Print `PERSIST_PUSH_NOT_INSERT_FAILURE` and exit 0 when a provider video id exists. A miss without that id still fails. Do not dispatch execute again. Do not poll secrets.
-
-## Run 371 — 2026-10-06T23:13:00Z
-- Failed approach not retried: another exchange parser, scanner, pre-upload checker, or early-persist call while videos published stay 0. Execute was not dispatched.
-- Lesson: swallowing only playlist exit 2 still leaves a crash as a red job. Print `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exit 0 on any non-zero membership exit after upload state exists. Do not leave the summary saying a caption miss exits non-zero after the video id is written. Do not dispatch execute again. Do not poll secrets.
 
