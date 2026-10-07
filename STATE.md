@@ -1,6 +1,12 @@
 # STATE
 
-Updated: 2026-10-07T04:12:00Z (Run 376)
+Updated: 2026-10-07T05:11:00Z (Run 377)
+
+## Run 377 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- A rejected-push recovery no longer uses only the newest `youtube-production.yml` run. That run can be a later execute=false dispatch with no artifact. `persist_provider_state.py recover` walks the last 20 production runs, skips an empty run id, and downloads `provider-upload-state` from the first run that has it. This does not call YouTube or GitHub.
 
 ## Run 376 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -67,11 +73,4 @@ Updated: 2026-10-07T04:12:00Z (Run 376)
 - No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker.
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - `tools/selftest.py` had two `check_stall_watch` definitions. The later one shadowed the contract call, so a broken `stall_watch_contract.py` could still print SELFTEST PASS. One definition now runs the contract and the inline stall assertions. This does not call YouTube.
-
-## Run 365 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- Selftest was red. `tools/stall_watch.py` appended `idle_streak: 0` on a quiet file, so `flag_text` was never empty and the quiet check failed twice. A zero streak is no longer a flag. `idle_streak()` still returns 0. A positive streak and the suspicious line at 8 or more stay. This does not call YouTube.
-- STATE.md and NEXT.md each had 13 sections after Run 364. Compact moved the oldest of each into the archive. Live caps are 12 again. This does not poll secrets.
 

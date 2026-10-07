@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 377 — 2026-10-07T05:11:00Z
+- Failed approach not retried: `gh run list --workflow youtube-production.yml --limit 1` as the only recovery selector, or a bare download when that id is empty.
+- Lesson: the newest production run can be execute=false and have no artifact. Walk recent production runs and refuse an empty id. Do not dispatch execute again. Do not poll secrets.
+
 ## Run 376 — 2026-10-07T04:12:00Z
 - Failed approach not retried: a bare `gh run download --name provider-upload-state`, or another exchange parser, scanner, or pre-upload checker while videos published stay 0.
 - Lesson: the newest run after an agent commit is often selftest.yml. That run has no video id. Pin `youtube-production.yml` before download. Do not dispatch execute again. Do not poll secrets.
@@ -47,8 +51,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 366 — 2026-10-06T16:20:00Z
 - Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0.
 - Lesson: a second `check_stall_watch` later in selftest replaces the contract call. Keep one definition. Do not poll secrets.
-
-## Run 365 — 2026-10-06T15:20:00Z
-- Failed approach not retried: treating `idle_streak: 0` as a stall flag, or leaving STATE.md and NEXT.md over the compact cap.
-- Lesson: a count of zero must stay quiet. Print the streak only when it is positive. Compact before the live file exceeds 12 sections. Do not poll secrets.
 

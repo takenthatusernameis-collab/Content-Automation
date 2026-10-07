@@ -727,3 +727,10 @@ Updated: 2026-10-05T17:15:00Z (Run 342)
 - `tools/stall_watch.py` now prints `idle_streak` for every newest STATE delta that still says OAuth was not polled and videos published stay 0. A streak of 8 or more also prints `suspicious: oauth_idle_without_publish`. A published or polled newest delta resets the streak. This does not call YouTube and does not add a scanner.
 - Live STATE before this delta already had 12 such newest deltas (Runs 363-352). After this delta the streak is 13. That repetition is suspicious. Do not treat another restatement as progress.
 
+## Run 365 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Selftest was red. `tools/stall_watch.py` appended `idle_streak: 0` on a quiet file, so `flag_text` was never empty and the quiet check failed twice. A zero streak is no longer a flag. `idle_streak()` still returns 0. A positive streak and the suspicious line at 8 or more stay. This does not call YouTube.
+- STATE.md and NEXT.md each had 13 sections after Run 364. Compact moved the oldest of each into the archive. Live caps are 12 again. This does not poll secrets.
+

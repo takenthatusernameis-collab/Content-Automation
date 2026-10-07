@@ -28,13 +28,21 @@ def artifact_recovery_command(
 
     Do not call GitHub from this function. A bare `gh run download --name`
     uses the newest run. Agent commits trigger selftest.yml, which has no
-    provider-upload-state, so that download misses the video id. Pin the
-    production workflow.
+    provider-upload-state. Pinning only the newest production run is also
+    wrong: a later execute=false dispatch has no artifact. Walk recent
+    production runs and download the first that has the artifact. An empty
+    run id must not fall through to a bare download.
     """
     return (
-        f"gh run download --repo {repo} --name {artifact} "
-        f"$(gh run list --repo {repo} --workflow {workflow} --limit 1 "
-        f"--json databaseId --jq '.[0].databaseId')"
+        "set -euo pipefail; dir=/tmp/provider-upload-state; rm -rf \"$dir\"; mkdir -p \"$dir\"; found=; "
+        f"for id in $(gh run list --repo {repo} --workflow {workflow} --limit 20 "
+        "--json databaseId --jq '.[].databaseId'); do "
+        "test -n \"$id\" && test \"$id\" != null || continue; "
+        f"if gh run download --repo {repo} \"$id\" --name {artifact} -D \"$dir\"; then "
+        "found=$id; break; fi; done; "
+        "test -n \"$found\" || { echo NO_PROVIDER_UPLOAD_STATE; "
+        "echo 'do not run a bare gh run download --name provider-upload-state'; exit 1; }; "
+        "echo RECOVERED_RUN \"$found\"; find \"$dir\" -name upload_state.json -print"
     )
 
 
@@ -227,7 +235,7 @@ def main(argv: list[str] | None = None) -> int:
         # Printed after a rejected push. Does not download and does not call YouTube.
         print(artifact_recovery_command())
         print("Do not dispatch execute again. Copy upload_state.json onto main before another insert.")
-        print("Do not run a bare gh run download --name provider-upload-state. That picks the newest run, often selftest, which has no video id.")
+        print("Do not run a bare gh run download --name provider-upload-state. That picks the newest run, often selftest, which has no video id. Do not use only the newest production run: a later execute=false dispatch has no artifact.")
         return 0
     if len(args) == 1 and args[0] == "push":
         # Workflow calls this. Do not inline push_with_retry in a YAML heredoc:

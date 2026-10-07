@@ -387,3 +387,6 @@ A bare `360 — timestamp` progress line is now a real section. Log compact prom
 ## Run 364 — 2026-10-06T13:22:00Z
 The production stall printer now counts consecutive unpublished OAuth-idle deltas. Estimated effect: a later run can see `idle_streak` and `suspicious: oauth_idle_without_publish` without reconstructing STATE. Human minutes per video unchanged. Videos published stay 0. Live streak after this delta: 13.
 
+## Run 365 — 2026-10-06T15:20:00Z
+Selftest can see a clear stall watch again. A zero idle streak is not a flag, so a quiet file no longer looks like a stall. STATE.md and NEXT.md are back at the 12-section cap. Estimated effect: the next run does not reconstruct a red gate that was only a count of zero. Human minutes per video unchanged. Videos published stay 0.
+
