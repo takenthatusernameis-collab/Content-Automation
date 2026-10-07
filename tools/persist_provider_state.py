@@ -30,18 +30,25 @@ def artifact_recovery_command(
     uses the newest run. Agent commits trigger selftest.yml, which has no
     provider-upload-state. Pinning only the newest production run is also
     wrong: a later execute=false dispatch has no artifact. Walk recent
-    production runs and download the first that has the artifact. An empty
-    run id must not fall through to a bare download.
+    production runs and download the first artifact that contains a
+    provider_video_id. A newer execute can upload state with no video id.
+    That file must not hide an older insert. An empty run id must not fall
+    through to a bare download.
     """
     return (
-        "set -euo pipefail; dir=/tmp/provider-upload-state; rm -rf \"$dir\"; mkdir -p \"$dir\"; found=; "
+        "set -euo pipefail; dir=/tmp/provider-upload-state; found=; "
         f"for id in $(gh run list --repo {repo} --workflow {workflow} --limit 20 "
         "--json databaseId --jq '.[].databaseId'); do "
         "test -n \"$id\" && test \"$id\" != null || continue; "
-        f"if gh run download --repo {repo} \"$id\" --name {artifact} -D \"$dir\"; then "
-        "found=$id; break; fi; done; "
+        "rm -rf \"$dir\"; mkdir -p \"$dir\"; "
+        f"gh run download --repo {repo} \"$id\" --name {artifact} -D \"$dir\" || continue; "
+        "state=$(find \"$dir\" -name upload_state.json -print -quit); "
+        "test -n \"$state\" || continue; "
+        "grep -Eq '\"provider_video_id\": \"[^\"]+\"' \"$state\" || continue; "
+        "found=$id; break; done; "
         "test -n \"$found\" || { echo NO_PROVIDER_UPLOAD_STATE; "
-        "echo 'do not run a bare gh run download --name provider-upload-state'; exit 1; }; "
+        "echo 'do not run a bare gh run download --name provider-upload-state'; "
+        "echo 'do not commit an artifact that has no provider_video_id'; exit 1; }; "
         "echo RECOVERED_RUN \"$found\"; find \"$dir\" -name upload_state.json -print"
     )
 

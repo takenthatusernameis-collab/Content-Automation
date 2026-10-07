@@ -2,6 +2,15 @@
 
 Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 
+## Run 378 — 2026-10-07T06:14:00Z
+- Objective: Stop a rejected-push recovery from keeping a newer production artifact that has no provider video id.
+- Action: `artifact_recovery_command` clears the download dir each run, skips a missing artifact, and skips `upload_state.json` unless `provider_video_id` is a non-empty string. Selftest refuses a break before that check. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not add an early-persist call. Did not dispatch the workflow.
+- Result: Selftest passed. Videos published stay 0. No live execute. Q1 media QA still PASS after materialize (verified this run, not committed).
+- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. `python3 tools/materialize_q1_release.py` then `python3 tools/media_qa.py` printed gate PASS. Actions not re-run. No provider write. The recover function does not call GitHub.
+- Discovery: Run 377 stopped on the first production artifact. A later execute can upload state with a null video id. That file would hide an older insert and invite another videos.insert.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish (runs 366-378, no publish). Do not add another exchange parser. Do not spend another run only restating this blocker.
+- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. If push is rejected, run `python3 tools/persist_provider_state.py recover` and commit only the file that prints RECOVERED_RUN. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 377 — 2026-10-07T05:11:00Z
 - Objective: Stop a rejected-push recovery from downloading a later production run that has no video id.
 - Action: `artifact_recovery_command` walks the last 20 `youtube-production.yml` runs, skips an empty run id, and downloads `provider-upload-state` into `/tmp/provider-upload-state` from the first run that has the artifact. Selftest refuses `--limit 1` and a missing empty-id guard. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not add an early-persist call. Did not dispatch the workflow.

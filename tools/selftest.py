@@ -2491,6 +2491,11 @@ def check_job_timeout_covers_upload() -> list[str]:
         failures.append("artifact recovery must not pin only the newest production run")
     if "--limit 20" not in recovery or "NO_PROVIDER_UPLOAD_STATE" not in recovery or "!= null" not in recovery:
         failures.append("artifact recovery must scan recent production runs and refuse an empty run id")
+    if "provider_video_id" not in recovery or "do not commit an artifact that has no provider_video_id" not in recovery:
+        failures.append("artifact recovery must skip a newer production artifact that has no provider video id")
+    download_break = recovery.split("gh run download", 1)[-1]
+    if "found=$id; break" in download_break.split("provider_video_id", 1)[0]:
+        failures.append("artifact recovery must not keep the first download before the video id check")
     classified = persist_step.split("Provider state was not classified", 1)[-1]
     before_add = classified.split('git add "$STATE"', 1)[0]
     if "exit 0" in before_add:

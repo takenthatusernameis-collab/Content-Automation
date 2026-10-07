@@ -1,12 +1,14 @@
 # NEXT
 
-Updated: 2026-10-07T04:12:00Z (Run 376)
+Updated: 2026-10-07T06:14:00Z (Run 378)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate.
 
 One human step: run `python3 tools/oauth_setup.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then run `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr42. **Do not rediscover a no-id artifact as the video id.** Run 378: `python3 tools/persist_provider_state.py recover` skips a downloaded `upload_state.json` that has no `provider_video_id` and keeps walking the last 20 production runs. A later failed execute must not hide an older insert. Do not commit that empty artifact. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr41. **Do not rediscover the newest production run as the video id.** Run 377: `python3 tools/persist_provider_state.py recover` walks the last 20 `youtube-production.yml` runs and downloads `provider-upload-state` from the first run that has it. A later execute=false dispatch has no artifact. An empty run id must not become a bare `gh run download --name`. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
