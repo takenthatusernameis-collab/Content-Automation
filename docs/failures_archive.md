@@ -377,3 +377,6 @@ Updated: 2026-10-05T18:20:00Z
 ## Run 376 — 2026-10-07T04:12:00Z
 - Failed approach not retried: a bare `gh run download --name provider-upload-state`, or another exchange parser, scanner, or pre-upload checker while videos published stay 0.
 - Lesson: the newest run after an agent commit is often selftest.yml. That run has no video id. Pin `youtube-production.yml` before download. Do not dispatch execute again. Do not poll secrets.
+## Run 377 — 2026-10-07T05:11:00Z
+- Failed approach not retried: `gh run list --workflow youtube-production.yml --limit 1` as the only recovery selector, or a bare download when that id is empty.
+- Lesson: the newest production run can be execute=false and have no artifact. Walk recent production runs and refuse an empty id. Do not dispatch execute again. Do not poll secrets.

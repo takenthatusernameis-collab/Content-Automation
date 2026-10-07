@@ -1,5 +1,13 @@
 # STATE
 
+Updated: 2026-10-07T19:11:00Z (Run 389)
+
+## Run 389 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new upload-edge call. No new recovery edge. Did not extend operator_card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `stall_watch.py` sets `STALL_LOG_HYGIENE` and `suspicious: log_hygiene_without_publish` after three newest deltas that wire a log-hygiene check while videos published stay 0. A lock sentence does not set the flag. This does not call YouTube or GitHub.
+
 Updated: 2026-10-07T18:11:00Z (Run 388)
 
 ## Run 388 delta
@@ -88,10 +96,4 @@ Updated: 2026-10-07T05:11:00Z (Run 377)
 - No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - A rejected-push recovery no longer uses only the newest `youtube-production.yml` run. That run can be a later execute=false dispatch with no artifact. `persist_provider_state.py recover` walks the last 20 production runs, skips an empty run id, and downloads `provider-upload-state` from the first run that has it. This does not call YouTube or GitHub.
-
-## Run 376 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- A rejected push recovery no longer uses a bare `gh run download --name provider-upload-state`. That command follows the newest run. Agent commits trigger `selftest.yml`, which has no video id. `persist_provider_state.py recover` now pins `youtube-production.yml` via `gh run list`. This does not call YouTube or GitHub.
 

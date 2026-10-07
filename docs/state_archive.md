@@ -794,3 +794,9 @@ Updated: 2026-10-05T17:15:00Z (Run 342)
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - A rejected provider-state push no longer leaves the video id only on the runner. The execute job uploads `upload_state.json` as the `provider-upload-state` artifact (`actions: write`, `continue-on-error`). A rejected push prints `gh run download --repo takenthatusernameis-collab/Content-Automation --name provider-upload-state`. This does not call YouTube.
 
+## Run 376 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- A rejected push recovery no longer uses a bare `gh run download --name provider-upload-state`. That command follows the newest run. Agent commits trigger `selftest.yml`, which has no video id. `persist_provider_state.py recover` now pins `youtube-production.yml` via `gh run list`. This does not call YouTube or GitHub.
+

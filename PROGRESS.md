@@ -2,6 +2,12 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 389 — 2026-10-07T19:11:00Z
+- Videos published stay 0. Estimated human minutes to first upload stay the three secret-set steps in issue 1.
+- Reusable: `STALL_LOG_HYGIENE` makes three log-cap runs visible without a new freeze module. A lock sentence does not set it.
+- Not automated: storing the three GitHub Actions secrets and the one execute dispatch.
+
+
 ## Run 388 — 2026-10-07T18:11:00Z
 - Improvement: a duplicated archive pointer now fails the same compact check that already caps section count. Estimated save: one truncated-fetch misread per future run, about 5 minutes, and one wrong archive boundary if an agent pastes from the second pointer. Videos published stay 0. Human OAuth step unchanged in kind.
 - Efficiency: automated check covers the existing two live logs. Remaining manual step is still the three YouTube secrets.
@@ -60,6 +66,3 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 
 ## Run 378 — 2026-10-07T06:14:00Z
 - Improvement: rejected-push recovery skips a newer artifact with no provider video id. Estimated save: one duplicate `videos.insert` if a later failed execute hid the first id, about 15 human minutes plus a duplicate private video. Videos published stay 0. Human OAuth step unchanged. Q1 materialize and media QA still PASS.
-
-## Run 377 — 2026-10-07T05:11:00Z
-- Improvement: rejected-push recovery skips a later production run that did not upload `provider-upload-state`. Estimated save: one missed artifact download and one duplicate `videos.insert` after an execute=false dispatch, about 15 human minutes plus a duplicate private video. Videos published stay 0. Human OAuth step unchanged.

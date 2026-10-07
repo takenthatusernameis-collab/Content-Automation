@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 389 — 2026-10-07T19:11:00Z
+- Objective: Flag three consecutive log-hygiene deltas so the next run does not invent another compact check.
+- Action: `stall_watch.py` sets `STALL_LOG_HYGIENE` after three wired log-cap or header deltas while videos published stay 0. Contract and selftest cover the flag and the lock sentence. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Did not extend operator_card. Did not add a scanner. Did not scaffold Q2. Did not add a freeze module. Did not add a compact check.
+- Result: Videos published stay 0. The flag names Runs 386-388. No live execute.
+- Verification: `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: Runs 386-388 tightened log checks and still published nothing. Suspicious: log_hygiene_without_publish and oauth_idle_without_publish. Do not add another compact check for that stall.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not open a second issue. Do not extend the card. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets. Do not add a compact check.
+
 ## Run 388 — 2026-10-07T18:11:00Z
 - Objective: Stop a duplicated archive pointer from shipping after a green section-count check.
 - Action: `compact_all.py --check` now fails unless PROGRESS.md and FAILURES.md each have exactly one archive pointer. Ran `log_compact.py` so the Run 387 duplicates are gone. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Did not extend operator_card. Did not add a scanner. Did not scaffold Q2. Did not add a freeze module.
@@ -100,12 +109,3 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Run 377 stopped on the first production artifact. A later execute can upload state with a null video id. That file would hide an older insert and invite another videos.insert.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish (runs 366-378, no publish). Do not add another exchange parser. Do not spend another run only restating this blocker.
 - Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. If push is rejected, run `python3 tools/persist_provider_state.py recover` and commit only the file that prints RECOVERED_RUN. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 377 — 2026-10-07T05:11:00Z
-- Objective: Stop a rejected-push recovery from downloading a later production run that has no video id.
-- Action: `artifact_recovery_command` walks the last 20 `youtube-production.yml` runs, skips an empty run id, and downloads `provider-upload-state` into `/tmp/provider-upload-state` from the first run that has the artifact. Selftest refuses `--limit 1` and a missing empty-id guard. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not add an early-persist call. Did not dispatch the workflow.
-- Result: Selftest passed. Videos published stay 0. No live execute.
-- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write. The recover function does not call GitHub.
-- Discovery: Run 376 pinned the newest production run. A later execute=false dispatch of the same workflow has no `provider-upload-state`. An empty `databaseId` also expanded to a bare download.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
-- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. If push is rejected, run `python3 tools/persist_provider_state.py recover` and commit that `upload_state.json` before another execute. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

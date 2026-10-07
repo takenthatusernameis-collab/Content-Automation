@@ -1471,6 +1471,26 @@ def check_stall_watch() -> list[str]:
         )
     if "STALL_RECOVERY_EDGE" in stall_watch.flag_text(lock):
         failures.append("stall_watch must not treat a recovery-edge lock sentence as a wired edge")
+    hygiene = ""
+    for n in (3, 2, 1):
+        hygiene += (
+            f"## Run {n} delta\n"
+            "- OAuth secrets were not polled\n"
+            "compact_all.py --check reads the archive pointer\n"
+            "Videos published stay 0.\n\n"
+        )
+    if "STALL_LOG_HYGIENE" not in stall_watch.flag_text(hygiene):
+        failures.append("stall_watch must flag three OAuth-idle log-hygiene deltas")
+    hygiene_lock = ""
+    for n in (3, 2, 1):
+        hygiene_lock += (
+            f"## Run {n} delta\n"
+            "- OAuth secrets were not polled\n"
+            "Do not add another compact check. Did not add a compact check.\n"
+            "Videos published stay 0.\n\n"
+        )
+    if "STALL_LOG_HYGIENE" in stall_watch.flag_text(hygiene_lock):
+        failures.append("stall_watch must not treat a log-hygiene lock sentence as a wired check")
     return failures
 
 

@@ -16,6 +16,7 @@ from stall_watch import (
     INSTRUCTION_FLAG,
     LOCAL_GATE_FLAG,
     PREUPLOAD_FLAG,
+    LOG_HYGIENE_FLAG,
     OPERATOR_CARD_FLAG,
     RECOVERY_EDGE_FLAG,
     UPLOAD_EDGE_FLAG,
@@ -161,6 +162,24 @@ def main() -> int:
     )
     if OPERATOR_CARD_FLAG in flag_text(one_card):
         return fail("one operator card delta must not set the flag")
+    hygiene = delta(
+        "OAuth secrets were not polled. Videos published stay 0. compact_all.py --check now reads the archive pointer. No provider write."
+    ) * 3
+    flags = flag_text(hygiene)
+    if LOG_HYGIENE_FLAG not in flags:
+        return fail(f"log hygiene window missing: {flags}")
+    if "suspicious: log_hygiene_without_publish" not in flags:
+        return fail("log hygiene window must name the suspicious pattern")
+    short_hygiene = delta(
+        "OAuth secrets were not polled. Videos published stay 0. record_run.py refreshed the header. No provider write."
+    ) * 2
+    if LOG_HYGIENE_FLAG in flag_text(short_hygiene):
+        return fail("two log hygiene deltas must not set the flag")
+    hygiene_lock = delta(
+        "OAuth secrets were not polled. Videos published stay 0. Do not add another compact check. Did not add a compact check."
+    ) * 3
+    if LOG_HYGIENE_FLAG in flag_text(hygiene_lock):
+        return fail("log hygiene lock boilerplate must not set the flag")
     edge_lock = delta(
         "OAuth secrets were not polled. Videos published stay 0. Do not add another Location, session hold, or early-persist call."
     ) * 4

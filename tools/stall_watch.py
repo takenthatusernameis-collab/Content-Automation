@@ -25,12 +25,14 @@ UPLOAD_EDGE_FLAG = "STALL_UPLOAD_EDGE"
 PREUPLOAD_FLAG = "STALL_PREUPLOAD_PROBE"
 RECOVERY_EDGE_FLAG = "STALL_RECOVERY_EDGE"
 OPERATOR_CARD_FLAG = "STALL_OPERATOR_CARD"
+LOG_HYGIENE_FLAG = "STALL_LOG_HYGIENE"
 WINDOW = 3
 IDLE_WINDOW = 8
 UPLOAD_EDGE_WINDOW = 4
 PREUPLOAD_WINDOW = 4
 RECOVERY_EDGE_WINDOW = 4
 OPERATOR_CARD_WINDOW = 3
+LOG_HYGIENE_WINDOW = 3
 UPLOAD_EDGE_TOKENS = (
     "early-persist",
     "early persist",
@@ -74,6 +76,24 @@ OPERATOR_CARD_NEGATIONS = (
     "do not extend operator_card",
     "did not extend operator_card",
     "no new operator card",
+)
+# Runs 386-388 each tightened a log cap, archive pointer, or record_run
+# header while videos published stayed 0. A lock sentence is not a wired check.
+LOG_HYGIENE_TOKENS = (
+    "compact_all",
+    "archive pointer",
+    "record_run.py",
+    "section-count",
+    "log cap",
+    "log-cap",
+)
+LOG_HYGIENE_NEGATIONS = (
+    "do not add another log-cap",
+    "do not add another compact check",
+    "do not add a freeze module",
+    "did not add a compact check",
+    "did not extend compact",
+    "no new compact check",
 )
 # Lock sentences repeat these tokens. A "do not add" line is not a wired probe.
 PREUPLOAD_NEGATIONS = (
@@ -292,6 +312,27 @@ def flag_text(text: str, window: int = WINDOW) -> list[str]:
                 "next: wait for the three YouTube secrets; do not reprint the console steps again",
             ])
             flags.append("suspicious: operator_card_without_publish")
+    # Runs 386-388 each added a log-cap or archive-pointer check while videos
+    # published stayed 0. That is the credential stall, not a missing compact.
+    hygiene_deltas = run_deltas(text)[:LOG_HYGIENE_WINDOW]
+    if _oauth_stall(hygiene_deltas) and len(hygiene_deltas) >= LOG_HYGIENE_WINDOW:
+        hygiene = True
+        for delta in hygiene_deltas:
+            lowered = delta.lower()
+            scrubbed = lowered
+            for phrase in LOG_HYGIENE_NEGATIONS:
+                scrubbed = scrubbed.replace(phrase, "")
+            if not any(token in scrubbed for token in LOG_HYGIENE_TOKENS):
+                hygiene = False
+                break
+        if hygiene:
+            flags.extend([
+                LOG_HYGIENE_FLAG,
+                f"last_{LOG_HYGIENE_WINDOW}_runs: oauth_unpolled_and_log_hygiene",
+                "do_not: add another compact check, archive-pointer check, or record_run header tweak while this flag is set",
+                "next: wait for the three YouTube secrets; do not open a second issue",
+            ])
+            flags.append("suspicious: log_hygiene_without_publish")
     # Count the whole file, not the 8-delta flag window. A cleared newest
     # delta resets the streak to 0. A zero streak is not a flag: callers
     # treat a non-empty list as a stall. This does not poll secrets.

@@ -2,6 +2,11 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 389 — 2026-10-07T19:11:00Z
+- Failed approach not retried: another compact check, freeze module, operator-card reprint, provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: Runs 386-388 each treated a log miss as the next improvement and still published nothing. Flag that pattern. Do not add a compact check to clear the flag. oauth_idle_without_publish remains; the human step is issue 1.
+
+
 ## Run 388 — 2026-10-07T18:11:00Z
 - Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, secret poll, freeze module, or second OAuth issue while videos published stay 0.
 - Lesson: Run 387 collapsed headers in `compact_text` and still committed two pointers because `--check` only counted sections. Fail the check. Do not add a freeze module to remember it. oauth_idle_without_publish remains; do not spend the next run only restating it.
@@ -51,7 +56,3 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 378 — 2026-10-07T06:14:00Z
 - Failed approach not retried: keeping the first `provider-upload-state` download, or another exchange parser, scanner, or pre-upload checker while videos published stay 0.
 - Lesson: a later execute can upload `upload_state.json` with no `provider_video_id`. Recovery must skip that file. Do not dispatch execute again. Do not poll secrets. oauth_idle_without_publish has now repeated from Run 366 through Run 378 with no publish; do not spend the next run only restating it.
-
-## Run 377 — 2026-10-07T05:11:00Z
-- Failed approach not retried: `gh run list --workflow youtube-production.yml --limit 1` as the only recovery selector, or a bare download when that id is empty.
-- Lesson: the newest production run can be execute=false and have no artifact. Walk recent production runs and refuse an empty id. Do not dispatch execute again. Do not poll secrets.
