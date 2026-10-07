@@ -2,6 +2,11 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 392 — 2026-10-07T22:12:00Z
+- Failed approach not retried: rewriting the approved Q1 pin, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
+- Lesson: Run 391 stopped the generator and left the bait in the approved first comment. Strip it at post time. Do not rewrite Q1 publish.md to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1.
+
+
 ## Run 391 — 2026-10-07T21:12:00Z
 - Failed approach not retried: another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
 - Lesson: The publish stub asked for a reply even when the mechanism was a written default. Stop that in the generator. Do not rewrite the approved Q1 pin to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1.
@@ -53,8 +58,3 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 381 — 2026-10-07T09:13:00Z
 - Failed approach not retried: another provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: Runs 368-378 stacked recover paths and prose did not stop the next edge. `STALL_RECOVERY_EDGE` now fires only when four deltas wire that path. Do not add an edge to clear it. Do not poll secrets.
-
-
-## Run 380 — 2026-10-07T08:11:00Z
-- Failed approach not retried: another provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0. Also not retried: claiming a local selftest that ran before the log prepend.
-- Lesson: Run 378 left 13 sections and Actions run 37580716646 failed. Compact with `python3 tools/compact_all.py` in the same commit. Suspicious: oauth_idle_without_publish has no publish since before Run 270, and Runs 368-378 only stacked recovery edges. Do not spend the next run restating either.

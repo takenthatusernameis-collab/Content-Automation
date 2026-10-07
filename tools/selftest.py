@@ -1162,6 +1162,8 @@ def check_q1_publish_draft_locked() -> list[str]:
     dirty = "Reply with the cue you wrote down. This comment is a draft pin, not posted."
     if "draft pin" in viewer_comment(dirty):
         failures.append("viewer_comment must drop the stub pin sentence")
+    if "Reply with the cue" in viewer_comment(dirty):
+        failures.append("viewer_comment must drop the reply ask")
     labeled = "Place.\n\nChapter draft (not ASR, not an approval):\n\n0:00 The reopen\n"
     cleaned = viewer_description(labeled)
     if "Chapter draft" in cleaned or "0:00 The reopen" not in cleaned:

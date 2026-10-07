@@ -1045,3 +1045,12 @@ Permanent log. Newest first. Do not paste the archive back into this file.
 - Discovery: A local SELFTEST PASS does not mean the commit stayed under the cap. Run 378 added a section and did not archive one. Suspicious: oauth_idle_without_publish still stands, and log_cap_overflow is a separate repeated risk if each run prepends without compacting.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Do not spend another run only restating that blocker. Do not add another recovery edge while this selftest was red.
 - Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. If push is rejected, run `python3 tools/persist_provider_state.py recover` and commit only the file that prints RECOVERED_RUN. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
+## Run 380 — 2026-10-07T08:11:00Z
+- Objective: Stop a green local selftest from shipping over-cap logs when the section is added afterward.
+- Action: Added `tools/compact_all.py`. It runs the four existing compact tools and refuses a live log still over cap. Selftest calls `compact_all.py --check` and does not write. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add an exchange parser. Did not add a recovery edge. Did not dispatch the workflow.
+- Result: Videos published stay 0. No live execute. Log caps stay a same-commit step, not a new upload path.
+- Verification: `python3 tools/compact_all.py` then `python3 tools/selftest.py` on this commit. No provider write.
+- Discovery: Run 378 passed selftest, then prepended a 13th STATE section and a 13th NEXT note. Actions run 37580716646 failed the contracts. Suspicious: oauth_idle_without_publish still stands (no publish since before Run 270), and recovery-edge stacking (Runs 368-378) did not publish. Do not add another edge for that stall.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Do not spend another run only restating that blocker.
+- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. After a log prepend, run `python3 tools/compact_all.py` before push. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

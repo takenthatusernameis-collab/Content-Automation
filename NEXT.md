@@ -1,12 +1,14 @@
 # NEXT
 
-Updated: 2026-10-07T21:12:00Z (Run 391)
+Updated: 2026-10-07T22:12:00Z (Run 392)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser or provider-state recovery edge while videos published stay 0. Do not extend operator_card while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate. `recovery_freeze.py` fails the build if the recovery surface grows. `operator_card_freeze.py` fails the build if the card surface grows. `stall_watch.py` sets `STALL_LOG_HYGIENE` after three log-cap or header deltas. Do not add another compact check while videos published stay 0.
 
 One human step: run `python3 tools/operator_card.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then run `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets. Do not extend the card.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr56. **Do not rediscover a Q1 pin rewrite as the way to drop the reply ask.** Run 392: `viewer_comment` drops "Reply with the cue you wrote down." before commentThreads.insert. Q1 publish.md stays the approved draft. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check.
 
 1zr55. **Do not rediscover a reply ask as the pin comment.** Run 391: `python3 tools/publish_brief.py PATH --dry-run` pins the mechanism assignment and does not say to reply. Q1 publish.md stays the approved draft. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check.
 
@@ -29,5 +31,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zr46. **Do not rediscover another recovery edge as a way around the freeze.** Run 382: `python3 tools/recovery_freeze.py` fails if `youtube-production.yml` has more than one `provider-upload-state` artifact or more than one `persist_provider_state.py recover` call. A lock sentence does not clear that failure. Do not add an artifact or recover call to make the freeze pass. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr45. **Do not rediscover a recovery edge as progress while nothing is published.** Run 381: four STATE deltas that wire `provider-upload-state` or `persist_provider_state.py recover` while videos published stay 0 set `STALL_RECOVERY_EDGE`. A "no new recovery edge" sentence does not set it. Do not add another recovery edge to clear the flag. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-1zr44. **Do not rediscover a local selftest as a green push.** Run 380: after prepending a log section, run `python3 tools/compact_all.py` in the same commit. Selftest calls `compact_all.py --check` and fails if STATE, NEXT, RUNS, PROGRESS, or FAILURES is over cap. Do not add another recovery edge to clear a size miss. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

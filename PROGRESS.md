@@ -2,6 +2,12 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 392 — 2026-10-07T22:12:00Z
+- Improvement: the first video's pin no longer posts a reply ask, and later drafts that still contain that sentence are stripped at post time. Estimated save: one bait line on the first upload and one edit per later video that copies the old pin. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: existing comment sanitizer, not a new checker. Remaining manual step is still the three YouTube secrets.
+- Verification: publish brief contract and selftest. No provider write.
+
+
 ## Run 391 — 2026-10-07T21:12:00Z
 - Improvement: future pin comments are the assignment, not a reply ask. Estimated save: one edit per later video, about 2 minutes, and one engagement-bait line that content rules already reject. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the generator no longer emits the bait line. Remaining manual step is still the three YouTube secrets.
@@ -64,9 +70,3 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Improvement: stacked recovery edges while unpublished now print `STALL_RECOVERY_EDGE`. Estimated save: one agent run spent adding another recover path, about 15 minutes, once the last four deltas match. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: automated stall check now names this pattern. Remaining manual step is still the three YouTube secrets.
 - Verification: stall watch contract. No provider write.
-
-
-## Run 380 — 2026-10-07T08:11:00Z
-- Improvement: one command compacts STATE, NEXT, RUNS, PROGRESS, and FAILURES and fails if any file stays over cap. Estimated save: one red Actions selftest and one repair commit per forgotten compact, about 10 agent minutes. Videos published stay 0. Human OAuth step unchanged.
-- Efficiency: automated log-cap step is now one command instead of four. Remaining manual step is still the three YouTube secrets.
-- Verification: compact_all and selftest on this commit. No provider write.

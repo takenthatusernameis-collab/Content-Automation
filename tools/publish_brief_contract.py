@@ -3,7 +3,8 @@
 
 The pin is the packet assignment. "Reply with the cue you wrote down" is
 engagement bait and assumes every mechanism is a cue. Q1 publish.md stays
-the approved viewer draft and is not rewritten here.
+the approved viewer draft and is not rewritten here. The uploader drops that
+sentence before commentThreads.insert, the same way it drops the stub pin note.
 Does not call YouTube. Does not write videos/.
 """
 
@@ -21,6 +22,7 @@ if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
 from publish_brief import render  # noqa: E402
+from youtube_upload import viewer_comment  # noqa: E402
 
 Q1 = ROOT / "videos" / "002-stop-deciding-what-to-work-on-every-morning" / "publish.md"
 BAIT = "Reply with the cue you wrote down."
@@ -78,6 +80,11 @@ def main() -> int:
         fail(failures, not (packet / "publish.md").exists(), "dry-run wrote publish.md")
     after = hashlib.sha256(Q1.read_bytes()).hexdigest()
     fail(failures, before == after, "Q1 publish.md bytes changed")
+    q1 = Q1.read_text(encoding="utf-8")
+    posted = viewer_comment(q1.split("## First comment (pin candidate)", 1)[1].split("## ", 1)[0])
+    fail(failures, BAIT not in posted, "posted Q1 pin still asks for a reply")
+    fail(failures, posted.startswith("Assignment:"), "posted Q1 pin lost the assignment")
+    fail(failures, "Reply with" not in posted, "posted Q1 pin still has a reply ask")
     if failures:
         print("PUBLISH BRIEF CONTRACT FAIL")
         for item in failures:

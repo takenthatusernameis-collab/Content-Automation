@@ -814,3 +814,9 @@ Updated: 2026-10-05T17:15:00Z (Run 342)
 
 Updated: 2026-10-07T05:11:00Z (Run 377)
 
+## Run 379 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Run 378 claimed a local selftest pass and left STATE.md and NEXT.md at 13 sections. Actions run 37580716646 failed: `STATE.md has 13 run sections, max 12` and `NEXT.md has 13 notes, max 12`. This run only ran the existing compact tools. A red selftest is not a reason to add another recovery edge.
+

@@ -386,3 +386,6 @@ Updated: 2026-10-05T18:20:00Z
 ## Run 379 — 2026-10-07T07:16:00Z
 - Failed approach not retried: treating a local SELFTEST PASS as proof the pushed logs still fit the compact cap, or adding another provider-state recovery edge while Actions is red for a size miss.
 - Lesson: Run 378 left 13 STATE sections and 13 NEXT notes. Actions run 37580716646 failed. Compact in the same commit that prepends. Do not poll secrets. oauth_idle_without_publish remains; do not restate it as the work.
+## Run 380 — 2026-10-07T08:11:00Z
+- Failed approach not retried: another provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0. Also not retried: claiming a local selftest that ran before the log prepend.
+- Lesson: Run 378 left 13 sections and Actions run 37580716646 failed. Compact with `python3 tools/compact_all.py` in the same commit. Suspicious: oauth_idle_without_publish has no publish since before Run 270, and Runs 368-378 only stacked recovery edges. Do not spend the next run restating either.

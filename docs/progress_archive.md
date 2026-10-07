@@ -442,3 +442,7 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Improvement: a red Actions selftest is fixed by the existing compact tools, not by another recovery edge. Estimated save: one failed selftest cycle and one agent run spent diagnosing a cap miss, about 10 minutes, on every future run that prepends a section and forgets to archive.
 - Efficiency: human minutes per video unchanged. Videos published stay 0. Remaining manual step is still the three YouTube secrets.
 - Verification: Actions run 37580716646 failed on the 12-section cap. Compact tools moved the overflow into the archives.
+## Run 380 — 2026-10-07T08:11:00Z
+- Improvement: one command compacts STATE, NEXT, RUNS, PROGRESS, and FAILURES and fails if any file stays over cap. Estimated save: one red Actions selftest and one repair commit per forgotten compact, about 10 agent minutes. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: automated log-cap step is now one command instead of four. Remaining manual step is still the three YouTube secrets.
+- Verification: compact_all and selftest on this commit. No provider write.

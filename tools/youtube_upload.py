@@ -106,6 +106,7 @@ INTERNAL_DESCRIPTION_PREFIXES = (
 )
 INTERNAL_COMMENT_SENTENCES = (
     "This comment is a draft pin, not posted.",
+    "Reply with the cue you wrote down.",
 )
 
 

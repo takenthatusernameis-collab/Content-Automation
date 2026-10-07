@@ -27,7 +27,7 @@ The system should produce useful, specific, original-feeling work that could sur
 - Generic failure-mode lists whose examples could fit almost any productivity video.
 - Repeated conclusions stated in slightly different words.
 - CTA padding, subscribe language, or engagement bait when the packet does not call for it.
-- A pinned comment that asks the viewer to reply. The pin is the assignment from the mechanism, not a reply prompt.
+- A pinned comment that asks the viewer to reply. The pin is the assignment from the mechanism, not a reply prompt. `viewer_comment` drops "Reply with the cue you wrote down." before a comment post. Do not rewrite the approved Q1 pin to remove it.
 
 These are revision signals, not permission for a crude regex-based “AI detector.”
 
