@@ -36,3 +36,7 @@ Evidence: two Active locks blocks in NEXT.md hid the human secret step. Collapse
 
 ## Run 379 — 2026-10-07T07:16:00Z
 Evidence: Run 378 printed SELFTEST PASS locally and Actions run 37580716646 failed because STATE.md and NEXT.md had 13 sections (max 12). A local pass is not a green push. Compact the live logs in the same commit that prepends a section. Do not treat a red selftest as a reason to add another recovery edge.
+
+## Run 381 — 2026-10-07T09:13:00Z
+- Evidence: Runs 368-378 added recovery edges while videos published stayed 0. Prose in FAILURES.md did not stop the next edge.
+- Change: stall_watch names `STALL_RECOVERY_EDGE`. Do not treat a lock sentence as the flag. Do not modify ORIGINAL_MASTER_PROMPT.md.

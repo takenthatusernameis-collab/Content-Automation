@@ -23,10 +23,12 @@ LOCAL_GATE_FLAG = "STALL_LOCAL_GATE"
 IDLE_FLAG = "STALL_OAUTH_IDLE"
 UPLOAD_EDGE_FLAG = "STALL_UPLOAD_EDGE"
 PREUPLOAD_FLAG = "STALL_PREUPLOAD_PROBE"
+RECOVERY_EDGE_FLAG = "STALL_RECOVERY_EDGE"
 WINDOW = 3
 IDLE_WINDOW = 8
 UPLOAD_EDGE_WINDOW = 4
 PREUPLOAD_WINDOW = 4
+RECOVERY_EDGE_WINDOW = 4
 UPLOAD_EDGE_TOKENS = (
     "early-persist",
     "early persist",
@@ -43,6 +45,21 @@ PREUPLOAD_TOKENS = (
     "media_qa",
     "export_probe",
     "export probe",
+)
+# Runs 368-378 each added a provider-state recovery edge while videos
+# published stayed 0. A lock sentence is not a wired edge.
+RECOVERY_EDGE_TOKENS = (
+    "provider-upload-state",
+    "persist_provider_state.py recover",
+    "persist_provider_state.py push",
+    "rejected-push recovery",
+    "rejected push recovery",
+)
+RECOVERY_EDGE_NEGATIONS = (
+    "do not add another recovery edge",
+    "do not add another provider-state recovery edge",
+    "no new recovery edge",
+    "did not add a recovery edge",
 )
 # Lock sentences repeat these tokens. A "do not add" line is not a wired probe.
 PREUPLOAD_NEGATIONS = (
@@ -219,6 +236,27 @@ def flag_text(text: str, window: int = WINDOW) -> list[str]:
                 "do_not: add another export probe, media checker, or caption cue gate while this flag is set",
                 "next: wait for the three YouTube secrets; do not wire another pre-upload checker",
             ])
+    # Runs 368-378 each added a rejected-push recovery edge while videos
+    # published stayed 0. That is the credential stall, not a missing recover path.
+    recovery_deltas = run_deltas(text)[:RECOVERY_EDGE_WINDOW]
+    if _oauth_stall(recovery_deltas) and len(recovery_deltas) >= RECOVERY_EDGE_WINDOW:
+        recovery = True
+        for delta in recovery_deltas:
+            lowered = delta.lower()
+            scrubbed = lowered
+            for phrase in RECOVERY_EDGE_NEGATIONS:
+                scrubbed = scrubbed.replace(phrase, "")
+            if not any(token in scrubbed for token in RECOVERY_EDGE_TOKENS):
+                recovery = False
+                break
+        if recovery:
+            flags.extend([
+                RECOVERY_EDGE_FLAG,
+                f"last_{RECOVERY_EDGE_WINDOW}_runs: oauth_unpolled_and_recovery_edge",
+                "do_not: add another provider-state recovery edge while this flag is set",
+                "next: wait for the three YouTube secrets; do not dispatch execute again to retry videos.insert",
+            ])
+            flags.append("suspicious: recovery_edge_without_publish")
     # Count the whole file, not the 8-delta flag window. A cleared newest
     # delta resets the streak to 0. A zero streak is not a flag: callers
     # treat a non-empty list as a stall. This does not poll secrets.

@@ -168,3 +168,5 @@ Older do-not-rediscover notes. Do not paste these back into NEXT.md. Do not rest
 1zr30. **Do not rediscover a second stall-watch check.** Run 366: `tools/selftest.py` keeps one `check_stall_watch`. It runs `stall_watch_contract.py` and the inline stall assertions. A later copy must not shadow the contract. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr31. **Do not rediscover a playlist end-screen element while playlist_id is not_set.** Run 367: `tools/studio_handoff.py` asks for one video element (best for viewer) until a playlist id is set. Do not invent a playlist id. A failed playlist insert is not a reason to dispatch execute again. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
+1zr32. **Do not rediscover a red playlist step as an upload failure.** Run 368: the playlist membership step prints `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exits 0 when `playlist_membership.py` exits 2. Do not dispatch execute again to retry that insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

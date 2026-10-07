@@ -10,7 +10,18 @@ TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
-from stall_watch import FLAG, IDLE_FLAG, INSTRUCTION_FLAG, LOCAL_GATE_FLAG, PREUPLOAD_FLAG, UPLOAD_EDGE_FLAG, flag_text, idle_streak, run_deltas  # noqa: E402
+from stall_watch import (
+    FLAG,
+    IDLE_FLAG,
+    INSTRUCTION_FLAG,
+    LOCAL_GATE_FLAG,
+    PREUPLOAD_FLAG,
+    RECOVERY_EDGE_FLAG,
+    UPLOAD_EDGE_FLAG,
+    flag_text,
+    idle_streak,
+    run_deltas,
+)
 
 
 def delta(body: str) -> str:
@@ -108,6 +119,29 @@ def main() -> int:
     ) * 4
     if PREUPLOAD_FLAG in flag_text(lock_only):
         return fail("preupload lock boilerplate must not set the flag")
+    recovery = delta(
+        "OAuth secrets were not polled. Videos published stay 0. persist_provider_state.py recover wrote provider-upload-state. No provider write."
+    ) * 4
+    flags = flag_text(recovery)
+    if RECOVERY_EDGE_FLAG not in flags:
+        return fail(f"recovery edge window missing: {flags}")
+    if "suspicious: recovery_edge_without_publish" not in flags:
+        return fail("recovery edge window must name the suspicious pattern")
+    short_recovery = delta(
+        "OAuth secrets were not polled. Videos published stay 0. rejected-push recovery. No provider write."
+    ) * 3
+    if RECOVERY_EDGE_FLAG in flag_text(short_recovery):
+        return fail("three recovery deltas must not set the flag")
+    cleared = delta(
+        "OAuth secrets were not polled. Videos published stay 0. Compacted logs only. No provider write."
+    ) + recovery
+    if RECOVERY_EDGE_FLAG in flag_text(cleared):
+        return fail("a non-recovery newest delta must clear the recovery flag")
+    recovery_lock = delta(
+        "OAuth secrets were not polled. Videos published stay 0. Do not add another recovery edge. No new recovery edge."
+    ) * 4
+    if RECOVERY_EDGE_FLAG in flag_text(recovery_lock):
+        return fail("recovery lock boilerplate must not set the flag")
     edge_lock = delta(
         "OAuth secrets were not polled. Videos published stay 0. Do not add another Location, session hold, or early-persist call."
     ) * 4

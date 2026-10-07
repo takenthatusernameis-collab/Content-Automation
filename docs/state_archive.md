@@ -752,3 +752,9 @@ Updated: 2026-10-05T17:15:00Z (Run 342)
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - The playlist membership step no longer fails the job when `playlist_membership.py` exits 2. It prints `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exits 0. A red job after `videos.insert` is not a reason to dispatch execute again. This does not call YouTube.
 
+## Run 369 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- The execute step no longer fails the job when `youtube_upload.py` exits 4 and `upload_state.json` already has a provider video id with `error_class` starting `POST_UPLOAD_INCOMPLETE`. It prints `POST_UPLOAD_NOT_INSERT_FAILURE` and exits 0. A red job after `videos.insert` is not a reason to dispatch execute again. An insert failure without that video id still fails the step. This does not call YouTube.
+

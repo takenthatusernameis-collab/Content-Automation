@@ -1,12 +1,14 @@
 # NEXT
 
-Updated: 2026-10-07T08:11:00Z (Run 380)
+Updated: 2026-10-07T09:13:00Z (Run 381)
 
-Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate.
+Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser or provider-state recovery edge while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate.
 
 One human step: run `python3 tools/oauth_setup.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then run `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr45. **Do not rediscover a recovery edge as progress while nothing is published.** Run 381: four STATE deltas that wire `provider-upload-state` or `persist_provider_state.py recover` while videos published stay 0 set `STALL_RECOVERY_EDGE`. A "no new recovery edge" sentence does not set it. Do not add another recovery edge to clear the flag. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr44. **Do not rediscover a local selftest as a green push.** Run 380: after prepending a log section, run `python3 tools/compact_all.py` in the same commit. Selftest calls `compact_all.py --check` and fails if STATE, NEXT, RUNS, PROGRESS, or FAILURES is over cap. Do not add another recovery edge to clear a size miss. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
@@ -30,5 +32,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zr34. **Do not rediscover a red persist or Studio pin step as an insert failure.** Run 370: the Studio pin step prints `STUDIO_PIN_NOT_INSERT_FAILURE` and exits 0 when the handoff printer fails. The persist step prints `PERSIST_PUSH_NOT_INSERT_FAILURE` and exits 0 when a provider video id exists and the commit or push fails. Do not dispatch execute again to retry `videos.insert`. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr33. **Do not rediscover a red post-upload step as an insert failure.** Run 369: the execute step prints `POST_UPLOAD_NOT_INSERT_FAILURE` and exits 0 when a provider video id exists and `error_class` starts with `POST_UPLOAD_INCOMPLETE`. Do not dispatch execute again to retry `videos.insert`. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-1zr32. **Do not rediscover a red playlist step as an upload failure.** Run 368: the playlist membership step prints `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exits 0 when `playlist_membership.py` exits 2. Do not dispatch execute again to retry that insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

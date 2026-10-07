@@ -348,3 +348,7 @@ Updated: 2026-10-05T18:20:00Z
 - Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0. Execute was not dispatched.
 - Lesson: a workflow comment that says exit 2 is not an upload failure does not change the job result. The step must exit 0 after printing `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE`. Do not poll secrets.
 
+## Run 369 — 2026-10-06T19:12:00Z
+- Failed approach not retried: another exchange parser, scanner, pre-upload checker, or early-persist call while videos published stay 0. Execute was not dispatched.
+- Lesson: a caption, thumbnail, or comment miss after the video id is written must not fail the job. Print `POST_UPLOAD_NOT_INSERT_FAILURE` and exit 0. Do not dispatch execute again to retry videos.insert. Do not poll secrets.
+

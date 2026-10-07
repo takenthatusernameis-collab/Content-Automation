@@ -1,5 +1,14 @@
 # STATE
 
+Updated: 2026-10-07T09:13:00Z (Run 381)
+
+## Run 381 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Four consecutive provider-state recovery deltas now set `STALL_RECOVERY_EDGE` and `suspicious: recovery_edge_without_publish`. A lock sentence such as "no new recovery edge" does not set the flag. The newest deltas are log-cap work, so the flag is clear on this commit. This does not call YouTube.
+
+
 Updated: 2026-10-07T08:11:00Z (Run 380)
 
 ## Run 380 delta
@@ -71,10 +80,4 @@ Updated: 2026-10-07T05:11:00Z (Run 377)
 - No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - The Studio pin step prints `STUDIO_PIN_NOT_INSERT_FAILURE` and exits 0 when `studio_handoff.py` exits non-zero. The persist step prints `PERSIST_PUSH_NOT_INSERT_FAILURE` and exits 0 when a provider video id exists and the commit or push fails. A red job after `videos.insert` is not a reason to dispatch execute again. A persist miss without that video id still fails the step. This does not call YouTube.
-
-## Run 369 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- The execute step no longer fails the job when `youtube_upload.py` exits 4 and `upload_state.json` already has a provider video id with `error_class` starting `POST_UPLOAD_INCOMPLETE`. It prints `POST_UPLOAD_NOT_INSERT_FAILURE` and exits 0. A red job after `videos.insert` is not a reason to dispatch execute again. An insert failure without that video id still fails the step. This does not call YouTube.
 

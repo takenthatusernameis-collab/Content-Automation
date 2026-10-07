@@ -1375,6 +1375,26 @@ def check_stall_watch() -> list[str]:
         )
     if "STALL_PREUPLOAD_PROBE" not in stall_watch.flag_text(probe):
         failures.append("stall_watch must flag four OAuth-idle preupload probe deltas")
+    recovery = ""
+    for n in (4, 3, 2, 1):
+        recovery += (
+            f"## Run {n} delta\n"
+            "- OAuth secrets were not polled\n"
+            "persist_provider_state.py recover wrote provider-upload-state\n"
+            "Videos published stay 0.\n\n"
+        )
+    if "STALL_RECOVERY_EDGE" not in stall_watch.flag_text(recovery):
+        failures.append("stall_watch must flag four OAuth-idle recovery-edge deltas")
+    lock = ""
+    for n in (4, 3, 2, 1):
+        lock += (
+            f"## Run {n} delta\n"
+            "- OAuth secrets were not polled\n"
+            "Do not add another recovery edge. No new recovery edge.\n"
+            "Videos published stay 0.\n\n"
+        )
+    if "STALL_RECOVERY_EDGE" in stall_watch.flag_text(lock):
+        failures.append("stall_watch must not treat a recovery-edge lock sentence as a wired edge")
     return failures
 
 

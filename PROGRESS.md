@@ -2,6 +2,12 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 381 — 2026-10-07T09:13:00Z
+- Improvement: stacked recovery edges while unpublished now print `STALL_RECOVERY_EDGE`. Estimated save: one agent run spent adding another recover path, about 15 minutes, once the last four deltas match. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: automated stall check now names this pattern. Remaining manual step is still the three YouTube secrets.
+- Verification: stall watch contract. No provider write.
+
+
 ## Run 380 — 2026-10-07T08:11:00Z
 - Improvement: one command compacts STATE, NEXT, RUNS, PROGRESS, and FAILURES and fails if any file stays over cap. Estimated save: one red Actions selftest and one repair commit per forgotten compact, about 10 agent minutes. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: automated log-cap step is now one command instead of four. Remaining manual step is still the three YouTube secrets.
@@ -45,9 +51,4 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 
 ## Run 370 — 2026-10-06T21:16:00Z
 - The execute job no longer turns red when the Studio pin printer fails or when a provider-state commit/push fails after a video id is written. That removes a false signal to dispatch execute again. Human minutes per video unchanged. Videos published stay 0. Automated post-insert steps that must not fail the job: playlist exit 2, post-upload exit 4 with a video id, Studio pin non-zero, persist miss with a video id.
-
-## Run 369 — 2026-10-06T19:12:00Z
-- Improvement: a post-upload caption, thumbnail, or comment miss no longer fails the production job when the video id is already written. Estimated save: one extra execute dispatch after the first private insert, which could start another videos.insert, about 15 human minutes plus a duplicate private video.
-- Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
-- Verification: selftest PASS. No provider write. Videos published stay 0.
 
