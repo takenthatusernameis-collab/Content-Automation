@@ -359,3 +359,7 @@ Updated: 2026-10-05T18:20:00Z
 - Failed approach not retried: another exchange parser, scanner, pre-upload checker, or early-persist call while videos published stay 0. Execute was not dispatched.
 - Lesson: swallowing only playlist exit 2 still leaves a crash as a red job. Print `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exit 0 on any non-zero membership exit after upload state exists. Do not leave the summary saying a caption miss exits non-zero after the video id is written. Do not dispatch execute again. Do not poll secrets.
 
+## Run 372 — 2026-10-07T00:15:00Z
+- Failed approach not retried: another exchange parser, scanner, pre-upload checker, or early-persist call while videos published stay 0. Execute was not dispatched.
+- Lesson: swallowing only a rejected commit or push still leaves a classify miss as a red job. Print `PERSIST_PUSH_NOT_INSERT_FAILURE` and exit 0 when a provider video id exists. A miss without that id still fails. Do not dispatch execute again. Do not poll secrets.
+

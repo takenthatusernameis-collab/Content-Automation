@@ -20,16 +20,15 @@ def fail(msg: str) -> int:
 
 
 def main() -> int:
+    from oauth_setup import recipe
+    from operator_card import card_text, console_steps
     handoff = f"SHA256: `{MASTER_SHA}`\n"
-    setup = f"     {DISPATCH}\n"
-    card = (
-        "OPERATOR CARD\n"
-        + "\n".join(SECRET_NAMES)
-        + f"\n  {DISPATCH}\n"
-        + "Do not run gh secret list. Do not run gh api.\n"
-    )
+    setup = recipe()
+    card = card_text()
     if problems(handoff, setup, card):
-        return fail("aligned card must pass")
+        return fail("aligned card must pass: " + ", ".join(problems(handoff, setup, card)))
+    if console_steps(setup) not in card or "Desktop app" not in card:
+        return fail("aligned card must reprint console steps")
     if not problems("no sha here", setup, card):
         return fail("a missing master sha must fail")
     drifted = setup.replace(DISPATCH, DISPATCH + " -f packet=q2")

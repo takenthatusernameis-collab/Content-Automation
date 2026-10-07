@@ -2,6 +2,11 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 384 — 2026-10-07T12:20:00Z
+- Improvement: the one human command now includes the Google Cloud console steps, scopes, and exchange command, so the next run does not reconstruct them from `oauth_setup.py`. Estimated save: about 10 minutes per future run spent rebuilding the consent steps, and one wrong token scope if only the secret-set lines are followed. Videos published stay 0. Human OAuth step unchanged in kind.
+- Efficiency: automated check covers console-step drift. Remaining manual step is still the three YouTube secrets.
+- Verification: operator card contract. No provider write.
+
 ## Run 383 — 2026-10-07T11:17:00Z
 - Improvement: one command prints the human publish step and fails if it drifts from the OAuth recipe or the documented master sha. Estimated save: about 5 minutes per future run spent reconstructing the human step from NEXT notes, and one wrong dispatch if the recipe and the notes diverge. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: automated check covers the dispatch line. Remaining manual step is still the three YouTube secrets.
@@ -50,9 +55,4 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Improvement: provider-state push now runs. The previous heredoc never closed, so a successful insert would not land `upload_state.json` on main. Estimated save: one lost video id and a second execute that could insert again, about 15 human minutes plus a duplicate private video.
 - Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets. Videos published stay 0.
 - Verification: selftest PASS. Workflow heredoc count is 0. No provider write.
-
-## Run 372 — 2026-10-07T00:15:00Z
-- Improvement: a persist classify miss after a provider video id exists no longer fails the job. Estimated save: one avoided second execute after videos.insert, about 10 human minutes if the first insert already landed.
-- Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets. Videos published stay 0.
-- Verification: selftest PASS. No provider write.
 

@@ -417,3 +417,8 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
 - Verification: selftest PASS. No provider write. Videos published stay 0.
 
+## Run 372 — 2026-10-07T00:15:00Z
+- Improvement: a persist classify miss after a provider video id exists no longer fails the job. Estimated save: one avoided second execute after videos.insert, about 10 human minutes if the first insert already landed.
+- Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets. Videos published stay 0.
+- Verification: selftest PASS. No provider write.
+

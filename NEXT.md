@@ -1,12 +1,14 @@
 # NEXT
 
-Updated: 2026-10-07T11:17:00Z (Run 383)
+Updated: 2026-10-07T12:20:00Z (Run 384)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser or provider-state recovery edge while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate. `recovery_freeze.py` fails the build if the recovery surface grows.
 
 One human step: run `python3 tools/oauth_setup.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then run `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr48. **Do not rediscover the Google Cloud clicks from the log stack.** Run 384: `python3 tools/operator_card.py` reprints the numbered `oauth_setup.py` steps (Desktop app, YouTube Data API v3, test user, three scopes, `oauth_exchange.py`, secret set, one dispatch). It fails if those steps drift. Do not add a second card. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2.
 
 1zr47. **Do not rediscover the human step from the log stack.** Run 383: `python3 tools/operator_card.py` prints the three secret-set commands and the same dispatch line as `oauth_setup.py`. It fails if that line drifts or HANDOFF loses the documented master sha. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2.
 
@@ -30,5 +32,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zr37. **Do not rediscover a spaced heredoc as a provider-state push.** Run 373: both persist steps call `python3 tools/persist_provider_state.py push`. A `<<'PY'` block closed by `          PY` never ends, so `push_with_retry` does not run and the video id stays off main. Do not put that heredoc back. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr36. **Do not rediscover a classify miss as an insert failure.** Run 372: the persist step prints `PERSIST_PUSH_NOT_INSERT_FAILURE` and exits 0 when `classify-upload` fails and a provider video id exists. A miss without that id still fails the step. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-1zr35. **Do not rediscover a playlist crash or a caption-miss summary as an insert failure.** Run 371: the playlist step prints `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exits 0 on any non-zero exit after upload state exists, not only exit 2. The job summary no longer says a caption or thumbnail miss exits non-zero after the video id is written. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

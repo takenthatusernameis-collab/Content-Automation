@@ -764,3 +764,9 @@ Updated: 2026-10-05T17:15:00Z (Run 342)
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - The Studio pin step prints `STUDIO_PIN_NOT_INSERT_FAILURE` and exits 0 when `studio_handoff.py` exits non-zero. The persist step prints `PERSIST_PUSH_NOT_INSERT_FAILURE` and exits 0 when a provider video id exists and the commit or push fails. A red job after `videos.insert` is not a reason to dispatch execute again. A persist miss without that video id still fails the step. This does not call YouTube.
 
+## Run 371 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- The playlist membership step now prints `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exits 0 on any non-zero exit, not only exit 2. A crash after `upload_state.json` exists is not an insert failure. The job summary no longer says a caption or thumbnail miss exits non-zero after the video id is written. It says that miss prints `POST_UPLOAD_NOT_INSERT_FAILURE` and exits 0. This does not call YouTube.
+

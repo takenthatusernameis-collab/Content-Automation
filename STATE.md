@@ -1,6 +1,12 @@
 # STATE
 
-Updated: 2026-10-07T11:17:00Z (Run 383)
+Updated: 2026-10-07T12:20:00Z (Run 384)
+
+## Run 384 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `python3 tools/operator_card.py` now reprints the numbered Google Cloud steps from `oauth_setup.py`, including the Desktop-app client, the three scopes, `oauth_exchange.py`, and the secret-set lines. It fails if those steps drift. This does not call YouTube or GitHub.
 
 ## Run 383 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -79,10 +85,4 @@ Updated: 2026-10-07T05:11:00Z (Run 377)
 - No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - The persist step prints `PERSIST_PUSH_NOT_INSERT_FAILURE` and exits 0 when `classify-upload` fails and `upload_state.json` already has a provider video id. A classify miss without that video id still fails the step. A red job after `videos.insert` is not a reason to dispatch execute again. This does not call YouTube.
-
-## Run 371 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- The playlist membership step now prints `PLAYLIST_INSERT_NOT_UPLOAD_FAILURE` and exits 0 on any non-zero exit, not only exit 2. A crash after `upload_state.json` exists is not an insert failure. The job summary no longer says a caption or thumbnail miss exits non-zero after the video id is written. It says that miss prints `POST_UPLOAD_NOT_INSERT_FAILURE` and exits 0. This does not call YouTube.
 
