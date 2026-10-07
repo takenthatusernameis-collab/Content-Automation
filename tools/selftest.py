@@ -2470,6 +2470,12 @@ def check_job_timeout_covers_upload() -> list[str]:
         failures.append("persist classify miss must not fail the job when a video id exists")
     if "Provider state was not classified" not in persist_step:
         failures.append("persist step must treat a classify miss with a video id as not an insert failure")
+    if "PERSIST_CLASSIFY_MISS_STILL_COMMIT" not in persist_step:
+        failures.append("classify miss with a video id must still commit that id")
+    classified = persist_step.split("Provider state was not classified", 1)[-1]
+    before_add = classified.split('git add "$STATE"', 1)[0]
+    if "exit 0" in before_add:
+        failures.append("classify miss must not exit before the video id is committed")
     if "studio.youtube.com" in empty:
         failures.append("studio handoff must not invent an end-screen URL")
     if "inputs.packet" not in workflow or "videos/002-stop-deciding-what-to-work-on-every-morning" not in workflow:

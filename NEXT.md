@@ -1,6 +1,6 @@
 # NEXT
 
-Updated: 2026-10-07T01:15:00Z (Run 373)
+Updated: 2026-10-07T02:13:00Z (Run 374)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate.
 
@@ -8,6 +8,7 @@ One human step: run `python3 tools/oauth_setup.py`, then `python3 tools/oauth_ex
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
 
+1zr38. **Do not rediscover a classify miss as a reason to skip the commit.** Run 374: a non-zero `classify-upload` with a provider video id prints `PERSIST_CLASSIFY_MISS_STILL_COMMIT` and still runs `git add`. Status 2 still skips. A miss without that id still fails. Do not exit 0 before the commit. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 1zr37. **Do not rediscover a spaced heredoc as a provider-state push.** Run 373: both persist steps call `python3 tools/persist_provider_state.py push`. A `<<'PY'` block closed by `          PY` never ends, so `push_with_retry` does not run and the video id stays off main. Do not put that heredoc back. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 1zr36. **Do not rediscover a classify miss as an insert failure.** Run 372: the persist step prints `PERSIST_PUSH_NOT_INSERT_FAILURE` and exits 0 when `classify-upload` fails and a provider video id exists. A miss without that id still fails the step. Do not dispatch execute again to retry videos.insert. Do not add another exchange parser. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

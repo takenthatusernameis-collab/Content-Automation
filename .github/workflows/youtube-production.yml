@@ -248,13 +248,14 @@ jobs:
           fi
           if [ "$status" -ne 0 ]; then
             # A classify miss after videos.insert is not an insert failure.
-            # Do not dispatch execute again. A miss without a video id still fails.
+            # Do not exit before git add: that leaves the video id on the runner.
+            # A miss without a video id still fails. Status 2 already returned above.
             if python3 -c 'import json,os,sys; from pathlib import Path; row=json.loads(Path(os.environ["STATE"]).read_text(encoding="utf-8")); sys.exit(0 if str(row.get("provider_video_id") or "").strip() else 1)'; then
-              echo "PERSIST_PUSH_NOT_INSERT_FAILURE"
-              echo "Provider state was not classified. The video id is already written. Do not dispatch execute again to retry videos.insert."
-              exit 0
+              echo "PERSIST_CLASSIFY_MISS_STILL_COMMIT"
+              echo "Provider state was not classified. The video id is already written. Committing it anyway. Do not dispatch execute again to retry videos.insert."
+            else
+              exit 1
             fi
-            exit 1
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

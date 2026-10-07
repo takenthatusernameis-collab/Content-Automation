@@ -378,3 +378,6 @@ NEXT.md now has one Active locks block and names the three secrets as the only h
 ## Run 361 — 2026-10-06T10:12:00Z
 Stall flags no longer stay set only because the lock sentence repeats the tool name. A last chapter inside the final 10 seconds is refused when duration is known, so the first upload does not silently lose chapters. Estimated save: one Studio chapter repair after the first private insert. Human minutes per video otherwise unchanged. Videos published stay 0.
 
+## Run 362 — 2026-10-06T11:20:00Z
+The setup recipe now prints the exact private execute dispatch, including collect_feedback=false. Estimated save: one wrong first dispatch that asks for analytics before a video id exists, about 5 human minutes. Human minutes per video otherwise unchanged. Videos published stay 0.
+
