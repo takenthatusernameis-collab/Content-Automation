@@ -1,3 +1,5 @@
+Run 390 note: idea_brief --queue puts that row's problem into why now. Q2 and Q3 lines differ. Do not scaffold Q2. Do not add a stall flag, compact check, card reprint, or recovery edge while videos published stay 0. The human step is still issue 1, then dispatch execute=true.
+
 Run 381 note: `STALL_RECOVERY_EDGE` means the last four STATE deltas wired a provider-state recovery path while videos published stay 0. Do not add another recovery edge. Do not poll secrets. The human step is still the three Actions secrets, then dispatch execute=true.
 
 Run 341 note: NEXT.md keeps 12 newest notes. Older notes are in docs/next_archive.md. Do not paste the archive back. Do not add a scanner while videos published stay 0. Next human step is the three Actions secrets, then dispatch execute=true.

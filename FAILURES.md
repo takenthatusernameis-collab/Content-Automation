@@ -2,6 +2,11 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 390 — 2026-10-07T20:13:00Z
+- Failed approach not retried: another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
+- Lesson: The idea contract already failed on main by expecting Q1 to be queued and its folder to be absent. Fix that false fail. Do not treat a shared why-now sentence as ready for the next packet. oauth_idle_without_publish remains; the human step is issue 1.
+
+
 ## Run 389 — 2026-10-07T19:11:00Z
 - Failed approach not retried: another compact check, freeze module, operator-card reprint, provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: Runs 386-388 each treated a log miss as the next improvement and still published nothing. Flag that pattern. Do not add a compact check to clear the flag. oauth_idle_without_publish remains; the human step is issue 1.
@@ -52,7 +57,3 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 379 — 2026-10-07T07:16:00Z
 - Failed approach not retried: treating a local SELFTEST PASS as proof the pushed logs still fit the compact cap, or adding another provider-state recovery edge while Actions is red for a size miss.
 - Lesson: Run 378 left 13 STATE sections and 13 NEXT notes. Actions run 37580716646 failed. Compact in the same commit that prepends. Do not poll secrets. oauth_idle_without_publish remains; do not restate it as the work.
-
-## Run 378 — 2026-10-07T06:14:00Z
-- Failed approach not retried: keeping the first `provider-upload-state` download, or another exchange parser, scanner, or pre-upload checker while videos published stay 0.
-- Lesson: a later execute can upload `upload_state.json` with no `provider_video_id`. Recovery must skip that file. Do not dispatch execute again. Do not poll secrets. oauth_idle_without_publish has now repeated from Run 366 through Run 378 with no publish; do not spend the next run only restating it.

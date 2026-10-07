@@ -99,10 +99,30 @@ def queue_locks(failures: list[str], mechanism: str) -> None:
     fail(failures, "- why now:" in qout, "--queue Q1 missing why now")
     fail(failures, "- related videos to avoid repeating:" in qout, "--queue Q1 missing related")
     fail(failures, "writes nothing" in qout.lower(), "--queue Q1 missing no-write note")
-    fail(failures, "Queue Q1" in qout and "queued" in qout, "--queue Q1 missing queue status line")
+    fail(failures, "Queue Q1 status=" in qout, "--queue Q1 missing queue status line")
     fail(failures, "script.md" in qout.lower(), "--queue Q1 missing script.md warning")
     fail(failures, videos_before == videos_after, "--queue Q1 created or removed a videos/ folder")
-    fail(failures, not (ROOT / "videos" / FOLDER).exists(), "--queue Q1 must not scaffold the predicted folder")
+    fail(failures, (ROOT / "videos" / FOLDER).is_dir(), "--queue Q1 must not remove the existing packet")
+    fail(failures, "The stall to install is this:" in qout, "--queue Q1 why now still uses only the shared channel line")
+
+    q2 = subprocess.run(
+        [sys.executable, str(TOOLS / "idea_brief.py"), "--queue", "Q2"],
+        capture_output=True,
+        text=True,
+    )
+    q3 = subprocess.run(
+        [sys.executable, str(TOOLS / "idea_brief.py"), "--queue", "Q3"],
+        capture_output=True,
+        text=True,
+    )
+    fail(failures, q2.returncode == 0 and q3.returncode == 0, "idea_brief --queue Q2/Q3 failed")
+    fail(failures, "visible start cue" in q2.stdout, "--queue Q2 why now missing its problem")
+    fail(failures, "competing lists" in q3.stdout, "--queue Q3 why now missing its problem")
+    w2 = next((line for line in q2.stdout.splitlines() if line.startswith("- why now:")), "")
+    w3 = next((line for line in q3.stdout.splitlines() if line.startswith("- why now:")), "")
+    fail(failures, w2 and w3 and w2 != w3, "Q2 and Q3 why now must differ")
+    videos_after_q = {item.name for item in (ROOT / "videos").iterdir()} if (ROOT / "videos").is_dir() else set()
+    fail(failures, videos_before == videos_after_q, "--queue Q2/Q3 created or removed a videos/ folder")
 
     missing = subprocess.run(
         [sys.executable, str(TOOLS / "idea_brief.py"), "--queue", "Q9"],

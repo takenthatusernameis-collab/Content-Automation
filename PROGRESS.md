@@ -2,6 +2,12 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 390 — 2026-10-07T20:13:00Z
+- Improvement: each queued idea paste names that row's stall in why now, and the idea contract no longer fails on the existing Q1 packet. Estimated save: about 3 minutes per later video spent rewriting a shared why-now sentence, and one false contract fail per run that treats the 002 folder as a scaffold. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: paste is specific before scaffold. Remaining manual step is still the three YouTube secrets.
+- Verification: idea brief contract and selftest. No provider write.
+
+
 ## Run 389 — 2026-10-07T19:11:00Z
 - Videos published stay 0. Estimated human minutes to first upload stay the three secret-set steps in issue 1.
 - Reusable: `STALL_LOG_HYGIENE` makes three log-cap runs visible without a new freeze module. A lock sentence does not set it.
@@ -63,6 +69,3 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Improvement: a red Actions selftest is fixed by the existing compact tools, not by another recovery edge. Estimated save: one failed selftest cycle and one agent run spent diagnosing a cap miss, about 10 minutes, on every future run that prepends a section and forgets to archive.
 - Efficiency: human minutes per video unchanged. Videos published stay 0. Remaining manual step is still the three YouTube secrets.
 - Verification: Actions run 37580716646 failed on the 12-section cap. Compact tools moved the overflow into the archives.
-
-## Run 378 — 2026-10-07T06:14:00Z
-- Improvement: rejected-push recovery skips a newer artifact with no provider video id. Estimated save: one duplicate `videos.insert` if a later failed execute hid the first id, about 15 human minutes plus a duplicate private video. Videos published stay 0. Human OAuth step unchanged. Q1 materialize and media QA still PASS.

@@ -114,6 +114,18 @@ def suggested_values(title: str) -> tuple[str, str, str]:
     return topic, problem, mechanism
 
 
+def why_now_line(problem: str) -> str:
+    """Channel timing plus this row's stall. A blank problem keeps the channel line.
+
+    Q2-Q5 used to paste the same why-now sentence. The human then rewrote it
+    before expand. This does not write idea.md and does not create a packet.
+    """
+    cleaned = problem.strip().rstrip(".")
+    if not cleaned or cleaned.startswith("("):
+        return WHY_NOW
+    return f"The week is already planned. The stall to install is this: {cleaned}."
+
+
 def paste_block(title: str) -> str:
     topic, problem, mechanism = suggested_values(title)
     return (
@@ -122,7 +134,7 @@ def paste_block(title: str) -> str:
         f"- viewer: {VIEWER}\n"
         f"- problem: {problem}\n"
         f"- mechanism (the system, not the pep talk): {mechanism}\n"
-        f"- why now: {WHY_NOW}\n"
+        f"- why now: {why_now_line(problem)}\n"
         f"- related videos to avoid repeating: {RELATED}\n"
     )
 
