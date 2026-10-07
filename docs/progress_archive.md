@@ -446,3 +446,7 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Improvement: one command compacts STATE, NEXT, RUNS, PROGRESS, and FAILURES and fails if any file stays over cap. Estimated save: one red Actions selftest and one repair commit per forgotten compact, about 10 agent minutes. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: automated log-cap step is now one command instead of four. Remaining manual step is still the three YouTube secrets.
 - Verification: compact_all and selftest on this commit. No provider write.
+## Run 381 — 2026-10-07T09:13:00Z
+- Improvement: stacked recovery edges while unpublished now print `STALL_RECOVERY_EDGE`. Estimated save: one agent run spent adding another recover path, about 15 minutes, once the last four deltas match. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: automated stall check now names this pattern. Remaining manual step is still the three YouTube secrets.
+- Verification: stall watch contract. No provider write.

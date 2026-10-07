@@ -2,6 +2,11 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 393 — 2026-10-07T23:12:00Z
+- Failed approach not retried: regenerating Q1 chapters.md to prove the label change, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
+- Lesson: The chapter drafter aliased every hook to the first video. Fix the generator. Do not rewrite the approved Q1 lines to make the test pass. oauth_idle_without_publish remains; the human step is issue 1.
+
+
 ## Run 392 — 2026-10-07T22:12:00Z
 - Failed approach not retried: rewriting the approved Q1 pin, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
 - Lesson: Run 391 stopped the generator and left the bait in the approved first comment. Strip it at post time. Do not rewrite Q1 publish.md to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1.
@@ -52,9 +57,3 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 382 — 2026-10-07T10:14:00Z
 - Failed approach not retried: another provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: a stall flag after four edges did not stop the next edge. `recovery_freeze.py` fails the build when the artifact or recover call count grows. Do not add an edge to clear it. Do not poll secrets. oauth_idle_without_publish remains; do not spend the next run only restating it.
-
-
-
-## Run 381 — 2026-10-07T09:13:00Z
-- Failed approach not retried: another provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
-- Lesson: Runs 368-378 stacked recover paths and prose did not stop the next edge. `STALL_RECOVERY_EDGE` now fires only when four deltas wire that path. Do not add an edge to clear it. Do not poll secrets.

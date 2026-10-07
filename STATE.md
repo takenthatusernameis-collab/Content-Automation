@@ -1,5 +1,13 @@
 # STATE
 
+Updated: 2026-10-07T23:12:00Z (Run 393)
+
+## Run 393 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `chapter_draft.py` names chapters from that beat's spoken words. Hook, payoff, and CTA are no longer renamed to the first video's lines. Q1 chapters.md and publish.md were not regenerated.
+
 Updated: 2026-10-07T22:12:00Z (Run 392)
 
 ## Run 392 delta
@@ -92,12 +100,4 @@ Updated: 2026-10-07T12:20:00Z (Run 384)
 
 
 Updated: 2026-10-07T08:11:00Z (Run 380)
-
-## Run 380 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- Live-log overflow is now one command. `python3 tools/compact_all.py` runs the four compact tools and exits non-zero if STATE, NEXT, RUNS, PROGRESS, or FAILURES is still over cap. Selftest calls `compact_all.py --check` and does not write. A local selftest before a prepend is not a green push.
-
-Updated: 2026-10-07T07:16:00Z (Run 379)
 

@@ -3,6 +3,8 @@
 
 Not ASR. Not an approval. Does not check publish boxes. Does not upload.
 A missing srt or a script with no WORDS beats refuses.
+Chapter titles come from that beat's spoken words. Hook, payoff, and CTA
+are not renamed to the first video's lines.
 """
 
 from __future__ import annotations
@@ -57,34 +59,35 @@ def parse_cues(text: str) -> list[dict]:
 
 
 
-def _heading_label(label: str) -> str:
-    low = label.lower()
-    if low == "hook":
-        return "The reopen"
-    if low.startswith("payoff"):
-        return "Written default"
-    if low == "cta":
-        return "Tomorrow's sentence"
+GENERIC_HEADINGS = {"hook", "payoff", "payoff promise", "cta", "intro", "outro"}
+TITLE_DROP = {
+    "here", "is", "the", "a", "an", "it", "as", "you", "your", "not",
+    "this", "that", "and", "or", "to", "of", "in", "on", "for", "with",
+}
+
+
+def _short_title(sentence: str) -> str:
+    """Chapter title from this beat's words. Not a label copied from Q1."""
+    words = re.findall(r"[A-Za-z0-9']+", sentence)
+    kept = [w for w in words if w.lower() not in TITLE_DROP]
+    if len(kept) < 2:
+        kept = words
+    phrase = " ".join(kept[:4])
+    if not phrase:
+        return "Chapter"
+    return phrase[:1].upper() + phrase[1:]
+
+
+def _heading_label(label: str, spoken: str) -> str:
+    low = label.lower().strip()
+    if low in GENERIC_HEADINGS or low.startswith("payoff") or low.startswith("beat"):
+        sentence = re.split(r"[.!?]", spoken.strip(), maxsplit=1)[0]
+        return _short_title(sentence)
     return label
 
 
 def _label_from_sentence(sentence: str) -> str:
-    low = sentence.lower()
-    if re.search(r"\bstall\b", low):
-        return "The stall"
-    if re.search(r"\bfailure\b", low):
-        return "Failure modes"
-    if re.search(r"\bworkday\b", low) or "closed loop" in low:
-        return "One workday"
-    if re.search(r"\bdefault\b", low):
-        return "Install the default"
-    words = re.findall(r"[A-Za-z0-9']+", sentence)
-    drop = {"here", "is", "the", "a", "an", "it", "as", "you", "your", "not"}
-    kept = [w for w in words if w.lower() not in drop]
-    if not kept:
-        kept = words
-    phrase = " ".join(kept[:3])
-    return phrase[:1].upper() + phrase[1:]
+    return _short_title(sentence)
 
 
 def parse_beats(script: str) -> list[dict]:
@@ -107,7 +110,7 @@ def parse_beats(script: str) -> list[dict]:
             sentence = re.split(r"[.!?]", spoken.strip(), maxsplit=1)[0]
             label = _label_from_sentence(sentence)
         else:
-            label = _heading_label(label)
+            label = _heading_label(label, spoken)
         beats.append({"heading": heading.strip(), "label": label[:42], "needle": tokens[:NEEDLE]})
     return beats
 

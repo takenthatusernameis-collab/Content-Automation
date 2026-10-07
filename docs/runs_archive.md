@@ -1054,3 +1054,12 @@ Permanent log. Newest first. Do not paste the archive back into this file.
 - Discovery: Run 378 passed selftest, then prepended a 13th STATE section and a 13th NEXT note. Actions run 37580716646 failed the contracts. Suspicious: oauth_idle_without_publish still stands (no publish since before Run 270), and recovery-edge stacking (Runs 368-378) did not publish. Do not add another edge for that stall.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Do not spend another run only restating that blocker.
 - Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. After a log prepend, run `python3 tools/compact_all.py` before push. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
+## Run 381 — 2026-10-07T09:13:00Z
+- Objective: Flag stacked provider-state recovery edges while videos published stay 0.
+- Action: `stall_watch.py` now sets `STALL_RECOVERY_EDGE` and `suspicious: recovery_edge_without_publish` when the last four STATE deltas wire a recovery path during the OAuth stall. Lock sentences do not set the flag. Contract and selftest cover both cases. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge.
+- Result: Videos published stay 0. The flag is clear on this commit because the newest deltas are log-cap work, not recover wiring.
+- Verification: `python3 tools/stall_watch_contract.py` and `python3 tools/selftest.py`. No provider write.
+- Discovery: Runs 368-378 stacked recovery edges and prose warnings did not stop the next edge. The idle flag already existed; it did not name this pattern.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Do not spend another run only restating that blocker.
+- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

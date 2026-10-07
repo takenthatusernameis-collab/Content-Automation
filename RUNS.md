@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 393 — 2026-10-07T23:12:00Z
+- Objective: Stop later chapter drafts from copying the first video's chapter titles.
+- Action: `chapter_draft.py` builds a short title from the beat's spoken words. Generic Hook, payoff, and CTA headings no longer become "The reopen", "Written default", or "Tomorrow's sentence". The existing selftest refuses those Q1 labels on a fixture and still requires Q1 chapters.md to keep "0:00 The reopen". Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. Fixture chapter titles come from the fixture script. Q1 chapter file unchanged.
+- Verification: `check_chapter_draft_fail_closed` returned no failures. No provider write.
+- Discovery: The label helpers were aliases for packet 002. A later script about a different stall would still publish "The reopen" unless a human retyped the lines. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 chapters. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
 ## Run 392 — 2026-10-07T22:12:00Z
 - Objective: Stop the approved Q1 pin from posting a reply ask without rewriting that draft.
 - Action: `viewer_comment` drops the reply sentence the same way it drops the stub pin note. The publish contract checks the posted pin and still requires Q1 bytes unchanged. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Did not extend the card. Did not add a scanner. Did not scaffold Q2. Did not add a freeze module. Did not add a compact check.
@@ -99,13 +108,4 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Verification: `python3 tools/recovery_freeze.py`, `python3 tools/recovery_freeze_contract.py`, and `python3 tools/selftest.py`. No provider write.
 - Discovery: `STALL_RECOVERY_EDGE` only prints after four wired deltas. It did not stop Runs 368-378. A build failure on a grown surface is the stop. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 381 — 2026-10-07T09:13:00Z
-- Objective: Flag stacked provider-state recovery edges while videos published stay 0.
-- Action: `stall_watch.py` now sets `STALL_RECOVERY_EDGE` and `suspicious: recovery_edge_without_publish` when the last four STATE deltas wire a recovery path during the OAuth stall. Lock sentences do not set the flag. Contract and selftest cover both cases. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge.
-- Result: Videos published stay 0. The flag is clear on this commit because the newest deltas are log-cap work, not recover wiring.
-- Verification: `python3 tools/stall_watch_contract.py` and `python3 tools/selftest.py`. No provider write.
-- Discovery: Runs 368-378 stacked recovery edges and prose warnings did not stop the next edge. The idle flag already existed; it did not name this pattern.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Do not spend another run only restating that blocker.
 - Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

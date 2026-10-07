@@ -2,6 +2,12 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 393 — 2026-10-07T23:12:00Z
+- Improvement: later chapter drafts no longer copy the first video's titles, so a human does not retype three to six description lines per video. Estimated save: about 4 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing chapter drafter, not a new checker. Remaining manual step is still the three YouTube secrets.
+- Verification: existing chapter selftest. No provider write.
+
+
 ## Run 392 — 2026-10-07T22:12:00Z
 - Improvement: the first video's pin no longer posts a reply ask, and later drafts that still contain that sentence are stripped at post time. Estimated save: one bait line on the first upload and one edit per later video that copies the old pin. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: existing comment sanitizer, not a new checker. Remaining manual step is still the three YouTube secrets.
@@ -63,10 +69,3 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Improvement: a new provider-state recovery edge now fails selftest instead of waiting for four later deltas to set `STALL_RECOVERY_EDGE`. Estimated save: one agent run spent wiring another recover path, about 15 minutes, on every future run that would have grown the surface. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: automated freeze covers the existing artifact and recover call. Remaining manual step is still the three YouTube secrets.
 - Verification: recovery freeze contract and selftest. Release master sha256 matched. No provider write.
-
-
-
-## Run 381 — 2026-10-07T09:13:00Z
-- Improvement: stacked recovery edges while unpublished now print `STALL_RECOVERY_EDGE`. Estimated save: one agent run spent adding another recover path, about 15 minutes, once the last four deltas match. Videos published stay 0. Human OAuth step unchanged.
-- Efficiency: automated stall check now names this pattern. Remaining manual step is still the three YouTube secrets.
-- Verification: stall watch contract. No provider write.

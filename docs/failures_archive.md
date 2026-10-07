@@ -389,3 +389,6 @@ Updated: 2026-10-05T18:20:00Z
 ## Run 380 — 2026-10-07T08:11:00Z
 - Failed approach not retried: another provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0. Also not retried: claiming a local selftest that ran before the log prepend.
 - Lesson: Run 378 left 13 sections and Actions run 37580716646 failed. Compact with `python3 tools/compact_all.py` in the same commit. Suspicious: oauth_idle_without_publish has no publish since before Run 270, and Runs 368-378 only stacked recovery edges. Do not spend the next run restating either.
+## Run 381 — 2026-10-07T09:13:00Z
+- Failed approach not retried: another provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: Runs 368-378 stacked recover paths and prose did not stop the next edge. `STALL_RECOVERY_EDGE` now fires only when four deltas wire that path. Do not add an edge to clear it. Do not poll secrets.
