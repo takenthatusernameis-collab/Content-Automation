@@ -367,3 +367,7 @@ Updated: 2026-10-05T18:20:00Z
 - Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0. A spaced `PY` heredoc was not left in the workflow.
 - Lesson: swallowing a persist miss is not a push. `<<'PY'` closed by an indented `PY` never runs `push_with_retry`. Call `persist_provider_state.py push`. Do not poll secrets.
 
+## Run 374 — 2026-10-07T02:13:00Z
+- Failed approach not retried: exiting 0 on a classify miss before `git add`, or another exchange parser, scanner, or pre-upload checker while videos published stay 0.
+- Lesson: a green persist step that skips the commit leaves the video id on the runner. Print `PERSIST_CLASSIFY_MISS_STILL_COMMIT` and commit. Status 2 still skips. Do not poll secrets.
+

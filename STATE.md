@@ -1,5 +1,13 @@
 # STATE
 
+Updated: 2026-10-07T16:13:00Z (Run 386)
+
+## Run 386 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge. Did not extend operator_card.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Selftest defined `check_compact_all()` and never called it, so a green local selftest could still ship a 13th log section. The call is now in `main`. `tools/record_run.py` prepends the five live logs and then runs `compact_all.py` in the same process. This does not call YouTube or GitHub. Human step is issue 1, not a second card.
+
 Updated: 2026-10-07T13:23:00Z (Run 385)
 
 ## Run 385 delta
@@ -82,10 +90,4 @@ Updated: 2026-10-07T05:11:00Z (Run 377)
 - No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - A classify miss with a provider video id no longer exits 0 before `git add`. The persist step prints `PERSIST_CLASSIFY_MISS_STILL_COMMIT` and still commits that id. Status 2 remains a skip. A miss without a video id still fails the step. This does not call YouTube.
-
-## Run 373 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- Both provider-state push steps called `python3 - <<'PY'` and closed on `          PY`. Bash does not treat a spaced terminator as the end of the heredoc, so `push_with_retry` never ran. A later swallow of that non-zero status would leave the video id off main. The steps now call `python3 tools/persist_provider_state.py push`. This does not call YouTube.
 

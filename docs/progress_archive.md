@@ -427,3 +427,6 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets. Videos published stay 0.
 - Verification: selftest PASS. Workflow heredoc count is 0. No provider write.
 
+## Run 374 — 2026-10-07T02:13:00Z
+- Persist no longer drops a classified-miss video id to keep the job green. Estimated save: one duplicate `videos.insert` and one lost id if classify crashes after the file is written. Videos published stay 0. Human OAuth step unchanged.
+

@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 386 — 2026-10-07T16:13:00Z
+- Objective: Stop a green selftest from shipping an over-cap log when the section is prepended afterward.
+- Action: Called the existing `check_compact_all()` from selftest `main`. Added `tools/record_run.py`, which prepends the five live logs and runs `compact_all.py` before it exits. Opened issue 1 with the operator-card text. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Did not extend operator_card. Did not add a scanner. Did not scaffold Q2.
+- Result: Videos published stay 0. Issue 1 is the human step. No live execute.
+- Verification: `python3 tools/record_run_contract.py` and `python3 tools/selftest.py`. No provider write.
+- Discovery: Run 380 said selftest calls `compact_all.py --check`. The function existed and was not in `main`, so the Actions cap was only the separate state/next contracts. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not open a second issue. Do not extend the card. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 
 ## Run 385 — 2026-10-07T13:23:00Z
@@ -100,12 +109,3 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Runs 370-374 exit 0 after a rejected push so the job stays green. That still leaves the video id off main. The next execute can insert again. The artifact is the copy that survives the runner.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
 - Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. If push is rejected, download `provider-upload-state` and commit it before another execute. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 374 — 2026-10-07T02:13:00Z
-- Objective: Keep a provider video id on main when classify-upload misses, without painting the job red.
-- Action: The persist step prints `PERSIST_CLASSIFY_MISS_STILL_COMMIT` and continues to `git add` when classify-upload is non-zero and a provider video id exists. Status 2 still skips. A miss without that id still fails. Selftest refuses an exit 0 between that sentence and `git add`. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not add an early-persist call. Did not dispatch the workflow.
-- Result: Selftest passed. Videos published stay 0. No live execute.
-- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
-- Discovery: Runs 372 and 373 stopped a classify miss from failing the job by exiting 0 before the commit. That left the video id on the runner, which is the same loss the heredoc fix was meant to stop.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
-- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

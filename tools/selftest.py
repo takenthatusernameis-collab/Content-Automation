@@ -1302,6 +1302,19 @@ def check_compact_all() -> list[str]:
     return []
 
 
+
+def check_record_run() -> list[str]:
+    """A log prepend must compact in the same process. Run 378 skipped that."""
+    import subprocess
+    contract = ROOT / "tools" / "record_run_contract.py"
+    if not contract.is_file():
+        return ["record_run_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0 or "RECORD RUN CONTRACT PASS" not in proc.stdout:
+        return [f"record_run_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    return []
+
+
 def check_state_compact() -> list[str]:
     """STATE.md must stay short enough that a truncated fetch still shows the current gate."""
     import subprocess
@@ -1605,6 +1618,8 @@ def main() -> int:
     failures.extend(check_job_timeout_covers_upload())
     failures.extend(check_caption_waits_for_processing())
     failures.extend(check_upload_variant_freeze())
+    failures.extend(check_compact_all())
+    failures.extend(check_record_run())
     failures.extend(check_state_compact())
     failures.extend(check_next_compact())
     failures.extend(check_stall_watch())

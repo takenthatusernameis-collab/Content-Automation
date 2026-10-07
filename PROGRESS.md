@@ -2,6 +2,13 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 386 — 2026-10-07T16:13:00Z
+- Improvement: a log prepend that skips compact now fails selftest, and `record_run.py` compacts in the same process. Estimated save: one red Actions selftest and one repair commit per forgotten compact, about 10 agent minutes. Videos published stay 0. Human OAuth step unchanged in kind; it is now issue 1.
+- Efficiency: automated cap check is actually invoked. Remaining manual step is still the three YouTube secrets.
+- Verification: record_run contract and selftest. No provider write.
+
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
 ## Run 385 — 2026-10-07T13:23:00Z
 - Improvement: another operator-card function now fails selftest instead of waiting for three later deltas to set `STALL_OPERATOR_CARD`. Estimated save: one agent run spent reprinting console steps, about 10 minutes, on every future run that would have grown the card. Videos published stay 0. Human OAuth step unchanged in kind.
 - Efficiency: automated freeze covers the existing five functions. Remaining manual step is still the three YouTube secrets.
@@ -52,7 +59,4 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 ## Run 375 — 2026-10-07T03:11:00Z
 - Improvement: a rejected provider-state push still leaves `upload_state.json` as the `provider-upload-state` artifact for 90 days. Estimated save: one duplicate `videos.insert` when main never received the video id, about 15 human minutes plus a duplicate private video. Videos published stay 0. Human OAuth step unchanged.
 
-
-## Run 374 — 2026-10-07T02:13:00Z
-- Persist no longer drops a classified-miss video id to keep the job green. Estimated save: one duplicate `videos.insert` and one lost id if classify crashes after the file is written. Videos published stay 0. Human OAuth step unchanged.
 

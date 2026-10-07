@@ -2,6 +2,12 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 386 — 2026-10-07T16:13:00Z
+- Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, secret poll, or second OAuth issue while videos published stay 0.
+- Lesson: Run 380 claimed selftest calls `compact_all.py --check`. The function was dead. Call it. Use `record_run.py` for the next prepend. Do not add a freeze module to remember that. oauth_idle_without_publish remains; do not spend the next run only restating it.
+
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
 ## Run 385 — 2026-10-07T13:23:00Z
 - Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: Runs 383-384 extended the card and published nothing. `operator_card_freeze.py` fails the build when the function list or card-module list grows. Do not add a function to clear it. Do not poll secrets. oauth_idle_without_publish remains; do not spend the next run only restating it.
@@ -50,8 +56,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 - Lesson: `PERSIST_PUSH_NOT_INSERT_FAILURE` keeps the job green and can still drop the id. The artifact `provider-upload-state` is the recovery copy. Do not dispatch execute again until that file is on main. Do not poll secrets.
 
 
-
-## Run 374 — 2026-10-07T02:13:00Z
-- Failed approach not retried: exiting 0 on a classify miss before `git add`, or another exchange parser, scanner, or pre-upload checker while videos published stay 0.
-- Lesson: a green persist step that skips the commit leaves the video id on the runner. Print `PERSIST_CLASSIFY_MISS_STILL_COMMIT` and commit. Status 2 still skips. Do not poll secrets.
 
