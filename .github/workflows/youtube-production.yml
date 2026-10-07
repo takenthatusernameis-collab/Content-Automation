@@ -247,7 +247,14 @@ jobs:
             exit 0
           fi
           if [ "$status" -ne 0 ]; then
-            exit "$status"
+            # A classify miss after videos.insert is not an insert failure.
+            # Do not dispatch execute again. A miss without a video id still fails.
+            if python3 -c 'import json,os,sys; from pathlib import Path; row=json.loads(Path(os.environ["STATE"]).read_text(encoding="utf-8")); sys.exit(0 if str(row.get("provider_video_id") or "").strip() else 1)'; then
+              echo "PERSIST_PUSH_NOT_INSERT_FAILURE"
+              echo "Provider state was not classified. The video id is already written. Do not dispatch execute again to retry videos.insert."
+              exit 0
+            fi
+            exit 1
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -365,7 +372,7 @@ jobs:
                     echo "collect_feedback is read-only and defaults off. It does not upload or invent metrics."
           echo "collect_feedback refuses a missing or early uploaded_at and does not write COLLECTED."
           echo "collect_feedback does not commit a COLLECTED file unless window.kind is first_calendar_days."
-          echo "A Studio pin miss or a rejected provider-state push after a video id is not an insert failure. Do not dispatch execute again."
+          echo "A Studio pin miss, a classify miss, or a rejected provider-state push after a video id is not an insert failure. Do not dispatch execute again."
           echo "The observation is due at upload plus 7 days plus 3 days of Analytics lag. The query is the first 7 calendar days of that video, not a sliding now window."
           echo "A resumed upload keeps the existing uploaded_at. It does not invent one."
           echo "A caption or thumbnail miss after the video id is written prints POST_UPLOAD_NOT_INSERT_FAILURE and exits 0. Do not dispatch execute again."

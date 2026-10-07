@@ -2458,6 +2458,11 @@ def check_job_timeout_covers_upload() -> list[str]:
         failures.append("studio pin step must not fail the job when the handoff printer exits non-zero")
     if "PERSIST_PUSH_NOT_INSERT_FAILURE" not in workflow:
         failures.append("persist step must not fail the job when a video id exists and the push is rejected")
+    persist_step = workflow.split("- name: Persist non-secret upload state", 1)[-1].split("- name: Collect read-only YouTube feedback", 1)[0]
+    if 'exit "$status"' in persist_step:
+        failures.append("persist classify miss must not fail the job when a video id exists")
+    if "Provider state was not classified" not in persist_step:
+        failures.append("persist step must treat a classify miss with a video id as not an insert failure")
     if "studio.youtube.com" in empty:
         failures.append("studio handoff must not invent an end-screen URL")
     if "inputs.packet" not in workflow or "videos/002-stop-deciding-what-to-work-on-every-morning" not in workflow:

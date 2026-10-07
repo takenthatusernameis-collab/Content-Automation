@@ -2,6 +2,11 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 372 — 2026-10-07T00:15:00Z
+- Improvement: a persist classify miss after a provider video id exists no longer fails the job. Estimated save: one avoided second execute after videos.insert, about 10 human minutes if the first insert already landed.
+- Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets. Videos published stay 0.
+- Verification: selftest PASS. No provider write.
+
 ## Run 371 — 2026-10-06T23:13:00Z
 - Improvement: a playlist membership crash no longer fails the production job after upload state exists, and the job summary no longer tells the operator that a caption miss fails the job. Estimated save: one extra execute dispatch after the first private insert, which could start another videos.insert, about 15 human minutes plus a duplicate private video.
 - Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets.
@@ -44,7 +49,4 @@ The setup recipe now prints the exact private execute dispatch, including collec
 
 ## Run 361 — 2026-10-06T10:12:00Z
 Stall flags no longer stay set only because the lock sentence repeats the tool name. A last chapter inside the final 10 seconds is refused when duration is known, so the first upload does not silently lose chapters. Estimated save: one Studio chapter repair after the first private insert. Human minutes per video otherwise unchanged. Videos published stay 0.
-
-## Run 360 — 2026-10-06T09:11:00Z
-NEXT.md now has one Active locks block and names the three secrets as the only human step. Estimated effect: a truncated fetch no longer hides that step behind a second lock paragraph. Human minutes per video unchanged. Videos published stay 0.
 

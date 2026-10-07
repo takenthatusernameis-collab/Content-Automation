@@ -372,3 +372,6 @@ Local OAuth exchange writes the refresh token only outside the repo and requests
 ## Run 359 — 2026-10-06T08:11:00Z
 The local OAuth exchange accepts the full localhost redirect URL, so the human does not cut the code out of the address bar. Estimated human minutes saved on the first credential setup: about 10, plus one avoided failed token POST. Human minutes per video otherwise unchanged. Videos published stay 0.
 
+## Run 360 — 2026-10-06T09:11:00Z
+NEXT.md now has one Active locks block and names the three secrets as the only human step. Estimated effect: a truncated fetch no longer hides that step behind a second lock paragraph. Human minutes per video unchanged. Videos published stay 0.
+

@@ -1,6 +1,12 @@
 # STATE
 
-Updated: 2026-10-06T23:13:00Z (Run 371)
+Updated: 2026-10-07T00:15:00Z (Run 372)
+
+## Run 372 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- The persist step prints `PERSIST_PUSH_NOT_INSERT_FAILURE` and exits 0 when `classify-upload` fails and `upload_state.json` already has a provider video id. A classify miss without that video id still fails the step. A red job after `videos.insert` is not a reason to dispatch execute again. This does not call YouTube.
 
 ## Run 371 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -70,10 +76,4 @@ Updated: 2026-10-06T23:13:00Z (Run 371)
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - `tools/stall_watch.py` now ignores a do-not-add lock sentence when deciding `STALL_PREUPLOAD_PROBE` and `STALL_UPLOAD_EDGE`. A wired tool still sets the flag. A lock sentence alone does not. This does not call YouTube.
 - `chapter_sync_reason` refuses a last chapter that starts inside the final 10 seconds when duration is known. Unknown duration does not invent an end. Q1 lines still pass at 328.4s. This does not regenerate chapters and does not call YouTube.
-
-## Run 360 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser.
-- `STALL_OAUTH_IDLE` still stands. `STALL_PREUPLOAD_PROBE` still stands. `STALL_UPLOAD_EDGE` still stands. `playlist_id` remains `not_set`. Do not add another export probe, media checker, or caption cue gate. Do not add another exchange parser.
-- `tools/next_compact.py` now keeps one `Active locks:` block and drops a lone `.` paragraph. NEXT.md names the three secrets as the human step. This does not call YouTube.
 
