@@ -438,3 +438,7 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Improvement: rejected-push recovery skips a later production run that did not upload `provider-upload-state`. Estimated save: one missed artifact download and one duplicate `videos.insert` after an execute=false dispatch, about 15 human minutes plus a duplicate private video. Videos published stay 0. Human OAuth step unchanged.
 ## Run 378 — 2026-10-07T06:14:00Z
 - Improvement: rejected-push recovery skips a newer artifact with no provider video id. Estimated save: one duplicate `videos.insert` if a later failed execute hid the first id, about 15 human minutes plus a duplicate private video. Videos published stay 0. Human OAuth step unchanged. Q1 materialize and media QA still PASS.
+## Run 379 — 2026-10-07T07:16:00Z
+- Improvement: a red Actions selftest is fixed by the existing compact tools, not by another recovery edge. Estimated save: one failed selftest cycle and one agent run spent diagnosing a cap miss, about 10 minutes, on every future run that prepends a section and forgets to archive.
+- Efficiency: human minutes per video unchanged. Videos published stay 0. Remaining manual step is still the three YouTube secrets.
+- Verification: Actions run 37580716646 failed on the 12-section cap. Compact tools moved the overflow into the archives.

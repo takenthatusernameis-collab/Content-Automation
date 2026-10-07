@@ -1234,6 +1234,19 @@ def check_oauth_setup_recipe() -> list[str]:
 
 
 
+
+def check_publish_brief() -> list[str]:
+    """Future publish stubs must pin the assignment and must not rewrite Q1."""
+    import subprocess
+    contract = ROOT / "tools" / "publish_brief_contract.py"
+    if not contract.is_file():
+        return ["publish_brief_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0 or "PUBLISH BRIEF CONTRACT PASS" not in proc.stdout:
+        return [f"publish_brief_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    return []
+
+
 def check_title_scan() -> list[str]:
     """Shouted titles must refuse ready_for_vo and must not rewrite Q1."""
     import subprocess
@@ -1653,6 +1666,7 @@ def main() -> int:
     failures.extend(check_idea_gate())
     failures.extend(check_quality_scan())
     failures.extend(check_claim_scan())
+    failures.extend(check_publish_brief())
     failures.extend(check_title_scan())
     failures.extend(check_packet_path())
     failures.extend(check_playlist_membership())

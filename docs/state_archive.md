@@ -806,3 +806,11 @@ Updated: 2026-10-05T17:15:00Z (Run 342)
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - A rejected-push recovery no longer uses only the newest `youtube-production.yml` run. That run can be a later execute=false dispatch with no artifact. `persist_provider_state.py recover` walks the last 20 production runs, skips an empty run id, and downloads `provider-upload-state` from the first run that has it. This does not call YouTube or GitHub.
 
+## Run 378 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- A rejected-push recovery no longer keeps the newest `provider-upload-state` artifact. `persist_provider_state.py recover` skips a downloaded `upload_state.json` that has no `provider_video_id` and continues through the last 20 production runs. A later failed execute must not hide an older insert. This does not call YouTube or GitHub.
+
+Updated: 2026-10-07T05:11:00Z (Run 377)
+

@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 391 — 2026-10-07T21:12:00Z
+- Objective: Stop future publish stubs from asking viewers to reply.
+- Action: `publish_brief.py` pins the mechanism assignment only. A contract fails if the reply sentence returns or if Q1 publish.md changes. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Did not extend the card. Did not add a scanner. Did not scaffold Q2. Did not add a freeze module. Did not add a compact check.
+- Result: Videos published stay 0. Future pins name the assignment. Q1 copy unchanged. No live execute.
+- Verification: `python3 tools/publish_brief_contract.py` printed PUBLISH BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: The stub always ended with a reply ask, including when the mechanism was not a cue. That line would have been pasted into every later publish.md. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not open a second issue. Do not scaffold Q2. Do not add a scanner. Do not poll secrets.
+
 ## Run 390 — 2026-10-07T20:13:00Z
 - Objective: Make the next queued idea paste name its own stall, and stop a false contract fail on the existing Q1 folder.
 - Action: `idea_brief.py` why now now includes the queue problem. The contract requires Q2 and Q3 why-now lines to differ and accepts Q1 status=used. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Did not extend the card. Did not add a scanner. Did not scaffold Q2. Did not add a freeze module. Did not add a compact check.
@@ -100,12 +109,3 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Run 378 passed selftest, then prepended a 13th STATE section and a 13th NEXT note. Actions run 37580716646 failed the contracts. Suspicious: oauth_idle_without_publish still stands (no publish since before Run 270), and recovery-edge stacking (Runs 368-378) did not publish. Do not add another edge for that stall.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Do not spend another run only restating that blocker.
 - Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. After a log prepend, run `python3 tools/compact_all.py` before push. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 379 — 2026-10-07T07:16:00Z
-- Objective: Make Actions selftest green again after Run 378 overflowed the log caps.
-- Action: Ran `state_compact.py`, `next_compact.py`, `runs_compact.py`, and `log_compact.py`. Archived the oldest sections. Did not change recovery, upload, or OAuth code. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add an exchange parser. Did not dispatch the workflow.
-- Result: Live logs are back at the 12-section cap before this entry is compacted. Videos published stay 0. No live execute.
-- Verification: Actions run 37580716646 failed with STATE.md 13 sections and NEXT.md 13 notes. Local compact tools printed COMPACT OK. Selftest is the verification for this commit.
-- Discovery: A local SELFTEST PASS does not mean the commit stayed under the cap. Run 378 added a section and did not archive one. Suspicious: oauth_idle_without_publish still stands, and log_cap_overflow is a separate repeated risk if each run prepends without compacting.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Do not spend another run only restating that blocker. Do not add another recovery edge while this selftest was red.
-- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. If push is rejected, run `python3 tools/persist_provider_state.py recover` and commit only the file that prints RECOVERED_RUN. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

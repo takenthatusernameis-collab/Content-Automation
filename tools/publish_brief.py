@@ -158,9 +158,9 @@ def render(packet: Path) -> str:
     ]
     description = "\n\n".join(desc_bits)
     tags = tag_list(src, title)
+    # Pin is the assignment, not a reply ask. Engagement bait is not a publish step.
     comment = (
-        f"Assignment: install {first_action} before the next work block. "
-        "Reply with the cue you wrote down."
+        f"Assignment: {first_action}. Do that before the next work block."
     )
     return f"""# Publish
 

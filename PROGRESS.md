@@ -2,6 +2,12 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 391 — 2026-10-07T21:12:00Z
+- Improvement: future pin comments are the assignment, not a reply ask. Estimated save: one edit per later video, about 2 minutes, and one engagement-bait line that content rules already reject. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the generator no longer emits the bait line. Remaining manual step is still the three YouTube secrets.
+- Verification: publish brief contract and selftest. No provider write.
+
+
 ## Run 390 — 2026-10-07T20:13:00Z
 - Improvement: each queued idea paste names that row's stall in why now, and the idea contract no longer fails on the existing Q1 packet. Estimated save: about 3 minutes per later video spent rewriting a shared why-now sentence, and one false contract fail per run that treats the 002 folder as a scaffold. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: paste is specific before scaffold. Remaining manual step is still the three YouTube secrets.
@@ -64,8 +70,3 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Improvement: one command compacts STATE, NEXT, RUNS, PROGRESS, and FAILURES and fails if any file stays over cap. Estimated save: one red Actions selftest and one repair commit per forgotten compact, about 10 agent minutes. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: automated log-cap step is now one command instead of four. Remaining manual step is still the three YouTube secrets.
 - Verification: compact_all and selftest on this commit. No provider write.
-
-## Run 379 — 2026-10-07T07:16:00Z
-- Improvement: a red Actions selftest is fixed by the existing compact tools, not by another recovery edge. Estimated save: one failed selftest cycle and one agent run spent diagnosing a cap miss, about 10 minutes, on every future run that prepends a section and forgets to archive.
-- Efficiency: human minutes per video unchanged. Videos published stay 0. Remaining manual step is still the three YouTube secrets.
-- Verification: Actions run 37580716646 failed on the 12-section cap. Compact tools moved the overflow into the archives.

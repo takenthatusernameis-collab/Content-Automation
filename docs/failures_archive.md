@@ -383,3 +383,6 @@ Updated: 2026-10-05T18:20:00Z
 ## Run 378 — 2026-10-07T06:14:00Z
 - Failed approach not retried: keeping the first `provider-upload-state` download, or another exchange parser, scanner, or pre-upload checker while videos published stay 0.
 - Lesson: a later execute can upload `upload_state.json` with no `provider_video_id`. Recovery must skip that file. Do not dispatch execute again. Do not poll secrets. oauth_idle_without_publish has now repeated from Run 366 through Run 378 with no publish; do not spend the next run only restating it.
+## Run 379 — 2026-10-07T07:16:00Z
+- Failed approach not retried: treating a local SELFTEST PASS as proof the pushed logs still fit the compact cap, or adding another provider-state recovery edge while Actions is red for a size miss.
+- Lesson: Run 378 left 13 STATE sections and 13 NEXT notes. Actions run 37580716646 failed. Compact in the same commit that prepends. Do not poll secrets. oauth_idle_without_publish remains; do not restate it as the work.

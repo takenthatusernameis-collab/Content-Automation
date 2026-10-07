@@ -1036,3 +1036,12 @@ Permanent log. Newest first. Do not paste the archive back into this file.
 - Discovery: Run 377 stopped on the first production artifact. A later execute can upload state with a null video id. That file would hide an older insert and invite another videos.insert.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish (runs 366-378, no publish). Do not add another exchange parser. Do not spend another run only restating this blocker.
 - Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. If push is rejected, run `python3 tools/persist_provider_state.py recover` and commit only the file that prints RECOVERED_RUN. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
+## Run 379 — 2026-10-07T07:16:00Z
+- Objective: Make Actions selftest green again after Run 378 overflowed the log caps.
+- Action: Ran `state_compact.py`, `next_compact.py`, `runs_compact.py`, and `log_compact.py`. Archived the oldest sections. Did not change recovery, upload, or OAuth code. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add an exchange parser. Did not dispatch the workflow.
+- Result: Live logs are back at the 12-section cap before this entry is compacted. Videos published stay 0. No live execute.
+- Verification: Actions run 37580716646 failed with STATE.md 13 sections and NEXT.md 13 notes. Local compact tools printed COMPACT OK. Selftest is the verification for this commit.
+- Discovery: A local SELFTEST PASS does not mean the commit stayed under the cap. Run 378 added a section and did not archive one. Suspicious: oauth_idle_without_publish still stands, and log_cap_overflow is a separate repeated risk if each run prepends without compacting.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Do not spend another run only restating that blocker. Do not add another recovery edge while this selftest was red.
+- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. If push is rejected, run `python3 tools/persist_provider_state.py recover` and commit only the file that prints RECOVERED_RUN. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
