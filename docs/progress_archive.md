@@ -375,3 +375,6 @@ The local OAuth exchange accepts the full localhost redirect URL, so the human d
 ## Run 360 — 2026-10-06T09:11:00Z
 NEXT.md now has one Active locks block and names the three secrets as the only human step. Estimated effect: a truncated fetch no longer hides that step behind a second lock paragraph. Human minutes per video unchanged. Videos published stay 0.
 
+## Run 361 — 2026-10-06T10:12:00Z
+Stall flags no longer stay set only because the lock sentence repeats the tool name. A last chapter inside the final 10 seconds is refused when duration is known, so the first upload does not silently lose chapters. Estimated save: one Studio chapter repair after the first private insert. Human minutes per video otherwise unchanged. Videos published stay 0.
+

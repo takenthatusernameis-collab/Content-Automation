@@ -316,3 +316,7 @@ Updated: 2026-10-05T18:20:00Z
 - Failed approach not retried: another OAuth exchange parser, export probe, media checker, or caption cue gate while videos published stay 0.
 - Lesson: Runs 358-359 scripted the token exchange and published nothing. A second Active locks block hid the same human step. Collapse the copy. Do not add another exchange parser.
 
+## Run 361 — 2026-10-06T10:12:00Z
+- Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0.
+- Lesson: a do-not-add sentence is not a wired probe. Scrub it before the stall token check. A last chapter inside the final 10 seconds is ignored by YouTube. Refuse that shape when duration is known. Do not invent duration.
+

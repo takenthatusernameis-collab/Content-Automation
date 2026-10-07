@@ -2,6 +2,11 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 373 — 2026-10-07T01:15:00Z
+- Improvement: provider-state push now runs. The previous heredoc never closed, so a successful insert would not land `upload_state.json` on main. Estimated save: one lost video id and a second execute that could insert again, about 15 human minutes plus a duplicate private video.
+- Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets. Videos published stay 0.
+- Verification: selftest PASS. Workflow heredoc count is 0. No provider write.
+
 ## Run 372 — 2026-10-07T00:15:00Z
 - Improvement: a persist classify miss after a provider video id exists no longer fails the job. Estimated save: one avoided second execute after videos.insert, about 10 human minutes if the first insert already landed.
 - Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets. Videos published stay 0.
@@ -46,7 +51,4 @@ A bare `360 — timestamp` progress line is now a real section. Log compact prom
 
 ## Run 362 — 2026-10-06T11:20:00Z
 The setup recipe now prints the exact private execute dispatch, including collect_feedback=false. Estimated save: one wrong first dispatch that asks for analytics before a video id exists, about 5 human minutes. Human minutes per video otherwise unchanged. Videos published stay 0.
-
-## Run 361 — 2026-10-06T10:12:00Z
-Stall flags no longer stay set only because the lock sentence repeats the tool name. A last chapter inside the final 10 seconds is refused when duration is known, so the first upload does not silently lose chapters. Estimated save: one Studio chapter repair after the first private insert. Human minutes per video otherwise unchanged. Videos published stay 0.
 

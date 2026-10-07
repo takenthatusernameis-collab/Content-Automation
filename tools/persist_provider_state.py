@@ -10,6 +10,7 @@ execute starts a second videos.insert.
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 from pathlib import Path
 from typing import Callable
@@ -195,11 +196,21 @@ def _load(path: Path) -> dict:
     return data
 
 
+def _git_run(cmd: list[str]) -> tuple[int, str, str]:
+    proc = subprocess.run(cmd, capture_output=True, text=True)
+    return proc.returncode, proc.stdout, proc.stderr
+
+
 def main(argv: list[str] | None = None) -> int:
     args = list(sys.argv[1:] if argv is None else argv)
+    if len(args) == 1 and args[0] == "push":
+        # Workflow calls this. Do not inline push_with_retry in a YAML heredoc:
+        # a spaced PY terminator never closes, so the video id is not pushed.
+        print(push_with_retry(_git_run))
+        return 0
     if len(args) != 2 or args[0] not in {"classify-upload", "classify-feedback"}:
         print(
-            "usage: persist_provider_state.py classify-upload|classify-feedback FILE",
+            "usage: persist_provider_state.py classify-upload|classify-feedback FILE | push",
             file=sys.stderr,
         )
         return 1

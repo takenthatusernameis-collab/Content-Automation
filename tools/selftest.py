@@ -1059,8 +1059,15 @@ def check_persist_provider_state() -> list[str]:
         failures.append("production workflow must print stall_watch before authenticated work")
     if "git push origin HEAD:main" in workflow or "git push --force" in workflow:
         failures.append("production workflow must not bare-push or force-push provider state")
-    if "push_with_retry" not in workflow:
-        failures.append("production workflow must retry a rejected provider-state push")
+    if "persist_provider_state.py push" not in workflow:
+        failures.append("production workflow must push provider state through persist_provider_state.py push")
+    if "<<'PY'" in workflow or "<<PY" in workflow:
+        failures.append("production workflow must not inline a provider-state heredoc; a spaced terminator never closes")
+    if "def main" not in (ROOT / "tools" / "persist_provider_state.py").read_text(encoding="utf-8"):
+        failures.append("persist tool must keep a push command")
+    persist_src = (ROOT / "tools" / "persist_provider_state.py").read_text(encoding="utf-8")
+    if 'args[0] == "push"' not in persist_src or "push_with_retry(_git_run)" not in persist_src:
+        failures.append("persist push command must call push_with_retry")
     if "UPLOAD_EARLY_PERSIST" not in workflow:
         failures.append("production execute must persist an open Location before chunks")
     secret = "https://upload.example/session-secret"

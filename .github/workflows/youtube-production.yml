@@ -279,18 +279,7 @@ jobs:
           push_status=0
           if [ "$commit_status" -eq 0 ]; then
             set +e
-            python3 - <<'PY'
-          import subprocess
-          import sys
-          sys.path.insert(0, "tools")
-          from persist_provider_state import push_with_retry
-
-          def run(cmd):
-              proc = subprocess.run(cmd, capture_output=True, text=True)
-              return proc.returncode, proc.stdout, proc.stderr
-
-          print(push_with_retry(run))
-          PY
+            python3 tools/persist_provider_state.py push
             push_status=$?
             set -e
           fi
@@ -344,18 +333,7 @@ jobs:
           }
           git commit -m "Persist collected YouTube feedback state"
           # A rejected push must not drop collected metrics. Retry after fetch. Never force-push.
-          python3 - <<'PY'
-          import subprocess
-          import sys
-          sys.path.insert(0, "tools")
-          from persist_provider_state import push_with_retry
-
-          def run(cmd):
-              proc = subprocess.run(cmd, capture_output=True, text=True)
-              return proc.returncode, proc.stdout, proc.stderr
-
-          print(push_with_retry(run))
-          PY
+          python3 tools/persist_provider_state.py push
 
       - name: Summarize runtime boundary
         if: ${{ always() }}
@@ -389,4 +367,5 @@ jobs:
           echo "Snippet fields over the provider limit fail before the token refresh. Tags are not sliced."
           echo "A token missing caption scope fails before videos.insert. It does not create an uncaptioned video."
           echo "Upload state is persisted even when that post-upload step fails."
+          echo "Provider-state push is tools/persist_provider_state.py push. A spaced heredoc terminator does not close and would drop the video id."
           echo "collect_feedback is skipped when execute is also true; the observation window cannot be due in that dispatch."

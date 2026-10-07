@@ -2,6 +2,15 @@
 
 Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 
+## Run 373 — 2026-10-07T01:15:00Z
+- Objective: Make the provider-state push actually run after videos.insert.
+- Action: Replaced both workflow heredocs with `python3 tools/persist_provider_state.py push`. The old `<<'PY'` terminator was indented, so Bash never closed it and `push_with_retry` never ran. Selftest refuses a workflow heredoc. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not add an early-persist call. Did not dispatch the workflow.
+- Result: Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. A local count of `<<'PY'` in the workflow is 0. Actions not re-run. No provider write.
+- Discovery: Runs 370-372 treated a non-zero persist status as not an insert failure. That swallow hid a push that could not start. The video id would stay on the runner.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
+- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 372 — 2026-10-07T00:15:00Z
 - Objective: Stop a persist classify miss from painting the job red after videos.insert.
 - Action: The persist step prints `PERSIST_PUSH_NOT_INSERT_FAILURE` and exits 0 when `classify-upload` fails and a provider video id exists. A miss without that id still fails the step. Selftest refuses `exit "$status"` in that step. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not add an early-persist call. Did not dispatch the workflow.
@@ -100,14 +109,5 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Step 8 named execute=true but not the `gh` invocation. A first dispatch with collect_feedback=true would fetch before a video id exists.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: OAuth-idle runs have not published a video. Do not add another exchange parser.
 - Next: A human stores the three secrets and runs that dispatch. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 361 — 2026-10-06T10:12:00Z
-- Objective: Stop lock sentences from keeping stall flags set, and stop a last chapter inside the final 10 seconds from being uploaded as if YouTube would show it.
-- Action: `stall_watch.py` scrubs do-not-add sentences before the pre-upload and upload-edge token checks. `chapter_sync_reason` takes an optional duration and refuses `chapter_last_under_10s_before_end`. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser.
-- Result: Stall contract passed. Selftest passed. Videos published stay 0. No live execute.
-- Verification: `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
-- Discovery: Newest STATE deltas repeated the lock sentence, and that sentence contained the same tokens as a wired probe. The flag could not clear. YouTube also drops a chapter list whose last stamp is inside the final 10 seconds. That check was missing.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: OAuth-idle runs have not published a video. Do not add another exchange parser.
-- Next: A human stores the three secrets and dispatches execute=true. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 Permanent log. Newest first. Do not paste the archive back into this file.

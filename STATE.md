@@ -1,6 +1,12 @@
 # STATE
 
-Updated: 2026-10-07T00:15:00Z (Run 372)
+Updated: 2026-10-07T01:15:00Z (Run 373)
+
+## Run 373 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Both provider-state push steps called `python3 - <<'PY'` and closed on `          PY`. Bash does not treat a spaced terminator as the end of the heredoc, so `push_with_retry` never ran. A later swallow of that non-zero status would leave the video id off main. The steps now call `python3 tools/persist_provider_state.py push`. This does not call YouTube.
 
 ## Run 372 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -69,11 +75,4 @@ Updated: 2026-10-07T00:15:00Z (Run 372)
 - No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker.
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - `tools/oauth_setup.py` now prints the exact `gh workflow dispatch` for the first private execute, with `collect_feedback=false`. It does not call GitHub and does not print secret values. This does not call YouTube.
-
-## Run 361 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- `tools/stall_watch.py` now ignores a do-not-add lock sentence when deciding `STALL_PREUPLOAD_PROBE` and `STALL_UPLOAD_EDGE`. A wired tool still sets the flag. A lock sentence alone does not. This does not call YouTube.
-- `chapter_sync_reason` refuses a last chapter that starts inside the final 10 seconds when duration is known. Unknown duration does not invent an end. Q1 lines still pass at 328.4s. This does not regenerate chapters and does not call YouTube.
 
