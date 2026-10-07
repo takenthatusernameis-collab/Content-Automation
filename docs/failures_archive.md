@@ -328,3 +328,7 @@ Updated: 2026-10-05T18:20:00Z
 - Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0.
 - Lesson: a progress line that omits the Run heading is invisible to log compact and can be cut with the previous section. Promote that shape. Do not poll secrets.
 
+## Run 364 — 2026-10-06T13:22:00Z
+- Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0.
+- Lesson: an idle flag without a count still looks like a fresh note. Print `idle_streak`. At 8 or more, print `suspicious: oauth_idle_without_publish`. Do not poll secrets.
+

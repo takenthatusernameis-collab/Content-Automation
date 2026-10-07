@@ -720,3 +720,10 @@ Updated: 2026-10-05T17:15:00Z (Run 342)
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - PROGRESS.md Run 360 was a bare `360 — timestamp` line, so log compact did not count it. `tools/log_compact.py` now promotes that shape to a Run heading before the size cap. The live heading is restored. Run 351 and Run 350 progress sections moved to `docs/progress_archive.md`. This does not call YouTube.
 
+## Run 364 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `tools/stall_watch.py` now prints `idle_streak` for every newest STATE delta that still says OAuth was not polled and videos published stay 0. A streak of 8 or more also prints `suspicious: oauth_idle_without_publish`. A published or polled newest delta resets the streak. This does not call YouTube and does not add a scanner.
+- Live STATE before this delta already had 12 such newest deltas (Runs 363-352). After this delta the streak is 13. That repetition is suspicious. Do not treat another restatement as progress.
+

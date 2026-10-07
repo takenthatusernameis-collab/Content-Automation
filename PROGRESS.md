@@ -2,6 +2,9 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 376 — 2026-10-07T04:12:00Z
+- Improvement: rejected-push recovery now selects the production workflow run, not the newest Actions run. Estimated save: one missed `provider-upload-state` download and one duplicate `videos.insert` after a later selftest run, about 15 human minutes plus a duplicate private video. Videos published stay 0. Human OAuth step unchanged.
+
 ## Run 375 — 2026-10-07T03:11:00Z
 - Improvement: a rejected provider-state push still leaves `upload_state.json` as the `provider-upload-state` artifact for 90 days. Estimated save: one duplicate `videos.insert` when main never received the video id, about 15 human minutes plus a duplicate private video. Videos published stay 0. Human OAuth step unchanged.
 
@@ -49,7 +52,4 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 
 ## Run 365 — 2026-10-06T15:20:00Z
 Selftest can see a clear stall watch again. A zero idle streak is not a flag, so a quiet file no longer looks like a stall. STATE.md and NEXT.md are back at the 12-section cap. Estimated effect: the next run does not reconstruct a red gate that was only a count of zero. Human minutes per video unchanged. Videos published stay 0.
-
-## Run 364 — 2026-10-06T13:22:00Z
-The production stall printer now counts consecutive unpublished OAuth-idle deltas. Estimated effect: a later run can see `idle_streak` and `suspicious: oauth_idle_without_publish` without reconstructing STATE. Human minutes per video unchanged. Videos published stay 0. Live streak after this delta: 13.
 

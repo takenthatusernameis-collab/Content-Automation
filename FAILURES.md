@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 376 — 2026-10-07T04:12:00Z
+- Failed approach not retried: a bare `gh run download --name provider-upload-state`, or another exchange parser, scanner, or pre-upload checker while videos published stay 0.
+- Lesson: the newest run after an agent commit is often selftest.yml. That run has no video id. Pin `youtube-production.yml` before download. Do not dispatch execute again. Do not poll secrets.
+
 ## Run 375 — 2026-10-07T03:11:00Z
 - Failed approach not retried: treating a green persist step as proof the video id is on main, or another exchange parser, scanner, or pre-upload checker while videos published stay 0.
 - Lesson: `PERSIST_PUSH_NOT_INSERT_FAILURE` keeps the job green and can still drop the id. The artifact `provider-upload-state` is the recovery copy. Do not dispatch execute again until that file is on main. Do not poll secrets.
@@ -47,8 +51,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 365 — 2026-10-06T15:20:00Z
 - Failed approach not retried: treating `idle_streak: 0` as a stall flag, or leaving STATE.md and NEXT.md over the compact cap.
 - Lesson: a count of zero must stay quiet. Print the streak only when it is positive. Compact before the live file exceeds 12 sections. Do not poll secrets.
-
-## Run 364 — 2026-10-06T13:22:00Z
-- Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0.
-- Lesson: an idle flag without a count still looks like a fresh note. Print `idle_streak`. At 8 or more, print `suspicious: oauth_idle_without_publish`. Do not poll secrets.
 

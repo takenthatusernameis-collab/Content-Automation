@@ -892,3 +892,21 @@ Older runs live in `docs/runs_archive.md`. Do not paste the archive back. `tools
 - Next: A human stores the three secrets and runs that dispatch. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
 
 Permanent log. Newest first. Do not paste the archive back into this file.
+
+## Run 364 — 2026-10-06T13:22:00Z
+- Objective: Make the repeated unpublished OAuth stall countable so later runs can flag it instead of restating it.
+- Action: `tools/stall_watch.py` prints `idle_streak` and `suspicious: oauth_idle_without_publish` at 8 or more consecutive unpublished unpolled deltas. Contract covers the streak, the suspicious line, and a reset when the newest delta is not that shape. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not dispatch the workflow.
+- Result: Contract passed. Videos published stay 0. No live execute. Idle streak on this STATE is 13.
+- Verification: `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. Actions not re-run. No provider write.
+- Discovery: Runs 352-363 each said videos published stay 0 and OAuth was not polled. The idle flag already existed, but it did not say how long the stall had lasted.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
+- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
+## Run 363 — 2026-10-06T12:20:00Z
+- Objective: Stop a progress section that omits the Run heading from being dropped by the size cap.
+- Action: `tools/log_compact.py` promotes a bare `NNN — timestamp` line to a Run heading before it splits sections. Restored the Run 360 heading. Moved Run 351 and Run 350 progress sections into `docs/progress_archive.md`. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not dispatch the workflow.
+- Result: Contract passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/log_compact_contract.py` printed LOG COMPACT CONTRACT PASS. Actions not re-run. No provider write.
+- Discovery: Run 360 wrote `360 — 2026-10-06T09:11:00Z` without the section prefix. Compact splits only on the Run heading, so that lesson was body text of Run 361.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: OAuth-idle runs have not published a video. Do not add another exchange parser.
+- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

@@ -2,6 +2,15 @@
 
 Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 
+## Run 376 — 2026-10-07T04:12:00Z
+- Objective: Stop a rejected-push recovery from downloading the newest selftest run instead of the video id.
+- Action: `artifact_recovery_command` now pins `youtube-production.yml` with `gh run list --workflow` before `gh run download --name provider-upload-state`. Selftest refuses a recovery command that omits that workflow. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not add an early-persist call. Did not dispatch the workflow.
+- Result: Selftest passed. Videos published stay 0. No live execute.
+- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write. The recover function does not call GitHub.
+- Discovery: Run 375 uploaded the artifact, then printed a bare `gh run download --name`. After the next agent commit, the newest run is selftest.yml, which has no `provider-upload-state`. That download misses the video id and invites another execute.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
+- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. If push is rejected, run `python3 tools/persist_provider_state.py recover` and commit that file before another execute. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 375 — 2026-10-07T03:11:00Z
 - Objective: Keep a provider video id recoverable when git push is rejected after videos.insert.
 - Action: The production workflow has `actions: write` and uploads `upload_state.json` as `provider-upload-state` with continue-on-error. A rejected push prints `python3 tools/persist_provider_state.py recover` (`gh run download --repo takenthatusernameis-collab/Content-Automation --name provider-upload-state`). Selftest refuses a workflow that lacks that artifact. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not add an early-persist call. Did not dispatch the workflow.
@@ -10,7 +19,6 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Runs 370-374 exit 0 after a rejected push so the job stays green. That still leaves the video id off main. The next execute can insert again. The artifact is the copy that survives the runner.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
 - Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. If push is rejected, download `provider-upload-state` and commit it before another execute. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
 
 ## Run 374 — 2026-10-07T02:13:00Z
 - Objective: Keep a provider video id on main when classify-upload misses, without painting the job red.
@@ -101,22 +109,3 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Run 364 made every file print a streak, including a clear file. Selftest treats a non-empty `flag_text` as a stall. The live STATE and NEXT files were also one section over the cap, so the compact contracts failed.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
 - Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 364 — 2026-10-06T13:22:00Z
-- Objective: Make the repeated unpublished OAuth stall countable so later runs can flag it instead of restating it.
-- Action: `tools/stall_watch.py` prints `idle_streak` and `suspicious: oauth_idle_without_publish` at 8 or more consecutive unpublished unpolled deltas. Contract covers the streak, the suspicious line, and a reset when the newest delta is not that shape. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not dispatch the workflow.
-- Result: Contract passed. Videos published stay 0. No live execute. Idle streak on this STATE is 13.
-- Verification: `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. Actions not re-run. No provider write.
-- Discovery: Runs 352-363 each said videos published stay 0 and OAuth was not polled. The idle flag already existed, but it did not say how long the stall had lasted.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
-- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 363 — 2026-10-06T12:20:00Z
-- Objective: Stop a progress section that omits the Run heading from being dropped by the size cap.
-- Action: `tools/log_compact.py` promotes a bare `NNN — timestamp` line to a Run heading before it splits sections. Restored the Run 360 heading. Moved Run 351 and Run 350 progress sections into `docs/progress_archive.md`. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not dispatch the workflow.
-- Result: Contract passed. Videos published stay 0. No live execute.
-- Verification: `python3 tools/log_compact_contract.py` printed LOG COMPACT CONTRACT PASS. Actions not re-run. No provider write.
-- Discovery: Run 360 wrote `360 — 2026-10-06T09:11:00Z` without the section prefix. Compact splits only on the Run heading, so that lesson was body text of Run 361.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: OAuth-idle runs have not published a video. Do not add another exchange parser.
-- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-

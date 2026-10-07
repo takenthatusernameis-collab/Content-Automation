@@ -20,10 +20,22 @@ RECOVERY_REPO = "takenthatusernameis-collab/Content-Automation"
 
 
 def artifact_recovery_command(
-    repo: str = RECOVERY_REPO, artifact: str = RECOVERY_ARTIFACT
+    repo: str = RECOVERY_REPO,
+    artifact: str = RECOVERY_ARTIFACT,
+    workflow: str = "youtube-production.yml",
 ) -> str:
-    """How to fetch the video id if git push was rejected. Does not call GitHub."""
-    return f"gh run download --repo {repo} --name {artifact}"
+    """How to fetch the video id if git push was rejected.
+
+    Do not call GitHub from this function. A bare `gh run download --name`
+    uses the newest run. Agent commits trigger selftest.yml, which has no
+    provider-upload-state, so that download misses the video id. Pin the
+    production workflow.
+    """
+    return (
+        f"gh run download --repo {repo} --name {artifact} "
+        f"$(gh run list --repo {repo} --workflow {workflow} --limit 1 "
+        f"--json databaseId --jq '.[0].databaseId')"
+    )
 
 
 def upload_commit_decision(data: dict) -> str:
@@ -215,6 +227,7 @@ def main(argv: list[str] | None = None) -> int:
         # Printed after a rejected push. Does not download and does not call YouTube.
         print(artifact_recovery_command())
         print("Do not dispatch execute again. Copy upload_state.json onto main before another insert.")
+        print("Do not run a bare gh run download --name provider-upload-state. That picks the newest run, often selftest, which has no video id.")
         return 0
     if len(args) == 1 and args[0] == "push":
         # Workflow calls this. Do not inline push_with_retry in a YAML heredoc:

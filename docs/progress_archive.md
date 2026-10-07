@@ -384,3 +384,6 @@ The setup recipe now prints the exact private execute dispatch, including collec
 ## Run 363 — 2026-10-06T12:20:00Z
 A bare `360 — timestamp` progress line is now a real section. Log compact promotes that shape before the size cap, and the live Run 360 heading is restored. Estimated effect: a truncated fetch no longer drops the Run 360 lesson into the previous section. Human minutes per video unchanged. Videos published stay 0.
 
+## Run 364 — 2026-10-06T13:22:00Z
+The production stall printer now counts consecutive unpublished OAuth-idle deltas. Estimated effect: a later run can see `idle_streak` and `suspicious: oauth_idle_without_publish` without reconstructing STATE. Human minutes per video unchanged. Videos published stay 0. Live streak after this delta: 13.
+

@@ -2485,6 +2485,8 @@ def check_job_timeout_covers_upload() -> list[str]:
     recovery = artifact_recovery_command()
     if "provider-upload-state" not in recovery or "gh run download" not in recovery:
         failures.append("artifact recovery command must name the provider-upload-state artifact")
+    if "youtube-production.yml" not in recovery or "gh run list" not in recovery:
+        failures.append("artifact recovery must pin youtube-production.yml so a later selftest run is not downloaded")
     classified = persist_step.split("Provider state was not classified", 1)[-1]
     before_add = classified.split('git add "$STATE"', 1)[0]
     if "exit 0" in before_add:
