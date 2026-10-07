@@ -90,6 +90,48 @@ def main() -> int:
     again_b, _, moved_b = log_compact.compact_text(promoted, "# ARCHIVE\n")
     if moved_b != 0 or again_b != promoted:
         return fail("bare promotion is not stable")
+    import compact_all
+    dup = compact_all.pointer_misses(
+        {
+            "FAILURES.md": (
+                "Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.\n"
+                "Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.\n"
+            ),
+            "PROGRESS.md": "Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.\n",
+        }
+    )
+    if len(dup) != 1 or "FAILURES.md has 2" not in dup[0]:
+        return fail(f"duplicate pointer was not flagged: {dup}")
+    clean = compact_all.pointer_misses(
+        {
+            "FAILURES.md": "Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.\n",
+            "PROGRESS.md": "Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.\n",
+        }
+    )
+    if clean:
+        return fail(f"single pointer was flagged: {clean}")
+    buried = (
+        "# FAILURES\n\n"
+        "## Run 388 — 2026-10-07T18:11:00Z\n"
+        "- note\n\n"
+        "Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.\n\n"
+        "## Run 387 — 2026-10-07T17:12:00Z\n"
+        "- note\n"
+    )
+    fixed = log_compact.ensure_pointer(
+        buried,
+        "Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.",
+    )
+    if fixed.count("Older failure notes live") != 1:
+        return fail(f"buried pointer was not collapsed: {fixed.count('Older failure notes live')}")
+    if not fixed.split("## Run ")[0].count("Older failure notes live"):
+        return fail("pointer was not placed in the preamble")
+    again_p = log_compact.ensure_pointer(
+        fixed,
+        "Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.",
+    )
+    if again_p != fixed:
+        return fail("ensure_pointer is not stable")
     print("LOG COMPACT CONTRACT PASS")
     return 0
 

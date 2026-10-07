@@ -102,6 +102,24 @@ def compact_text(text: str, archive_text: str, max_sections: int = MAX_SECTIONS)
     return new_text, new_archive, len(older)
 
 
+def ensure_pointer(text: str, pointer: str) -> str:
+    """Keep one archive pointer in the preamble.
+
+    A prepend puts the old pointer inside the newest section. Injecting a
+    preamble copy without a second collapse leaves two pointers. Run 387
+    shipped that shape. --check only counted sections.
+    """
+    text = collapse_headers(text)
+    pre, sections = split_sections(text)
+    if pointer in pre:
+        return text
+    if not pre.endswith("\n"):
+        pre += "\n"
+    pre = pre.rstrip() + f"\n\n{pointer}\n\n"
+    text = pre + "".join(SPLIT + part for part in sections)
+    return collapse_headers(text)
+
+
 def compact_file(live: Path, archive: Path, pointer: str) -> tuple[int, int]:
     if not live.is_file():
         print(f"REFUSE: {live.name} missing", file=sys.stderr)
@@ -110,12 +128,7 @@ def compact_file(live: Path, archive: Path, pointer: str) -> tuple[int, int]:
         f"# {live.stem.upper()} ARCHIVE\n\nOlder sections. Do not delete. Do not paste back into {live.name}.\n\n"
     )
     new_text, new_archive, moved = compact_text(live.read_text(), archive_text)
-    if pointer not in new_text.split(SPLIT, 1)[0]:
-        pre, sections = split_sections(new_text)
-        if not pre.endswith("\n"):
-            pre += "\n"
-        pre = pre.rstrip() + f"\n\n{pointer}\n\n"
-        new_text = pre + "".join(SPLIT + part for part in sections)
+    new_text = ensure_pointer(new_text, pointer)
     if moved == 0 and new_text == live.read_text():
         print(f"LOG COMPACT OK file={live.name} sections={len(split_sections(new_text)[1])} moved=0")
         return 0, 0

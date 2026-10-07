@@ -2,11 +2,15 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 388 — 2026-10-07T18:11:00Z
+- Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, secret poll, freeze module, or second OAuth issue while videos published stay 0.
+- Lesson: Run 387 collapsed headers in `compact_text` and still committed two pointers because `--check` only counted sections. Fail the check. Do not add a freeze module to remember it. oauth_idle_without_publish remains; do not spend the next run only restating it.
+
+
 ## Run 387 — 2026-10-07T17:12:00Z
 - Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, secret poll, freeze module, or second OAuth issue while videos published stay 0.
 - Lesson: Run 386 left the NEXT `Updated:` line on Run 385. Refresh that one line in `record_run.py`. Do not add a freeze module to remember it. oauth_idle_without_publish remains; do not spend the next run only restating it.
 
-Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 386 — 2026-10-07T16:13:00Z
 - Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, secret poll, or second OAuth issue while videos published stay 0.
@@ -51,8 +55,3 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 377 — 2026-10-07T05:11:00Z
 - Failed approach not retried: `gh run list --workflow youtube-production.yml --limit 1` as the only recovery selector, or a bare download when that id is empty.
 - Lesson: the newest production run can be execute=false and have no artifact. Walk recent production runs and refuse an empty id. Do not dispatch execute again. Do not poll secrets.
-
-## Run 376 — 2026-10-07T04:12:00Z
-- Failed approach not retried: a bare `gh run download --name provider-upload-state`, or another exchange parser, scanner, or pre-upload checker while videos published stay 0.
-- Lesson: the newest run after an agent commit is often selftest.yml. That run has no video id. Pin `youtube-production.yml` before download. Do not dispatch execute again. Do not poll secrets.
-

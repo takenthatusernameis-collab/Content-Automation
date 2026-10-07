@@ -432,3 +432,5 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 
 ## Run 375 — 2026-10-07T03:11:00Z
 - Improvement: a rejected provider-state push still leaves `upload_state.json` as the `provider-upload-state` artifact for 90 days. Estimated save: one duplicate `videos.insert` when main never received the video id, about 15 human minutes plus a duplicate private video. Videos published stay 0. Human OAuth step unchanged.
+## Run 376 — 2026-10-07T04:12:00Z
+- Improvement: rejected-push recovery now selects the production workflow run, not the newest Actions run. Estimated save: one missed `provider-upload-state` download and one duplicate `videos.insert` after a later selftest run, about 15 human minutes plus a duplicate private video. Videos published stay 0. Human OAuth step unchanged.

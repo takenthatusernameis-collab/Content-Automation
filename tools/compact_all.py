@@ -44,6 +44,26 @@ def counts() -> dict[str, int]:
     }
 
 
+POINTERS = {
+    "FAILURES.md": "Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.",
+    "PROGRESS.md": "Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.",
+}
+
+
+def pointer_misses(texts: dict[str, str]) -> list[str]:
+    """A second archive pointer is not a section. Run 387 shipped one anyway.
+
+    compact_text already collapses duplicates, but --check never read them.
+    A truncated fetch then treats the second pointer as the archive boundary.
+    """
+    misses = []
+    for name, pointer in POINTERS.items():
+        count = texts.get(name, "").count(pointer)
+        if count != 1:
+            misses.append(f"{name} has {count} archive pointers, expected 1")
+    return misses
+
+
 def over_cap(found: dict[str, int]) -> list[str]:
     limits = {
         "STATE.md": state_compact.MAX_RUNS,
@@ -73,6 +93,14 @@ def main() -> int:
                 return proc.returncode
     found = counts()
     misses = over_cap(found)
+    misses.extend(
+        pointer_misses(
+            {
+                "FAILURES.md": (ROOT / "FAILURES.md").read_text(),
+                "PROGRESS.md": (ROOT / "PROGRESS.md").read_text(),
+            }
+        )
+    )
     summary = " ".join(f"{name.split('.')[0]}={found[name]}" for name in found)
     if misses:
         print("COMPACT ALL FAIL " + "; ".join(misses), file=sys.stderr)

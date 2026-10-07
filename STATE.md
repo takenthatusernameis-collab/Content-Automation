@@ -1,5 +1,13 @@
 # STATE
 
+Updated: 2026-10-07T18:11:00Z (Run 388)
+
+## Run 388 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge. Did not extend operator_card. Did not add a freeze module.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Run 387 left a second archive pointer in PROGRESS.md and FAILURES.md. `compact_text` already collapses that, but `compact_all.py --check` only counted sections, so the duplicate shipped. `--check` now fails unless each file has exactly one pointer. This does not call YouTube or GitHub.
+
 Updated: 2026-10-07T17:12:00Z (Run 387)
 
 ## Run 387 delta
@@ -86,10 +94,4 @@ Updated: 2026-10-07T05:11:00Z (Run 377)
 - No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - A rejected push recovery no longer uses a bare `gh run download --name provider-upload-state`. That command follows the newest run. Agent commits trigger `selftest.yml`, which has no video id. `persist_provider_state.py recover` now pins `youtube-production.yml` via `gh run list`. This does not call YouTube or GitHub.
-
-## Run 375 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- A rejected provider-state push no longer leaves the video id only on the runner. The execute job uploads `upload_state.json` as the `provider-upload-state` artifact (`actions: write`, `continue-on-error`). A rejected push prints `gh run download --repo takenthatusernameis-collab/Content-Automation --name provider-upload-state`. This does not call YouTube.
 
