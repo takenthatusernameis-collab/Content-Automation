@@ -363,3 +363,7 @@ Updated: 2026-10-05T18:20:00Z
 - Failed approach not retried: another exchange parser, scanner, pre-upload checker, or early-persist call while videos published stay 0. Execute was not dispatched.
 - Lesson: swallowing only a rejected commit or push still leaves a classify miss as a red job. Print `PERSIST_PUSH_NOT_INSERT_FAILURE` and exit 0 when a provider video id exists. A miss without that id still fails. Do not dispatch execute again. Do not poll secrets.
 
+## Run 373 — 2026-10-07T01:15:00Z
+- Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0. A spaced `PY` heredoc was not left in the workflow.
+- Lesson: swallowing a persist miss is not a push. `<<'PY'` closed by an indented `PY` never runs `push_with_retry`. Call `persist_provider_state.py push`. Do not poll secrets.
+

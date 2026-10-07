@@ -1359,6 +1359,27 @@ def check_operator_card() -> list[str]:
     return []
 
 
+
+def check_operator_card_freeze() -> list[str]:
+    """A new operator_card function or second card module fails the build.
+
+    Runs 383-384 extended the card while videos published stayed 0.
+    This does not extend the card and does not poll secrets.
+    """
+    import subprocess
+    contract = ROOT / "tools" / "operator_card_freeze_contract.py"
+    freeze = ROOT / "tools" / "operator_card_freeze.py"
+    if not contract.is_file() or not freeze.is_file():
+        return ["operator_card_freeze.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0 or "OPERATOR CARD FREEZE CONTRACT PASS" not in proc.stdout:
+        return [f"operator_card_freeze_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    live = subprocess.run([sys.executable, str(freeze)], cwd=ROOT, text=True, capture_output=True)
+    if live.returncode != 0 or "OPERATOR CARD FREEZE PASS" not in live.stdout:
+        return [f"operator_card_freeze failed: {live.stdout[-400:]} {live.stderr[-200:]}"]
+    return []
+
+
 def check_recovery_freeze() -> list[str]:
     """A new provider-upload-state artifact or recover call fails the build.
 

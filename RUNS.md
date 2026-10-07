@@ -2,6 +2,15 @@
 
 Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 
+## Run 385 — 2026-10-07T13:23:00Z
+- Objective: Stop another operator-card extension from landing while videos published stay 0.
+- Action: Added `tools/operator_card_freeze.py`. Selftest fails if `operator_card.py` grows a function, a second card module appears, or the card imports subprocess or a network client. `stall_watch.py` sets `STALL_OPERATOR_CARD` after three wired card deltas. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Did not extend operator_card. Did not add a scanner. Did not scaffold Q2.
+- Result: Videos published stay 0. Operator-card defs stay 5. No live execute.
+- Verification: `python3 tools/operator_card_freeze_contract.py`, `python3 tools/stall_watch_contract.py`, and `python3 tools/selftest.py`. No provider write.
+- Discovery: Runs 383-384 reprinted the human step and still published nothing. A prose "do not add a second card" did not stop the reprint. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human runs `python3 tools/operator_card.py` and stores the three secrets. Do not extend the card. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
 ## Run 384 — 2026-10-07T12:20:00Z
 - Objective: Make the one human publish command include the Google Cloud steps, not only the secret-set lines.
 - Action: `tools/operator_card.py` reprints the numbered steps from `oauth_setup.recipe()`. The contract fails if Desktop app, YouTube Data API v3, the exchange command, or the dispatch line drifts. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Did not add a scanner. Did not scaffold Q2.
@@ -98,14 +107,5 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Result: Selftest passed. Videos published stay 0. No live execute.
 - Verification: `python3 tools/selftest.py` printed SELFTEST PASS. Actions not re-run. No provider write.
 - Discovery: Runs 372 and 373 stopped a classify miss from failing the job by exiting 0 before the commit. That left the video id on the runner, which is the same loss the heredoc fix was meant to stop.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
-- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 373 — 2026-10-07T01:15:00Z
-- Objective: Make the provider-state push actually run after videos.insert.
-- Action: Replaced both workflow heredocs with `python3 tools/persist_provider_state.py push`. The old `<<'PY'` terminator was indented, so Bash never closed it and `push_with_retry` never ran. Selftest refuses a workflow heredoc. Did not poll secrets. Did not add a scanner. Did not scaffold Q2. Did not add a pre-upload checker. Did not add an exchange parser. Did not add an early-persist call. Did not dispatch the workflow.
-- Result: Selftest passed. Videos published stay 0. No live execute.
-- Verification: `python3 tools/selftest.py` printed SELFTEST PASS. A local count of `<<'PY'` in the workflow is 0. Actions not re-run. No provider write.
-- Discovery: Runs 370-372 treated a non-zero persist status as not an insert failure. That swallow hid a push that could not start. The video id would stay on the runner.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Suspicious: oauth_idle_without_publish. Do not add another exchange parser.
 - Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

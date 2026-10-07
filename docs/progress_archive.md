@@ -422,3 +422,8 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets. Videos published stay 0.
 - Verification: selftest PASS. No provider write.
 
+## Run 373 — 2026-10-07T01:15:00Z
+- Improvement: provider-state push now runs. The previous heredoc never closed, so a successful insert would not land `upload_state.json` on main. Estimated save: one lost video id and a second execute that could insert again, about 15 human minutes plus a duplicate private video.
+- Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets. Videos published stay 0.
+- Verification: selftest PASS. Workflow heredoc count is 0. No provider write.
+

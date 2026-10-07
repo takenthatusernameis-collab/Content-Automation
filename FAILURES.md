@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 385 — 2026-10-07T13:23:00Z
+- Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: Runs 383-384 extended the card and published nothing. `operator_card_freeze.py` fails the build when the function list or card-module list grows. Do not add a function to clear it. Do not poll secrets. oauth_idle_without_publish remains; do not spend the next run only restating it.
+
 ## Run 384 — 2026-10-07T12:20:00Z
 - Failed approach not retried: another provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0. Also not retried: a second operator card that only reprints secret-set lines.
 - Lesson: Run 383 left the Google Cloud clicks off the one command. Reprint those steps from `oauth_setup.py`. Do not add an edge to make the card pass. Do not poll secrets. oauth_idle_without_publish remains; do not spend the next run only restating it.
@@ -50,8 +54,4 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 374 — 2026-10-07T02:13:00Z
 - Failed approach not retried: exiting 0 on a classify miss before `git add`, or another exchange parser, scanner, or pre-upload checker while videos published stay 0.
 - Lesson: a green persist step that skips the commit leaves the video id on the runner. Print `PERSIST_CLASSIFY_MISS_STILL_COMMIT` and commit. Status 2 still skips. Do not poll secrets.
-
-## Run 373 — 2026-10-07T01:15:00Z
-- Failed approach not retried: another exchange parser, scanner, or pre-upload checker while videos published stay 0. A spaced `PY` heredoc was not left in the workflow.
-- Lesson: swallowing a persist miss is not a push. `<<'PY'` closed by an indented `PY` never runs `push_with_retry`. Call `persist_provider_state.py push`. Do not poll secrets.
 

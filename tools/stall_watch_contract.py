@@ -16,6 +16,7 @@ from stall_watch import (
     INSTRUCTION_FLAG,
     LOCAL_GATE_FLAG,
     PREUPLOAD_FLAG,
+    OPERATOR_CARD_FLAG,
     RECOVERY_EDGE_FLAG,
     UPLOAD_EDGE_FLAG,
     flag_text,
@@ -142,6 +143,24 @@ def main() -> int:
     ) * 4
     if RECOVERY_EDGE_FLAG in flag_text(recovery_lock):
         return fail("recovery lock boilerplate must not set the flag")
+    card = delta(
+        "OAuth secrets were not polled. Videos published stay 0. operator_card.py reprints console steps. No provider write."
+    ) * 3
+    flags = flag_text(card)
+    if OPERATOR_CARD_FLAG not in flags:
+        return fail(f"operator card window missing: {flags}")
+    if "suspicious: operator_card_without_publish" not in flags:
+        return fail("operator card window must name the suspicious pattern")
+    card_lock = delta(
+        "OAuth secrets were not polled. Videos published stay 0. Do not extend operator_card. No new operator card."
+    ) * 3
+    if OPERATOR_CARD_FLAG in flag_text(card_lock):
+        return fail("operator card lock boilerplate must not set the flag")
+    one_card = delta(
+        "OAuth secrets were not polled. Videos published stay 0. operator_card.py reprints console steps. No provider write."
+    )
+    if OPERATOR_CARD_FLAG in flag_text(one_card):
+        return fail("one operator card delta must not set the flag")
     edge_lock = delta(
         "OAuth secrets were not polled. Videos published stay 0. Do not add another Location, session hold, or early-persist call."
     ) * 4

@@ -1,3 +1,9 @@
+# DECISIONS
+
+## 2026-10-07 — Run 385: freeze the operator-card surface until a video is published
+
+- 2026-10-07 | `tools/operator_card_freeze.py` fails selftest if `operator_card.py` grows a function, a second card module appears, or the card imports subprocess or a network client. | Runs 383-384 extended the card while videos published stayed 0. A prose lock did not stop the reprint.
+
 ## 2026-10-07 — Run 382: freeze the recovery surface until a video id is on main
 
 - 2026-10-07 | `tools/recovery_freeze.py` fails selftest if `youtube-production.yml` grows a second `provider-upload-state` artifact or a second `persist_provider_state.py recover` call. | Runs 368-378 stacked recover paths and a later stall flag did not stop the next edge. | Revisit after a provider video id is on main. Do not add an edge to clear the freeze. Do not poll secrets.

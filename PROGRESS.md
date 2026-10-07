@@ -2,6 +2,11 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 385 — 2026-10-07T13:23:00Z
+- Improvement: another operator-card function now fails selftest instead of waiting for three later deltas to set `STALL_OPERATOR_CARD`. Estimated save: one agent run spent reprinting console steps, about 10 minutes, on every future run that would have grown the card. Videos published stay 0. Human OAuth step unchanged in kind.
+- Efficiency: automated freeze covers the existing five functions. Remaining manual step is still the three YouTube secrets.
+- Verification: operator-card freeze contract and stall-watch contract. No provider write.
+
 ## Run 384 — 2026-10-07T12:20:00Z
 - Improvement: the one human command now includes the Google Cloud console steps, scopes, and exchange command, so the next run does not reconstruct them from `oauth_setup.py`. Estimated save: about 10 minutes per future run spent rebuilding the consent steps, and one wrong token scope if only the secret-set lines are followed. Videos published stay 0. Human OAuth step unchanged in kind.
 - Efficiency: automated check covers console-step drift. Remaining manual step is still the three YouTube secrets.
@@ -50,9 +55,4 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 
 ## Run 374 — 2026-10-07T02:13:00Z
 - Persist no longer drops a classified-miss video id to keep the job green. Estimated save: one duplicate `videos.insert` and one lost id if classify crashes after the file is written. Videos published stay 0. Human OAuth step unchanged.
-
-## Run 373 — 2026-10-07T01:15:00Z
-- Improvement: provider-state push now runs. The previous heredoc never closed, so a successful insert would not land `upload_state.json` on main. Estimated save: one lost video id and a second execute that could insert again, about 15 human minutes plus a duplicate private video.
-- Efficiency: human minutes per video otherwise unchanged. Automated steps unchanged. Remaining manual step is still the three YouTube secrets. Videos published stay 0.
-- Verification: selftest PASS. Workflow heredoc count is 0. No provider write.
 

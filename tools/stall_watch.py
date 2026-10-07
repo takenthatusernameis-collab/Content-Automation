@@ -24,11 +24,13 @@ IDLE_FLAG = "STALL_OAUTH_IDLE"
 UPLOAD_EDGE_FLAG = "STALL_UPLOAD_EDGE"
 PREUPLOAD_FLAG = "STALL_PREUPLOAD_PROBE"
 RECOVERY_EDGE_FLAG = "STALL_RECOVERY_EDGE"
+OPERATOR_CARD_FLAG = "STALL_OPERATOR_CARD"
 WINDOW = 3
 IDLE_WINDOW = 8
 UPLOAD_EDGE_WINDOW = 4
 PREUPLOAD_WINDOW = 4
 RECOVERY_EDGE_WINDOW = 4
+OPERATOR_CARD_WINDOW = 3
 UPLOAD_EDGE_TOKENS = (
     "early-persist",
     "early persist",
@@ -60,6 +62,18 @@ RECOVERY_EDGE_NEGATIONS = (
     "do not add another provider-state recovery edge",
     "no new recovery edge",
     "did not add a recovery edge",
+)
+# Runs 383-384 each extended operator_card.py while videos published stayed 0.
+# A lock sentence is not a wired card extension.
+OPERATOR_CARD_TOKENS = (
+    "operator_card.py",
+    "operator card",
+)
+OPERATOR_CARD_NEGATIONS = (
+    "do not add a second card",
+    "do not extend operator_card",
+    "did not extend operator_card",
+    "no new operator card",
 )
 # Lock sentences repeat these tokens. A "do not add" line is not a wired probe.
 PREUPLOAD_NEGATIONS = (
@@ -257,6 +271,27 @@ def flag_text(text: str, window: int = WINDOW) -> list[str]:
                 "next: wait for the three YouTube secrets; do not dispatch execute again to retry videos.insert",
             ])
             flags.append("suspicious: recovery_edge_without_publish")
+    # Runs 383-384 each extended the operator card while videos published
+    # stayed 0. That is the credential stall, not a missing console step.
+    card_deltas = run_deltas(text)[:OPERATOR_CARD_WINDOW]
+    if _oauth_stall(card_deltas) and len(card_deltas) >= OPERATOR_CARD_WINDOW:
+        card = True
+        for delta in card_deltas:
+            lowered = delta.lower()
+            scrubbed = lowered
+            for phrase in OPERATOR_CARD_NEGATIONS:
+                scrubbed = scrubbed.replace(phrase, "")
+            if not any(token in scrubbed for token in OPERATOR_CARD_TOKENS):
+                card = False
+                break
+        if card:
+            flags.extend([
+                OPERATOR_CARD_FLAG,
+                f"last_{OPERATOR_CARD_WINDOW}_runs: oauth_unpolled_and_operator_card",
+                "do_not: extend operator_card.py or add a second card while this flag is set",
+                "next: wait for the three YouTube secrets; do not reprint the console steps again",
+            ])
+            flags.append("suspicious: operator_card_without_publish")
     # Count the whole file, not the 8-delta flag window. A cleared newest
     # delta resets the streak to 0. A zero streak is not a flag: callers
     # treat a non-empty list as a stall. This does not poll secrets.
