@@ -2,6 +2,11 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 401 — 2026-10-08T08:13:00Z
+- Improvement: later thumbnail briefs no longer stamp the first video's planning-clutter contrast. Estimated save: about 1 minute per later video. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: one contrast line in the existing title brief, not a new checker. Remaining manual step is still the three YouTube secrets.
+- Verification: title brief contract and selftest. No provider write.
+
 ## Run 400 — 2026-10-08T07:14:00Z
 - Improvement: later publish stubs no longer put the machine note in Description, so a human does not delete "No upload happened" before upload. Estimated save: about 1 minute per later video. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the existing publish stub and viewer_description strip, not a new checker module. Remaining manual step is still the three YouTube secrets.

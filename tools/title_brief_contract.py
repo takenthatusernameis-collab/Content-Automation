@@ -16,9 +16,10 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "tools") not in sys.path:
     sys.path.insert(0, str(ROOT / "tools"))
 
-from title_thumb_brief import candidate_titles, load_packet_inputs, thumb_line  # noqa: E402
+from title_thumb_brief import candidate_titles, contrast_line, load_packet_inputs, thumb_line  # noqa: E402
 
 Q1 = ROOT / "videos" / "002-stop-deciding-what-to-work-on-every-morning" / "titles.md"
+Q1_THUMB = ROOT / "videos" / "002-stop-deciding-what-to-work-on-every-morning" / "thumbnail.md"
 BORROWED = (
     "stop deciding every morning",
     "written default",
@@ -64,6 +65,11 @@ def main() -> int:
             failures.append(f"fixture title missed the packet: {blob}")
         if "default" in line.lower() or "mood" in line.lower():
             failures.append(f"thumb copied Q1: {line}")
+        contrast = contrast_line(src)
+        if "planning clutter" in contrast.lower() or "empty panel" in contrast.lower():
+            failures.append(f"contrast copied Q1 visual: {contrast}")
+        if "folder" not in contrast.lower() and "message" not in contrast.lower() and "reply" not in contrast.lower():
+            failures.append(f"contrast missed the packet: {contrast}")
         for title in titles:
             low = title.lower()
             if low.startswith("stop "):
@@ -74,6 +80,13 @@ def main() -> int:
                 failures.append(f"write template without packet verb: {title}")
     if Q1.is_file() and _sha(Q1) != before:
         failures.append("Q1 titles.md changed")
+    thumb_before = _sha(Q1_THUMB) if Q1_THUMB.is_file() else ""
+    if Q1_THUMB.is_file():
+        thumb = Q1_THUMB.read_text(encoding="utf-8")
+        if "calm empty panel vs leftover planning clutter" not in thumb:
+            failures.append("Q1 thumbnail contrast missing")
+        if _sha(Q1_THUMB) != thumb_before:
+            failures.append("Q1 thumbnail.md changed")
     if failures:
         print("TITLE BRIEF CONTRACT FAIL")
         for item in failures:

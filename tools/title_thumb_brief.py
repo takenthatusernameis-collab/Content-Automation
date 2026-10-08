@@ -225,6 +225,17 @@ def candidate_titles(src: dict[str, str]) -> list[str]:
     return cleaned[:6]
 
 
+def contrast_line(src: dict[str, str]) -> str:
+    """Visual contrast from this packet. The first video's panel line is not the default."""
+    blob = packet_blob(src).lower()
+    borrowed = "calm empty panel vs leftover planning clutter"
+    if "planning clutter" in blob or ("empty panel" in blob and "morning" in blob):
+        return borrowed
+    stall = first_clause(src.get("problem") or src.get("topic") or "this stall")
+    step = first_clause(src.get("mechanism") or src.get("topic") or "this step")
+    return f"{clip_title(stall, 42)} vs {clip_title(step, 42)}"
+
+
 def thumb_line(src: dict[str, str]) -> str:
     pool = content_tokens(src["mechanism"]) or content_tokens(src["topic"]) or content_tokens(src["working"])
     line = [w[:1].upper() + w[1:] for w in pool[:4]]
@@ -258,7 +269,7 @@ def render_thumb(src: dict[str, str], line: str, primary: str) -> str:
         "\n"
         f"On-image text (max 5 words): {line}\n"
         f"Subject: Text card for: {clip_title(subject, 80)}\n"
-        "Contrast: calm empty panel vs leftover planning clutter\n"
+        f"Contrast: {contrast_line(src)}\n"
         "Do not include: lightning bolts, GRIND, screaming faces, fake income\n"
         f"Matches title: Yes \u2014 {clip_title(primary, 60)}\n"
     )
