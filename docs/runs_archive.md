@@ -1200,3 +1200,21 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: The tag list was a fixed six, including the next queued mechanism. A later video about closing a tab would still upload "start cue" and "decision fatigue" unless a human trimmed the stub. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1. Do not regenerate Q1 publish.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
+## Run 397 — 2026-10-08T03:11:00Z
+- Objective: Stop later scripts from being told to grow the first video's morning scene.
+- Action: `script_writer.md` and `script_expander.md` grow a short beat from this packet's stall. A morning reopen stays allowed only when the idea card is about the morning. `expand_prompt.py` repeats that rule in the assembled prompt. The contract checks a tab-closing fixture and still requires Q1 script.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. Assembled prompt names the extra tab. Q1 script file unchanged.
+- Verification: `python3 tools/script_prompt_contract.py` printed SCRIPT PROMPT CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: The writer contract aliased every short draft to a morning scene. A later script about a tab would still be padded with the first video's reopen unless a human rewrote the beat. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 script.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
+## Run 398 — 2026-10-08T04:11:00Z
+- Objective: Stop the default idea reprint from suggesting the first video's morning why-now line for later packets.
+- Action: `idea_brief.py` suggested paste now calls `why_now_line(problem)`, matching `--block` and `--queue`. The contract runs a Q2 tempfile reprint and still does not write idea.md. Selftest calls the existing contract. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. Q2 suggested paste names the start-cue stall. Q1 idea file unchanged.
+- Verification: `python3 tools/idea_brief_contract.py` printed IDEA BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: `--block` was fixed in Run 390, but the default suggested section still printed the shared morning sentence. A human following that section would rewrite why now on every later card. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 idea.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.

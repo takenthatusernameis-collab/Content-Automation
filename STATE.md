@@ -1,5 +1,14 @@
 # STATE
 
+Updated: 2026-10-08T20:20:00Z (Run 411)
+
+## Run 411 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Later-packet dry-run of grounded briefs passed except idea reprint. A pasted `Topic:` line with no dash made current idea fields look blank. `idea_brief.py` now reads that line. Q1 idea.md was not regenerated.
+
+
 Updated: 2026-10-08T18:16:00Z (Run 410)
 
 ## Run 410 delta
@@ -90,20 +99,4 @@ Updated: 2026-10-08T06:17:00Z (Run 399)
 - `publish_brief.py` no longer calls a later mechanism a default or tells the viewer to install it, unless that packet already says default. Q1 publish.md was not regenerated.
 
 Updated: 2026-10-08T04:11:00Z (Run 398)
-
-## Run 398 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- `idea_brief.py` default reprint now uses the same row-specific why-now line as `--block` and `--queue`. A later packet is no longer told to paste the first video's morning reopen in the suggested section. Q1 idea.md was not regenerated.
-
-Updated: 2026-10-08T03:11:00Z (Run 397)
-
-## Run 397 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- `script_writer.md` and `script_expander.md` grow a short beat from this packet's stall. They no longer require a morning scene. `expand_prompt.py` says the same. Q1 script.md was not regenerated.
-
-Updated: 2026-10-08T02:11:00Z (Run 396)
 

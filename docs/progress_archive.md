@@ -522,3 +522,13 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Improvement: later publish stubs no longer copy the first video's tags or invent its written-default line, so a human does not delete three off-topic tags and one description sentence per video. Estimated save: about 3 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the existing publish stub, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
 - Verification: publish brief contract and selftest. No provider write.
+## Run 397 — 2026-10-08T03:11:00Z
+- Improvement: later script expansions no longer instruct a morning scene from the first video, so a human does not rewrite one body beat per short draft. Estimated save: about 8 minutes per later video that comes back under the word band. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing writer prompt and expand assembler, plus one contract. Remaining manual step is still the three YouTube secrets.
+- Verification: script prompt contract and selftest. No provider write.
+## Run 398 — 2026-10-08T04:11:00Z
+- Improvement: the default idea reprint no longer suggests the first video's morning why-now line, so a human does not rewrite that sentence on every later card. Estimated save: about 2 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing idea reprint, not a new checker module beyond the contract already on disk. Remaining manual step is still the three YouTube secrets.
+- Verification: idea brief contract and selftest. No provider write.
+
+

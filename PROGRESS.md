@@ -1,13 +1,19 @@
 # PROGRESS
 
+Updated: 2026-10-08T20:20:00Z (Run 411)
+
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
+## Run 411
+- Later idea reprint no longer treats a pasted `Topic:` line as blank. That removes one refill on the next card. Videos published stay 0. Estimated human minutes for Q1 publish unchanged: still the three secrets.
+
+
 
 ## Run 410 — 2026-10-08T18:16:00Z
 - Improvement: a pasted idea card without dash bullets no longer uploads the folder id as the title or as tags. Estimated save: about 2 minutes per later stub that was pasted as `Topic:` lines. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the existing title and publish parsers, plus contract fixtures. Remaining manual step is still the three YouTube secrets.
 - Verification: title brief contract, publish brief contract, and selftest. No provider write.
 
-Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
 ## Run 409 — 2026-10-08T17:20:00Z
 - Improvement: a later publish stub uses the idea topic when titles.md is missing, so a human does not replace the folder slug in the title, description, and tags. Estimated save: about 2 minutes per later stub. Videos published stay 0. Human OAuth step unchanged.
@@ -67,17 +73,3 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Improvement: later publish descriptions no longer call a non-default step a default to install, so a human does not rewrite that sentence per video. Estimated save: about 2 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the existing publish stub, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
 - Verification: publish brief contract and selftest. No provider write.
-
-
-## Run 398 — 2026-10-08T04:11:00Z
-- Improvement: the default idea reprint no longer suggests the first video's morning why-now line, so a human does not rewrite that sentence on every later card. Estimated save: about 2 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
-- Efficiency: the existing idea reprint, not a new checker module beyond the contract already on disk. Remaining manual step is still the three YouTube secrets.
-- Verification: idea brief contract and selftest. No provider write.
-
-
-## Run 397 — 2026-10-08T03:11:00Z
-- Improvement: later script expansions no longer instruct a morning scene from the first video, so a human does not rewrite one body beat per short draft. Estimated save: about 8 minutes per later video that comes back under the word band. Videos published stay 0. Human OAuth step unchanged.
-- Efficiency: the existing writer prompt and expand assembler, plus one contract. Remaining manual step is still the three YouTube secrets.
-- Verification: script prompt contract and selftest. No provider write.
-
-

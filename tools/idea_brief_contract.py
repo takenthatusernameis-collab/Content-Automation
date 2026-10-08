@@ -22,6 +22,7 @@ Locks:
 - idea_brief --queue Q1 --check exits 2 (no idea.md to compare)
 - --queue does not write idea.md or create a packet folder
 - default reprint suggested paste uses the row stall, not the shared morning line, for Q2
+- a pasted Topic: line with no dash is not reported blank
 
 Unmapped in which_contract. Not a reconstruct wave.
 Does not write idea.md, the queue, or sample-001.
@@ -173,6 +174,45 @@ def queue_locks(failures: list[str], mechanism: str) -> None:
     )
 
 
+
+def plain_topic_lock(failures: list[str]) -> None:
+    """A later packet pasted as Topic: lines must not look blank."""
+    body = (
+        "# Idea\n\n"
+        "Topic: Close the extra tab before you open the work\n"
+        "Viewer: someone who opens one more tab instead of the file\n"
+        "Problem: the extra tab is still open, so starting means checking one more thing\n"
+        "Mechanism: close that tab before the work file\n"
+        "Why now: the extra tab is the stall\n"
+    )
+    with tempfile.TemporaryDirectory() as tmp:
+        path = Path(tmp) / "004-close-the-extra-tab-before-you-open-the-work"
+        path.mkdir()
+        idea = path / "idea.md"
+        idea.write_text(body, encoding="utf-8")
+        before = sha(idea)
+        proc = subprocess.run(
+            [sys.executable, str(TOOLS / "idea_brief.py"), str(path)],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        fail(failures, proc.returncode == 0, f"plain Topic reprint exit {proc.returncode}: {proc.stderr}")
+        out = proc.stdout
+        fail(failures, "topic: (blank)" not in out, "plain Topic line still reported blank")
+        fail(failures, "Close the extra tab before you open the work" in out, "plain Topic line not read")
+        fail(failures, "the extra tab is still open" in out, "plain Problem line not read")
+        fail(failures, sha(idea) == before, "plain Topic reprint wrote idea.md")
+        chk = subprocess.run(
+            [sys.executable, str(TOOLS / "idea_brief.py"), str(path), "--check"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        fail(failures, "current is blank/template" not in chk.stdout, "plain Topic --check still treats fields as blank")
+        fail(failures, sha(idea) == before, "plain Topic --check wrote idea.md")
+
+
 def main() -> int:
     failures: list[str] = []
     fail(failures, (TOOLS / "idea_brief.py").is_file(), "missing tools/idea_brief.py")
@@ -190,6 +230,7 @@ def main() -> int:
     fail(failures, q1 is not None, "Q1 missing from topic_queue")
     mechanism = q1["one_line"] if q1 else ""
     queue_locks(failures, mechanism)
+    plain_topic_lock(failures)
 
     blank = (
         "# Idea\n\n"

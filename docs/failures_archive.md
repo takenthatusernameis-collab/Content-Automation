@@ -429,3 +429,6 @@ Updated: 2026-10-05T18:20:00Z
 ## Run 391 — 2026-10-07T21:12:00Z
 - Failed approach not retried: another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
 - Lesson: The publish stub asked for a reply even when the mechanism was a written default. Stop that in the generator. Do not rewrite the approved Q1 pin to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1.
+## Run 393 — 2026-10-07T23:12:00Z
+- Failed approach not retried: regenerating Q1 chapters.md to prove the label change, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
+- Lesson: The chapter drafter aliased every hook to the first video. Fix the generator. Do not rewrite the approved Q1 lines to make the test pass. oauth_idle_without_publish remains; the human step is issue 1.

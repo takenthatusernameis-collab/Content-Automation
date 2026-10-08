@@ -63,17 +63,18 @@ QUEUE = ROOT / "docs" / "topic_queue.md"
 
 
 def field(text: str, name: str) -> str:
-    pat = rf"^- {re.escape(name)}:[ \t]*(.*)$"
-    m = re.search(pat, text, re.M)
-    if m:
+    # Dash bullets are the writer format. A pasted "Topic:" line is the same field.
+    pat = rf"^-?\s*{re.escape(name)}:[ \t]*(.*)$"
+    m = re.search(pat, text, re.M | re.I)
+    if m and m.group(1).strip():
         return m.group(1).strip()
     if name == "mechanism":
         m = re.search(
-            r"^- mechanism \(the system, not the pep talk\):[ \t]*(.*)$",
+            r"^-?\s*mechanism \(the system, not the pep talk\):[ \t]*(.*)$",
             text,
-            re.M,
+            re.M | re.I,
         )
-        if m:
+        if m and m.group(1).strip():
             return m.group(1).strip()
     return ""
 
@@ -81,7 +82,7 @@ def field(text: str, name: str) -> str:
 def working_title(path: Path) -> str:
     packet = path / "packet.md"
     if packet.is_file():
-        m = re.search(r"^- working_title:[ \t]*(.*)$", packet.read_text(encoding="utf-8"), re.M)
+        m = re.search(r"^-?\s*working_title:[ \t]*(.*)$", packet.read_text(encoding="utf-8"), re.M | re.I)
         if m and m.group(1).strip():
             return m.group(1).strip()
     idea = path / "idea.md"

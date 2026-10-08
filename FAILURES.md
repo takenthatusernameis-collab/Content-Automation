@@ -6,7 +6,6 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 - Failed approach not retried: another first-video phrase edit, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: Canonical later-packet briefs passed. The dry-run failed when idea.md used `Topic:` without a dash: the title became the folder id. Read that line. Do not rewrite approved Q1 files. oauth_idle_without_publish remains; the human step is issue 1.
 
-Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 409 — 2026-10-08T17:20:00Z
 - Failed approach not retried: another first-video phrase edit, regenerating Q1 publish.md, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
@@ -62,10 +61,5 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 394 — 2026-10-08T00:20:00Z
 - Failed approach not retried: regenerating Q1 titles.md to prove the copy change, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
 - Lesson: The title brief aliased every thin packet to the first video. Fix the generator. Do not rewrite the locked Q1 primary to make the test pass. oauth_idle_without_publish remains; the human step is issue 1.
-
-
-## Run 393 — 2026-10-07T23:12:00Z
-- Failed approach not retried: regenerating Q1 chapters.md to prove the label change, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
-- Lesson: The chapter drafter aliased every hook to the first video. Fix the generator. Do not rewrite the approved Q1 lines to make the test pass. oauth_idle_without_publish remains; the human step is issue 1.
 
 
