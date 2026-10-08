@@ -2,6 +2,12 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 408 — 2026-10-08T15:14:00Z
+- Failed approach not retried: another packet-ground phrase edit, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: Runs 395-407 each removed one first-video phrase and did not publish. That streak is suspicious. Do not open another phrase edit unless a later-packet dry-run fails. The Q1 hint named OAuth but not the operator card; point the hint at the card. oauth_idle_without_publish remains; the human step is issue 1.
+
+
+
 ## Run 407 — 2026-10-08T14:15:00Z
 - Failed approach not retried: regenerating Q1 idea.md to prove the why-now change, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: The idea scaffolder still stamped the channel niche as why now after the paste path was grounded. Fix the generator. Do not rewrite the approved Q1 card to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1. Do not add a freeze module for the packet-ground streak.
@@ -51,15 +57,5 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 393 — 2026-10-07T23:12:00Z
 - Failed approach not retried: regenerating Q1 chapters.md to prove the label change, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
 - Lesson: The chapter drafter aliased every hook to the first video. Fix the generator. Do not rewrite the approved Q1 lines to make the test pass. oauth_idle_without_publish remains; the human step is issue 1.
-
-
-## Run 392 — 2026-10-07T22:12:00Z
-- Failed approach not retried: rewriting the approved Q1 pin, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
-- Lesson: Run 391 stopped the generator and left the bait in the approved first comment. Strip it at post time. Do not rewrite Q1 publish.md to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1.
-
-
-## Run 391 — 2026-10-07T21:12:00Z
-- Failed approach not retried: another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
-- Lesson: The publish stub asked for a reply even when the mechanism was a written default. Stop that in the generator. Do not rewrite the approved Q1 pin to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1.
 
 

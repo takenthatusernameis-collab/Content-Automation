@@ -113,7 +113,7 @@ def recommend(path: Path, row: dict[str, object]) -> tuple[str, str]:
         if path.name == "002-stop-deciding-what-to-work-on-every-morning":
             return (
                 "upload-blocked",
-                "Q1 generated take, cards, and padded master already exist on private releases q1-media-r249 and q1-media-r253. Do not regenerate. Do not copy r249 q1-master.mp4. Description edited and First comment approved are already checked by the delegated agent. Do not re-open those boxes. OAuth is the credential gate. Dry-run READY is not an upload.",
+                "Q1 generated take, cards, and padded master already exist on private releases q1-media-r249 and q1-media-r253. Do not regenerate. Do not copy r249 q1-master.mp4. Description edited and First comment approved are already checked by the delegated agent. Do not re-open those boxes. OAuth is the credential gate. Dry-run READY is not an upload. The only human command is python3 tools/operator_card.py.",
             )
         return (
             "record-vo",

@@ -421,3 +421,11 @@ Updated: 2026-10-05T18:20:00Z
 ## Run 389 — 2026-10-07T19:11:00Z
 - Failed approach not retried: another compact check, freeze module, operator-card reprint, provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: Runs 386-388 each treated a log miss as the next improvement and still published nothing. Flag that pattern. Do not add a compact check to clear the flag. oauth_idle_without_publish remains; the human step is issue 1.
+## Run 392 — 2026-10-07T22:12:00Z
+- Failed approach not retried: rewriting the approved Q1 pin, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
+- Lesson: Run 391 stopped the generator and left the bait in the approved first comment. Strip it at post time. Do not rewrite Q1 publish.md to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1.
+
+
+## Run 391 — 2026-10-07T21:12:00Z
+- Failed approach not retried: another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
+- Lesson: The publish stub asked for a reply even when the mechanism was a written default. Stop that in the generator. Do not rewrite the approved Q1 pin to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1.

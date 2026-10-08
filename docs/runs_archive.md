@@ -1182,3 +1182,21 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: The title pads were aliases for packet 002. A later script about a different stall would still offer "Stop Deciding Every Morning" unless a human rewrote the list. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1. Do not regenerate Q1 titles. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
+## Run 396 — 2026-10-08T02:11:00Z
+- Objective: Stop later idea cards from inheriting the first video's mechanism and beat titles.
+- Action: `new_idea.py` builds the mechanism from the topic, or from a queued one_line only when the topic already matches that row. Beat titles use the topic instead of "The default that replaces the decision". `--dry-run` prints the card and does not create a folder. The contract checks a tab topic and still requires Q1 idea.md unchanged. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. Dry-run names the topic. Q1 idea file unchanged.
+- Verification: `python3 tools/idea_ground_contract.py` printed IDEA GROUND CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: The idea scaffolder aliased every new topic to the first video's written default. A later topic about a tab would still open with that mechanism unless a human rewrote the card. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 idea.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
+## Run 395 — 2026-10-08T01:15:00Z
+- Objective: Stop later publish stubs from inheriting the first video's tags.
+- Action: `publish_brief.py` keeps focused work, productivity systems, and deep work, then adds words from that packet. "start cue", "decision fatigue", and "work defaults" stay off unless those words are already in the packet. A missing mechanism no longer becomes "a written default" or a mood-dependent start. The contract checks a tab-closing fixture and still requires Q1 publish.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. Fixture tags name the tab, not the start cue. Q1 publish file unchanged.
+- Verification: `python3 tools/publish_brief_contract.py` printed PUBLISH BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: The tag list was a fixed six, including the next queued mechanism. A later video about closing a tab would still upload "start cue" and "decision fatigue" unless a human trimmed the stub. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 publish.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.

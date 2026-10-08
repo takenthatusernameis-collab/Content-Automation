@@ -1,5 +1,14 @@
 # STATE
 
+Updated: 2026-10-08T15:14:00Z (Run 408)
+
+## Run 408 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Q1 hint and next_action now name `python3 tools/operator_card.py` as the only human publish command. Packet-ground streak 395-407 is flagged: do not open another phrase edit unless a later-packet dry-run fails.
+
+
 Updated: 2026-10-08T14:15:00Z (Run 407)
 
 ## Run 407 delta
@@ -83,20 +92,4 @@ Updated: 2026-10-08T03:11:00Z (Run 397)
 - `script_writer.md` and `script_expander.md` grow a short beat from this packet's stall. They no longer require a morning scene. `expand_prompt.py` says the same. Q1 script.md was not regenerated.
 
 Updated: 2026-10-08T02:11:00Z (Run 396)
-
-## Run 396 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- `new_idea.py` names the mechanism and beat titles from that topic, or from a queued one_line only when the topic matches that row. A later idea no longer receives "A written default that removes one daily decision" or "The default that replaces the decision". `--dry-run` prints the card and does not create a folder. Q1 idea.md was not regenerated.
-
-Updated: 2026-10-08T01:15:00Z (Run 395)
-
-## Run 395 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- `publish_brief.py` tags a later packet from the channel niche plus that packet's words. "start cue", "decision fatigue", and "work defaults" are no longer stamped on every stub. A missing mechanism no longer becomes "a written default". Q1 publish.md was not regenerated.
-
-Updated: 2026-10-08T00:20:00Z (Run 394)
 

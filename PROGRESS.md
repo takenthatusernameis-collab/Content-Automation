@@ -2,6 +2,13 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 408 — 2026-10-08T15:14:00Z
+- Improvement: the Q1 hint names the operator card, so a human does not reconstruct the publish step from NEXT.md. Estimated save: about 3 minutes the one time secrets are stored. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: two existing hint strings, not a new checker. Packet-ground streak flagged closed. Remaining manual step is still the three YouTube secrets.
+- Verification: hint and next_action on the Q1 packet. No provider write.
+
+
+
 ## Run 407 — 2026-10-08T14:15:00Z
 - Improvement: later idea cards name this topic in why now, so a human does not replace the channel niche line before expand. Estimated save: about 1 minute per later idea. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: one line in the existing scaffolder, not a new checker. Remaining manual step is still the three YouTube secrets.
@@ -60,17 +67,5 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Improvement: later script expansions no longer instruct a morning scene from the first video, so a human does not rewrite one body beat per short draft. Estimated save: about 8 minutes per later video that comes back under the word band. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the existing writer prompt and expand assembler, plus one contract. Remaining manual step is still the three YouTube secrets.
 - Verification: script prompt contract and selftest. No provider write.
-
-
-## Run 396 — 2026-10-08T02:11:00Z
-- Improvement: later idea cards no longer copy the first video's mechanism and beat titles, so a human does not rewrite the mechanism line and four beat headings per video. Estimated save: about 5 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
-- Efficiency: the existing idea scaffolder, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
-- Verification: idea ground contract and selftest. No provider write.
-
-
-## Run 395 — 2026-10-08T01:15:00Z
-- Improvement: later publish stubs no longer copy the first video's tags or invent its written-default line, so a human does not delete three off-topic tags and one description sentence per video. Estimated save: about 3 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
-- Efficiency: the existing publish stub, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
-- Verification: publish brief contract and selftest. No provider write.
 
 

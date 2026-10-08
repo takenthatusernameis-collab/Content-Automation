@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 408 — 2026-10-08T15:14:00Z
+- Objective: Stop the Q1 hint from leaving the human publish step unnamed.
+- Action: `hint.py` prints `python3 tools/operator_card.py` for this packet. `next_action.py` names that same command. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.
+- Result: Videos published stay 0. Hint command list includes the operator card. Q1 files unchanged.
+- Verification: `python3 tools/hint.py` and `python3 tools/next_action.py` on the Q1 packet. Selftest after compact. No provider write.
+- Discovery: Runs 395-407 each grounded one phrase while videos published stayed 0. That streak is now the suspicious loop. Do not open another phrase edit unless a later-packet dry-run fails. oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
 ## Run 407 — 2026-10-08T14:15:00Z
 - Objective: Stop later idea cards from using the channel niche line as why now.
 - Action: `new_idea.py` names why now from that topic. A morning reopen or an install line stays only when the topic already says morning, reopen, install, or default. The contract checks a tab-closing fixture and still requires Q1 idea.md unchanged. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
@@ -8,7 +17,6 @@
 - Discovery: Run 406 grounded the suggested paste, but `new_idea.py` still wrote "working niche" on every card. A tab topic would still need a human rewrite of why now. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated rewrite, it does not add a freeze.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1. Do not regenerate Q1 idea.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
-
 
 ## Run 406 — 2026-10-08T13:22:00Z
 - Objective: Stop later idea pastes from inheriting the planning-stall viewer and an install line.
@@ -99,21 +107,3 @@
 - Discovery: The writer contract aliased every short draft to a morning scene. A later script about a tab would still be padded with the first video's reopen unless a human rewrote the beat. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1. Do not regenerate Q1 script.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
-
-## Run 396 — 2026-10-08T02:11:00Z
-- Objective: Stop later idea cards from inheriting the first video's mechanism and beat titles.
-- Action: `new_idea.py` builds the mechanism from the topic, or from a queued one_line only when the topic already matches that row. Beat titles use the topic instead of "The default that replaces the decision". `--dry-run` prints the card and does not create a folder. The contract checks a tab topic and still requires Q1 idea.md unchanged. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
-- Result: Videos published stay 0. Dry-run names the topic. Q1 idea file unchanged.
-- Verification: `python3 tools/idea_ground_contract.py` printed IDEA GROUND CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
-- Discovery: The idea scaffolder aliased every new topic to the first video's written default. A later topic about a tab would still open with that mechanism unless a human rewrote the card. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human follows issue 1. Do not regenerate Q1 idea.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
-
-## Run 395 — 2026-10-08T01:15:00Z
-- Objective: Stop later publish stubs from inheriting the first video's tags.
-- Action: `publish_brief.py` keeps focused work, productivity systems, and deep work, then adds words from that packet. "start cue", "decision fatigue", and "work defaults" stay off unless those words are already in the packet. A missing mechanism no longer becomes "a written default" or a mood-dependent start. The contract checks a tab-closing fixture and still requires Q1 publish.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
-- Result: Videos published stay 0. Fixture tags name the tab, not the start cue. Q1 publish file unchanged.
-- Verification: `python3 tools/publish_brief_contract.py` printed PUBLISH BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
-- Discovery: The tag list was a fixed six, including the next queued mechanism. A later video about closing a tab would still upload "start cue" and "decision fatigue" unless a human trimmed the stub. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human follows issue 1. Do not regenerate Q1 publish.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.

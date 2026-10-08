@@ -121,6 +121,8 @@ def commands_for(path: Path, row: dict[str, object], code: str) -> list[str]:
                 "# Fetch wav/cards from q1-media-r249 and master from q1-media-r253 (HANDOFF.md).",
                 "# publish.md Description edited and First comment approved are already checked. Do not re-open them.",
                 "# YouTube OAuth is not configured. Dry-run READY is not an upload.",
+                "python3 tools/operator_card.py",
+                "# That card is the only human publish step. Do not poll secrets. Do not scaffold Q2.",
             ]
         return ["# YouTube OAuth is not configured. Review publish.md. Do not call the API."]
     if code == "analytics-unbuilt":

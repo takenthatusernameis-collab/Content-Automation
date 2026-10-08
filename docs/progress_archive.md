@@ -512,3 +512,13 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Verification: title brief contract and selftest. No provider write.
 
 
+## Run 396 — 2026-10-08T02:11:00Z
+- Improvement: later idea cards no longer copy the first video's mechanism and beat titles, so a human does not rewrite the mechanism line and four beat headings per video. Estimated save: about 5 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing idea scaffolder, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
+- Verification: idea ground contract and selftest. No provider write.
+
+
+## Run 395 — 2026-10-08T01:15:00Z
+- Improvement: later publish stubs no longer copy the first video's tags or invent its written-default line, so a human does not delete three off-topic tags and one description sentence per video. Estimated save: about 3 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing publish stub, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
+- Verification: publish brief contract and selftest. No provider write.
