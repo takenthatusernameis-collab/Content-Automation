@@ -17,7 +17,8 @@ ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE = ROOT / "videos" / "_template"
 VIDEOS = ROOT / "videos"
 
-DEFAULT_VIEWER = "Someone who wants focused work but stalls after planning"
+# First-video viewer. A later topic must not inherit it unless the topic says planning.
+Q1_VIEWER = "Someone who wants focused work but stalls after planning"
 # First-video mechanism. A later topic must not inherit it unless the topic says it.
 Q1_MECHANISM = "A written default that removes one daily decision"
 WORKING_NICHE = "systems for doing focused work"
@@ -73,6 +74,16 @@ def overlap_note(topic: str) -> tuple[str, int]:
     return best_name, best
 
 
+
+def viewer_line(topic: str) -> str:
+    """Name the viewer from this topic. Do not stamp the planning stall unless the topic says it."""
+    low = topic.lower()
+    if "planning" in low or "after planning" in low:
+        return Q1_VIEWER
+    short = " ".join(topic.strip().rstrip(".").split()[:10])
+    return f"Someone who wants focused work but stalls on this: {short}"
+
+
 def problem_line(topic: str) -> str:
     t = topic.rstrip(".")
     low = t[0].lower() + t[1:] if t else t
@@ -112,7 +123,7 @@ def idea_markdown(topic: str, related: str, overlap: int) -> str:
     return f"""# Idea
 
 - topic: {topic.rstrip(".")}
-- viewer: {DEFAULT_VIEWER}
+- viewer: {viewer_line(topic)}
 - problem: {problem_line(topic)}
 - mechanism (the system, not the pep talk): {mechanism_line(topic)}
 - why now: working niche — {WORKING_NICHE}

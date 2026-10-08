@@ -29,6 +29,7 @@ FORBIDDEN = (
     "the default that replaces the decision",
     "measure the start, not the mood",
     "without a default process",
+    "stalls after planning",
 )
 
 
@@ -46,6 +47,7 @@ def main() -> int:
     for phrase in FORBIDDEN:
         fail(failures, phrase not in blob, f"later idea inherited {phrase!r}")
     fail(failures, "browser" in blob and "tab" in blob, "later idea must name the topic")
+    fail(failures, "stalls on this: close the browser tab" in blob, "viewer line must name the topic")
     fail(failures, "the move: close the browser tab" in blob, "beat title must use the topic")
     videos_before = {p.name for p in (ROOT / "videos").iterdir()} if (ROOT / "videos").is_dir() else set()
     proc = subprocess.run(

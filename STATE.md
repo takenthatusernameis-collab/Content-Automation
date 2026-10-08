@@ -1,6 +1,13 @@
 # STATE
 
-Updated: 2026-10-08T11:17:00Z (Run 404)
+Updated: 2026-10-08T12:21:00Z (Run 405)
+
+## Run 405 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `new_idea.py` names the viewer from this topic. "stalls after planning" stays only when the topic already says planning. Q1 idea.md was not regenerated.
+
 
 ## Run 404 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.

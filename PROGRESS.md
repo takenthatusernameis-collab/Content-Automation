@@ -2,6 +2,11 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 405 — 2026-10-08T12:21:00Z
+- Improvement: later idea cards no longer stamp the planning-stall viewer, so a human does not rewrite that line on every new topic. Estimated save: about 1 minute per later idea. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: one viewer line in the existing scaffolder, not a new checker. Remaining manual step is still the three YouTube secrets.
+- Verification: idea ground contract and selftest. No provider write.
+
 ## Run 404 — 2026-10-08T11:17:00Z
 - Improvement: later expand briefs name this packet's stall, so a human does not invent the first video's morning scene when a draft is short. Estimated save: about 8 minutes per later video that comes back under the word band. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the existing expand brief, plus one contract. Remaining manual step is still the three YouTube secrets.

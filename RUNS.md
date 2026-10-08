@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 405 — 2026-10-08T12:21:00Z
+- Objective: Stop later idea cards from inheriting the first video's planning-stall viewer.
+- Action: `new_idea.py` builds the viewer line from the topic. "stalls after planning" stays off unless the topic already says planning. The contract checks a tab-closing fixture and still requires Q1 idea.md unchanged. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. Dry-run viewer names the tab. Q1 idea file unchanged.
+- Verification: `python3 tools/idea_ground_contract.py` printed IDEA GROUND CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: Run 396 grounded the mechanism and beat titles, but every later card still opened with the planning-stall viewer. A tab topic would still need a human rewrite of that line. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated rewrite, it does not add a freeze.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 idea.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
 ## Run 404 — 2026-10-08T11:17:00Z
 - Objective: Stop later expand briefs from telling a short draft to grow without this packet's stall.
 - Action: `expand_brief.py` adds a growth line from idea.md problem or mechanism when the brief is short or empty. A morning reopen stays forbidden unless the idea card already says it. The contract checks a tab fixture and still requires Q1 expand.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
