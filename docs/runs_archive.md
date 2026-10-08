@@ -1164,3 +1164,21 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: The stub always ended with a reply ask, including when the mechanism was not a cue. That line would have been pasted into every later publish.md. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1. Do not open a second issue. Do not scaffold Q2. Do not add a scanner. Do not poll secrets.
+
+## Run 393 — 2026-10-07T23:12:00Z
+- Objective: Stop later chapter drafts from copying the first video's chapter titles.
+- Action: `chapter_draft.py` builds a short title from the beat's spoken words. Generic Hook, payoff, and CTA headings no longer become "The reopen", "Written default", or "Tomorrow's sentence". The existing selftest refuses those Q1 labels on a fixture and still requires Q1 chapters.md to keep "0:00 The reopen". Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. Fixture chapter titles come from the fixture script. Q1 chapter file unchanged.
+- Verification: `check_chapter_draft_fail_closed` returned no failures. No provider write.
+- Discovery: The label helpers were aliases for packet 002. A later script about a different stall would still publish "The reopen" unless a human retyped the lines. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 chapters. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
+## Run 394 — 2026-10-08T00:20:00Z
+- Objective: Stop later title briefs from copying the first video's slogans.
+- Action: `title_thumb_brief.py` keeps a title only when its content words are in that packet. The on-image line uses the mechanism tokens, not "One Written Default". The contract refuses those Q1 slogans on an inbox fixture and still requires Q1 titles.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. Fixture titles name the inbox. Q1 title file unchanged.
+- Verification: `python3 tools/title_brief_contract.py` printed TITLE BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: The title pads were aliases for packet 002. A later script about a different stall would still offer "Stop Deciding Every Morning" unless a human rewrote the list. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 titles. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.

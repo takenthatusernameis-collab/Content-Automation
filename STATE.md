@@ -1,13 +1,18 @@
 # STATE
 
-Updated: 2026-10-08T12:21:00Z (Run 405)
+Updated: 2026-10-08T13:22:00Z (Run 406)
+
+## Run 406 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `idea_brief.py` suggested paste names this row's viewer and stall. "Install" and the planning-stall viewer stay only when the row already says them. Q1 idea.md was not regenerated.
 
 ## Run 405 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
 - No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - `new_idea.py` names the viewer from this topic. "stalls after planning" stays only when the topic already says planning. Q1 idea.md was not regenerated.
-
 
 ## Run 404 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
@@ -88,20 +93,4 @@ Updated: 2026-10-08T01:15:00Z (Run 395)
 - `publish_brief.py` tags a later packet from the channel niche plus that packet's words. "start cue", "decision fatigue", and "work defaults" are no longer stamped on every stub. A missing mechanism no longer becomes "a written default". Q1 publish.md was not regenerated.
 
 Updated: 2026-10-08T00:20:00Z (Run 394)
-
-## Run 394 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- `title_thumb_brief.py` builds titles and on-image text from that packet. A later inbox idea no longer receives "Stop Deciding Every Morning" or "Written Default". Q1 titles.md was not regenerated.
-
-Updated: 2026-10-07T23:12:00Z (Run 393)
-
-## Run 393 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- `chapter_draft.py` names chapters from that beat's spoken words. Hook, payoff, and CTA are no longer renamed to the first video's lines. Q1 chapters.md and publish.md were not regenerated.
-
-Updated: 2026-10-07T22:12:00Z (Run 392)
 

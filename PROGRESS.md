@@ -2,6 +2,11 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 406 — 2026-10-08T13:22:00Z
+- Improvement: later idea pastes no longer stamp the planning-stall viewer or tell the viewer to install a stall the row did not name, so a human does not rewrite those two lines before expand. Estimated save: about 2 minutes per later idea paste. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing idea brief, plus contract checks. Remaining manual step is still the three YouTube secrets.
+- Verification: idea brief contract and selftest. No provider write.
+
 ## Run 405 — 2026-10-08T12:21:00Z
 - Improvement: later idea cards no longer stamp the planning-stall viewer, so a human does not rewrite that line on every new topic. Estimated save: about 1 minute per later idea. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: one viewer line in the existing scaffolder, not a new checker. Remaining manual step is still the three YouTube secrets.
@@ -62,17 +67,5 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Improvement: later publish stubs no longer copy the first video's tags or invent its written-default line, so a human does not delete three off-topic tags and one description sentence per video. Estimated save: about 3 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the existing publish stub, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
 - Verification: publish brief contract and selftest. No provider write.
-
-
-## Run 394 — 2026-10-08T00:20:00Z
-- Improvement: later title and thumbnail briefs no longer copy the first video's slogans, so a human does not rewrite five titles and the on-image line per video. Estimated save: about 6 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
-- Efficiency: the existing title brief, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
-- Verification: title brief contract and selftest. No provider write.
-
-
-## Run 393 — 2026-10-07T23:12:00Z
-- Improvement: later chapter drafts no longer copy the first video's titles, so a human does not retype three to six description lines per video. Estimated save: about 4 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
-- Efficiency: the existing chapter drafter, not a new checker. Remaining manual step is still the three YouTube secrets.
-- Verification: existing chapter selftest. No provider write.
 
 

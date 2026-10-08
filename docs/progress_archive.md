@@ -500,3 +500,15 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Verification: publish brief contract and selftest. No provider write.
 
 
+## Run 393 — 2026-10-07T23:12:00Z
+- Improvement: later chapter drafts no longer copy the first video's titles, so a human does not retype three to six description lines per video. Estimated save: about 4 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing chapter drafter, not a new checker. Remaining manual step is still the three YouTube secrets.
+- Verification: existing chapter selftest. No provider write.
+
+
+## Run 394 — 2026-10-08T00:20:00Z
+- Improvement: later title and thumbnail briefs no longer copy the first video's slogans, so a human does not rewrite five titles and the on-image line per video. Estimated save: about 6 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing title brief, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
+- Verification: title brief contract and selftest. No provider write.
+
+

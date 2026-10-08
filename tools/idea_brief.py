@@ -19,7 +19,7 @@ fills the whole idea.md template, not only topic / problem / mechanism.
 --check still gates those three locked fields only.
 Run 095: --queue ID unlocks the paste before scaffold.
 Run 398: the default reprint used to print the shared morning why-now line
-even after --block and --queue used why_now_line. Suggested paste now uses
+even after --block and --queue used why_now_line. Suggested paste names this row's viewer and stall. Install stays off unless the row says it.
 the same row-specific line. A blank problem still falls back to WHY_NOW.
 """
 
@@ -50,7 +50,8 @@ BLANKISH = frozenset(
     }
 )
 
-# Channel lock from docs/channel.md. Hard-coded so tempfile packets still paste.
+# Channel lock from docs/channel.md. Hard-coded so a blank or planning packet still pastes.
+# A later topic must not inherit the planning-stall viewer unless it already says planning.
 VIEWER = (
     "People who already plan their week, then stall when it is time to start."
 )
@@ -117,16 +118,37 @@ def suggested_values(title: str) -> tuple[str, str, str]:
     return topic, problem, mechanism
 
 
-def why_now_line(problem: str) -> str:
-    """Channel timing plus this row's stall. A blank problem keeps the channel line.
+def viewer_line(topic: str, problem: str) -> str:
+    """Name the viewer from this row. Planning-stall audience stays only when the row says planning."""
+    blob = f"{topic} {problem}".lower()
+    if (
+        "planning" in blob
+        or "after planning" in blob
+        or "every morning" in blob
+        or "reopen the whole work list" in blob
+    ):
+        return VIEWER
+    stall = problem.strip().rstrip(".")
+    if not stall or stall.startswith("("):
+        stall = topic.strip().rstrip(".")
+    short = " ".join(stall.split()[:12])
+    return f"Someone who wants focused work but stalls on this: {short}"
 
-    Q2-Q5 used to paste the same why-now sentence. The human then rewrote it
-    before expand. This does not write idea.md and does not create a packet.
+
+def why_now_line(problem: str, mechanism: str = "") -> str:
+    """This row's stall. A blank problem keeps the channel line.
+
+    "Install" stays only when this row already says install or default.
+    A later card must not be told to install a stall it did not name.
+    This does not write idea.md and does not create a packet.
     """
     cleaned = problem.strip().rstrip(".")
     if not cleaned or cleaned.startswith("("):
         return WHY_NOW
-    return f"The week is already planned. The stall to install is this: {cleaned}."
+    blob = f"{problem} {mechanism}".lower()
+    if "install" in blob or "default" in blob:
+        return f"The week is already planned. The stall to install is this: {cleaned}."
+    return f"The stall in this packet is this: {cleaned}."
 
 
 def paste_block(title: str) -> str:
@@ -134,10 +156,10 @@ def paste_block(title: str) -> str:
     return (
         "# Idea\n\n"
         f"- topic: {topic}\n"
-        f"- viewer: {VIEWER}\n"
+        f"- viewer: {viewer_line(topic, problem)}\n"
         f"- problem: {problem}\n"
         f"- mechanism (the system, not the pep talk): {mechanism}\n"
-        f"- why now: {why_now_line(problem)}\n"
+        f"- why now: {why_now_line(problem, mechanism)}\n"
         f"- related videos to avoid repeating: {RELATED}\n"
     )
 
@@ -290,9 +312,9 @@ def main() -> int:
     print("Suggested paste (does not write idea.md):")
     for line in idea_followup(title):
         print(line)
-    _, problem, _ = suggested_values(title)
-    print(f"  - viewer: {VIEWER}")
-    print(f"  - why now: {why_now_line(problem)}")
+    _, problem, mechanism = suggested_values(title)
+    print(f"  - viewer: {viewer_line(title, problem)}")
+    print(f"  - why now: {why_now_line(problem, mechanism)}")
     print(f"  - related videos to avoid repeating: {RELATED}")
     print("Paste-ready block (still does not write). Re-run with --block to print only this:")
     print(f"  {block_command(path)}")

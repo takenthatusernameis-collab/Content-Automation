@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 406 — 2026-10-08T13:22:00Z
+- Objective: Stop later idea pastes from inheriting the planning-stall viewer and an install line.
+- Action: `idea_brief.py` names the viewer and why-now from that row. Planning-stall audience and "stall to install" stay only when the row already says planning, every morning, install, or default. The contract checks Q3 and the Q2 reprint and still does not write idea.md. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. Q3 paste names competing lists and does not say install. Q1 idea file unchanged.
+- Verification: `python3 tools/idea_brief_contract.py` printed IDEA BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: Run 405 grounded `new_idea.py`, but the suggested paste still stamped the channel planning viewer and told every row to install its stall. A human pasting Q3 would rewrite both lines. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated rewrite, it does not add a freeze.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 idea.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
 ## Run 405 — 2026-10-08T12:21:00Z
 - Objective: Stop later idea cards from inheriting the first video's planning-stall viewer.
 - Action: `new_idea.py` builds the viewer line from the topic. "stalls after planning" stays off unless the topic already says planning. The contract checks a tab-closing fixture and still requires Q1 idea.md unchanged. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
@@ -98,21 +107,3 @@
 - Discovery: The tag list was a fixed six, including the next queued mechanism. A later video about closing a tab would still upload "start cue" and "decision fatigue" unless a human trimmed the stub. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1. Do not regenerate Q1 publish.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
-
-## Run 394 — 2026-10-08T00:20:00Z
-- Objective: Stop later title briefs from copying the first video's slogans.
-- Action: `title_thumb_brief.py` keeps a title only when its content words are in that packet. The on-image line uses the mechanism tokens, not "One Written Default". The contract refuses those Q1 slogans on an inbox fixture and still requires Q1 titles.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
-- Result: Videos published stay 0. Fixture titles name the inbox. Q1 title file unchanged.
-- Verification: `python3 tools/title_brief_contract.py` printed TITLE BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
-- Discovery: The title pads were aliases for packet 002. A later script about a different stall would still offer "Stop Deciding Every Morning" unless a human rewrote the list. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human follows issue 1. Do not regenerate Q1 titles. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
-
-## Run 393 — 2026-10-07T23:12:00Z
-- Objective: Stop later chapter drafts from copying the first video's chapter titles.
-- Action: `chapter_draft.py` builds a short title from the beat's spoken words. Generic Hook, payoff, and CTA headings no longer become "The reopen", "Written default", or "Tomorrow's sentence". The existing selftest refuses those Q1 labels on a fixture and still requires Q1 chapters.md to keep "0:00 The reopen". Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
-- Result: Videos published stay 0. Fixture chapter titles come from the fixture script. Q1 chapter file unchanged.
-- Verification: `check_chapter_draft_fail_closed` returned no failures. No provider write.
-- Discovery: The label helpers were aliases for packet 002. A later script about a different stall would still publish "The reopen" unless a human retyped the lines. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human follows issue 1. Do not regenerate Q1 chapters. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.

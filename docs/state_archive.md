@@ -919,3 +919,19 @@ Updated: 2026-10-07T21:12:00Z (Run 391)
 
 Updated: 2026-10-07T20:13:00Z (Run 390)
 
+## Run 393 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `chapter_draft.py` names chapters from that beat's spoken words. Hook, payoff, and CTA are no longer renamed to the first video's lines. Q1 chapters.md and publish.md were not regenerated.
+
+Updated: 2026-10-07T22:12:00Z (Run 392)
+
+## Run 394 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `title_thumb_brief.py` builds titles and on-image text from that packet. A later inbox idea no longer receives "Stop Deciding Every Morning" or "Written Default". Q1 titles.md was not regenerated.
+
+Updated: 2026-10-07T23:12:00Z (Run 393)
+
