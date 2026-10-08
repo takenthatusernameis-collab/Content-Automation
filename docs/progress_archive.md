@@ -532,3 +532,13 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Verification: idea brief contract and selftest. No provider write.
 
 
+## Run 399 — 2026-10-08T06:17:00Z
+- Improvement: later publish descriptions no longer call a non-default step a default to install, so a human does not rewrite that sentence per video. Estimated save: about 2 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing publish stub, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
+- Verification: publish brief contract and selftest. No provider write.
+## Run 400 — 2026-10-08T07:14:00Z
+- Improvement: later publish stubs no longer put the machine note in Description, so a human does not delete "No upload happened" before upload. Estimated save: about 1 minute per later video. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing publish stub and viewer_description strip, not a new checker module. Remaining manual step is still the three YouTube secrets.
+- Verification: publish brief contract and selftest. No provider write.
+
+

@@ -1218,3 +1218,21 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: `--block` was fixed in Run 390, but the default suggested section still printed the shared morning sentence. A human following that section would rewrite why now on every later card. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1. Do not regenerate Q1 idea.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
+## Run 399 — 2026-10-08T06:17:00Z
+- Objective: Stop later publish descriptions from calling every mechanism a default to install.
+- Action: `publish_brief.py` uses this packet's step. "that default" and "install" stay off unless the mechanism already says default. The contract checks a tab-closing fixture and still requires Q1 publish.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. Fixture description names the tab step. Q1 publish file unchanged.
+- Verification: `python3 tools/publish_brief_contract.py` printed PUBLISH BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: The description template still said every later video walks a default and tells the viewer to install it. A tab-closing packet would have needed a human rewrite of that sentence. Suspicious: oauth_idle_without_publish still has no publish since before Run 270, and Runs 390-399 kept grounding packet copy instead of a publish.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 publish.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
+## Run 400 — 2026-10-08T07:14:00Z
+- Objective: Stop later publish stubs from failing the upload gate on a machine note.
+- Action: `publish_brief.py` writes the lock sentence under Machine note, not Description. `viewer_description` drops "No upload happened" and the lock sentence before videos.insert. The contract refuses those lines in Description and still requires Q1 publish.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. A later stub description no longer contains the machine note. Q1 publish.md bytes unchanged.
+- Verification: `python3 tools/publish_brief_contract.py` printed PUBLISH BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: The stub sentence lived in Description, and the uploader refuses that marker even after the checklist is checked. A human would delete it on every later video. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated delete, it does not add a freeze.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 publish.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.

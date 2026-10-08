@@ -62,6 +62,27 @@ def main() -> int:
     fail(failures, proc.returncode == 0, f"dry-run failed: {proc.stderr[-200:]}")
     fail(failures, "dry-run: no packet folder written" in proc.stdout, "dry-run did not confirm no write")
     fail(failures, "written default" not in proc.stdout.lower(), "dry-run still printed the first mechanism")
+    near = "Close the extra tab before the next block"
+    near_proc = subprocess.run(
+        [sys.executable, str(TOOLS / "new_idea.py"), near, "--dry-run"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+    )
+    fail(failures, near_proc.returncode == 0, f"near-title dry-run failed: {near_proc.stderr[-200:]}")
+    near_blob = near_proc.stdout.lower()
+    fail(failures, "shutdown default" not in near_blob, "near tab topic inherited the Q4 shutdown default")
+    fail(failures, "checking one more thing" not in near_blob, "near tab topic inherited the Q4 check line")
+    fail(failures, "named step for this topic: close the extra tab" in near_blob, "near tab topic must name its own step")
+    exact = "Close the extra tab before you open the work"
+    exact_proc = subprocess.run(
+        [sys.executable, str(TOOLS / "new_idea.py"), exact, "--dry-run"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+    )
+    fail(failures, exact_proc.returncode == 0, f"exact Q4 dry-run failed: {exact_proc.stderr[-200:]}")
+    fail(failures, "shutdown default" in exact_proc.stdout.lower(), "exact Q4 title must keep its queued one_line")
     videos_after = {p.name for p in (ROOT / "videos").iterdir()} if (ROOT / "videos").is_dir() else set()
     fail(failures, videos_before == videos_after, "dry-run created a packet folder")
     after = hashlib.sha256(Q1.read_bytes()).hexdigest() if Q1.is_file() else ""

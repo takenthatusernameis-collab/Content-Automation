@@ -91,14 +91,16 @@ def problem_line(topic: str) -> str:
 
 
 def mechanism_line(topic: str) -> str:
-    """Use a queued one_line only when this topic already matches that row.
+    """Use a queued one_line only when this topic is that row's title.
 
-    Otherwise name the step from the topic. Do not stamp the first video's
-    written-default line onto a later idea.
+    A near title is not enough. "Close the extra tab before the next block"
+    shares four words with Q4 and used to inherit "shutdown default" and
+    "just checking one more thing". Those words stay on the exact Q4 title.
+    Otherwise name the step from this topic.
     """
     t = tokens(topic)
     best = ""
-    best_n = 0
+    best_ratio = 0.0
     queue = ROOT / "docs" / "topic_queue.md"
     if queue.is_file():
         for line in queue.read_text(encoding="utf-8").splitlines():
@@ -108,10 +110,14 @@ def mechanism_line(topic: str) -> str:
             if len(cells) < 4:
                 continue
             title, one = cells[2], cells[3]
-            n = len(t & (tokens(title) | tokens(one)))
-            if n > best_n:
-                best_n, best = n, one
-    if best and best_n >= 3:
+            title_tokens = tokens(title)
+            if not title_tokens or not one:
+                continue
+            overlap = t & title_tokens
+            ratio = len(overlap) / len(title_tokens)
+            if len(overlap) >= 3 and ratio > best_ratio:
+                best_ratio, best = ratio, one
+    if best and best_ratio >= 0.8:
         return best
     cleaned = topic.strip().rstrip(".")
     return f"A named step for this topic: {cleaned}"

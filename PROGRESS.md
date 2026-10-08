@@ -1,5 +1,14 @@
 # PROGRESS
 
+Updated: 2026-10-08T22:20:00Z (Run 413)
+
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
+## Run 413 — 2026-10-08T22:20:00Z
+- A near Q4 title no longer inherits "shutdown default" or "just checking one more thing". The exact queued title still keeps its one_line. Estimated save: about 2 minutes per later card that paraphrases a queue title. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: one match rule, plus two contract fixtures. Remaining manual step is still the three YouTube secrets.
+- Verification: idea ground contract and selftest. No provider write.
+
 ## Run 412 — 2026-10-08T21:15:00Z
 - Improvement: an empty working_title line no longer becomes the upload/title Primary by swallowing the next markdown heading. Estimated save: about 2 minutes per later packet that pastes a stub packet.md. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: one existing field parser, plus a contract fixture. Remaining manual step is still the three YouTube secrets.
@@ -8,7 +17,6 @@
 
 Updated: 2026-10-08T20:20:00Z (Run 411)
 
-Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
 ## Run 411
 - Later idea reprint no longer treats a pasted `Topic:` line as blank. That removes one refill on the next card. Videos published stay 0. Estimated human minutes for Q1 publish unchanged: still the three secrets.
@@ -68,14 +76,3 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Improvement: later thumbnail briefs no longer stamp the first video's planning-clutter contrast. Estimated save: about 1 minute per later video. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: one contrast line in the existing title brief, not a new checker. Remaining manual step is still the three YouTube secrets.
 - Verification: title brief contract and selftest. No provider write.
-
-## Run 400 — 2026-10-08T07:14:00Z
-- Improvement: later publish stubs no longer put the machine note in Description, so a human does not delete "No upload happened" before upload. Estimated save: about 1 minute per later video. Videos published stay 0. Human OAuth step unchanged.
-- Efficiency: the existing publish stub and viewer_description strip, not a new checker module. Remaining manual step is still the three YouTube secrets.
-- Verification: publish brief contract and selftest. No provider write.
-
-
-## Run 399 — 2026-10-08T06:17:00Z
-- Improvement: later publish descriptions no longer call a non-default step a default to install, so a human does not rewrite that sentence per video. Estimated save: about 2 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
-- Efficiency: the existing publish stub, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
-- Verification: publish brief contract and selftest. No provider write.

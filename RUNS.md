@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 413 — 2026-10-08T22:20:00Z
+- Objective: Run the later-packet dry-run and fix only a real failure.
+- Action: `new_idea.py` treated four shared title words as the Q4 row, so a near tab topic inherited "shutdown default" and "just checking one more thing". A queued one_line now requires at least 80% of that row's title tokens. The exact Q4 title still uses its one_line. The ground contract covers both. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.
+- Result: Videos published stay 0. Near tab topic names its own step. Exact Q4 title keeps the queued one_line. Q1 idea.md unchanged.
+- Verification: `python3 tools/idea_ground_contract.py` printed IDEA GROUND CONTRACT PASS. `python3 tools/selftest.py` after log compact. No provider write.
+- Discovery: Token overlap of 3 was matching a neighbor row, not this topic. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Phrase-edit runs should stay gated on a failed dry-run.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
 ## Run 412 — 2026-10-08T21:15:00Z
 - Objective: Run the later-packet dry-run and fix only a real failure.
 - Action: A packet with a filled `Topic:` line and an empty `working_title:` followed by `## Promise` made the title brief Primary `Promise`. `title_thumb_brief.py` field parse no longer consumes the newline after the colon. The title contract covers that fixture. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.
@@ -107,21 +116,3 @@
 - Discovery: The contrast line was a fixed first-video visual. A later thumbnail about an inbox would still say leftover planning clutter unless a human rewrote it. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated rewrite, it does not add a freeze.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1. Do not regenerate Q1 thumbnail.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
-
-## Run 400 — 2026-10-08T07:14:00Z
-- Objective: Stop later publish stubs from failing the upload gate on a machine note.
-- Action: `publish_brief.py` writes the lock sentence under Machine note, not Description. `viewer_description` drops "No upload happened" and the lock sentence before videos.insert. The contract refuses those lines in Description and still requires Q1 publish.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
-- Result: Videos published stay 0. A later stub description no longer contains the machine note. Q1 publish.md bytes unchanged.
-- Verification: `python3 tools/publish_brief_contract.py` printed PUBLISH BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
-- Discovery: The stub sentence lived in Description, and the uploader refuses that marker even after the checklist is checked. A human would delete it on every later video. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated delete, it does not add a freeze.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human follows issue 1. Do not regenerate Q1 publish.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
-
-## Run 399 — 2026-10-08T06:17:00Z
-- Objective: Stop later publish descriptions from calling every mechanism a default to install.
-- Action: `publish_brief.py` uses this packet's step. "that default" and "install" stay off unless the mechanism already says default. The contract checks a tab-closing fixture and still requires Q1 publish.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
-- Result: Videos published stay 0. Fixture description names the tab step. Q1 publish file unchanged.
-- Verification: `python3 tools/publish_brief_contract.py` printed PUBLISH BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
-- Discovery: The description template still said every later video walks a default and tells the viewer to install it. A tab-closing packet would have needed a human rewrite of that sentence. Suspicious: oauth_idle_without_publish still has no publish since before Run 270, and Runs 390-399 kept grounding packet copy instead of a publish.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human follows issue 1. Do not regenerate Q1 publish.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.

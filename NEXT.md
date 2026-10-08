@@ -1,12 +1,14 @@
 # NEXT
 
-Updated: 2026-10-08T20:20:00Z (Run 411)
+Updated: 2026-10-08T22:20:00Z (Run 413)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser or provider-state recovery edge while videos published stay 0. Do not extend operator_card while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate. `recovery_freeze.py` fails the build if the recovery surface grows. `operator_card_freeze.py` fails the build if the card surface grows. `stall_watch.py` sets `STALL_LOG_HYGIENE` after three log-cap or header deltas. Do not add another compact check while videos published stay 0.
 
 One human step: run `python3 tools/operator_card.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then run `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets. Do not extend the card.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+Run 413: a later-packet dry-run of `python3 tools/new_idea.py "Close the extra tab before the next block" --dry-run` inherited Q4's shutdown default from four shared title words. A queued one_line now requires at least 80% of that row's title tokens. The exact Q4 title still keeps its one_line. Q1 idea.md stays the approved card. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not open another phrase edit unless a later-packet dry-run fails.
 
 Run 412: a later-packet dry-run with an empty `working_title:` line made Primary `Promise` because the title parser ate the next heading. `python3 tools/title_thumb_brief.py PATH --dry-run` now keeps that empty line empty and falls back to the idea topic. Q1 titles.md stays approved. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not open another phrase edit unless a later-packet dry-run fails.
 

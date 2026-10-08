@@ -967,3 +967,19 @@ Updated: 2026-10-08T02:11:00Z (Run 396)
 
 Updated: 2026-10-08T03:11:00Z (Run 397)
 
+## Run 399 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `publish_brief.py` no longer calls a later mechanism a default or tells the viewer to install it, unless that packet already says default. Q1 publish.md was not regenerated.
+
+Updated: 2026-10-08T04:11:00Z (Run 398)
+
+## Run 400 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `publish_brief.py` no longer puts "No upload happened" in Description. `viewer_description` drops that stub sentence the same way the pin drops a reply ask. Q1 publish.md was not regenerated.
+
+Updated: 2026-10-08T06:17:00Z (Run 399)
+
