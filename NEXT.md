@@ -1,12 +1,14 @@
 # NEXT
 
-Updated: 2026-10-08T01:15:00Z (Run 395)
+Updated: 2026-10-08T02:11:00Z (Run 396)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser or provider-state recovery edge while videos published stay 0. Do not extend operator_card while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate. `recovery_freeze.py` fails the build if the recovery surface grows. `operator_card_freeze.py` fails the build if the card surface grows. `stall_watch.py` sets `STALL_LOG_HYGIENE` after three log-cap or header deltas. Do not add another compact check while videos published stay 0.
 
 One human step: run `python3 tools/operator_card.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then run `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets. Do not extend the card.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr60. **Do not rediscover the first video's mechanism as the next idea card.** Run 396: `python3 tools/new_idea.py "TOPIC" --dry-run` names that topic. It does not stamp "A written default that removes one daily decision" unless the topic says it. Q1 idea.md stays the approved card. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check.
 
 1zr59. **Do not rediscover the first video's tags as the next publish stub.** Run 395: `python3 tools/publish_brief.py PATH --dry-run` keeps channel niche tags and that packet's words. It does not add "start cue" or "decision fatigue" unless the packet says them. Q1 publish.md stays the approved draft. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check.
 
@@ -29,5 +31,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zr50. **Do not rediscover a green selftest that ran before the log prepend.** Run 386: `check_compact_all()` is called from selftest `main`. `python3 tools/record_run.py --note NOTE.json` prepends STATE, NEXT, RUNS, PROGRESS, and FAILURES, then runs `compact_all.py`. Do not add a freeze module to remember that. Do not open a second OAuth issue; the human step is issue 1. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not extend the card.
 
 1zr49. **Do not rediscover another operator-card reprint as progress.** Run 385: `python3 tools/operator_card_freeze.py` fails if `operator_card.py` grows a function, a second card module appears, or the card imports subprocess or a network client. Do not add a function to make the freeze pass. Do not add a second card. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2.
-
-1zr48. **Do not rediscover the Google Cloud clicks from the log stack.** Run 384: `python3 tools/operator_card.py` reprints the numbered `oauth_setup.py` steps (Desktop app, YouTube Data API v3, test user, three scopes, `oauth_exchange.py`, secret set, one dispatch). It fails if those steps drift. Do not add a second card. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2.

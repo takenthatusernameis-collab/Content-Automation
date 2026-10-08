@@ -18,7 +18,8 @@ TEMPLATE = ROOT / "videos" / "_template"
 VIDEOS = ROOT / "videos"
 
 DEFAULT_VIEWER = "Someone who wants focused work but stalls after planning"
-DEFAULT_MECHANISM = "A written default that removes one daily decision"
+# First-video mechanism. A later topic must not inherit it unless the topic says it.
+Q1_MECHANISM = "A written default that removes one daily decision"
 WORKING_NICHE = "systems for doing focused work"
 
 
@@ -75,7 +76,34 @@ def overlap_note(topic: str) -> tuple[str, int]:
 def problem_line(topic: str) -> str:
     t = topic.rstrip(".")
     low = t[0].lower() + t[1:] if t else t
-    return f"They keep facing this without a default process: {low}"
+    return f"They keep hitting this without a named step: {low}"
+
+
+def mechanism_line(topic: str) -> str:
+    """Use a queued one_line only when this topic already matches that row.
+
+    Otherwise name the step from the topic. Do not stamp the first video's
+    written-default line onto a later idea.
+    """
+    t = tokens(topic)
+    best = ""
+    best_n = 0
+    queue = ROOT / "docs" / "topic_queue.md"
+    if queue.is_file():
+        for line in queue.read_text(encoding="utf-8").splitlines():
+            if not line.startswith("| Q"):
+                continue
+            cells = [c.strip() for c in line.strip("|").split("|")]
+            if len(cells) < 4:
+                continue
+            title, one = cells[2], cells[3]
+            n = len(t & (tokens(title) | tokens(one)))
+            if n > best_n:
+                best_n, best = n, one
+    if best and best_n >= 3:
+        return best
+    cleaned = topic.strip().rstrip(".")
+    return f"A named step for this topic: {cleaned}"
 
 
 def idea_markdown(topic: str, related: str, overlap: int) -> str:
@@ -86,7 +114,7 @@ def idea_markdown(topic: str, related: str, overlap: int) -> str:
 - topic: {topic.rstrip(".")}
 - viewer: {DEFAULT_VIEWER}
 - problem: {problem_line(topic)}
-- mechanism (the system, not the pep talk): {DEFAULT_MECHANISM}
+- mechanism (the system, not the pep talk): {mechanism_line(topic)}
 - why now: working niche — {WORKING_NICHE}
 - related videos to avoid repeating: {related}
 
@@ -99,19 +127,23 @@ def idea_markdown(topic: str, related: str, overlap: int) -> str:
 """
 
 
-BEAT_TITLES = [
-    "Name the stall",
-    "The default that replaces the decision",
-    "Install it in one place",
-    "Measure the start, not the mood",
-    "Failure modes",
-    "Make it smaller",
-    "First week protocol",
-]
+def beat_titles(topic: str, beat_count: int) -> list[str]:
+    """Structural beats named from this topic, not the first video's default."""
+    short = " ".join(topic.strip().rstrip(".").split()[:8])
+    pool = [
+        "Name the stall",
+        f"The move: {short}",
+        "Put that move in one place",
+        "Check it after one use",
+        "Failure modes",
+        "Make the move smaller",
+        "First week of that move",
+    ]
+    return pool[:beat_count]
 
 
 def script_markdown(topic: str, beat_count: int) -> str:
-    titles = BEAT_TITLES[:beat_count]
+    titles = beat_titles(topic, beat_count)
     beats = []
     for i, title in enumerate(titles, start=1):
         beats.append(f"## Beat {i} — {title}\nWORDS:\n\nVISUAL:\n")
@@ -147,11 +179,22 @@ def main() -> int:
         action="store_true",
         help="Copy template only; do not write generated qa.md / research.md",
     )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Print the idea card and beat titles. Do not create a packet folder.",
+    )
     args = parser.parse_args()
 
     if not 4 <= args.beats <= 7:
         print("--beats must be 4–7", file=sys.stderr)
         return 1
+    if args.dry_run:
+        related, overlap = overlap_note(args.topic)
+        print(idea_markdown(args.topic, related, overlap))
+        print(script_markdown(args.topic, args.beats))
+        print("dry-run: no packet folder written")
+        return 0
     if not TEMPLATE.is_dir():
         print(f"Template missing: {TEMPLATE}", file=sys.stderr)
         return 1

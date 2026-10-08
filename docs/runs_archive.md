@@ -1081,3 +1081,12 @@ Permanent log. Newest first. Do not paste the archive back into this file.
 - Discovery: Runs 368-382 froze and flagged recovery edges, but the human step was still reconstructed from NEXT notes. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human runs `python3 tools/operator_card.py` and stores the three secrets. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
+## Run 384 — 2026-10-07T12:20:00Z
+- Objective: Make the one human publish command include the Google Cloud steps, not only the secret-set lines.
+- Action: `tools/operator_card.py` reprints the numbered steps from `oauth_setup.recipe()`. The contract fails if Desktop app, YouTube Data API v3, the exchange command, or the dispatch line drifts. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Did not add a scanner. Did not scaffold Q2.
+- Result: Videos published stay 0. Operator card PASS. Console steps match the recipe.
+- Verification: `python3 tools/operator_card_contract.py` and `python3 tools/operator_card.py`. No provider write.
+- Discovery: Run 383 printed secret-set commands and still sent the human to reconstruct the console clicks. Suspicious: oauth_idle_without_publish still has no publish since before Run 270, and Runs 368-383 added stall tooling instead of a publish.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human runs `python3 tools/operator_card.py` and stores the three secrets. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

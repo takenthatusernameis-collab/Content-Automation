@@ -1,5 +1,13 @@
 # STATE
 
+Updated: 2026-10-08T02:11:00Z (Run 396)
+
+## Run 396 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `new_idea.py` names the mechanism and beat titles from that topic, or from a queued one_line only when the topic matches that row. A later idea no longer receives "A written default that removes one daily decision" or "The default that replaces the decision". `--dry-run` prints the card and does not create a folder. Q1 idea.md was not regenerated.
+
 Updated: 2026-10-08T01:15:00Z (Run 395)
 
 ## Run 395 delta
@@ -90,10 +98,4 @@ Updated: 2026-10-07T13:23:00Z (Run 385)
 
 
 Updated: 2026-10-07T12:20:00Z (Run 384)
-
-## Run 384 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- `python3 tools/operator_card.py` now reprints the numbered Google Cloud steps from `oauth_setup.py`, including the Desktop-app client, the three scopes, `oauth_exchange.py`, and the secret-set lines. It fails if those steps drift. This does not call YouTube or GitHub.
 

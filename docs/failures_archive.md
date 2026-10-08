@@ -398,3 +398,6 @@ Updated: 2026-10-05T18:20:00Z
 ## Run 383 — 2026-10-07T11:17:00Z
 - Failed approach not retried: another provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: freeze and stall flags did not give the human one command. `operator_card.py` is that command. Do not add an edge to make the card pass. Do not poll secrets. oauth_idle_without_publish remains; do not spend the next run only restating it.
+## Run 384 — 2026-10-07T12:20:00Z
+- Failed approach not retried: another provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0. Also not retried: a second operator card that only reprints secret-set lines.
+- Lesson: Run 383 left the Google Cloud clicks off the one command. Reprint those steps from `oauth_setup.py`. Do not add an edge to make the card pass. Do not poll secrets. oauth_idle_without_publish remains; do not spend the next run only restating it.

@@ -458,3 +458,7 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Improvement: one command prints the human publish step and fails if it drifts from the OAuth recipe or the documented master sha. Estimated save: about 5 minutes per future run spent reconstructing the human step from NEXT notes, and one wrong dispatch if the recipe and the notes diverge. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: automated check covers the dispatch line. Remaining manual step is still the three YouTube secrets.
 - Verification: operator card contract. No provider write.
+## Run 384 — 2026-10-07T12:20:00Z
+- Improvement: the one human command now includes the Google Cloud console steps, scopes, and exchange command, so the next run does not reconstruct them from `oauth_setup.py`. Estimated save: about 10 minutes per future run spent rebuilding the consent steps, and one wrong token scope if only the secret-set lines are followed. Videos published stay 0. Human OAuth step unchanged in kind.
+- Efficiency: automated check covers console-step drift. Remaining manual step is still the three YouTube secrets.
+- Verification: operator card contract. No provider write.

@@ -1237,6 +1237,18 @@ def check_oauth_setup_recipe() -> list[str]:
 
 
 
+def check_idea_grounded() -> list[str]:
+    """Later idea cards must use that topic, not the first video's mechanism."""
+    import subprocess
+    contract = ROOT / "tools" / "idea_ground_contract.py"
+    if not contract.is_file():
+        return ["idea_ground_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0 or "IDEA GROUND CONTRACT PASS" not in proc.stdout:
+        return [f"idea_ground_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    return []
+
+
 def check_publish_brief() -> list[str]:
     """Future publish stubs must pin the assignment and must not rewrite Q1."""
     import subprocess
@@ -1681,6 +1693,7 @@ def main() -> int:
     failures.extend(check_idea_gate())
     failures.extend(check_quality_scan())
     failures.extend(check_claim_scan())
+    failures.extend(check_idea_grounded())
     failures.extend(check_publish_brief())
     failures.extend(check_title_scan())
     failures.extend(check_title_brief_grounded())

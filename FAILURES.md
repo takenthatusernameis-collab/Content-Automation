@@ -2,6 +2,11 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 396 — 2026-10-08T02:11:00Z
+- Failed approach not retried: scaffolding Q2 to prove the mechanism change, regenerating Q1 idea.md, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: The idea scaffolder aliased every topic to the first video. Fix the generator and preview with --dry-run. Do not create a packet to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1.
+
+
 ## Run 395 — 2026-10-08T01:15:00Z
 - Failed approach not retried: regenerating Q1 publish.md to prove the tag change, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
 - Lesson: The tag list aliased every packet to the first video and the next queued mechanism. Fix the generator. Do not rewrite the approved Q1 tags to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1.
@@ -55,7 +60,3 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 385 — 2026-10-07T13:23:00Z
 - Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: Runs 383-384 extended the card and published nothing. `operator_card_freeze.py` fails the build when the function list or card-module list grows. Do not add a function to clear it. Do not poll secrets. oauth_idle_without_publish remains; do not spend the next run only restating it.
-
-## Run 384 — 2026-10-07T12:20:00Z
-- Failed approach not retried: another provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0. Also not retried: a second operator card that only reprints secret-set lines.
-- Lesson: Run 383 left the Google Cloud clicks off the one command. Reprint those steps from `oauth_setup.py`. Do not add an edge to make the card pass. Do not poll secrets. oauth_idle_without_publish remains; do not spend the next run only restating it.

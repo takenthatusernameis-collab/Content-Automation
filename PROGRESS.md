@@ -2,6 +2,12 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 396 — 2026-10-08T02:11:00Z
+- Improvement: later idea cards no longer copy the first video's mechanism and beat titles, so a human does not rewrite the mechanism line and four beat headings per video. Estimated save: about 5 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing idea scaffolder, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
+- Verification: idea ground contract and selftest. No provider write.
+
+
 ## Run 395 — 2026-10-08T01:15:00Z
 - Improvement: later publish stubs no longer copy the first video's tags or invent its written-default line, so a human does not delete three off-topic tags and one description sentence per video. Estimated save: about 3 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the existing publish stub, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
@@ -66,8 +72,3 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Improvement: another operator-card function now fails selftest instead of waiting for three later deltas to set `STALL_OPERATOR_CARD`. Estimated save: one agent run spent reprinting console steps, about 10 minutes, on every future run that would have grown the card. Videos published stay 0. Human OAuth step unchanged in kind.
 - Efficiency: automated freeze covers the existing five functions. Remaining manual step is still the three YouTube secrets.
 - Verification: operator-card freeze contract and stall-watch contract. No provider write.
-
-## Run 384 — 2026-10-07T12:20:00Z
-- Improvement: the one human command now includes the Google Cloud console steps, scopes, and exchange command, so the next run does not reconstruct them from `oauth_setup.py`. Estimated save: about 10 minutes per future run spent rebuilding the consent steps, and one wrong token scope if only the secret-set lines are followed. Videos published stay 0. Human OAuth step unchanged in kind.
-- Efficiency: automated check covers console-step drift. Remaining manual step is still the three YouTube secrets.
-- Verification: operator card contract. No provider write.
