@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 414 — 2026-10-08T23:20:00Z
+- Objective: Run the later-packet dry-run and fix only a real failure.
+- Action: A Q5-shaped packet dry-run named the checklist stall, not the morning reopen. Title alts still ended on `to` and `the` after the 70-character cut. `clip_title` now drops a trailing glue word. The title contract covers that fixture. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.
+- Result: Videos published stay 0. Long alts end on a content word. Q1 titles.md unchanged.
+- Verification: `python3 tools/title_brief_contract.py` printed TITLE BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: The length cut was already on a word boundary, but the last kept word was glue. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Phrase-edit runs should stay gated on a failed dry-run.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
 ## Run 413 — 2026-10-08T22:20:00Z
 - Objective: Run the later-packet dry-run and fix only a real failure.
 - Action: `new_idea.py` treated four shared title words as the Q4 row, so a near tab topic inherited "shutdown default" and "just checking one more thing". A queued one_line now requires at least 80% of that row's title tokens. The exact Q4 title still uses its one_line. The ground contract covers both. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.
@@ -105,14 +114,5 @@
 - Result: Videos published stay 0. Fixture on-image text is Inbox. Q1 thumbnail file unchanged.
 - Verification: `python3 tools/title_brief_contract.py` printed TITLE BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
 - Discovery: A mechanism of one content word was discarded. A later thumbnail about an inbox would still say Name The Step unless a human rewrote it. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated rewrite, it does not add a freeze.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human follows issue 1. Do not regenerate Q1 thumbnail.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
-
-## Run 401 — 2026-10-08T08:13:00Z
-- Objective: Stop later thumbnail briefs from copying the first video's planning-clutter contrast.
-- Action: `title_thumb_brief.py` builds Contrast from this packet's stall and step. The empty-panel line stays only when the packet already says it. The contract checks an inbox fixture and still requires Q1 titles.md and thumbnail.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
-- Result: Videos published stay 0. Fixture contrast names the mixed folders, not planning clutter. Q1 thumbnail file unchanged.
-- Verification: `python3 tools/title_brief_contract.py` printed TITLE BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
-- Discovery: The contrast line was a fixed first-video visual. A later thumbnail about an inbox would still say leftover planning clutter unless a human rewrote it. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated rewrite, it does not add a freeze.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1. Do not regenerate Q1 thumbnail.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.

@@ -6,6 +6,8 @@ Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaff
 
 One human step: run `python3 tools/operator_card.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then run `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets. Do not extend the card.
 
+Run 414: a later-packet dry-run of `python3 tools/title_thumb_brief.py PATH --dry-run` cut long alts on `to` and `the`. `clip_title` now drops a trailing glue word. Q1 titles.md stays the locked primary. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not open another phrase edit unless a later-packet dry-run fails.
+
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
 
 Run 413: a later-packet dry-run of `python3 tools/new_idea.py "Close the extra tab before the next block" --dry-run` inherited Q4's shutdown default from four shared title words. A queued one_line now requires at least 80% of that row's title tokens. The exact Q4 title still keeps its one_line. Q1 idea.md stays the approved card. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not open another phrase edit unless a later-packet dry-run fails.

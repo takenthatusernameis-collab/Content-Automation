@@ -1,5 +1,13 @@
 # STATE
 
+Updated: 2026-10-08T23:20:00Z (Run 414)
+
+## Run 414 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Later-packet dry-run failed one real check: long title alts were cut on a dangling word (`Nothing to`, `Absorbs the`). `clip_title` now drops a trailing glue word after the length cut. Q1 titles.md was not regenerated.
+
 Updated: 2026-10-08T22:20:00Z (Run 413)
 
 ## Run 413 delta
@@ -87,12 +95,4 @@ Updated: 2026-10-08T09:13:00Z (Run 402)
 
 
 Updated: 2026-10-08T08:13:00Z (Run 401)
-
-## Run 401 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- `title_thumb_brief.py` contrast now names this packet's stall versus its step. "calm empty panel vs leftover planning clutter" stays only when the packet already says that. Q1 thumbnail.md was not regenerated.
-
-Updated: 2026-10-08T07:14:00Z (Run 400)
 

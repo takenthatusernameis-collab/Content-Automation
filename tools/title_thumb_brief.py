@@ -93,11 +93,17 @@ def title_case(text: str) -> str:
 def clip_title(text: str, limit: int = 70) -> str:
     text = re.sub(r"\s+", " ", text).strip(" .")
     if len(text) <= limit:
-        return text
-    cut = text[: limit - 1]
-    if " " in cut:
-        cut = cut.rsplit(" ", 1)[0]
-    return cut.strip(" -:,")
+        cut = text
+    else:
+        cut = text[: limit - 1]
+        if " " in cut:
+            cut = cut.rsplit(" ", 1)[0]
+    # A character cut leaves "Nothing to" / "Absorbs the". Drop the dangling glue
+    # so a later packet does not need a human rewrite of every alt.
+    parts = cut.split()
+    while parts and parts[-1].lower().strip(".,;:") in STOP:
+        parts.pop()
+    return " ".join(parts).strip(" -:,")
 
 
 def content_tokens(text: str) -> list[str]:

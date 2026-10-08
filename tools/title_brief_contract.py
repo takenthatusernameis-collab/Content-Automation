@@ -129,6 +129,21 @@ def main() -> int:
         empty_titles = candidate_titles(empty_src)
         if not empty_titles or empty_titles[0].lower() == "promise":
             failures.append(f"primary became the next heading: {empty_titles[:2]}")
+
+        long = {
+            "topic": "Keep the checklist where the stall happens",
+            "problem": "the constraint lives away from the stall, so the delay has nothing to hit",
+            "mechanism": "Put the constraint on the desk, file, or app that already absorbs the delay",
+            "viewer": "Someone who wants focused work but stalls on this checklist",
+            "working": "Keep the checklist where the stall happens",
+        }
+        long_titles = candidate_titles(long)
+        if not long_titles:
+            failures.append("long clause produced no titles")
+        for title in long_titles:
+            last = title.split()[-1].lower().strip(".,;:")
+            if last in {"to", "the", "so", "from", "a", "of"}:
+                failures.append(f"title ended on a dangling word: {title}")
         plain_titles = " ".join(candidate_titles(plain_src)).lower()
         if plain_titles.startswith("004") or " 004 " in f" {plain_titles} ":
             failures.append(f"plain Topic titles include the folder id: {plain_titles}")
