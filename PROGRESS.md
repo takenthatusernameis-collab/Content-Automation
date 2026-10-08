@@ -2,6 +2,11 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 407 — 2026-10-08T14:15:00Z
+- Improvement: later idea cards name this topic in why now, so a human does not replace the channel niche line before expand. Estimated save: about 1 minute per later idea. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: one line in the existing scaffolder, not a new checker. Remaining manual step is still the three YouTube secrets.
+- Verification: idea ground contract and selftest. No provider write.
+
 ## Run 406 — 2026-10-08T13:22:00Z
 - Improvement: later idea pastes no longer stamp the planning-stall viewer or tell the viewer to install a stall the row did not name, so a human does not rewrite those two lines before expand. Estimated save: about 2 minutes per later idea paste. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the existing idea brief, plus contract checks. Remaining manual step is still the three YouTube secrets.

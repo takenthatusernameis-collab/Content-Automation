@@ -49,6 +49,9 @@ def main() -> int:
     fail(failures, "browser" in blob and "tab" in blob, "later idea must name the topic")
     fail(failures, "stalls on this: close the browser tab" in blob, "viewer line must name the topic")
     fail(failures, "the move: close the browser tab" in blob, "beat title must use the topic")
+    fail(failures, "the stall in this packet is this: close the browser tab" in blob, "why now must name the topic")
+    fail(failures, "working niche" not in blob, "later idea must not stamp only the channel niche as why now")
+    fail(failures, "morning still reopens" not in blob, "later idea must not stamp the morning reopen")
     videos_before = {p.name for p in (ROOT / "videos").iterdir()} if (ROOT / "videos").is_dir() else set()
     proc = subprocess.run(
         [sys.executable, str(TOOLS / "new_idea.py"), TOPIC, "--dry-run"],

@@ -117,6 +117,24 @@ def mechanism_line(topic: str) -> str:
     return f"A named step for this topic: {cleaned}"
 
 
+def why_now_line(topic: str) -> str:
+    """Name this topic's stall. A blank topic keeps the channel niche.
+
+    A morning reopen or an install line stays only when the topic already
+    says morning, reopen, install, or default. A later card must not be told
+    the first video's morning line. This does not write idea.md.
+    """
+    cleaned = topic.strip().rstrip(".")
+    if not cleaned:
+        return f"working niche — {WORKING_NICHE}"
+    low = cleaned.lower()
+    if "morning" in low or "reopen" in low:
+        return f"The week is already planned, but this stall is still here: {cleaned}."
+    if "install" in low or "default" in low:
+        return f"The stall to install is this: {cleaned}."
+    return f"The stall in this packet is this: {cleaned}."
+
+
 def idea_markdown(topic: str, related: str, overlap: int) -> str:
     rec = "skip" if overlap >= 4 else "draft"
     spec = "high" if len(tokens(topic)) >= 5 else "medium"
@@ -126,7 +144,7 @@ def idea_markdown(topic: str, related: str, overlap: int) -> str:
 - viewer: {viewer_line(topic)}
 - problem: {problem_line(topic)}
 - mechanism (the system, not the pep talk): {mechanism_line(topic)}
-- why now: working niche — {WORKING_NICHE}
+- why now: {why_now_line(topic)}
 - related videos to avoid repeating: {related}
 
 ## Intake score (heuristic, not audience data)

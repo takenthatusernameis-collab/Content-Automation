@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 407 — 2026-10-08T14:15:00Z
+- Failed approach not retried: regenerating Q1 idea.md to prove the why-now change, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: The idea scaffolder still stamped the channel niche as why now after the paste path was grounded. Fix the generator. Do not rewrite the approved Q1 card to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1. Do not add a freeze module for the packet-ground streak.
+
 ## Run 404 — 2026-10-08T11:17:00Z
 - Failed approach not retried: regenerating Q1 expand.md to prove the growth line, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: The expand brief counted words and did not name the stall. Fix the generator. Do not rewrite the approved Q1 expand brief to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1. Do not add a freeze module for the packet-ground streak.

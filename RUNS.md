@@ -1,5 +1,15 @@
 # RUNS
 
+## Run 407 — 2026-10-08T14:15:00Z
+- Objective: Stop later idea cards from using the channel niche line as why now.
+- Action: `new_idea.py` names why now from that topic. A morning reopen or an install line stays only when the topic already says morning, reopen, install, or default. The contract checks a tab-closing fixture and still requires Q1 idea.md unchanged. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. Dry-run why-now names the extra tab. Q1 idea file unchanged.
+- Verification: `python3 tools/idea_ground_contract.py` printed IDEA GROUND CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: Run 406 grounded the suggested paste, but `new_idea.py` still wrote "working niche" on every card. A tab topic would still need a human rewrite of why now. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated rewrite, it does not add a freeze.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 idea.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
+
 ## Run 406 — 2026-10-08T13:22:00Z
 - Objective: Stop later idea pastes from inheriting the planning-stall viewer and an install line.
 - Action: `idea_brief.py` names the viewer and why-now from that row. Planning-stall audience and "stall to install" stay only when the row already says planning, every morning, install, or default. The contract checks Q3 and the Q2 reprint and still does not write idea.md. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
