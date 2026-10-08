@@ -2,6 +2,11 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 395 — 2026-10-08T01:15:00Z
+- Failed approach not retried: regenerating Q1 publish.md to prove the tag change, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
+- Lesson: The tag list aliased every packet to the first video and the next queued mechanism. Fix the generator. Do not rewrite the approved Q1 tags to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1.
+
+
 ## Run 394 — 2026-10-08T00:20:00Z
 - Failed approach not retried: regenerating Q1 titles.md to prove the copy change, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
 - Lesson: The title brief aliased every thin packet to the first video. Fix the generator. Do not rewrite the locked Q1 primary to make the test pass. oauth_idle_without_publish remains; the human step is issue 1.
@@ -54,7 +59,3 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 384 — 2026-10-07T12:20:00Z
 - Failed approach not retried: another provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0. Also not retried: a second operator card that only reprints secret-set lines.
 - Lesson: Run 383 left the Google Cloud clicks off the one command. Reprint those steps from `oauth_setup.py`. Do not add an edge to make the card pass. Do not poll secrets. oauth_idle_without_publish remains; do not spend the next run only restating it.
-
-## Run 383 — 2026-10-07T11:17:00Z
-- Failed approach not retried: another provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
-- Lesson: freeze and stall flags did not give the human one command. `operator_card.py` is that command. Do not add an edge to make the card pass. Do not poll secrets. oauth_idle_without_publish remains; do not spend the next run only restating it.

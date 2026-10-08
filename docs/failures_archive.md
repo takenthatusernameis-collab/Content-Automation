@@ -395,3 +395,6 @@ Updated: 2026-10-05T18:20:00Z
 ## Run 382 — 2026-10-07T10:14:00Z
 - Failed approach not retried: another provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: a stall flag after four edges did not stop the next edge. `recovery_freeze.py` fails the build when the artifact or recover call count grows. Do not add an edge to clear it. Do not poll secrets. oauth_idle_without_publish remains; do not spend the next run only restating it.
+## Run 383 — 2026-10-07T11:17:00Z
+- Failed approach not retried: another provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: freeze and stall flags did not give the human one command. `operator_card.py` is that command. Do not add an edge to make the card pass. Do not poll secrets. oauth_idle_without_publish remains; do not spend the next run only restating it.

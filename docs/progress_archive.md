@@ -454,3 +454,7 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Improvement: a new provider-state recovery edge now fails selftest instead of waiting for four later deltas to set `STALL_RECOVERY_EDGE`. Estimated save: one agent run spent wiring another recover path, about 15 minutes, on every future run that would have grown the surface. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: automated freeze covers the existing artifact and recover call. Remaining manual step is still the three YouTube secrets.
 - Verification: recovery freeze contract and selftest. Release master sha256 matched. No provider write.
+## Run 383 — 2026-10-07T11:17:00Z
+- Improvement: one command prints the human publish step and fails if it drifts from the OAuth recipe or the documented master sha. Estimated save: about 5 minutes per future run spent reconstructing the human step from NEXT notes, and one wrong dispatch if the recipe and the notes diverge. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: automated check covers the dispatch line. Remaining manual step is still the three YouTube secrets.
+- Verification: operator card contract. No provider write.

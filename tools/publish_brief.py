@@ -89,18 +89,32 @@ def content_tokens(*blobs: str) -> list[str]:
     return seen
 
 
+CHANNEL_TAGS = (
+    "focused work",
+    "productivity systems",
+    "deep work",
+)
+# Mechanism words from the first video and the next queued row. A later packet
+# only receives them when its own title, topic, problem, or mechanism says them.
+PACKET_ONLY_TAGS = (
+    "start cue",
+    "decision fatigue",
+    "work defaults",
+    "written default",
+    "morning decision",
+)
+
+
 def tag_list(src: dict[str, str], title: str) -> list[str]:
     tokens = content_tokens(
         title, src.get("topic", ""), src.get("mechanism", ""), src.get("problem", "")
     )
-    tags = [
-        "focused work",
-        "productivity systems",
-        "work defaults",
-        "start cue",
-        "deep work",
-        "decision fatigue",
-    ]
+    blob = " ".join(tokens)
+    tags = list(CHANNEL_TAGS)
+    for fixed in PACKET_ONLY_TAGS:
+        parts = fixed.split()
+        if parts and all(part in blob for part in parts):
+            tags.append(fixed)
     for tok in tokens[:8]:
         tags.append(tok)
     out: list[str] = []
@@ -145,14 +159,14 @@ def render(packet: Path) -> str:
             return s
         return s[0].lower() + s[1:]
 
-    problem = lower_start(src.get("problem") or "they stall after planning")
-    mechanism = lower_start(src.get("mechanism") or "a written default that removes one daily decision")
+    problem = lower_start(src.get("problem") or "the stall named in this packet")
+    mechanism = lower_start(src.get("mechanism") or "the default this video names")
     viewer = lower_start(src.get("viewer") or "someone who wants focused work")
     first_action = mechanism.rstrip(".")
     desc_bits = [
         f"{title}.",
-        promise or f"After watching, you can replace a mood-dependent start with {first_action}.",
-        f"If {problem.rstrip('.')}, this video walks the default instead of a pep talk.",
+        promise or f"After watching, you can install {first_action}.",
+        f"If {problem.rstrip('.')}, this video walks that default instead of a pep talk.",
         f"Built for {viewer.rstrip('.')}.",
         "No upload happened. Human locks title, description, and tags before YouTube.",
     ]

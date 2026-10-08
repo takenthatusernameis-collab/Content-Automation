@@ -2,6 +2,12 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 395 — 2026-10-08T01:15:00Z
+- Improvement: later publish stubs no longer copy the first video's tags or invent its written-default line, so a human does not delete three off-topic tags and one description sentence per video. Estimated save: about 3 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing publish stub, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
+- Verification: publish brief contract and selftest. No provider write.
+
+
 ## Run 394 — 2026-10-08T00:20:00Z
 - Improvement: later title and thumbnail briefs no longer copy the first video's slogans, so a human does not rewrite five titles and the on-image line per video. Estimated save: about 6 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the existing title brief, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
@@ -64,9 +70,4 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 ## Run 384 — 2026-10-07T12:20:00Z
 - Improvement: the one human command now includes the Google Cloud console steps, scopes, and exchange command, so the next run does not reconstruct them from `oauth_setup.py`. Estimated save: about 10 minutes per future run spent rebuilding the consent steps, and one wrong token scope if only the secret-set lines are followed. Videos published stay 0. Human OAuth step unchanged in kind.
 - Efficiency: automated check covers console-step drift. Remaining manual step is still the three YouTube secrets.
-- Verification: operator card contract. No provider write.
-
-## Run 383 — 2026-10-07T11:17:00Z
-- Improvement: one command prints the human publish step and fails if it drifts from the OAuth recipe or the documented master sha. Estimated save: about 5 minutes per future run spent reconstructing the human step from NEXT notes, and one wrong dispatch if the recipe and the notes diverge. Videos published stay 0. Human OAuth step unchanged.
-- Efficiency: automated check covers the dispatch line. Remaining manual step is still the three YouTube secrets.
 - Verification: operator card contract. No provider write.

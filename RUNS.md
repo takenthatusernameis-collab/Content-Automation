@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 395 — 2026-10-08T01:15:00Z
+- Objective: Stop later publish stubs from inheriting the first video's tags.
+- Action: `publish_brief.py` keeps focused work, productivity systems, and deep work, then adds words from that packet. "start cue", "decision fatigue", and "work defaults" stay off unless those words are already in the packet. A missing mechanism no longer becomes "a written default" or a mood-dependent start. The contract checks a tab-closing fixture and still requires Q1 publish.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. Fixture tags name the tab, not the start cue. Q1 publish file unchanged.
+- Verification: `python3 tools/publish_brief_contract.py` printed PUBLISH BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: The tag list was a fixed six, including the next queued mechanism. A later video about closing a tab would still upload "start cue" and "decision fatigue" unless a human trimmed the stub. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 publish.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
 ## Run 394 — 2026-10-08T00:20:00Z
 - Objective: Stop later title briefs from copying the first video's slogans.
 - Action: `title_thumb_brief.py` keeps a title only when its content words are in that packet. The on-image line uses the mechanism tokens, not "One Written Default". The contract refuses those Q1 slogans on an inbox fixture and still requires Q1 titles.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
@@ -98,14 +107,5 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Result: Videos published stay 0. Operator card PASS. Console steps match the recipe.
 - Verification: `python3 tools/operator_card_contract.py` and `python3 tools/operator_card.py`. No provider write.
 - Discovery: Run 383 printed secret-set commands and still sent the human to reconstruct the console clicks. Suspicious: oauth_idle_without_publish still has no publish since before Run 270, and Runs 368-383 added stall tooling instead of a publish.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human runs `python3 tools/operator_card.py` and stores the three secrets. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 383 — 2026-10-07T11:17:00Z
-- Objective: Keep the remaining human publish step in one command that cannot drift from the OAuth recipe.
-- Action: Added `tools/operator_card.py`. It prints the three secret-set commands and the dispatch line from `oauth_setup.py`, and fails if HANDOFF loses the documented master sha. Selftest runs the contract. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge.
-- Result: Videos published stay 0. Operator card PASS. Dispatch line matches the recipe.
-- Verification: `python3 tools/operator_card_contract.py` and `python3 tools/operator_card.py`. No provider write.
-- Discovery: Runs 368-382 froze and flagged recovery edges, but the human step was still reconstructed from NEXT notes. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human runs `python3 tools/operator_card.py` and stores the three secrets. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

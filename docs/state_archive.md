@@ -837,3 +837,14 @@ Updated: 2026-10-07T07:16:00Z (Run 379)
 
 Updated: 2026-10-07T08:11:00Z (Run 380)
 
+## Run 383 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- The one human step is now `python3 tools/operator_card.py`. It prints the same dispatch line as `oauth_setup.py` and fails if HANDOFF loses the documented master sha. This does not call YouTube or GitHub.
+
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- The provider-state recovery surface is frozen. `tools/recovery_freeze.py` fails if `youtube-production.yml` grows another `provider-upload-state` artifact or another `persist_provider_state.py recover` call. This does not call YouTube or GitHub. Release `q1-media-r253` master still matches sha256 `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546` and ffprobe 1920x1080 h264 30fps yuv420p stereo AAC 48000 Hz, duration 328.40s. That check did not encode and did not upload.
+

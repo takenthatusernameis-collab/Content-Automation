@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-"""Contract: future publish stubs must not ask for a reply.
+"""Contract: future publish stubs must not ask for a reply, and must not
+stamp the first video's tags onto a later packet.
 
 The pin is the packet assignment. "Reply with the cue you wrote down" is
-engagement bait and assumes every mechanism is a cue. Q1 publish.md stays
-the approved viewer draft and is not rewritten here. The uploader drops that
+engagement bait and assumes every mechanism is a cue. Tags come from the
+channel niche plus words this packet already uses. "start cue" and
+"decision fatigue" are not channel tags. Q1 publish.md stays the approved
+viewer draft and is not rewritten here. The uploader drops the reply
 sentence before commentThreads.insert, the same way it drops the stub pin note.
 Does not call YouTube. Does not write videos/.
 """
@@ -68,6 +71,44 @@ def main() -> int:
         fail(failures, BAIT not in body, "rendered stub still asks for a reply")
         fail(failures, "physical cue" in comment, "pin comment must name the mechanism")
         fail(failures, "Do that before the next work block." in comment, "pin comment missing the assignment finish")
+        fail(failures, "start cue" in body.lower(), "packet that names a start cue may keep that tag")
+        fail(failures, not (packet / "publish.md").exists(), "render must not write publish.md")
+        thin = Path(tmp) / "004-close-the-extra-tab"
+        thin.mkdir()
+        (thin / "idea.md").write_text(
+            "\n".join(
+                [
+                    "# Idea",
+                    "- topic: Close the extra tab before you open the work",
+                    "- viewer: People who open one more tab instead of the file.",
+                    "- problem: the extra tab is still open, so starting means checking one more thing",
+                    "- mechanism (the system, not the pep talk): Close the extra tab before the file opens.",
+                    "- why now: The stall to install is this: the extra tab is still open.",
+                    "- related videos to avoid repeating: none published yet",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+        (thin / "titles.md").write_text(
+            "Primary: Close the Extra Tab Before the File\n",
+            encoding="utf-8",
+        )
+        thin_body = render(thin)
+        tags = ""
+        if "## Tags" in thin_body:
+            tags = thin_body.split("## Tags", 1)[1].split("## ", 1)[0].lower()
+        desc = ""
+        if "## Description" in thin_body:
+            desc = thin_body.split("## Description", 1)[1].split("## ", 1)[0].lower()
+        fail(failures, "start cue" not in tags, "later packet must not inherit the start-cue tag")
+        fail(failures, "decision fatigue" not in tags, "later packet must not inherit decision fatigue")
+        fail(failures, "work defaults" not in tags, "later packet must not inherit work defaults")
+        fail(failures, "focused work" in tags, "channel niche tag missing")
+        fail(failures, "extra" in tags and "tab" in tags, "later packet tags must include its own words")
+        fail(failures, "written default" not in desc, "missing mechanism must not invent the first video's default")
+        fail(failures, "mood-dependent" not in desc, "missing promise must not invent a mood-dependent start")
+        fail(failures, "close the extra tab" in desc, "description must use this packet's mechanism")
         fail(failures, not (packet / "publish.md").exists(), "render must not write publish.md")
         proc = subprocess.run(
             [sys.executable, str(TOOLS / "publish_brief.py"), str(packet), "--dry-run"],
