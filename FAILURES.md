@@ -2,6 +2,12 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 410 — 2026-10-08T18:16:00Z
+- Failed approach not retried: another first-video phrase edit, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: Canonical later-packet briefs passed. The dry-run failed when idea.md used `Topic:` without a dash: the title became the folder id. Read that line. Do not rewrite approved Q1 files. oauth_idle_without_publish remains; the human step is issue 1.
+
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
 ## Run 409 — 2026-10-08T17:20:00Z
 - Failed approach not retried: another first-video phrase edit, regenerating Q1 publish.md, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: The later-packet dry-run did fail once. The upload title was the folder name when titles.md was absent, so tags became the slug. Use the idea topic. Do not rewrite the approved Q1 publish file to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1.

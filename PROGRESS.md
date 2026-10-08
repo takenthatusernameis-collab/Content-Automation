@@ -2,6 +2,13 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 410 — 2026-10-08T18:16:00Z
+- Improvement: a pasted idea card without dash bullets no longer uploads the folder id as the title or as tags. Estimated save: about 2 minutes per later stub that was pasted as `Topic:` lines. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing title and publish parsers, plus contract fixtures. Remaining manual step is still the three YouTube secrets.
+- Verification: title brief contract, publish brief contract, and selftest. No provider write.
+
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
 ## Run 409 — 2026-10-08T17:20:00Z
 - Improvement: a later publish stub uses the idea topic when titles.md is missing, so a human does not replace the folder slug in the title, description, and tags. Estimated save: about 2 minutes per later stub. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: one fallback in the existing publisher, plus a contract fixture. Remaining manual step is still the three YouTube secrets.

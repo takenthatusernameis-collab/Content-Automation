@@ -141,6 +141,21 @@ def main() -> int:
             bare_tags = bare_body.split("## Tags", 1)[1].split("## ", 1)[0].lower()
         fail(failures, bare_title == "Close the extra tab before you open the work", "missing titles.md must use the idea topic, not the folder name")
         fail(failures, "later" not in bare_tags and "packet" not in bare_tags, "folder name must not become tags when idea topic exists")
+        plain = Path(tmp) / "videos" / "004-close-the-extra-tab"
+        plain.mkdir(parents=True)
+        (plain / "idea.md").write_text(
+            "Topic: Close the extra tab\nProblem: A second tab stays open\n",
+            encoding="utf-8",
+        )
+        plain_body = render(plain)
+        plain_title = ""
+        if "## Title to upload" in plain_body:
+            plain_title = plain_body.split("## Title to upload", 1)[1].split("## ", 1)[0].strip()
+        plain_tags = ""
+        if "## Tags" in plain_body:
+            plain_tags = plain_body.split("## Tags", 1)[1].split("## ", 1)[0].lower()
+        fail(failures, plain_title == "Close the extra tab", f"plain Topic line must not use the folder id: {plain_title}")
+        fail(failures, "004" not in plain_tags, "folder id must not become a tag")
         fail(failures, not (bare / "publish.md").exists(), "bare render must not write publish.md")
         proc = subprocess.run(
             [sys.executable, str(TOOLS / "publish_brief.py"), str(packet), "--dry-run"],

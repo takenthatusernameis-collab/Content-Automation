@@ -1,5 +1,13 @@
 # STATE
 
+Updated: 2026-10-08T18:16:00Z (Run 410)
+
+## Run 410 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Canonical later-packet dry-run still passed. A pasted `Topic:` line with no dash made titles and the upload title fall back to the folder id. Those parsers now read that line, and a folder fallback drops the numeric id. Q1 titles.md and publish.md were not regenerated.
+
 Updated: 2026-10-08T17:20:00Z (Run 409)
 
 ## Run 409 delta

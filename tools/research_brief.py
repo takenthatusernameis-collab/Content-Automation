@@ -34,7 +34,7 @@ DEFAULT_AVOID = (
 
 
 def field_line(text: str, name: str) -> str:
-    m = re.search(rf"^-\s*{re.escape(name)}:[ \t]*([^\n]*)$", text, re.M)
+    m = re.search(rf"^-?\s*{re.escape(name)}:[ \t]*([^\n]*)$", text, re.M | re.I)
     return m.group(1).strip() if m else ""
 
 
@@ -122,7 +122,8 @@ def mechanism_from_idea(path: Path) -> str:
     idea = path / "idea.md"
     if not idea.is_file():
         return ""
-    return field_line(idea.read_text(encoding="utf-8"), "mechanism (the system, not the pep talk)")
+    body = idea.read_text(encoding="utf-8")
+    return field_line(body, "mechanism (the system, not the pep talk)") or field_line(body, "mechanism")
 
 
 def render(

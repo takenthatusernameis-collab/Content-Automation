@@ -60,8 +60,15 @@ STOP = {
 
 
 def field(text: str, name: str) -> str:
-    m = re.search(rf"^-\s*{re.escape(name)}:\s*(.*)$", text, re.M)
+    # Dash bullets are the writer format. A pasted "Topic:" line is the same field.
+    m = re.search(rf"^-?\s*{re.escape(name)}:\s*(.*)$", text, re.M | re.I)
     return (m.group(1).strip() if m else "")
+
+
+def folder_label(name: str) -> str:
+    # "004-close-the-extra-tab" is a path, not an upload title.
+    slug = re.sub(r"^\d+-", "", name.strip())
+    return slug.replace("-", " ").strip()
 
 
 def words(text: str) -> list[str]:
@@ -123,7 +130,7 @@ def short_noun_phrase(text: str, n: int = 5) -> str:
 def load_packet_inputs(packet: Path) -> dict[str, str]:
     idea = (packet / "idea.md").read_text(encoding="utf-8") if (packet / "idea.md").is_file() else ""
     pkt = (packet / "packet.md").read_text(encoding="utf-8") if (packet / "packet.md").is_file() else ""
-    topic = field(idea, "topic") or field(pkt, "working_title") or packet.name
+    topic = field(idea, "topic") or field(pkt, "working_title") or folder_label(packet.name)
     problem = field(idea, "problem")
     mechanism = field(idea, "mechanism (the system, not the pep talk)") or field(idea, "mechanism")
     viewer = field(idea, "viewer")

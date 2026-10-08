@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 410 — 2026-10-08T18:16:00Z
+- Objective: Run the later-packet dry-run and fix only a real failure.
+- Action: Canonical tab packet briefs passed. A pasted `Topic:` line with no dash made the title brief and the upload title use the folder id. `title_thumb_brief.py` and `publish_brief.py` now read that line, and a folder fallback drops the numeric id. `research_brief.py` also reads a short mechanism label. Contracts cover the plain Topic fixture. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.
+- Result: Videos published stay 0. Plain Topic upload title is the idea topic. Folder id is not a tag. Q1 files unchanged.
+- Verification: `python3 tools/title_brief_contract.py` and `python3 tools/publish_brief_contract.py` passed. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: The dash-bullet path was already grounded. The remaining leak was a pasted field line, not another first-video phrase. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
 ## Run 409 — 2026-10-08T17:20:00Z
 - Objective: Run the later-packet dry-run Run 408 closed the phrase streak on, and fix only a real failure.
 - Action: Dry-ran idea, title, publish, expand, caption, asset, research, and render on a temp Q4 packet. Publish used the folder name as the upload title when titles.md was absent. `primary_title` now uses the idea topic before the folder name. Contract covers that fixture. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.

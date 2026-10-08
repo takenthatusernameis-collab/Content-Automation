@@ -38,8 +38,14 @@ PLACEHOLDER_MARKERS = (
 
 
 def field_line(text: str, name: str) -> str:
-    m = re.search(rf"^-\s*{re.escape(name)}:[ \t]*([^\n]*)$", text, re.M)
+    # Dash bullets are the writer format. A pasted "Topic:" line is the same field.
+    m = re.search(rf"^-?\s*{re.escape(name)}:[ \t]*([^\n]*)$", text, re.M | re.I)
     return m.group(1).strip() if m else ""
+
+
+def folder_label(name: str) -> str:
+    slug = re.sub(r"^\d+-", "", name.strip())
+    return slug.replace("-", " ").strip()
 
 
 def section(text: str, heading: str) -> str:
@@ -67,7 +73,7 @@ def primary_title(packet: Path) -> str:
         topic = field_line(idea.read_text(encoding="utf-8"), "topic")
         if topic:
             return topic
-    return packet.name
+    return folder_label(packet.name)
 
 
 def promise_line(packet: Path) -> str:

@@ -94,6 +94,20 @@ def main() -> int:
             failures.append(f"contrast copied Q1 visual: {contrast}")
         if "folder" not in contrast.lower() and "message" not in contrast.lower() and "reply" not in contrast.lower():
             failures.append(f"contrast missed the packet: {contrast}")
+        plain = Path(tmp) / "004-close-the-extra-tab"
+        plain.mkdir()
+        (plain / "idea.md").write_text(
+            "Topic: Close the extra tab\nProblem: A second tab stays open\nMechanism: close the extra tab before the next click\n",
+            encoding="utf-8",
+        )
+        plain_src = load_packet_inputs(plain)
+        if plain_src["topic"].lower().startswith("004"):
+            failures.append(f"plain Topic line used the folder id: {plain_src['topic']}")
+        if "close the extra tab" not in plain_src["topic"].lower():
+            failures.append(f"plain Topic line missed the idea: {plain_src['topic']}")
+        plain_titles = " ".join(candidate_titles(plain_src)).lower()
+        if plain_titles.startswith("004") or " 004 " in f" {plain_titles} ":
+            failures.append(f"plain Topic titles include the folder id: {plain_titles}")
         for title in titles:
             low = title.lower()
             if low.startswith("stop "):
