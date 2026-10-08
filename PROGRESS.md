@@ -2,6 +2,12 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 400 — 2026-10-08T07:14:00Z
+- Improvement: later publish stubs no longer put the machine note in Description, so a human does not delete "No upload happened" before upload. Estimated save: about 1 minute per later video. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing publish stub and viewer_description strip, not a new checker module. Remaining manual step is still the three YouTube secrets.
+- Verification: publish brief contract and selftest. No provider write.
+
+
 ## Run 399 — 2026-10-08T06:17:00Z
 - Improvement: later publish descriptions no longer call a non-default step a default to install, so a human does not rewrite that sentence per video. Estimated save: about 2 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the existing publish stub, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
@@ -66,9 +72,3 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Videos published stay 0. Estimated human minutes to first upload stay the three secret-set steps in issue 1.
 - Reusable: `STALL_LOG_HYGIENE` makes three log-cap runs visible without a new freeze module. A lock sentence does not set it.
 - Not automated: storing the three GitHub Actions secrets and the one execute dispatch.
-
-
-## Run 388 — 2026-10-07T18:11:00Z
-- Improvement: a duplicated archive pointer now fails the same compact check that already caps section count. Estimated save: one truncated-fetch misread per future run, about 5 minutes, and one wrong archive boundary if an agent pastes from the second pointer. Videos published stay 0. Human OAuth step unchanged in kind.
-- Efficiency: automated check covers the existing two live logs. Remaining manual step is still the three YouTube secrets.
-- Verification: log compact contract and compact_all --check. No provider write.

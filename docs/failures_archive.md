@@ -410,3 +410,6 @@ Updated: 2026-10-05T18:20:00Z
 ## Run 387 — 2026-10-07T17:12:00Z
 - Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, secret poll, freeze module, or second OAuth issue while videos published stay 0.
 - Lesson: Run 386 left the NEXT `Updated:` line on Run 385. Refresh that one line in `record_run.py`. Do not add a freeze module to remember it. oauth_idle_without_publish remains; do not spend the next run only restating it.
+## Run 388 — 2026-10-07T18:11:00Z
+- Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, secret poll, freeze module, or second OAuth issue while videos published stay 0.
+- Lesson: Run 387 collapsed headers in `compact_text` and still committed two pointers because `--check` only counted sections. Fail the check. Do not add a freeze module to remember it. oauth_idle_without_publish remains; do not spend the next run only restating it.

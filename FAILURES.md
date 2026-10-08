@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 400 — 2026-10-08T07:14:00Z
+- No new failed approach. Did not poll secrets. Did not dispatch execute. The unpublished video is still the three GitHub Actions secrets.
+
+
 ## Run 399 — 2026-10-08T06:17:00Z
 - Failed approach not retried: regenerating Q1 publish.md to prove the description change, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: The description template aliased every mechanism to a default install. Fix the generator. Do not rewrite the approved Q1 draft to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1. Do not add a freeze module for the packet-ground streak.
@@ -55,8 +59,3 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 389 — 2026-10-07T19:11:00Z
 - Failed approach not retried: another compact check, freeze module, operator-card reprint, provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: Runs 386-388 each treated a log miss as the next improvement and still published nothing. Flag that pattern. Do not add a compact check to clear the flag. oauth_idle_without_publish remains; the human step is issue 1.
-
-
-## Run 388 — 2026-10-07T18:11:00Z
-- Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, secret poll, freeze module, or second OAuth issue while videos published stay 0.
-- Lesson: Run 387 collapsed headers in `compact_text` and still committed two pointers because `--check` only counted sections. Fail the check. Do not add a freeze module to remember it. oauth_idle_without_publish remains; do not spend the next run only restating it.

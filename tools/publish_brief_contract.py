@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Contract: future publish stubs must not ask for a reply, and must not
+"""Contract: future publish stubs must not ask for a reply, must not put the machine note in Description, and must not
 stamp the first video's tags or the word "default" onto a later packet.
 
 The pin is the packet assignment. "Reply with the cue you wrote down" is
@@ -112,6 +112,9 @@ def main() -> int:
         fail(failures, "mood-dependent" not in desc, "missing promise must not invent a mood-dependent start")
         fail(failures, "close the extra tab" in desc, "description must use this packet's mechanism")
         fail(failures, "that step" in desc, "description must call this packet's mechanism a step")
+        fail(failures, "no upload happened" not in desc, "description must not ship the machine note")
+        fail(failures, "human locks title" not in desc, "description must not ship the lock sentence")
+        fail(failures, "## Machine note" in thin_body, "machine note must stay outside Description")
         fail(failures, not (packet / "publish.md").exists(), "render must not write publish.md")
         proc = subprocess.run(
             [sys.executable, str(TOOLS / "publish_brief.py"), str(packet), "--dry-run"],

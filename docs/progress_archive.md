@@ -474,3 +474,7 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Improvement: the NEXT header is refreshed in the same process as the note prepend, so a truncated fetch no longer shows Run 385 as current after a later note. Estimated save: about 5 minutes per future run spent reconciling a stale header, and one wrong lock if the header is treated as the newest decision. Videos published stay 0. Human OAuth step unchanged in kind; it is still issue 1.
 - Efficiency: automated header refresh. Remaining manual step is still the three YouTube secrets.
 - Verification: record_run contract. No provider write.
+## Run 388 — 2026-10-07T18:11:00Z
+- Improvement: a duplicated archive pointer now fails the same compact check that already caps section count. Estimated save: one truncated-fetch misread per future run, about 5 minutes, and one wrong archive boundary if an agent pastes from the second pointer. Videos published stay 0. Human OAuth step unchanged in kind.
+- Efficiency: automated check covers the existing two live logs. Remaining manual step is still the three YouTube secrets.
+- Verification: log compact contract and compact_all --check. No provider write.

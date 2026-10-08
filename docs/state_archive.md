@@ -879,3 +879,11 @@ Updated: 2026-10-07T13:23:00Z (Run 385)
 
 Updated: 2026-10-07T16:13:00Z (Run 386)
 
+## Run 388 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge. Did not extend operator_card. Did not add a freeze module.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Run 387 left a second archive pointer in PROGRESS.md and FAILURES.md. `compact_text` already collapses that, but `compact_all.py --check` only counted sections, so the duplicate shipped. `--check` now fails unless each file has exactly one pointer. This does not call YouTube or GitHub.
+
+Updated: 2026-10-07T17:12:00Z (Run 387)
+

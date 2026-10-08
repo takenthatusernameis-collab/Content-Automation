@@ -1119,3 +1119,12 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Run 386 prepended note 1zr50 and left `Updated: ... (Run 385)`. Suspicious: oauth_idle_without_publish still has no publish since before Run 270, and Runs 375-386 stacked recovery, card, and freeze tooling instead of a publish. Do not add another freeze for that stall.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1. Do not open a second issue. Do not extend the card. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
+## Run 388 — 2026-10-07T18:11:00Z
+- Objective: Stop a duplicated archive pointer from shipping after a green section-count check.
+- Action: `compact_all.py --check` now fails unless PROGRESS.md and FAILURES.md each have exactly one archive pointer. Ran `log_compact.py` so the Run 387 duplicates are gone. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Did not extend operator_card. Did not add a scanner. Did not scaffold Q2. Did not add a freeze module.
+- Result: Videos published stay 0. Live logs have one pointer each. No live execute.
+- Verification: `python3 tools/log_compact_contract.py` printed LOG COMPACT CONTRACT PASS. `python3 tools/compact_all.py --check` printed COMPACT ALL OK. No provider write.
+- Discovery: Run 387 said record_run compacts, and the committed logs still had two identical pointers. `--check` did not read them. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Do not add another freeze for that stall.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not open a second issue. Do not extend the card. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

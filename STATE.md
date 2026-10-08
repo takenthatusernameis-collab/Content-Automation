@@ -1,5 +1,13 @@
 # STATE
 
+Updated: 2026-10-08T07:14:00Z (Run 400)
+
+## Run 400 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `publish_brief.py` no longer puts "No upload happened" in Description. `viewer_description` drops that stub sentence the same way the pin drops a reply ask. Q1 publish.md was not regenerated.
+
 Updated: 2026-10-08T06:17:00Z (Run 399)
 
 ## Run 399 delta
@@ -89,12 +97,4 @@ Updated: 2026-10-07T19:11:00Z (Run 389)
 - `stall_watch.py` sets `STALL_LOG_HYGIENE` and `suspicious: log_hygiene_without_publish` after three newest deltas that wire a log-hygiene check while videos published stay 0. A lock sentence does not set the flag. This does not call YouTube or GitHub.
 
 Updated: 2026-10-07T18:11:00Z (Run 388)
-
-## Run 388 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge. Did not extend operator_card. Did not add a freeze module.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- Run 387 left a second archive pointer in PROGRESS.md and FAILURES.md. `compact_text` already collapses that, but `compact_all.py --check` only counted sections, so the duplicate shipped. `--check` now fails unless each file has exactly one pointer. This does not call YouTube or GitHub.
-
-Updated: 2026-10-07T17:12:00Z (Run 387)
 

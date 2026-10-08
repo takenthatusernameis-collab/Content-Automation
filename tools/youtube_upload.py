@@ -111,11 +111,13 @@ INTERNAL_COMMENT_SENTENCES = (
 
 
 def viewer_description(text: str) -> str:
-    """Drop internal chapter-draft labels. Keep timestamp lines YouTube reads."""
+    """Drop internal chapter-draft labels and stub sentences. Keep timestamp lines YouTube reads."""
     kept = []
     for line in (text or "").splitlines():
         stripped = line.strip()
         if any(stripped.startswith(prefix) for prefix in INTERNAL_DESCRIPTION_PREFIXES):
+            continue
+        if any(marker in stripped for marker in STUB_DESCRIPTION_MARKERS):
             continue
         kept.append(line.rstrip())
     cleaned = "\n".join(kept).strip()

@@ -171,9 +171,10 @@ def render(packet: Path) -> str:
         promise or f"After watching, you can do this: {first_action}.",
         f"If {problem.rstrip('.')}, this video walks that {step_word} instead of a pep talk.",
         f"Built for {viewer.rstrip('.')}.",
-        "No upload happened. Human locks title, description, and tags before YouTube.",
     ]
     description = "\n\n".join(desc_bits)
+    # Machine notes stay outside Description. The uploader refuses them, so a
+    # human used to delete this sentence on every later stub.
     tags = tag_list(src, title)
     # Pin is the assignment, not a reply ask. Engagement bait is not a publish step.
     comment = (
@@ -192,6 +193,9 @@ call here. Do not treat these fields as live channel copy.
 
 ## Description
 {description}
+
+## Machine note
+This stub is not a YouTube write. Lock title, description, and tags before upload.
 
 ## Tags
 {chr(10).join(f'- {t}' for t in tags)}
