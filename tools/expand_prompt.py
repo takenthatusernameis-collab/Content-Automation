@@ -85,7 +85,7 @@ def idea_locks(idea_text: str) -> str:
     why_now = field(idea_text, "why now") or "(blank)"
     related = field(idea_text, "related videos to avoid repeating") or "(blank)"
     return (
-        "Use these fields as locks. Do not replace them with a generic weekly-planning pep talk.\n"
+        "Use these fields as locks. Do not replace them with a generic weekly-planning pep talk or with the first video's morning reopen.\n"
         f"- topic: {topic}\n"
         f"- viewer: {viewer}\n"
         f"- problem: {problem}\n"
@@ -169,7 +169,7 @@ You are expanding an existing YouTube explainer script. Return a complete
 ## Hard rules
 - Keep every existing `##` heading text exactly.
 - Hook WORDS stay 20–35 spoken words. Do not pad the hook.
-- Grow short beats with a worked example or a failure mode, not slogans.
+- Grow short beats with a worked example of this packet's stall (the idea.md problem and mechanism). Do not invent a morning reopen or a written default unless those words are already on the idea card.
 - Total spoken WORDS must land in {lo}–{hi}. Aim near {target}.
 - One CTA. One assignment that takes under two minutes. No subscribe pitch.
 - No unverifiable statistics. {research_note}

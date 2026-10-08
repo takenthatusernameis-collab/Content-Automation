@@ -1,5 +1,13 @@
 # STATE
 
+Updated: 2026-10-08T03:11:00Z (Run 397)
+
+## Run 397 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `script_writer.md` and `script_expander.md` grow a short beat from this packet's stall. They no longer require a morning scene. `expand_prompt.py` says the same. Q1 script.md was not regenerated.
+
 Updated: 2026-10-08T02:11:00Z (Run 396)
 
 ## Run 396 delta
@@ -89,13 +97,4 @@ Updated: 2026-10-07T16:13:00Z (Run 386)
 - Selftest defined `check_compact_all()` and never called it, so a green local selftest could still ship a 13th log section. The call is now in `main`. `tools/record_run.py` prepends the five live logs and then runs `compact_all.py` in the same process. This does not call YouTube or GitHub. Human step is issue 1, not a second card.
 
 Updated: 2026-10-07T13:23:00Z (Run 385)
-
-## Run 385 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge. Did not extend operator_card. No new operator card.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- `tools/operator_card_freeze.py` fails if `operator_card.py` grows a function, a second card module appears, or the card imports a network client. Runs 383-384 extended the card and still published nothing. This does not call YouTube or GitHub.
-
-
-Updated: 2026-10-07T12:20:00Z (Run 384)
 

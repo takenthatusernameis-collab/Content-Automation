@@ -854,3 +854,12 @@ Updated: 2026-10-07T08:11:00Z (Run 380)
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - `python3 tools/operator_card.py` now reprints the numbered Google Cloud steps from `oauth_setup.py`, including the Desktop-app client, the three scopes, `oauth_exchange.py`, and the secret-set lines. It fails if those steps drift. This does not call YouTube or GitHub.
 
+## Run 385 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge. Did not extend operator_card. No new operator card.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `tools/operator_card_freeze.py` fails if `operator_card.py` grows a function, a second card module appears, or the card imports a network client. Runs 383-384 extended the card and still published nothing. This does not call YouTube or GitHub.
+
+
+Updated: 2026-10-07T12:20:00Z (Run 384)
+

@@ -1237,6 +1237,18 @@ def check_oauth_setup_recipe() -> list[str]:
 
 
 
+def check_script_prompt() -> list[str]:
+    """Writer prompts must grow this packet's stall, not a morning scene."""
+    import subprocess
+    contract = ROOT / "tools" / "script_prompt_contract.py"
+    if not contract.is_file():
+        return ["script_prompt_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], capture_output=True, text=True)
+    if proc.returncode != 0 or "SCRIPT PROMPT CONTRACT PASS" not in proc.stdout:
+        return [f"script_prompt_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    return []
+
+
 def check_idea_grounded() -> list[str]:
     """Later idea cards must use that topic, not the first video's mechanism."""
     import subprocess

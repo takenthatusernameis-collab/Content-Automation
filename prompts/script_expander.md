@@ -30,7 +30,7 @@ The writer contract in `prompts/script_writer.md` now names a spoken-word alloca
 - Count WORDS lines only
 - Put `<!-- spoken_words: NNN  hook: NN  beats: N  target: 900-1500 -->` at the top of draft.md
 
-If the first return is BELOW, grow a beat with a worked morning scene. If ABOVE, cut repeated pep. Do not add a heading.
+If the first return is BELOW, grow a beat with a worked scene of this packet's stall. If ABOVE, cut repeated pep. Do not add a heading. Do not invent a morning reopen unless the idea card is about the morning.
 
 ## After the writer returns a script.md body
 

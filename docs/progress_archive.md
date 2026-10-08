@@ -462,3 +462,7 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Improvement: the one human command now includes the Google Cloud console steps, scopes, and exchange command, so the next run does not reconstruct them from `oauth_setup.py`. Estimated save: about 10 minutes per future run spent rebuilding the consent steps, and one wrong token scope if only the secret-set lines are followed. Videos published stay 0. Human OAuth step unchanged in kind.
 - Efficiency: automated check covers console-step drift. Remaining manual step is still the three YouTube secrets.
 - Verification: operator card contract. No provider write.
+## Run 385 — 2026-10-07T13:23:00Z
+- Improvement: another operator-card function now fails selftest instead of waiting for three later deltas to set `STALL_OPERATOR_CARD`. Estimated save: one agent run spent reprinting console steps, about 10 minutes, on every future run that would have grown the card. Videos published stay 0. Human OAuth step unchanged in kind.
+- Efficiency: automated freeze covers the existing five functions. Remaining manual step is still the three YouTube secrets.
+- Verification: operator-card freeze contract and stall-watch contract. No provider write.

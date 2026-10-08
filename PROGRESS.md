@@ -2,6 +2,12 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 397 — 2026-10-08T03:11:00Z
+- Improvement: later script expansions no longer instruct a morning scene from the first video, so a human does not rewrite one body beat per short draft. Estimated save: about 8 minutes per later video that comes back under the word band. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing writer prompt and expand assembler, plus one contract. Remaining manual step is still the three YouTube secrets.
+- Verification: script prompt contract and selftest. No provider write.
+
+
 ## Run 396 — 2026-10-08T02:11:00Z
 - Improvement: later idea cards no longer copy the first video's mechanism and beat titles, so a human does not rewrite the mechanism line and four beat headings per video. Estimated save: about 5 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the existing idea scaffolder, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
@@ -66,9 +72,3 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Improvement: a log prepend that skips compact now fails selftest, and `record_run.py` compacts in the same process. Estimated save: one red Actions selftest and one repair commit per forgotten compact, about 10 agent minutes. Videos published stay 0. Human OAuth step unchanged in kind; it is now issue 1.
 - Efficiency: automated cap check is actually invoked. Remaining manual step is still the three YouTube secrets.
 - Verification: record_run contract and selftest. No provider write.
-
-
-## Run 385 — 2026-10-07T13:23:00Z
-- Improvement: another operator-card function now fails selftest instead of waiting for three later deltas to set `STALL_OPERATOR_CARD`. Estimated save: one agent run spent reprinting console steps, about 10 minutes, on every future run that would have grown the card. Videos published stay 0. Human OAuth step unchanged in kind.
-- Efficiency: automated freeze covers the existing five functions. Remaining manual step is still the three YouTube secrets.
-- Verification: operator-card freeze contract and stall-watch contract. No provider write.

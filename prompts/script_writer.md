@@ -40,7 +40,7 @@ Use this allocation unless expand.md already names different beat sizes:
 | Each body beat | 140–220 | Worked example or failure mode inside the existing heading. |
 | CTA | 40–80 | One action finishable in under two minutes. |
 
-If you have 5 body beats: 30 + 55 + 5×180 + 60 ≈ 1045. If you have 6: stay near 160–180 per beat. If a first pass is under 900, grow the thinnest beat with a concrete morning scene, not a slogan. If over 1500, cut repeated pep, not the mechanism name.
+If you have 5 body beats: 30 + 55 + 5×180 + 60 ≈ 1045. If you have 6: stay near 160–180 per beat. If a first pass is under 900, grow the thinnest beat with a concrete scene of this packet's stall (the idea.md problem and mechanism), not a slogan and not a morning reopen unless the idea card is about the morning. If over 1500, cut repeated pep, not the mechanism name.
 
 Before returning the draft, write one HTML comment at the very top:
 
