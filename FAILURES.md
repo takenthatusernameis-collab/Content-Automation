@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 403 — 2026-10-08T10:13:00Z
+- Failed approach not retried: regenerating Q1 titles.md to prove the pad change, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: The title fill aliased a thin packet to "X step N", then copied Primary into the empty slots. Fix the generator. Do not rewrite the approved Q1 titles to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1. Do not add a freeze module for the packet-ground streak.
+
 ## Run 400 — 2026-10-08T07:14:00Z
 - No new failed approach. Did not poll secrets. Did not dispatch execute. The unpublished video is still the three GitHub Actions secrets.
 

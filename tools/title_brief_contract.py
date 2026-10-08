@@ -81,6 +81,14 @@ def main() -> int:
             failures.append(f"one-word mechanism renamed: {short_line}")
         if "name the step" in short_line.lower():
             failures.append(f"thumb stamped Name The Step: {short_line}")
+        thin = candidate_titles(load_packet_inputs(short_packet))
+        joined = " | ".join(thin).lower()
+        if any(" step " in f" {item.lower()} " for item in thin):
+            failures.append(f"thin packet invented step N: {joined}")
+        if len(thin) != len({item.lower() for item in thin}):
+            failures.append(f"thin packet repeated a title: {joined}")
+        if "the default" in joined or "this step" in joined:
+            failures.append(f"thin packet used a filler mechanism: {joined}")
         contrast = contrast_line(src)
         if "planning clutter" in contrast.lower() or "empty panel" in contrast.lower():
             failures.append(f"contrast copied Q1 visual: {contrast}")

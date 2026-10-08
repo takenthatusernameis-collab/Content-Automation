@@ -2,6 +2,11 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 403 — 2026-10-08T10:13:00Z
+- Improvement: later title briefs no longer pad thin packets with "X step N" or a copied Primary, so a human does not delete repeated alt lines. Estimated save: about 2 minutes per later video with a short idea card. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing title brief, not a new checker module. Remaining manual step is still the three YouTube secrets.
+- Verification: title brief contract and selftest. No provider write.
+
 ## Run 402 — 2026-10-08T09:13:00Z
 - Improvement: later thumbnail briefs no longer rename a one-word mechanism to Name The Step. Estimated save: about 1 minute per later video with a short step. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: one line in the existing title brief, not a new checker. Remaining manual step is still the three YouTube secrets.

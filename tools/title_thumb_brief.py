@@ -116,7 +116,8 @@ def short_noun_phrase(text: str, n: int = 5) -> str:
         kept.append(low)
         if len(kept) >= n:
             break
-    return " ".join(kept) if kept else "the default"
+    # Empty input must not become the first video's mechanism word.
+    return " ".join(kept)
 
 
 def load_packet_inputs(packet: Path) -> dict[str, str]:
@@ -212,13 +213,25 @@ def candidate_titles(src: dict[str, str]) -> list[str]:
         if short and short.lower() not in seen and grounded(short, blob_tokens):
             cleaned.insert(0, short)
             seen.add(short.lower())
-    n = 0
-    while len(cleaned) < 6 and tokens:
-        extra = title_case(f"{tokens[n % len(tokens)]} step {n + 1}")
-        n += 1
-        if n > 8:
+    # Fill from this packet's words only. "X step N" never grounded, then
+    # the renderer copied Primary into every alt. A human deleted those lines.
+    windows: list[str] = []
+    for size in (2, 3, 1, 4):
+        for i in range(len(tokens)):
+            chunk = tokens[i : i + size]
+            if len(chunk) != size:
+                continue
+            windows.append(" ".join(chunk))
+    if len(tokens) >= 2:
+        windows.append(f"{tokens[1]} {tokens[0]}")
+        windows.append(f"{tokens[0]} before {tokens[-1]}")
+    for item in windows:
+        if len(cleaned) >= 6:
             break
-        if extra.lower() in seen or not grounded(extra, blob_tokens):
+        extra = clip_title(title_case(item))
+        if not extra or extra.lower() in seen or not grounded(extra, blob_tokens):
+            continue
+        if any(b in extra.lower() for b in BANNED_PHRASES):
             continue
         cleaned.append(extra)
         seen.add(extra.lower())
@@ -240,8 +253,7 @@ def thumb_line(src: dict[str, str]) -> str:
     """On-image words from this packet. A one-word step is not renamed Name The Step."""
     pool = content_tokens(src["mechanism"]) or content_tokens(src["topic"]) or content_tokens(src["working"])
     line = [w[:1].upper() + w[1:] for w in pool[:4]]
-    if not line:
-        line = ["This", "Step"]
+    # Do not invent "This Step" when the packet has no mechanism words.
     return " ".join(line[:5])
 
 
@@ -250,10 +262,13 @@ def render_titles(titles: list[str]) -> str:
     alts = titles[1:6]
     lines = ["# Titles", "", f"Primary: {primary}", "Alts:"]
     for i, t in enumerate(alts, start=1):
+        if t.lower() == primary.lower():
+            continue
         lines.append(f"{i}. {t}")
-    while len([ln for ln in lines if re.match(r"^\d+\.\s+\S", ln)]) < 5:
-        n = len([ln for ln in lines if re.match(r"^\d+\.", ln)]) + 1
-        lines.append(f"{n}. {titles[0]}")
+    # Do not copy Primary into empty alt slots. A repeated line looks like a
+    # second title and a human used to delete it on every thin packet.
+    if len(alts) < 5:
+        lines.append("Fewer grounded alts than five. Do not invent a slogan to fill the list.")
     lines += [
         "",
         "Notes (promise vs clickbait risk):",
