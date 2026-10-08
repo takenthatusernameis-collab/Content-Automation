@@ -64,6 +64,14 @@ def main() -> int:
             failures.append(f"fixture title missed the packet: {blob}")
         if "default" in line.lower() or "mood" in line.lower():
             failures.append(f"thumb copied Q1: {line}")
+        for title in titles:
+            low = title.lower()
+            if low.startswith("stop "):
+                failures.append(f"stop template without packet verb: {title}")
+            if low.startswith("name the "):
+                failures.append(f"name template without packet verb: {title}")
+            if low.startswith("write the "):
+                failures.append(f"write template without packet verb: {title}")
     if Q1.is_file() and _sha(Q1) != before:
         failures.append("Q1 titles.md changed")
     if failures:
