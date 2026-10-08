@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 412 — 2026-10-08T21:15:00Z
+- Objective: Run the later-packet dry-run and fix only a real failure.
+- Action: A packet with a filled `Topic:` line and an empty `working_title:` followed by `## Promise` made the title brief Primary `Promise`. `title_thumb_brief.py` field parse no longer consumes the newline after the colon. The title contract covers that fixture. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.
+- Result: Videos published stay 0. Empty working_title falls back to the idea topic. Q1 titles.md unchanged.
+- Verification: `python3 tools/title_brief_contract.py` printed TITLE BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: The pasted Topic path from Run 410 was fine. The leak was an empty field plus a markdown heading, not another first-video phrase. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Phrase-edit runs should stay gated on a failed dry-run.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
 ## Run 411 — 2026-10-08T20:20:00Z
 - Objective: Run the later-packet dry-run and fix only a real failure.
 - Action: Title, publish, expand, caption, asset, research, and render dry-runs on a tab packet did not leak the morning reopen. `idea_brief.py` still treated a pasted `Topic:` line as blank. It now reads that line, and the contract covers the fixture. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.

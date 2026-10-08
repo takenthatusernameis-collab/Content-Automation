@@ -61,7 +61,9 @@ STOP = {
 
 def field(text: str, name: str) -> str:
     # Dash bullets are the writer format. A pasted "Topic:" line is the same field.
-    m = re.search(rf"^-?\s*{re.escape(name)}:\s*(.*)$", text, re.M | re.I)
+    # [ \t]* must not eat the newline: an empty working_title: otherwise
+    # captures the next markdown heading (Run 412: Primary became "Promise").
+    m = re.search(rf"^-?\s*{re.escape(name)}:[ \t]*([^\n]*)$", text, re.M | re.I)
     return (m.group(1).strip() if m else "")
 
 

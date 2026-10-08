@@ -1,6 +1,12 @@
 # STATE
 
-Updated: 2026-10-08T20:20:00Z (Run 411)
+Updated: 2026-10-08T21:15:00Z (Run 412)
+
+## Run 412 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Later-packet dry-run failed one real check: an empty `working_title:` made `title_thumb_brief.py` swallow the next `## Promise` heading, so Primary became Promise. The field parser no longer crosses that newline. Q1 titles.md was not regenerated.
 
 ## Run 411 delta
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.

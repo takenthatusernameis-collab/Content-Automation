@@ -1,5 +1,11 @@
 # PROGRESS
 
+## Run 412 — 2026-10-08T21:15:00Z
+- Improvement: an empty working_title line no longer becomes the upload/title Primary by swallowing the next markdown heading. Estimated save: about 2 minutes per later packet that pastes a stub packet.md. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: one existing field parser, plus a contract fixture. Remaining manual step is still the three YouTube secrets.
+- Verification: title brief contract and selftest. No provider write.
+
+
 Updated: 2026-10-08T20:20:00Z (Run 411)
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.

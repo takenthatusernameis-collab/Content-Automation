@@ -8,6 +8,8 @@ One human step: run `python3 tools/operator_card.py`, then `python3 tools/oauth_
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
 
+Run 412: a later-packet dry-run with an empty `working_title:` line made Primary `Promise` because the title parser ate the next heading. `python3 tools/title_thumb_brief.py PATH --dry-run` now keeps that empty line empty and falls back to the idea topic. Q1 titles.md stays approved. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not open another phrase edit unless a later-packet dry-run fails.
+
 Run 411: a later-packet dry-run with a pasted `Topic:` line and no dash made `idea_brief.py` report the card blank. `python3 tools/idea_brief.py PATH` now reads that line. Q1 idea.md stays the approved card. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not open another phrase edit unless a later-packet dry-run fails.
 
 Run 410: a later-packet dry-run with a pasted `Topic:` line and no titles.md used the folder id as the title. `python3 tools/title_thumb_brief.py PATH --dry-run` and `python3 tools/publish_brief.py PATH --dry-run` now read that line before the folder name, and a folder fallback drops the numeric id. Q1 titles.md and publish.md stay approved. Do not regenerate them. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not open another phrase edit unless a later-packet dry-run fails.

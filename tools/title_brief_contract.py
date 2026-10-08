@@ -105,6 +105,30 @@ def main() -> int:
             failures.append(f"plain Topic line used the folder id: {plain_src['topic']}")
         if "close the extra tab" not in plain_src["topic"].lower():
             failures.append(f"plain Topic line missed the idea: {plain_src['topic']}")
+
+        empty = Path(tmp) / "011-empty-working-title"
+        empty.mkdir()
+        (empty / "idea.md").write_text(
+            "Topic: Put the start cue on the work itself\n"
+            "Problem: the planned task has no visible start cue\n"
+            "Mechanism: Name one physical cue on the work\n",
+            encoding="utf-8",
+        )
+        (empty / "packet.md").write_text(
+            "# Packet\n- status: draft\n- working_title:\n## Promise\nOne sentence: Name one physical cue.\n",
+            encoding="utf-8",
+        )
+        empty_src = load_packet_inputs(empty)
+        if empty_src["working"].lower() in {"", "promise", "## promise"} or "promise" == empty_src["topic"].lower():
+            if empty_src["topic"].lower() != "put the start cue on the work itself":
+                failures.append(f"empty working_title swallowed the heading: {empty_src}")
+        if "promise" in empty_src["working"].lower() or empty_src["working"].startswith("#"):
+            failures.append(f"empty working_title captured the next heading: {empty_src['working']}")
+        if "start cue" not in empty_src["working"].lower():
+            failures.append(f"empty working_title did not fall back to the topic: {empty_src['working']}")
+        empty_titles = candidate_titles(empty_src)
+        if not empty_titles or empty_titles[0].lower() == "promise":
+            failures.append(f"primary became the next heading: {empty_titles[:2]}")
         plain_titles = " ".join(candidate_titles(plain_src)).lower()
         if plain_titles.startswith("004") or " 004 " in f" {plain_titles} ":
             failures.append(f"plain Topic titles include the folder id: {plain_titles}")
