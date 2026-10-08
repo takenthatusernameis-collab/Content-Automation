@@ -1287,6 +1287,18 @@ def check_publish_brief() -> list[str]:
 
 
 
+def check_expand_brief_grounded() -> list[str]:
+    """Later expand briefs must name this packet's stall, not a morning scene."""
+    import subprocess
+    contract = ROOT / "tools" / "expand_brief_contract.py"
+    if not contract.is_file():
+        return ["expand_brief_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0 or "EXPAND BRIEF CONTRACT PASS" not in proc.stdout:
+        return [f"expand_brief_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    return []
+
+
 def check_title_brief_grounded() -> list[str]:
     """Later title briefs must use that packet, not the first video's slogans."""
     import subprocess
@@ -1721,6 +1733,7 @@ def main() -> int:
     failures.extend(check_idea_grounded())
     failures.extend(check_publish_brief())
     failures.extend(check_title_scan())
+    failures.extend(check_expand_brief_grounded())
     failures.extend(check_title_brief_grounded())
     failures.extend(check_packet_path())
     failures.extend(check_playlist_membership())

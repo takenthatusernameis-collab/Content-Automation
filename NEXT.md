@@ -1,12 +1,14 @@
 # NEXT
 
-Updated: 2026-10-08T10:13:00Z (Run 403)
+Updated: 2026-10-08T11:17:00Z (Run 404)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser or provider-state recovery edge while videos published stay 0. Do not extend operator_card while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate. `recovery_freeze.py` fails the build if the recovery surface grows. `operator_card_freeze.py` fails the build if the card surface grows. `stall_watch.py` sets `STALL_LOG_HYGIENE` after three log-cap or header deltas. Do not add another compact check while videos published stay 0.
 
 One human step: run `python3 tools/operator_card.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then run `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets. Do not extend the card.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr68. **Do not rediscover a word-count-only expand brief as the way to lengthen the next script.** Run 404: `python3 tools/expand_brief.py PATH --dry-run` names this packet's stall. A morning reopen stays off unless the idea card already says it. Q1 expand.md stays the approved budget. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not add a freeze for the packet-ground streak; the human step is still issue 1.
 
 1zr67. **Do not rediscover "X step N" or a copied Primary as the next title list.** Run 403: `python3 tools/title_thumb_brief.py PATH --dry-run` fills alts from that packet's words. It does not invent "Inbox step 1" or repeat Primary to fill five slots. An empty mechanism does not become "This Step" or "the default". Q1 titles.md stays the locked primary. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not add a freeze for the packet-ground streak; the human step is still issue 1.
 
@@ -29,7 +31,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zr58. **Do not rediscover the first video's slogans as the next title list.** Run 394: `python3 tools/title_thumb_brief.py PATH --dry-run` uses that packet's problem and mechanism. It does not pad with "Stop Deciding Every Morning" or "One Default Beats a Mood". Q1 titles.md stays the locked primary. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check.
 
 1zr57. **Do not rediscover Q1 chapter names as the next video's titles.** Run 393: `python3 tools/chapter_draft.py` labels a hook from that script, not "The reopen". Q1 chapters.md stays the approved draft. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check.
-
-1zr56. **Do not rediscover a Q1 pin rewrite as the way to drop the reply ask.** Run 392: `viewer_comment` drops "Reply with the cue you wrote down." before commentThreads.insert. Q1 publish.md stays the approved draft. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check.
-
-1zr55. **Do not rediscover a reply ask as the pin comment.** Run 391: `python3 tools/publish_brief.py PATH --dry-run` pins the mechanism assignment and does not say to reply. Q1 publish.md stays the approved draft. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check.

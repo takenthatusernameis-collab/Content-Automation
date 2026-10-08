@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 404 — 2026-10-08T11:17:00Z
+- Objective: Stop later expand briefs from telling a short draft to grow without this packet's stall.
+- Action: `expand_brief.py` adds a growth line from idea.md problem or mechanism when the brief is short or empty. A morning reopen stays forbidden unless the idea card already says it. The contract checks a tab fixture and still requires Q1 expand.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. Fixture growth line names the extra tab. Q1 expand file unchanged.
+- Verification: `python3 tools/expand_brief_contract.py` printed EXPAND BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: The budget said only how many words to add. A later short script about a tab would still be grown as the first video's morning reopen unless a human rewrote the beat. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated rewrite, it does not add a freeze.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 expand.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
 ## Run 403 — 2026-10-08T10:13:00Z
 - Objective: Stop later title briefs from padding a thin packet with step numbers or a copied Primary.
 - Action: `title_thumb_brief.py` fills remaining titles from that packet's words. The step-N pad and the Primary-repeat loop stay off. An empty phrase is not renamed "the default" or "This Step". The contract checks a one-word Inbox fixture and still requires Q1 titles.md and thumbnail.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
@@ -8,7 +17,6 @@
 - Discovery: The fill loop emitted "X step N", which never grounded, then the renderer copied Primary into every empty alt. A human would delete those repeats on every thin packet. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated delete, it does not add a freeze.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1. Do not regenerate Q1 titles.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
-
 
 ## Run 402 — 2026-10-08T09:13:00Z
 - Objective: Stop later thumbnail briefs from renaming a one-word step to Name The Step.
@@ -99,21 +107,3 @@
 - Discovery: The label helpers were aliases for packet 002. A later script about a different stall would still publish "The reopen" unless a human retyped the lines. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1. Do not regenerate Q1 chapters. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
-
-## Run 392 — 2026-10-07T22:12:00Z
-- Objective: Stop the approved Q1 pin from posting a reply ask without rewriting that draft.
-- Action: `viewer_comment` drops the reply sentence the same way it drops the stub pin note. The publish contract checks the posted pin and still requires Q1 bytes unchanged. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Did not extend the card. Did not add a scanner. Did not scaffold Q2. Did not add a freeze module. Did not add a compact check.
-- Result: Videos published stay 0. Posted pin is the assignment. Q1 copy unchanged. No live execute.
-- Verification: `python3 tools/publish_brief_contract.py` printed PUBLISH BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
-- Discovery: Run 391 stopped the generator and left the bait in the approved first comment. The uploader would have posted it. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human follows issue 1. Do not open a second issue. Do not rewrite Q1 publish.md. Do not scaffold Q2. Do not add a scanner. Do not poll secrets.
-
-## Run 391 — 2026-10-07T21:12:00Z
-- Objective: Stop future publish stubs from asking viewers to reply.
-- Action: `publish_brief.py` pins the mechanism assignment only. A contract fails if the reply sentence returns or if Q1 publish.md changes. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Did not extend the card. Did not add a scanner. Did not scaffold Q2. Did not add a freeze module. Did not add a compact check.
-- Result: Videos published stay 0. Future pins name the assignment. Q1 copy unchanged. No live execute.
-- Verification: `python3 tools/publish_brief_contract.py` printed PUBLISH BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
-- Discovery: The stub always ended with a reply ask, including when the mechanism was not a cue. That line would have been pasted into every later publish.md. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human follows issue 1. Do not open a second issue. Do not scaffold Q2. Do not add a scanner. Do not poll secrets.

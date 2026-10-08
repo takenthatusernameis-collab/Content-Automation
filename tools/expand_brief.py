@@ -24,6 +24,23 @@ if str(TOOLS) not in sys.path:
 from caption_brief import WPM, fmt_ts, script_cues  # noqa: E402
 from validate_packet import FORMAT_SPOKEN_WORDS, duration_note, field  # noqa: E402
 
+
+def growth_rule(packet: Path) -> str:
+    """Name this packet's stall. Do not tell every short draft to write the first video's morning."""
+    idea_path = packet / "idea.md"
+    idea = idea_path.read_text(encoding="utf-8") if idea_path.is_file() else ""
+    problem = field(idea, "problem")
+    mechanism = field(idea, "mechanism (the system, not the pep talk)") or field(idea, "mechanism")
+    stall = problem or mechanism
+    forbid = (
+        "Do not invent a morning reopen or a written default unless those words are already on the idea card."
+    )
+    if not stall:
+        return (
+            "- Grow a short beat from this packet's idea.md problem and mechanism. " + forbid
+        )
+    return f"- Grow a short beat from this stall: {stall.rstrip('.')}. {forbid}"
+
 TARGET_BY_FORMAT = {
     "explainer-6-10min": 1200,
 }
@@ -156,7 +173,8 @@ def render(packet: Path) -> str:
                 "- Headings exist but WORDS are empty. Use Target as the first-draft land.\n"
                 "- Hook 20–35 (aim 28). Payoff 40–70 (aim 60). Each beat 140–220. CTA 40–80 (aim 50).\n"
                 "- Four template beats at 220 plus hook/payoff/CTA lands near 1010, inside 900–1500.\n"
-                "- Do not invent extra ## beats. Do not pad sample-001."
+                "- Do not invent extra ## beats. Do not pad sample-001.\n"
+                + growth_rule(packet)
             )
         elif status == "short":
             thin = [r for r in heading_rows if r["kind"] == "beat" and r["add"] > 0]
@@ -168,7 +186,8 @@ def render(packet: Path) -> str:
             )
             actions += (
                 "\n- Do not add extra `##` beats unless count is under 4."
-                "\n- Do not pad sample-001. That packet is a fixture."
+                "\n- Do not pad sample-001. That packet is a fixture.\n"
+                + growth_rule(packet)
             )
         elif status == "long":
             actions = (

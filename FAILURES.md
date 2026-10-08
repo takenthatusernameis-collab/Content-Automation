@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 404 — 2026-10-08T11:17:00Z
+- Failed approach not retried: regenerating Q1 expand.md to prove the growth line, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: The expand brief counted words and did not name the stall. Fix the generator. Do not rewrite the approved Q1 expand brief to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1. Do not add a freeze module for the packet-ground streak.
+
 ## Run 403 — 2026-10-08T10:13:00Z
 - Failed approach not retried: regenerating Q1 titles.md to prove the pad change, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: The title fill aliased a thin packet to "X step N", then copied Primary into the empty slots. Fix the generator. Do not rewrite the approved Q1 titles to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1. Do not add a freeze module for the packet-ground streak.
@@ -55,11 +59,3 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 - Lesson: The publish stub asked for a reply even when the mechanism was a written default. Stop that in the generator. Do not rewrite the approved Q1 pin to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1.
 
 
-## Run 390 — 2026-10-07T20:13:00Z
-- Failed approach not retried: another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
-- Lesson: The idea contract already failed on main by expecting Q1 to be queued and its folder to be absent. Fix that false fail. Do not treat a shared why-now sentence as ready for the next packet. oauth_idle_without_publish remains; the human step is issue 1.
-
-
-## Run 389 — 2026-10-07T19:11:00Z
-- Failed approach not retried: another compact check, freeze module, operator-card reprint, provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
-- Lesson: Runs 386-388 each treated a log miss as the next improvement and still published nothing. Flag that pattern. Do not add a compact check to clear the flag. oauth_idle_without_publish remains; the human step is issue 1.

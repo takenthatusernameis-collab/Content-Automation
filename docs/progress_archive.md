@@ -488,3 +488,15 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Videos published stay 0. Estimated human minutes to first upload stay the three secret-set steps in issue 1.
 - Reusable: `STALL_LOG_HYGIENE` makes three log-cap runs visible without a new freeze module. A lock sentence does not set it.
 - Not automated: storing the three GitHub Actions secrets and the one execute dispatch.
+## Run 392 — 2026-10-07T22:12:00Z
+- Improvement: the first video's pin no longer posts a reply ask, and later drafts that still contain that sentence are stripped at post time. Estimated save: one bait line on the first upload and one edit per later video that copies the old pin. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: existing comment sanitizer, not a new checker. Remaining manual step is still the three YouTube secrets.
+- Verification: publish brief contract and selftest. No provider write.
+
+
+## Run 391 — 2026-10-07T21:12:00Z
+- Improvement: future pin comments are the assignment, not a reply ask. Estimated save: one edit per later video, about 2 minutes, and one engagement-bait line that content rules already reject. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the generator no longer emits the bait line. Remaining manual step is still the three YouTube secrets.
+- Verification: publish brief contract and selftest. No provider write.
+
+

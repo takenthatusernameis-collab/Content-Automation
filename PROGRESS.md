@@ -2,6 +2,11 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 404 — 2026-10-08T11:17:00Z
+- Improvement: later expand briefs name this packet's stall, so a human does not invent the first video's morning scene when a draft is short. Estimated save: about 8 minutes per later video that comes back under the word band. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing expand brief, plus one contract. Remaining manual step is still the three YouTube secrets.
+- Verification: expand brief contract and selftest. No provider write.
+
 ## Run 403 — 2026-10-08T10:13:00Z
 - Improvement: later title briefs no longer pad thin packets with "X step N" or a copied Primary, so a human does not delete repeated alt lines. Estimated save: about 2 minutes per later video with a short idea card. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the existing title brief, not a new checker module. Remaining manual step is still the three YouTube secrets.
@@ -64,17 +69,5 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Improvement: later chapter drafts no longer copy the first video's titles, so a human does not retype three to six description lines per video. Estimated save: about 4 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the existing chapter drafter, not a new checker. Remaining manual step is still the three YouTube secrets.
 - Verification: existing chapter selftest. No provider write.
-
-
-## Run 392 — 2026-10-07T22:12:00Z
-- Improvement: the first video's pin no longer posts a reply ask, and later drafts that still contain that sentence are stripped at post time. Estimated save: one bait line on the first upload and one edit per later video that copies the old pin. Videos published stay 0. Human OAuth step unchanged.
-- Efficiency: existing comment sanitizer, not a new checker. Remaining manual step is still the three YouTube secrets.
-- Verification: publish brief contract and selftest. No provider write.
-
-
-## Run 391 — 2026-10-07T21:12:00Z
-- Improvement: future pin comments are the assignment, not a reply ask. Estimated save: one edit per later video, about 2 minutes, and one engagement-bait line that content rules already reject. Videos published stay 0. Human OAuth step unchanged.
-- Efficiency: the generator no longer emits the bait line. Remaining manual step is still the three YouTube secrets.
-- Verification: publish brief contract and selftest. No provider write.
 
 

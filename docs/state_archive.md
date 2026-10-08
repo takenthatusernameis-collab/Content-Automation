@@ -903,3 +903,19 @@ Updated: 2026-10-07T19:11:00Z (Run 389)
 
 Updated: 2026-10-07T18:11:00Z (Run 388)
 
+## Run 392 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `viewer_comment` now drops the reply-ask sentence before a comment post. Q1 publish.md bytes are unchanged. The posted pin is the assignment. This does not call YouTube or GitHub.
+
+Updated: 2026-10-07T21:12:00Z (Run 391)
+
+## Run 391 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `publish_brief.py` no longer appends a reply ask to the pin. The pin is the mechanism assignment. Q1 publish.md bytes are unchanged. This does not call YouTube or GitHub.
+
+Updated: 2026-10-07T20:13:00Z (Run 390)
+

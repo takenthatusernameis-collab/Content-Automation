@@ -413,3 +413,11 @@ Updated: 2026-10-05T18:20:00Z
 ## Run 388 — 2026-10-07T18:11:00Z
 - Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, secret poll, freeze module, or second OAuth issue while videos published stay 0.
 - Lesson: Run 387 collapsed headers in `compact_text` and still committed two pointers because `--check` only counted sections. Fail the check. Do not add a freeze module to remember it. oauth_idle_without_publish remains; do not spend the next run only restating it.
+## Run 390 — 2026-10-07T20:13:00Z
+- Failed approach not retried: another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
+- Lesson: The idea contract already failed on main by expecting Q1 to be queued and its folder to be absent. Fix that false fail. Do not treat a shared why-now sentence as ready for the next packet. oauth_idle_without_publish remains; the human step is issue 1.
+
+
+## Run 389 — 2026-10-07T19:11:00Z
+- Failed approach not retried: another compact check, freeze module, operator-card reprint, provider-state recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: Runs 386-388 each treated a log miss as the next improvement and still published nothing. Flag that pattern. Do not add a compact check to clear the flag. oauth_idle_without_publish remains; the human step is issue 1.
