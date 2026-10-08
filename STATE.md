@@ -1,5 +1,14 @@
 # STATE
 
+Updated: 2026-10-08T09:13:00Z (Run 402)
+
+## Run 402 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `title_thumb_brief.py` on-image text keeps a one-word mechanism. It no longer replaces that word with "Name The Step". Q1 thumbnail.md was not regenerated.
+
+
 Updated: 2026-10-08T08:13:00Z (Run 401)
 
 ## Run 401 delta
@@ -89,20 +98,4 @@ Updated: 2026-10-07T21:12:00Z (Run 391)
 - `publish_brief.py` no longer appends a reply ask to the pin. The pin is the mechanism assignment. Q1 publish.md bytes are unchanged. This does not call YouTube or GitHub.
 
 Updated: 2026-10-07T20:13:00Z (Run 390)
-
-## Run 390 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- `idea_brief.py --queue` now puts that row's problem into why now, so Q2 and Q3 no longer share one sentence. The contract accepts Q1 status=used and does not treat the existing packet as a new folder. That false fail was already on main. This does not write idea.md and does not scaffold Q2.
-
-Updated: 2026-10-07T19:11:00Z (Run 389)
-
-## Run 389 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new upload-edge call. No new recovery edge. Did not extend operator_card. Did not add a freeze module. Did not add a compact check.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- `stall_watch.py` sets `STALL_LOG_HYGIENE` and `suspicious: log_hygiene_without_publish` after three newest deltas that wire a log-hygiene check while videos published stay 0. A lock sentence does not set the flag. This does not call YouTube or GitHub.
-
-Updated: 2026-10-07T18:11:00Z (Run 388)
 

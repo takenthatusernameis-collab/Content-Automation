@@ -237,10 +237,11 @@ def contrast_line(src: dict[str, str]) -> str:
 
 
 def thumb_line(src: dict[str, str]) -> str:
+    """On-image words from this packet. A one-word step is not renamed Name The Step."""
     pool = content_tokens(src["mechanism"]) or content_tokens(src["topic"]) or content_tokens(src["working"])
     line = [w[:1].upper() + w[1:] for w in pool[:4]]
-    if len(line) < 2:
-        line = ["Name", "The", "Step"]
+    if not line:
+        line = ["This", "Step"]
     return " ".join(line[:5])
 
 

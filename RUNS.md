@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 402 — 2026-10-08T09:13:00Z
+- Objective: Stop later thumbnail briefs from renaming a one-word step to Name The Step.
+- Action: `title_thumb_brief.py` keeps the packet token on the image line. The Name The Step pad stays off. The contract checks a one-word Inbox fixture and still requires Q1 titles.md and thumbnail.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. Fixture on-image text is Inbox. Q1 thumbnail file unchanged.
+- Verification: `python3 tools/title_brief_contract.py` printed TITLE BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: A mechanism of one content word was discarded. A later thumbnail about an inbox would still say Name The Step unless a human rewrote it. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated rewrite, it does not add a freeze.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 thumbnail.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
 ## Run 401 — 2026-10-08T08:13:00Z
 - Objective: Stop later thumbnail briefs from copying the first video's planning-clutter contrast.
 - Action: `title_thumb_brief.py` builds Contrast from this packet's stall and step. The empty-panel line stays only when the packet already says it. The contract checks an inbox fixture and still requires Q1 titles.md and thumbnail.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
@@ -98,21 +107,3 @@
 - Discovery: The stub always ended with a reply ask, including when the mechanism was not a cue. That line would have been pasted into every later publish.md. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1. Do not open a second issue. Do not scaffold Q2. Do not add a scanner. Do not poll secrets.
-
-## Run 390 — 2026-10-07T20:13:00Z
-- Objective: Make the next queued idea paste name its own stall, and stop a false contract fail on the existing Q1 folder.
-- Action: `idea_brief.py` why now now includes the queue problem. The contract requires Q2 and Q3 why-now lines to differ and accepts Q1 status=used. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Did not extend the card. Did not add a scanner. Did not scaffold Q2. Did not add a freeze module. Did not add a compact check.
-- Result: Videos published stay 0. Q2 why now names the missing start cue. Q3 why now names competing lists. No live execute.
-- Verification: `python3 tools/idea_brief_contract.py` printed IDEA BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
-- Discovery: The idea contract already failed on main because it wanted Q1 status queued and the 002 folder absent. A shared why-now line would have been rewritten by hand on every later packet.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human follows issue 1. Do not open a second issue. Do not scaffold Q2. Do not add a scanner. Do not poll secrets.
-
-## Run 389 — 2026-10-07T19:11:00Z
-- Objective: Flag three consecutive log-hygiene deltas so the next run does not invent another compact check.
-- Action: `stall_watch.py` sets `STALL_LOG_HYGIENE` after three wired log-cap or header deltas while videos published stay 0. Contract and selftest cover the flag and the lock sentence. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Did not extend operator_card. Did not add a scanner. Did not scaffold Q2. Did not add a freeze module. Did not add a compact check.
-- Result: Videos published stay 0. The flag names Runs 386-388. No live execute.
-- Verification: `python3 tools/stall_watch_contract.py` printed STALL WATCH CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
-- Discovery: Runs 386-388 tightened log checks and still published nothing. Suspicious: log_hygiene_without_publish and oauth_idle_without_publish. Do not add another compact check for that stall.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human follows issue 1. Do not open a second issue. Do not extend the card. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets. Do not add a compact check.

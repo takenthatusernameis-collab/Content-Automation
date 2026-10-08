@@ -65,6 +65,22 @@ def main() -> int:
             failures.append(f"fixture title missed the packet: {blob}")
         if "default" in line.lower() or "mood" in line.lower():
             failures.append(f"thumb copied Q1: {line}")
+        short = """# Idea
+
+- topic: Inbox
+- viewer: someone who leaves mail mixed
+- problem: Unread mail piles up.
+- mechanism (the system, not the pep talk): Inbox.
+- status: queued
+"""
+        short_packet = Path(tmp) / "010-inbox-only"
+        short_packet.mkdir()
+        (short_packet / "idea.md").write_text(short, encoding="utf-8")
+        short_line = thumb_line(load_packet_inputs(short_packet))
+        if short_line.lower() != "inbox":
+            failures.append(f"one-word mechanism renamed: {short_line}")
+        if "name the step" in short_line.lower():
+            failures.append(f"thumb stamped Name The Step: {short_line}")
         contrast = contrast_line(src)
         if "planning clutter" in contrast.lower() or "empty panel" in contrast.lower():
             failures.append(f"contrast copied Q1 visual: {contrast}")

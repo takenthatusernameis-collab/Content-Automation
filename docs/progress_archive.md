@@ -478,3 +478,13 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Improvement: a duplicated archive pointer now fails the same compact check that already caps section count. Estimated save: one truncated-fetch misread per future run, about 5 minutes, and one wrong archive boundary if an agent pastes from the second pointer. Videos published stay 0. Human OAuth step unchanged in kind.
 - Efficiency: automated check covers the existing two live logs. Remaining manual step is still the three YouTube secrets.
 - Verification: log compact contract and compact_all --check. No provider write.
+## Run 390 — 2026-10-07T20:13:00Z
+- Improvement: each queued idea paste names that row's stall in why now, and the idea contract no longer fails on the existing Q1 packet. Estimated save: about 3 minutes per later video spent rewriting a shared why-now sentence, and one false contract fail per run that treats the 002 folder as a scaffold. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: paste is specific before scaffold. Remaining manual step is still the three YouTube secrets.
+- Verification: idea brief contract and selftest. No provider write.
+
+
+## Run 389 — 2026-10-07T19:11:00Z
+- Videos published stay 0. Estimated human minutes to first upload stay the three secret-set steps in issue 1.
+- Reusable: `STALL_LOG_HYGIENE` makes three log-cap runs visible without a new freeze module. A lock sentence does not set it.
+- Not automated: storing the three GitHub Actions secrets and the one execute dispatch.

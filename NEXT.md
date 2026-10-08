@@ -1,12 +1,14 @@
 # NEXT
 
-Updated: 2026-10-08T08:13:00Z (Run 401)
+Updated: 2026-10-08T09:13:00Z (Run 402)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser or provider-state recovery edge while videos published stay 0. Do not extend operator_card while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate. `recovery_freeze.py` fails the build if the recovery surface grows. `operator_card_freeze.py` fails the build if the card surface grows. `stall_watch.py` sets `STALL_LOG_HYGIENE` after three log-cap or header deltas. Do not add another compact check while videos published stay 0.
 
 One human step: run `python3 tools/operator_card.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then run `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets. Do not extend the card.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr66. **Do not rediscover Name The Step as the next on-image line.** Run 402: `python3 tools/title_thumb_brief.py PATH --dry-run` keeps a one-word mechanism. "Name The Step" stays off unless the packet already says those words. Q1 thumbnail.md stays the approved draft. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not add a freeze for the packet-ground streak; the human step is still issue 1.
 
 1zr65. **Do not rediscover the first video's planning-clutter contrast as the next thumbnail.** Run 401: `python3 tools/title_thumb_brief.py PATH --dry-run` names this packet's stall versus its step. "planning clutter" stays off unless the packet already says it. Q1 thumbnail.md stays the approved draft. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not add a freeze for the packet-ground streak; the human step is still issue 1.
 
@@ -29,7 +31,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zr56. **Do not rediscover a Q1 pin rewrite as the way to drop the reply ask.** Run 392: `viewer_comment` drops "Reply with the cue you wrote down." before commentThreads.insert. Q1 publish.md stays the approved draft. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check.
 
 1zr55. **Do not rediscover a reply ask as the pin comment.** Run 391: `python3 tools/publish_brief.py PATH --dry-run` pins the mechanism assignment and does not say to reply. Q1 publish.md stays the approved draft. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check.
-
-1zr54. **Do not rediscover a shared why-now sentence as the next video.** Run 390: `python3 tools/idea_brief.py --queue Q2` puts that row's problem into why now. Q2 and Q3 lines differ. The contract accepts Q1 status=used. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check.
-
-1zr53. **Do not rediscover another log-cap tweak as progress.** Run 389: `python3 tools/stall_watch.py` sets `STALL_LOG_HYGIENE` after three log-cap or header deltas while videos published stay 0. A lock sentence does not set it. Do not add a compact check to clear it. Do not add a freeze module. Do not open a second OAuth issue; the human step is issue 1. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not extend the card.
