@@ -407,3 +407,6 @@ Updated: 2026-10-05T18:20:00Z
 ## Run 386 — 2026-10-07T16:13:00Z
 - Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, secret poll, or second OAuth issue while videos published stay 0.
 - Lesson: Run 380 claimed selftest calls `compact_all.py --check`. The function was dead. Call it. Use `record_run.py` for the next prepend. Do not add a freeze module to remember that. oauth_idle_without_publish remains; do not spend the next run only restating it.
+## Run 387 — 2026-10-07T17:12:00Z
+- Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, secret poll, freeze module, or second OAuth issue while videos published stay 0.
+- Lesson: Run 386 left the NEXT `Updated:` line on Run 385. Refresh that one line in `record_run.py`. Do not add a freeze module to remember it. oauth_idle_without_publish remains; do not spend the next run only restating it.

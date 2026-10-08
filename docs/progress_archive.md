@@ -470,3 +470,7 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Improvement: a log prepend that skips compact now fails selftest, and `record_run.py` compacts in the same process. Estimated save: one red Actions selftest and one repair commit per forgotten compact, about 10 agent minutes. Videos published stay 0. Human OAuth step unchanged in kind; it is now issue 1.
 - Efficiency: automated cap check is actually invoked. Remaining manual step is still the three YouTube secrets.
 - Verification: record_run contract and selftest. No provider write.
+## Run 387 — 2026-10-07T17:12:00Z
+- Improvement: the NEXT header is refreshed in the same process as the note prepend, so a truncated fetch no longer shows Run 385 as current after a later note. Estimated save: about 5 minutes per future run spent reconciling a stale header, and one wrong lock if the header is treated as the newest decision. Videos published stay 0. Human OAuth step unchanged in kind; it is still issue 1.
+- Efficiency: automated header refresh. Remaining manual step is still the three YouTube secrets.
+- Verification: record_run contract. No provider write.

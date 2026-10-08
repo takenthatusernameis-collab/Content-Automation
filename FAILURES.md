@@ -2,6 +2,11 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 399 — 2026-10-08T06:17:00Z
+- Failed approach not retried: regenerating Q1 publish.md to prove the description change, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: The description template aliased every mechanism to a default install. Fix the generator. Do not rewrite the approved Q1 draft to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1. Do not add a freeze module for the packet-ground streak.
+
+
 ## Run 398 — 2026-10-08T04:11:00Z
 - Failed approach not retried: regenerating Q1 idea.md to prove the reprint change, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: `--block` and the default reprint had diverged. Fix the reprint path a human actually reads. Do not rewrite the approved Q1 card to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1.
@@ -55,8 +60,3 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 388 — 2026-10-07T18:11:00Z
 - Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, secret poll, freeze module, or second OAuth issue while videos published stay 0.
 - Lesson: Run 387 collapsed headers in `compact_text` and still committed two pointers because `--check` only counted sections. Fail the check. Do not add a freeze module to remember it. oauth_idle_without_publish remains; do not spend the next run only restating it.
-
-
-## Run 387 — 2026-10-07T17:12:00Z
-- Failed approach not retried: another operator-card reprint, provider-state recovery edge, exchange parser, scanner, secret poll, freeze module, or second OAuth issue while videos published stay 0.
-- Lesson: Run 386 left the NEXT `Updated:` line on Run 385. Refresh that one line in `record_run.py`. Do not add a freeze module to remember it. oauth_idle_without_publish remains; do not spend the next run only restating it.

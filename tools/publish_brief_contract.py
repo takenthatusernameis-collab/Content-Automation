@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Contract: future publish stubs must not ask for a reply, and must not
-stamp the first video's tags onto a later packet.
+stamp the first video's tags or the word "default" onto a later packet.
 
 The pin is the packet assignment. "Reply with the cue you wrote down" is
 engagement bait and assumes every mechanism is a cue. Tags come from the
@@ -107,8 +107,11 @@ def main() -> int:
         fail(failures, "focused work" in tags, "channel niche tag missing")
         fail(failures, "extra" in tags and "tab" in tags, "later packet tags must include its own words")
         fail(failures, "written default" not in desc, "missing mechanism must not invent the first video's default")
+        fail(failures, "that default" not in desc, "a non-default step must not be called a default")
+        fail(failures, "install " not in desc, "description must not install a step this packet did not name")
         fail(failures, "mood-dependent" not in desc, "missing promise must not invent a mood-dependent start")
         fail(failures, "close the extra tab" in desc, "description must use this packet's mechanism")
+        fail(failures, "that step" in desc, "description must call this packet's mechanism a step")
         fail(failures, not (packet / "publish.md").exists(), "render must not write publish.md")
         proc = subprocess.run(
             [sys.executable, str(TOOLS / "publish_brief.py"), str(packet), "--dry-run"],

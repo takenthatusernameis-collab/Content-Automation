@@ -160,13 +160,16 @@ def render(packet: Path) -> str:
         return s[0].lower() + s[1:]
 
     problem = lower_start(src.get("problem") or "the stall named in this packet")
-    mechanism = lower_start(src.get("mechanism") or "the default this video names")
+    # Do not name a missing or non-default mechanism "a default". That word
+    # belongs to the first video unless this packet already says it.
+    mechanism = lower_start(src.get("mechanism") or "the step this video names")
     viewer = lower_start(src.get("viewer") or "someone who wants focused work")
     first_action = mechanism.rstrip(".")
+    step_word = "default" if "default" in first_action.lower() else "step"
     desc_bits = [
         f"{title}.",
-        promise or f"After watching, you can install {first_action}.",
-        f"If {problem.rstrip('.')}, this video walks that default instead of a pep talk.",
+        promise or f"After watching, you can do this: {first_action}.",
+        f"If {problem.rstrip('.')}, this video walks that {step_word} instead of a pep talk.",
         f"Built for {viewer.rstrip('.')}.",
         "No upload happened. Human locks title, description, and tags before YouTube.",
     ]

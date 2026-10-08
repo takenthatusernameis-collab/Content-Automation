@@ -2,6 +2,12 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 399 — 2026-10-08T06:17:00Z
+- Improvement: later publish descriptions no longer call a non-default step a default to install, so a human does not rewrite that sentence per video. Estimated save: about 2 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing publish stub, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
+- Verification: publish brief contract and selftest. No provider write.
+
+
 ## Run 398 — 2026-10-08T04:11:00Z
 - Improvement: the default idea reprint no longer suggests the first video's morning why-now line, so a human does not rewrite that sentence on every later card. Estimated save: about 2 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the existing idea reprint, not a new checker module beyond the contract already on disk. Remaining manual step is still the three YouTube secrets.
@@ -66,9 +72,3 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Improvement: a duplicated archive pointer now fails the same compact check that already caps section count. Estimated save: one truncated-fetch misread per future run, about 5 minutes, and one wrong archive boundary if an agent pastes from the second pointer. Videos published stay 0. Human OAuth step unchanged in kind.
 - Efficiency: automated check covers the existing two live logs. Remaining manual step is still the three YouTube secrets.
 - Verification: log compact contract and compact_all --check. No provider write.
-
-
-## Run 387 — 2026-10-07T17:12:00Z
-- Improvement: the NEXT header is refreshed in the same process as the note prepend, so a truncated fetch no longer shows Run 385 as current after a later note. Estimated save: about 5 minutes per future run spent reconciling a stale header, and one wrong lock if the header is treated as the newest decision. Videos published stay 0. Human OAuth step unchanged in kind; it is still issue 1.
-- Efficiency: automated header refresh. Remaining manual step is still the three YouTube secrets.
-- Verification: record_run contract. No provider write.

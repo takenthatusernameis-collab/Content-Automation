@@ -871,3 +871,11 @@ Updated: 2026-10-07T12:20:00Z (Run 384)
 
 Updated: 2026-10-07T13:23:00Z (Run 385)
 
+## Run 387 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge. Did not extend operator_card. Did not add a freeze module.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `record_run.py` now refreshes the single NEXT `Updated:` line from the note. Run 386 left that header on Run 385. A truncated fetch of NEXT no longer hides which run wrote the locks. This does not call YouTube or GitHub.
+
+Updated: 2026-10-07T16:13:00Z (Run 386)
+
