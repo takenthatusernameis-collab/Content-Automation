@@ -1249,6 +1249,19 @@ def check_script_prompt() -> list[str]:
     return []
 
 
+
+def check_idea_brief() -> list[str]:
+    """Default idea reprint must use the row stall, not the shared morning line."""
+    import subprocess
+    contract = ROOT / "tools" / "idea_brief_contract.py"
+    if not contract.is_file():
+        return ["idea_brief_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0 or "IDEA BRIEF CONTRACT PASS" not in proc.stdout:
+        return [f"idea_brief_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    return []
+
+
 def check_idea_grounded() -> list[str]:
     """Later idea cards must use that topic, not the first video's mechanism."""
     import subprocess

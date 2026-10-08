@@ -18,6 +18,9 @@ Run 089: paste_block includes viewer / why now / related so a hand paste
 fills the whole idea.md template, not only topic / problem / mechanism.
 --check still gates those three locked fields only.
 Run 095: --queue ID unlocks the paste before scaffold.
+Run 398: the default reprint used to print the shared morning why-now line
+even after --block and --queue used why_now_line. Suggested paste now uses
+the same row-specific line. A blank problem still falls back to WHY_NOW.
 """
 
 from __future__ import annotations
@@ -287,8 +290,9 @@ def main() -> int:
     print("Suggested paste (does not write idea.md):")
     for line in idea_followup(title):
         print(line)
+    _, problem, _ = suggested_values(title)
     print(f"  - viewer: {VIEWER}")
-    print(f"  - why now: {WHY_NOW}")
+    print(f"  - why now: {why_now_line(problem)}")
     print(f"  - related videos to avoid repeating: {RELATED}")
     print("Paste-ready block (still does not write). Re-run with --block to print only this:")
     print(f"  {block_command(path)}")

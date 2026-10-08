@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 398 — 2026-10-08T04:11:00Z
+- Objective: Stop the default idea reprint from suggesting the first video's morning why-now line for later packets.
+- Action: `idea_brief.py` suggested paste now calls `why_now_line(problem)`, matching `--block` and `--queue`. The contract runs a Q2 tempfile reprint and still does not write idea.md. Selftest calls the existing contract. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. Q2 suggested paste names the start-cue stall. Q1 idea file unchanged.
+- Verification: `python3 tools/idea_brief_contract.py` printed IDEA BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: `--block` was fixed in Run 390, but the default suggested section still printed the shared morning sentence. A human following that section would rewrite why now on every later card. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 idea.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
 ## Run 397 — 2026-10-08T03:11:00Z
 - Objective: Stop later scripts from being told to grow the first video's morning scene.
 - Action: `script_writer.md` and `script_expander.md` grow a short beat from this packet's stall. A morning reopen stays allowed only when the idea card is about the morning. `expand_prompt.py` repeats that rule in the assembled prompt. The contract checks a tab-closing fixture and still requires Q1 script.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
@@ -98,14 +107,3 @@
 - Discovery: Run 386 prepended note 1zr50 and left `Updated: ... (Run 385)`. Suspicious: oauth_idle_without_publish still has no publish since before Run 270, and Runs 375-386 stacked recovery, card, and freeze tooling instead of a publish. Do not add another freeze for that stall.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1. Do not open a second issue. Do not extend the card. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-## Run 386 — 2026-10-07T16:13:00Z
-- Objective: Stop a green selftest from shipping an over-cap log when the section is prepended afterward.
-- Action: Called the existing `check_compact_all()` from selftest `main`. Added `tools/record_run.py`, which prepends the five live logs and runs `compact_all.py` before it exits. Opened issue 1 with the operator-card text. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Did not extend operator_card. Did not add a scanner. Did not scaffold Q2.
-- Result: Videos published stay 0. Issue 1 is the human step. No live execute.
-- Verification: `python3 tools/record_run_contract.py` and `python3 tools/selftest.py`. No provider write.
-- Discovery: Run 380 said selftest calls `compact_all.py --check`. The function existed and was not in `main`, so the Actions cap was only the separate state/next contracts. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human follows issue 1. Do not open a second issue. Do not extend the card. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
-
-Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.

@@ -466,3 +466,7 @@ Selftest can see a clear stall watch again. A zero idle streak is not a flag, so
 - Improvement: another operator-card function now fails selftest instead of waiting for three later deltas to set `STALL_OPERATOR_CARD`. Estimated save: one agent run spent reprinting console steps, about 10 minutes, on every future run that would have grown the card. Videos published stay 0. Human OAuth step unchanged in kind.
 - Efficiency: automated freeze covers the existing five functions. Remaining manual step is still the three YouTube secrets.
 - Verification: operator-card freeze contract and stall-watch contract. No provider write.
+## Run 386 — 2026-10-07T16:13:00Z
+- Improvement: a log prepend that skips compact now fails selftest, and `record_run.py` compacts in the same process. Estimated save: one red Actions selftest and one repair commit per forgotten compact, about 10 agent minutes. Videos published stay 0. Human OAuth step unchanged in kind; it is now issue 1.
+- Efficiency: automated cap check is actually invoked. Remaining manual step is still the three YouTube secrets.
+- Verification: record_run contract and selftest. No provider write.

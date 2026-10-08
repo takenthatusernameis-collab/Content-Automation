@@ -2,6 +2,12 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 398 — 2026-10-08T04:11:00Z
+- Improvement: the default idea reprint no longer suggests the first video's morning why-now line, so a human does not rewrite that sentence on every later card. Estimated save: about 2 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing idea reprint, not a new checker module beyond the contract already on disk. Remaining manual step is still the three YouTube secrets.
+- Verification: idea brief contract and selftest. No provider write.
+
+
 ## Run 397 — 2026-10-08T03:11:00Z
 - Improvement: later script expansions no longer instruct a morning scene from the first video, so a human does not rewrite one body beat per short draft. Estimated save: about 8 minutes per later video that comes back under the word band. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the existing writer prompt and expand assembler, plus one contract. Remaining manual step is still the three YouTube secrets.
@@ -66,9 +72,3 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Improvement: the NEXT header is refreshed in the same process as the note prepend, so a truncated fetch no longer shows Run 385 as current after a later note. Estimated save: about 5 minutes per future run spent reconciling a stale header, and one wrong lock if the header is treated as the newest decision. Videos published stay 0. Human OAuth step unchanged in kind; it is still issue 1.
 - Efficiency: automated header refresh. Remaining manual step is still the three YouTube secrets.
 - Verification: record_run contract. No provider write.
-
-
-## Run 386 — 2026-10-07T16:13:00Z
-- Improvement: a log prepend that skips compact now fails selftest, and `record_run.py` compacts in the same process. Estimated save: one red Actions selftest and one repair commit per forgotten compact, about 10 agent minutes. Videos published stay 0. Human OAuth step unchanged in kind; it is now issue 1.
-- Efficiency: automated cap check is actually invoked. Remaining manual step is still the three YouTube secrets.
-- Verification: record_run contract and selftest. No provider write.

@@ -1,5 +1,13 @@
 # STATE
 
+Updated: 2026-10-08T04:11:00Z (Run 398)
+
+## Run 398 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `idea_brief.py` default reprint now uses the same row-specific why-now line as `--block` and `--queue`. A later packet is no longer told to paste the first video's morning reopen in the suggested section. Q1 idea.md was not regenerated.
+
 Updated: 2026-10-08T03:11:00Z (Run 397)
 
 ## Run 397 delta
@@ -89,12 +97,4 @@ Updated: 2026-10-07T17:12:00Z (Run 387)
 - `record_run.py` now refreshes the single NEXT `Updated:` line from the note. Run 386 left that header on Run 385. A truncated fetch of NEXT no longer hides which run wrote the locks. This does not call YouTube or GitHub.
 
 Updated: 2026-10-07T16:13:00Z (Run 386)
-
-## Run 386 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge. Did not extend operator_card.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- Selftest defined `check_compact_all()` and never called it, so a green local selftest could still ship a 13th log section. The call is now in `main`. `tools/record_run.py` prepends the five live logs and then runs `compact_all.py` in the same process. This does not call YouTube or GitHub. Human step is issue 1, not a second card.
-
-Updated: 2026-10-07T13:23:00Z (Run 385)
 

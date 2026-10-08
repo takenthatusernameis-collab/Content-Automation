@@ -21,6 +21,7 @@ Locks:
 - idea_brief --queue missing-id exits 2
 - idea_brief --queue Q1 --check exits 2 (no idea.md to compare)
 - --queue does not write idea.md or create a packet folder
+- default reprint suggested paste uses the row stall, not the shared morning line, for Q2
 
 Unmapped in which_contract. Not a reconstruct wave.
 Does not write idea.md, the queue, or sample-001.
@@ -121,6 +122,29 @@ def queue_locks(failures: list[str], mechanism: str) -> None:
     w2 = next((line for line in q2.stdout.splitlines() if line.startswith("- why now:")), "")
     w3 = next((line for line in q3.stdout.splitlines() if line.startswith("- why now:")), "")
     fail(failures, w2 and w3 and w2 != w3, "Q2 and Q3 why now must differ")
+    q2_title = next(r["working_title"] for r in parse_queue((ROOT / "docs" / "topic_queue.md").read_text(encoding="utf-8")) if r.get("id") == "Q2")
+    with tempfile.TemporaryDirectory() as tmp:
+        q2_path = Path(tmp) / "003-put-the-start-cue-on-the-work-itself"
+        q2_path.mkdir()
+        (q2_path / "packet.md").write_text(
+            f"- id: 003\n- slug: put-the-start-cue-on-the-work-itself\n- working_title: {q2_title}\n- status: draft\n",
+            encoding="utf-8",
+        )
+        (q2_path / "idea.md").write_text("# Idea\n\n- topic:\n", encoding="utf-8")
+        before = sha(q2_path / "idea.md")
+        reprint = subprocess.run(
+            [sys.executable, str(TOOLS / "idea_brief.py"), str(q2_path)],
+            capture_output=True,
+            text=True,
+        )
+        after = sha(q2_path / "idea.md")
+        rout = reprint.stdout
+        fail(failures, reprint.returncode == 0, f"Q2 default reprint exit {reprint.returncode}: {reprint.stderr}")
+        fail(failures, before == after, "Q2 default reprint mutated idea.md")
+        suggested = rout.split("Suggested paste", 1)[-1]
+        fail(failures, "The stall to install is this:" in suggested, "Q2 default suggested paste missing row stall")
+        fail(failures, "morning still reopens the whole list" not in suggested, "Q2 default suggested paste still uses the shared morning line")
+        fail(failures, "writes nothing" in rout.lower(), "Q2 default reprint missing no-write note")
     videos_after_q = {item.name for item in (ROOT / "videos").iterdir()} if (ROOT / "videos").is_dir() else set()
     fail(failures, videos_before == videos_after_q, "--queue Q2/Q3 created or removed a videos/ folder")
 

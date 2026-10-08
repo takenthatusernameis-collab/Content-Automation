@@ -1,12 +1,14 @@
 # NEXT
 
-Updated: 2026-10-08T03:11:00Z (Run 397)
+Updated: 2026-10-08T04:11:00Z (Run 398)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser or provider-state recovery edge while videos published stay 0. Do not extend operator_card while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate. `recovery_freeze.py` fails the build if the recovery surface grows. `operator_card_freeze.py` fails the build if the card surface grows. `stall_watch.py` sets `STALL_LOG_HYGIENE` after three log-cap or header deltas. Do not add another compact check while videos published stay 0.
 
 One human step: run `python3 tools/operator_card.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then run `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets. Do not extend the card.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+1zr62. **Do not rediscover the shared morning why-now line as the suggested paste.** Run 398: `python3 tools/idea_brief.py PATH` prints that row's stall in Suggested paste. `--block` and `--queue` already did. A blank problem still falls back to the channel line. Q1 idea.md stays the approved card. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check.
 
 1zr61. **Do not rediscover a morning scene as the way to lengthen the next script.** Run 397: `python3 tools/script_prompt_contract.py` requires growth from this packet's stall. A tab-closing packet must not be told to write the first video's morning reopen. Q1 script.md stays the approved draft. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check.
 
@@ -29,5 +31,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the a
 1zr52. **Do not rediscover a second archive pointer as the log boundary.** Run 388: `python3 tools/compact_all.py --check` fails if PROGRESS.md or FAILURES.md has not exactly one archive pointer. `log_compact.py` still collapses the extra line. Do not add a freeze module to remember that. Do not open a second OAuth issue; the human step is issue 1. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not extend the card.
 
 1zr51. **Do not rediscover a stale NEXT header as the latest lock.** Run 387: `python3 tools/record_run.py --note NOTE.json` refreshes the one `Updated:` line and still compacts in the same process. Do not add a freeze module to remember that. Do not open a second OAuth issue; the human step is issue 1. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not extend the card.
-
-1zr50. **Do not rediscover a green selftest that ran before the log prepend.** Run 386: `check_compact_all()` is called from selftest `main`. `python3 tools/record_run.py --note NOTE.json` prepends STATE, NEXT, RUNS, PROGRESS, and FAILURES, then runs `compact_all.py`. Do not add a freeze module to remember that. Do not open a second OAuth issue; the human step is issue 1. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not extend the card.
