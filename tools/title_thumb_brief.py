@@ -180,9 +180,14 @@ def candidate_titles(src: dict[str, str]) -> list[str]:
     tokens = content_tokens(packet_blob(src))
     if tokens:
         raw.append(" ".join(tokens[:4]))
-        raw.append(f"stop {tokens[0]}")
-        raw.append(f"name the {tokens[0]}")
-        raw.append(f"write the {tokens[0]}")
+        # Run 399: stop/name/write are first-video verbs. Emit them only when
+        # this packet already uses that verb, so a later card is not titled Stop X.
+        if "stop" in blob_tokens:
+            raw.append(f"stop {tokens[0]}")
+        if "name" in blob_tokens:
+            raw.append(f"name the {tokens[0]}")
+        if "write" in blob_tokens:
+            raw.append(f"write the {tokens[0]}")
         if len(tokens) > 1:
             raw.append(f"{tokens[0]} before {tokens[1]}")
             raw.append(f"one {tokens[0]} {tokens[1]}")
@@ -255,7 +260,7 @@ def render_thumb(src: dict[str, str], line: str, primary: str) -> str:
         f"Subject: Text card for: {clip_title(subject, 80)}\n"
         "Contrast: calm empty panel vs leftover planning clutter\n"
         "Do not include: lightning bolts, GRIND, screaming faces, fake income\n"
-        f"Matches title: Yes — {clip_title(primary, 60)}\n"
+        f"Matches title: Yes \u2014 {clip_title(primary, 60)}\n"
     )
 
 
