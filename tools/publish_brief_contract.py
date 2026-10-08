@@ -116,6 +116,32 @@ def main() -> int:
         fail(failures, "human locks title" not in desc, "description must not ship the lock sentence")
         fail(failures, "## Machine note" in thin_body, "machine note must stay outside Description")
         fail(failures, not (packet / "publish.md").exists(), "render must not write publish.md")
+        bare = Path(tmp) / "later-packet"
+        bare.mkdir()
+        (bare / "idea.md").write_text(
+            "\n".join(
+                [
+                    "# Idea",
+                    "- topic: Close the extra tab before you open the work",
+                    "- viewer: People who open one more tab instead of the file.",
+                    "- problem: the extra tab is still open, so starting means checking one more thing",
+                    "- mechanism (the system, not the pep talk): Close the extra tab before the file opens.",
+                    "- why now: The stall in this packet is the extra tab.",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+        bare_body = render(bare)
+        bare_title = ""
+        if "## Title to upload" in bare_body:
+            bare_title = bare_body.split("## Title to upload", 1)[1].split("## ", 1)[0].strip()
+        bare_tags = ""
+        if "## Tags" in bare_body:
+            bare_tags = bare_body.split("## Tags", 1)[1].split("## ", 1)[0].lower()
+        fail(failures, bare_title == "Close the extra tab before you open the work", "missing titles.md must use the idea topic, not the folder name")
+        fail(failures, "later" not in bare_tags and "packet" not in bare_tags, "folder name must not become tags when idea topic exists")
+        fail(failures, not (bare / "publish.md").exists(), "bare render must not write publish.md")
         proc = subprocess.run(
             [sys.executable, str(TOOLS / "publish_brief.py"), str(packet), "--dry-run"],
             cwd=ROOT,

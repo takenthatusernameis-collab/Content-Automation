@@ -1,6 +1,15 @@
 # RUNS
 
-## Run 408 — 2026-10-08T15:14:00Z
+## Run 409 — 2026-10-08T17:20:00Z
+- Objective: Run the later-packet dry-run Run 408 closed the phrase streak on, and fix only a real failure.
+- Action: Dry-ran idea, title, publish, expand, caption, asset, research, and render on a temp Q4 packet. Publish used the folder name as the upload title when titles.md was absent. `primary_title` now uses the idea topic before the folder name. Contract covers that fixture. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.
+- Result: Videos published stay 0. Bare later-packet title is the idea topic. Folder tokens are not tags. Q1 publish.md unchanged.
+- Verification: `python3 tools/publish_brief_contract.py` printed PUBLISH BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: Grounded briefs otherwise named the extra tab, not the morning reopen. The remaining publish leak was the folder slug, not another first-video phrase. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
+
 - Objective: Stop the Q1 hint from leaving the human publish step unnamed.
 - Action: `hint.py` prints `python3 tools/operator_card.py` for this packet. `next_action.py` names that same command. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.
 - Result: Videos published stay 0. Hint command list includes the operator card. Q1 files unchanged.

@@ -2,7 +2,12 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
-## Run 408 — 2026-10-08T15:14:00Z
+## Run 409 — 2026-10-08T17:20:00Z
+- Improvement: a later publish stub uses the idea topic when titles.md is missing, so a human does not replace the folder slug in the title, description, and tags. Estimated save: about 2 minutes per later stub. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: one fallback in the existing publisher, plus a contract fixture. Remaining manual step is still the three YouTube secrets.
+- Verification: publish brief contract and selftest. No provider write.
+
+
 - Improvement: the Q1 hint names the operator card, so a human does not reconstruct the publish step from NEXT.md. Estimated save: about 3 minutes the one time secrets are stored. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: two existing hint strings, not a new checker. Packet-ground streak flagged closed. Remaining manual step is still the three YouTube secrets.
 - Verification: hint and next_action on the Q1 packet. No provider write.

@@ -1,8 +1,14 @@
 # STATE
 
-Updated: 2026-10-08T15:14:00Z (Run 408)
+Updated: 2026-10-08T17:20:00Z (Run 409)
 
-## Run 408 delta
+## Run 409 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Later-packet dry-run of the grounded briefs passed except publish title. A folder with idea.md and no titles.md used the folder name as the upload title and as tags. `primary_title` now uses the idea topic before the folder name. Q1 publish.md was not regenerated.
+
+
 - OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
 - No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.

@@ -1,6 +1,6 @@
 # NEXT
 
-Updated: 2026-10-08T15:14:00Z (Run 408)
+Updated: 2026-10-08T17:20:00Z (Run 409)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser or provider-state recovery edge while videos published stay 0. Do not extend operator_card while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate. `recovery_freeze.py` fails the build if the recovery surface grows. `operator_card_freeze.py` fails the build if the card surface grows. `stall_watch.py` sets `STALL_LOG_HYGIENE` after three log-cap or header deltas. Do not add another compact check while videos published stay 0.
 
@@ -8,7 +8,9 @@ One human step: run `python3 tools/operator_card.py`, then `python3 tools/oauth_
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
 
-1zr72. **Do not rediscover a vague OAuth note as the Q1 next command.** Run 408: `python3 tools/hint.py videos/002-stop-deciding-what-to-work-on-every-morning` prints `python3 tools/operator_card.py`. That card is the only human publish step. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not add a freeze for the packet-ground streak. Packet-ground edits 395-407 are closed unless a later-packet dry-run fails.
+Run 408: `python3 tools/hint.py videos/002-stop-deciding-what-to-work-on-every-morning` prints `python3 tools/operator_card.py`. That card is the only human publish step. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not add a freeze for the packet-ground streak. Packet-ground edits 395-407 are closed unless a later-packet dry-run fails.
+
+1zr73. **Do not rediscover the folder name as the next upload title.** Run 409: a later-packet dry-run with idea.md and no titles.md printed the folder name as Title to upload and as tags. `python3 tools/publish_brief.py PATH --dry-run` now uses the idea topic before the folder name. Q1 publish.md stays the approved draft. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not open another phrase edit unless a later-packet dry-run fails.
 
 1zr71. **Do not rediscover the channel niche line as the next idea why-now.** Run 407: `python3 tools/new_idea.py "TOPIC" --dry-run` names that topic in why now. A morning reopen stays off unless the topic already says morning. Q1 idea.md stays the approved card. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not add a freeze for the packet-ground streak; the human step is still issue 1.
 

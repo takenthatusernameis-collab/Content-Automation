@@ -62,6 +62,11 @@ def primary_title(packet: Path) -> str:
         working = field_line(pkt.read_text(encoding="utf-8"), "working_title")
         if working:
             return working
+    idea = packet / "idea.md"
+    if idea.is_file():
+        topic = field_line(idea.read_text(encoding="utf-8"), "topic")
+        if topic:
+            return topic
     return packet.name
 
 
