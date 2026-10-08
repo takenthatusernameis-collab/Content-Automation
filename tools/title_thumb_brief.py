@@ -136,30 +136,62 @@ def load_packet_inputs(packet: Path) -> dict[str, str]:
     }
 
 
+# Glue words may appear in a generated title. Every other word must come from this packet.
+GLUE = {
+    "stop",
+    "write",
+    "one",
+    "before",
+    "first",
+    "rule",
+    "name",
+    "today",
+    "without",
+    "step",
+}
+
+
+def packet_blob(src: dict[str, str]) -> str:
+    return " ".join(src.get(key, "") for key in ("topic", "problem", "mechanism", "viewer", "working"))
+
+
+def grounded(phrase: str, blob_tokens: set[str]) -> bool:
+    tokens = content_tokens(phrase)
+    if not tokens:
+        return False
+    return all(token in blob_tokens or token in GLUE for token in tokens)
+
+
 def candidate_titles(src: dict[str, str]) -> list[str]:
     topic = src["topic"]
     problem = src["problem"]
     mechanism = src["mechanism"]
     working = src["working"]
-    blob = f"{topic} {problem} {mechanism}".lower()
-    topic_looks_like_title = 3 <= len(words(topic)) <= 8
+    blob_tokens = set(content_tokens(packet_blob(src)))
+    topic_looks_like_title = 3 <= len(words(topic)) <= 12
     raw = [
         working or topic,
         topic if topic_looks_like_title and topic.lower() != (working or "").lower() else "",
-        "Stop Waiting to Feel Ready" if "ready" in blob else "Stop Deciding Every Morning",
-        "A Two-Minute Start System" if "two-minute" in blob or "two minute" in blob else "A Written Default Beats a Mood",
-        "Build a Default, Not a Mood",
-        "Install One Default Today",
-        "Why Systems Beat Motivation" if "motivation" in blob else "Why a Written Default Works",
-        "The Start Cue That Saves the Day" if "cue" in blob or "start" in blob else "The First-Action Protocol",
-        "Focused Work Without a Pep Talk",
-        "One Default for Focused Work",
+        first_clause(problem),
+        first_clause(mechanism),
+        short_noun_phrase(problem, 6),
+        short_noun_phrase(mechanism, 6),
     ]
+    tokens = content_tokens(packet_blob(src))
+    if tokens:
+        raw.append(" ".join(tokens[:4]))
+        raw.append(f"stop {tokens[0]}")
+        raw.append(f"name the {tokens[0]}")
+        raw.append(f"write the {tokens[0]}")
+        if len(tokens) > 1:
+            raw.append(f"{tokens[0]} before {tokens[1]}")
+            raw.append(f"one {tokens[0]} {tokens[1]}")
+            raw.append(f"{tokens[0]} {tokens[1]} first")
     cleaned: list[str] = []
     seen: set[str] = set()
     for item in raw:
         t = clip_title(title_case(item)) if item else ""
-        if not t:
+        if not t or not grounded(t, blob_tokens):
             continue
         if any(b in t.lower() for b in BANNED_PHRASES):
             continue
@@ -170,38 +202,30 @@ def candidate_titles(src: dict[str, str]) -> list[str]:
             continue
         seen.add(key)
         cleaned.append(t)
-    if not any(len(t) < 50 for t in cleaned):
-        cleaned.insert(1, "One Default Beats a Mood")
-    pads = [
-        "Start Before the Mood Arrives",
-        "Write the Default Once",
-        "Measure the Start Not the Mood",
-        "A Two Minute First Action",
-        "Put the Cue on the Calendar",
-    ]
-    for p in pads:
-        if len(cleaned) >= 6:
+    if cleaned and not any(len(t) < 50 for t in cleaned) and tokens:
+        short = clip_title(title_case(" ".join(tokens[:3])), 49)
+        if short and short.lower() not in seen and grounded(short, blob_tokens):
+            cleaned.insert(0, short)
+            seen.add(short.lower())
+    n = 0
+    while len(cleaned) < 6 and tokens:
+        extra = title_case(f"{tokens[n % len(tokens)]} step {n + 1}")
+        n += 1
+        if n > 8:
             break
-        if p.lower() not in seen:
-            cleaned.append(p)
-            seen.add(p.lower())
+        if extra.lower() in seen or not grounded(extra, blob_tokens):
+            continue
+        cleaned.append(extra)
+        seen.add(extra.lower())
     return cleaned[:6]
 
 
 def thumb_line(src: dict[str, str]) -> str:
     pool = content_tokens(src["mechanism"]) or content_tokens(src["topic"]) or content_tokens(src["working"])
-    if "start" in pool and "cue" in pool:
-        line = ["Start", "Cue", "Not", "Mood"]
-    elif "default" in pool or "defaults" in pool:
-        line = ["One", "Written", "Default"]
-    elif "motivation" in " ".join(pool) or "mood" in (src["problem"] + src["topic"]).lower():
-        line = ["Start", "Before", "Mood"]
-    else:
-        line = [w[:1].upper() + w[1:] for w in pool[:4]] or ["One", "Small", "Default"]
-    line = line[:5]
+    line = [w[:1].upper() + w[1:] for w in pool[:4]]
     if len(line) < 2:
-        line = ["One", "Small", "Default"]
-    return " ".join(line)
+        line = ["Name", "The", "Step"]
+    return " ".join(line[:5])
 
 
 def render_titles(titles: list[str]) -> str:
@@ -212,7 +236,7 @@ def render_titles(titles: list[str]) -> str:
         lines.append(f"{i}. {t}")
     while len([ln for ln in lines if re.match(r"^\d+\.\s+\S", ln)]) < 5:
         n = len([ln for ln in lines if re.match(r"^\d+\.", ln)]) + 1
-        lines.append(f"{n}. One Default Beats a Mood")
+        lines.append(f"{n}. {titles[0]}")
     lines += [
         "",
         "Notes (promise vs clickbait risk):",

@@ -1,5 +1,13 @@
 # STATE
 
+Updated: 2026-10-08T00:20:00Z (Run 394)
+
+## Run 394 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `title_thumb_brief.py` builds titles and on-image text from that packet. A later inbox idea no longer receives "Stop Deciding Every Morning" or "Written Default". Q1 titles.md was not regenerated.
+
 Updated: 2026-10-07T23:12:00Z (Run 393)
 
 ## Run 393 delta
@@ -91,13 +99,4 @@ Updated: 2026-10-07T12:20:00Z (Run 384)
 - No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge.
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - The provider-state recovery surface is frozen. `tools/recovery_freeze.py` fails if `youtube-production.yml` grows another `provider-upload-state` artifact or another `persist_provider_state.py recover` call. This does not call YouTube or GitHub. Release `q1-media-r253` master still matches sha256 `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546` and ffprobe 1920x1080 h264 30fps yuv420p stereo AAC 48000 Hz, duration 328.40s. That check did not encode and did not upload.
-
-## Run 381 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- Four consecutive provider-state recovery deltas now set `STALL_RECOVERY_EDGE` and `suspicious: recovery_edge_without_publish`. A lock sentence such as "no new recovery edge" does not set the flag. The newest deltas are log-cap work, so the flag is clear on this commit. This does not call YouTube.
-
-
-Updated: 2026-10-07T08:11:00Z (Run 380)
 

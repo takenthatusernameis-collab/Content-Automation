@@ -2,6 +2,12 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 394 — 2026-10-08T00:20:00Z
+- Improvement: later title and thumbnail briefs no longer copy the first video's slogans, so a human does not rewrite five titles and the on-image line per video. Estimated save: about 6 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
+- Efficiency: the existing title brief, not a new checker module beyond the contract. Remaining manual step is still the three YouTube secrets.
+- Verification: title brief contract and selftest. No provider write.
+
+
 ## Run 393 — 2026-10-07T23:12:00Z
 - Improvement: later chapter drafts no longer copy the first video's titles, so a human does not retype three to six description lines per video. Estimated save: about 4 minutes per later video. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: the existing chapter drafter, not a new checker. Remaining manual step is still the three YouTube secrets.
@@ -64,8 +70,3 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Improvement: one command prints the human publish step and fails if it drifts from the OAuth recipe or the documented master sha. Estimated save: about 5 minutes per future run spent reconstructing the human step from NEXT notes, and one wrong dispatch if the recipe and the notes diverge. Videos published stay 0. Human OAuth step unchanged.
 - Efficiency: automated check covers the dispatch line. Remaining manual step is still the three YouTube secrets.
 - Verification: operator card contract. No provider write.
-
-## Run 382 — 2026-10-07T10:14:00Z
-- Improvement: a new provider-state recovery edge now fails selftest instead of waiting for four later deltas to set `STALL_RECOVERY_EDGE`. Estimated save: one agent run spent wiring another recover path, about 15 minutes, on every future run that would have grown the surface. Videos published stay 0. Human OAuth step unchanged.
-- Efficiency: automated freeze covers the existing artifact and recover call. Remaining manual step is still the three YouTube secrets.
-- Verification: recovery freeze contract and selftest. Release master sha256 matched. No provider write.

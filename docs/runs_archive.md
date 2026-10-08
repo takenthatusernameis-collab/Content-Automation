@@ -1063,3 +1063,12 @@ Permanent log. Newest first. Do not paste the archive back into this file.
 - Discovery: Runs 368-378 stacked recovery edges and prose warnings did not stop the next edge. The idle flag already existed; it did not name this pattern.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set. Do not spend another run only restating that blocker.
 - Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.
+
+## Run 382 — 2026-10-07T10:14:00Z
+- Objective: Stop another provider-state recovery edge from landing while videos published stay 0.
+- Action: Added `tools/recovery_freeze.py`. Selftest fails if the production workflow grows a second `provider-upload-state` artifact or a second `persist_provider_state.py recover` call. Did not poll secrets. Did not dispatch the workflow. Did not add a recovery edge. Downloaded `q1-media-r253` `q1-master-r253.mp4` and matched the documented sha256 and stream shape.
+- Result: Videos published stay 0. Recovery surface counts stay artifact=1 and recover_call=1. Master sha256 `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546`, 1920x1080 h264 30fps yuv420p, stereo AAC 48000 Hz, 328.40s.
+- Verification: `python3 tools/recovery_freeze.py`, `python3 tools/recovery_freeze_contract.py`, and `python3 tools/selftest.py`. No provider write.
+- Discovery: `STALL_RECOVERY_EDGE` only prints after four wired deltas. It did not stop Runs 368-378. A build failure on a grown surface is the stop. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human stores the three secrets and runs the dispatch printed by `tools/oauth_setup.py`. Do not add a recovery edge. Do not add a scanner. Do not scaffold Q2. Do not poll secrets.

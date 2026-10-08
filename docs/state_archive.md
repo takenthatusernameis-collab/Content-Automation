@@ -828,3 +828,12 @@ Updated: 2026-10-07T05:11:00Z (Run 377)
 
 Updated: 2026-10-07T07:16:00Z (Run 379)
 
+## Run 381 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new YouTubeAPIError reason. No provider write. No new scanner. Q1 was not rewritten. No new packet folder. No new OAuth exchange parser. No new pre-upload checker. No new early-persist call. No new recovery edge.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Four consecutive provider-state recovery deltas now set `STALL_RECOVERY_EDGE` and `suspicious: recovery_edge_without_publish`. A lock sentence such as "no new recovery edge" does not set the flag. The newest deltas are log-cap work, so the flag is clear on this commit. This does not call YouTube.
+
+
+Updated: 2026-10-07T08:11:00Z (Run 380)
+
