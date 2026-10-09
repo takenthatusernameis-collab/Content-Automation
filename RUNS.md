@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 430 — 2026-10-09T15:20:00Z
+- Objective: Verify the Run 429 chapter contract, then fix only a real later-packet dry-run failure outside the closed chapter rules.
+- Action: `chapter_draft_contract.py` passed. Later-packet chapter lines kept not and did not end on so or without. Did not edit chapter_draft. Asset and caption contracts passed. Those stubs were not edited. Publish contract passed, then a later-packet problem `The inbox reopens if the lid stays up` still printed `If the inbox reopens if the lid stays up`. A problem that already contains if is no longer wrapped. Contract covers that packet. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1. Did not open a title phrase edit.
+- Result: Videos published stay 0. Nested if problems stay one clause. Q1 publish.md unchanged.
+- Verification: `python3 tools/publish_brief_contract.py` PASS after the edit. `python3 tools/chapter_draft_contract.py` PASS. No provider write.
+- Discovery: Keeping a so-clause did not cover a problem that already said if. Suspicious: oauth_idle_without_publish is unchanged since before Run 270. Publish-stub work resumes only on that named machine sentence.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent should run `python3 tools/publish_brief_contract.py` before any new publish edit. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails. Do not edit chapter_draft, asset_brief, or caption_brief again unless a dry-run still fails the rule named in NEXT.md.
+
 ## Run 429 — 2026-10-09T14:20:00Z
 - Objective: Verify Run 428 chapter contract, then fix only a real later-packet dry-run failure outside the closed negation and on-screen rules.
 - Action: `chapter_draft_contract.py` passed. Asset, caption, and publish contracts passed. Those stubs were not edited. Title dry-run passed SELF_CHECK. Chapter dry-run still ended `Notebook stays bag so` and `Next block starts without`. Unfinished so/without/before/after/until/because are now dropped. Contract covers that packet. NEXT.md was 12644 bytes; older notes moved to the archive so the 12000 cap holds. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1. Did not open a title phrase edit.

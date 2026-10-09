@@ -1,5 +1,12 @@
 # PROGRESS
 
+Updated: 2026-10-09T15:20:00Z (Run 430)
+
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
+## Run 430
+- Closed one recurring description rewrite: nested if problems no longer gain a second If. Q1 files unchanged. Videos published stay 0. Estimated human minutes per video unchanged until the three GitHub Actions secrets exist. Chapter, asset, and caption stubs were not reopened.
+
 Updated: 2026-10-09T14:20:00Z (Run 429)
 
 - Chapter titles no longer end on so/without/before. One less human rewrite per later packet that uses a because/so clause. Q1 chapters.md not regenerated. Videos published stay 0.
@@ -33,5 +40,4 @@ Updated: 2026-10-09T02:11:00Z (Run 417)
 Updated: 2026-10-09T01:20:00Z (Run 416)
 - Run 416 (2026-10-09): an unmatched later packet no longer replaces a filled viewer or why-now with the generic stall template. One less rewrite on every card that already names its viewer. Videos published still 0.
 
-Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 - Run 420 (2026-10-09): later-packet publish stubs no longer wrap a ', so' problem in a second If, and drop lone before/starts/stays tags. Estimated tag-trim edit avoided on each future stub. Videos published stay 0.

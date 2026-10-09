@@ -276,6 +276,20 @@ def main() -> int:
         fail(failures, "- until" not in inbox_tags, "lone until must not be a tag")
         fail(failures, "- ends" not in inbox_tags, "lone ends must not be a tag")
         fail(failures, "- inbox" in inbox_tags, "content tag inbox must stay")
+        nested = Path(tmp) / "videos" / "015b-inbox-if"
+        nested.mkdir(parents=True)
+        (nested / "idea.md").write_text(
+            "\n".join([
+                "- topic: Shut the lid",
+                "- problem: The inbox reopens if the lid stays up",
+                "- mechanism (the system, not the pep talk): Shut the lid.",
+            ]) + "\n",
+            encoding="utf-8",
+        )
+        nested_body = render(nested)
+        nested_desc = nested_body.split("## Description", 1)[1].split("## ", 1)[0]
+        fail(failures, "If the inbox reopens if" not in nested_desc, "problem that already has if must not gain a second If")
+        fail(failures, "the inbox reopens if the lid stays up" in nested_desc.lower(), "description must keep the nested if clause")
         missing = Path(tmp) / "videos" / "016-name-block"
         missing.mkdir(parents=True)
         (missing / "idea.md").write_text(

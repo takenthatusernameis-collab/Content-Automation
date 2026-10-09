@@ -222,6 +222,8 @@ def render(packet: Path) -> str:
         already_clause = (
             ", so " in plow
             or " so " in plow
+            # "If the inbox reopens if the lid stays up" is a second If.
+            or " if " in plow
             or plow.startswith(("if ", "when ", "don't ", "do not ", "never "))
         )
         if already_clause:

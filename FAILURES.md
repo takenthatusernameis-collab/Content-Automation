@@ -1,5 +1,7 @@
 # FAILURES
 
+- 2026-10-09 Run 430: publish description wrapped `The inbox reopens if the lid stays up` as `If the inbox reopens if the lid stays up`. Fix: a problem that already contains if is not wrapped in a second If. Do not treat a so-clause guard as covering every second If.
+
 - 2026-10-09 Run 429: chapter titles kept not, then still ended on `so` and `without` (`Notebook stays bag so`, `Next block starts without`). Fix: drop those unfinished words after the four-word clip. Do not treat a kept negation as a finished title.
 
 - 2026-10-09 Run 428: `chapter_draft.py` TITLE_DROP included `not`, so a later packet chapter became `Do reopen inbox after` from `Do not *reopen*`. Fix: keep not/no/never. Do not treat a glue-word drop as safe when it flips the instruction.
