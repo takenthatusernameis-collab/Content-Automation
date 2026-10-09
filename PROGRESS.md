@@ -2,6 +2,10 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 436 — 2026-10-10T02:20:00Z
+- Added Common pitfalls to the operator card so the one human OAuth setup is less likely to hit known failure modes (wrong scope, secret leak, truncated master, double dispatch). Estimated save: 5-15 minutes of human rework if a common mistake is avoided on the eventual setup. Videos published stay 0. Human minutes per video remain blocked on the secrets.
+
+
 ## Run 435 — 2026-10-09T22:12:00Z
 - Reconfirmed the gitignored Q1 release install on a clean clone. Checksums matched. Upload still fails only on the three GitHub Actions secrets. Estimated human minutes per video unchanged until those secrets exist. Videos published stay 0.
 

@@ -2,6 +2,11 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 436 — 2026-10-10T02:20:00Z
+- Failed approach not retried: editing a closed brief, scaffolding Q2, polling secrets, adding a scanner, or adding a compact check while videos published stay 0.
+- Lesson: Local gates continue to pass after materialize. The operator card can carry a static pitfalls list without drifting from the recipe. oauth_idle_without_publish remains; the human step is still issue 1.
+
+
 ## Run 435 — 2026-10-09T22:12:00Z
 - Failed approach not retried: editing a closed brief, scaffolding Q2, polling secrets, adding a scanner, extending the card, or adding a compact check while videos published stay 0.
 - Lesson: A missing packet path is not missing media. materialize_q1_release.py still installs the verified wav, cards, and r253 master. oauth_idle_without_publish remains; the human step is issue 1.

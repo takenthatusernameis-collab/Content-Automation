@@ -83,6 +83,13 @@ Upload file, if the release is still present:
   sha256 {MASTER_SHA}
 Do not re-encode. Do not install the r249 truncated master.
 
+Common pitfalls (read once):
+- Scope must include youtube.force-ssl (or full youtube) plus yt-analytics.readonly. youtube.upload alone fails later caption steps.
+- Paste secrets into `gh secret set` prompts, never into the command line or any repo file.
+- Do not commit the token file or any client secret.
+- After secrets are set, dispatch exactly once with execute=true and collect_feedback=false. Wait for a video id before any collect.
+- Confirm the master is the r253 sha above; the r249 master is truncated and refused.
+
 Do not run gh secret list. Do not run gh api. Do not dispatch execute again.
 """
 

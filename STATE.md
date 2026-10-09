@@ -1,5 +1,15 @@
 # STATE
 
+Updated: 2026-10-10T02:20:00Z (Run 436)
+
+## Run 436 delta
+- OAuth was not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 packet markdown was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card beyond a static pitfalls list. Did not add a freeze module. Did not add a compact check. Did not open a title phrase edit. Did not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Fresh clone materialize installed verified Q1 wav, 7 cards, and r253 master (checksums matched). media_qa gate PASS. assemble EXPORT_EXISTS. next_action upload-blocked. closed_brief_gate PASS.
+- Added a static Common pitfalls section to tools/operator_card.py so the one human step is less error-prone (scope, secret paste, truncated master, single dispatch). Card still PASSes and reprints the recipe.
+- Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 Updated: 2026-10-09T22:12:00Z (Run 435)
 
 ## Run 435 delta
@@ -106,14 +116,4 @@ Updated: 2026-10-09T10:20:00Z (Run 425)
 - Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Publish-stub microfixes 420-424 had no new dry-run failure this run. Do not resume that loop.
 
 Updated: 2026-10-09T09:12:00Z (Run 424)
-
-## Run 424 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check. Did not open a title phrase edit.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- Run 423 publish contract passed. Later-packet dry-runs still turned problem prose and title imperatives into lone tags (`under`, `while`, `already`, `hang`, `set`, `down`). Tags now come from the title and mechanism only. The first word of the title or mechanism is not a tag. Short mechanism-only words are not tags. STOP and TAG_GLUE were not extended with another verb. Q1 publish.md was not regenerated.
-- Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Publish-stub microfixes 420-424 keep landing while the human secret step is unchanged. Do not grow the tag skip lists. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag the title/mechanism rule does not drop.
-
-
-Updated: 2026-10-09T08:14:00Z (Run 423)
 
