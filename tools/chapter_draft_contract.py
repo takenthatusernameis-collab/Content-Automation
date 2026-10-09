@@ -53,6 +53,31 @@ def main() -> int:
             return fail("on-screen label leaked into chapter sheet")
         if info.get("approval") is not False:
             return fail("chapter draft must not approve")
+        bag = Path(tmp) / "videos" / "010-chapter-so"
+        bag.mkdir(parents=True)
+        (bag / "script.md").write_text(
+            "## Hook\nWORDS: The notebook stays in the bag so the block has no page.\n\n"
+            "## Beat 1\nWORDS: The next block starts without a walk to the kitchen.\n\n"
+            "## CTA\nWORDS: Leave the charger on the kitchen block before you sit.\n",
+            encoding="utf-8",
+        )
+        (bag / "captions.srt").write_text(
+            "1\n00:00:00,000 --> 00:00:04,000\nThe notebook stays in the bag so the block has no page.\n\n"
+            "2\n00:00:12,000 --> 00:00:16,000\nThe next block starts without a walk to the kitchen.\n\n"
+            "3\n00:00:24,000 --> 00:00:28,000\nLeave the charger on the kitchen block before you sit.\n\n",
+            encoding="utf-8",
+        )
+        _, info2 = build(bag)
+        joined = " | ".join(info2.get("lines") or [])
+        low = joined.lower()
+        if low.endswith(" so") or " so |" in low or low.endswith(" without") or " without |" in low:
+            return fail(f"chapter title still ends on an unfinished word: {joined}")
+        if " before" in low and low.split("before")[0].rstrip().endswith(("0:00", "0:12", "0:24")):
+            return fail(f"chapter title still ends on before: {joined}")
+        for line in info2.get("lines") or []:
+            last = line.split()[-1].lower()
+            if last in {"so", "without", "before", "after", "until", "because"}:
+                return fail(f"chapter title ends unfinished: {line}")
     if before is not None and (q1 / "chapters.md").read_bytes() != before:
         return fail("contract rewrote Q1 chapters.md")
     if publish_before is not None and (q1 / "publish.md").read_bytes() != publish_before:

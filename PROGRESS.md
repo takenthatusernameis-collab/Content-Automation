@@ -1,5 +1,10 @@
 # PROGRESS
 
+Updated: 2026-10-09T14:20:00Z (Run 429)
+
+- Chapter titles no longer end on so/without/before. One less human rewrite per later packet that uses a because/so clause. Q1 chapters.md not regenerated. Videos published stay 0.
+- NEXT.md returned under the 12000 byte cap (was 12644). Older notes are in docs/next_archive.md.
+
 - Run 428 (2026-10-09): later chapter stubs no longer drop `not` and invert `Do not reopen` into `Do reopen`. Estimated save: about 1 minute per chapter a human would otherwise rewrite so the title matches the beat. Videos published stay 0.
 
 - Run 427 (2026-10-09): later asset stubs no longer append an ON SCREEN label to the card need or the suggested filename. Estimated save: about 1 minute per card a human would otherwise rename. Videos published stay 0.

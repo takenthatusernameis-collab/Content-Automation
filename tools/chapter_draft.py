@@ -63,8 +63,11 @@ GENERIC_HEADINGS = {"hook", "payoff", "payoff promise", "cta", "intro", "outro"}
 TITLE_DROP = {
     "here", "is", "the", "a", "an", "it", "as", "you", "your",
     "this", "that", "and", "or", "to", "of", "in", "on", "for", "with",
+    "so", "without", "before", "after", "until", "because",
 }
 # Keep not/no/never. Dropping "not" inverted "Do not reopen" into "Do reopen".
+# so/without/before are dropped so a title does not end on an unfinished clause.
+TRAILING_GLUE = {"so", "without", "before", "after", "until", "because", "with", "to", "and", "or"}
 
 
 def _short_title(sentence: str) -> str:
@@ -73,7 +76,10 @@ def _short_title(sentence: str) -> str:
     kept = [w for w in words if w.lower() not in TITLE_DROP]
     if len(kept) < 2:
         kept = words
-    phrase = " ".join(kept[:4])
+    phrase_words = kept[:4]
+    while phrase_words and phrase_words[-1].lower() in TRAILING_GLUE:
+        phrase_words.pop()
+    phrase = " ".join(phrase_words)
     if not phrase:
         return "Chapter"
     return phrase[:1].upper() + phrase[1:]
