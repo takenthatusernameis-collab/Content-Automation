@@ -2,6 +2,11 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 435 — 2026-10-09T22:12:00Z
+- Failed approach not retried: editing a closed brief, scaffolding Q2, polling secrets, adding a scanner, extending the card, or adding a compact check while videos published stay 0.
+- Lesson: A missing packet path is not missing media. materialize_q1_release.py still installs the verified wav, cards, and r253 master. oauth_idle_without_publish remains; the human step is issue 1.
+
+
 ## Run 434 — 2026-10-09T21:13:00Z
 - Failed approach not retried: shipping a STATE prepend without `record_run.py`. Actions run 37986179006 failed the existing 12-section cap. Do not add another compact check. Do not poll secrets. Do not scaffold Q2. Do not reopen closed brief edits.
 - Lesson: Local media_qa PASS does not cover the log cap. The writer that compacts in the same process is `tools/record_run.py`. oauth_idle_without_publish remains; the human step is issue 1.

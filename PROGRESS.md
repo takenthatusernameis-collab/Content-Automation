@@ -2,6 +2,10 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 435 — 2026-10-09T22:12:00Z
+- Reconfirmed the gitignored Q1 release install on a clean clone. Checksums matched. Upload still fails only on the three GitHub Actions secrets. Estimated human minutes per video unchanged until those secrets exist. Videos published stay 0.
+
+
 ## Run 434
 - Restored the selftest size cap without a new checker. Run 433 left STATE.md at 13 sections; Actions run 37986179006 failed. Oldest delta moved to docs/state_archive.md. Estimated human minutes per video unchanged until the three GitHub Actions secrets exist. Videos published stay 0.
 

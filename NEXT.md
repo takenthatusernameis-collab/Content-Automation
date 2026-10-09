@@ -1,6 +1,6 @@
 # NEXT
 
-Updated: 2026-10-09T21:13:00Z (Run 434)
+Updated: 2026-10-09T22:12:00Z (Run 435)
 
 Run 433: Q1 release media materialized and media_qa passed on this machine. Upload dry-run fails only on the three OAuth secrets. Closed brief gate passed. If vo/, cards/, or export/master.mp4 are missing, run `python3 tools/materialize_q1_release.py` and do not commit media. If they are present, do not rematerialize. Do not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief unless `python3 tools/closed_brief_gate.py` fails. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card.
 
@@ -24,3 +24,4 @@ Run 432: closed brief gate passed (five contracts, three title dry-runs). Do not
 
 Run 431: publish, chapter, caption, and asset contracts passed. Title dry-runs on later-packet charger, phone, and notebook shapes passed SELF_CHECK. Do not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief unless a new dry-run fails the rule already named here. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails SELF_CHECK.
 
+435. Fresh clone materialize verified. Wav sha256 758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2. Master sha256 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546. If vo/, cards/, or export/master.mp4 are missing, run `python3 tools/materialize_q1_release.py` and do not commit media. If they are present, do not rematerialize. Do not edit briefs unless `python3 tools/closed_brief_gate.py` fails. Prepend logs only through `python3 tools/record_run.py`. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check.
