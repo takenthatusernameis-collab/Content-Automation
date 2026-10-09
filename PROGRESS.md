@@ -1,5 +1,9 @@
 # PROGRESS
 
+Updated: 2026-10-09T01:20:00Z (Run 416)
+- Run 416 (2026-10-09): an unmatched later packet no longer replaces a filled viewer or why-now with the generic stall template. One less rewrite on every card that already names its viewer. Videos published still 0.
+
+
 Updated: 2026-10-09T00:20:00Z (Run 415)
 - Run 415 (2026-10-09): an unmatched later packet no longer pastes the channel morning line when idea.md already names the stall. One less rewrite on every card that is not a queue row. Videos published still 0.
 

@@ -991,3 +991,21 @@ Updated: 2026-10-08T06:17:00Z (Run 399)
 
 Updated: 2026-10-08T07:14:00Z (Run 400)
 
+## Run 402 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `title_thumb_brief.py` on-image text keeps a one-word mechanism. It no longer replaces that word with "Name The Step". Q1 thumbnail.md was not regenerated.
+
+
+Updated: 2026-10-08T08:13:00Z (Run 401)
+
+## Run 403 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `title_thumb_brief.py` no longer pads thin title lists with "X step N" or copies Primary into empty alt slots. An empty mechanism is not renamed "This Step" or "the default". Q1 titles.md and thumbnail.md were not regenerated.
+
+
+Updated: 2026-10-08T09:13:00Z (Run 402)
+

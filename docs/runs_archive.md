@@ -1245,3 +1245,21 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: The contrast line was a fixed first-video visual. A later thumbnail about an inbox would still say leftover planning clutter unless a human rewrote it. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated rewrite, it does not add a freeze.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1. Do not regenerate Q1 thumbnail.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
+## Run 402 — 2026-10-08T09:13:00Z
+- Objective: Stop later thumbnail briefs from renaming a one-word step to Name The Step.
+- Action: `title_thumb_brief.py` keeps the packet token on the image line. The Name The Step pad stays off. The contract checks a one-word Inbox fixture and still requires Q1 titles.md and thumbnail.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. Fixture on-image text is Inbox. Q1 thumbnail file unchanged.
+- Verification: `python3 tools/title_brief_contract.py` printed TITLE BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: A mechanism of one content word was discarded. A later thumbnail about an inbox would still say Name The Step unless a human rewrote it. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated rewrite, it does not add a freeze.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 thumbnail.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
+## Run 403 — 2026-10-08T10:13:00Z
+- Objective: Stop later title briefs from padding a thin packet with step numbers or a copied Primary.
+- Action: `title_thumb_brief.py` fills remaining titles from that packet's words. The step-N pad and the Primary-repeat loop stay off. An empty phrase is not renamed "the default" or "This Step". The contract checks a one-word Inbox fixture and still requires Q1 titles.md and thumbnail.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
+- Result: Videos published stay 0. Fixture titles stay distinct and do not say step N. Q1 title files unchanged.
+- Verification: `python3 tools/title_brief_contract.py` printed TITLE BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: The fill loop emitted "X step N", which never grounded, then the renderer copied Primary into every empty alt. A human would delete those repeats on every thin packet. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated delete, it does not add a freeze.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1. Do not regenerate Q1 titles.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.

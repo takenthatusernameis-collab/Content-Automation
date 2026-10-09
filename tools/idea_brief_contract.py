@@ -223,6 +223,7 @@ def unmatched_packet_lock(failures: list[str]) -> None:
 - Viewer: someone who opens a second tab instead of finishing the block
 - Problem: an extra tab steals the next block
 - Mechanism: close the extra tab before the next block
+- Why now: the next block starts with one tab still open
 """
     with tempfile.TemporaryDirectory() as tmp:
         path = Path(tmp) / "009-close-the-extra-tab-before-the-next-block"
@@ -241,6 +242,9 @@ def unmatched_packet_lock(failures: list[str]) -> None:
         fail(failures, reprint.returncode == 0, f"unmatched reprint exit {reprint.returncode}: {reprint.stderr}")
         fail(failures, before == after, "unmatched reprint mutated idea.md")
         fail(failures, "an extra tab steals the next block" in suggested, "unmatched paste missing packet problem")
+        fail(failures, "someone who opens a second tab instead of finishing the block" in suggested, "unmatched paste replaced a filled viewer")
+        fail(failures, "stalls on this" not in suggested, "unmatched paste still uses the generic stall viewer")
+        fail(failures, "the next block starts with one tab still open" in suggested, "unmatched paste replaced a filled why now")
         fail(failures, "morning still reopens the whole list" not in suggested, "unmatched paste still uses the channel morning line")
         fail(failures, "(no matching queue row" not in suggested, "unmatched paste still says no matching queue row")
         fail(failures, "writes nothing" in out.lower(), "unmatched reprint missing no-write note")
@@ -252,6 +256,8 @@ def unmatched_packet_lock(failures: list[str]) -> None:
         fail(failures, block.returncode == 0, f"unmatched --block exit {block.returncode}")
         fail(failures, "morning still reopens the whole list" not in block.stdout, "unmatched --block still uses the channel morning line")
         fail(failures, "an extra tab steals the next block" in block.stdout, "unmatched --block missing packet problem")
+        fail(failures, "someone who opens a second tab instead of finishing the block" in block.stdout, "unmatched --block replaced a filled viewer")
+        fail(failures, "the next block starts with one tab still open" in block.stdout, "unmatched --block replaced a filled why now")
 
 
 def main() -> int:

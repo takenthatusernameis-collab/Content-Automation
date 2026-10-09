@@ -121,8 +121,14 @@ def suggested_values(title: str) -> tuple[str, str, str]:
     return topic, problem, mechanism
 
 
-def viewer_line(topic: str, problem: str) -> str:
-    """Name the viewer from this row. Planning-stall audience stays only when the row says planning."""
+def viewer_line(topic: str, problem: str, current: str = "") -> str:
+    """Name the viewer from this row. A filled packet viewer stays.
+
+    Planning-stall audience stays only when the row says planning.
+    This does not write idea.md.
+    """
+    if usable_field(current):
+        return current.strip()
     blob = f"{topic} {problem}".lower()
     if (
         "planning" in blob
@@ -176,13 +182,15 @@ def rewrite_followup(lines: list[str], problem: str, mechanism: str) -> list[str
     return out
 
 
-def why_now_line(problem: str, mechanism: str = "") -> str:
-    """This row's stall. A blank problem keeps the channel line.
+def why_now_line(problem: str, mechanism: str = "", current: str = "") -> str:
+    """This row's stall. A filled packet why-now stays. A blank problem keeps the channel line.
 
     "Install" stays only when this row already says install or default.
     A later card must not be told to install a stall it did not name.
     This does not write idea.md and does not create a packet.
     """
+    if usable_field(current):
+        return current.strip()
     cleaned = problem.strip().rstrip(".")
     if not cleaned or cleaned.startswith("("):
         return WHY_NOW
@@ -192,7 +200,7 @@ def why_now_line(problem: str, mechanism: str = "") -> str:
     return f"The stall in this packet is this: {cleaned}."
 
 
-def paste_block(title: str, problem: str | None = None, mechanism: str | None = None, topic: str | None = None) -> str:
+def paste_block(title: str, problem: str | None = None, mechanism: str | None = None, topic: str | None = None, viewer: str | None = None, why_now: str | None = None) -> str:
     got_t, got_p, got_m = suggested_values(title)
     if topic and usable_field(topic):
         got_t = topic
@@ -204,10 +212,10 @@ def paste_block(title: str, problem: str | None = None, mechanism: str | None = 
     return (
         "# Idea\n\n"
         f"- topic: {topic}\n"
-        f"- viewer: {viewer_line(topic, problem)}\n"
+        f"- viewer: {viewer_line(topic, problem, viewer or '')}\n"
         f"- problem: {problem}\n"
         f"- mechanism (the system, not the pep talk): {mechanism}\n"
-        f"- why now: {why_now_line(problem, mechanism)}\n"
+        f"- why now: {why_now_line(problem, mechanism, why_now or '')}\n"
         f"- related videos to avoid repeating: {RELATED}\n"
     )
 
@@ -342,7 +350,7 @@ def main() -> int:
 
     if args.block:
         topic, problem, mechanism = grounded_fields(title, current)
-        print(paste_block(title, problem, mechanism, topic), end="")
+        print(paste_block(title, problem, mechanism, topic, field(current, "viewer"), field(current, "why now")), end="")
         print("# This command writes nothing. Fill a blank idea.md with apply_idea.py PACKET --write. Do not paste by hand.")
         return 0
 
@@ -362,12 +370,12 @@ def main() -> int:
     topic, problem, mechanism = grounded_fields(title, current)
     for line in rewrite_followup(idea_followup(title), problem, mechanism):
         print(line)
-    print(f"  - viewer: {viewer_line(topic, problem)}")
-    print(f"  - why now: {why_now_line(problem, mechanism)}")
+    print(f"  - viewer: {viewer_line(topic, problem, field(current, 'viewer'))}")
+    print(f"  - why now: {why_now_line(problem, mechanism, field(current, 'why now'))}")
     print(f"  - related videos to avoid repeating: {RELATED}")
     print("Paste-ready block (still does not write). Re-run with --block to print only this:")
     print(f"  {block_command(path)}")
-    print(paste_block(title, problem, mechanism, topic), end="")
+    print(paste_block(title, problem, mechanism, topic, field(current, "viewer"), field(current, "why now")), end="")
     print("After paste, confirm without writing:")
     print(f"  {check_command(path)}")
     if "sample-001" in path.name:

@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 416 — 2026-10-09T01:20:00Z
+- Objective: Run the later-packet dry-run and fix only a real failure.
+- Action: Title, publish, expand, caption, asset, research, and render dry-runs on a tab packet did not leak the morning reopen. `idea_brief.py` still replaced a filled viewer and why-now with the generic stall template. Suggested paste now keeps those packet lines. The idea brief contract covers the fixture. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1. Compacted logs that were already over the section cap.
+- Result: Videos published stay 0. Unmatched paste keeps the packet viewer and why-now. Q1 idea.md unchanged.
+- Verification: `python3 tools/idea_brief_contract.py` printed IDEA BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: Queue-matched and blank-problem paths were already grounded. The leak was a filled viewer treated as missing. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Phrase-edit runs 395-416 stay gated on a failed dry-run.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
 ## Run 415 — 2026-10-09T00:20:00Z
 - Objective: Run the later-packet dry-run and fix only a real failure.
 - Action: Title, publish, expand, caption, asset, and new-idea dry-runs on a tab packet did not leak the morning reopen. `idea_brief.py` still suggested the channel morning line when the packet had a problem but no queue row. Suggested paste now uses that packet's problem and mechanism. The idea brief contract covers the fixture. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.
@@ -8,7 +17,6 @@
 - Discovery: Queue-matched rows were already grounded. The leak was the no-row placeholder, which still counted as a blank problem. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Phrase-edit runs should stay gated on a failed dry-run.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1 via `python3 tools/operator_card.py`. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
-
 
 ## Run 414 — 2026-10-08T23:20:00Z
 - Objective: Run the later-packet dry-run and fix only a real failure.
@@ -108,21 +116,3 @@
 - Discovery: The budget said only how many words to add. A later short script about a tab would still be grown as the first video's morning reopen unless a human rewrote the beat. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated rewrite, it does not add a freeze.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1. Do not regenerate Q1 expand.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
-
-## Run 403 — 2026-10-08T10:13:00Z
-- Objective: Stop later title briefs from padding a thin packet with step numbers or a copied Primary.
-- Action: `title_thumb_brief.py` fills remaining titles from that packet's words. The step-N pad and the Primary-repeat loop stay off. An empty phrase is not renamed "the default" or "This Step". The contract checks a one-word Inbox fixture and still requires Q1 titles.md and thumbnail.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
-- Result: Videos published stay 0. Fixture titles stay distinct and do not say step N. Q1 title files unchanged.
-- Verification: `python3 tools/title_brief_contract.py` printed TITLE BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
-- Discovery: The fill loop emitted "X step N", which never grounded, then the renderer copied Primary into every empty alt. A human would delete those repeats on every thin packet. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated delete, it does not add a freeze.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human follows issue 1. Do not regenerate Q1 titles.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
-
-## Run 402 — 2026-10-08T09:13:00Z
-- Objective: Stop later thumbnail briefs from renaming a one-word step to Name The Step.
-- Action: `title_thumb_brief.py` keeps the packet token on the image line. The Name The Step pad stays off. The contract checks a one-word Inbox fixture and still requires Q1 titles.md and thumbnail.md unchanged. Did not regenerate Q1. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check.
-- Result: Videos published stay 0. Fixture on-image text is Inbox. Q1 thumbnail file unchanged.
-- Verification: `python3 tools/title_brief_contract.py` printed TITLE BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
-- Discovery: A mechanism of one content word was discarded. A later thumbnail about an inbox would still say Name The Step unless a human rewrote it. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Packet-ground edits continue while videos published stay 0; this one removes a repeated rewrite, it does not add a freeze.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human follows issue 1. Do not regenerate Q1 thumbnail.md. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.

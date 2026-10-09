@@ -2,6 +2,12 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 416 — 2026-10-09T01:20:00Z
+- Failed approach not retried: inventing a phrase edit after a passing dry-run, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: The later-packet dry-run did fail once. Suggested paste overwrote a filled viewer and why-now with "stalls on this". Keep the packet lines. Do not rewrite the approved Q1 idea file. oauth_idle_without_publish remains; the human step is issue 1. Packet-ground streak 395-416 is still the suspicious loop.
+
+
+
 ## Run 410 — 2026-10-08T18:16:00Z
 - Failed approach not retried: another first-video phrase edit, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: Canonical later-packet briefs passed. The dry-run failed when idea.md used `Topic:` without a dash: the title became the folder id. Read that line. Do not rewrite approved Q1 files. oauth_idle_without_publish remains; the human step is issue 1.
@@ -56,10 +62,3 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 395 — 2026-10-08T01:15:00Z
 - Failed approach not retried: regenerating Q1 publish.md to prove the tag change, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
 - Lesson: The tag list aliased every packet to the first video and the next queued mechanism. Fix the generator. Do not rewrite the approved Q1 tags to make the contract pass. oauth_idle_without_publish remains; the human step is issue 1.
-
-
-## Run 394 — 2026-10-08T00:20:00Z
-- Failed approach not retried: regenerating Q1 titles.md to prove the copy change, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, secret poll, or Q2 scaffold while videos published stay 0.
-- Lesson: The title brief aliased every thin packet to the first video. Fix the generator. Do not rewrite the locked Q1 primary to make the test pass. oauth_idle_without_publish remains; the human step is issue 1.
-
-
