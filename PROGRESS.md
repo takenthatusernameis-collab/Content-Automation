@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 431 (2026-10-09): verified the four closed brief contracts and three later-packet title dry-runs without another stub edit. Estimated save: one avoided microfix loop on the next run. Videos published stay 0.
+
 Updated: 2026-10-09T15:20:00Z (Run 430)
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.

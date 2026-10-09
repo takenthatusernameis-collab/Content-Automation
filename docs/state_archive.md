@@ -1035,3 +1035,12 @@ Updated: 2026-10-09T01:20:00Z (Run 416)
 
 Updated: 2026-10-09T02:11:00Z (Run 417)
 
+## Run 419 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Run 418 title contract passed. A later-packet dry-run of `title_thumb_brief.py --dry-run` still printed on-image text `Leave Charger Kitchen Before`. `thumb_line` now skips trailing before/after/into. Self-check fails if that line ends on those words. Q1 titles.md and thumbnail.md were not regenerated.
+- Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Phrase-edit runs 395-419 stay gated on a failed dry-run.
+
+Updated: 2026-10-09T03:16:00Z (Run 418)
+

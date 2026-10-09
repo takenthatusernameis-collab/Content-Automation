@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 431 — 2026-10-09T16:14:00Z
+- Objective: Verify the Run 430 publish contract and the closed chapter, caption, and asset rules before any brief edit.
+- Action: `publish_brief_contract.py`, `chapter_draft_contract.py`, `caption_brief_contract.py`, and `asset_brief_contract.py` passed. Title dry-runs for a charger-before packet, a phone-where packet, and a notebook-and packet printed SELF_CHECK PASS. Did not edit those generators. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, freeze module, or compact check. Did not rewrite Q1.
+- Result: Videos published stay 0. Closed brief rules stayed closed. No packet file changed.
+- Verification: four brief contracts PASS. Three later-packet title dry-runs SELF_CHECK PASS. `record_run.py` compact path used. No provider write.
+- Discovery: A when-clause problem still becomes one If, which is readable and not the double-If leak. Unfinished trailing and/because in a title was already clipped. Suspicious: oauth_idle_without_publish is unchanged since before Run 270. Brief-stub microfixes 420-430 have no new failed dry-run.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent should not edit a brief generator unless a dry-run fails the rule named in NEXT.md.
+
 ## Run 430 — 2026-10-09T15:20:00Z
 - Objective: Verify the Run 429 chapter contract, then fix only a real later-packet dry-run failure outside the closed chapter rules.
 - Action: `chapter_draft_contract.py` passed. Later-packet chapter lines kept not and did not end on so or without. Did not edit chapter_draft. Asset and caption contracts passed. Those stubs were not edited. Publish contract passed, then a later-packet problem `The inbox reopens if the lid stays up` still printed `If the inbox reopens if the lid stays up`. A problem that already contains if is no longer wrapped. Contract covers that packet. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1. Did not open a title phrase edit.

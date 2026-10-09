@@ -1,5 +1,14 @@
 # STATE
 
+Updated: 2026-10-09T16:14:00Z (Run 431)
+
+## Run 431 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check. Did not open a title phrase edit. Did not edit publish_brief, chapter_draft, caption_brief, or asset_brief.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Publish, chapter, caption, and asset contracts passed before any brief edit. Title dry-runs on charger-before, phone-where, and notebook-and packets printed SELF_CHECK PASS. No named machine sentence, lone tag, negation flip, on-screen label, or unfinished so/without/before chapter ending.
+- Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Brief-stub edits from runs 420-430 stay closed. Do not resume them without a failed dry-run of the rule named in NEXT.md.
+
 Updated: 2026-10-09T15:20:00Z (Run 430)
 
 ## Run 430 delta
@@ -104,13 +113,4 @@ Updated: 2026-10-09T05:15:00Z (Run 420)
 
 
 Updated: 2026-10-09T04:20:00Z (Run 419)
-
-## Run 419 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- Run 418 title contract passed. A later-packet dry-run of `title_thumb_brief.py --dry-run` still printed on-image text `Leave Charger Kitchen Before`. `thumb_line` now skips trailing before/after/into. Self-check fails if that line ends on those words. Q1 titles.md and thumbnail.md were not regenerated.
-- Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Phrase-edit runs 395-419 stay gated on a failed dry-run.
-
-Updated: 2026-10-09T03:16:00Z (Run 418)
 
