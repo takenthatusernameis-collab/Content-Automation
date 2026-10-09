@@ -1,5 +1,15 @@
 # RUNS
 
+## Run 415 — 2026-10-09T00:20:00Z
+- Objective: Run the later-packet dry-run and fix only a real failure.
+- Action: Title, publish, expand, caption, asset, and new-idea dry-runs on a tab packet did not leak the morning reopen. `idea_brief.py` still suggested the channel morning line when the packet had a problem but no queue row. Suggested paste now uses that packet's problem and mechanism. The idea brief contract covers the fixture. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.
+- Result: Videos published stay 0. Unmatched paste names the extra tab. Q1 idea.md unchanged.
+- Verification: `python3 tools/idea_brief_contract.py` printed IDEA BRIEF CONTRACT PASS. `python3 tools/selftest.py` printed SELFTEST PASS. No provider write.
+- Discovery: Queue-matched rows were already grounded. The leak was the no-row placeholder, which still counted as a blank problem. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Phrase-edit runs should stay gated on a failed dry-run.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
+
 ## Run 414 — 2026-10-08T23:20:00Z
 - Objective: Run the later-packet dry-run and fix only a real failure.
 - Action: A Q5-shaped packet dry-run named the checklist stall, not the morning reopen. Title alts still ended on `to` and `the` after the 70-character cut. `clip_title` now drops a trailing glue word. The title contract covers that fixture. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.

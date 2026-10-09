@@ -1,5 +1,14 @@
 # STATE
 
+Updated: 2026-10-09T00:20:00Z (Run 415)
+
+## Run 415 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Later-packet dry-run failed one real check: an unmatched packet with a filled problem still suggested the channel morning line. `idea_brief.py` now uses that packet's problem when the queue has no row. Q1 idea.md was not regenerated.
+
+
 Updated: 2026-10-08T23:20:00Z (Run 414)
 
 ## Run 414 delta

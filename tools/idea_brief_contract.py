@@ -213,6 +213,47 @@ def plain_topic_lock(failures: list[str]) -> None:
         fail(failures, sha(idea) == before, "plain Topic --check wrote idea.md")
 
 
+
+def unmatched_packet_lock(failures: list[str]) -> None:
+    """A later packet with no queue row must not paste the channel morning line."""
+    import tempfile
+    body = """# Idea
+
+- Topic: Close the extra tab before the next block
+- Viewer: someone who opens a second tab instead of finishing the block
+- Problem: an extra tab steals the next block
+- Mechanism: close the extra tab before the next block
+"""
+    with tempfile.TemporaryDirectory() as tmp:
+        path = Path(tmp) / "009-close-the-extra-tab-before-the-next-block"
+        path.mkdir()
+        idea = path / "idea.md"
+        idea.write_text(body, encoding="utf-8")
+        before = sha(idea)
+        reprint = subprocess.run(
+            [sys.executable, str(TOOLS / "idea_brief.py"), str(path)],
+            capture_output=True,
+            text=True,
+        )
+        after = sha(idea)
+        out = reprint.stdout
+        suggested = out.split("Suggested paste", 1)[-1]
+        fail(failures, reprint.returncode == 0, f"unmatched reprint exit {reprint.returncode}: {reprint.stderr}")
+        fail(failures, before == after, "unmatched reprint mutated idea.md")
+        fail(failures, "an extra tab steals the next block" in suggested, "unmatched paste missing packet problem")
+        fail(failures, "morning still reopens the whole list" not in suggested, "unmatched paste still uses the channel morning line")
+        fail(failures, "(no matching queue row" not in suggested, "unmatched paste still says no matching queue row")
+        fail(failures, "writes nothing" in out.lower(), "unmatched reprint missing no-write note")
+        block = subprocess.run(
+            [sys.executable, str(TOOLS / "idea_brief.py"), str(path), "--block"],
+            capture_output=True,
+            text=True,
+        )
+        fail(failures, block.returncode == 0, f"unmatched --block exit {block.returncode}")
+        fail(failures, "morning still reopens the whole list" not in block.stdout, "unmatched --block still uses the channel morning line")
+        fail(failures, "an extra tab steals the next block" in block.stdout, "unmatched --block missing packet problem")
+
+
 def main() -> int:
     failures: list[str] = []
     fail(failures, (TOOLS / "idea_brief.py").is_file(), "missing tools/idea_brief.py")
@@ -324,6 +365,7 @@ def main() -> int:
         fail(failures, "--write" not in oout, "--check PASTE READY must not print --write")
         fail(failures, "Save the off-repo draft" in oout, "--check PASTE READY missing draft.md save line")
 
+    unmatched_packet_lock(failures)
     print("Idea brief contract")
     print("reprint recover stays read-only; --block prints a paste body; --check compares without writing; --queue reprints before scaffold; INCOMPLETE prints --block; PASTE READY prints expand_prompt then apply_script --from draft.md")
     if failures:

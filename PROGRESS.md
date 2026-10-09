@@ -1,5 +1,9 @@
 # PROGRESS
 
+Updated: 2026-10-09T00:20:00Z (Run 415)
+- Run 415 (2026-10-09): an unmatched later packet no longer pastes the channel morning line when idea.md already names the stall. One less rewrite on every card that is not a queue row. Videos published still 0.
+
+
 Updated: 2026-10-08T22:20:00Z (Run 413)
 - Run 414 (2026-10-08): title alts no longer end on a dangling glue word after the length cut. One less rewrite on every long later-packet title list. Videos published still 0.
 

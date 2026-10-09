@@ -18,6 +18,8 @@ Run 089: paste_block includes viewer / why now / related so a hand paste
 fills the whole idea.md template, not only topic / problem / mechanism.
 --check still gates those three locked fields only.
 Run 095: --queue ID unlocks the paste before scaffold.
+Run 415: an unmatched packet with a filled problem still pasted the channel morning line.
+Suggested paste now uses that packet's problem when the queue has no row.
 Run 398: the default reprint used to print the shared morning why-now line
 even after --block and --queue used why_now_line. Suggested paste names this row's viewer and stall. Install stays off unless the row says it.
 the same row-specific line. A blank problem still falls back to WHY_NOW.
@@ -136,6 +138,44 @@ def viewer_line(topic: str, problem: str) -> str:
     return f"Someone who wants focused work but stalls on this: {short}"
 
 
+def usable_field(value: str) -> bool:
+    """A real packet field. Placeholders and blanks are not a stall."""
+    cleaned = value.strip()
+    return bool(cleaned) and not cleaned.startswith("(")
+
+
+def grounded_fields(title: str, current: str) -> tuple[str, str, str]:
+    """Prefer this packet when the queue has no row.
+
+    A pasted card with a problem must not be told to use the channel morning line.
+    Queue matches still win. This does not write idea.md.
+    """
+    topic, problem, mechanism = suggested_values(title)
+    cur_t = field(current, "topic")
+    cur_p = field(current, "problem")
+    cur_m = field(current, "mechanism")
+    if usable_field(cur_t):
+        topic = cur_t
+    if not usable_field(problem) and usable_field(cur_p):
+        problem = cur_p
+    if not usable_field(mechanism) and usable_field(cur_m):
+        mechanism = cur_m
+    return topic, problem, mechanism
+
+
+def rewrite_followup(lines: list[str], problem: str, mechanism: str) -> list[str]:
+    """Replace queue placeholders with this packet's fields. Does not write idea.md."""
+    out = []
+    for line in lines:
+        if line.startswith("  - problem:") and usable_field(problem) and "(no matching" in line:
+            out.append(f"  - problem: {problem}")
+        elif line.startswith("  - mechanism") and usable_field(mechanism) and "(no matching" in line:
+            out.append(f"  - mechanism (the system, not the pep talk): {mechanism}")
+        else:
+            out.append(line)
+    return out
+
+
 def why_now_line(problem: str, mechanism: str = "") -> str:
     """This row's stall. A blank problem keeps the channel line.
 
@@ -152,8 +192,15 @@ def why_now_line(problem: str, mechanism: str = "") -> str:
     return f"The stall in this packet is this: {cleaned}."
 
 
-def paste_block(title: str) -> str:
-    topic, problem, mechanism = suggested_values(title)
+def paste_block(title: str, problem: str | None = None, mechanism: str | None = None, topic: str | None = None) -> str:
+    got_t, got_p, got_m = suggested_values(title)
+    if topic and usable_field(topic):
+        got_t = topic
+    if problem is not None and usable_field(problem):
+        got_p = problem
+    if mechanism is not None and usable_field(mechanism):
+        got_m = mechanism
+    topic, problem, mechanism = got_t, got_p, got_m
     return (
         "# Idea\n\n"
         f"- topic: {topic}\n"
@@ -294,7 +341,8 @@ def main() -> int:
         return code
 
     if args.block:
-        print(paste_block(title), end="")
+        topic, problem, mechanism = grounded_fields(title, current)
+        print(paste_block(title, problem, mechanism, topic), end="")
         print("# This command writes nothing. Fill a blank idea.md with apply_idea.py PACKET --write. Do not paste by hand.")
         return 0
 
@@ -311,15 +359,15 @@ def main() -> int:
         f"{field(current, 'related videos to avoid repeating') or '(blank)'}"
     )
     print("Suggested paste (does not write idea.md):")
-    for line in idea_followup(title):
+    topic, problem, mechanism = grounded_fields(title, current)
+    for line in rewrite_followup(idea_followup(title), problem, mechanism):
         print(line)
-    _, problem, mechanism = suggested_values(title)
-    print(f"  - viewer: {viewer_line(title, problem)}")
+    print(f"  - viewer: {viewer_line(topic, problem)}")
     print(f"  - why now: {why_now_line(problem, mechanism)}")
     print(f"  - related videos to avoid repeating: {RELATED}")
     print("Paste-ready block (still does not write). Re-run with --block to print only this:")
     print(f"  {block_command(path)}")
-    print(paste_block(title), end="")
+    print(paste_block(title, problem, mechanism, topic), end="")
     print("After paste, confirm without writing:")
     print(f"  {check_command(path)}")
     if "sample-001" in path.name:
