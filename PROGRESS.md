@@ -1,5 +1,10 @@
 # PROGRESS
 
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
+## Run 434
+- Restored the selftest size cap without a new checker. Run 433 left STATE.md at 13 sections; Actions run 37986179006 failed. Oldest delta moved to docs/state_archive.md. Estimated human minutes per video unchanged until the three GitHub Actions secrets exist. Videos published stay 0.
+
 - Run 433 (2026-10-09): verified Q1 release materialize plus media_qa PASS and an upload dry-run that fails only on the three OAuth secrets. next_action now says materialize when the gitignored files are absent, so the next agent does not reopen closed brief stubs. Estimated save: one avoided media-rediscovery and one avoided stub loop. Videos published stay 0. Human minutes per video stay blocked on the secrets.
 
 - Run 432 (2026-10-09): one command now rechecks the five closed brief contracts and the three named title dry-runs. Estimated save: the next agent does not rebuild that verification or open another stub edit when the gate passes. Videos published stay 0.
@@ -8,7 +13,6 @@
 
 Updated: 2026-10-09T15:20:00Z (Run 430)
 
-Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
 ## Run 430
 - Closed one recurring description rewrite: nested if problems no longer gain a second If. Q1 files unchanged. Videos published stay 0. Estimated human minutes per video unchanged until the three GitHub Actions secrets exist. Chapter, asset, and caption stubs were not reopened.

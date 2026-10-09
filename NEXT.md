@@ -1,6 +1,6 @@
 # NEXT
 
-Updated: 2026-10-09T20:20:00Z (Run 433)
+Updated: 2026-10-09T21:13:00Z (Run 434)
 
 Run 433: Q1 release media materialized and media_qa passed on this machine. Upload dry-run fails only on the three OAuth secrets. Closed brief gate passed. If vo/, cards/, or export/master.mp4 are missing, run `python3 tools/materialize_q1_release.py` and do not commit media. If they are present, do not rematerialize. Do not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief unless `python3 tools/closed_brief_gate.py` fails. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card.
 
@@ -17,6 +17,8 @@ Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaff
 One human step: run `python3 tools/operator_card.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then run `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets. Do not extend the card.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+Run 434: Actions selftest 37986179006 failed because STATE.md had 13 sections. Compact is done. Do not rematerialize if vo/, cards/, and export/master.mp4 are present. If they are missing, run `python3 tools/materialize_q1_release.py` and do not commit media. Do not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief unless `python3 tools/closed_brief_gate.py` fails. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Prepend logs only through `python3 tools/record_run.py`.
 
 Run 432: closed brief gate passed (five contracts, three title dry-runs). Do not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief unless `python3 tools/closed_brief_gate.py` fails. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless that gate fails SELF_CHECK.
 

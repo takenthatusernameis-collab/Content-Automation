@@ -1,5 +1,14 @@
 # STATE
 
+Updated: 2026-10-09T21:13:00Z (Run 434)
+
+## Run 434 delta
+- OAuth was not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 packet markdown was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check. Did not open a title phrase edit. Did not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief. Did not rematerialize release media.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Actions selftest run 37986179006 on 2e2b21c failed: STATE.md had 13 sections, max 12. Run 433 prepended a delta and did not call `record_run.py`. `state_compact.py` moved the oldest delta into `docs/state_archive.md`. This note was written with `record_run.py`, which compacts in the same process.
+- Suspicious: oauth_idle_without_publish still has no publish since before Run 270. A second pattern is log prepends that skip `record_run.py` and fail the existing size cap. Do not add another compact check. Use the existing writer.
+
 Updated: 2026-10-09T20:20:00Z (Run 433)
 
 ## Run 433 delta
@@ -104,22 +113,4 @@ Updated: 2026-10-09T08:14:00Z (Run 423)
 - `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
 - Run 422 publish contract passed. Later-packet dry-runs still printed `If the stall named in this packet` when problem was empty, and lone tags don't/until/ends/onto/has/where/does. Missing problem no longer invents that sentence. Those function words are now skipped as lone tags. Content tags stay. Q1 publish.md was not regenerated.
 - Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Publish-stub microfixes continue (runs 420-423) while the human secret step is unchanged. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag a human would delete.
-
-## Run 422 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check. Did not open a title phrase edit.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- Run 421 publish contract passed. Title dry-runs were not reopened. Later-packet publish dry-runs still printed `Shut the lid..` and `If don't reopen the inbox...`, and wrapped a `so` clause that had no comma. Description now keeps a finished title period, keeps an imperative problem, and keeps a bare `so` clause. Q1 publish.md was not regenerated.
-- Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Publish-stub microfixes continue (runs 420-422) while the human secret step is unchanged. Do not add another glue-word list unless a dry-run still emits a lone tag a human would delete.
-
-Updated: 2026-10-09T06:20:00Z (Run 421)
-
-## Run 421 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check. Did not open a phrase edit.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- Run 420 publish contract passed. Phone and charger title dry-runs passed SELF_CHECK. No title or thumbnail phrase edit. Publish dry-run still emitted lone tags leave/put/walk (charger) and fill (glass). Those verbs are now skipped as lone tags. Content tags charger/desk/kitchen/glass/timer stay. Q1 publish.md was not regenerated.
-- Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Phrase-edit runs 395-420 stay gated on a failed dry-run. Run 421 found no title dry-run failure.
-
-Updated: 2026-10-09T05:15:00Z (Run 420)
 

@@ -1,5 +1,11 @@
 # FAILURES
 
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
+## Run 434 — 2026-10-09T21:13:00Z
+- Failed approach not retried: shipping a STATE prepend without `record_run.py`. Actions run 37986179006 failed the existing 12-section cap. Do not add another compact check. Do not poll secrets. Do not scaffold Q2. Do not reopen closed brief edits.
+- Lesson: Local media_qa PASS does not cover the log cap. The writer that compacts in the same process is `tools/record_run.py`. oauth_idle_without_publish remains; the human step is issue 1.
+
 - 2026-10-09 Run 432: no new brief leak. Failed approach not retried: another publish, chapter, caption, asset, or title phrase edit after the closed gate passed. Suspicious flag: brief-stub microfixes resumed across runs 420-430 while videos published stayed 0. Do not resume that loop unless `python3 tools/closed_brief_gate.py` fails.
 
 - 2026-10-09 Run 431: no new brief leak after the closed contracts and charger/phone/notebook title dry-runs. Failed approach not retried: another publish, chapter, caption, asset, or title phrase edit after those dry-runs passed. Suspicious flag: brief-stub microfixes resumed across runs 420-430 while videos published stayed 0. Do not resume that loop unless a named dry-run fails.
@@ -10,7 +16,6 @@
 
 - 2026-10-09 Run 428: `chapter_draft.py` TITLE_DROP included `not`, so a later packet chapter became `Do reopen inbox after` from `Do not *reopen*`. Fix: keep not/no/never. Do not treat a glue-word drop as safe when it flips the instruction.
 
-Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 427 — 2026-10-09T12:25:00Z
 - Failed approach not retried: another caption or publish microfix after those dry-runs were clean, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.

@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 434 — 2026-10-09T21:13:00Z
+- Objective: Restore the green selftest after Run 433 left STATE.md over the 12-section cap.
+- Action: Confirmed Actions run 37986179006 failed on `compact_all --check` and `state_compact_contract` (STATE=13). Ran `state_compact.py`, then recorded this note with `record_run.py` so compact happens in the same process. Did not poll secrets. Did not dispatch execute. Did not add a scanner, recovery edge, card extension, freeze module, or compact check. Did not rewrite Q1. Did not edit brief generators. Did not rematerialize media.
+- Result: Videos published stay 0. STATE.md is back at the cap. The human OAuth step is unchanged.
+- Verification: failed log names `STATE.md has 13 sections, max 12`. After compact, `compact_all.py --check` must print COMPACT ALL OK. No provider write.
+- Discovery: Run 433 verified media locally and still shipped a red selftest by skipping `record_run.py`. Suspicious: oauth_idle_without_publish is unchanged since before Run 270. Log-cap misses are the second repeating no-progress pattern.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent materializes only if packet media is missing, and prepends logs only through `record_run.py`.
+
 ## Run 433 — 2026-10-09T20:20:00Z
 - Objective: Advance the live Q1 packet past the ignored-media gap instead of another brief edit.
 - Action: Ran `python3 tools/materialize_q1_release.py`. Then `media_qa.py`, `assemble.py` dry-run, and `youtube_upload.py` dry-run. Closed brief gate still passed. Pointed `next_action.py` and `hint.py` at materialize when packet media is missing, and at operator_card only when it is present. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, freeze module, or compact check. Did not rewrite Q1 markdown. Did not commit media.
@@ -98,15 +107,6 @@
 - Discovery: Run 422 fixed period, imperative, and bare so-clause only. Incomplete packets still needed a human delete of the stall sentence, and function words still became tags. Suspicious: publish-stub microfixes now span runs 420-423 while oauth_idle_without_publish is unchanged since before Run 270.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent should run `python3 tools/publish_brief_contract.py` before any new publish edit. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not open a phrase edit unless a later-packet title dry-run fails. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag a human would delete.
-
-## Run 422 — 2026-10-09T07:14:00Z
-- Objective: Verify Run 421 publish contract, then fix only a real later-packet publish dry-run failure.
-- Action: `publish_brief_contract.py` passed. Later-packet dry-runs still printed `Shut the lid..`, `If don't reopen the inbox until the block ends`, and `If the notebook stays in the bag so the block has no page`. Description now keeps a finished period, keeps an imperative problem, and keeps a bare so-clause. Contract covers lid, inbox, and notebook packets. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1. Did not open a title phrase edit.
-- Result: Videos published stay 0. Those three description leaks are gone on the later-packet dry-run. Q1 publish.md unchanged.
-- Verification: `python3 tools/publish_brief_contract.py` PASS after the edit. No provider write.
-- Discovery: Run 421 skipped lone verbs only. The description still needed a human rewrite on punctuated titles, imperative problems, and so-clauses without a comma. Suspicious: publish-stub microfixes now span runs 420-422 while oauth_idle_without_publish is unchanged since before Run 270.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent should run `python3 tools/publish_brief_contract.py` before any new publish edit. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not open a phrase edit unless a later-packet title dry-run fails. Do not add another lone-verb skip unless a dry-run still emits one.
 
 Permanent log. Newest first. Do not paste the archive back into this file.
 
