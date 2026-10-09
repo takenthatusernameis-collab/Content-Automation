@@ -142,8 +142,24 @@ def main() -> int:
             failures.append("long clause produced no titles")
         for title in long_titles:
             last = title.split()[-1].lower().strip(".,;:")
-            if last in {"to", "the", "so", "from", "a", "of"}:
+            if last in {"to", "the", "so", "from", "a", "of", "before", "after", "into"}:
                 failures.append(f"title ended on a dangling word: {title}")
+        phone = {
+            "topic": "Silence the phone before the first block",
+            "problem": "the phone is still face up, so the first block starts as a notification check",
+            "mechanism": "Face the phone down in another room before the first two minutes",
+            "viewer": "People who already closed the extra tab, then stall when a notification lands",
+            "working": "Silence the phone before the first block",
+        }
+        phone_titles = candidate_titles(phone)
+        if not phone_titles:
+            failures.append("phone packet produced no titles")
+        for title in phone_titles:
+            last = title.split()[-1].lower().strip(".,;:")
+            if last in {"before", "after", "into", "to", "the", "so"}:
+                failures.append(f"phone title ended on a dangling word: {title}")
+            if "morning" in title.lower() and "phone" not in title.lower():
+                failures.append(f"phone title borrowed the morning line: {title}")
         plain_titles = " ".join(candidate_titles(plain_src)).lower()
         if plain_titles.startswith("004") or " 004 " in f" {plain_titles} ":
             failures.append(f"plain Topic titles include the folder id: {plain_titles}")

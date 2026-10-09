@@ -21,6 +21,15 @@ BANNED_PHRASES = (
     "make money",
     "grind",
 )
+# Trailing-only. "before" stays a content word in "X before Y".
+# Run 418: short_noun_phrase left "Face Phone Down Another Room Before".
+TRAILING_GLUE = {
+    "before",
+    "after",
+    "into",
+    "than",
+    "at",
+}
 STOP = {
     "a",
     "an",
@@ -101,7 +110,7 @@ def clip_title(text: str, limit: int = 70) -> str:
     # A character cut leaves "Nothing to" / "Absorbs the". Drop the dangling glue
     # so a later packet does not need a human rewrite of every alt.
     parts = cut.split()
-    while parts and parts[-1].lower().strip(".,;:") in STOP:
+    while parts and parts[-1].lower().strip(".,;:") in STOP | TRAILING_GLUE:
         parts.pop()
     return " ".join(parts).strip(" -:,")
 

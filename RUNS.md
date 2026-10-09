@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 418 — 2026-10-09T03:16:00Z
+- Objective: Verify Run 417 contracts, then fix only a real later-packet dry-run failure.
+- Action: `idea_check_contract.py` and `idea_brief_contract.py` passed. Idea, publish, expand, caption, asset, and research dry-runs on an unmatched phone packet did not borrow the morning reopen. `title_thumb_brief.py --dry-run` still ended an alt on Before. `clip_title` now drops trailing before/after/into. Title contract covers that packet. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.
+- Result: Videos published stay 0. Phone alt is `Face Phone Down Another Room`, not `... Before`. Q1 titles.md unchanged.
+- Verification: `python3 tools/idea_check_contract.py` PASS. `python3 tools/idea_brief_contract.py` PASS. `python3 tools/title_brief_contract.py` PASS. `python3 tools/selftest.py` PASS. No provider write.
+- Discovery: Run 414 stripped to/the/so/from/of/a. Before was still a content word, so a short noun phrase could end on it. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Phrase-edit runs 395-418 stay gated on a failed dry-run.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent should run `python3 tools/title_brief_contract.py`. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
 ## Run 417 — 2026-10-09T02:11:00Z
 - Objective: Run the later-packet dry-run and fix only a real failure.
 - Action: Suggested paste already kept a filled unmatched viewer, problem, and why-now. `idea_brief.py --check` still compared those fields to the queue placeholder and printed PASTE INCOMPLETE. `--check` now uses `grounded_fields`. Added `tools/idea_check_contract.py`. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.
