@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 421 — 2026-10-09T06:20:00Z
+- Objective: Verify Run 420 publish contract, then fix only a real later-packet dry-run failure.
+- Action: `publish_brief_contract.py` and `title_brief_contract.py` passed. Phone and charger title dry-runs passed SELF_CHECK. No phrase edit. Publish dry-run still tagged leave/put/walk and fill as lone tags. TAG_GLUE now skips those verbs. Contract covers the desk and glass packets. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.
+- Result: Videos published stay 0. Charger tags are charger/desk/block/kitchen, not leave/put/walk. Q1 publish.md unchanged.
+- Verification: `python3 tools/publish_brief_contract.py` PASS. `python3 tools/title_brief_contract.py` PASS. `python3 tools/selftest.py` PASS. Charger publish dry-run dropped leave/put/walk and kept the existing problem clause. No provider write.
+- Discovery: Run 420 dropped before/starts/stays only. Leave/put/walk/fill were still content tokens, so every later stub still needed a tag trim. Suspicious: oauth_idle_without_publish still has no publish since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent should run `python3 tools/publish_brief_contract.py` before any new publish edit. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not open a phrase edit unless a later-packet title dry-run fails.
+
 ## Run 420 — 2026-10-09T05:15:00Z
 - Objective: Verify Run 419 title contract, then fix only a real later-packet dry-run failure.
 - Action: `title_brief_contract.py` passed. Phone and charger title dry-runs passed SELF_CHECK (on-image `Leave Charger Kitchen Block`). Idea check stayed PASTE READY. No phrase edit. Publish dry-run still printed `If the charger stays in the kitchen, so the block starts with a walk` and lone tags before/starts/stays. Stall line now keeps a problem that already has ", so ". Lone glue tags are skipped. Contract covers that packet. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.

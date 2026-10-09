@@ -29,6 +29,9 @@ STOP = {
 # Weak as standalone YouTube tags. Still allowed inside a multi-word tag.
 TAG_GLUE = {
     "before", "after", "into", "next", "starts", "stays", "instead",
+    # Lone verbs from later-packet dry-runs (charger leave/put/walk, glass fill).
+    # Still allowed inside a multi-word tag such as "start cue".
+    "leave", "put", "walk", "fill", "open", "close", "closed",
 }
 
 PLACEHOLDER_MARKERS = (

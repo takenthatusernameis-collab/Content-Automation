@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 421 (2026-10-09): later-packet publish stubs no longer emit lone leave/put/walk/fill/open tags. Estimated tag-trim edit avoided on each future stub. Videos published stay 0.
+
 Updated: 2026-10-09T04:20:00Z (Run 419)
 - Run 419 (2026-10-09): a later thumbnail line no longer ends on Before. Estimated save: about 1 minute per later card a human would otherwise rewrite. Videos published still 0.
 

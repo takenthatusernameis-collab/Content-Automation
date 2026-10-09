@@ -189,7 +189,42 @@ def main() -> int:
         fail(failures, "that step" in so_desc, "so-problem description must still name the step")
         tag_lines = [ln.strip().lstrip("- ").strip() for ln in so_tags.splitlines() if ln.strip().startswith("-")]
         fail(failures, "before" not in tag_lines and "starts" not in tag_lines and "stays" not in tag_lines, f"glue words must not be lone tags: {tag_lines}")
+        fail(failures, "leave" not in tag_lines and "walk" not in tag_lines, f"lone verbs must not be tags: {tag_lines}")
         fail(failures, "charger" in tag_lines and "kitchen" in tag_lines, "later packet must keep its own content tags")
+        desk = Path(tmp) / "videos" / "011-put-charger-desk"
+        desk.mkdir(parents=True)
+        (desk / "idea.md").write_text(
+            "\n".join([
+                "- topic: Put the charger on the desk before the block",
+                "- problem: the charger stays in the kitchen, so the block starts with a walk",
+                "- mechanism (the system, not the pep talk): Put the charger on the desk before the block.",
+            ]) + "\n",
+            encoding="utf-8",
+        )
+        desk_body = render(desk)
+        desk_tags = ""
+        if "## Tags" in desk_body:
+            desk_tags = desk_body.split("## Tags", 1)[1].split("## ", 1)[0].lower()
+        desk_lines = [ln.strip().lstrip("- ").strip() for ln in desk_tags.splitlines() if ln.strip().startswith("-")]
+        fail(failures, "put" not in desk_lines and "walk" not in desk_lines and "leave" not in desk_lines, f"desk packet must drop lone verbs: {desk_lines}")
+        fail(failures, "charger" in desk_lines and "desk" in desk_lines, "desk packet must keep charger and desk")
+        glass = Path(tmp) / "videos" / "012-fill-glass"
+        glass.mkdir(parents=True)
+        (glass / "idea.md").write_text(
+            "\n".join([
+                "- topic: Fill the glass before the timer starts",
+                "- problem: the glass is empty when the timer starts",
+                "- mechanism (the system, not the pep talk): Fill the glass before the timer starts.",
+            ]) + "\n",
+            encoding="utf-8",
+        )
+        glass_body = render(glass)
+        glass_tags = ""
+        if "## Tags" in glass_body:
+            glass_tags = glass_body.split("## Tags", 1)[1].split("## ", 1)[0].lower()
+        glass_lines = [ln.strip().lstrip("- ").strip() for ln in glass_tags.splitlines() if ln.strip().startswith("-")]
+        fail(failures, "fill" not in glass_lines and "starts" not in glass_lines, f"glass packet must drop fill/starts: {glass_lines}")
+        fail(failures, "glass" in glass_lines and "timer" in glass_lines, "glass packet must keep glass and timer")
     after = hashlib.sha256(Q1.read_bytes()).hexdigest()
     fail(failures, before == after, "Q1 publish.md bytes changed")
     q1 = Q1.read_text(encoding="utf-8")
