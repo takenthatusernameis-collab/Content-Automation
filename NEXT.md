@@ -8,4 +8,8 @@ One human step: run `python3 tools/operator_card.py`, then `python3 tools/oauth_
 
 Run 417: a later-packet dry-run of `python3 tools/idea_brief.py PATH --check` marked a filled unmatched card PASTE INCOMPLETE because it still wanted the queue placeholder. `--check` now uses the same grounded fields as the suggested paste. Q1 idea.md stays the approved card. Do not regenerate it. Next agent verifies with `python3 tools/idea_check_contract.py` before any new phrase edit. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not open another phrase edit unless a later-packet dry-run fails.
 
+Run 416: a later-packet dry-run of `python3 tools/idea_brief.py PATH` replaced a filled viewer and why-now with the generic stall template. Suggested paste now keeps those packet lines. Q1 idea.md stays the approved card. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not open another phrase edit unless a later-packet dry-run fails.
+
+Run 415: a later-packet dry-run of `python3 tools/idea_brief.py PATH` with a filled problem and no queue row still suggested the channel morning line. Suggested paste now uses that packet's problem. Q1 idea.md stays the approved card. Do not regenerate it. Do not scaffold Q2. Do not poll secrets. Do not add a recovery edge. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not open another phrase edit unless a later-packet dry-run fails.
+
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
