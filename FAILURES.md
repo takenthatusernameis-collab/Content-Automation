@@ -1,5 +1,7 @@
 # FAILURES
 
+- 2026-10-09 Run 432: title shorts dropped `not`, so `Do not reopen the inbox until the block ends` became `Do Reopen Inbox Until Block Ends`, and the card ended on without. Fix: keep not/no/never in title shorts and drop trailing so/without/until/because. Do not treat the chapter negation keep as covering titles.
+
 - 2026-10-09 Run 431: no new brief leak after the closed contracts and charger/phone/notebook title dry-runs. Failed approach not retried: another publish, chapter, caption, asset, or title phrase edit after those dry-runs passed. Suspicious flag: brief-stub microfixes resumed across runs 420-430 while videos published stayed 0. Do not resume that loop unless a named dry-run fails.
 
 - 2026-10-09 Run 430: publish description wrapped `The inbox reopens if the lid stays up` as `If the inbox reopens if the lid stays up`. Fix: a problem that already contains if is not wrapped in a second If. Do not treat a so-clause guard as covering every second If.

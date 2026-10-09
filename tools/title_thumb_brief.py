@@ -29,7 +29,14 @@ TRAILING_GLUE = {
     "into",
     "than",
     "at",
+    "so",
+    "without",
+    "until",
+    "because",
 }
+# Run 432: STOP still lists not. A later title must not flip "Do not reopen"
+# into "Do reopen". Keep these even when the phrase is shortened.
+KEEP_NEGATION = {"not", "no", "never"}
 STOP = {
     "a",
     "an",
@@ -110,7 +117,7 @@ def clip_title(text: str, limit: int = 70) -> str:
     # A character cut leaves "Nothing to" / "Absorbs the". Drop the dangling glue
     # so a later packet does not need a human rewrite of every alt.
     parts = cut.split()
-    while parts and parts[-1].lower().strip(".,;:") in STOP | TRAILING_GLUE:
+    while parts and parts[-1].lower().strip(".,;:") in (STOP | TRAILING_GLUE) - KEEP_NEGATION:
         parts.pop()
     return " ".join(parts).strip(" -:,")
 
@@ -118,6 +125,10 @@ def clip_title(text: str, limit: int = 70) -> str:
 def content_tokens(text: str) -> list[str]:
     seen: list[str] = []
     for w in words(text.lower()):
+        if w in KEEP_NEGATION:
+            if w not in seen:
+                seen.append(w)
+            continue
         if w in STOP or len(w) < 3:
             continue
         if w not in seen:
@@ -135,7 +146,7 @@ def short_noun_phrase(text: str, n: int = 5) -> str:
     kept = []
     for w in words(clause):
         low = w.lower()
-        if low in STOP and kept:
+        if low in STOP and low not in KEEP_NEGATION and kept:
             continue
         kept.append(low)
         if len(kept) >= n:

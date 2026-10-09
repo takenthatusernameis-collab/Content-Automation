@@ -180,6 +180,24 @@ def main() -> int:
                 failures.append(f"charger thumb ended on a dangling word: {charger_thumb}")
             if "charger" not in charger_thumb.lower():
                 failures.append(f"charger thumb missed the packet: {charger_thumb}")
+
+        negate = {
+            "topic": "Do not reopen the inbox",
+            "problem": "Do not reopen the inbox until the block ends",
+            "mechanism": "Leave the lid down without a second look",
+            "viewer": "someone who reopens mail mid-block",
+            "working": "Do not reopen the inbox",
+        }
+        negate_titles = candidate_titles(negate)
+        negate_blob = " ".join(negate_titles).lower()
+        if "do reopen" in negate_blob:
+            failures.append(f"negation flipped in titles: {negate_titles}")
+        if not any("not" in title.lower().split() for title in negate_titles):
+            failures.append(f"negation dropped from titles: {negate_titles}")
+        negate_thumb = thumb_line(negate)
+        negate_last = negate_thumb.split()[-1].lower().strip(".,;:") if negate_thumb else ""
+        if negate_last in {"before", "after", "into", "so", "without", "until", "because"}:
+            failures.append(f"inbox thumb ended on a dangling word: {negate_thumb}")
         plain_titles = " ".join(candidate_titles(plain_src)).lower()
         if plain_titles.startswith("004") or " 004 " in f" {plain_titles} ":
             failures.append(f"plain Topic titles include the folder id: {plain_titles}")

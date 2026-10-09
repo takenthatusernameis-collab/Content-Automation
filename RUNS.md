@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 432 — 2026-10-09T17:13:00Z
+- Objective: Verify the closed brief contracts, then fix only a real later-packet title dry-run failure.
+- Action: publish, chapter, caption, and asset contracts passed. Those stubs were not edited. A later-packet title dry-run turned `Do not reopen the inbox` into `Do Reopen Inbox Until Block Ends` and ended the thumb on without. Title shorts now keep not/no/never. Trailing so/without/until/because are dropped. Contract covers that packet. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.
+- Result: Videos published stay 0. That negation flip is gone. Q1 titles.md unchanged.
+- Verification: `python3 tools/title_brief_contract.py` PASS after the edit. Four closed brief contracts PASS. selftest PASS. No provider write.
+- Discovery: Chapter keeping not did not cover title shorts. Suspicious: oauth_idle_without_publish is unchanged since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent should run `python3 tools/title_brief_contract.py` before any new title edit. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not edit a brief generator unless a dry-run fails the rule named in NEXT.md.
+
 ## Run 431 — 2026-10-09T16:14:00Z
 - Objective: Verify the Run 430 publish contract and the closed chapter, caption, and asset rules before any brief edit.
 - Action: `publish_brief_contract.py`, `chapter_draft_contract.py`, `caption_brief_contract.py`, and `asset_brief_contract.py` passed. Title dry-runs for a charger-before packet, a phone-where packet, and a notebook-and packet printed SELF_CHECK PASS. Did not edit those generators. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, freeze module, or compact check. Did not rewrite Q1.

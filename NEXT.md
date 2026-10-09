@@ -1,6 +1,6 @@
 # NEXT
 
-Updated: 2026-10-09T16:14:00Z (Run 431)
+Updated: 2026-10-09T17:13:00Z (Run 432)
 
 Run 430: chapter contract passed. Do not edit chapter_draft again unless a dry-run still inverts a negation, prints an on-screen label, or ends a title on so/without/before. Publish contract passed, then a later-packet problem that already contained if still gained a second If. That wrap is closed. Q1 publish.md stays as-is. Next agent verifies with `python3 tools/publish_brief_contract.py` before any new publish edit. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag the title/mechanism rule does not drop. Do not edit asset_brief again unless a dry-run still puts an on-screen label in the need or filename. Do not edit caption_brief again unless a dry-run still deletes a spoken word or prints a visual or on-screen label. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails.
 
@@ -13,6 +13,8 @@ Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaff
 One human step: run `python3 tools/operator_card.py`, then `python3 tools/oauth_exchange.py`, paste the full localhost address-bar URL, and store the three secrets with `gh secret set`. Then run `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false`. Do not commit the token file. Do not add a scanner. Do not scaffold Q2. Do not poll secrets. Do not extend the card.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
+
+Run 432: title contract passed after the edit. `Do not reopen` no longer becomes `Do reopen`. The card no longer ends on without. Q1 titles.md stays as-is. Do not regenerate it. Next agent verifies with `python3 tools/title_brief_contract.py` before any new title edit. Do not edit title_thumb_brief again unless a later-packet title dry-run flips a negation or fails SELF_CHECK. Do not edit publish_brief, chapter_draft, caption_brief, or asset_brief unless a dry-run fails the rule already named here. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not grow STOP or TAG_GLUE.
 
 Run 431: publish, chapter, caption, and asset contracts passed. Title dry-runs on later-packet charger, phone, and notebook shapes passed SELF_CHECK. Do not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief unless a new dry-run fails the rule already named here. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails SELF_CHECK.
 
