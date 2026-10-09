@@ -50,10 +50,23 @@ def section(text: str, heading: str) -> str:
 
 
 def visual_text(block: str) -> str:
-    m = re.search(r"VISUAL:\s*(.*?)(?:WORDS:|\Z)", block, re.S)
+    """Card need from VISUAL only. ON SCREEN is a label, not the card description.
+
+    A later packet often puts ON SCREEN on the next line. Capturing through
+    the end of the beat folds that label into the need and the filename, so
+    a human renames every card.
+    """
+    m = re.search(r"VISUAL:\s*(.*?)(?:WORDS:|ON SCREEN:|\Z)", block, re.S)
     blob = m.group(1) if m else ""
-    blob = blob.replace("*", " ")
-    blob = " ".join(blob.split())
+    lines = []
+    for line in blob.splitlines():
+        stripped = line.strip()
+        if stripped.upper().startswith("ON SCREEN"):
+            continue
+        line = re.sub(r"\*([^*]+)\*", r"\1", line)
+        line = line.replace("*", " ")
+        lines.append(line)
+    blob = " ".join(" ".join(lines).split())
     blob = re.sub(
         r"^(plain\s+)?text\s+card\s*:\s*",
         "",

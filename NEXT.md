@@ -1,9 +1,10 @@
 # NEXT
 
-Updated: 2026-10-09T11:20:00Z (Run 426)
+Updated: 2026-10-09T12:25:00Z (Run 427)
+
+Run 427: caption and publish contracts passed. Those stubs were not edited. Later-packet asset dry-run put an ON SCREEN label in the need and the filename. That leak is fixed. Q1 assets.md stays as-is. Do not regenerate it. Next agent verifies with `python3 tools/asset_brief_contract.py` before any new asset edit. Do not edit asset_brief again unless a dry-run still puts an on-screen label in the need or filename. Do not edit caption_brief again unless a dry-run still deletes a spoken word or prints a visual or on-screen label. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag the title/mechanism rule does not drop. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails.
 
 Run 426: caption contract passed before the edit. Later-packet caption dry-runs deleted emphasized words, kept list dashes, and printed ON SCREEN labels. Those leaks are fixed. Q1 captions.md stays as-is. Do not regenerate it. Next agent verifies with `python3 tools/caption_brief_contract.py` before any new caption edit. Do not edit caption_brief again unless a dry-run still deletes a spoken word or prints a visual or on-screen label. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag the title/mechanism rule does not drop. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails.
-
 
 Updated: 2026-10-09T10:20:00Z (Run 425)
 
@@ -12,7 +13,6 @@ Run 425: publish contract passed. Later-packet publish dry-runs did not emit a m
 Updated: 2026-10-09T09:12:00Z (Run 424)
 
 Run 424: publish contract passed before the edit. Title dry-runs were not reopened. Later-packet publish dry-runs still emitted lone tags from problem prose and title imperatives. Tags now come from the title and mechanism only. Q1 publish.md stays approved. Do not regenerate it. Next agent verifies with `python3 tools/publish_brief_contract.py` before any new publish edit. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag the title/mechanism rule does not drop.
-
 
 Updated: 2026-10-09T08:14:00Z (Run 423)
 

@@ -1,5 +1,11 @@
 # FAILURES
 
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
+## Run 427 — 2026-10-09T12:25:00Z
+- Failed approach not retried: another caption or publish microfix after those dry-runs were clean, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: Caption and publish contracts passed. The real leak was the asset row folding ON SCREEN into the need and filename. Stop the visual capture before ON SCREEN. Do not rewrite the approved Q1 asset file. oauth_idle_without_publish remains; the human step is issue 1.
+
 ## Run 426 — 2026-10-09T11:20:00Z
 - Failed approach not retried: another publish-stub tag skip after a clean later-packet dry-run, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: Caption contract passed, then a later-packet dry-run still deleted emphasized words and printed on-screen labels. Unwrap inline emphasis. Stop the cue before ON SCREEN. Do not rewrite the approved Q1 caption file. oauth_idle_without_publish remains; the human step is issue 1.
@@ -14,7 +20,6 @@
 - Failed approach not retried: appending another verb to TAG_GLUE, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: Publish contract passed, then a later-packet dry-run still tokenized problem prose. Take tags from the title and mechanism. Do not grow the skip lists. Do not rewrite the approved Q1 publish file. oauth_idle_without_publish remains; the human step is issue 1. Publish-stub microfixes 420-424 are the suspicious loop if the next dry-run is clean.
 
-Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 423 — 2026-10-09T08:14:00Z
 - Failed approach not retried: inventing a title phrase edit after SELF_CHECK was not reopened, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.

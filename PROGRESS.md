@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 427 (2026-10-09): later asset stubs no longer append an ON SCREEN label to the card need or the suggested filename. Estimated save: about 1 minute per card a human would otherwise rename. Videos published stay 0.
+
 - Run 426 (2026-10-09): later caption stubs no longer delete an emphasized spoken word, keep list dashes, or append an ON SCREEN label. Estimated save: about 1 minute per beat a human would otherwise retype. Videos published stay 0.
 
 - Run 425 (2026-10-09): a later caption stub no longer counts a plain beat and leaves the cue blank. Estimated save: about 1 minute per beat a human would otherwise retype. Videos published stay 0.

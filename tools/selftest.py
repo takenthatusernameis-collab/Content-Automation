@@ -1274,6 +1274,19 @@ def check_idea_grounded() -> list[str]:
     return []
 
 
+
+def check_asset_brief() -> list[str]:
+    """Later asset stubs must keep VISUAL and drop ON SCREEN labels."""
+    import subprocess
+    contract = ROOT / "tools" / "asset_brief_contract.py"
+    if not contract.is_file():
+        return ["asset_brief_contract.py missing"]
+    proc = subprocess.run([sys.executable, str(contract)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0 or "ASSET BRIEF CONTRACT PASS" not in proc.stdout:
+        return [f"asset_brief_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}"]
+    return []
+
+
 def check_publish_brief() -> list[str]:
     """Future publish stubs must pin the assignment and must not rewrite Q1."""
     import subprocess
@@ -1731,6 +1744,7 @@ def main() -> int:
     failures.extend(check_quality_scan())
     failures.extend(check_claim_scan())
     failures.extend(check_idea_grounded())
+    failures.extend(check_asset_brief())
     failures.extend(check_publish_brief())
     failures.extend(check_title_scan())
     failures.extend(check_expand_brief_grounded())
