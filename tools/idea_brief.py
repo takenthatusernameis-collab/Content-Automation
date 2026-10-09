@@ -20,6 +20,9 @@ fills the whole idea.md template, not only topic / problem / mechanism.
 Run 095: --queue ID unlocks the paste before scaffold.
 Run 415: an unmatched packet with a filled problem still pasted the channel morning line.
 Suggested paste now uses that packet's problem when the queue has no row.
+Run 416: a filled viewer and why-now stay on the suggested paste.
+Run 417: --check uses those same grounded fields. A filled later packet must not
+be told to replace its problem with the queue placeholder.
 Run 398: the default reprint used to print the shared morning why-now line
 even after --block and --queue used why_now_line. Suggested paste names this row's viewer and stall. Install stays off unless the row says it.
 the same row-specific line. A blank problem still falls back to WHY_NOW.
@@ -245,7 +248,9 @@ def check_command(packet: Path) -> str:
 
 
 def check_fields(current: str, title: str, packet: Path) -> tuple[int, list[str]]:
-    want_t, want_p, want_m = suggested_values(title)
+    # Same grounded fields as the suggested paste. A filled later packet must not
+    # be marked incomplete because the queue placeholder differs.
+    want_t, want_p, want_m = grounded_fields(title, current)
     got_t = field(current, "topic")
     got_p = field(current, "problem")
     got_m = field(current, "mechanism")
