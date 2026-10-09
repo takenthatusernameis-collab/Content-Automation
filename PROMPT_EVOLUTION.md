@@ -43,3 +43,5 @@ Evidence: Run 378 printed SELFTEST PASS locally and Actions run 37580716646 fail
 
 ## Run 382
 Evidence: Runs 368-378 stacked provider-state recovery edges while videos published stayed 0. Run 381 flagged the pattern after four deltas. The flag did not stop the next edge by itself. Selftest now fails if the production workflow grows another `provider-upload-state` artifact or another `persist_provider_state.py recover` call. Do not add an edge to clear that failure. Do not poll secrets.
+
+- 2026-10-09 Run 423: a passing publish contract is not a clean dry-run. Fix only a sentence or lone tag the dry-run still emits. If the next dry-run is clean, do not edit publish_brief. Do not modify ORIGINAL_MASTER_PROMPT.md.

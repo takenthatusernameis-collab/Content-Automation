@@ -267,6 +267,42 @@ def main() -> int:
         bag_desc = bag_body.split("## Description", 1)[1].split("## ", 1)[0]
         fail(failures, "If the notebook stays in the bag so" not in bag_desc, "problem that already has so without a comma must not gain If")
         fail(failures, "the notebook stays in the bag so the block has no page" in bag_desc.lower(), "description must keep the so-clause")
+        bag_tags = bag_body.split("## Tags", 1)[1].split("## ", 1)[0].lower()
+        fail(failures, "- onto" not in bag_tags, "lone onto must not be a tag")
+        fail(failures, "- has" not in bag_tags, "lone has must not be a tag")
+        fail(failures, "- notebook" in bag_tags, "content tag notebook must stay")
+        inbox_tags = inbox_body.split("## Tags", 1)[1].split("## ", 1)[0].lower()
+        fail(failures, "- don't" not in inbox_tags, "lone don't must not be a tag")
+        fail(failures, "- until" not in inbox_tags, "lone until must not be a tag")
+        fail(failures, "- ends" not in inbox_tags, "lone ends must not be a tag")
+        fail(failures, "- inbox" in inbox_tags, "content tag inbox must stay")
+        missing = Path(tmp) / "videos" / "016-name-block"
+        missing.mkdir(parents=True)
+        (missing / "idea.md").write_text(
+            "\n".join([
+                "- topic: Name the next block",
+                "- mechanism (the system, not the pep talk): Write the block name on the card.",
+            ]) + "\n",
+            encoding="utf-8",
+        )
+        missing_body = render(missing)
+        missing_desc = missing_body.split("## Description", 1)[1].split("## ", 1)[0]
+        fail(failures, "stall named" not in missing_desc.lower(), "missing problem must not leak the machine stall sentence")
+        fail(failures, "Name the next block." in missing_desc, "missing problem must still keep the title")
+        phone = Path(tmp) / "videos" / "017-phone-where"
+        phone.mkdir(parents=True)
+        (phone / "idea.md").write_text(
+            "\n".join([
+                "- topic: Where does the phone go?",
+                "- problem: the phone stays in the hand",
+                "- mechanism (the system, not the pep talk): Put the phone in the drawer.",
+            ]) + "\n",
+            encoding="utf-8",
+        )
+        phone_tags = render(phone).split("## Tags", 1)[1].split("## ", 1)[0].lower()
+        fail(failures, "- where" not in phone_tags, "lone where must not be a tag")
+        fail(failures, "- does" not in phone_tags, "lone does must not be a tag")
+        fail(failures, "- phone" in phone_tags, "content tag phone must stay")
     after = hashlib.sha256(Q1.read_bytes()).hexdigest()
     fail(failures, before == after, "Q1 publish.md bytes changed")
     q1 = Q1.read_text(encoding="utf-8")

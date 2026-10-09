@@ -25,6 +25,8 @@ STOP = {
     "it", "as", "be", "by", "your", "you", "that", "this", "with", "from",
     "how", "why", "what", "they", "their", "them", "then", "when", "because",
     "so", "not", "but", "someone", "who", "wants",
+    # Lone function words from Run 423 later-packet dry-runs. Not content tags.
+    "don't", "until", "onto", "has", "where", "does", "ends",
 }
 # Weak as standalone YouTube tags. Still allowed inside a multi-word tag.
 TAG_GLUE = {
@@ -181,28 +183,32 @@ def render(packet: Path) -> str:
             return s
         return s[0].lower() + s[1:]
 
-    problem = (src.get("problem") or "the stall named in this packet").strip().rstrip(".")
+    problem = (src.get("problem") or "").strip().rstrip(".")
     # Do not name a missing or non-default mechanism "a default". That word
     # belongs to the first video unless this packet already says it.
     mechanism = lower_start(src.get("mechanism") or "the step this video names")
     viewer = lower_start(src.get("viewer") or "someone who wants focused work")
     first_action = mechanism.rstrip(".")
     step_word = "default" if "default" in first_action.lower() else "step"
-    # A problem that already states the consequence must not gain a second If.
-    # "If the charger stays in the kitchen, so the block starts..." is the leak.
-    # "If the notebook stays in the bag so the block..." is the same leak without a comma.
-    # "If don't reopen the inbox" is an imperative, not a condition.
-    plow = problem.lower()
-    already_clause = (
-        ", so " in plow
-        or " so " in plow
-        or plow.startswith(("if ", "when ", "don't ", "do not ", "never "))
-    )
-    if already_clause:
-        stall = problem[0].upper() + problem[1:]
-        stall_line = f"{stall}. This video walks that {step_word} instead of a pep talk."
-    else:
-        stall_line = f"If {lower_start(problem)}, this video walks that {step_word} instead of a pep talk."
+    # A missing problem must not invent "If the stall named in this packet".
+    # That sentence is a machine note a human deleted on every incomplete stub.
+    stall_line = ""
+    if problem:
+        # A problem that already states the consequence must not gain a second If.
+        # "If the charger stays in the kitchen, so the block starts..." is the leak.
+        # "If the notebook stays in the bag so the block..." is the same leak without a comma.
+        # "If don't reopen the inbox" is an imperative, not a condition.
+        plow = problem.lower()
+        already_clause = (
+            ", so " in plow
+            or " so " in plow
+            or plow.startswith(("if ", "when ", "don't ", "do not ", "never "))
+        )
+        if already_clause:
+            stall = problem[0].upper() + problem[1:]
+            stall_line = f"{stall}. This video walks that {step_word} instead of a pep talk."
+        else:
+            stall_line = f"If {lower_start(problem)}, this video walks that {step_word} instead of a pep talk."
     # A topic that already ends with punctuation must not become "Shut the lid.."
     title_sentence = title.rstrip()
     if title_sentence and title_sentence[-1] not in ".!?":
@@ -210,9 +216,10 @@ def render(packet: Path) -> str:
     desc_bits = [
         title_sentence,
         promise or f"After watching, you can do this: {first_action}.",
-        stall_line,
-        f"Built for {viewer.rstrip('.')}.",
     ]
+    if stall_line:
+        desc_bits.append(stall_line)
+    desc_bits.append(f"Built for {viewer.rstrip('.')}.")
     description = "\n\n".join(desc_bits)
     # Machine notes stay outside Description. The uploader refuses them, so a
     # human used to delete this sentence on every later stub.

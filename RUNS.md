@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 423 — 2026-10-09T08:14:00Z
+- Objective: Verify Run 422 publish contract, then fix only a real later-packet publish dry-run failure.
+- Action: `publish_brief_contract.py` passed. Later-packet dry-runs still printed `If the stall named in this packet` with no problem, and lone tags don't/until/ends/onto/has/where/does. Description now omits that machine sentence. Those function words are skipped. Contract covers the empty-problem packet, inbox tags, bag tags, and phone tags. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1. Did not open a title phrase edit.
+- Result: Videos published stay 0. Those leaks are gone on the later-packet dry-run. Q1 publish.md unchanged.
+- Verification: `python3 tools/publish_brief_contract.py` PASS after the edit. No provider write.
+- Discovery: Run 422 fixed period, imperative, and bare so-clause only. Incomplete packets still needed a human delete of the stall sentence, and function words still became tags. Suspicious: publish-stub microfixes now span runs 420-423 while oauth_idle_without_publish is unchanged since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent should run `python3 tools/publish_brief_contract.py` before any new publish edit. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not open a phrase edit unless a later-packet title dry-run fails. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag a human would delete.
+
 ## Run 422 — 2026-10-09T07:14:00Z
 - Objective: Verify Run 421 publish contract, then fix only a real later-packet publish dry-run failure.
 - Action: `publish_brief_contract.py` passed. Later-packet dry-runs still printed `Shut the lid..`, `If don't reopen the inbox until the block ends`, and `If the notebook stays in the bag so the block has no page`. Description now keeps a finished period, keeps an imperative problem, and keeps a bare so-clause. Contract covers lid, inbox, and notebook packets. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1. Did not open a title phrase edit.
