@@ -1287,6 +1287,19 @@ def check_asset_brief() -> list[str]:
     return []
 
 
+
+def check_closed_brief_gate() -> list[str]:
+    """Closed later-packet rules must pass in one command before any brief edit."""
+    import subprocess
+    gate = ROOT / "tools" / "closed_brief_gate.py"
+    if not gate.is_file():
+        return ["closed_brief_gate.py missing"]
+    proc = subprocess.run([sys.executable, str(gate)], cwd=ROOT, text=True, capture_output=True)
+    if proc.returncode != 0 or "CLOSED BRIEF GATE PASS" not in proc.stdout:
+        return [f"closed_brief_gate failed: {proc.stdout[-400:]} {proc.stderr[-300:]}"]
+    return []
+
+
 def check_publish_brief() -> list[str]:
     """Future publish stubs must pin the assignment and must not rewrite Q1."""
     import subprocess

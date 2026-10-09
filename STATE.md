@@ -1,5 +1,14 @@
 # STATE
 
+Updated: 2026-10-09T18:12:00Z (Run 432)
+
+## Run 432 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check. Did not open a title phrase edit. Did not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Added `tools/closed_brief_gate.py`. It runs the five closed brief contracts and the charger-before, phone-where, and notebook-and title dry-runs. It printed CLOSED BRIEF GATE PASS. selftest now calls that gate.
+- Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Brief-stub edits from runs 420-430 stay closed. Do not resume them unless `python3 tools/closed_brief_gate.py` fails.
+
 Updated: 2026-10-09T16:14:00Z (Run 431)
 
 ## Run 431 delta
@@ -102,15 +111,4 @@ Updated: 2026-10-09T06:20:00Z (Run 421)
 - Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Phrase-edit runs 395-420 stay gated on a failed dry-run. Run 421 found no title dry-run failure.
 
 Updated: 2026-10-09T05:15:00Z (Run 420)
-
-## Run 420 delta
-- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
-- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check. Did not open a phrase edit.
-- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
-- Run 419 title contract passed. Phone and charger later-packet dry-runs passed SELF_CHECK. On-image text stayed `Leave Charger Kitchen Block`. Idea check stayed PASTE READY. No title or thumbnail phrase edit.
-- Publish dry-run still wrapped a problem that already had ", so " in a second If, and lone tags included before/starts/stays. Description now keeps that clause. Lone glue tags are dropped. Q1 publish.md was not regenerated.
-- Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Phrase-edit runs 395-419 stay gated on a failed dry-run. Run 420 found no title dry-run failure.
-
-
-Updated: 2026-10-09T04:20:00Z (Run 419)
 
