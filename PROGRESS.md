@@ -1,5 +1,8 @@
 # PROGRESS
 
+Updated: 2026-10-09T04:20:00Z (Run 419)
+- Run 419 (2026-10-09): a later thumbnail line no longer ends on Before. Estimated save: about 1 minute per later card a human would otherwise rewrite. Videos published still 0.
+
 Updated: 2026-10-09T03:16:00Z (Run 418)
 - Run 418 (2026-10-09): a later title alt no longer ends on Before. Estimated save: about 1 minute per later card a human would otherwise rewrite. Videos published still 0.
 

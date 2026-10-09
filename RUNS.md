@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 419 — 2026-10-09T04:20:00Z
+- Objective: Verify Run 418 title contract, then fix only a real later-packet dry-run failure.
+- Action: `title_brief_contract.py` passed. Phone, charger, and tab dry-runs did not borrow the morning reopen. `title_thumb_brief.py --dry-run` still ended on-image text on Before (`Leave Charger Kitchen Before`). `thumb_line` now skips trailing before/after/into, and self-check rejects that ending. Title contract covers the charger thumb. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.
+- Result: Videos published stay 0. Charger on-image text is `Leave Charger Kitchen Block`, not `... Before`. Q1 titles.md and thumbnail.md unchanged.
+- Verification: `python3 tools/title_brief_contract.py` PASS. `python3 tools/selftest.py` PASS. Charger dry-run printed SELF_CHECK PASS. No provider write.
+- Discovery: Run 418 stripped trailing glue from titles only. Thumbnail text took the first four content tokens, and before is not a stop word. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Phrase-edit runs 395-419 stay gated on a failed dry-run.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent should run `python3 tools/title_brief_contract.py`. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner.
+
 ## Run 418 — 2026-10-09T03:16:00Z
 - Objective: Verify Run 417 contracts, then fix only a real later-packet dry-run failure.
 - Action: `idea_check_contract.py` and `idea_brief_contract.py` passed. Idea, publish, expand, caption, asset, and research dry-runs on an unmatched phone packet did not borrow the morning reopen. `title_thumb_brief.py --dry-run` still ended an alt on Before. `clip_title` now drops trailing before/after/into. Title contract covers that packet. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.

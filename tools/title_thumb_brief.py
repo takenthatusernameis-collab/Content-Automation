@@ -274,10 +274,21 @@ def contrast_line(src: dict[str, str]) -> str:
 
 
 def thumb_line(src: dict[str, str]) -> str:
-    """On-image words from this packet. A one-word step is not renamed Name The Step."""
+    """On-image words from this packet. A one-word step is not renamed Name The Step.
+
+    Run 419: pool[:4] still ended on Before ("Leave Charger Kitchen Before")
+    because before is a content token. Skip trailing glue on the card.
+    """
     pool = content_tokens(src["mechanism"]) or content_tokens(src["topic"]) or content_tokens(src["working"])
-    line = [w[:1].upper() + w[1:] for w in pool[:4]]
+    picked: list[str] = []
+    for w in pool:
+        if w.lower() in TRAILING_GLUE:
+            continue
+        picked.append(w)
+        if len(picked) >= 4:
+            break
     # Do not invent "This Step" when the packet has no mechanism words.
+    line = [w[:1].upper() + w[1:] for w in picked[:4]]
     return " ".join(line[:5])
 
 
@@ -341,6 +352,8 @@ def self_check(titles_text: str, thumb_text: str) -> list[str]:
         errors.append("thumbnail on-image text missing")
     elif len(tw) > 5:
         errors.append(f"thumbnail text has {len(tw)} words, max 5")
+    elif tw[-1].lower().strip(".,;:") in TRAILING_GLUE:
+        errors.append(f"thumbnail text ended on a dangling word: {text_line}")
     return errors
 
 

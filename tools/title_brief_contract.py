@@ -160,6 +160,26 @@ def main() -> int:
                 failures.append(f"phone title ended on a dangling word: {title}")
             if "morning" in title.lower() and "phone" not in title.lower():
                 failures.append(f"phone title borrowed the morning line: {title}")
+        phone_thumb = thumb_line(phone)
+        phone_last = phone_thumb.split()[-1].lower().strip(".,;:") if phone_thumb else ""
+        if phone_last in {"before", "after", "into"}:
+            failures.append(f"phone thumb ended on a dangling word: {phone_thumb}")
+        charger = {
+            "topic": "Park the charger across the room",
+            "problem": "The charger stays within arm's reach.",
+            "mechanism": "Leave the charger in the kitchen before the block.",
+            "viewer": "someone who charges the phone on the desk",
+            "working": "Park the charger across the room",
+        }
+        charger_thumb = thumb_line(charger)
+        if not charger_thumb:
+            failures.append("charger packet produced no thumb line")
+        else:
+            last = charger_thumb.split()[-1].lower().strip(".,;:")
+            if last in {"before", "after", "into"}:
+                failures.append(f"charger thumb ended on a dangling word: {charger_thumb}")
+            if "charger" not in charger_thumb.lower():
+                failures.append(f"charger thumb missed the packet: {charger_thumb}")
         plain_titles = " ".join(candidate_titles(plain_src)).lower()
         if plain_titles.startswith("004") or " 004 " in f" {plain_titles} ":
             failures.append(f"plain Topic titles include the folder id: {plain_titles}")
