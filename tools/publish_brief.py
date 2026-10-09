@@ -26,6 +26,10 @@ STOP = {
     "how", "why", "what", "they", "their", "them", "then", "when", "because",
     "so", "not", "but", "someone", "who", "wants",
 }
+# Weak as standalone YouTube tags. Still allowed inside a multi-word tag.
+TAG_GLUE = {
+    "before", "after", "into", "next", "starts", "stays", "instead",
+}
 
 PLACEHOLDER_MARKERS = (
     "(add ",
@@ -126,8 +130,12 @@ def tag_list(src: dict[str, str], title: str) -> list[str]:
         parts = fixed.split()
         if parts and all(part in blob for part in parts):
             tags.append(fixed)
-    for tok in tokens[:8]:
+    for tok in tokens:
+        if tok in TAG_GLUE:
+            continue
         tags.append(tok)
+        if len(tags) >= 12:
+            break
     out: list[str] = []
     seen: set[str] = set()
     for t in tags:
@@ -170,17 +178,25 @@ def render(packet: Path) -> str:
             return s
         return s[0].lower() + s[1:]
 
-    problem = lower_start(src.get("problem") or "the stall named in this packet")
+    problem = (src.get("problem") or "the stall named in this packet").strip().rstrip(".")
     # Do not name a missing or non-default mechanism "a default". That word
     # belongs to the first video unless this packet already says it.
     mechanism = lower_start(src.get("mechanism") or "the step this video names")
     viewer = lower_start(src.get("viewer") or "someone who wants focused work")
     first_action = mechanism.rstrip(".")
     step_word = "default" if "default" in first_action.lower() else "step"
+    # A problem that already states the consequence must not gain a second If.
+    # "If the charger stays in the kitchen, so the block starts..." is the leak.
+    plow = problem.lower()
+    if ", so " in plow or plow.startswith("if ") or plow.startswith("when "):
+        stall = problem[0].upper() + problem[1:]
+        stall_line = f"{stall}. This video walks that {step_word} instead of a pep talk."
+    else:
+        stall_line = f"If {lower_start(problem)}, this video walks that {step_word} instead of a pep talk."
     desc_bits = [
         f"{title}.",
         promise or f"After watching, you can do this: {first_action}.",
-        f"If {problem.rstrip('.')}, this video walks that {step_word} instead of a pep talk.",
+        stall_line,
         f"Built for {viewer.rstrip('.')}.",
     ]
     description = "\n\n".join(desc_bits)

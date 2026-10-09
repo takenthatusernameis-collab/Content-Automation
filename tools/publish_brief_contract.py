@@ -166,6 +166,30 @@ def main() -> int:
         fail(failures, proc.returncode == 0, f"dry-run failed: {proc.stderr}")
         fail(failures, BAIT not in proc.stdout, "dry-run still asks for a reply")
         fail(failures, not (packet / "publish.md").exists(), "dry-run wrote publish.md")
+
+        so_pkt = Path(tmp) / "videos" / "010-leave-charger-kitchen"
+        so_pkt.mkdir(parents=True)
+        (so_pkt / "idea.md").write_text(
+            "\n".join([
+                "- topic: Leave the charger in the kitchen before the next block",
+                "- problem: the charger stays in the kitchen, so the block starts with a walk",
+                "- mechanism (the system, not the pep talk): leave the charger in the kitchen before the block starts",
+            ]) + "\n",
+            encoding="utf-8",
+        )
+        so_body = render(so_pkt)
+        so_desc = ""
+        if "## Description" in so_body:
+            so_desc = so_body.split("## Description", 1)[1].split("## ", 1)[0]
+        so_tags = ""
+        if "## Tags" in so_body:
+            so_tags = so_body.split("## Tags", 1)[1].split("## ", 1)[0].lower()
+        fail(failures, "If the charger stays in the kitchen, so" not in so_desc, "problem that already has so must not gain a second If")
+        fail(failures, "the charger stays in the kitchen, so the block starts with a walk" in so_desc.lower(), "description must keep the packet problem")
+        fail(failures, "that step" in so_desc, "so-problem description must still name the step")
+        tag_lines = [ln.strip().lstrip("- ").strip() for ln in so_tags.splitlines() if ln.strip().startswith("-")]
+        fail(failures, "before" not in tag_lines and "starts" not in tag_lines and "stays" not in tag_lines, f"glue words must not be lone tags: {tag_lines}")
+        fail(failures, "charger" in tag_lines and "kitchen" in tag_lines, "later packet must keep its own content tags")
     after = hashlib.sha256(Q1.read_bytes()).hexdigest()
     fail(failures, before == after, "Q1 publish.md bytes changed")
     q1 = Q1.read_text(encoding="utf-8")
