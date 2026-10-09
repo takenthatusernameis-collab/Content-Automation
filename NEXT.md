@@ -1,5 +1,10 @@
 # NEXT
 
+Updated: 2026-10-09T11:20:00Z (Run 426)
+
+Run 426: caption contract passed before the edit. Later-packet caption dry-runs deleted emphasized words, kept list dashes, and printed ON SCREEN labels. Those leaks are fixed. Q1 captions.md stays as-is. Do not regenerate it. Next agent verifies with `python3 tools/caption_brief_contract.py` before any new caption edit. Do not edit caption_brief again unless a dry-run still deletes a spoken word or prints a visual or on-screen label. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag the title/mechanism rule does not drop. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails.
+
+
 Updated: 2026-10-09T10:20:00Z (Run 425)
 
 Run 425: publish contract passed. Later-packet publish dry-runs did not emit a machine sentence or a lone tag the title/mechanism rule missed. publish_brief was not edited. Caption dry-run on a plain beat printed an empty cue while counting the words. Spoken text now uses the same body as the word count. Q1 captions.md stays as-is. Do not regenerate it. Next agent verifies with `python3 tools/caption_brief_contract.py` before any new caption edit. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag the title/mechanism rule does not drop. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails.

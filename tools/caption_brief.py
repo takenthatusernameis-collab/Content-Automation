@@ -44,15 +44,27 @@ def spoken_body(block: str) -> str:
 
     A later packet often puts the sentence under the heading with no WORDS
     label. Counting those words and printing an empty cue makes a human
-    retype the line. Visual notes stay out of the cue.
+    retype the line. Visual notes and ON SCREEN labels stay out of the cue.
+    Inline emphasis is unwrapped so the spoken word is not deleted.
     """
-    m = re.search(r"WORDS:\s*(.*?)(?:VISUAL:|\Z)", block, re.S)
+    m = re.search(r"WORDS:\s*(.*?)(?:VISUAL:|ON SCREEN:|\Z)", block, re.S)
     if m:
         blob = m.group(1)
     else:
-        blob = re.split(r"VISUAL:\s*", block, maxsplit=1)[0]
-    blob = re.sub(r"\*[^*]+\*", " ", blob)
-    return " ".join(blob.split())
+        blob = block
+        blob = re.split(r"VISUAL:\s*", blob, maxsplit=1)[0]
+        blob = re.split(r"ON SCREEN:\s*", blob, maxsplit=1)[0]
+    lines = []
+    for line in blob.splitlines():
+        stripped = line.strip()
+        if re.fullmatch(r"\*[^*]+\*", stripped):
+            continue
+        if stripped.upper().startswith("ON SCREEN"):
+            continue
+        line = re.sub(r"\*([^*]+)\*", r"\1", line)
+        line = re.sub(r"^\s*[-*]\s+", "", line)
+        lines.append(line)
+    return " ".join(" ".join(lines).split())
 
 
 def spoken_words(block: str) -> list[str]:

@@ -1,5 +1,11 @@
 # FAILURES
 
+## Run 426 — 2026-10-09T11:20:00Z
+- Failed approach not retried: another publish-stub tag skip after a clean later-packet dry-run, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: Caption contract passed, then a later-packet dry-run still deleted emphasized words and printed on-screen labels. Unwrap inline emphasis. Stop the cue before ON SCREEN. Do not rewrite the approved Q1 caption file. oauth_idle_without_publish remains; the human step is issue 1.
+
+
+
 ## Run 425 — 2026-10-09T10:20:00Z
 - Failed approach not retried: another publish-stub tag skip after a clean later-packet dry-run, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: Publish contract passed and keys/mug/window dry-runs were clean. Stop the 420-424 publish microfix loop. The real leak was caption cues that counted plain spoken lines and printed an empty dash. Use the same spoken body for text and word count. Do not rewrite the approved Q1 caption file. oauth_idle_without_publish remains; the human step is issue 1.

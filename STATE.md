@@ -1,5 +1,15 @@
 # STATE
 
+Updated: 2026-10-09T11:20:00Z (Run 426)
+
+## Run 426 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check. Did not open a title phrase edit. Did not edit publish_brief.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Run 425 caption contract passed. Later-packet dry-runs still deleted an emphasized word (`Do not *reopen*` became `Do not the inbox`), kept list dashes in the cue, and appended `ON SCREEN: STOP` to the spoken line. Spoken text now unwraps inline emphasis, drops italic-only visual lines, drops list markers, and stops before ON SCREEN. Q1 captions.md was not regenerated.
+- Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Caption-stub microfixes are one run old. Do not edit caption_brief again unless a dry-run still deletes a spoken word or prints a visual or on-screen label.
+
+
 Updated: 2026-10-09T10:20:00Z (Run 425)
 
 ## Run 425 delta

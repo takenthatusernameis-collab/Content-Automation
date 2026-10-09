@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 426 (2026-10-09): later caption stubs no longer delete an emphasized spoken word, keep list dashes, or append an ON SCREEN label. Estimated save: about 1 minute per beat a human would otherwise retype. Videos published stay 0.
+
 - Run 425 (2026-10-09): a later caption stub no longer counts a plain beat and leaves the cue blank. Estimated save: about 1 minute per beat a human would otherwise retype. Videos published stay 0.
 
 - Run 424 (2026-10-09): later-packet publish tags no longer come from the problem sentence or the title imperative. Estimated tag-trim edit avoided on each future stub without appending another verb to the skip list. Videos published stay 0.

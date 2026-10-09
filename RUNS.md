@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 426 — 2026-10-09T11:20:00Z
+- Objective: Verify Run 425 caption contract, then fix only a real later-packet caption dry-run failure.
+- Action: `caption_brief_contract.py` passed. Later-packet dry-runs still deleted `*reopen*`, kept bullet dashes, and appended `ON SCREEN: STOP`. Spoken body now unwraps inline emphasis, drops italic-only visual lines and list markers, and stops before ON SCREEN. Contract covers those three leaks. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1. Did not edit publish_brief. Did not open a title phrase edit.
+- Result: Videos published stay 0. Emphasis, lists, and on-screen labels no longer need a human cue rewrite of that shape. Q1 captions.md unchanged.
+- Verification: `python3 tools/caption_brief_contract.py` PASS after the edit. `python3 tools/selftest.py` PASS. Q1 caption dry-run still prints spoken cues. No provider write.
+- Discovery: Run 425 filled empty plain beats and still stripped every `*...*` span, which deleted spoken words. Suspicious: oauth_idle_without_publish is unchanged since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent should run `python3 tools/caption_brief_contract.py` before any new caption edit. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag the title/mechanism rule does not drop. Do not edit caption_brief again unless a dry-run still deletes a spoken word or prints a visual or on-screen label.
+
+
+
 ## Run 425 — 2026-10-09T10:20:00Z
 - Objective: Verify Run 424 publish contract, stop the publish-stub loop if the dry-run is clean, and fix one other later-packet leak.
 - Action: `publish_brief_contract.py` passed. Keys, mug, and window publish dry-runs did not emit a machine stall sentence or a lone tag the title/mechanism rule missed. Did not edit publish_brief. Caption dry-run on a plain beat counted words and printed an empty cue. `spoken_text` now uses the same body as the word count. Visual notes stay out. Added `tools/caption_brief_contract.py`. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1. Did not open a title phrase edit.
