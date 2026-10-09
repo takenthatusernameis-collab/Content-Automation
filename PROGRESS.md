@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 428 (2026-10-09): later chapter stubs no longer drop `not` and invert `Do not reopen` into `Do reopen`. Estimated save: about 1 minute per chapter a human would otherwise rewrite so the title matches the beat. Videos published stay 0.
+
 - Run 427 (2026-10-09): later asset stubs no longer append an ON SCREEN label to the card need or the suggested filename. Estimated save: about 1 minute per card a human would otherwise rename. Videos published stay 0.
 
 - Run 426 (2026-10-09): later caption stubs no longer delete an emphasized spoken word, keep list dashes, or append an ON SCREEN label. Estimated save: about 1 minute per beat a human would otherwise retype. Videos published stay 0.

@@ -1,5 +1,7 @@
 # FAILURES
 
+- 2026-10-09 Run 428: `chapter_draft.py` TITLE_DROP included `not`, so a later packet chapter became `Do reopen inbox after` from `Do not *reopen*`. Fix: keep not/no/never. Do not treat a glue-word drop as safe when it flips the instruction.
+
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 427 — 2026-10-09T12:25:00Z

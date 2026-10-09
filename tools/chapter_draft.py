@@ -61,9 +61,10 @@ def parse_cues(text: str) -> list[dict]:
 
 GENERIC_HEADINGS = {"hook", "payoff", "payoff promise", "cta", "intro", "outro"}
 TITLE_DROP = {
-    "here", "is", "the", "a", "an", "it", "as", "you", "your", "not",
+    "here", "is", "the", "a", "an", "it", "as", "you", "your",
     "this", "that", "and", "or", "to", "of", "in", "on", "for", "with",
 }
+# Keep not/no/never. Dropping "not" inverted "Do not reopen" into "Do reopen".
 
 
 def _short_title(sentence: str) -> str:

@@ -1863,6 +1863,14 @@ def check_chapter_draft_fail_closed() -> list[str]:
             failures.append(f"chapter titles must come from this script, not Q1: {lines}")
         if not any(line.startswith("0:00 Alpha") for line in lines):
             failures.append(f"hook chapter should use spoken words: {lines}")
+        contract = Path(__file__).resolve().parent / "chapter_draft_contract.py"
+        if not contract.is_file():
+            failures.append("chapter_draft_contract.py missing")
+        else:
+            import subprocess
+            proc = subprocess.run([sys.executable, str(contract)], cwd=str(Path(__file__).resolve().parents[1]), text=True, capture_output=True)
+            if proc.returncode != 0 or "CHAPTER DRAFT CONTRACT PASS" not in proc.stdout:
+                failures.append(f"chapter_draft_contract failed: {proc.stdout[-400:]} {proc.stderr[-200:]}")
     q1 = Path(__file__).resolve().parents[1] / "videos" / "002-stop-deciding-what-to-work-on-every-morning"
     chapters = q1 / "chapters.md"
     publish = q1 / "publish.md"

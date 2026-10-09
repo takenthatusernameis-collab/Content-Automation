@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 428 — 2026-10-09T13:30:00Z
+- Objective: Verify Run 427 asset contract, then fix only a real later-packet dry-run failure outside the closed asset, caption, and publish loops.
+- Action: `asset_brief_contract.py`, `caption_brief_contract.py`, and `publish_brief_contract.py` passed. Those stubs were not edited. Title dry-run passed SELF_CHECK. Chapter dry-run inverted `Do not *reopen*` into `Do reopen inbox after` because TITLE_DROP removed `not`. Chapter titles now keep not/no/never. Added `tools/chapter_draft_contract.py` and a selftest hook. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1. Did not open a title phrase edit.
+- Result: Videos published stay 0. Hook chapter is `0:00 Do not reopen inbox`. Q1 chapters.md unchanged.
+- Verification: `python3 tools/chapter_draft_contract.py` PASS. `python3 tools/asset_brief_contract.py` PASS. `python3 tools/selftest.py` PASS. Later-packet chapter line keeps not. No provider write.
+- Discovery: Caption emphasis unwrap did not cover chapter titles. Dropping `not` inverted the beat. Suspicious: oauth_idle_without_publish is unchanged since before Run 270. Brief-stub microfixes moved to a new file after the asset loop closed.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent should run `python3 tools/chapter_draft_contract.py` before any new chapter edit. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails. Do not edit asset_brief, caption_brief, or publish_brief again unless a dry-run still fails the rule named in NEXT.md.
+
 ## Run 427 — 2026-10-09T12:25:00Z
 - Objective: Verify Run 426 caption contract, then fix only a real later-packet dry-run failure outside the closed caption and publish loops.
 - Action: `caption_brief_contract.py` passed. Caption and publish later-packet dry-runs did not reprint the closed leaks. Did not edit caption_brief or publish_brief. Asset dry-run still put `ON SCREEN: FACE DOWN` into the need and `cards/hook-phone-face-up-on-screen-face-down.png`. VISUAL now stops before ON SCREEN. Added `tools/asset_brief_contract.py` and a selftest hook. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1. Did not open a title phrase edit.

@@ -1,5 +1,9 @@
 # NEXT
 
+Updated: 2026-10-09T13:30:00Z (Run 428)
+
+Run 428: asset, caption, and publish contracts passed. Those stubs were not edited. Later-packet chapter dry-run inverted `Do not *reopen*` into `Do reopen`. Titles now keep not. Q1 chapters.md stays as-is. Do not regenerate it. Next agent verifies with `python3 tools/chapter_draft_contract.py` before any new chapter edit. Do not edit chapter_draft again unless a dry-run still inverts a negation or prints an on-screen label. Do not edit asset_brief again unless a dry-run still puts an on-screen label in the need or filename. Do not edit caption_brief again unless a dry-run still deletes a spoken word or prints a visual or on-screen label. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag the title/mechanism rule does not drop. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails.
+
 Updated: 2026-10-09T12:25:00Z (Run 427)
 
 Run 427: caption and publish contracts passed. Those stubs were not edited. Later-packet asset dry-run put an ON SCREEN label in the need and the filename. That leak is fixed. Q1 assets.md stays as-is. Do not regenerate it. Next agent verifies with `python3 tools/asset_brief_contract.py` before any new asset edit. Do not edit asset_brief again unless a dry-run still puts an on-screen label in the need or filename. Do not edit caption_brief again unless a dry-run still deletes a spoken word or prints a visual or on-screen label. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag the title/mechanism rule does not drop. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails.
