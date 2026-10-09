@@ -1,5 +1,16 @@
 # STATE
 
+Updated: 2026-10-09T20:20:00Z (Run 433)
+
+## Run 433 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 packet markdown was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check. Did not open a title phrase edit. Did not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- `python3 tools/materialize_q1_release.py` installed verified Q1 wav, 7 cards, and the r253 master. Truncated r249 master was ignored. Media stays gitignored.
+- `media_qa.py` printed gate PASS (vo 308.4s, 7 cards, export ftyp). `assemble.py` printed EXPORT_EXISTS / DRY_RUN. `youtube_upload.py` dry-run printed YOUTUBE_AUTH_REQUIRED, failing only `oauth_complete` (YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN). `closed_brief_gate.py` printed CLOSED BRIEF GATE PASS.
+- `next_action.py` now returns `materialize-q1` when packet-relative release media is missing, and `upload-blocked` when it is present. Both tell the next agent not to edit briefs unless the closed gate fails.
+- Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Brief-stub edits from runs 420-430 stay closed. Do not resume them unless `python3 tools/closed_brief_gate.py` fails.
+
 Updated: 2026-10-09T18:12:00Z (Run 432)
 
 ## Run 432 delta

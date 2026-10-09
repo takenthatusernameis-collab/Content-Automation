@@ -1,5 +1,9 @@
 # NEXT
 
+Updated: 2026-10-09T20:20:00Z (Run 433)
+
+Run 433: Q1 release media materialized and media_qa passed on this machine. Upload dry-run fails only on the three OAuth secrets. Closed brief gate passed. If vo/, cards/, or export/master.mp4 are missing, run `python3 tools/materialize_q1_release.py` and do not commit media. If they are present, do not rematerialize. Do not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief unless `python3 tools/closed_brief_gate.py` fails. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card.
+
 Updated: 2026-10-09T18:12:00Z (Run 432)
 
 Run 430: chapter contract passed. Do not edit chapter_draft again unless a dry-run still inverts a negation, prints an on-screen label, or ends a title on so/without/before. Publish contract passed, then a later-packet problem that already contained if still gained a second If. That wrap is closed. Q1 publish.md stays as-is. Next agent verifies with `python3 tools/publish_brief_contract.py` before any new publish edit. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag the title/mechanism rule does not drop. Do not edit asset_brief again unless a dry-run still puts an on-screen label in the need or filename. Do not edit caption_brief again unless a dry-run still deletes a spoken word or prints a visual or on-screen label. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails.

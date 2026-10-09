@@ -114,12 +114,23 @@ def commands_for(path: Path, row: dict[str, object], code: str) -> list[str]:
         ]
     if code == "export":
         return [f"python3 tools/render_brief.py {p} --dry-run"]
+    if code == "materialize-q1":
+        return [
+            "python3 tools/materialize_q1_release.py",
+            "# local media write only; verifies checksums; refuses truncated r249 master",
+            "# do not git add -f wav, png, or mp4",
+            "# do not edit briefs unless python3 tools/closed_brief_gate.py fails",
+            "# after materialize: python3 tools/media_qa.py videos/002-stop-deciding-what-to-work-on-every-morning",
+            "python3 tools/operator_card.py",
+            "# That card is the only human publish step. Do not poll secrets. Do not scaffold Q2.",
+        ]
     if code == "upload-blocked":
         if path.name == "002-stop-deciding-what-to-work-on-every-morning":
             return [
                 "# Do not regenerate Q1. Do not copy q1-media-r249 q1-master.mp4 onto export/master.mp4.",
-                "# Fetch wav/cards from q1-media-r249 and master from q1-media-r253 (HANDOFF.md).",
+                "# If vo/, cards/, or export/master.mp4 are missing, run python3 tools/materialize_q1_release.py first.",
                 "# publish.md Description edited and First comment approved are already checked. Do not re-open them.",
+                "# Do not edit briefs unless python3 tools/closed_brief_gate.py fails.",
                 "# YouTube OAuth is not configured. Dry-run READY is not an upload.",
                 "python3 tools/operator_card.py",
                 "# That card is the only human publish step. Do not poll secrets. Do not scaffold Q2.",

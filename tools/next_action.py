@@ -45,6 +45,21 @@ def selected_vo_path(path: Path) -> str:
     return selected_vo_drop(path)
 
 
+def q1_release_media_missing(path: Path) -> bool:
+    """Packet-relative release media. Gitignored, so a fresh clone looks empty."""
+    vo = path / "vo" / (
+        "002-stop-deciding-what-to-work-on-every-morning-take-selected.wav"
+    )
+    master = path / "export" / "master.mp4"
+    cards = path / "cards"
+    return not (
+        vo.is_file()
+        and master.is_file()
+        and cards.is_dir()
+        and any(cards.glob("*.png"))
+    )
+
+
 def recommend(path: Path, row: dict[str, object]) -> tuple[str, str]:
     """Return (code, sentence). One action. Never mutates."""
     status = str(row["status"])
@@ -111,9 +126,14 @@ def recommend(path: Path, row: dict[str, object]) -> tuple[str, str]:
 
     if status in {"draft", "ready_for_vo"}:
         if path.name == "002-stop-deciding-what-to-work-on-every-morning":
+            if q1_release_media_missing(path):
+                return (
+                    "materialize-q1",
+                    "Q1 release media is not at the packet path. Run python3 tools/materialize_q1_release.py. It verifies checksums, refuses the truncated r249 master, and does not commit media. Do not regenerate. Do not edit briefs unless python3 tools/closed_brief_gate.py fails. After materialize, the only human step is python3 tools/operator_card.py.",
+                )
             return (
                 "upload-blocked",
-                "Q1 generated take, cards, and padded master already exist on private releases q1-media-r249 and q1-media-r253. Do not regenerate. Do not copy r249 q1-master.mp4. Description edited and First comment approved are already checked by the delegated agent. Do not re-open those boxes. OAuth is the credential gate. Dry-run READY is not an upload. The only human command is python3 tools/operator_card.py.",
+                "Q1 generated take, cards, and padded master are on this machine and on private releases q1-media-r249 and q1-media-r253. Do not regenerate. Do not copy r249 q1-master.mp4. Do not edit briefs unless python3 tools/closed_brief_gate.py fails. Description edited and First comment approved are already checked by the delegated agent. Do not re-open those boxes. OAuth is the credential gate. Dry-run READY is not an upload. The only human command is python3 tools/operator_card.py.",
             )
         return (
             "record-vo",
