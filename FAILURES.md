@@ -1,5 +1,9 @@
 # FAILURES
 
+## Run 425 — 2026-10-09T10:20:00Z
+- Failed approach not retried: another publish-stub tag skip after a clean later-packet dry-run, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: Publish contract passed and keys/mug/window dry-runs were clean. Stop the 420-424 publish microfix loop. The real leak was caption cues that counted plain spoken lines and printed an empty dash. Use the same spoken body for text and word count. Do not rewrite the approved Q1 caption file. oauth_idle_without_publish remains; the human step is issue 1.
+
 ## Run 424 — 2026-10-09T09:12:00Z
 - Failed approach not retried: appending another verb to TAG_GLUE, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: Publish contract passed, then a later-packet dry-run still tokenized problem prose. Take tags from the title and mechanism. Do not grow the skip lists. Do not rewrite the approved Q1 publish file. oauth_idle_without_publish remains; the human step is issue 1. Publish-stub microfixes 420-424 are the suspicious loop if the next dry-run is clean.

@@ -1,5 +1,15 @@
 # STATE
 
+Updated: 2026-10-09T10:20:00Z (Run 425)
+
+## Run 425 delta
+- OAuth secrets were not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check. Did not open a title phrase edit. Did not edit publish_brief.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Run 424 publish contract passed. Later-packet publish dry-runs (keys, mug, window) did not emit a machine stall sentence or a lone tag the title/mechanism rule missed. Publish-stub microfixes stop here.
+- Caption cues counted words on a plain beat and printed an empty dash because only a WORDS: label filled the line. Plain beats and WORDS beats now share one spoken body. Visual notes stay out. Q1 captions.md was not regenerated.
+- Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Publish-stub microfixes 420-424 had no new dry-run failure this run. Do not resume that loop.
+
 Updated: 2026-10-09T09:12:00Z (Run 424)
 
 ## Run 424 delta

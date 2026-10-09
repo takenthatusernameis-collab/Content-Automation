@@ -39,18 +39,28 @@ def section(text: str, heading: str) -> str:
     return rest.strip()
 
 
-def spoken_words(block: str) -> list[str]:
+def spoken_body(block: str) -> str:
+    """Spoken line for a beat. WORDS: wins. A plain beat is still spoken text.
+
+    A later packet often puts the sentence under the heading with no WORDS
+    label. Counting those words and printing an empty cue makes a human
+    retype the line. Visual notes stay out of the cue.
+    """
     m = re.search(r"WORDS:\s*(.*?)(?:VISUAL:|\Z)", block, re.S)
-    blob = m.group(1) if m else block
+    if m:
+        blob = m.group(1)
+    else:
+        blob = re.split(r"VISUAL:\s*", block, maxsplit=1)[0]
     blob = re.sub(r"\*[^*]+\*", " ", blob)
-    return re.findall(r"[A-Za-z0-9']+", blob)
+    return " ".join(blob.split())
+
+
+def spoken_words(block: str) -> list[str]:
+    return re.findall(r"[A-Za-z0-9']+", spoken_body(block))
 
 
 def spoken_text(block: str) -> str:
-    m = re.search(r"WORDS:\s*(.*?)(?:VISUAL:|\Z)", block, re.S)
-    blob = m.group(1) if m else ""
-    blob = re.sub(r"\*[^*]+\*", " ", blob)
-    return " ".join(blob.split())
+    return spoken_body(block)
 
 
 def fmt_ts(seconds: float) -> str:
