@@ -303,6 +303,37 @@ def main() -> int:
         fail(failures, "- where" not in phone_tags, "lone where must not be a tag")
         fail(failures, "- does" not in phone_tags, "lone does must not be a tag")
         fail(failures, "- phone" in phone_tags, "content tag phone must stay")
+        keys = Path(tmp) / "videos" / "018-keys-hook"
+        keys.mkdir(parents=True)
+        (keys / "idea.md").write_text(
+            "\n".join([
+                "- topic: Hang the keys by the door",
+                "- problem: The keys sit under papers while the next exit already waits",
+                "- mechanism (the system, not the pep talk): Hang the keys on the hook.",
+            ]) + "\n",
+            encoding="utf-8",
+        )
+        keys_tags = render(keys).split("## Tags", 1)[1].split("## ", 1)[0].lower()
+        fail(failures, "- under" not in keys_tags, "problem prose must not become a lone under tag")
+        fail(failures, "- while" not in keys_tags, "problem prose must not become a lone while tag")
+        fail(failures, "- already" not in keys_tags, "problem prose must not become a lone already tag")
+        fail(failures, "- hang" not in keys_tags, "title imperative must not become a lone tag")
+        fail(failures, "- keys" in keys_tags and "- door" in keys_tags and "- hook" in keys_tags, "keys packet must keep keys, door, and hook")
+        mug = Path(tmp) / "videos" / "019-rinse-mug"
+        mug.mkdir(parents=True)
+        (mug / "idea.md").write_text(
+            "\n".join([
+                "- topic: Rinse the mug before the block",
+                "- problem: The mug waits in the sink while the block has already started",
+                "- mechanism (the system, not the pep talk): Rinse the mug and set it down.",
+            ]) + "\n",
+            encoding="utf-8",
+        )
+        mug_tags = render(mug).split("## Tags", 1)[1].split("## ", 1)[0].lower()
+        fail(failures, "- rinse" not in mug_tags, "mechanism imperative must not become a lone tag")
+        fail(failures, "- set" not in mug_tags, "short mechanism-only set must not become a tag")
+        fail(failures, "- down" not in mug_tags, "lone down must not be a tag")
+        fail(failures, "- mug" in mug_tags, "content tag mug must stay")
     after = hashlib.sha256(Q1.read_bytes()).hexdigest()
     fail(failures, before == after, "Q1 publish.md bytes changed")
     q1 = Q1.read_text(encoding="utf-8")

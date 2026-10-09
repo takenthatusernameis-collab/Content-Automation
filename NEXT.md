@@ -1,5 +1,10 @@
 # NEXT
 
+Updated: 2026-10-09T09:12:00Z (Run 424)
+
+Run 424: publish contract passed before the edit. Title dry-runs were not reopened. Later-packet publish dry-runs still emitted lone tags from problem prose and title imperatives. Tags now come from the title and mechanism only. Q1 publish.md stays approved. Do not regenerate it. Next agent verifies with `python3 tools/publish_brief_contract.py` before any new publish edit. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag the title/mechanism rule does not drop.
+
+
 Updated: 2026-10-09T08:14:00Z (Run 423)
 
 Run 423: publish contract passed before the edit. Title dry-runs were not reopened. Later-packet publish dry-runs still printed `If the stall named in this packet` when problem was empty, and lone tags don't/until/ends/onto/has/where/does. Those leaks are fixed. Q1 publish.md stays approved. Do not regenerate it. Next agent verifies with `python3 tools/publish_brief_contract.py` before any new publish edit. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not open a phrase edit unless a later-packet title dry-run fails. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag a human would delete.

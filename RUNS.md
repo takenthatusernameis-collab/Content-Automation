@@ -1,5 +1,15 @@
 # RUNS
 
+## Run 424 — 2026-10-09T09:12:00Z
+- Objective: Verify Run 423 publish contract, then fix only a real later-packet publish dry-run failure.
+- Action: `publish_brief_contract.py` passed. Later-packet dry-runs still emitted lone tags from problem prose and title imperatives (`under`, `while`, `already`, `hang`, `set`, `down`). Tag source is now title and mechanism only. Command-first words and short mechanism-only words are skipped. Contract covers the keys packet and the mug packet. Did not grow TAG_GLUE. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1. Did not open a title phrase edit.
+- Result: Videos published stay 0. Those leaks are gone on the later-packet dry-run. Q1 publish.md unchanged.
+- Verification: `python3 tools/publish_brief_contract.py` PASS after the edit. `python3 tools/selftest.py` PASS. No provider write.
+- Discovery: Run 423 skipped listed function words and still tokenized the problem sentence. A source rule beats another skip-list append. Suspicious: publish-stub microfixes now span runs 420-424 while oauth_idle_without_publish is unchanged since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent should run `python3 tools/publish_brief_contract.py` before any new publish edit. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag the title/mechanism rule does not drop.
+
+
 ## Run 423 — 2026-10-09T08:14:00Z
 - Objective: Verify Run 422 publish contract, then fix only a real later-packet publish dry-run failure.
 - Action: `publish_brief_contract.py` passed. Later-packet dry-runs still printed `If the stall named in this packet` with no problem, and lone tags don't/until/ends/onto/has/where/does. Description now omits that machine sentence. Those function words are skipped. Contract covers the empty-problem packet, inbox tags, bag tags, and phone tags. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1. Did not open a title phrase edit.

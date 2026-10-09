@@ -1,5 +1,9 @@
 # DECISIONS
 
+## 2026-10-09 — Run 424: publish tags come from the title and mechanism
+
+- 2026-10-09 | `publish_brief.py` builds lone tags from the title, topic, and mechanism. Problem prose stays in the description. The first word of the title or mechanism is not a lone tag. A mechanism-only word shorter than 4 letters is not a tag. STOP and TAG_GLUE are frozen closed classes. | Runs 420-423 appended one leak word at a time and the next packet still needed a human delete. | Revisit only if a later-packet dry-run still emits a machine sentence or a lone tag this rule does not drop. Do not regenerate Q1 publish.md.
+
 ## 2026-10-07 — Run 385: freeze the operator-card surface until a video is published
 
 - 2026-10-07 | `tools/operator_card_freeze.py` fails selftest if `operator_card.py` grows a function, a second card module appears, or the card imports subprocess or a network client. | Runs 383-384 extended the card while videos published stayed 0. A prose lock did not stop the reprint.

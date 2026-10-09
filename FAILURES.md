@@ -1,5 +1,9 @@
 # FAILURES
 
+## Run 424 — 2026-10-09T09:12:00Z
+- Failed approach not retried: appending another verb to TAG_GLUE, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: Publish contract passed, then a later-packet dry-run still tokenized problem prose. Take tags from the title and mechanism. Do not grow the skip lists. Do not rewrite the approved Q1 publish file. oauth_idle_without_publish remains; the human step is issue 1. Publish-stub microfixes 420-424 are the suspicious loop if the next dry-run is clean.
+
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 423 — 2026-10-09T08:14:00Z

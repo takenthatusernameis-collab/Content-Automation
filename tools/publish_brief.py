@@ -27,6 +27,10 @@ STOP = {
     "so", "not", "but", "someone", "who", "wants",
     # Lone function words from Run 423 later-packet dry-runs. Not content tags.
     "don't", "until", "onto", "has", "where", "does", "ends",
+    # Closed class. Do not append one verb per run. Run 424 stopped mining
+    # the problem sentence for tags; these words are determiners and glue.
+    "another", "other", "every", "each", "same", "while", "already", "again",
+    "under", "over", "down", "off", "out",
 }
 # Weak as standalone YouTube tags. Still allowed inside a multi-word tag.
 TAG_GLUE = {
@@ -125,10 +129,23 @@ PACKET_ONLY_TAGS = (
 )
 
 
+def command_tokens(*blobs: str) -> set[str]:
+    # The first word of a title or mechanism is the imperative, not a tag.
+    out: set[str] = set()
+    for blob in blobs:
+        words = re.findall(r"[A-Za-z0-9']+", (blob or "").lower())
+        if words:
+            out.add(words[0])
+    return out
+
+
 def tag_list(src: dict[str, str], title: str) -> list[str]:
-    tokens = content_tokens(
-        title, src.get("topic", ""), src.get("mechanism", ""), src.get("problem", "")
-    )
+    # Problem prose is for the description. It must not become lone tags.
+    topic = src.get("topic", "")
+    mechanism = src.get("mechanism", "")
+    title_tokens = set(content_tokens(title, topic))
+    tokens = content_tokens(title, topic, mechanism)
+    commands = command_tokens(title, mechanism)
     blob = " ".join(tokens)
     tags = list(CHANNEL_TAGS)
     for fixed in PACKET_ONLY_TAGS:
@@ -136,7 +153,10 @@ def tag_list(src: dict[str, str], title: str) -> list[str]:
         if parts and all(part in blob for part in parts):
             tags.append(fixed)
     for tok in tokens:
-        if tok in TAG_GLUE:
+        if tok in TAG_GLUE or tok in commands:
+            continue
+        # A short mechanism-only word is usually "set" or "and", not a tag.
+        if tok not in title_tokens and len(tok) < 4:
             continue
         tags.append(tok)
         if len(tags) >= 12:

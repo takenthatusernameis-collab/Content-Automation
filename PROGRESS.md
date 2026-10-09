@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 424 (2026-10-09): later-packet publish tags no longer come from the problem sentence or the title imperative. Estimated tag-trim edit avoided on each future stub without appending another verb to the skip list. Videos published stay 0.
+
 - Run 423 (2026-10-09): later-packet publish stubs no longer invent `If the stall named in this packet` when problem is empty, and drop lone don't/until/ends/onto/has/where/does tags. Estimated description and tag trim avoided on each incomplete or function-word stub. Videos published stay 0.
 
 - Run 422 (2026-10-09): later-packet publish stubs no longer double a title period, prefix If onto Don't, or wrap a bare so-clause. Estimated description rewrite avoided on each future stub of that shape. Videos published stay 0.
