@@ -225,6 +225,48 @@ def main() -> int:
         glass_lines = [ln.strip().lstrip("- ").strip() for ln in glass_tags.splitlines() if ln.strip().startswith("-")]
         fail(failures, "fill" not in glass_lines and "starts" not in glass_lines, f"glass packet must drop fill/starts: {glass_lines}")
         fail(failures, "glass" in glass_lines and "timer" in glass_lines, "glass packet must keep glass and timer")
+        lid = Path(tmp) / "videos" / "013-shut-the-lid"
+        lid.mkdir(parents=True)
+        (lid / "idea.md").write_text(
+            "\n".join([
+                "- topic: Shut the lid.",
+                "- problem: the lid stays open",
+                "- mechanism (the system, not the pep talk): Shut the lid.",
+            ]) + "\n",
+            encoding="utf-8",
+        )
+        lid_body = render(lid)
+        lid_desc = lid_body.split("## Description", 1)[1].split("## ", 1)[0]
+        fail(failures, "Shut the lid.." not in lid_desc, "title that already ends with a period must not gain a second one")
+        fail(failures, "Shut the lid." in lid_desc, "description must keep the punctuated title")
+        inbox = Path(tmp) / "videos" / "014-dont-reopen-inbox"
+        inbox.mkdir(parents=True)
+        (inbox / "idea.md").write_text(
+            "\n".join([
+                "- topic: Don't reopen the inbox",
+                "- problem: Don't reopen the inbox until the block ends",
+                "- mechanism (the system, not the pep talk): Don't reopen the inbox.",
+            ]) + "\n",
+            encoding="utf-8",
+        )
+        inbox_body = render(inbox)
+        inbox_desc = inbox_body.split("## Description", 1)[1].split("## ", 1)[0]
+        fail(failures, "If don't" not in inbox_desc and "If Don't" not in inbox_desc, "imperative problem must not gain If")
+        fail(failures, "Don't reopen the inbox until the block ends" in inbox_desc, "description must keep the imperative problem")
+        bag = Path(tmp) / "videos" / "015-notebook-bag"
+        bag.mkdir(parents=True)
+        (bag / "idea.md").write_text(
+            "\n".join([
+                "- topic: Move the notebook onto the desk",
+                "- problem: the notebook stays in the bag so the block has no page",
+                "- mechanism (the system, not the pep talk): Move the notebook onto the desk.",
+            ]) + "\n",
+            encoding="utf-8",
+        )
+        bag_body = render(bag)
+        bag_desc = bag_body.split("## Description", 1)[1].split("## ", 1)[0]
+        fail(failures, "If the notebook stays in the bag so" not in bag_desc, "problem that already has so without a comma must not gain If")
+        fail(failures, "the notebook stays in the bag so the block has no page" in bag_desc.lower(), "description must keep the so-clause")
     after = hashlib.sha256(Q1.read_bytes()).hexdigest()
     fail(failures, before == after, "Q1 publish.md bytes changed")
     q1 = Q1.read_text(encoding="utf-8")

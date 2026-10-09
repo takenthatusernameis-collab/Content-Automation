@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 422 — 2026-10-09T07:14:00Z
+- Objective: Verify Run 421 publish contract, then fix only a real later-packet publish dry-run failure.
+- Action: `publish_brief_contract.py` passed. Later-packet dry-runs still printed `Shut the lid..`, `If don't reopen the inbox until the block ends`, and `If the notebook stays in the bag so the block has no page`. Description now keeps a finished period, keeps an imperative problem, and keeps a bare so-clause. Contract covers lid, inbox, and notebook packets. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1. Did not open a title phrase edit.
+- Result: Videos published stay 0. Those three description leaks are gone on the later-packet dry-run. Q1 publish.md unchanged.
+- Verification: `python3 tools/publish_brief_contract.py` PASS after the edit. No provider write.
+- Discovery: Run 421 skipped lone verbs only. The description still needed a human rewrite on punctuated titles, imperative problems, and so-clauses without a comma. Suspicious: publish-stub microfixes now span runs 420-422 while oauth_idle_without_publish is unchanged since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent should run `python3 tools/publish_brief_contract.py` before any new publish edit. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not open a phrase edit unless a later-packet title dry-run fails. Do not add another lone-verb skip unless a dry-run still emits one.
+
 ## Run 421 — 2026-10-09T06:20:00Z
 - Objective: Verify Run 420 publish contract, then fix only a real later-packet dry-run failure.
 - Action: `publish_brief_contract.py` and `title_brief_contract.py` passed. Phone and charger title dry-runs passed SELF_CHECK. No phrase edit. Publish dry-run still tagged leave/put/walk and fill as lone tags. TAG_GLUE now skips those verbs. Contract covers the desk and glass packets. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1.

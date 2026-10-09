@@ -190,14 +190,25 @@ def render(packet: Path) -> str:
     step_word = "default" if "default" in first_action.lower() else "step"
     # A problem that already states the consequence must not gain a second If.
     # "If the charger stays in the kitchen, so the block starts..." is the leak.
+    # "If the notebook stays in the bag so the block..." is the same leak without a comma.
+    # "If don't reopen the inbox" is an imperative, not a condition.
     plow = problem.lower()
-    if ", so " in plow or plow.startswith("if ") or plow.startswith("when "):
+    already_clause = (
+        ", so " in plow
+        or " so " in plow
+        or plow.startswith(("if ", "when ", "don't ", "do not ", "never "))
+    )
+    if already_clause:
         stall = problem[0].upper() + problem[1:]
         stall_line = f"{stall}. This video walks that {step_word} instead of a pep talk."
     else:
         stall_line = f"If {lower_start(problem)}, this video walks that {step_word} instead of a pep talk."
+    # A topic that already ends with punctuation must not become "Shut the lid.."
+    title_sentence = title.rstrip()
+    if title_sentence and title_sentence[-1] not in ".!?":
+        title_sentence += "."
     desc_bits = [
-        f"{title}.",
+        title_sentence,
         promise or f"After watching, you can do this: {first_action}.",
         stall_line,
         f"Built for {viewer.rstrip('.')}.",

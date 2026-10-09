@@ -1,5 +1,9 @@
 # NEXT
 
+Updated: 2026-10-09T07:14:00Z (Run 422)
+
+Run 422: publish contract passed before the edit. Title dry-runs were not reopened. Later-packet publish dry-runs doubled a period (`Shut the lid..`), prefixed `If` onto `Don't reopen...`, and wrapped `so` without a comma. Those three description leaks are fixed. Q1 publish.md stays approved. Do not regenerate it. Next agent verifies with `python3 tools/publish_brief_contract.py` before any new publish edit. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not open a phrase edit unless a later-packet title dry-run fails. Do not add another lone-verb skip unless a dry-run still emits one.
+
 Updated: 2026-10-09T06:20:00Z (Run 421)
 
 Active locks: do not add a scanner while `STALL_OAUTH_IDLE` is set. Do not scaffold Q2. Do not poll secrets. `playlist_id` stays `not_set` until a human sets it. Do not add another export probe, media checker, or caption cue gate while `STALL_PREUPLOAD_PROBE` is set. Do not add another Location, session hold, or early-persist call while `STALL_UPLOAD_EDGE` is set. Do not prepend a second `# NEXT` header. Do not add another OAuth exchange parser or provider-state recovery edge while videos published stay 0. Do not extend operator_card while videos published stay 0. The unpublished video is the three GitHub Actions secrets. `idle_streak` is a count, not a new gate. `recovery_freeze.py` fails the build if the recovery surface grows. `operator_card_freeze.py` fails the build if the card surface grows. `stall_watch.py` sets `STALL_LOG_HYGIENE` after three log-cap or header deltas. Do not add another compact check while videos published stay 0.
