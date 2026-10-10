@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 451 — 2026-10-10T15:30:00Z
+- Objective: Confirm Q1 materialize + local gates on a fresh clone and record that the long OAuth stall continues so future agents treat pure verification as low-leverage.
+- Action: Ran materialize_q1_release.py (checksums matched, ignored truncated r249), media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS, selftest PASS. Used record_run.py. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
+- Result: Videos published stay 0. Local Q1 media ready. Upload blocked only on secrets. Stall duration noted.
+- Verification: materialize ignored truncated r249. media_qa gate PASS. closed_brief_gate PASS. next_action upload-blocked. operator_card PASS. selftest PASS.
+- Discovery: Pre-upload path remains stable. oauth_idle_without_publish stall is unchanged and now ~180 runs. Pure verification has diminishing returns.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and prefers non-verification work if any unblocked path exists.
+
 ## Run 450 — 2026-10-10T14:20:00Z
 - Objective: Reduce human setup error on the remaining OAuth secret step by adding a human-only confirmation script that reports PRESENT/MISSING without values.
 - Action: Materialized Q1 (checksums matched, ignored truncated r249). Verified media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS, selftest PASS. Created tools/human_secret_confirm.py (explicitly for human terminal use only). Linked it as optional step 7c in docs/human_oauth_checklist.md. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
@@ -98,15 +107,6 @@
 - Discovery: A second `# NEXT` header had appeared after the archive marker. Removing it prevents the stall_watch header-delta path from accumulating. Suspicious: oauth_idle_without_publish unchanged since before Run 270.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and does not prepend a second NEXT header.
-
-## Run 439 — 2026-10-10T02:15:00Z
-- Objective: Verify fresh-clone materialize + gates, then surface the ready status on the open human issue so the remaining step is timestamped and obvious.
-- Action: Ran materialize_q1_release.py (checksums matched, ignored truncated r249), media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS. Posted verification comment to issue #1. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
-- Result: Videos published stay 0. Local Q1 media ready. Upload blocked only on secrets. Issue #1 now has a Run 439 confirmation.
-- Verification: materialize ignored truncated r249. media_qa gate PASS. closed_brief_gate CLOSED BRIEF GATE PASS. operator_card OPERATOR CARD PASS. next_action upload-blocked. Issue comment posted. No provider write.
-- Discovery: The pre-upload path remains stable. The long oauth_idle_without_publish stall continues. A fresh issue comment reduces the chance the human misses that everything else is ready.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs.
 
 Permanent log. Newest first. Do not paste the archive back into this file.
 

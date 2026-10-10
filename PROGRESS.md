@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 451 (2026-10-10): confirmed materialize + all local gates on fresh clone. Videos published stay 0. No new reusable capability; stall continues.
+
 Added human-only secret confirmation script. Estimated save: reduces risk that the human dispatches before the three secrets are actually stored, or misses a missing secret. Videos published stay 0. Human minutes per video remain blocked on the secrets.
 
 Added expected-outcomes guidance to the OAuth checklist. Estimated save: reduces risk of unnecessary re-dispatch or missed video-id confirmation once the human acts. Videos published stay 0. Human minutes per video remain blocked on the secrets.

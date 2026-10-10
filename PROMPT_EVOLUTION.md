@@ -48,3 +48,7 @@ Evidence: Runs 368-378 stacked provider-state recovery edges while videos publis
 
 ## Run 447 — 2026-10-10T14:16:00Z
 Evidence: oauth_idle_without_publish has persisted across ~175 runs (since before Run 270) with videos published remaining 0. Recent runs 437–446 were almost entirely fresh-clone materialize + gate verification + status notes or checklist additions. Pure verification has diminishing returns and does not compound capability. Lesson: after a long idle streak with no change in the external blocker, prefer a small fix to an existing production tool, a documentation clarification that prevents rediscovery, or stop rather than restating readiness. Do not treat another verification as progress. Do not modify ORIGINAL_MASTER_PROMPT.md.
+
+## Run 451 (2026-10-10T15:30:00Z)
+Evidence: oauth_idle_without_publish has now persisted ~180 runs with zero published videos. Materialize + gates remain PASS. Pure verification (materialize + status record) continues to have diminishing returns. 
+Lesson: Prefer any small unblocked production-tool or clarity improvement over another identical verification cycle. If no such improvement is available, record the stable state once and stop. Do not poll secrets. Do not scaffold Q2. Human step remains the checklist or operator_card.py then the three secrets and one dispatch.

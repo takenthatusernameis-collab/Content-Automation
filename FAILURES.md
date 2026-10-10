@@ -1,5 +1,7 @@
 # FAILURES
 
+No new failure. oauth_idle_without_publish continues with no publish since before Run 270 (~180 runs). Do not treat repeated verification as progress toward publish. Do not rematerialize when media is present.
+
 No new failure. oauth_idle_without_publish continues with no publish since before Run 270. Do not treat repeated verification as progress toward publish. Do not rematerialize when media is present.
 
 No new failure this run. The oauth_idle_without_publish stall remains the dominant external dependency.

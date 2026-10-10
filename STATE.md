@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-10T15:30:00Z (Run 451)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Fresh clone materialize succeeded (checksums matched, ignored truncated r249). media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS, selftest PASS. Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 2026-10-10T14:20:00Z (Run 450)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/human_secret_confirm.py (human-only, never for agents) and linked it from the OAuth checklist as an optional terminal confirmation after UI check. Local gates remain PASS after materialize. Suspicious: oauth_idle_without_publish still ~175 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
