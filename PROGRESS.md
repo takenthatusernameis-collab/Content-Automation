@@ -1,5 +1,7 @@
 # PROGRESS
 
+Run 444: Restored selftest by compacting NEXT.md size cap. No new automation. Human minutes per video unchanged (still blocked on secrets). Reliability: selftest green again.
+
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
 ## Run 443 — 2026-10-10T06:17:00Z

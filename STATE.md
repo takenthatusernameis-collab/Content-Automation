@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-10T07:30:00Z
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. NEXT.md compacted from 12073 to ~4k bytes to restore selftest PASS (accumulated identical run notes). media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS. Posted no new issue comment this run. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 Updated: 2026-10-10T06:17:00Z (Run 443)
 
 ## Run 443 delta

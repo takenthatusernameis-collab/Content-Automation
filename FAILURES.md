@@ -1,5 +1,7 @@
 # FAILURES
 
+No new failure. Log-size accumulation on NEXT.md was a hygiene issue, not a functional failure. oauth_idle_without_publish continues.
+
 No new failures. oauth_idle_without_publish continues as previously recorded.
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
