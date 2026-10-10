@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-10T22:15:00Z (Run 455)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Rewrote the outdated HANDOFF.md (previously Run 265) into a current single entry point that points to materialize_q1_release.py, the printable checklist, and the three-secrets gate. Local gates remain PASS after materialize. Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 2026-10-10T21:15:00Z (Run 454)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Compacted RUNS.md from 13 to 12 sections by moving the oldest entry to docs/runs_archive.md. selftest now PASS. compact_all --check OK. Media absent on this clone so next_action correctly reports materialize-q1. Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.

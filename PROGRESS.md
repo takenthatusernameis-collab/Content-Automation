@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 455 (2026-10-10): replaced outdated HANDOFF.md (Run 265) with a current single entry point pointing to materialize + checklist. Estimated save: one avoided rediscovery of old Drive paths on every future fresh clone or handoff read. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: clearer current-state document.
+
 - Run 454 (2026-10-10): restored selftest by compacting RUNS.md (13→12 sections). Estimated save: prevents one class of log-hygiene rediscovery and potential red selftest on the next Actions push. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: selftest green again.
 
 - Run 452 (2026-10-10): added human-facing note to OAuth checklist that ~180 verification runs have confirmed path stability. Estimated save: reduces chance of continued pure-verification agent churn until the human sets the secrets. Videos published stay 0. Human minutes per video remain blocked on the secrets.

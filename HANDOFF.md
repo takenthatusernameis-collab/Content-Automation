@@ -1,98 +1,62 @@
 # HANDOFF
 
-Updated: 2026-10-02T07:20:00Z (Run 265)
+Updated: 2026-10-10T22:15:00Z (Run 455)
 
-This file is not Selected VO. Audio and card PNGs stay gitignored. Do not `git add -f`.
+This file is the current operator entry point. Audio, card PNGs, and the master stay gitignored. Do not `git add -f`. Do not commit media.
 
-## Why this file exists
-Run 242 synthesized a labeled generated take and called it operator-downloadable. Run 243 found an empty workspace. Run 244 found the same empty workspace and uploaded the wav to Drive. Run 245 confirmed that Drive file still lists 27200958 bytes and the same sha256, then added the seven planned cards. Run 246 matched those checksums again and found that an unauthenticated curl of the wav file id returns a Google sign-in page. Run 247 downloaded the same Drive bytes into that operator session. Run 248 listed the Drive folder again (sizes unchanged), downloaded the same bytes into this operator session (`q1-handoff/` and `q1-handoff-verified.zip`, 19908902 bytes), and matched sha256 again. That session folder is the human copy source for this chat. It is not durable for the next agent, and it is not the packet DROP path. Run 250 downloaded `q1-media-r249` with gh and matched the wav and truncated-master checksums. Run 253 published the padded master on `q1-media-r253`. Next agent should not re-download unless a release asset is missing. Do not install the r249 master as the upload file.
+## Current reality (Run 455)
 
-## Current operator file
-- Name: `002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
-- Durable copy: Google Drive file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl`
-- Folder: `Content-Automation-handoff` (`1ftaVyh8BWQeWp45TIyX7Hh1o0MPmGRev`)
-- Link: https://drive.google.com/file/d/1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl/view
-- Bytes: 27200958
-- Duration: 308.40 s
-- Format: 44.1 kHz, mono, s16 wav
-- Voice: edge-tts `en-US-AndrewNeural` (espeak-ng still cannot be installed in this sandbox)
-- SHA256: `758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2`
-- Drive listing size_bytes: 27200958 (re-listed Runs 245 and 248; local re-download sha256 matched again Runs 246, 247, and 248). Level constants measured on the Run 244 decode: peak=0.7713, rms=0.1012, silence_frac=0.5089, clip_frac=0.0000. Those four would PASS if the same file were at the DROP path. Cards and export would still FAIL until the PNGs below are copied and a master exists.
-- kind: generated. Not a human recording. Not gate-machine Selected VO.
-- Anonymous fetch: not available. Run 246 `curl -L` of the uc export URL saved an HTML sign-in page, not this wav. Run 248 found no Drive share-permission tool and no GitHub release-upload tool.
-- Run 248 session copy: operator artifacts `q1-handoff/` plus zip `q1-handoff-verified.zip` (19908902 bytes). Next agent workspace may be empty. Use the Drive file id, not the zip path, and do not re-download unless the operator says the zip was lost.
+- Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
+- Status: `ready_for_vo` (text complete)
+- Videos published: **0**
+- Pre-upload path: stable. Q1 VO + 7 cards + r253 master exist on private GitHub releases and are installed by `tools/materialize_q1_release.py`.
+- Local gates (after materialize): `media_qa` PASS, `closed_brief_gate` PASS, `next_action` = upload-blocked, `operator_card` PASS, `selftest` PASS.
+- Remaining human gate: the three GitHub Actions secrets only (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`).
+- `oauth_idle_without_publish` stall has persisted for ~180 runs. Pure-verification agent runs have diminishing returns. Prefer a small reusable improvement when media is already present.
 
-## Cards (not packet-ready until copied)
-Same Drive folder. Generator rules match `tools/card_generator.py` (1920x1080). `cards.sha256` file id `1Exe7TolCKO8f7-vZ6HCSseGEmrVLyU2x` (846 bytes). Do not regenerate while those file ids list the sizes below. Do not mark `assets.md` ready in git until the PNGs exist under the packet `cards/` directory. Runs 246, 247, and 248 matched these sha256 values on download.
-
-| Packet path | Drive file id | Bytes | SHA256 |
-|-------------|---------------|------:|--------|
-| `cards/hook-card-on-a-closed-laptop-one-handwritte.png` | `1y21dpFuelq-IP2chdd-eg4qmLJRPlPkJ` | 42073 | `820cb09df9806151ed43336deab9dac656cae2dc8d9f6b6c38dee64c02d51982` |
-| `cards/payoff-same-card-stop-rule-under-the-sentenc.png` | `1iN3N2BRsy2Ka4xZKbrRIsFBnRY_Flj0n` | 27644 | `a8e6660f152afac65981b2eee6ec34efc9eacc151b19aa1af0ba23fa7aafaf9a` |
-| `cards/beat1-split-open-task-board-vs-one-index-car.png` | `1Hqmxzcl6_UoK6ZdlLSiK6_7GtjFURogf` | 27977 | `6fb7611f515ceee6682e140f9e14c637238143555b542851cfbb7fc031a8e20d` |
-| `cards/beat2-hand-writing-verb-object-place-on-a-ca.png` | `1N1mU8QWq7RfqaAwu8BDu3iXT59w6bqNm` | 35279 | `e0f306a8c5d41dde81edbab5e2fa70544be075ebcad98dd5a38dc50e69f3af3d` |
-| `cards/beat3-four-crossed-out-themes-replaced-by-on.png` | `1mtfPsr06AwxTXvnqnHFBQPxaEzJ-TuRG` | 34701 | `96e2ff34fe8f84b9f99f4094ed443a4606cb979758e084451d0fc1e3b5cc6b33` |
-| `cards/beat4-night-card-morning-start-shutdown-rewr.png` | `1ug0ax6vynDtWsaTDamXyeV02BHwikN0r` | 35053 | `0510c7d67b550a6c87fff801238fd5da1430db8c06a417f404bacba8522a74cc` |
-| `cards/cta-cta-card-write-tomorrow-s-next-action-on.png` | `1Tne_yISXFwl8_5HA_aJjWnC_4j53xnIp` | 39935 | `b0f67d7c5ad085f5e2882fdcda67a2e363a171d544d854b8c43d3b5d492e56e9` |
-
-## Fetch without regenerating
-If the artifacts file is missing, download Drive file id `1lnk7JB9uu2puCsWPuyScs_CchoQZsxZl` with the connected Drive account and check sha256. Do not synthesize again while that Drive file lists 27200958 bytes. Download the seven card ids above instead of re-running the card renderer while those sizes match. Regeneration is allowed only if both the Drive file and this checksum are gone. Do not use an unauthenticated curl; it returns a Google sign-in page. Do not treat a session zip as Selected VO. Do not re-download on the next run unless the operator says the Run 248 zip was lost.
-
-## Copy (gate machine only)
-The gate machine must receive these files from a signed-in session or from the Run 248 chat zip. A public link is not enough.
+## First commands on a fresh clone
 
 ```bash
-PACKET=videos/002-stop-deciding-what-to-work-on-every-morning
-DROP="$PACKET/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav"
-mkdir -p "$PACKET/vo" "$PACKET/cards" "$PACKET/export"
-cp -n /path/to/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav "$DROP"
-cp -n /path/to/cards/*.png "$PACKET/cards/"
-# Do not copy q1-media-r249 q1-master.mp4 here.
-# Finished master is q1-media-r253 q1-master-r253.mp4 only. See the Run 253 section.
-sha256sum "$DROP"
-# expect 758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2
-python3 tools/narration_adapter.py "$PACKET"
-python3 tools/card_generator.py "$PACKET" --inspect-only
+python3 tools/materialize_q1_release.py   # verifies checksums, installs r253 master, ignores truncated r249, does not commit media
+python3 tools/media_qa.py videos/002-stop-deciding-what-to-work-on-every-morning
+python3 tools/next_action.py videos/002-stop-deciding-what-to-work-on-every-morning
+python3 tools/operator_card.py            # prints the one human step
 ```
-Keep `vo_origin.md` kind=generated. Do not commit the wav or the PNGs.
 
-## Run 249 source media (wav and cards only)
-Repo is private. Anonymous curl still fails. With `gh` auth, r249 is the wav and seven PNGs only. Do not copy `q1-master.mp4` from this release onto `export/master.mp4`. That asset is 308.40s, sha256 `abec4eb94199d0cbbf00659891d4e79c0040a6b1bb5450fa6e1db0e54c4b4d53`, and truncates the 20s end screen. `youtube_upload.py` refuses that sha. `docs/gate_machine.md` already says the same.
+If `vo/`, `cards/`, and `export/master.mp4` are already present, do not rematerialize. Do not edit the closed brief generators unless `python3 tools/closed_brief_gate.py` fails. Prepend logs only through `python3 tools/record_run.py`.
+
+## The single remaining human step
+
+Follow the printable checklist:
 
 ```bash
-gh release download q1-media-r249 --repo takenthatusernameis-collab/Content-Automation -D /tmp/q1-media-r249
-PACKET=videos/002-stop-deciding-what-to-work-on-every-morning
-mkdir -p "$PACKET/vo" "$PACKET/cards"
-cp -n /tmp/q1-media-r249/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav \
-  "$PACKET/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav"
-cp -n /tmp/q1-media-r249/*.png "$PACKET/cards/"
-# do not cp q1-master.mp4
-sha256sum "$PACKET/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav"
-# expect 758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2
+cat docs/human_oauth_checklist.md
+# or
+python3 tools/operator_card.py
 ```
 
-kind remains generated. Do not regenerate the wav or cards while those checksums match.
+Then (human terminal only):
 
-## Run 253 finished local export
-Do not upload `q1-media-r249` `q1-master.mp4` (308.40s, truncated end screen).
-
-- Release: `q1-media-r253` (private; `gh` auth required). Still listed as of Run 256.
-- Asset: `q1-master-r253.mp4`
-- Bytes: 6633603
-- Duration: 328.40 s (VO 308.40 + 20 s end screen)
-- Video: 1920x1080 h264, audio aac
-- SHA256: `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546`
-- Encode: `assemble.py --execute` segmented, veryfast, crf 20, `apad=pad_dur=20` then `-shortest`
-- Not a YouTube upload. kind remains generated.
-- Re-download of the release asset matched this sha256 and duration (Run 253).
+1. Mint the refresh token with the required scopes (`youtube.upload`, `youtube.force-ssl`, `yt-analytics.readonly`).
+2. Store the three secrets with `gh secret set` (paste into the prompt; never on the command line).
+3. Optional local confirm: `python3 tools/human_secret_confirm.py` (never from an agent).
+4. Dispatch once:
 
 ```bash
-gh release download q1-media-r253 --repo takenthatusernameis-collab/Content-Automation -D /tmp/q1-media-r253
-PACKET=videos/002-stop-deciding-what-to-work-on-every-morning
-mkdir -p "$PACKET/export"
-cp -n /tmp/q1-media-r253/q1-master-r253.mp4 "$PACKET/export/master.mp4"
-sha256sum "$PACKET/export/master.mp4"
-# expect 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546
-# expect duration 328.40
+gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false
 ```
-Do not re-encode unless this asset is missing. Do not regenerate the wav or cards. The viewer description was drafted in Run 259 and must not contain "No upload happened". captions.srt is a Run 261 silence-proportional draft, not ASR; chapters.md is a Run 264 draft and those lines are already in publish.md. Approval-only review is delegated to the agent. The agent may approve captions/thumbnail only when the underlying audio/image is actually accessible and the documented evidence checks pass. Then use `youtube_upload.py PATH --execute` with valid YouTube OAuth. Dry-run READY is not an upload.
+
+Privacy stays private. Do not re-dispatch until a provider video id appears. Do not set `collect_feedback=true` until that id exists and 7 days have passed.
+
+See also issue #1 and `docs/youtube_integration.md`.
+
+## Do not
+
+- Scaffold Q2.
+- Poll secrets from an agent run.
+- Add a scanner, extend the operator card, or add another OAuth parser while videos published stay 0.
+- Treat the truncated r249 master as usable.
+- Invent analytics or a video id.
+- Commit any secret or token file.
+
+Older historical notes (Drive file ids, early release experiments) have been superseded by the materialize tool and are archived in the run logs. Do not re-implement those paths.

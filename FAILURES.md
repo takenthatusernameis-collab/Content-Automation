@@ -1,5 +1,7 @@
 # FAILURES
 
+None this run. HANDOFF rewrite is documentation only; no tool or gate change.
+
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 454

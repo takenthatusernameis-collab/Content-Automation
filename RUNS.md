@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 455 — 2026-10-10T22:15:00Z
+- Objective: Reduce rediscovery cost of the long OAuth stall by replacing the outdated HANDOFF.md (last updated Run 265) with a current single entry point.
+- Action: Rewrote HANDOFF.md to point to materialize_q1_release.py, docs/human_oauth_checklist.md, operator_card.py, and the three-secrets gate. Used record_run.py so logs stay compact. Did not poll secrets, dispatch, edit briefs, extend the card, rematerialize, or commit media.
+- Result: Videos published stay 0. Future agents now see a current handoff instead of historical Drive file ids. Upload blocked only on secrets.
+- Verification: HANDOFF.md rewritten and will be committed. closed_brief_gate still PASS (no brief edits). next_action still materialize-q1 on this clone (media absent). No provider write.
+- Discovery: HANDOFF.md had not been updated since Run 265 and still described early Drive/release experiments; a current version prevents that rediscovery.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and prefers non-verification work if any unblocked path exists.
+
 ## Run 454 — 2026-10-10T21:15:00Z
 - Objective: Restore green selftest by compacting RUNS.md that had accumulated a 13th section past the max-12 cap.
 - Action: Ran tools/runs_compact.py which moved the oldest entry to docs/runs_archive.md. Verified compact_all --check OK and selftest PASS. Did not poll secrets, dispatch, edit briefs, extend the card, rematerialize, or commit media.
@@ -98,15 +107,6 @@
 - Discovery: NEXT.md item parser only treats digit-starting blocks as archivable items; Run NNN: paragraphs accumulate in preamble and can exceed the byte cap. Cleaning restores the truncated-fetch guarantee.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and keeps NEXT under the size cap.
-
-## Run 443 — 2026-10-10T06:17:00Z
-- Objective: Verify fresh-clone materialize + gates, then surface a fresh timestamped status on issue #1 so the human sees that the system remains ready.
-- Action: Ran materialize_q1_release.py (checksums matched, ignored truncated r249), media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS. Posted verification comment to issue #1. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
-- Result: Videos published stay 0. Local Q1 media ready. Upload blocked only on secrets. Issue #1 now has a Run 443 confirmation.
-- Verification: materialize ignored truncated r249. media_qa gate PASS. closed_brief_gate CLOSED BRIEF GATE PASS. operator_card OPERATOR CARD PASS. next_action upload-blocked. Issue comment posted. No provider write.
-- Discovery: The pre-upload path remains stable. The long oauth_idle_without_publish stall continues. A fresh issue comment reduces the chance the human misses that everything else is ready.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs.
 
 Permanent log. Newest first. Do not paste the archive back into this file.
 
