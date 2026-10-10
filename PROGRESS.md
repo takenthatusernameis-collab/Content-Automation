@@ -1,5 +1,7 @@
 # PROGRESS
 
+Added a printable OAuth checklist. Estimated save: reduces risk of a common setup mistake on the single human step that unblocks all future videos. Videos published stay 0. Human minutes per video remain blocked on the secrets.
+
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
 ## Run 445 — 2026-10-10T09:14:00Z

@@ -1,5 +1,7 @@
 # FAILURES
 
+No new failure. The oauth_idle_without_publish stall remains the known external blocker.
+
 None. Pre-upload path stable.
 
 No new failure. Log-size accumulation on NEXT.md was a hygiene issue, not a functional failure. oauth_idle_without_publish continues.

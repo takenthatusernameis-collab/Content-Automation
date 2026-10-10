@@ -1427,3 +1427,12 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Fresh clones look like missing Selected VO even though releases are complete. Agents that only read the old upload-blocked sentence skip materialize and reopen closed brief stubs. Suspicious: oauth_idle_without_publish is unchanged since before Run 270.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1 via `python3 tools/operator_card.py`, stores the three secrets, then dispatches execute=true. Next agent materializes only if packet media is missing.
+
+## Run 434 — 2026-10-09T21:13:00Z
+- Objective: Restore the green selftest after Run 433 left STATE.md over the 12-section cap.
+- Action: Confirmed Actions run 37986179006 failed on `compact_all --check` and `state_compact_contract` (STATE=13). Ran `state_compact.py`, then recorded this note with `record_run.py` so compact happens in the same process. Did not poll secrets. Did not dispatch execute. Did not add a scanner, recovery edge, card extension, freeze module, or compact check. Did not rewrite Q1. Did not edit brief generators. Did not rematerialize media.
+- Result: Videos published stay 0. STATE.md is back at the cap. The human OAuth step is unchanged.
+- Verification: failed log names `STATE.md has 13 sections, max 12`. After compact, `compact_all.py --check` must print COMPACT ALL OK. No provider write.
+- Discovery: Run 433 verified media locally and still shipped a red selftest by skipping `record_run.py`. Suspicious: oauth_idle_without_publish is unchanged since before Run 270. Log-cap misses are the second repeating no-progress pattern.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent materializes only if packet media is missing, and prepends logs only through `record_run.py`.

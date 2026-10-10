@@ -1,5 +1,13 @@
 # STATE
 
+2026-10-10T10:20:00Z
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added printable human OAuth checklist. Local gates remain PASS. Suspicious: oauth_idle_without_publish still ~175 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
+
+2026-10-10T10:20:00Z
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added printable human OAuth checklist. Local gates remain PASS. Suspicious: oauth_idle_without_publish still ~175 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 Updated: 2026-10-10T09:14:00Z (Run 445)
 
 2026-10-10T09:14:00Z

@@ -91,6 +91,8 @@ Common pitfalls (read once):
 - Confirm the master is the r253 sha above; the r249 master is truncated and refused.
 
 Do not run gh secret list. Do not run gh api. Do not dispatch execute again.
+
+Printable checklist: docs/human_oauth_checklist.md
 """
 
 
