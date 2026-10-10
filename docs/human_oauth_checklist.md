@@ -29,6 +29,11 @@ Do not poll secrets from an agent run. Do not commit any secret or token file.
   gh secret set YOUTUBE_REFRESH_TOKEN --repo takenthatusernameis-collab/Content-Automation
   ```
 - [ ] 7b. Confirm the three secrets appear under Settings > Secrets and variables > Actions in the repository (human UI check only). Do not run `gh secret list` from an agent session.
+- [ ] 7c. Optional terminal confirmation (human terminal only, never from an agent or workflow):
+  ```bash
+  python3 tools/human_secret_confirm.py
+  ```
+  It prints PRESENT/MISSING for each name and never shows values. Exit 0 means all three exist.
 - [ ] 8. Dispatch once:
   ```bash
   gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false
