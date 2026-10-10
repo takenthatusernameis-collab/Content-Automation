@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-10T21:15:00Z (Run 454)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Compacted RUNS.md from 13 to 12 sections by moving the oldest entry to docs/runs_archive.md. selftest now PASS. compact_all --check OK. Media absent on this clone so next_action correctly reports materialize-q1. Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 2026-10-10T17:13:00Z (Run 453)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Strengthened the top of docs/human_oauth_checklist.md with an explicit ONLY ACTION NEEDED banner stating that ~180 verified runs have confirmed readiness and the three secrets + one dispatch are the sole remaining step. Local gates remain PASS after materialize. Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.

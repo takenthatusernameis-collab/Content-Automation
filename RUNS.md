@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 454 — 2026-10-10T21:15:00Z
+- Objective: Restore green selftest by compacting RUNS.md that had accumulated a 13th section past the max-12 cap.
+- Action: Ran tools/runs_compact.py which moved the oldest entry to docs/runs_archive.md. Verified compact_all --check OK and selftest PASS. Did not poll secrets, dispatch, edit briefs, extend the card, rematerialize, or commit media.
+- Result: Videos published stay 0. Selftest green. Upload blocked only on secrets. Log hygiene restored without new tools.
+- Verification: runs_compact moved=1. compact_all --check COMPACT ALL OK. selftest SELFTEST PASS. next_action reports materialize-q1 (media absent on clone).
+- Discovery: Live logs can drift over the section cap between runs; compacting in the recording path prevents a red selftest on the next push.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and prefers non-verification work.
+
 ## Run 453 — 2026-10-10T17:13:00Z
 - Objective: Reduce rediscovery cost of the long OAuth stall by making the single remaining human action unmistakable at the top of the existing checklist.
 - Action: Added an explicit ONLY ACTION NEEDED banner to the top of docs/human_oauth_checklist.md stating that ~180 verified runs have confirmed readiness and the three secrets + one dispatch are the sole remaining step. Updated the note. Did not poll secrets, dispatch, edit briefs, extend the card, rematerialize, or commit media.
@@ -94,24 +103,6 @@
 - Objective: Verify fresh-clone materialize + gates, then surface a fresh timestamped status on issue #1 so the human sees that the system remains ready.
 - Action: Ran materialize_q1_release.py (checksums matched, ignored truncated r249), media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS. Posted verification comment to issue #1. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
 - Result: Videos published stay 0. Local Q1 media ready. Upload blocked only on secrets. Issue #1 now has a Run 443 confirmation.
-- Verification: materialize ignored truncated r249. media_qa gate PASS. closed_brief_gate CLOSED BRIEF GATE PASS. operator_card OPERATOR CARD PASS. next_action upload-blocked. Issue comment posted. No provider write.
-- Discovery: The pre-upload path remains stable. The long oauth_idle_without_publish stall continues. A fresh issue comment reduces the chance the human misses that everything else is ready.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs.
-
-## Run 442 — 2026-10-10T05:25:00Z
-- Objective: Verify fresh-clone materialize + gates, then surface a fresh timestamped status on issue #1 so the human sees that the system remains ready.
-- Action: Ran materialize_q1_release.py (checksums matched, ignored truncated r249), media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS. Posted verification comment to issue #1. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
-- Result: Videos published stay 0. Local Q1 media ready. Upload blocked only on secrets. Issue #1 now has a Run 442 confirmation.
-- Verification: materialize ignored truncated r249. media_qa gate PASS. closed_brief_gate CLOSED BRIEF GATE PASS. operator_card OPERATOR CARD PASS. next_action upload-blocked. Issue comment posted. No provider write.
-- Discovery: The pre-upload path remains stable. The long oauth_idle_without_publish stall continues. A fresh issue comment reduces the chance the human misses that everything else is ready.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs.
-
-## Run 441 — 2026-10-10T07:20:00Z
-- Objective: Verify fresh-clone materialize + gates, then surface a fresh timestamped status on issue #1 so the human sees that the system remains ready.
-- Action: Ran materialize_q1_release.py (checksums matched, ignored truncated r249), media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS. Posted verification comment to issue #1. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
-- Result: Videos published stay 0. Local Q1 media ready. Upload blocked only on secrets. Issue #1 now has a Run 441 confirmation.
 - Verification: materialize ignored truncated r249. media_qa gate PASS. closed_brief_gate CLOSED BRIEF GATE PASS. operator_card OPERATOR CARD PASS. next_action upload-blocked. Issue comment posted. No provider write.
 - Discovery: The pre-upload path remains stable. The long oauth_idle_without_publish stall continues. A fresh issue comment reduces the chance the human misses that everything else is ready.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.

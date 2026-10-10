@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 454 (2026-10-10): restored selftest by compacting RUNS.md (13→12 sections). Estimated save: prevents one class of log-hygiene rediscovery and potential red selftest on the next Actions push. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: selftest green again.
+
 - Run 452 (2026-10-10): added human-facing note to OAuth checklist that ~180 verification runs have confirmed path stability. Estimated save: reduces chance of continued pure-verification agent churn until the human sets the secrets. Videos published stay 0. Human minutes per video remain blocked on the secrets.
 
 - Run 451 (2026-10-10): confirmed materialize + all local gates on fresh clone. Videos published stay 0. No new reusable capability; stall continues.

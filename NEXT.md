@@ -8,6 +8,8 @@ One human step: run `python3 tools/operator_card.py`, then `python3 tools/oauth_
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
 
+Run 454: Compacted RUNS.md (13→12 sections) so selftest PASS. Upload remains blocked on the three secrets. If vo/, cards/, or export/master.mp4 are missing, run python3 tools/materialize_q1_release.py and do not commit media. If present, do not rematerialize. Do not edit briefs unless closed_brief_gate fails. Prepend logs only through record_run.py. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Human step remains the checklist or operator_card.py then the three secrets and one dispatch. See issue #1.
+
 Run 452: Added human-facing note to checklist about the long stable verification streak. Upload remains blocked on the three secrets. If vo/, cards/, or export/master.mp4 are missing, run python3 tools/materialize_q1_release.py and do not commit media. If present, do not rematerialize. Do not edit briefs unless closed_brief_gate fails. Prepend logs only through record_run.py. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Human step remains the checklist or operator_card.py then the three secrets and one dispatch. See issue #1.
 
 Run 451: Verified materialize + gates on fresh clone. Upload remains blocked on the three secrets. The oauth_idle_without_publish stall is now ~180 runs; pure-verification runs continue to have diminishing returns. If vo/, cards/, or export/master.mp4 are missing, run python3 tools/materialize_q1_release.py and do not commit media. If present, do not rematerialize. Do not edit briefs unless closed_brief_gate fails. Prepend logs only through record_run.py. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Human step remains the checklist or operator_card.py then the three secrets and one dispatch. See issue #1.
@@ -27,6 +29,8 @@ Run 446: Added docs/human_oauth_checklist.md so the one human secret step has a 
 Run 445: Q1 media materialized and all local gates passed (media_qa, closed_brief_gate, next_action=upload-blocked, operator_card, selftest). Upload remains blocked on the three secrets. The oauth_idle_without_publish stall is now ~175 runs long; further pure-verification runs have diminishing returns unless a change is detected. If vo/, cards/, or export/master.mp4 are missing, run python3 tools/materialize_q1_release.py and do not commit media. If present, do not rematerialize. Do not edit briefs unless closed_brief_gate fails. Prepend logs only through record_run.py. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Human step remains operator_card.py then the three secrets and one dispatch. See issue #1.
 
 Run 444: NEXT.md size restored under 12000 by retaining only newest locks and human step. Upload remains blocked on the three secrets. If vo/, cards/, or export/master.mp4 are missing, run python3 tools/materialize_q1_release.py and do not commit media. If present, do not rematerialize. Do not edit briefs unless closed_brief_gate fails. Prepend logs only through record_run.py. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Human step remains operator_card.py then the three secrets and one dispatch. See issue #1.
+
+2026-10-10T21:15:00Z (Run 454)
 
 2026-10-10T17:13:00Z (Run 453)
 

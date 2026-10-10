@@ -1,5 +1,10 @@
 # FAILURES
 
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
+## Run 454
+No new failure. The previous selftest failure was the known 13-section RUNS.md cap; compacted it. OAuth idle continues.
+
 No new failure. oauth_idle_without_publish continues with no publish since before Run 270 (~180 runs). Do not treat repeated verification as progress toward publish. Do not rematerialize when media is present.
 
 No new failure. oauth_idle_without_publish continues with no publish since before Run 270 (~180 runs). Do not treat repeated verification as progress toward publish. Do not rematerialize when media is present.
@@ -20,7 +25,6 @@ No new failure. Log-size accumulation on NEXT.md was a hygiene issue, not a func
 
 No new failures. oauth_idle_without_publish continues as previously recorded.
 
-Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 442 — 2026-10-10T05:25:00Z
 - No new failure. oauth_idle_without_publish continues with no publish since before Run 270. Do not treat repeated verification as progress toward publish. Do not rematerialize when media is present.
@@ -77,9 +81,3 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 426 — 2026-10-09T11:20:00Z
 - Failed approach not retried: another publish-stub tag skip after a clean later-packet dry-run, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: Caption contract passed, then a later-packet dry-run still deleted emphasized words and printed on-screen labels. Unwrap inline emphasis. Stop the cue before ON SCREEN. Do not rewrite the approved Q1 caption file. oauth_idle_without_publish remains; the human step is issue 1.
-
-
-
-## Run 425 — 2026-10-09T10:20:00Z
-- Failed approach not retried: another publish-stub tag skip after a clean later-packet dry-run, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
-- Lesson: Publish contract passed and keys/mug/window dry-runs were clean. Stop the 420-424 publish microfix loop. The real leak was caption cues that counted plain spoken lines and printed an empty dash. Use the same spoken body for text and word count. Do not rewrite the approved Q1 caption file. oauth_idle_without_publish remains; the human step is issue 1.
