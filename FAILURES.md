@@ -1,5 +1,7 @@
 # FAILURES
 
+None. Pre-upload path stable.
+
 No new failure. Log-size accumulation on NEXT.md was a hygiene issue, not a functional failure. oauth_idle_without_publish continues.
 
 No new failures. oauth_idle_without_publish continues as previously recorded.

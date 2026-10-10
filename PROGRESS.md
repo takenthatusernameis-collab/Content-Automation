@@ -1,8 +1,12 @@
 # PROGRESS
 
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
+## Run 445 — 2026-10-10T09:14:00Z
+- Verified materialize + gates on a fresh clone. Estimated save: none new (path already stable). Videos published stay 0. Human minutes per video remain blocked on the secrets. Flagged the ~175-run stall as increasingly suspicious for future agents.
+
 Run 444: Restored selftest by compacting NEXT.md size cap. No new automation. Human minutes per video unchanged (still blocked on secrets). Reliability: selftest green again.
 
-Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
 ## Run 443 — 2026-10-10T06:17:00Z
 - Verified materialize + gates on a fresh clone and posted a timestamped confirmation to GitHub issue #1. Estimated save: the human no longer needs to dig through RUNS.md to confirm that media and all local gates are ready as of this run. Videos published stay 0. Human minutes per video remain blocked on the secrets.

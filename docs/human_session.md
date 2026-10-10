@@ -11,7 +11,7 @@ Copy-paste drop recipe on the gate machine: `docs/gate_machine.md`.
 
 Q1 is already scaffolded. Status stays `ready_for_vo` because the wav is gitignored. Text paperwork is done. Generated VO + 7 cards + r253 master exist on private releases.
 
-On a fresh clone, materialize first (local only; does not commit media):
+On a fresh clone, materialize first (local only; does not commit media). Note: the OAuth stall has persisted ~175 runs with zero publish progress; pure verification by agents has diminishing returns:
 
 ```bash
 python3 tools/materialize_q1_release.py
