@@ -10,6 +10,8 @@ This file is the current operator entry point. Audio, card PNGs, and the master 
 - Status: `ready_for_vo` (text complete)
 - Videos published: **0**
 - Pre-upload path: stable. Q1 VO + 7 cards + r253 master exist on private GitHub releases and are installed by `tools/materialize_q1_release.py`.
+- r253 master SHA256 (documented, must be present): `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546`
+
 - Local gates (after materialize): `media_qa` PASS, `closed_brief_gate` PASS, `next_action` = upload-blocked, `operator_card` PASS, `selftest` PASS.
 - Remaining human gate: the three GitHub Actions secrets only (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`).
 - `oauth_idle_without_publish` stall has persisted for ~180 runs. Pure-verification agent runs have diminishing returns. Prefer a small reusable improvement when media is already present.
