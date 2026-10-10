@@ -1,10 +1,10 @@
 # HANDOFF
 
-Updated: 2026-10-10T22:15:00Z (Run 455)
+Updated: 2026-10-10T23:15:00Z (Run 456)
 
 This file is the current operator entry point. Audio, card PNGs, and the master stay gitignored. Do not `git add -f`. Do not commit media.
 
-## Current reality (Run 455)
+## Current reality (Run 456)
 
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - Status: `ready_for_vo` (text complete)
@@ -51,6 +51,22 @@ gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Co
 Privacy stays private. Do not re-dispatch until a provider video id appears. Do not set `collect_feedback=true` until that id exists and 7 days have passed.
 
 See also issue #1 and `docs/youtube_integration.md`.
+
+## Once a provider video id exists
+
+After the first successful execute dispatch produces a private video id (look in the Actions log and any committed `upload_state.json`):
+
+1. Do not re-dispatch execute until you confirm the id. Privacy stays private.
+2. Wait at least 7 days from the `uploaded_at` timestamp in the state file.
+3. Then dispatch once with collect_feedback:
+   ```bash
+   gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=false -f collect_feedback=true
+   ```
+4. The job will run `youtube_feedback.py --execute` and `experiment_loop.py --write-state` only if the window is due. It commits redacted `feedback_state.json` only on COLLECTED.
+5. Do not invent metrics, a baseline, or a keep/discard decision. The observation window and experiment ledger are already built; the next agent can compare once real data lands.
+6. After feedback is collected, the system can advance to COMPLETE only when `tools/complete.py` sees real evidence (VO + cards + master + id + metrics + experiment result).
+
+This path is already implemented and dry-run validated. No new tools are required. The stall ends only when the three secrets are set and the first execute succeeds.
 
 ## Do not
 

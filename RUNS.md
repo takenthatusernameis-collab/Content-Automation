@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 456 — 2026-10-10T23:15:00Z
+- Objective: Reduce rediscovery of the already-built post-publish feedback path once the long OAuth stall ends.
+- Action: Materialized Q1 (checksums matched). Verified media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS, selftest PASS. Added a concise 'Once a provider video id exists' section to HANDOFF.md covering the 7-day window and collect_feedback dispatch. Used record_run.py. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
+- Result: Videos published stay 0. HANDOFF now points agents and humans to the exact next commands after a video id appears. Upload blocked only on secrets.
+- Verification: materialize ignored truncated r249. media_qa gate PASS. closed_brief_gate PASS. next_action upload-blocked. operator_card PASS. selftest PASS. HANDOFF.md updated.
+- Discovery: The post-publish path (feedback collect after 7 days, experiment ledger) is fully implemented but was only documented deep in youtube_integration.md; a short entry-point section prevents rediscovery when the human finally sets the secrets.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and prefers non-verification work.
+
 ## Run 455 — 2026-10-10T22:15:00Z
 - Objective: Reduce rediscovery cost of the long OAuth stall by replacing the outdated HANDOFF.md (last updated Run 265) with a current single entry point.
 - Action: Rewrote HANDOFF.md to point to materialize_q1_release.py, docs/human_oauth_checklist.md, operator_card.py, and the three-secrets gate. Used record_run.py so logs stay compact. Did not poll secrets, dispatch, edit briefs, extend the card, rematerialize, or commit media.
@@ -98,15 +107,6 @@
 - Discovery: Pre-upload path remains stable. oauth_idle_without_publish stall is unchanged and now ~175 runs. Pure verification has diminishing returns.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and prefers non-verification work if any unblocked path exists.
-
-## Run 444 — 2026-10-10T07:30:00Z
-- Objective: Restore green selftest by compacting oversized NEXT.md that had accumulated near-identical run notes past the 12000-byte cap.
-- Action: Materialized Q1 (checksums matched, ignored truncated r249). Verified media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS. Rewrote NEXT.md to keep only essential Active locks, human step, and two newest run notes; moved prior content to docs/next_archive.md. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
-- Result: Videos published stay 0. Local Q1 media ready. Selftest now PASS. Upload blocked only on secrets.
-- Verification: materialize ignored truncated r249. media_qa gate PASS. closed_brief_gate PASS. operator_card PASS. next_action upload-blocked. next_compact_contract PASS. compact_all --check OK. selftest PASS. No provider write.
-- Discovery: NEXT.md item parser only treats digit-starting blocks as archivable items; Run NNN: paragraphs accumulate in preamble and can exceed the byte cap. Cleaning restores the truncated-fetch guarantee.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and keeps NEXT under the size cap.
 
 Permanent log. Newest first. Do not paste the archive back into this file.
 
