@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-10T17:13:00Z (Run 453)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Strengthened the top of docs/human_oauth_checklist.md with an explicit ONLY ACTION NEEDED banner stating that ~180 verified runs have confirmed readiness and the three secrets + one dispatch are the sole remaining step. Local gates remain PASS after materialize. Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 2026-10-10T16:20:00Z (Run 452)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added a note to docs/human_oauth_checklist.md reminding the human that ~180 verification runs have confirmed the path is stable, so further agent verification is low-leverage. Local gates remain PASS after materialize. Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
