@@ -138,8 +138,27 @@ LOCAL_GATE_NEGATIONS = (
 
 
 def run_deltas(text: str) -> list[str]:
-    parts = text.split("## Run ")
+    """Return newest-first run notes. Supports both legacy '## Run N delta' blocks and current timestamped entries."""
     deltas = []
+    # Current format: timestamp lines followed by a paragraph.
+    lines = text.splitlines()
+    i = 0
+    while i < len(lines):
+        line = lines[i].strip()
+        if line.startswith("2026-") and "(Run " in line:
+            # Collect the following non-empty paragraph(s) until next timestamp or blank-heavy break.
+            block_lines = []
+            i += 1
+            while i < len(lines) and not (lines[i].strip().startswith("2026-") and "(Run " in lines[i]):
+                block_lines.append(lines[i])
+                i += 1
+            block = "\n".join(block_lines).strip()
+            if block:
+                deltas.append(block)
+            continue
+        i += 1
+    # Legacy format fallback / supplement.
+    parts = text.split("## Run ")
     for part in parts[1:]:
         if "delta" not in part[:40]:
             continue
@@ -148,7 +167,12 @@ def run_deltas(text: str) -> list[str]:
 
 
 def _oauth_unpolled(delta: str) -> bool:
-    return "OAuth secrets were not polled" in delta and "Videos published stay 0" in delta
+    lowered = delta.lower()
+    has_unpolled = (
+        "oauth secrets were not polled" in lowered
+        or "oauth was not polled" in lowered
+    )
+    return has_unpolled and "videos published stay 0" in lowered
 
 
 def _oauth_stall(deltas: list[str]) -> bool:

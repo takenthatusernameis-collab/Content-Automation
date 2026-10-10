@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-11T00:13:00Z (Run 457)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Updated stall_watch.py so idle_streak and STALL_OAUTH_IDLE correctly detect the current timestamped STATE entries and the 'OAuth was not polled' phrasing. Live idle_streak is now 16; the flag is set. Local gates remain PASS after materialize. Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 2026-10-10T23:15:00Z (Run 456)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added a short 'Once a provider video id exists' section to HANDOFF.md so the post-publish feedback path is visible without rediscovering youtube_integration.md or the 7-day window. Local gates remain PASS after materialize. Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
