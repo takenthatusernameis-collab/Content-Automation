@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-10T15:20:00Z
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Strengthened the human OAuth checklist with an explicit UI confirmation step and an additional pitfall. Local gates remain PASS after materialize. Suspicious: oauth_idle_without_publish still ~175 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 Updated: 2026-10-10T14:16:00Z (Run 447)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Strengthened prompt evolution and next-run guidance against pure-verification loops after the ~175-run oauth_idle_without_publish stall. Local gates remain PASS after materialize. Suspicious: oauth_idle_without_publish still ~175 runs. Do not rematerialize when media is present. Do not reopen brief stubs.

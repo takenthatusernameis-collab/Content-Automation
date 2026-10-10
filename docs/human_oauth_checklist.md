@@ -28,6 +28,7 @@ Do not poll secrets from an agent run. Do not commit any secret or token file.
   gh secret set YOUTUBE_CLIENT_SECRET --repo takenthatusernameis-collab/Content-Automation
   gh secret set YOUTUBE_REFRESH_TOKEN --repo takenthatusernameis-collab/Content-Automation
   ```
+- [ ] 7b. Confirm the three secrets appear under Settings > Secrets and variables > Actions in the repository (human UI check only). Do not run `gh secret list` from an agent session.
 - [ ] 8. Dispatch once:
   ```bash
   gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false
@@ -40,6 +41,7 @@ Do not poll secrets from an agent run. Do not commit any secret or token file.
 - Pasting secrets into a repo file, commit, or command line instead of the `gh secret set` prompt.
 - Dispatching more than once before a video id appears.
 - Using the truncated r249 master instead of the r253 padded master.
+- Forgetting to add the channel account as a test user when the OAuth app is in Testing status.
 
 ## Success criteria
 

@@ -1,5 +1,7 @@
 # FAILURES
 
+No new failure. oauth_idle_without_publish continues with no publish since before Run 270. Do not treat repeated verification as progress toward publish. Do not rematerialize when media is present.
+
 No new failure. The oauth_idle_without_publish stall remains the known external blocker. Pure verification is now explicitly low-leverage.
 
 No new failure. The oauth_idle_without_publish stall remains the known external blocker.

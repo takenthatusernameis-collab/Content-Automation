@@ -1,5 +1,7 @@
 # PROGRESS
 
+Added an explicit GitHub UI confirmation step to the OAuth checklist. Estimated save: reduces risk of the human believing secrets are set when they are not visible in Settings. Videos published stay 0. Human minutes per video remain blocked on the secrets.
+
 Codified that pure verification has diminishing returns after ~175 idle runs. Estimated save: avoids one class of low-leverage agent runs going forward. Videos published stay 0. Human minutes per video remain blocked on the secrets.
 
 Added a printable OAuth checklist. Estimated save: reduces risk of a common setup mistake on the single human step that unblocks all future videos. Videos published stay 0. Human minutes per video remain blocked on the secrets.
