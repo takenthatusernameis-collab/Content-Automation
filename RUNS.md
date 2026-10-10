@@ -1,5 +1,23 @@
 # RUNS
 
+## Run 439 — 2026-10-10T02:15:00Z
+- Objective: Verify fresh-clone materialize + gates, then surface the ready status on the open human issue so the remaining step is timestamped and obvious.
+- Action: Ran materialize_q1_release.py (checksums matched, ignored truncated r249), media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS. Posted verification comment to issue #1. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
+- Result: Videos published stay 0. Local Q1 media ready. Upload blocked only on secrets. Issue #1 now has a Run 439 confirmation.
+- Verification: materialize ignored truncated r249. media_qa gate PASS. closed_brief_gate CLOSED BRIEF GATE PASS. operator_card OPERATOR CARD PASS. next_action upload-blocked. Issue comment posted. No provider write.
+- Discovery: The pre-upload path remains stable. The long oauth_idle_without_publish stall continues. A fresh issue comment reduces the chance the human misses that everything else is ready.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs.
+
+## Run 437 — 2026-10-10T03:30:00Z
+- Objective: Verify fresh-clone materialize + gates, then make the repository entry point (README) match current reality so future agents and the human do not rediscover the outdated VO-drop instruction.
+- Action: Cloned, ran materialize_q1_release.py (checksums matched, ignored truncated r249), media_qa PASS, closed_brief_gate PASS, next_action upload-blocked. Updated README.md live-packet and human-session sections. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
+- Result: Videos published stay 0. Local Q1 media ready. Upload blocked only on secrets. README now correctly names the three secrets and operator_card.py as the human gate.
+- Verification: materialize ignored truncated r249. media_qa gate PASS. closed_brief_gate CLOSED BRIEF GATE PASS. operator_card.py still OPERATOR CARD PASS. README diff reviewed. No provider write.
+- Discovery: README still described the remaining human gate as a Selected VO drop even after media materialize and OAuth became the sole blocker. Suspicious: oauth_idle_without_publish unchanged since before Run 270.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows operator_card.py. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs.
+
 ## Run 437 — 2026-10-10T03:30:00Z
 - Objective: Verify fresh-clone materialize + gates, then make the repository entry point (README) match current reality so future agents and the human do not rediscover the outdated VO-drop instruction.
 - Action: Cloned, ran materialize_q1_release.py (checksums matched, ignored truncated r249), media_qa PASS, closed_brief_gate PASS, next_action upload-blocked. Updated README.md live-packet and human-session sections. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
@@ -89,24 +107,6 @@
 - Discovery: Caption emphasis unwrap did not cover chapter titles. Dropping `not` inverted the beat. Suspicious: oauth_idle_without_publish is unchanged since before Run 270. Brief-stub microfixes moved to a new file after the asset loop closed.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent should run `python3 tools/chapter_draft_contract.py` before any new chapter edit. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails. Do not edit asset_brief, caption_brief, or publish_brief again unless a dry-run still fails the rule named in NEXT.md.
-
-## Run 427 — 2026-10-09T12:25:00Z
-- Objective: Verify Run 426 caption contract, then fix only a real later-packet dry-run failure outside the closed caption and publish loops.
-- Action: `caption_brief_contract.py` passed. Caption and publish later-packet dry-runs did not reprint the closed leaks. Did not edit caption_brief or publish_brief. Asset dry-run still put `ON SCREEN: FACE DOWN` into the need and `cards/hook-phone-face-up-on-screen-face-down.png`. VISUAL now stops before ON SCREEN. Added `tools/asset_brief_contract.py` and a selftest hook. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1. Did not open a title phrase edit.
-- Result: Videos published stay 0. On-screen labels no longer need a human card rename of that shape. Q1 assets.md unchanged.
-- Verification: `python3 tools/asset_brief_contract.py` PASS. `python3 tools/caption_brief_contract.py` PASS. `python3 tools/publish_brief_contract.py` PASS. `python3 tools/selftest.py` PASS. Phone asset dry-run need is `phone face up` and file is `cards/hook-phone-face-up.png`. No provider write.
-- Discovery: Run 426 stopped caption cues before ON SCREEN and left the same label on the asset row. Suspicious: oauth_idle_without_publish is unchanged since before Run 270.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent should run `python3 tools/asset_brief_contract.py` before any new asset edit. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails. Do not edit publish_brief or caption_brief again unless a dry-run still fails the rule named in NEXT.md.
-
-## Run 426 — 2026-10-09T11:20:00Z
-- Objective: Verify Run 425 caption contract, then fix only a real later-packet caption dry-run failure.
-- Action: `caption_brief_contract.py` passed. Later-packet dry-runs still deleted `*reopen*`, kept bullet dashes, and appended `ON SCREEN: STOP`. Spoken body now unwraps inline emphasis, drops italic-only visual lines and list markers, and stops before ON SCREEN. Contract covers those three leaks. Did not scaffold Q2. Did not poll secrets. Did not dispatch the workflow. Did not add a scanner, recovery edge, card extension, or compact check. Did not rewrite Q1. Did not edit publish_brief. Did not open a title phrase edit.
-- Result: Videos published stay 0. Emphasis, lists, and on-screen labels no longer need a human cue rewrite of that shape. Q1 captions.md unchanged.
-- Verification: `python3 tools/caption_brief_contract.py` PASS after the edit. `python3 tools/selftest.py` PASS. Q1 caption dry-run still prints spoken cues. No provider write.
-- Discovery: Run 425 filled empty plain beats and still stripped every `*...*` span, which deleted spoken words. Suspicious: oauth_idle_without_publish is unchanged since before Run 270.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: A human follows issue 1 via `python3 tools/operator_card.py`. Next agent should run `python3 tools/caption_brief_contract.py` before any new caption edit. Do not regenerate Q1. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails. Do not edit publish_brief again unless a dry-run still emits a machine sentence or a lone tag the title/mechanism rule does not drop. Do not edit caption_brief again unless a dry-run still deletes a spoken word or prints a visual or on-screen label.
 
 Permanent log. Newest first. Do not paste the archive back into this file.
 

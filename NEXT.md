@@ -1,7 +1,5 @@
 # NEXT
 
-Updated: 2026-10-10T03:30:00Z (Run 437)
-
 Run 433: Q1 release media materialized and media_qa passed on this machine. Upload dry-run fails only on the three OAuth secrets. Closed brief gate passed. If vo/, cards/, or export/master.mp4 are missing, run `python3 tools/materialize_q1_release.py` and do not commit media. If they are present, do not rematerialize. Do not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief unless `python3 tools/closed_brief_gate.py` fails. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card.
 
 Updated: 2026-10-09T18:12:00Z (Run 432)
@@ -18,6 +16,16 @@ One human step: run `python3 tools/operator_card.py`, then `python3 tools/oauth_
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
 
+# NEXT
+
+Updated: 2026-10-10T02:15:00Z (Run 439)
+
+Run 439: Q1 media materialized and media_qa + closed_brief_gate passed. Issue #1 comment added with verification. Upload remains blocked on the three secrets. If vo/, cards/, or export/master.mp4 are missing, run `python3 tools/materialize_q1_release.py` and do not commit media. If present, do not rematerialize. Do not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief unless `python3 tools/closed_brief_gate.py` fails. Prepend logs only through `python3 tools/record_run.py`. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Human step remains `python3 tools/operator_card.py` then the three secrets and one dispatch. See issue #1 for the full recipe.
+
+Updated: 2026-10-10T03:30:00Z (Run 437)
+
+Run 433: Q1 release media materialized and media_qa passed on this machine. Upload dry-run fails only on the three OAuth secrets. Closed brief gate passed. If vo/, cards/, or export/master.mp4 are missing, run `python3 tools/materialize_q1_release.py` and do not commit media. If they are present, do not rematerialize. Do not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief unless `python3 tools/closed_brief_gate.py` fails. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card.
+
 Run 437: README entry point now points at materialize + operator_card instead of the outdated VO drop. If vo/, cards/, or export/master.mp4 are missing, run `python3 tools/materialize_q1_release.py` and do not commit media. If present, do not rematerialize. Do not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief unless `python3 tools/closed_brief_gate.py` fails. Prepend logs only through `python3 tools/record_run.py`. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Human step remains `python3 tools/operator_card.py` then the three secrets and one dispatch.
 
 Run 436: operator card now includes a short Common pitfalls list. Do not edit the recipe. If vo/, cards/, or export/master.mp4 are missing, run `python3 tools/materialize_q1_release.py` and do not commit media. If present, do not rematerialize. Do not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief unless `python3 tools/closed_brief_gate.py` fails. Prepend logs only through `python3 tools/record_run.py`. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Human step remains `python3 tools/operator_card.py` then the three secrets and one dispatch.
@@ -27,5 +35,7 @@ Run 434: Actions selftest 37986179006 failed because STATE.md had 13 sections. C
 Run 432: closed brief gate passed (five contracts, three title dry-runs). Do not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief unless `python3 tools/closed_brief_gate.py` fails. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless that gate fails SELF_CHECK.
 
 Run 431: publish, chapter, caption, and asset contracts passed. Title dry-runs on later-packet charger, phone, and notebook shapes passed SELF_CHECK. Do not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief unless a new dry-run fails the rule already named here. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Do not grow STOP or TAG_GLUE. Do not open a phrase edit unless a later-packet title dry-run fails SELF_CHECK.
+
+2026-10-10T02:15:00Z (Run 439)
 
 435. Fresh clone materialize verified. Wav sha256 758bfa4056c7d3ce588dafe7b40c5cccdd3a54df429ecf4583fa256cb1591da2. Master sha256 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546. If vo/, cards/, or export/master.mp4 are missing, run `python3 tools/materialize_q1_release.py` and do not commit media. If they are present, do not rematerialize. Do not edit briefs unless `python3 tools/closed_brief_gate.py` fails. Prepend logs only through `python3 tools/record_run.py`. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check.
