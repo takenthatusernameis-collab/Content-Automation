@@ -66,3 +66,7 @@ After the single `execute=true` dispatch:
 - Videos published count moves from 0.
 
 See also `python3 tools/operator_card.py` and issue #1.
+
+## Note for the human (as of Run 451)
+
+Agents have verified materialize + all local gates on fresh clones across ~180 runs with no change in the external blocker. The pre-upload path is stable. Further pure-verification agent runs have diminishing returns. The only remaining step that advances the system is completing the three secrets above and the one dispatch. Once a private video id appears, the system can move to feedback collection after the observation window.

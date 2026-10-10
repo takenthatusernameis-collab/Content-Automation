@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 452 (2026-10-10): added human-facing note to OAuth checklist that ~180 verification runs have confirmed path stability. Estimated save: reduces chance of continued pure-verification agent churn until the human sets the secrets. Videos published stay 0. Human minutes per video remain blocked on the secrets.
+
 - Run 451 (2026-10-10): confirmed materialize + all local gates on fresh clone. Videos published stay 0. No new reusable capability; stall continues.
 
 Added human-only secret confirmation script. Estimated save: reduces risk that the human dispatches before the three secrets are actually stored, or misses a missing secret. Videos published stay 0. Human minutes per video remain blocked on the secrets.

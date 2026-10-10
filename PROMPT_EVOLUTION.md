@@ -52,3 +52,7 @@ Evidence: oauth_idle_without_publish has persisted across ~175 runs (since befor
 ## Run 451 (2026-10-10T15:30:00Z)
 Evidence: oauth_idle_without_publish has now persisted ~180 runs with zero published videos. Materialize + gates remain PASS. Pure verification (materialize + status record) continues to have diminishing returns. 
 Lesson: Prefer any small unblocked production-tool or clarity improvement over another identical verification cycle. If no such improvement is available, record the stable state once and stop. Do not poll secrets. Do not scaffold Q2. Human step remains the checklist or operator_card.py then the three secrets and one dispatch.
+
+## Run 452 — 2026-10-10T16:20:00Z
+Evidence: oauth_idle_without_publish ~180 runs. Materialize + gates PASS. Added explicit human-facing note in the checklist that further pure verification is low-leverage.
+Lesson: When the external blocker is unchanged after many verified runs, surface that fact to the human in the checklist so the remaining action is unambiguous. Do not treat another verification cycle as progress.
