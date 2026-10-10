@@ -1,5 +1,7 @@
 # FAILURES
 
+No new failure. The oauth_idle_without_publish stall remains the known external blocker. Pure verification is now explicitly low-leverage.
+
 No new failure. The oauth_idle_without_publish stall remains the known external blocker.
 
 None. Pre-upload path stable.

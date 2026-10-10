@@ -1,3 +1,5 @@
+Run 447 note: oauth_idle_without_publish has persisted ~175 runs with zero published videos. Pure verification runs (materialize + gates + status note) have diminishing returns. Prefer a small fix to an existing production tool or a clarifying doc change that prevents rediscovery. Do not spend the run only restating that media is ready and secrets are absent. Do not poll secrets. Do not scaffold Q2. The human step remains docs/human_oauth_checklist.md or operator_card.py then the three secrets and one dispatch.
+
 Run 390 note: idea_brief --queue puts that row's problem into why now. Q2 and Q3 lines differ. Do not scaffold Q2. Do not add a stall flag, compact check, card reprint, or recovery edge while videos published stay 0. The human step is still issue 1, then dispatch execute=true.
 
 Run 381 note: `STALL_RECOVERY_EDGE` means the last four STATE deltas wired a provider-state recovery path while videos published stay 0. Do not add another recovery edge. Do not poll secrets. The human step is still the three Actions secrets, then dispatch execute=true.

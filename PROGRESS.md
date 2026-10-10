@@ -1,5 +1,7 @@
 # PROGRESS
 
+Codified that pure verification has diminishing returns after ~175 idle runs. Estimated save: avoids one class of low-leverage agent runs going forward. Videos published stay 0. Human minutes per video remain blocked on the secrets.
+
 Added a printable OAuth checklist. Estimated save: reduces risk of a common setup mistake on the single human step that unblocks all future videos. Videos published stay 0. Human minutes per video remain blocked on the secrets.
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
