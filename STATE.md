@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-10T08:15:00Z
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Fresh clone materialize succeeded (checksums matched, ignored truncated r249). media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS, selftest PASS. Suspicious: oauth_idle_without_publish has now persisted across ~175 runs (since before Run 270) with zero progress toward publish. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 2026-10-10T07:30:00Z
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. NEXT.md compacted from 12073 to ~4k bytes to restore selftest PASS (accumulated identical run notes). media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS. Posted no new issue comment this run. Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Do not rematerialize when media is present. Do not reopen brief stubs.
@@ -79,4 +83,3 @@ Updated: 2026-10-10T03:30:00Z (Run 437)
 - Fresh clone materialize installed verified Q1 wav, 7 cards, and r253 master (checksums matched). media_qa gate PASS. closed_brief_gate PASS. next_action upload-blocked.
 - Updated README.md top sections so the live packet description and human session match current reality (media ready via materialize; remaining gate is the three secrets + operator_card.py). Outdated 'place Selected VO first' language removed from the entry point.
 - Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Do not rematerialize when media is present. Do not reopen brief stubs.
-
