@@ -56,3 +56,7 @@ Lesson: Prefer any small unblocked production-tool or clarity improvement over a
 ## Run 452 — 2026-10-10T16:20:00Z
 Evidence: oauth_idle_without_publish ~180 runs. Materialize + gates PASS. Added explicit human-facing note in the checklist that further pure verification is low-leverage.
 Lesson: When the external blocker is unchanged after many verified runs, surface that fact to the human in the checklist so the remaining action is unambiguous. Do not treat another verification cycle as progress.
+
+## Run 453 — 2026-10-10T17:13:00Z
+Evidence: oauth_idle_without_publish ~180 runs. Materialize + gates PASS. Added ONLY ACTION NEEDED banner at the top of docs/human_oauth_checklist.md.
+Lesson: Place the single remaining action in the most prominent position in the document humans are directed to. This reduces rediscovery for both humans and agents. Prefer clarity improvements in the existing human path over new verification cycles while the external blocker is unchanged. Do not modify ORIGINAL_MASTER_PROMPT.md.
