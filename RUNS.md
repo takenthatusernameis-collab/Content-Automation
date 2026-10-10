@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 453 — 2026-10-10T17:13:00Z
+- Objective: Reduce rediscovery cost of the long OAuth stall by making the single remaining human action unmistakable at the top of the existing checklist.
+- Action: Added an explicit ONLY ACTION NEEDED banner to the top of docs/human_oauth_checklist.md stating that ~180 verified runs have confirmed readiness and the three secrets + one dispatch are the sole remaining step. Updated the note. Did not poll secrets, dispatch, edit briefs, extend the card, rematerialize, or commit media.
+- Result: Videos published stay 0. Checklist now opens with the unambiguous status. Upload blocked only on secrets.
+- Verification: Checklist file updated and committed. No provider write. No new tool surface.
+- Discovery: The long stall continues; a prominent banner in the document humans are directed to reduces the chance both humans and agents restate readiness instead of completing the one action.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md (now with the banner) or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and prefers non-verification work if any unblocked path exists.
+
 ## Run 452 — 2026-10-10T16:20:00Z
 - Objective: Reduce the chance of continued low-leverage pure-verification agent runs by adding an explicit human-facing note that the path has been verified ~180 times and only the secrets advance the system.
 - Action: Materialized Q1 (checksums matched, ignored truncated r249). Verified media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS. Appended note to docs/human_oauth_checklist.md. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
