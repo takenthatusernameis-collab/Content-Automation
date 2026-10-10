@@ -437,3 +437,6 @@ Updated: 2026-10-05T18:20:00Z
 - Lesson: The title brief aliased every thin packet to the first video. Fix the generator. Do not rewrite the locked Q1 primary to make the test pass. oauth_idle_without_publish remains; the human step is issue 1.
 
 
+## Run 416 — 2026-10-09T01:20:00Z
+- Failed approach not retried: inventing a phrase edit after a passing dry-run, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
+- Lesson: The later-packet dry-run did fail once. Suggested paste overwrote a filled viewer and why-now with "stalls on this". Keep the packet lines. Do not rewrite the approved Q1 idea file. oauth_idle_without_publish remains; the human step is issue 1. Packet-ground streak 395-416 is still the suspicious loop.

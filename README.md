@@ -2,26 +2,30 @@
 
 Recurring-agent workspace for a low-labor YouTube production system.
 
-## Live packet (do this first)
+## Live packet (current state)
 
-Status `ready_for_vo`. Text paperwork is done. The remaining human gate is a selected take.
+Packet: `videos/002-stop-deciding-what-to-work-on-every-morning`  
+Status: `ready_for_vo` (text complete; generated VO + cards + r253 master exist on private releases and can be materialized).  
+Videos published: 0.  
+**Remaining human gate: three GitHub Actions secrets** (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`).
 
-- Packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
-- Reading card: `vo_session.md` (952 words, ~06:21)
-- Put the take here (wav or flac): `videos/002-stop-deciding-what-to-work-on-every-morning/vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav`
-- Drop recipe: `docs/gate_machine.md` (generated fallback authorized; optional already-installed TTS one-liners). Do not wrap TTS under tools/.
-- Repo-root `vo/` is not Selected VO. `.gitignore` keeps the take local. Do not `git add -f` it.
-- After the file exists locally: `docs/human_session.md` steps 5–7.
+Run this first on a fresh clone:
 
-Do not scaffold Q2. Do not start from the sample-001 commands below. Those are contract examples, not the live job.
+```bash
+python3 tools/materialize_q1_release.py   # installs verified wav, 7 cards, r253 master; ignores truncated r249
+python3 tools/media_qa.py videos/002-stop-deciding-what-to-work-on-every-morning
+python3 tools/next_action.py videos/002-stop-deciding-what-to-work-on-every-morning
+python3 tools/operator_card.py            # prints the one human OAuth step + pitfalls
+```
+
+Do not scaffold Q2. Do not poll secrets. Do not edit brief generators unless `python3 tools/closed_brief_gate.py` fails. Do not rematerialize when vo/, cards/, and export/master.mp4 are already present. Prepend logs only through `python3 tools/record_run.py`.
 
 Start here for context:
-- `docs/gate_machine.md` — packet-relative Selected VO drop on the gate machine (do this before doctor/queue/scaffold)
-- `docs/human_session.md` — operator path after the take exists (doctor first only when starting a *new* packet; never write the fixture)
-- `docs/agent_session.md` — agent path when clone fails (reconstruct + selftest)
-- `docs/topic_queue.md` — next working titles (not drafts)
 - `STATE.md` — current reality
 - `NEXT.md` — what the next run should do
+- `tools/operator_card.py` — the one human step
+- `docs/gate_machine.md` — packet-relative Selected VO drop (generated fallback already authorized for Q1)
+- `docs/youtube_integration.md` — upload contract
 - `RUNS.md` — timestamped log
 - `ORIGINAL_MASTER_PROMPT.md` — frozen operating prompt
 - `docs/channel.md` — working niche lock
@@ -29,89 +33,30 @@ Start here for context:
 
 ## Human session
 
-On the gate machine, place Selected VO first:
+The one remaining human step is the three OAuth secrets. Print it with:
 
 ```bash
-# Follow docs/gate_machine.md. Do not invent a wav in git. Do not git add -f.
-python3 tools/narration_adapter.py videos/002-stop-deciding-what-to-work-on-every-morning
+python3 tools/operator_card.py
 ```
 
-Parked until that take exists on disk:
+Then follow the numbered steps it reprints from `tools/oauth_setup.py`. Store the secrets with `gh secret set` (paste into the prompt). Dispatch once:
 
 ```bash
-python3 tools/doctor.py
-python3 tools/queue_status.py
-python3 tools/next_topic.py
+gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false
 ```
 
-Those three printers now print the Q1 hold *before* idea_brief/new_packet. Do not treat the first copy-paste they show after the hold as permission to scaffold Q2.
+Do not run `gh secret list`. Do not commit the token file. After a provider video id exists and `uploaded_at` is at least 7 days old, a later dispatch with `collect_feedback=true` is allowed.
 
-Then follow `docs/human_session.md` steps 5–7. Do not scan the tool list below unless doctor printed a command you do not recognize.
-
-After Q1 ships and a mark-needed folder exists, those printers, `docs/human_session.md`, and `docs/agent_session.md` WAVE 3 name idea_brief — they are not the live job while Q1 is `ready_for_vo`:
-
-```bash
-# PARKED until Q1 has on-disk Selected VO
-python3 tools/idea_brief.py PATH --block
-# paste idea fields by hand into PATH/idea.md
-python3 tools/idea_brief.py PATH --check
-```
-
-After scaffold on a *future* live packet, `python3 tools/hint.py PATH` prints idea_brief and words.py lines. After a GitHub write of a high-risk tool:
-
-```bash
-python3 tools/prove_locks.py
-```
-
-After a tool change (agents):
-
-```bash
-python3 tools/selftest.py
-```
-
-If there is no checkout, reconstruct the minimum tree in `docs/agent_session.md`. Do not retry HTTPS clone after one failure.
-
-## Local tools
-
-Live job first:
-
-```bash
-python3 tools/narration_adapter.py videos/002-stop-deciding-what-to-work-on-every-morning
-python3 tools/pipeline_status.py videos/002-stop-deciding-what-to-work-on-every-morning
-python3 tools/next_action.py videos/002-stop-deciding-what-to-work-on-every-morning
-python3 tools/hint.py videos/002-stop-deciding-what-to-work-on-every-morning
-```
-
-Parked board / contract examples (not the live job):
+Parked until that publish happens:
 
 ```bash
 python3 tools/doctor.py
 python3 tools/queue_status.py
 python3 tools/next_topic.py
-python3 tools/mark_topic.py --id Q1
-python3 tools/idea_brief.py PATH --block
-python3 tools/idea_brief.py PATH --check
-python3 tools/hint.py PATH
-python3 tools/words.py PATH
-python3 tools/prove_locks.py
-python3 tools/selftest.py
-python3 tools/queue_contract.py
-python3 tools/write_path_contract.py
-python3 tools/scaffold_contract.py
-python3 tools/new_packet.py "Working title here"
-python3 tools/new_idea.py "Stop deciding what to work on every morning"
-python3 tools/pipeline_status.py
-python3 tools/next_action.py
-python3 tools/hint.py
-python3 tools/validate_packet.py --all
-python3 tools/validate_packet.py videos/sample-001-why-systems-beat-motivation
-python3 tools/validate_packet.py --duration videos/sample-001-why-systems-beat-motivation
-python3 tools/expand_brief.py videos/sample-001-why-systems-beat-motivation --dry-run
-python3 tools/expand_prompt.py videos/sample-001-why-systems-beat-motivation
-python3 tools/apply_script.py videos/sample-001-why-systems-beat-motivation --from /tmp/new-script.md
-python3 tools/set_status.py videos/sample-001-why-systems-beat-motivation --to ready_for_vo
-python3 tools/vo_session.py videos/sample-001-why-systems-beat-motivation --dry-run
 ```
+
+Those printers still print the Q1 hold before idea_brief/new_packet. Do not treat them as permission to scaffold Q2.
+
 
 `queue_status.py` is read-only. It classifies each `docs/topic_queue.md` row against `videos/` (ok-queued, mark-needed, missing-folder, ok-used, parked, fixture-refuse). After a mark-needed folder exists it also prints idea_brief --block / paste / --check. It does not write the queue or scaffold packets. While Q1 is `ready_for_vo` it prints the gate_machine hold before those scaffold lines.
 

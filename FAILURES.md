@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 437
+- No failure. README update is documentation only. Media materialize and gates unchanged from prior verified path.
+
+
 ## Run 436 — 2026-10-10T02:20:00Z
 - Failed approach not retried: editing a closed brief, scaffolding Q2, polling secrets, adding a scanner, or adding a compact check while videos published stay 0.
 - Lesson: Local gates continue to pass after materialize. The operator card can carry a static pitfalls list without drifting from the recipe. oauth_idle_without_publish remains; the human step is still issue 1.
@@ -63,7 +67,3 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 417 — 2026-10-09T02:11:00Z
 - Failed approach not retried: inventing a phrase edit after a passing reprint, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: The later-packet reprint passed. `--check` still wanted the queue placeholder and would tell a human to overwrite a filled card. Use the same grounded fields. Do not rewrite the approved Q1 idea file. oauth_idle_without_publish remains; the human step is issue 1. Packet-ground streak 395-417 is still the suspicious loop.
-
-## Run 416 — 2026-10-09T01:20:00Z
-- Failed approach not retried: inventing a phrase edit after a passing dry-run, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
-- Lesson: The later-packet dry-run did fail once. Suggested paste overwrote a filled viewer and why-now with "stalls on this". Keep the packet lines. Do not rewrite the approved Q1 idea file. oauth_idle_without_publish remains; the human step is issue 1. Packet-ground streak 395-416 is still the suspicious loop.

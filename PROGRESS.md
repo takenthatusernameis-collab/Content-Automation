@@ -2,6 +2,10 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 437 — 2026-10-10T03:30:00Z
+- Updated README.md so the first screen a human or agent sees correctly states that Q1 media is materializable and the remaining gate is the three GitHub Actions secrets via operator_card.py. Estimated save: avoids one rediscovery of the outdated VO-drop path on every future fresh clone. Videos published stay 0. Human minutes per video remain blocked on the secrets.
+
+
 ## Run 436 — 2026-10-10T02:20:00Z
 - Added Common pitfalls to the operator card so the one human OAuth setup is less likely to hit known failure modes (wrong scope, secret leak, truncated master, double dispatch). Estimated save: 5-15 minutes of human rework if a common mistake is avoided on the eventual setup. Videos published stay 0. Human minutes per video remain blocked on the secrets.
 
