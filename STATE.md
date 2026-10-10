@@ -1,5 +1,15 @@
 # STATE
 
+Updated: 2026-10-10T07:20:00Z (Run 441)
+
+## Run 441 delta
+- OAuth was not polled and execute was not dispatched. Videos published stay 0.
+- No new scanner. Q1 packet markdown was not rewritten. No new packet folder. No new exchange parser. No new pre-upload checker. No new recovery edge. Did not extend the card. Did not add a freeze module. Did not add a compact check. Did not open a title phrase edit. Did not edit publish_brief, chapter_draft, caption_brief, asset_brief, or title_thumb_brief.
+- `STALL_OAUTH_IDLE` still stands. `playlist_id` remains `not_set`. The unpublished video is still the three GitHub Actions secrets.
+- Fresh clone materialize succeeded (checksums matched, ignored truncated r249). media_qa gate PASS. closed_brief_gate PASS. next_action upload-blocked. operator_card PASS. doctor consistent with upload-blocked.
+- Posted fresh verification comment to GitHub issue #1.
+- Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 Updated: 2026-10-10T03:45:00Z (Run 440)
 
 ## Run 440 delta

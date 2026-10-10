@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 441 — 2026-10-10T07:20:00Z
+- No new failure. oauth_idle_without_publish continues (no publish since before Run 270). Local gates remain PASS. Do not treat repeated verification as progress toward publish.
+
+
 ## Run 440
 - None. The long oauth_idle_without_publish continues unchanged. No new failure introduced.
 
@@ -59,8 +63,3 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 424 — 2026-10-09T09:12:00Z
 - Failed approach not retried: appending another verb to TAG_GLUE, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: Publish contract passed, then a later-packet dry-run still tokenized problem prose. Take tags from the title and mechanism. Do not grow the skip lists. Do not rewrite the approved Q1 publish file. oauth_idle_without_publish remains; the human step is issue 1. Publish-stub microfixes 420-424 are the suspicious loop if the next dry-run is clean.
-
-
-## Run 423 — 2026-10-09T08:14:00Z
-- Failed approach not retried: inventing a title phrase edit after SELF_CHECK was not reopened, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
-- Lesson: Publish contract passed, then a later-packet dry-run still leaked the machine stall sentence and function-word tags. Omit the stall sentence when problem is empty. Skip don't/until/ends/onto/has/where/does as lone tags. Do not rewrite the approved Q1 publish file. oauth_idle_without_publish remains; the human step is issue 1. Publish-stub microfixes 420-423 are the suspicious loop if the next dry-run is clean.
