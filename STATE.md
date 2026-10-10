@@ -1,5 +1,13 @@
 # STATE
 
+Updated: 2026-10-10T06:17:00Z (Run 443)
+
+## Run 443 delta
+- OAuth was not polled and execute was not dispatched. Videos published stay 0.
+- Fresh clone materialize succeeded (checksums matched, ignored truncated r249). media_qa gate PASS. closed_brief_gate PASS. next_action upload-blocked. operator_card PASS.
+- Posted confirmation comment to GitHub issue #1 with the verification timestamp.
+- Suspicious: oauth_idle_without_publish still has no publish since before Run 270. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 Updated: 2026-10-10T05:25:00Z (Run 442)
 
 ## Run 442 delta

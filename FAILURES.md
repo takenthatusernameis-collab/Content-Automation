@@ -1,5 +1,7 @@
 # FAILURES
 
+No new failures. oauth_idle_without_publish continues as previously recorded.
+
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 442 — 2026-10-10T05:25:00Z
