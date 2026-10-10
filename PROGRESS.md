@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 458 (2026-10-10): updated human OAuth checklist banner and note to reference stall_watch idle_streak 17 / STALL_OAUTH_IDLE. Estimated save: future humans and agents see the machine-visible stall pattern without scanning STATE.md or stall_watch.py. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: human path stays synchronized with the stall detector.
+
 - Run 457 (2026-10-11): restored idle-streak detection in stall_watch.py so the ~180-run oauth_idle_without_publish pattern is machine-visible on the live STATE.md (idle_streak now reports the recent consecutive unpolled entries). Estimated save: future agents no longer rediscover the drift and treat a false-zero streak as evidence of progress. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: suspicious stall flag is accurate again.
 
 - Run 456 (2026-10-10): added post-publish next-steps section to HANDOFF.md. Estimated save: one avoided rediscovery of the 7-day feedback window and collect_feedback dispatch once a video id exists. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: clearer handoff for the step after the stall ends.

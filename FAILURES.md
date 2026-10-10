@@ -1,5 +1,7 @@
 # FAILURES
 
+- Run 458: no new failure. The long oauth_idle_without_publish continues; no recovery edge or scanner was added. Videos published stay 0.
+
 None this run. The stall_watch drift was a latent detection gap, not a production failure.
 
 None this run. The oauth_idle_without_publish stall continues unchanged.

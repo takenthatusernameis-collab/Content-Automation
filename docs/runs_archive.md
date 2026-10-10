@@ -1526,3 +1526,12 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Pre-upload path remains stable. oauth_idle_without_publish stall is unchanged and now ~175 runs. Pure verification has diminishing returns.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and prefers non-verification work if any unblocked path exists.
+
+## Run 446 — 2026-10-10T10:20:00Z
+- Objective: Add a printable human OAuth checklist so the remaining one-time secret step is harder to mis-execute.
+- Action: Created docs/human_oauth_checklist.md with numbered steps, exact commands, pitfalls, and success criteria. Pointed operator_card.py at it. Did not poll secrets, dispatch, edit briefs, or commit media.
+- Result: Videos published stay 0. Local gates still PASS. Human now has a single checklist document in addition to the operator card.
+- Verification: operator_card still prints OPERATOR CARD PASS and includes the checklist pointer. selftest PASS.
+- Discovery: The long oauth_idle_without_publish stall continues; a consolidated checklist reduces the chance of a setup mistake when the human finally acts.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and prefers non-verification work.

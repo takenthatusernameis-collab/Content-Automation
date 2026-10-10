@@ -1,8 +1,8 @@
 # Human OAuth Checklist
 
-**ONLY ACTION NEEDED (as of Run 453, 2026-10-10)**
+**ONLY ACTION NEEDED (as of Run 458, 2026-10-10T22:15:00Z)**
 
-Videos published: 0. Local Q1 media (VO + cards + r253 master) is ready and gates pass. Agents have confirmed this on fresh clones for ~180 consecutive runs. The pre-upload path is stable. Further pure-verification agent runs do not advance the system. The single remaining step that produces a private video id is completing the three secrets below and dispatching once.
+Videos published: 0. Local Q1 media (VO + cards + r253 master) is ready and gates pass. stall_watch.py now reports idle_streak: 17 and STALL_OAUTH_IDLE. Agents have confirmed readiness across ~180 runs. The pre-upload path is stable. Further pure-verification agent runs do not advance the system. The single remaining step that produces a private video id is completing the three secrets below and dispatching once.
 
 Do not poll secrets from an agent run. Do not commit any secret or token file.
 
@@ -69,6 +69,6 @@ After the single `execute=true` dispatch:
 
 See also `python3 tools/operator_card.py` and issue #1.
 
-## Note for the human (as of Run 453)
+## Note for the human (as of Run 458)
 
-Agents have verified materialize + all local gates on fresh clones across ~180 runs with no change in the external blocker. The pre-upload path is stable. Further pure-verification agent runs have diminishing returns. The only remaining step that advances the system is completing the three secrets above and the one dispatch. Once a private video id appears, the system can move to feedback collection after the observation window.
+Agents have verified materialize + all local gates on fresh clones across ~180 runs with no change in the external blocker. stall_watch.py reports idle_streak 17 and STALL_OAUTH_IDLE, making the pattern machine-visible. The pre-upload path is stable. Further pure-verification agent runs have diminishing returns. The only remaining step that advances the system is completing the three secrets above and the one dispatch. Once a private video id appears, the system can move to feedback collection after the observation window.

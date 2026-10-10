@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 458 — 2026-10-10T22:15:00Z
+- Objective: Keep the human-facing OAuth checklist current with the machine-visible stall so both humans and agents see idle_streak without rediscovery.
+- Action: Materialized Q1 (checksums matched). Verified media_qa PASS, closed_brief_gate PASS, next_action upload-blocked. Updated banner and note in docs/human_oauth_checklist.md to cite stall_watch idle_streak 17 and STALL_OAUTH_IDLE. Used record_run.py. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
+- Result: Videos published stay 0. Checklist now surfaces the current machine-reported streak. Upload blocked only on secrets.
+- Verification: materialize ignored truncated r249. media_qa gate PASS. closed_brief_gate PASS. next_action upload-blocked. stall_watch idle_streak: 17 and STALL_OAUTH_IDLE set. Checklist updated.
+- Discovery: Linking the human checklist directly to the stall_watch output reduces one class of rediscovery of the long oauth_idle_without_publish pattern.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and prefers non-verification work.
+
 ## Run 457 — 2026-10-11T00:13:00Z
 - Objective: Make the long oauth_idle_without_publish stall machine-visible again by fixing the outdated matcher and parser in stall_watch.py.
 - Action: Materialized Q1 (checksums matched). Verified media_qa PASS, closed_brief_gate PASS, next_action upload-blocked. Updated _oauth_unpolled to accept both phrasings and run_deltas to parse current timestamped STATE blocks. stall_watch now reports idle_streak 16 and STALL_OAUTH_IDLE. Used record_run.py. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
@@ -96,15 +105,6 @@
 - Result: Videos published stay 0. Local Q1 media ready. Upload blocked only on secrets. Future operating prompts now explicitly deprioritize pure-verification runs.
 - Verification: materialize ignored truncated r249. media_qa gate PASS. closed_brief_gate PASS. next_action upload-blocked. Files updated without media commit.
 - Discovery: The long stall continues; documenting diminishing returns of verification reduces the chance of another 10 identical runs.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and prefers non-verification work.
-
-## Run 446 — 2026-10-10T10:20:00Z
-- Objective: Add a printable human OAuth checklist so the remaining one-time secret step is harder to mis-execute.
-- Action: Created docs/human_oauth_checklist.md with numbered steps, exact commands, pitfalls, and success criteria. Pointed operator_card.py at it. Did not poll secrets, dispatch, edit briefs, or commit media.
-- Result: Videos published stay 0. Local gates still PASS. Human now has a single checklist document in addition to the operator card.
-- Verification: operator_card still prints OPERATOR CARD PASS and includes the checklist pointer. selftest PASS.
-- Discovery: The long oauth_idle_without_publish stall continues; a consolidated checklist reduces the chance of a setup mistake when the human finally acts.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and prefers non-verification work.
 
