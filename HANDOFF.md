@@ -16,6 +16,14 @@ This file is the current operator entry point. Audio, card PNGs, and the master 
 - Remaining human gate: the three GitHub Actions secrets only (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`).
 - `oauth_idle_without_publish` stall has persisted for ~180 runs. Pure-verification agent runs have diminishing returns. Prefer a small reusable improvement when media is already present.
 
+## Quick status
+
+```bash
+python3 tools/status_report.py
+```
+
+Prints videos published, stall flags (including idle_streak), next_action, and the human step reminder in one place. Does not write files.
+
 ## First commands on a fresh clone
 
 ```bash
