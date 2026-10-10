@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 440
+- None. The long oauth_idle_without_publish continues unchanged. No new failure introduced.
+
+
 ## Run 439
 - No failure. Materialize and gates matched prior verified path. Issue comment is documentation only. oauth_idle_without_publish remains; the human step is still issue 1.
 
@@ -60,7 +64,3 @@ Older failure notes live in `docs/failures_archive.md`. Do not paste the archive
 ## Run 423 — 2026-10-09T08:14:00Z
 - Failed approach not retried: inventing a title phrase edit after SELF_CHECK was not reopened, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: Publish contract passed, then a later-packet dry-run still leaked the machine stall sentence and function-word tags. Omit the stall sentence when problem is empty. Skip don't/until/ends/onto/has/where/does as lone tags. Do not rewrite the approved Q1 publish file. oauth_idle_without_publish remains; the human step is issue 1. Publish-stub microfixes 420-423 are the suspicious loop if the next dry-run is clean.
-
-## Run 422 — 2026-10-09T07:14:00Z
-- Failed approach not retried: inventing a title phrase edit after SELF_CHECK was not reopened, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
-- Lesson: Publish contract passed, then a later-packet dry-run still needed a description rewrite. Keep the finished period, the imperative, and the bare so-clause. Do not rewrite the approved Q1 publish file. oauth_idle_without_publish remains; the human step is issue 1. Publish-stub microfixes 420-422 are the suspicious loop if the next dry-run is only another glue word.
