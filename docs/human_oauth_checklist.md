@@ -35,6 +35,17 @@ Do not poll secrets from an agent run. Do not commit any secret or token file.
   ```
   Initial privacy stays private. Do not collect_feedback until a video id exists and 7 days have passed.
 
+## Expected outcomes after a successful dispatch
+
+After the single `execute=true` dispatch:
+
+- The Actions workflow run should complete green (or report a specific post-upload incomplete if captions/thumbnail fail after a video id was created).
+- A private YouTube video id should appear. Look for it in the workflow log under the upload step and in the packet `upload_state.json` (or equivalent provider state file) that the job may commit.
+- Privacy remains private. Do not expect a public video.
+- Videos published count in the repository state files should move from 0 once the id is persisted.
+- Do not dispatch a second execute until you see a video id. Do not set collect_feedback=true until that id exists and at least 7 days have passed since uploaded_at.
+- If the run fails before any video id, check the oauth_preflight step and the three secret presence lines. Do not re-dispatch blindly.
+
 ## Common pitfalls
 
 - Wrong scope (missing force-ssl or analytics) causes later caption or analytics failures.
