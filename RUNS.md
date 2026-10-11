@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 466 — 2026-10-11T06:16:00Z
+- Objective: Confirm optional playlist_id remains not_set as preferred unblocked improvement and keep human checklist current.
+- Action: Verified docs/channel.md playlist_id: not_set with documentation that upload does not wait on it. Updated docs/human_oauth_checklist.md banner and note to Run 466 / current stall. Marked confirmation done in tools/status_report.py preferred list. Did not poll secrets, dispatch, edit briefs, or commit media.
+- Result: Videos published stay 0. Human-facing checklist and agent preferred list stay synchronized with the long stall. Upload still blocked only on the three secrets.
+- Verification: Files updated and committed. No new tool surface. Local gates not re-run (media absent).
+- Discovery: The playlist placeholder has remained stable and correctly documented across the stall; confirming it closes one preferred item without inventing a PL id.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prefers remaining unblocked improvements from status_report, does not invent data.
+
 ## Run 464 — 2026-10-11T07:15:00Z
 - Objective: Prepare reusable structure for post-publish experiment baseline without inventing metrics, following status_report preferred unblocked improvements.
 - Action: Added docs/experiment_baseline.template.json clearly marked as template (not loaded by experiment_loop.py). Updated docs/experiments.md to point to it. Recorded in state files. Did not poll secrets, dispatch, edit briefs, or commit media.
