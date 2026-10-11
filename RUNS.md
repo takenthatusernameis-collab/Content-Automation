@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 469 — 2026-10-11T09:15:00Z
+- Objective: Keep the human OAuth checklist banner current and add precise, non-invented confirmation signals for the first successful upload so humans and future agents can recognize success without rediscovery.
+- Action: Materialized Q1 (checksums matched, r249 ignored). Verified media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS. Updated docs/human_oauth_checklist.md banner and note to Run 469 with confirmation paragraph. Marked item done in tools/status_report.py preferred list and added an optional README pointer. Used record_run.py. Did not poll secrets, dispatch, edit briefs, or commit media.
+- Result: Videos published stay 0. Checklist now states the exact signals (private id in Actions log and upload_state.json). Upload still blocked only on the three secrets.
+- Verification: materialize ignored truncated r249. media_qa PASS. closed_brief_gate PASS. next_action upload-blocked. operator_card PASS. status_report prints the updated preferred list.
+- Discovery: The preferred list item for banner currency was the remaining explicit unblocked preparation; completing it plus adding confirmation signals reduces post-upload ambiguity for the human.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prefers remaining unblocked improvements from status_report, does not invent data.
+
 ## Run 468 — 2026-10-11T08:20:00Z
 - Objective: Restore green selftest by reducing NEXT.md size below the 12000-byte cap after long notes accumulated in the preamble.
 - Action: Materialized Q1 (checksums matched). Verified media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS. Ran runs_compact and next_compact, then manually moved 16 older Run notes from NEXT.md preamble into docs/next_archive.md. Resulting NEXT.md is 4499 bytes. Updated status_report.py preferred list and docs/human_oauth_checklist.md banner. Used record_run.py. Did not poll secrets, dispatch, edit briefs, or commit media.

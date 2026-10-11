@@ -14,7 +14,11 @@ One human step: run `python3 tools/operator_card.py`, then `python3 tools/oauth_
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
 
+Run 469: Refreshed human_oauth_checklist.md banner and added first-upload confirmation signals (private video id in Actions log + upload_state.json). Updated status_report preferred list. Upload remains blocked on the three secrets. If vo/, cards/, or export/master.mp4 are missing, run python3 tools/materialize_q1_release.py and do not commit media. If present, do not rematerialize. Do not edit briefs unless closed_brief_gate fails. Prepend logs only through record_run.py. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Human step remains the checklist or operator_card.py then the three secrets and one dispatch. See issue #1.
+
 Run 468: Restored green selftest by compacting oversized NEXT.md (16 older notes moved to archive). Upload remains blocked on the three secrets. If vo/, cards/, or export/master.mp4 are missing, run python3 tools/materialize_q1_release.py and do not commit media. If present, do not rematerialize. Do not edit briefs unless closed_brief_gate fails. Prepend logs only through record_run.py. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Human step remains the checklist or operator_card.py then the three secrets and one dispatch. See issue #1.
+
+2026-10-11T09:15:00Z (Run 469)
 
 2026-10-11T08:20:00Z (Run 468)
 
@@ -37,5 +41,3 @@ Run 468: Restored green selftest by compacting oversized NEXT.md (16 older notes
 2026-10-10T17:13:00Z (Run 453)
 
 2026-10-10T16:20:00Z (Run 452)
-
-2026-10-10T15:30:00Z (Run 451)

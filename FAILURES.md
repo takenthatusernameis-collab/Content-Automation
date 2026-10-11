@@ -1,5 +1,7 @@
 # FAILURES
 
+- Run 469: no new failure. Pure-verification rediscovery continues to be avoided by preferring the listed unblocked preparations; banner refresh does not change the external secret gate.
+
 - None. The long oauth_idle_without_publish continues; no recovery edge or scanner was added. Videos published stay 0.
 
 - None. The long oauth_idle_without_publish continues; no recovery edge or scanner was added. Videos published stay 0.

@@ -1,8 +1,8 @@
 # Human OAuth Checklist
 
-**ONLY ACTION NEEDED (as of Run 468, 2026-10-11T08:20:00Z)**
+**ONLY ACTION NEEDED (as of Run 469, 2026-10-11T09:15:00Z)**
 
-Videos published: 0. Local Q1 media (VO + cards + r253 master) is ready and gates pass after materialize. `python3 tools/status_report.py` reports media_status, stall flags, and preferred unblocked improvements. stall_watch.py reports the long oauth_idle_without_publish pattern (historical ~180+ runs). Selftest is green (NEXT.md size restored under cap in Run 468). Agents have confirmed readiness across ~180 runs. The pre-upload path is stable. Further pure-verification agent runs do not advance the system. The single remaining step that produces a private video id is completing the three secrets below and dispatching once. HANDOFF.md now includes an explicit while-stalled section. NEXT.md size was restored under the contract cap in Run 468 so selftest stays green.
+Videos published: 0. Local Q1 media (VO + cards + r253 master) is ready and gates pass after materialize. After the single execute dispatch, confirm success by a private provider video id appearing in the Actions log and in the packet upload_state.json (privacy stays private). Do not invent an id. Do not re-dispatch until that id is visible.
 
 Do not poll secrets from an agent run. Do not commit any secret or token file.
 
@@ -69,6 +69,6 @@ After the single `execute=true` dispatch:
 
 See also `python3 tools/operator_card.py` and issue #1.
 
-## Note for the human (as of Run 468)
+## Note for the human (as of Run 469)
 
-Agents have verified materialize + all local gates on fresh clones across ~180+ runs with no change in the external blocker. The long oauth_idle_without_publish stall continues and is machine-visible via stall_watch.py. The pre-upload path is stable. Further pure-verification agent runs have diminishing returns. The only remaining step that advances the system is completing the three secrets above and the one dispatch. Once a private video id appears, the system can move to feedback collection after the observation window. Preferred agent work while stalled is listed in status_report.py (non-verification preparations only). HANDOFF.md now surfaces the while-stalled guidance directly. Run 468 restored NEXT.md under the 12000-byte cap.
+Agents have verified materialize + all local gates on fresh clones across ~180+ runs with no change in the external blocker. The long oauth_idle_without_publish stall continues and is machine-visible via stall_watch.py. The pre-upload path is stable. Further pure-verification agent runs have diminishing returns. The only remaining step that advances the system is completing the three secrets above and the one dispatch. Once a private video id appears, the system can move to feedback collection after the observation window. Preferred agent work while stalled is listed in status_report.py (non-verification preparations only). HANDOFF.md now surfaces the while-stalled guidance directly. Run 468 restored NEXT.md under the 12000-byte cap. Run 469 refreshed the banner and added the exact confirmation signals for the first video id.

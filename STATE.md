@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-11T09:15:00Z (Run 469)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Refreshed docs/human_oauth_checklist.md banner to Run 469 and added exact first-upload confirmation signals (private provider video id in the Actions log and in upload_state.json; do not invent an id; do not re-dispatch until visible). Marked the item done in tools/status_report.py preferred list and left an optional next pointer for README. Local gates PASS after materialize. Suspicious: oauth_idle_without_publish still ~180+ runs. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 2026-10-11T08:20:00Z (Run 468)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Compacted NEXT.md (size 14134 → 4499) by moving 16 older Run notes to docs/next_archive.md so next_compact_contract and selftest PASS again. RUNS.md also compacted earlier in the run. Updated status_report preferred list and human_oauth_checklist banner. Local gates PASS after materialize. Suspicious: oauth_idle_without_publish still ~180+ runs. Do not rematerialize when media is present. Do not reopen brief stubs.
@@ -41,3 +45,4 @@ sections). Extended state_compact.py to archive timestamp blocks when the live l
 2026-10-10T23:16:00Z (Run 459)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/status_report.py and a Quick status section to HANDOFF.md so agents and humans can get stall flags, next_action, and published count in one command. Local gates not re-run (media absent). Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
+

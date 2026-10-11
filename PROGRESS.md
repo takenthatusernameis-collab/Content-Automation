@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 469 (2026-10-11): refreshed human_oauth_checklist.md banner to current run and added exact first-upload confirmation signals (private video id in Actions log + upload_state.json). Estimated save: humans and agents can confirm the first private video id without scanning logs or inventing state. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: entry-point human docs stay synchronized with stall and success criteria.
+
 - Run 468 (2026-10-11): compacted NEXT.md size from 14134 to 4499 bytes by archiving older notes, restoring green selftest. Estimated save: prevents false selftest failure and potential red Actions on every future push while the long notes remain. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: log size and selftest stay aligned with the contract.
 
 - Run 467 (2026-10-11): refreshed HANDOFF.md with explicit while-stalled section and marked it done in status_report preferred list; updated checklist banner. Estimated save: future agents avoid rediscovering preferred non-verification work and pure-verification diminishing returns by seeing the guidance in the primary handoff document. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: entry-point docs stay synchronized with stall policy.

@@ -73,7 +73,8 @@ def main() -> int:
     print("3. DONE (Run 466): confirmed docs/channel.md playlist_id remains 'not_set' and is documented as optional (upload does not wait on it).")
     print("4. DONE (Run 467): refreshed HANDOFF.md with explicit 'While the OAuth stall continues' section pointing agents to preferred improvements and production_rules.")
     print("5. DONE (Run 468): restored green selftest by compacting NEXT.md size (older notes archived; next_compact_contract PASS).")
-    print("6. Keep the human_oauth_checklist.md banner current with the latest stall observation.")
+    print("6. DONE (Run 469): refreshed human_oauth_checklist.md banner to current run and added exact first-upload confirmation signals (private video id in Actions log + upload_state.json).")
+    print("7. Optional: add a one-line pointer in README.md Quick start to the confirmation signals now in the checklist.")
     print("Prefer one of these over pure verification. Do not scaffold Q2, poll secrets, or extend locked surfaces.")
     return 0
 
