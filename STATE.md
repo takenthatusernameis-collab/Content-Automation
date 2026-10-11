@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-11T22:12:00Z (Run 478)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Escalated the prolonged oauth_idle_without_publish stall (~186+ runs) as a process-level suspicion in tools/status_report.py so future agents treat continued pure documentation updates as low-leverage unless they introduce a new reusable capability. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
+
 2026-10-11T18:15:00Z (Run 477)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Reinforced the intentional freeze of the human_oauth_checklist banner (at Run 473 / STALL_BANNER_REFRESH) and the highest-leverage human step directly in README.md Human session and first-commands section. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Suspicious: oauth_idle_without_publish still ~185+ runs. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
@@ -27,8 +31,4 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Re
 2026-10-11T11:14:00Z (Run 471)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Refreshed HANDOFF.md to current run, noted that the preferred unblocked improvements list is complete, and reinforced that next agents should prioritize the single human step or only truly new small anti-rediscovery items that do not expand locked surfaces. Updated status_report.py preferred section accordingly. Local gates not re-run (media absent in this session). Suspicious: oauth_idle_without_publish still ~180+ runs. Do not rematerialize when media is present. Do not reopen brief stubs.
-
-2026-10-11T10:16:40Z (Run 470)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Added a one-line pointer in README.md Human session section to the first-upload confirmation signals (private provider video id in Actions log and upload_state.json) now documented in docs/human_oauth_checklist.md. Marked the item done in tools/status_report.py preferred list. Local gates not re-run (media absent in this session). Suspicious: oauth_idle_without_publish still ~180+ runs. Do not rematerialize when media is present. Do not reopen brief stubs.
 
