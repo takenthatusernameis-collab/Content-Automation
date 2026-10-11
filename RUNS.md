@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 480 — 2026-10-12T00:12:00Z
+- Objective: Reduce rediscovery of the exact r253 master SHA by making status_report.py media_status report MATCH/MISMATCH when the master file is present.
+- Action: Updated tools/status_report.py media_status to compute sha256 of export/master.mp4 and compare to the documented MASTER_SHA when media is present. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md via record_run. Did not poll secrets, dispatch, edit briefs, materialize, or commit media. Did not refresh the checklist banner.
+- Result: Videos published stay 0. Status printer now surfaces master SHA integrity without manual lookup when media exists. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: python3 tools/status_report.py runs cleanly and reports MISSING as expected (media absent). SHA check code present and uses the locked hash.
+- Discovery: Explicit SHA MATCH in the primary status command prevents future agents from needing to re-read HANDOFF or materialize source for the checksum after a clone.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
 ## Run 479 — 2026-10-11T23:13:00Z
 - Objective: Reduce rediscovery of the exact stall length by making the status_report.py suspicion line pull the live idle_streak dynamically from stall_watch.py.
 - Action: Updated tools/status_report.py to parse idle_streak from stall_watch output and include it in the STALL SUSPICION line (live=8; historical ~186+). Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md via record_run. Did not poll secrets, dispatch, edit briefs, materialize, or commit media. Did not refresh the checklist banner.

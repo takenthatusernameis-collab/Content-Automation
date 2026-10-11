@@ -31,6 +31,16 @@ def videos_published_from_state() -> str:
     return "unknown (see STATE.md)"
 
 
+MASTER_SHA = "4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546"
+
+def _sha256(path: Path) -> str:
+    import hashlib
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
 def media_status() -> str:
     vo = PACKET / "vo"
     cards = PACKET / "cards"
@@ -39,7 +49,9 @@ def media_status() -> str:
     has_cards = cards.is_dir() and any(cards.glob("*.png"))
     has_master = master.is_file() and master.stat().st_size > 1000
     if has_vo and has_cards and has_master:
-        return "PRESENT (do not rematerialize)"
+        sha = _sha256(master)
+        match = "MATCH" if sha == MASTER_SHA else f"MISMATCH (got {sha[:12]}...)"
+        return f"PRESENT (do not rematerialize; master SHA {match})"
     missing = []
     if not has_vo:
         missing.append("vo/")
@@ -47,7 +59,7 @@ def media_status() -> str:
         missing.append("cards/")
     if not has_master:
         missing.append("export/master.mp4")
-    return f"MISSING ({', '.join(missing)}) \u2014 run python3 tools/materialize_q1_release.py"
+    return f"MISSING ({', '.join(missing)}) — run python3 tools/materialize_q1_release.py"
 
 
 def parse_idle_streak(stall_out: str) -> str:
