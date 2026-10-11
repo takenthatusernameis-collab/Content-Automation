@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 477 (2026-10-11): reinforced intentional freeze of checklist banner and highest-leverage human step in README.md. Estimated save: reduces future agent and human cycles spent rediscovering the banner-timestamp question or the completed preferred list while OAuth remains absent. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: primary entry-point README now carries the freeze and single-step priority.
+
 - Run 476 (2026-10-11): added explicit intentional-freeze language for the Run 473 banner timestamp directly in docs/human_oauth_checklist.md. Estimated save: reduces future human and agent cycles spent questioning or refreshing the checklist timestamp while OAuth remains absent. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: human-facing checklist now carries the freeze explanation.
 
 - Run 475 (2026-10-11): noted in status_report.py that the human_oauth_checklist banner is intentionally left at Run 473 after STALL_BANNER_REFRESH. Estimated save: reduces future agent cycles spent deciding whether to update the checklist timestamp while OAuth remains absent. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: status printer now carries the intentional-staleness note.
