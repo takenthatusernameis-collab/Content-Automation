@@ -24,9 +24,16 @@ def main() -> int:
         return fail(f"STATE.md has {runs} run sections, max {state_compact.MAX_RUNS}")
     if not (ROOT / "docs" / "state_archive.md").is_file():
         return fail("docs/state_archive.md missing")
-    newest = state.split("## Run ", 1)
-    if len(newest) < 2 or "delta" not in newest[1][:80]:
-        return fail("newest delta missing from STATE.md")
+    if "## Run " in state:
+        newest = state.split("## Run ", 1)
+        if len(newest) < 2 or "delta" not in newest[1][:80]:
+            return fail("newest delta missing from STATE.md")
+    else:
+        # Current live format is timestamped paragraphs, not ## Run sections.
+        # A truncated fetch must still show a recent (Run N) entry.
+        head = state[:1200]
+        if "(Run " not in head or "Videos published" not in head:
+            return fail("newest delta missing from STATE.md")
     bloated = "# STATE\n\n" + "".join(
         f"## Run {i} delta\n- filler\n\n" for i in range(20, 0, -1)
     )

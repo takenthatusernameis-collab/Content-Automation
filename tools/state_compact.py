@@ -16,6 +16,42 @@ ARCHIVE = ROOT / "docs" / "state_archive.md"
 MAX_RUNS = 12
 SPLIT = "## Run "
 
+# Timestamped live format used by record_run.py: "YYYY-MM-DDTHH:MM:SSZ (Run N)\n\nparagraph"
+TS_MARKER = " (Run "
+
+
+def _split_timestamp_blocks(text: str) -> tuple[str, list[str]]:
+    """Split current STATE.md format into preamble and blocks.
+
+    Each block starts with an ISO timestamp containing ' (Run '.
+    """
+    if TS_MARKER not in text:
+        return text, []
+    # Keep the header as preamble.
+    if text.startswith("# STATE"):
+        rest = text[len("# STATE"):].lstrip("\n")
+        preamble = "# STATE\n\n"
+    else:
+        rest = text
+        preamble = ""
+    blocks = []
+    # Split on double-newline followed by a line that looks like a timestamp
+    parts = rest.split("\n\n")
+    current = []
+    for part in parts:
+        stripped = part.strip()
+        if stripped.startswith("20") and TS_MARKER in stripped[:40] and current:
+            blocks.append("\n\n".join(current).strip() + "\n\n")
+            current = [part]
+        else:
+            current.append(part)
+    if current:
+        blocks.append("\n\n".join(current).strip() + "\n\n")
+    # First block may be empty or residual; filter
+    blocks = [b for b in blocks if TS_MARKER in b]
+    return preamble, blocks
+
+
 
 def split_runs(text: str) -> tuple[str, list[str]]:
     """Return the newest preamble and run bodies.
@@ -49,6 +85,11 @@ def split_runs(text: str) -> tuple[str, list[str]]:
                 runs.append(part + "\n\n")
     if not preamble:
         preamble = "# STATE\n\n"
+    if not runs and TS_MARKER in text:
+        # Fall back to the live timestamped format.
+        ts_pre, ts_runs = _split_timestamp_blocks(text)
+        if ts_runs:
+            return ts_pre or preamble, ts_runs
     return preamble, runs
 
 
@@ -58,6 +99,9 @@ def compact_text(text: str, archive_text: str, max_runs: int = MAX_RUNS) -> tupl
     if not preamble.endswith("\n"):
         preamble += "\n"
     def render(parts: list[str]) -> str:
+        if parts and TS_MARKER in parts[0]:
+            # Timestamped blocks are already complete; do not prefix ## Run.
+            return preamble + "".join(parts)
         return preamble + "".join(SPLIT + part for part in parts)
 
     if len(runs) <= max_runs:
@@ -69,10 +113,15 @@ def compact_text(text: str, archive_text: str, max_runs: int = MAX_RUNS) -> tupl
     older = runs[max_runs:]
     moved = []
     for part in older:
-        marker = SPLIT + part[:24]
+        if TS_MARKER in part:
+            marker = part[:40]
+            addition_piece = part
+        else:
+            marker = SPLIT + part[:24]
+            addition_piece = SPLIT + part
         if marker in archive_text:
             continue
-        moved.append(SPLIT + part)
+        moved.append(addition_piece)
     addition = "".join(moved)
     if addition and not archive_text.endswith("\n"):
         archive_text += "\n"

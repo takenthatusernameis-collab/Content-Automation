@@ -1535,3 +1535,12 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: The long oauth_idle_without_publish stall continues; a consolidated checklist reduces the chance of a setup mistake when the human finally acts.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and prefers non-verification work.
+
+## Run 447 — 2026-10-10T14:16:00Z
+- Objective: Codify the lesson from the ~175-run OAuth idle stall so future agents treat pure verification as low-leverage and prefer small tool or clarity improvements.
+- Action: Materialized Q1 (checksums matched). Verified media_qa PASS, closed_brief_gate PASS, next_action upload-blocked. Appended evidence lesson to PROMPT_EVOLUTION.md. Prepended targeted note to NEXT_RUN_PROMPT.md. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
+- Result: Videos published stay 0. Local Q1 media ready. Upload blocked only on secrets. Future operating prompts now explicitly deprioritize pure-verification runs.
+- Verification: materialize ignored truncated r249. media_qa gate PASS. closed_brief_gate PASS. next_action upload-blocked. Files updated without media commit.
+- Discovery: The long stall continues; documenting diminishing returns of verification reduces the chance of another 10 identical runs.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and prefers non-verification work.

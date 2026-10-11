@@ -1,5 +1,10 @@
 # FAILURES
 
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
+## Run 460 — 2026-10-11T00:25:00Z
+- None. The format drift in the compact contract was a latent reliability issue, not a failed approach.
+
 - Run 458: no new failure. The long oauth_idle_without_publish continues; no recovery edge or scanner was added. Videos published stay 0.
 
 None this run. The stall_watch drift was a latent detection gap, not a production failure.
@@ -8,7 +13,6 @@ None this run. The oauth_idle_without_publish stall continues unchanged.
 
 None this run. HANDOFF rewrite is documentation only; no tool or gate change.
 
-Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 454
 No new failure. The previous selftest failure was the known 13-section RUNS.md cap; compacted it. OAuth idle continues.
@@ -85,7 +89,3 @@ No new failures. oauth_idle_without_publish continues as previously recorded.
 ## Run 427 — 2026-10-09T12:25:00Z
 - Failed approach not retried: another caption or publish microfix after those dry-runs were clean, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: Caption and publish contracts passed. The real leak was the asset row folding ON SCREEN into the need and filename. Stop the visual capture before ON SCREEN. Do not rewrite the approved Q1 asset file. oauth_idle_without_publish remains; the human step is issue 1.
-
-## Run 426 — 2026-10-09T11:20:00Z
-- Failed approach not retried: another publish-stub tag skip after a clean later-packet dry-run, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
-- Lesson: Caption contract passed, then a later-packet dry-run still deleted emphasized words and printed on-screen labels. Unwrap inline emphasis. Stop the cue before ON SCREEN. Do not rewrite the approved Q1 caption file. oauth_idle_without_publish remains; the human step is issue 1.
