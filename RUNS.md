@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 473 — 2026-10-11T13:22:00Z
+- Objective: Keep the human OAuth checklist banner current so the ONLY ACTION NEEDED timestamp does not drift while the long stall continues.
+- Action: Updated docs/human_oauth_checklist.md banner and note section to Run 473. Updated STATE.md, NEXT.md, RUNS.md, and PROGRESS.md. Did not poll secrets, dispatch, edit briefs, materialize, or commit media.
+- Result: Videos published stay 0. Checklist banner is current. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File updated via GitHub API. No new tool surface. Local gates not re-run (media absent).
+- Discovery: Keeping the visible human-facing banner timestamped reduces the chance of stale guidance during the multi-month OAuth idle.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item, does not invent data or expand locked surfaces.
+
 ## Run 472 — 2026-10-11T12:24:43Z
 - Objective: Keep the human OAuth checklist banner current so the ONLY ACTION NEEDED timestamp does not drift while the long stall continues.
 - Action: Updated docs/human_oauth_checklist.md banner and note section to Run 472. Updated STATE.md, NEXT.md, RUNS.md, and PROGRESS.md. Did not poll secrets, dispatch, edit briefs, materialize, or commit media.
