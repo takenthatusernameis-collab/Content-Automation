@@ -70,8 +70,9 @@ def main() -> int:
     print("--- while stalled: preferred unblocked improvements ---")
     print("1. DONE (Run 464): experiment_baseline.template.json in docs/ (copy only after real metrics).")
     print("2. DONE (Run 465): production_rules.md now contains agent behavior during external stalls.")
-    print("3. Confirm docs/channel.md playlist_id placeholder remains 'not_set' and is documented as optional (already is).")
+    print("3. DONE (Run 466): confirmed docs/channel.md playlist_id remains 'not_set' and is documented as optional (upload does not wait on it).")
     print("4. Add one concrete anti-rediscovery note to HANDOFF.md or README if a repeated agent mistake is observed.")
+    print("5. Keep the human_oauth_checklist.md banner current with the latest stall observation (done this run).")
     print("Prefer one of these over pure verification. Do not scaffold Q2, poll secrets, or extend locked surfaces.")
     return 0
 
