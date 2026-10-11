@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-11T01:15:00Z (Run 461)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Updated README.md to recommend tools/status_report.py as the absolute first command on any clone or run, reducing rediscovery of stall and next_action. Updated human_oauth_checklist.md banner to current run and live idle_streak 4 (historical ~180). Local gates PASS after materialize. Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 2026-10-11T00:25:00Z (Run 460)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Fixed state_compact_contract.py so selftest accepts the live timestamped STATE.md format (no longer requires

@@ -8,6 +8,8 @@ One human step: run `python3 tools/operator_card.py`, then `python3 tools/oauth_
 
 Older do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back into this file. Do not restore a behavior named there.
 
+Run 461: README now points agents and humans to status_report.py first. Upload remains blocked on the three secrets. If vo/, cards/, or export/master.mp4 are missing, run python3 tools/materialize_q1_release.py and do not commit media. If present, do not rematerialize. Do not edit briefs unless closed_brief_gate fails. Prepend logs only through record_run.py. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Human step remains the checklist or operator_card.py then the three secrets and one dispatch. See issue #1.
+
 Run 460: Restored selftest by aligning state_compact_contract and state_compact with the timestamped STATE format used by record_run.py. Upload remains blocked on the three secrets. If vo/, cards/, or export/master.mp4 are missing, run python3 tools/materialize_q1_release.py and do not commit media. If present, do not rematerialize. Do not edit briefs unless closed_brief_gate fails. Prepend logs only through record_run.py. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Human step remains the checklist or operator_card.py then the three secrets and one dispatch. See issue #1.
 
 Run 458: Updated human_oauth_checklist.md with current idle_streak. Upload remains blocked on the three secrets. If vo/, cards/, or export/master.mp4 are missing, run python3 tools/materialize_q1_release.py and do not commit media. If present, do not rematerialize. Do not edit briefs unless closed_brief_gate fails. Prepend logs only through record_run.py. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Human step remains the checklist or operator_card.py then the three secrets and one dispatch. See issue #1.
@@ -36,6 +38,8 @@ Run 445: Q1 media materialized and all local gates passed (media_qa, closed_brie
 
 Run 444: NEXT.md size restored under 12000 by retaining only newest locks and human step. Upload remains blocked on the three secrets. If vo/, cards/, or export/master.mp4 are missing, run python3 tools/materialize_q1_release.py and do not commit media. If present, do not rematerialize. Do not edit briefs unless closed_brief_gate fails. Prepend logs only through record_run.py. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Do not add a compact check. Human step remains operator_card.py then the three secrets and one dispatch. See issue #1.
 
+2026-10-11T01:15:00Z (Run 461)
+
 2026-10-11T00:25:00Z (Run 460)
 
 2026-10-10T22:15:00Z (Run 458)
@@ -57,5 +61,3 @@ Run 444: NEXT.md size restored under 12000 by retaining only newest locks and hu
 2026-10-10T14:20:00Z (Run 450)
 
 2026-10-10T13:30:00Z
-
-2026-10-10T15:20:00Z

@@ -1,8 +1,8 @@
 # Human OAuth Checklist
 
-**ONLY ACTION NEEDED (as of Run 460, 2026-10-11T00:25:00Z)**
+**ONLY ACTION NEEDED (as of Run 461, 2026-10-11T01:15:00Z)**
 
-Videos published: 0. Local Q1 media (VO + cards + r253 master) is ready and gates pass. stall_watch.py reports the OAuth-idle pattern. Selftest is green after the state-format alignment. Agents have confirmed readiness across ~180 runs. The pre-upload path is stable. Further pure-verification agent runs do not advance the system. The single remaining step that produces a private video id is completing the three secrets below and dispatching once.
+Videos published: 0. Local Q1 media (VO + cards + r253 master) is ready and gates pass. stall_watch.py reports idle_streak 4 on the live STATE (historical oauth_idle_without_publish ~180). Selftest is green. Agents have confirmed readiness across ~180 runs. The pre-upload path is stable. Further pure-verification agent runs do not advance the system. The single remaining step that produces a private video id is completing the three secrets below and dispatching once.
 
 Do not poll secrets from an agent run. Do not commit any secret or token file.
 

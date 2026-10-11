@@ -9,9 +9,11 @@ Status: `ready_for_vo` (text complete; generated VO + cards + r253 master exist 
 Videos published: 0.  
 **Remaining human gate: three GitHub Actions secrets** (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`).
 
-Run this first on a fresh clone:
+Run this first on any clone or agent run:
 
 ```bash
+python3 tools/status_report.py            # one-command stall flags, next_action, published count, human step
+# then, only if media is missing:
 python3 tools/materialize_q1_release.py   # installs verified wav, 7 cards, r253 master; ignores truncated r249
 python3 tools/media_qa.py videos/002-stop-deciding-what-to-work-on-every-morning
 python3 tools/next_action.py videos/002-stop-deciding-what-to-work-on-every-morning

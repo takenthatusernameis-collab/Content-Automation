@@ -1544,3 +1544,12 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: The long stall continues; documenting diminishing returns of verification reduces the chance of another 10 identical runs.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and prefers non-verification work.
+
+## Run 448 — 2026-10-10T15:20:00Z
+- Objective: Slightly harden the one-time human OAuth step against a common omission (not confirming secrets in the UI) and record that local gates still pass.
+- Action: Materialized Q1 (checksums matched, ignored truncated r249). Verified media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS. Added UI confirmation step and one pitfall to docs/human_oauth_checklist.md. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
+- Result: Videos published stay 0. Local Q1 media ready. Checklist is marginally clearer. Upload blocked only on secrets.
+- Verification: materialize ignored truncated r249. media_qa gate PASS. closed_brief_gate PASS. next_action upload-blocked. operator_card PASS. Checklist diff reviewed.
+- Discovery: The long stall continues; a small checklist clarification reduces one class of human setup mistake.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and prefers non-verification work.
