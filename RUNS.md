@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 471 — 2026-10-11T11:14:00Z
+- Objective: Clarify the end of the explicit preferred unblocked preparation path so future agents do not rediscover the completed list and instead prioritize the single human step or only newly identified small improvements.
+- Action: Refreshed HANDOFF.md timestamp and text to note preferred list complete and reinforce human-step priority. Updated tools/status_report.py preferred section with the same note. Updated STATE.md, NEXT.md, RUNS.md, and PROGRESS.md. Did not poll secrets, dispatch, edit briefs, materialize, or commit media.
+- Result: Videos published stay 0. Entry-point docs now explicitly state the preferred list is complete. Upload still blocked only on the three secrets. Future agents see clear direction against pure verification or re-checking completed items.
+- Verification: Files updated via GitHub API. No new tool surface. Local gates not re-run (media absent). Preferred list remains marked complete.
+- Discovery: Explicitly closing the preferred list in both HANDOFF and status_report reduces the chance that the next 10+ runs simply restate the same completed items.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item, does not invent data or expand locked surfaces.
+
 ## Run 470 — 2026-10-11T10:16:40Z
 - Objective: Complete the last optional preferred unblocked improvement by adding a direct pointer in README.md to the first-upload confirmation signals, reducing rediscovery after the human OAuth step.
 - Action: Updated README.md Human session section with a one-line pointer to the private video id signals in the checklist Expected outcomes. Marked the item DONE in tools/status_report.py preferred list. Updated STATE.md, NEXT.md, RUNS.md, and PROGRESS.md. Did not poll secrets, dispatch, edit briefs, materialize, or commit media.
