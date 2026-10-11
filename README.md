@@ -47,6 +47,8 @@ Then follow the numbered steps it reprints from `tools/oauth_setup.py`. Store th
 gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false
 ```
 
+After the single execute dispatch, confirm success by a private provider video id appearing in the Actions log and in the packet upload_state.json (see Expected outcomes in docs/human_oauth_checklist.md). Do not invent an id. Do not re-dispatch until that id is visible.
+
 Do not run `gh secret list`. Do not commit the token file. After a provider video id exists and `uploaded_at` is at least 7 days old, a later dispatch with `collect_feedback=true` is allowed.
 
 Parked until that publish happens:

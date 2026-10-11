@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 470 — 2026-10-11T10:16:40Z
+- Objective: Complete the last optional preferred unblocked improvement by adding a direct pointer in README.md to the first-upload confirmation signals, reducing rediscovery after the human OAuth step.
+- Action: Updated README.md Human session section with a one-line pointer to the private video id signals in the checklist Expected outcomes. Marked the item DONE in tools/status_report.py preferred list. Updated STATE.md, NEXT.md, RUNS.md, and PROGRESS.md. Did not poll secrets, dispatch, edit briefs, materialize, or commit media.
+- Result: Videos published stay 0. Preferred list now complete. Upload still blocked only on the three secrets. Future agents and humans see the confirmation signals from the primary README entry point.
+- Verification: Files updated via GitHub API. No new tool surface. Local gates not re-run (media absent). Preferred list item closed.
+- Discovery: Completing the preferred list closes the explicit unblocked preparation path while the OAuth stall continues; next high-value work is the human step itself or any newly identified small anti-rediscovery item.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prefers any new unblocked preparation over pure verification, does not invent data.
+
 ## Run 469 — 2026-10-11T09:15:00Z
 - Objective: Keep the human OAuth checklist banner current and add precise, non-invented confirmation signals for the first successful upload so humans and future agents can recognize success without rediscovery.
 - Action: Materialized Q1 (checksums matched, r249 ignored). Verified media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS. Updated docs/human_oauth_checklist.md banner and note to Run 469 with confirmation paragraph. Marked item done in tools/status_report.py preferred list and added an optional README pointer. Used record_run.py. Did not poll secrets, dispatch, edit briefs, or commit media.

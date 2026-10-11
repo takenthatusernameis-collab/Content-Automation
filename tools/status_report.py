@@ -74,8 +74,8 @@ def main() -> int:
     print("4. DONE (Run 467): refreshed HANDOFF.md with explicit 'While the OAuth stall continues' section pointing agents to preferred improvements and production_rules.")
     print("5. DONE (Run 468): restored green selftest by compacting NEXT.md size (older notes archived; next_compact_contract PASS).")
     print("6. DONE (Run 469): refreshed human_oauth_checklist.md banner to current run and added exact first-upload confirmation signals (private video id in Actions log + upload_state.json).")
-    print("7. Optional: add a one-line pointer in README.md Quick start to the confirmation signals now in the checklist.")
-    print("Prefer one of these over pure verification. Do not scaffold Q2, poll secrets, or extend locked surfaces.")
+    print("7. DONE (Run 470): added one-line pointer in README.md Human session to the first-upload confirmation signals in the checklist.")
+    print("Preferred list complete. Next agent prefers human step or any new small unblocked preparation that reduces future rediscovery. Do not scaffold Q2, poll secrets, or extend locked surfaces.")
     return 0
 
 

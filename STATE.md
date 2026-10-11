@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-11T10:16:40Z (Run 470)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added a one-line pointer in README.md Human session section to the first-upload confirmation signals (private provider video id in Actions log and upload_state.json) now documented in docs/human_oauth_checklist.md. Marked the item done in tools/status_report.py preferred list. Local gates not re-run (media absent in this session). Suspicious: oauth_idle_without_publish still ~180+ runs. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 2026-10-11T09:15:00Z (Run 469)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Refreshed docs/human_oauth_checklist.md banner to Run 469 and added exact first-upload confirmation signals (private provider video id in the Actions log and in upload_state.json; do not invent an id; do not re-dispatch until visible). Marked the item done in tools/status_report.py preferred list and left an optional next pointer for README. Local gates PASS after materialize. Suspicious: oauth_idle_without_publish still ~180+ runs. Do not rematerialize when media is present. Do not reopen brief stubs.
