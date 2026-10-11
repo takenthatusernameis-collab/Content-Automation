@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-11T07:15:00Z (Run 464)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added docs/experiment_baseline.template.json (clearly marked template; not loaded by experiment_loop) and pointed docs/experiments.md to it so agents can prepare a non-invented baseline structure for after the first publish without inventing metrics. Local gates not re-run (media absent). Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 2026-10-11T06:15:00Z (Run 463)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/status_report.py with a short while-stalled preferred unblocked improvements section so agents see concrete non-verification options instead of defaulting to gates. Updated human_oauth_checklist.md banner. Local gates not re-run (media absent). Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
