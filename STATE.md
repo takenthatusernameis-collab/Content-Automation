@@ -1,34 +1,9 @@
 # STATE
 
+2026-10-11T23:13:00Z (Run 479)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Made the STALL SUSPICION line in tools/status_report.py dynamic so it reports the live idle_streak from stall_watch.py (currently 8 on compacted STATE) alongside the historical ~186+ note. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
+
 2026-10-11T22:12:00Z (Run 478)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Escalated the prolonged oauth_idle_without_publish stall (~186+ runs) as a process-level suspicion in tools/status_report.py so future agents treat continued pure documentation updates as low-leverage unless they introduce a new reusable capability. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-11T18:15:00Z (Run 477)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Reinforced the intentional freeze of the human_oauth_checklist banner (at Run 473 / STALL_BANNER_REFRESH) and the highest-leverage human step directly in README.md Human session and first-commands section. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Suspicious: oauth_idle_without_publish still ~185+ runs. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-11T17:15:00Z (Run 476)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Added explicit "intentionally frozen at Run 473 (STALL_BANNER_REFRESH)" note to docs/human_oauth_checklist.md banner and note section so both humans and agents see the timestamp is deliberate and should not be refreshed. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Suspicious: oauth_idle_without_publish still ~184+ runs. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-11T19:15:00Z (Run 475)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Noted in status_report.py that the human_oauth_checklist banner is intentionally left at Run 473 after STALL_BANNER_REFRESH was added, reducing rediscovery of the timestamp-update question. Updated HANDOFF.md to current run. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Suspicious: oauth_idle_without_publish still ~183+ runs. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-11T14:22:00Z (Run 474)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Added STALL_BANNER_REFRESH detection to tools/stall_watch.py so repeated sole banner-timestamp refreshes become machine-visible and discouraged. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Suspicious: oauth_idle_without_publish still ~182+ runs. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-11T13:22:00Z (Run 473)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Refreshed docs/human_oauth_checklist.md banner and note to Run 473 so the ONLY ACTION NEEDED timestamp stays current. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Suspicious: oauth_idle_without_publish still ~181+ runs. Do not rematerialize when media is present. Do not reopen brief stubs.
-
-2026-10-11T12:24:43Z (Run 472)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Refreshed docs/human_oauth_checklist.md banner and note to Run 472 so the ONLY ACTION NEEDED timestamp stays current. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Suspicious: oauth_idle_without_publish still ~180+ runs. Do not rematerialize when media is present. Do not reopen brief stubs.
-
-2026-10-11T11:14:00Z (Run 471)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Refreshed HANDOFF.md to current run, noted that the preferred unblocked improvements list is complete, and reinforced that next agents should prioritize the single human step or only truly new small anti-rediscovery items that do not expand locked surfaces. Updated status_report.py preferred section accordingly. Local gates not re-run (media absent in this session). Suspicious: oauth_idle_without_publish still ~180+ runs. Do not rematerialize when media is present. Do not reopen brief stubs.
-
