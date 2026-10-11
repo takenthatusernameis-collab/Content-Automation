@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-11T17:15:00Z (Run 476)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added explicit "intentionally frozen at Run 473 (STALL_BANNER_REFRESH)" note to docs/human_oauth_checklist.md banner and note section so both humans and agents see the timestamp is deliberate and should not be refreshed. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Suspicious: oauth_idle_without_publish still ~184+ runs. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
+
 2026-10-11T19:15:00Z (Run 475)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Noted in status_report.py that the human_oauth_checklist banner is intentionally left at Run 473 after STALL_BANNER_REFRESH was added, reducing rediscovery of the timestamp-update question. Updated HANDOFF.md to current run. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Suspicious: oauth_idle_without_publish still ~183+ runs. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
