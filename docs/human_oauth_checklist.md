@@ -1,8 +1,8 @@
 # Human OAuth Checklist
 
-**ONLY ACTION NEEDED (as of Run 466, 2026-10-11T06:16:00Z)**
+**ONLY ACTION NEEDED (as of Run 467, 2026-10-11T07:15:00Z)**
 
-Videos published: 0. Local Q1 media (VO + cards + r253 master) is ready and gates pass after materialize. `python3 tools/status_report.py` reports media_status, stall flags, and preferred unblocked improvements. stall_watch.py reports the long oauth_idle_without_publish pattern (historical ~180+ runs). Selftest is green. Agents have confirmed readiness across ~180 runs. The pre-upload path is stable. Further pure-verification agent runs do not advance the system. The single remaining step that produces a private video id is completing the three secrets below and dispatching once.
+Videos published: 0. Local Q1 media (VO + cards + r253 master) is ready and gates pass after materialize. `python3 tools/status_report.py` reports media_status, stall flags, and preferred unblocked improvements. stall_watch.py reports the long oauth_idle_without_publish pattern (historical ~180+ runs). Selftest is green. Agents have confirmed readiness across ~180 runs. The pre-upload path is stable. Further pure-verification agent runs do not advance the system. The single remaining step that produces a private video id is completing the three secrets below and dispatching once. HANDOFF.md now includes an explicit while-stalled section.
 
 Do not poll secrets from an agent run. Do not commit any secret or token file.
 
@@ -69,6 +69,6 @@ After the single `execute=true` dispatch:
 
 See also `python3 tools/operator_card.py` and issue #1.
 
-## Note for the human (as of Run 466)
+## Note for the human (as of Run 467)
 
-Agents have verified materialize + all local gates on fresh clones across ~180+ runs with no change in the external blocker. The long oauth_idle_without_publish stall continues and is machine-visible via stall_watch.py. The pre-upload path is stable. Further pure-verification agent runs have diminishing returns. The only remaining step that advances the system is completing the three secrets above and the one dispatch. Once a private video id appears, the system can move to feedback collection after the observation window. Preferred agent work while stalled is listed in status_report.py (non-verification preparations only).
+Agents have verified materialize + all local gates on fresh clones across ~180+ runs with no change in the external blocker. The long oauth_idle_without_publish stall continues and is machine-visible via stall_watch.py. The pre-upload path is stable. Further pure-verification agent runs have diminishing returns. The only remaining step that advances the system is completing the three secrets above and the one dispatch. Once a private video id appears, the system can move to feedback collection after the observation window. Preferred agent work while stalled is listed in status_report.py (non-verification preparations only). HANDOFF.md now surfaces the while-stalled guidance directly.
