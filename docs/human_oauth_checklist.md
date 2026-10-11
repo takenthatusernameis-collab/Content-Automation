@@ -1,6 +1,6 @@
 # Human OAuth Checklist
 
-**ONLY ACTION NEEDED (as of Run 462, 2026-10-11T05:15:00Z)**
+**ONLY ACTION NEEDED (as of Run 463, 2026-10-11T06:15:00Z)**
 
 Videos published: 0. Local Q1 media (VO + cards + r253 master) is ready and gates pass after materialize. `python3 tools/status_report.py` now reports media_status so agents know immediately if materialize is needed. stall_watch.py reports idle_streak ~5 on the live STATE (historical oauth_idle_without_publish ~180). Selftest is green. Agents have confirmed readiness across ~180 runs. The pre-upload path is stable. Further pure-verification agent runs do not advance the system. The single remaining step that produces a private video id is completing the three secrets below and dispatching once.
 
@@ -69,6 +69,6 @@ After the single `execute=true` dispatch:
 
 See also `python3 tools/operator_card.py` and issue #1.
 
-## Note for the human (as of Run 460)
+## Note for the human (as of Run 463)
 
 Agents have verified materialize + all local gates on fresh clones across ~180 runs with no change in the external blocker. stall_watch.py reports idle_streak 17 and STALL_OAUTH_IDLE, making the pattern machine-visible. The pre-upload path is stable. Further pure-verification agent runs have diminishing returns. The only remaining step that advances the system is completing the three secrets above and the one dispatch. Once a private video id appears, the system can move to feedback collection after the observation window.

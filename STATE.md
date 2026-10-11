@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-11T06:15:00Z (Run 463)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/status_report.py with a short while-stalled preferred unblocked improvements section so agents see concrete non-verification options instead of defaulting to gates. Updated human_oauth_checklist.md banner. Local gates not re-run (media absent). Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 2026-10-11T05:15:00Z (Run 462)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/status_report.py to report local media presence (vo/, cards/, export/master.mp4) so agents know immediately whether to materialize or skip. Local gates not re-run (media absent in this clone). Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
@@ -25,4 +29,3 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Up
 2026-10-11T00:13:00Z (Run 457)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Updated stall_watch.py so idle_streak and STALL_OAUTH_IDLE correctly detect the current timestamped STATE entries and the 'OAuth was not polled' phrasing. Live idle_streak is now 16; the flag is set. Local gates remain PASS after materialize. Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
-
