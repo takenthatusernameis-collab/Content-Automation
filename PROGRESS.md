@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 464 (2026-10-11): added docs/experiment_baseline.template.json and linked it from docs/experiments.md. Estimated save: future agents avoid inventing or rediscovering the required baseline shape once real metrics exist after the first publish. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: experiment path more ready without risk of invented data.
+
 - Run 462 (2026-10-11): status_report.py now reports local media presence. Estimated save: one avoided next_action or manual ls on every future fresh clone or agent start when deciding whether to materialize. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: clearer single-command entry point.
 
 - Run 461 (2026-10-11): made status_report.py the first command in README.md and refreshed the OAuth checklist banner. Estimated save: one avoided sequence of individual gate commands on every future fresh clone or agent start. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: clearer entry point.
