@@ -72,7 +72,8 @@ def main() -> int:
     print("2. DONE (Run 465): production_rules.md now contains agent behavior during external stalls.")
     print("3. DONE (Run 466): confirmed docs/channel.md playlist_id remains 'not_set' and is documented as optional (upload does not wait on it).")
     print("4. DONE (Run 467): refreshed HANDOFF.md with explicit 'While the OAuth stall continues' section pointing agents to preferred improvements and production_rules.")
-    print("5. Keep the human_oauth_checklist.md banner current with the latest stall observation.")
+    print("5. DONE (Run 468): restored green selftest by compacting NEXT.md size (older notes archived; next_compact_contract PASS).")
+    print("6. Keep the human_oauth_checklist.md banner current with the latest stall observation.")
     print("Prefer one of these over pure verification. Do not scaffold Q2, poll secrets, or extend locked surfaces.")
     return 0
 
