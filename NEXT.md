@@ -4,6 +4,10 @@ Run 479: Made status_report.py stall suspicion dynamic (live idle_streak from st
 
 Older do-not-rediscover notes live in `docs/next_archive.md`.
 
+Run 481: status_report.py now shows target master SHA when media is missing. Preferred list remains complete. Next agents prioritize the single human step (three secrets + one dispatch) or only newly identified small anti-rediscovery items that introduce a new reusable capability and do not expand locked surfaces. Do not refresh the human_oauth_checklist banner solely to update its timestamp. Upload remains blocked on the three secrets. If vo/, cards/, or export/master.mp4 are missing, run python3 tools/materialize_q1_release.py and do not commit media. If present, do not rematerialize. Do not edit briefs unless closed_brief_gate fails. Prepend logs only through record_run.py. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Human step remains the checklist or operator_card.py then the three secrets and one dispatch. See issue #1.
+
 Run 480: status_report.py now verifies master SHA when present. Preferred list remains complete. Next agents prioritize the single human step (three secrets + one dispatch) or only newly identified small anti-rediscovery items that introduce a new reusable capability and do not expand locked surfaces. Do not refresh the human_oauth_checklist banner solely to update its timestamp. Upload remains blocked on the three secrets. If vo/, cards/, or export/master.mp4 are missing, run python3 tools/materialize_q1_release.py and do not commit media. If present, do not rematerialize. Do not edit briefs unless closed_brief_gate fails. Prepend logs only through record_run.py. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Human step remains the checklist or operator_card.py then the three secrets and one dispatch. See issue #1.
+
+2026-10-12T01:20:00Z (Run 481)
 
 2026-10-12T00:12:00Z (Run 480)

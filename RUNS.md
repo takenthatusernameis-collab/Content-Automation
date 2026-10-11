@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 481 — 2026-10-12T01:20:00Z
+- Objective: Reduce rediscovery of the documented r253 master SHA by surfacing the target hash prefix in status_report.py even when media is MISSING.
+- Action: Updated tools/status_report.py media_status missing path to include (target master SHA 4ff4c0e80ac6b571...). Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md via record_run. Did not poll secrets, dispatch, edit briefs, materialize, or commit media. Did not refresh the checklist banner.
+- Result: Videos published stay 0. Primary status command now shows the target checksum without opening HANDOFF. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: python3 tools/status_report.py reports the target SHA prefix in the MISSING line. Local gates not re-run (media absent).
+- Discovery: Agents on fresh clones see media MISSING; embedding the target hash in that line prevents a separate lookup of the exact SHA.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
 ## Run 480 — 2026-10-12T00:12:00Z
 - Objective: Reduce rediscovery of the exact r253 master SHA by making status_report.py media_status report MATCH/MISMATCH when the master file is present.
 - Action: Updated tools/status_report.py media_status to compute sha256 of export/master.mp4 and compare to the documented MASTER_SHA when media is present. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md via record_run. Did not poll secrets, dispatch, edit briefs, materialize, or commit media. Did not refresh the checklist banner.
