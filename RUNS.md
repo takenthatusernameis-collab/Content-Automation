@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 467 — 2026-10-11T07:15:00Z
+- Objective: Reduce agent rediscovery of preferred unblocked work while the long OAuth stall continues by making while-stalled guidance explicit in the primary handoff document.
+- Action: Updated HANDOFF.md timestamp and added an explicit 'While the OAuth stall continues' section pointing to status_report preferred improvements and production_rules agent-behavior section. Marked the item done in tools/status_report.py preferred list. Refreshed docs/human_oauth_checklist.md banner and note to Run 467. Did not poll secrets, dispatch, edit briefs, or commit media.
+- Result: Videos published stay 0. Future agents see clear guidance against pure verification and toward the listed preparations in the main entry-point document. Upload still blocked only on the three secrets.
+- Verification: Files updated and committed. No new tool surface. Local gates not re-run (media absent). Typo in status_report.py __name__ fixed before final push.
+- Discovery: HANDOFF.md was still dated to Run 456; refreshing it with stall-specific guidance closes one preferred anti-rediscovery item without inventing data or expanding locked surfaces.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prefers remaining unblocked improvements from status_report, does not invent data.
+
 ## Run 466 — 2026-10-11T06:16:00Z
 - Objective: Confirm optional playlist_id remains not_set as preferred unblocked improvement and keep human checklist current.
 - Action: Verified docs/channel.md playlist_id: not_set with documentation that upload does not wait on it. Updated docs/human_oauth_checklist.md banner and note to Run 466 / current stall. Marked confirmation done in tools/status_report.py preferred list. Did not poll secrets, dispatch, edit briefs, or commit media.
