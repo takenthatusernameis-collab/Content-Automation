@@ -47,16 +47,25 @@ def media_status() -> str:
         missing.append("cards/")
     if not has_master:
         missing.append("export/master.mp4")
-    return f"MISSING ({', '.join(missing)}) — run python3 tools/materialize_q1_release.py"
+    return f"MISSING ({', '.join(missing)}) \u2014 run python3 tools/materialize_q1_release.py"
+
+
+def parse_idle_streak(stall_out: str) -> str:
+    for line in stall_out.splitlines():
+        if line.startswith("idle_streak:"):
+            return line.split(":", 1)[1].strip()
+    return "unknown"
 
 
 def main() -> int:
+    stall_out = run_tool("stall_watch.py")
+    idle = parse_idle_streak(stall_out)
     print("STATUS REPORT")
     print("videos_published:", videos_published_from_state())
     print("media_status:", media_status())
     print()
     print("--- stall_watch ---")
-    print(run_tool("stall_watch.py").strip())
+    print(stall_out.strip())
     print()
     print("--- next_action (Q1) ---")
     print(run_tool("next_action.py", [str(PACKET.relative_to(ROOT))]).strip())
@@ -67,7 +76,7 @@ def main() -> int:
     print("Do not rematerialize if media present. Do not reopen closed briefs.")
     print("Pure verification has diminishing returns while STALL_OAUTH_IDLE is set.")
     print("Do not refresh the human_oauth_checklist banner solely for its timestamp (STALL_BANNER_REFRESH).")
-    print("STALL SUSPICION: oauth_idle_without_publish has now persisted ~186+ runs. Continued pure documentation updates have diminishing returns and should be treated as low-leverage unless they introduce a new reusable capability that reduces future human or agent work after the secrets are set.")
+    print(f"STALL SUSPICION: oauth_idle_without_publish (live idle_streak={idle}; historical ~186+ across archives). Continued pure documentation updates have diminishing returns and should be treated as low-leverage unless they introduce a new reusable capability that reduces future human or agent work after the secrets are set.")
     print()
     print("--- while stalled: preferred unblocked improvements ---")
     print("1. DONE (Run 464): experiment_baseline.template.json in docs/ (copy only after real metrics).")
@@ -77,7 +86,7 @@ def main() -> int:
     print("5. DONE (Run 468): restored green selftest by compacting NEXT.md size (older notes archived; next_compact_contract PASS).")
     print("6. DONE (Run 469): refreshed human_oauth_checklist.md banner to current run and added exact first-upload confirmation signals (private video id in Actions log + upload_state.json).")
     print("7. DONE (Run 470): added one-line pointer in README.md Human session to the first-upload confirmation signals in the checklist.")
-    print("Preferred list complete (Run 471). Run 474 added STALL_BANNER_REFRESH so pure banner-timestamp refreshes are flagged. Checklist banner intentionally left at Run 473 (do not rediscover updating it solely for timestamp). Next agent prioritizes the human step (three secrets + one dispatch) or identifies a truly new small anti-rediscovery preparation that does not invent data, media, metrics, or expand locked surfaces. Do not scaffold Q2, poll secrets, or extend locked surfaces. Do not refresh the checklist banner solely for the timestamp. Run 478 escalated the stall-length suspicion in this printer.")
+    print("Preferred list complete (Run 471). Run 474 added STALL_BANNER_REFRESH so pure banner-timestamp refreshes are flagged. Checklist banner intentionally left at Run 473 (do not rediscover updating it solely for timestamp). Next agent prioritizes the human step (three secrets + one dispatch) or identifies a truly new small anti-rediscovery preparation that does not invent data, media, metrics, or expand locked surfaces. Do not scaffold Q2, poll secrets, or extend locked surfaces. Do not refresh the checklist banner solely for the timestamp. Run 478 escalated the stall-length suspicion in this printer. Run 479 made the live idle_streak dynamic.")
     return 0
 
 
