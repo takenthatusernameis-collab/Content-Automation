@@ -26,6 +26,7 @@ PREUPLOAD_FLAG = "STALL_PREUPLOAD_PROBE"
 RECOVERY_EDGE_FLAG = "STALL_RECOVERY_EDGE"
 OPERATOR_CARD_FLAG = "STALL_OPERATOR_CARD"
 LOG_HYGIENE_FLAG = "STALL_LOG_HYGIENE"
+BANNER_REFRESH_FLAG = "STALL_BANNER_REFRESH"
 WINDOW = 3
 IDLE_WINDOW = 8
 UPLOAD_EDGE_WINDOW = 4
@@ -33,6 +34,7 @@ PREUPLOAD_WINDOW = 4
 RECOVERY_EDGE_WINDOW = 4
 OPERATOR_CARD_WINDOW = 3
 LOG_HYGIENE_WINDOW = 3
+BANNER_WINDOW = 4
 UPLOAD_EDGE_TOKENS = (
     "early-persist",
     "early persist",
@@ -94,6 +96,19 @@ LOG_HYGIENE_NEGATIONS = (
     "did not add a compact check",
     "did not extend compact",
     "no new compact check",
+)
+# Runs 469-473 each refreshed the human_oauth_checklist banner timestamp while
+# videos published stayed 0. A lock sentence is not a wired refresh.
+BANNER_TOKENS = (
+    "refreshed docs/human_oauth_checklist.md banner",
+    "refreshed human_oauth_checklist.md banner",
+    "banner and note to run",
+)
+BANNER_NEGATIONS = (
+    "do not refresh the banner solely for timestamp",
+    "did not refresh the banner",
+    "no banner refresh",
+    "banner remains current without update",
 )
 # Lock sentences repeat these tokens. A "do not add" line is not a wired probe.
 PREUPLOAD_NEGATIONS = (
@@ -357,6 +372,27 @@ def flag_text(text: str, window: int = WINDOW) -> list[str]:
                 "next: wait for the three YouTube secrets; do not open a second issue",
             ])
             flags.append("suspicious: log_hygiene_without_publish")
+    # Runs 469-473 each refreshed the human_oauth_checklist banner while videos
+    # published stayed 0. That is the credential stall, not a missing timestamp.
+    banner_deltas = run_deltas(text)[:BANNER_WINDOW]
+    if _oauth_stall(banner_deltas) and len(banner_deltas) >= BANNER_WINDOW:
+        banner = True
+        for delta in banner_deltas:
+            lowered = delta.lower()
+            scrubbed = lowered
+            for phrase in BANNER_NEGATIONS:
+                scrubbed = scrubbed.replace(phrase, "")
+            if not any(token in scrubbed for token in BANNER_TOKENS):
+                banner = False
+                break
+        if banner:
+            flags.extend([
+                BANNER_REFRESH_FLAG,
+                f"last_{BANNER_WINDOW}_runs: oauth_unpolled_and_banner_refresh",
+                "do_not: refresh the human_oauth_checklist banner solely to update the timestamp while this flag is set",
+                "next: wait for the three YouTube secrets; the checklist remains usable with the last known run number",
+            ])
+            flags.append("suspicious: banner_refresh_without_publish")
     # Count the whole file, not the 8-delta flag window. A cleared newest
     # delta resets the streak to 0. A zero streak is not a flag: callers
     # treat a non-empty list as a stall. This does not poll secrets.
