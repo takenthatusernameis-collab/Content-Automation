@@ -1,10 +1,10 @@
 # HANDOFF
 
-Updated: 2026-10-11T19:15:00Z (Run 475)
+Updated: 2026-10-11T17:15:00Z (Run 476)
 
 This file is the current operator entry point. Audio, card PNGs, and the master stay gitignored. Do not `git add -f`. Do not commit media.
 
-## Current reality (Run 475)
+## Current reality (Run 476)
 
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - Status: `ready_for_vo` (text complete)
@@ -14,7 +14,7 @@ This file is the current operator entry point. Audio, card PNGs, and the master 
 
 - Local gates (after materialize): `media_qa` PASS, `closed_brief_gate` PASS, `next_action` = upload-blocked, `operator_card` PASS, `selftest` PASS.
 - Remaining human gate: the three GitHub Actions secrets only (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`).
-- `oauth_idle_without_publish` stall has persisted for ~183+ runs. Preferred unblocked preparation list in status_report.py is complete. Pure-verification agent runs have diminishing returns. Prefer the human step or one newly identified small reusable improvement that reduces rediscovery without inventing data or expanding locked surfaces. Run 474 added STALL_BANNER_REFRESH so sole banner-timestamp refreshes are flagged. Run 475 noted in status_report that the checklist banner is intentionally left at Run 473.
+- `oauth_idle_without_publish` stall has persisted for ~184+ runs. Preferred unblocked preparation list in status_report.py is complete. Pure-verification agent runs have diminishing returns. Prefer the human step or one newly identified small reusable improvement that reduces rediscovery without inventing data or expanding locked surfaces. Run 474 added STALL_BANNER_REFRESH so sole banner-timestamp refreshes are flagged. Run 475 noted in status_report that the checklist banner is intentionally left at Run 473. Run 476 added the freeze explanation directly into docs/human_oauth_checklist.md.
 
 ## Quick status
 
@@ -26,7 +26,7 @@ Prints videos published, stall flags (including idle_streak and banner-refresh),
 
 ## While the OAuth stall continues
 
-The oauth_idle_without_publish pattern has persisted for ~182+ runs. Pure verification has diminishing returns. The preferred unblocked improvements list is complete. Next agents should prioritize the single human step (three secrets + one dispatch) or identify a truly new small anti-rediscovery item that does not violate locks. See the "Agent behavior during external stalls" section in `docs/production_rules.md`. Do not rematerialize if media is present. Do not reopen closed briefs. Do not scaffold Q2, poll secrets, or extend locked surfaces. Do not refresh the human_oauth_checklist banner solely to update its timestamp (STALL_BANNER_REFRESH). The single remaining human step remains the highest-leverage action.
+The oauth_idle_without_publish pattern has persisted for ~184+ runs. Pure verification has diminishing returns. The preferred unblocked improvements list is complete. Next agents should prioritize the single human step (three secrets + one dispatch) or identify a truly new small anti-rediscovery item that does not violate locks. See the "Agent behavior during external stalls" section in `docs/production_rules.md`. Do not rematerialize if media is present. Do not reopen closed briefs. Do not scaffold Q2, poll secrets, or extend locked surfaces. Do not refresh the human_oauth_checklist banner solely to update its timestamp (STALL_BANNER_REFRESH). The single remaining human step remains the highest-leverage action.
 
 ## First commands on a fresh clone
 
