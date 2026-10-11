@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 476 — 2026-10-11T17:15:00Z
+- Objective: Make the intentional freeze of the human_oauth_checklist banner timestamp visible in the human-facing document itself, reducing rediscovery by both humans and agents.
+- Action: Added explicit "Banner timestamp intentionally frozen at Run 473 (STALL_BANNER_REFRESH)" sentences to the banner and note sections of docs/human_oauth_checklist.md. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md, and HANDOFF.md. Did not poll secrets, dispatch, edit briefs, materialize, or commit media. Did not refresh the ONLY ACTION NEEDED timestamp.
+- Result: Videos published stay 0. Checklist now clearly states the timestamp is deliberate. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File updated via GitHub API. New freeze language is present in the checklist. Local gates not re-run (media absent).
+- Discovery: Placing the freeze explanation directly in the human-facing checklist reduces the chance that a human or agent treats the older timestamp as stale guidance requiring an update.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
 ## Run 475 — 2026-10-11T19:15:00Z
 - Objective: Reduce rediscovery of the "should the checklist banner timestamp be updated?" question now that STALL_BANNER_REFRESH exists.
 - Action: Updated tools/status_report.py preferred section to state that the banner is intentionally left at Run 473. Updated HANDOFF.md to Run 475. Used record_run.py for log prepend. Did not poll secrets, dispatch, edit briefs, materialize, or commit media. Did not refresh the checklist banner.
