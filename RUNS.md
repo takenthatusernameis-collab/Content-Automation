@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 464 — 2026-10-11T07:15:00Z
+- Objective: Prepare reusable structure for post-publish experiment baseline without inventing metrics, following status_report preferred unblocked improvements.
+- Action: Added docs/experiment_baseline.template.json clearly marked as template (not loaded by experiment_loop.py). Updated docs/experiments.md to point to it. Recorded in state files. Did not poll secrets, dispatch, edit briefs, or commit media.
+- Result: Videos published stay 0. Future agents have a correctly shaped template ready to copy once real analytics exist. Upload still blocked only on the three secrets.
+- Verification: Template file created and docs updated. No load path change. Local gates not re-run (media absent in agent environment).
+- Discovery: The experiment ledger already supports a documented baseline; providing the template reduces future invention risk and rediscovery of the required shape.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prefers other unblocked improvements from status_report, does not invent baselines.
+
 ## Run 462 — 2026-10-11T05:15:00Z
 - Objective: reduce rediscovery of media presence on every agent start.
 - Action: added media_status line to tools/status_report.py that checks for selected VO wav, card PNGs, and master.mp4.
