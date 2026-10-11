@@ -2,6 +2,8 @@
 
 - None. The long oauth_idle_without_publish continues; no recovery edge or scanner was added. Videos published stay 0.
 
+- None. The long oauth_idle_without_publish continues; no recovery edge or scanner was added. Videos published stay 0.
+
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 460 — 2026-10-11T00:25:00Z

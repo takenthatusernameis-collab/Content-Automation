@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 462 (2026-10-11): status_report.py now reports local media presence. Estimated save: one avoided next_action or manual ls on every future fresh clone or agent start when deciding whether to materialize. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: clearer single-command entry point.
+
 - Run 461 (2026-10-11): made status_report.py the first command in README.md and refreshed the OAuth checklist banner. Estimated save: one avoided sequence of individual gate commands on every future fresh clone or agent start. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: clearer entry point.
 
 - Run 460 (2026-10-11): aligned state_compact_contract and state_compact with the live timestamped STATE.md format so selftest stays green without forcing agents back to an obsolete

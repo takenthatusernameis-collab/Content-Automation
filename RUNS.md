@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 462 — 2026-10-11T05:15:00Z
+- Objective: reduce rediscovery of media presence on every agent start.
+- Action: added media_status line to tools/status_report.py that checks for selected VO wav, card PNGs, and master.mp4.
+- Result: status_report now prints MEDIA_STATUS PRESENT or MISSING with the exact materialize command when needed.
+- Verification: ran status_report.py locally; it correctly reported MISSING on a fresh clone without media.
+- Discovery: none new; stall continues.
+- Blocker: three YouTube Actions secrets still absent.
+- Next: human completes the OAuth checklist and dispatches once.
+
 ## Run 461 — 2026-10-11T01:15:00Z
 - Objective: Reduce rediscovery of current status by making tools/status_report.py the first recommended command in README.md and keeping the human checklist banner current.
 - Action: Materialized Q1 (checksums matched). Verified media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS, selftest PASS. Updated README first-commands block and checklist banner. Used record_run.py. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
@@ -98,15 +107,6 @@
 - Discovery: The long stall continues; a human-only confirm tool reduces one class of "I set them but they are not visible" mistakes.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md (including optional 7c) or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and prefers non-verification work.
-
-## Run 449 — 2026-10-10T13:30:00Z
-- Objective: Clarify what success looks like after the human sets the three secrets and dispatches once, reducing post-setup confusion.
-- Action: Materialized Q1 (checksums matched, ignored truncated r249). Verified media_qa PASS, closed_brief_gate PASS, next_action upload-blocked, operator_card PASS, selftest PASS. Added Expected outcomes section to docs/human_oauth_checklist.md. Did not poll secrets, dispatch, edit briefs, extend the card, or commit media.
-- Result: Videos published stay 0. Local Q1 media ready. Checklist now states where the video id appears and the do-not-re-dispatch rule. Upload blocked only on secrets.
-- Verification: materialize ignored truncated r249. media_qa gate PASS. closed_brief_gate PASS. next_action upload-blocked. operator_card PASS. selftest PASS. Checklist diff reviewed.
-- Discovery: The long stall continues; documenting expected outcomes reduces one class of human uncertainty after the secrets are finally set.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, does not reopen closed briefs, and prefers non-verification work.
 
 Permanent log. Newest first. Do not paste the archive back into this file.
 
