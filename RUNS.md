@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 475 — 2026-10-11T19:15:00Z
+- Objective: Reduce rediscovery of the "should the checklist banner timestamp be updated?" question now that STALL_BANNER_REFRESH exists.
+- Action: Updated tools/status_report.py preferred section to state that the banner is intentionally left at Run 473. Updated HANDOFF.md to Run 475. Used record_run.py for log prepend. Did not poll secrets, dispatch, edit briefs, materialize, or commit media. Did not refresh the checklist banner.
+- Result: Videos published stay 0. Status report now explicitly discourages rediscovering the banner timestamp update. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: Local edit confirmed; status_report.py contains the new note. Local gates not re-run (media absent).
+- Discovery: Explicit "intentionally left at" language in the status printer reduces the chance agents treat an older banner timestamp as a problem to fix.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
 ## Run 474 — 2026-10-11T14:22:00Z
 - Objective: Make the recurring sole banner-timestamp refresh pattern machine-visible so future agents treat it as low-leverage while the OAuth stall continues.
 - Action: Extended tools/stall_watch.py with STALL_BANNER_REFRESH detection (4-run window on banner-refresh language, with negations). Updated STATE.md, NEXT.md, RUNS.md, and PROGRESS.md. Did not poll secrets, dispatch, edit briefs, materialize, or commit media. Did not refresh the checklist banner.

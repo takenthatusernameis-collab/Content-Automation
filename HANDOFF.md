@@ -1,10 +1,10 @@
 # HANDOFF
 
-Updated: 2026-10-11T14:22:00Z (Run 474)
+Updated: 2026-10-11T19:15:00Z (Run 475)
 
 This file is the current operator entry point. Audio, card PNGs, and the master stay gitignored. Do not `git add -f`. Do not commit media.
 
-## Current reality (Run 474)
+## Current reality (Run 475)
 
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - Status: `ready_for_vo` (text complete)
@@ -14,7 +14,7 @@ This file is the current operator entry point. Audio, card PNGs, and the master 
 
 - Local gates (after materialize): `media_qa` PASS, `closed_brief_gate` PASS, `next_action` = upload-blocked, `operator_card` PASS, `selftest` PASS.
 - Remaining human gate: the three GitHub Actions secrets only (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`).
-- `oauth_idle_without_publish` stall has persisted for ~182+ runs. Preferred unblocked preparation list in status_report.py is complete. Pure-verification agent runs have diminishing returns. Prefer the human step or one newly identified small reusable improvement that reduces rediscovery without inventing data or expanding locked surfaces. Run 474 added STALL_BANNER_REFRESH so sole banner-timestamp refreshes are flagged.
+- `oauth_idle_without_publish` stall has persisted for ~183+ runs. Preferred unblocked preparation list in status_report.py is complete. Pure-verification agent runs have diminishing returns. Prefer the human step or one newly identified small reusable improvement that reduces rediscovery without inventing data or expanding locked surfaces. Run 474 added STALL_BANNER_REFRESH so sole banner-timestamp refreshes are flagged. Run 475 noted in status_report that the checklist banner is intentionally left at Run 473.
 
 ## Quick status
 
