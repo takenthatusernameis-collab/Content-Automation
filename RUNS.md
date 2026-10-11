@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 474 — 2026-10-11T14:22:00Z
+- Objective: Make the recurring sole banner-timestamp refresh pattern machine-visible so future agents treat it as low-leverage while the OAuth stall continues.
+- Action: Extended tools/stall_watch.py with STALL_BANNER_REFRESH detection (4-run window on banner-refresh language, with negations). Updated STATE.md, NEXT.md, RUNS.md, and PROGRESS.md. Did not poll secrets, dispatch, edit briefs, materialize, or commit media. Did not refresh the checklist banner.
+- Result: Videos published stay 0. stall_watch now flags repeated banner refreshes as suspicious: banner_refresh_without_publish. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File updated via GitHub API. New flag is present in the tool. Local gates not re-run (media absent).
+- Discovery: Explicit machine-visible discouragement of pure timestamp refreshes reduces the chance that agents continue the low-value loop seen in Runs 469-473.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
 ## Run 473 — 2026-10-11T13:22:00Z
 - Objective: Keep the human OAuth checklist banner current so the ONLY ACTION NEEDED timestamp does not drift while the long stall continues.
 - Action: Updated docs/human_oauth_checklist.md banner and note section to Run 473. Updated STATE.md, NEXT.md, RUNS.md, and PROGRESS.md. Did not poll secrets, dispatch, edit briefs, materialize, or commit media.
