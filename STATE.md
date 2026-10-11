@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-11T06:16:00Z (Run 466)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Confirmed docs/channel.md playlist_id remains 'not_set' and is documented as optional (upload does not wait). Updated human_oauth_checklist.md banner and note to current stall status. Marked the confirmation done in status_report.py preferred list. Local gates not re-run (media absent). Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 2026-10-11T08:20:00Z (Run 465)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added a concrete lesson on agent behavior during external stalls to docs/production_rules.md and refreshed the preferred unblocked list in tools/status_report.py. Local gates not re-run (media absent). Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
