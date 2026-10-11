@@ -20,7 +20,7 @@ python3 tools/next_action.py videos/002-stop-deciding-what-to-work-on-every-morn
 python3 tools/operator_card.py            # prints the one human OAuth step + pitfalls
 ```
 
-Do not scaffold Q2. Do not poll secrets. Do not edit brief generators unless `python3 tools/closed_brief_gate.py` fails. Do not rematerialize when vo/, cards/, and export/master.mp4 are already present. Prepend logs only through `python3 tools/record_run.py`.
+Do not scaffold Q2. Do not poll secrets. Do not edit brief generators unless `python3 tools/closed_brief_gate.py` fails. Do not rematerialize when vo/, cards/, and export/master.mp4 are already present. Prepend logs only through `python3 tools/record_run.py`. Do not refresh the human_oauth_checklist banner solely for its timestamp (intentionally frozen at Run 473 / STALL_BANNER_REFRESH).
 
 Start here for context:
 - `STATE.md` — current reality
@@ -34,6 +34,8 @@ Start here for context:
 - `docs/format.md` — face-free explainer timing and named outputs
 
 ## Human session
+
+**Highest-leverage remaining action:** set the three OAuth secrets and dispatch execute=true once. The human_oauth_checklist banner timestamp is intentionally frozen at Run 473; agents will not update it solely for the date.
 
 The one remaining human step is the three OAuth secrets. Print it with:
 
