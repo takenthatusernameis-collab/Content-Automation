@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 482 — 2026-10-12T02:20:00Z
+- Objective: Reduce rediscovery of the exact post-dispatch confirmation signals by embedding them in the primary status_report.py command.
+- Action: Added an "after successful dispatch (confirm, do not invent)" section to tools/status_report.py that reprints the private provider video id look-up (Actions log AND upload_state.json), privacy note, and 7-day wait. Updated the preferred-list note. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md via record_run. Did not poll secrets, dispatch, edit briefs, materialize, or commit media. Did not refresh the checklist banner.
+- Result: Videos published stay 0. Primary status command now surfaces the confirmation signals without opening the checklist. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: python3 tools/status_report.py prints the new after-dispatch section. Local gates not re-run (media absent).
+- Discovery: Embedding the confirmation signals in the primary status printer reduces the chance future agents open the checklist solely for the "look for video id" instructions after secrets are set.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
 ## Run 481 — 2026-10-12T01:20:00Z
 - Objective: Reduce rediscovery of the documented r253 master SHA by surfacing the target hash prefix in status_report.py even when media is MISSING.
 - Action: Updated tools/status_report.py media_status missing path to include (target master SHA 4ff4c0e80ac6b571...). Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md via record_run. Did not poll secrets, dispatch, edit briefs, materialize, or commit media. Did not refresh the checklist banner.

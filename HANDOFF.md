@@ -1,6 +1,6 @@
 # HANDOFF
 
-Updated: 2026-10-12T01:20:00Z (Run 481)
+Updated: 2026-10-12T02:20:00Z (Run 482)
 
 This file is the current operator entry point. Audio, card PNGs, and the master stay gitignored. Do not `git add -f`. Do not commit media.
 
@@ -26,7 +26,7 @@ Prints videos published, stall flags (including idle_streak and banner-refresh),
 
 ## While the OAuth stall continues
 
-The oauth_idle_without_publish pattern has persisted for ~186+ runs. Pure verification has diminishing returns. The preferred unblocked improvements list is complete. Next agents should prioritize the single human step (three secrets + one dispatch) or identify a truly new small anti-rediscovery item that introduces reusable capability and does not violate locks. See the "Agent behavior during external stalls" section in `docs/production_rules.md`. Do not rematerialize if media is present. Do not reopen closed briefs. Do not scaffold Q2, poll secrets, or extend locked surfaces. Do not refresh the human_oauth_checklist banner solely to update its timestamp (STALL_BANNER_REFRESH). The single remaining human step remains the highest-leverage action. The freeze is noted in README.md. The stall suspicion is now in status_report.py (live idle_streak dynamic as of Run 479). Master SHA integrity is also reported by media_status when the file exists (Run 480). Target SHA prefix is shown even when media is MISSING (Run 481).
+The oauth_idle_without_publish pattern has persisted for ~186+ runs. Pure verification has diminishing returns. The preferred unblocked improvements list is complete. Next agents should prioritize the single human step (three secrets + one dispatch) or identify a truly new small anti-rediscovery item that introduces reusable capability and does not violate locks. See the "Agent behavior during external stalls" section in `docs/production_rules.md`. Do not rematerialize if media is present. Do not reopen closed briefs. Do not scaffold Q2, poll secrets, or extend locked surfaces. Do not refresh the human_oauth_checklist banner solely to update its timestamp (STALL_BANNER_REFRESH). The single remaining human step remains the highest-leverage action. The freeze is noted in README.md. The stall suspicion is now in status_report.py (live idle_streak dynamic as of Run 479). Master SHA integrity is also reported by media_status when the file exists (Run 480). Target SHA prefix is shown even when media is MISSING (Run 481). After-dispatch confirmation signals (private video id look-up) are now in the primary status command (Run 482).
 
 ## First commands on a fresh clone
 

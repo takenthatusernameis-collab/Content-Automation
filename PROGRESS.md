@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 482 (2026-10-12): enhanced status_report.py with after-dispatch confirmation signals (private video id in Actions log + upload_state.json). Estimated save: future agents no longer open human_oauth_checklist.md solely for the post-execute confirmation steps. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: primary status command is more self-contained for the post-secret path.
+
 - Run 481 (2026-10-12): enhanced status_report.py media_status to print the target r253 master SHA prefix when media is MISSING. Estimated save: future agents on fresh clones no longer open HANDOFF solely for the checksum. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: primary status command is more self-contained.
 
 - Run 480 (2026-10-12): enhanced status_report.py media_status to verify and report master SHA MATCH/MISMATCH against the documented r253 hash when the file is present. Estimated save: future agents no longer need to manually confirm the checksum after materialize. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: primary status command now surfaces media integrity.

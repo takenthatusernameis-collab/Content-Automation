@@ -1,5 +1,7 @@
 # FAILURES
 
+- None this run. Continued pure-documentation pattern while OAuth secrets remain the sole blocker.
+
 None this run. Stall continues; no new failed approach.
 
 - Run 480: none. No failed approaches this run.

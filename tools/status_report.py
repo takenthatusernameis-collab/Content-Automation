@@ -90,6 +90,12 @@ def main() -> int:
     print("Do not refresh the human_oauth_checklist banner solely for its timestamp (STALL_BANNER_REFRESH).")
     print(f"STALL SUSPICION: oauth_idle_without_publish (live idle_streak={idle}; historical ~186+ across archives). Continued pure documentation updates have diminishing returns and should be treated as low-leverage unless they introduce a new reusable capability that reduces future human or agent work after the secrets are set.")
     print()
+    print("--- after successful dispatch (confirm, do not invent) ---")
+    print("Look for a private provider video id in the Actions log AND in the packet upload_state.json.")
+    print("Privacy stays private. Do not re-dispatch execute until that id is visible.")
+    print("Wait 7+ days from uploaded_at before any collect_feedback=true dispatch.")
+    print("See docs/human_oauth_checklist.md Expected outcomes for full signals.")
+    print()
     print("--- while stalled: preferred unblocked improvements ---")
     print("1. DONE (Run 464): experiment_baseline.template.json in docs/ (copy only after real metrics).")
     print("2. DONE (Run 465): production_rules.md now contains agent behavior during external stalls.")
@@ -98,7 +104,7 @@ def main() -> int:
     print("5. DONE (Run 468): restored green selftest by compacting NEXT.md size (older notes archived; next_compact_contract PASS).")
     print("6. DONE (Run 469): refreshed human_oauth_checklist.md banner to current run and added exact first-upload confirmation signals (private video id in Actions log + upload_state.json).")
     print("7. DONE (Run 470): added one-line pointer in README.md Human session to the first-upload confirmation signals in the checklist.")
-    print("Preferred list complete (Run 471). Run 474 added STALL_BANNER_REFRESH so pure banner-timestamp refreshes are flagged. Checklist banner intentionally left at Run 473 (do not rediscover updating it solely for timestamp). Next agent prioritizes the human step (three secrets + one dispatch) or identifies a truly new small anti-rediscovery preparation that does not invent data, media, metrics, or expand locked surfaces. Do not scaffold Q2, poll secrets, or extend locked surfaces. Do not refresh the checklist banner solely for the timestamp. Run 478 escalated the stall-length suspicion in this printer. Run 479 made the live idle_streak dynamic. Run 480 made media_status report master SHA MATCH/MISMATCH when present. Run 481 made the missing path also print the target SHA prefix.")
+    print("Preferred list complete (Run 471). Run 474 added STALL_BANNER_REFRESH so pure banner-timestamp refreshes are flagged. Checklist banner intentionally left at Run 473 (do not rediscover updating it solely for timestamp). Next agent prioritizes the human step (three secrets + one dispatch) or identifies a truly new small anti-rediscovery preparation that does not invent data, media, metrics, or expand locked surfaces. Do not scaffold Q2, poll secrets, or extend locked surfaces. Do not refresh the checklist banner solely for the timestamp. Run 478 escalated the stall-length suspicion in this printer. Run 479 made the live idle_streak dynamic. Run 480 made media_status report master SHA MATCH/MISMATCH when present. Run 481 made the missing path also print the target SHA prefix. Run 482 added the after-dispatch confirmation signals to the primary status command so agents see the private video id look-up without opening the checklist.")
     return 0
 
 
