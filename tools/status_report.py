@@ -68,9 +68,10 @@ def main() -> int:
     print("Pure verification has diminishing returns while STALL_OAUTH_IDLE is set.")
     print()
     print("--- while stalled: preferred unblocked improvements ---")
-    print("1. Prepare a non-invented experiment_baseline.json template in the packet (clearly marked template; do not invent metrics).")
-    print("2. Tighten docs/content_quality.md or production_rules.md with one concrete lesson from the long stall.")
-    print("3. Confirm docs/channel.md playlist_id placeholder remains 'not_set' and is documented as optional.")
+    print("1. DONE (Run 464): experiment_baseline.template.json in docs/ (copy only after real metrics).")
+    print("2. DONE (Run 465): production_rules.md now contains agent behavior during external stalls.")
+    print("3. Confirm docs/channel.md playlist_id placeholder remains 'not_set' and is documented as optional (already is).")
+    print("4. Add one concrete anti-rediscovery note to HANDOFF.md or README if a repeated agent mistake is observed.")
     print("Prefer one of these over pure verification. Do not scaffold Q2, poll secrets, or extend locked surfaces.")
     return 0
 
