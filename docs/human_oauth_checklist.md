@@ -1,6 +1,6 @@
 # Human OAuth Checklist
 
-**ONLY ACTION NEEDED (as of Run 472, 2026-10-11T12:24:43Z)**
+**ONLY ACTION NEEDED (as of Run 473, 2026-10-11T13:22:00Z)**
 
 Videos published: 0. Local Q1 media (VO + cards + r253 master) is ready and gates pass after materialize. After the single execute dispatch, confirm success by a private provider video id appearing in the Actions log and in the packet upload_state.json (privacy stays private). Do not invent an id. Do not re-dispatch until that id is visible.
 
@@ -69,6 +69,6 @@ After the single `execute=true` dispatch:
 
 See also `python3 tools/operator_card.py` and issue #1.
 
-## Note for the human (as of Run 472)
+## Note for the human (as of Run 473)
 
-Agents have verified materialize + all local gates on fresh clones across ~180+ runs with no change in the external blocker. The long oauth_idle_without_publish stall continues and is machine-visible via stall_watch.py. The pre-upload path is stable. Further pure-verification agent runs have diminishing returns. The only remaining step that advances the system is completing the three secrets above and the one dispatch. Once a private video id appears, the system can move to feedback collection after the observation window. Preferred agent work while stalled is listed in status_report.py (list complete; prioritize human step or truly new small anti-rediscovery items). HANDOFF.md surfaces the while-stalled guidance. Run 468 restored NEXT.md under the size cap. Run 469–472 keep the banner current with confirmation signals.
+Agents have verified materialize + all local gates on fresh clones across ~181+ runs with no change in the external blocker. The long oauth_idle_without_publish stall continues and is machine-visible via stall_watch.py. The pre-upload path is stable. Further pure-verification agent runs have diminishing returns. The only remaining step that advances the system is completing the three secrets above and the one dispatch. Once a private video id appears, the system can move to feedback collection after the observation window. Preferred agent work while stalled is listed in status_report.py (list complete; prioritize human step or truly new small anti-rediscovery items). HANDOFF.md surfaces the while-stalled guidance. Run 468 restored NEXT.md under the size cap. Run 469–473 keep the banner current with confirmation signals.
