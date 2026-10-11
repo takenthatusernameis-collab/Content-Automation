@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-11T14:22:00Z (Run 474)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added STALL_BANNER_REFRESH detection to tools/stall_watch.py so repeated sole banner-timestamp refreshes become machine-visible and discouraged. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Suspicious: oauth_idle_without_publish still ~182+ runs. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
+
 2026-10-11T13:22:00Z (Run 473)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Refreshed docs/human_oauth_checklist.md banner and note to Run 473 so the ONLY ACTION NEEDED timestamp stays current. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Suspicious: oauth_idle_without_publish still ~181+ runs. Do not rematerialize when media is present. Do not reopen brief stubs.
