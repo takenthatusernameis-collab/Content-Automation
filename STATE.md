@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-11T07:15:00Z (Run 467)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Refreshed HANDOFF.md with an explicit 'While the OAuth stall continues' section that directs agents to status_report preferred improvements and the production_rules agent-behavior section. Updated status_report.py preferred list to mark the HANDOFF refresh done. Refreshed human_oauth_checklist.md banner to Run 467. Local gates not re-run (media absent). Suspicious: oauth_idle_without_publish still ~180+ runs. Do not rematerialize when media is present. Do not reopen brief stubs.
+
 2026-10-11T06:16:00Z (Run 466)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Confirmed docs/channel.md playlist_id remains 'not_set' and is documented as optional (upload does not wait). Updated human_oauth_checklist.md banner and note to current stall status. Marked the confirmation done in status_report.py preferred list. Local gates not re-run (media absent). Suspicious: oauth_idle_without_publish still ~180 runs. Do not rematerialize when media is present. Do not reopen brief stubs.
