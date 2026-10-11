@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 471 (2026-10-11): refreshed HANDOFF.md and status_report preferred section to explicitly note the list is complete and that next agents should prioritize the human step or only newly identified small items. Estimated save: reduces rediscovery cycles of the completed preferred list across future runs while the OAuth stall continues. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: entry-point docs stay synchronized with the closed preparation path.
+
 - Run 470 (2026-10-11): added one-line pointer in README.md Human session to the first-upload confirmation signals (private video id in Actions log + upload_state.json). Marked preferred list complete. Estimated save: humans and agents can locate the exact success criteria from the primary README without opening the checklist or rediscovering the signals. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: entry-point docs stay synchronized with confirmation path.
 
 - Run 469 (2026-10-11): refreshed human_oauth_checklist.md banner to current run and added exact first-upload confirmation signals (private video id in Actions log + upload_state.json). Estimated save: humans and agents can confirm the first private video id without scanning logs or inventing state. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: entry-point human docs stay synchronized with stall and success criteria.
