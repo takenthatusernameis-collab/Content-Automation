@@ -1,10 +1,10 @@
 # HANDOFF
 
-Updated: 2026-10-11T23:13:00Z (Run 479)
+Updated: 2026-10-12T00:12:00Z (Run 480)
 
 This file is the current operator entry point. Audio, card PNGs, and the master stay gitignored. Do not `git add -f`. Do not commit media.
 
-## Current reality (Run 479)
+## Current reality (Run 480)
 
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - Status: `ready_for_vo` (text complete)
@@ -14,7 +14,7 @@ This file is the current operator entry point. Audio, card PNGs, and the master 
 
 - Local gates (after materialize): `media_qa` PASS, `closed_brief_gate` PASS, `next_action` = upload-blocked, `operator_card` PASS, `selftest` PASS.
 - Remaining human gate: the three GitHub Actions secrets only (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`).
-- `oauth_idle_without_publish` stall has persisted for ~186+ historical runs (live idle_streak now dynamic in status_report.py). Preferred unblocked preparation list in status_report.py is complete. Pure-verification agent runs have diminishing returns. Prefer the human step or one newly identified small reusable improvement that reduces rediscovery or post-secret friction without inventing data or expanding locked surfaces. Run 474 added STALL_BANNER_REFRESH. Run 475-477 reinforced freeze and human step. Run 478 added the stall-length suspicion line to status_report.py. Run 479 made the live idle_streak dynamic.
+- `oauth_idle_without_publish` stall has persisted for ~186+ historical runs (live idle_streak now dynamic in status_report.py). Preferred unblocked preparation list in status_report.py is complete. Pure-verification agent runs have diminishing returns. Prefer the human step or one newly identified small reusable improvement that reduces rediscovery or post-secret friction without inventing data or expanding locked surfaces. Run 474 added STALL_BANNER_REFRESH. Run 475-477 reinforced freeze and human step. Run 478 added the stall-length suspicion line to status_report.py. Run 479 made the live idle_streak dynamic. Run 480 made media_status report master SHA MATCH/MISMATCH when the file is present.
 
 ## Quick status
 
@@ -26,7 +26,7 @@ Prints videos published, stall flags (including idle_streak and banner-refresh),
 
 ## While the OAuth stall continues
 
-The oauth_idle_without_publish pattern has persisted for ~186+ runs. Pure verification has diminishing returns. The preferred unblocked improvements list is complete. Next agents should prioritize the single human step (three secrets + one dispatch) or identify a truly new small anti-rediscovery item that introduces reusable capability and does not violate locks. See the "Agent behavior during external stalls" section in `docs/production_rules.md`. Do not rematerialize if media is present. Do not reopen closed briefs. Do not scaffold Q2, poll secrets, or extend locked surfaces. Do not refresh the human_oauth_checklist banner solely to update its timestamp (STALL_BANNER_REFRESH). The single remaining human step remains the highest-leverage action. The freeze is noted in README.md. The stall suspicion is now in status_report.py (live idle_streak dynamic as of Run 479).
+The oauth_idle_without_publish pattern has persisted for ~186+ runs. Pure verification has diminishing returns. The preferred unblocked improvements list is complete. Next agents should prioritize the single human step (three secrets + one dispatch) or identify a truly new small anti-rediscovery item that introduces reusable capability and does not violate locks. See the "Agent behavior during external stalls" section in `docs/production_rules.md`. Do not rematerialize if media is present. Do not reopen closed briefs. Do not scaffold Q2, poll secrets, or extend locked surfaces. Do not refresh the human_oauth_checklist banner solely to update its timestamp (STALL_BANNER_REFRESH). The single remaining human step remains the highest-leverage action. The freeze is noted in README.md. The stall suspicion is now in status_report.py (live idle_streak dynamic as of Run 479). Master SHA integrity is also reported by media_status when the file exists (Run 480).
 
 ## First commands on a fresh clone
 
