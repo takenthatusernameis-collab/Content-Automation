@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 474 (2026-10-11): added STALL_BANNER_REFRESH detection to stall_watch.py so repeated sole banner-timestamp refreshes are flagged as low-leverage. Estimated save: reduces future agent cycles spent only updating the checklist banner timestamp while OAuth remains absent. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: machine-visible discouragement of the banner-refresh pattern seen in Runs 469-473.
+
 - Run 473 (2026-10-11): refreshed human_oauth_checklist.md banner and note to current run timestamp. Estimated save: humans and agents see a non-stale ONLY ACTION NEEDED marker without opening STATE. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: human-facing checklist stays synchronized with the ongoing stall.
 
 - Run 472 (2026-10-11): refreshed human_oauth_checklist.md banner and note to current run timestamp. Estimated save: humans and agents see a non-stale ONLY ACTION NEEDED marker without opening STATE. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: human-facing checklist stays synchronized with the ongoing stall.
