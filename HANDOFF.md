@@ -1,10 +1,10 @@
 # HANDOFF
 
-Updated: 2026-10-10T23:15:00Z (Run 456)
+Updated: 2026-10-11T07:15:00Z (Run 467)
 
 This file is the current operator entry point. Audio, card PNGs, and the master stay gitignored. Do not `git add -f`. Do not commit media.
 
-## Current reality (Run 456)
+## Current reality (Run 467)
 
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - Status: `ready_for_vo` (text complete)
@@ -14,7 +14,7 @@ This file is the current operator entry point. Audio, card PNGs, and the master 
 
 - Local gates (after materialize): `media_qa` PASS, `closed_brief_gate` PASS, `next_action` = upload-blocked, `operator_card` PASS, `selftest` PASS.
 - Remaining human gate: the three GitHub Actions secrets only (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`).
-- `oauth_idle_without_publish` stall has persisted for ~180 runs. Pure-verification agent runs have diminishing returns. Prefer a small reusable improvement when media is already present.
+- `oauth_idle_without_publish` stall has persisted for ~180+ runs. Pure-verification agent runs have diminishing returns. Prefer a small reusable improvement when media is already present.
 
 ## Quick status
 
@@ -23,6 +23,10 @@ python3 tools/status_report.py
 ```
 
 Prints videos published, stall flags (including idle_streak), next_action, and the human step reminder in one place. Does not write files.
+
+## While the OAuth stall continues
+
+The oauth_idle_without_publish pattern has persisted for ~180+ runs. Pure verification has diminishing returns. Prefer one small reusable preparation listed in `python3 tools/status_report.py` under "while stalled: preferred unblocked improvements". See also the "Agent behavior during external stalls" section in `docs/production_rules.md`. Do not rematerialize if media is present. Do not reopen closed briefs. Do not scaffold Q2, poll secrets, or extend locked surfaces. The single remaining human step remains the three secrets + one dispatch.
 
 ## First commands on a fresh clone
 
