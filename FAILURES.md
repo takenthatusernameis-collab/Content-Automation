@@ -1,5 +1,7 @@
 # FAILURES
 
+None. No new failures observed. Stall continues as expected.
+
 - None this run. Selftest was failing on missing STALL_OAUTH_IDLE in NEXT.md; fixed by carrying the lock string forward in the newest note.
 
 - None this run. Continued pure-documentation pattern while OAuth secrets remain the sole blocker.

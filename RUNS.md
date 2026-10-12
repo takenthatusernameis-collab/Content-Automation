@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 484 — 2026-10-12T04:20:00Z
+- Objective: Reduce rediscovery of the immediate next action by adding an explicit recommended_next line to the primary status_report.py command.
+- Action: Updated tools/status_report.py to print recommended_next (materialize if media MISSING, else human_step). Updated preferred-list note. Materialized media locally for verification (not committed). Prepended logs via record_run.py. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
+- Result: Videos published stay 0. Primary status command now shows the single highest-leverage action immediately. Upload still blocked only on the three secrets. Preferred list remains complete. Local gates PASS after materialize (media_qa, next_action=upload-blocked, SHA MATCH).
+- Verification: python3 tools/status_report.py shows recommended_next: human_step ... after materialize. media_qa PASS. next_action upload-blocked.
+- Discovery: On a fresh clone media is MISSING; the new line makes the materialize command the first recommended action without needing to parse the longer next_action section.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
 ## Run 483 — 2026-10-12T03:20:00Z
 - Objective: Reduce rediscovery of the exact r253 master SHA by printing the target prefix even when media is PRESENT (MATCH), and restore the STALL_OAUTH_IDLE active lock so selftest stays green.
 - Action: Updated tools/status_report.py media_status PRESENT path to include target SHA prefix. Updated preferred-list note. Prepended logs via record_run.py with the required lock strings in the NEXT item. Materialized media locally for verification (not committed). Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
