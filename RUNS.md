@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 483 — 2026-10-12T03:20:00Z
+- Objective: Reduce rediscovery of the exact r253 master SHA by printing the target prefix even when media is PRESENT (MATCH), and restore the STALL_OAUTH_IDLE active lock so selftest stays green.
+- Action: Updated tools/status_report.py media_status PRESENT path to include target SHA prefix. Updated preferred-list note. Prepended logs via record_run.py with the required lock strings in the NEXT item. Materialized media locally for verification (not committed). Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
+- Result: Videos published stay 0. Primary status command now shows target SHA on both MISSING and PRESENT. next_compact_contract and selftest restored to PASS. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: python3 tools/status_report.py shows MATCH target 4ff4c0e80ac6b571... . python3 tools/next_compact_contract.py PASS after the note. media_qa PASS, next_action upload-blocked.
+- Discovery: The compact process can drop the exact STALL_OAUTH_IDLE string if not carried forward in the newest NEXT item; explicitly including it in the record_run next field keeps the contract green with no extra tool.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
 ## Run 482 — 2026-10-12T02:20:00Z
 - Objective: Reduce rediscovery of the exact post-dispatch confirmation signals by embedding them in the primary status_report.py command.
 - Action: Added an "after successful dispatch (confirm, do not invent)" section to tools/status_report.py that reprints the private provider video id look-up (Actions log AND upload_state.json), privacy note, and 7-day wait. Updated the preferred-list note. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md via record_run. Did not poll secrets, dispatch, edit briefs, materialize, or commit media. Did not refresh the checklist banner.

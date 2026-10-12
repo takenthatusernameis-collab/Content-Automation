@@ -1,6 +1,6 @@
 # HANDOFF
 
-Updated: 2026-10-12T02:20:00Z (Run 482)
+Updated: 2026-10-12T03:20:00Z (Run 483)
 
 This file is the current operator entry point. Audio, card PNGs, and the master stay gitignored. Do not `git add -f`. Do not commit media.
 
@@ -14,7 +14,7 @@ This file is the current operator entry point. Audio, card PNGs, and the master 
 
 - Local gates (after materialize): `media_qa` PASS, `closed_brief_gate` PASS, `next_action` = upload-blocked, `operator_card` PASS, `selftest` PASS.
 - Remaining human gate: the three GitHub Actions secrets only (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`).
-- `oauth_idle_without_publish` stall has persisted for ~186+ historical runs (live idle_streak now dynamic in status_report.py). Preferred unblocked preparation list in status_report.py is complete. Pure-verification agent runs have diminishing returns. Prefer the human step or one newly identified small reusable improvement that reduces rediscovery or post-secret friction without inventing data or expanding locked surfaces. Run 474 added STALL_BANNER_REFRESH. Run 475-477 reinforced freeze and human step. Run 478 added the stall-length suspicion line to status_report.py. Run 479 made the live idle_streak dynamic. Run 480 made media_status report master SHA MATCH/MISMATCH when the file is present.
+- `oauth_idle_without_publish` stall has persisted for ~186+ historical runs (live idle_streak now dynamic in status_report.py). Preferred unblocked preparation list in status_report.py is complete. Pure-verification agent runs have diminishing returns. Prefer the human step or one newly identified small reusable improvement that reduces rediscovery or post-secret friction without inventing data or expanding locked surfaces. Run 474 added STALL_BANNER_REFRESH. Run 475-477 reinforced freeze and human step. Run 478 added the stall-length suspicion line to status_report.py. Run 479 made the live idle_streak dynamic. Run 480 made media_status report master SHA MATCH/MISMATCH when the file is present. Run 481 made the missing path print the target SHA prefix. Run 482 added after-dispatch confirmation signals. Run 483 made the PRESENT path also print the target SHA prefix and restored the STALL_OAUTH_IDLE lock so selftest stays green.
 
 ## Quick status
 

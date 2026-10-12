@@ -51,7 +51,7 @@ def media_status() -> str:
     if has_vo and has_cards and has_master:
         sha = _sha256(master)
         match = "MATCH" if sha == MASTER_SHA else f"MISMATCH (got {sha[:12]}...)"
-        return f"PRESENT (do not rematerialize; master SHA {match})"
+        return f"PRESENT (do not rematerialize; master SHA {match} target {MASTER_SHA[:16]}...)"
     missing = []
     if not has_vo:
         missing.append("vo/")
@@ -104,7 +104,7 @@ def main() -> int:
     print("5. DONE (Run 468): restored green selftest by compacting NEXT.md size (older notes archived; next_compact_contract PASS).")
     print("6. DONE (Run 469): refreshed human_oauth_checklist.md banner to current run and added exact first-upload confirmation signals (private video id in Actions log + upload_state.json).")
     print("7. DONE (Run 470): added one-line pointer in README.md Human session to the first-upload confirmation signals in the checklist.")
-    print("Preferred list complete (Run 471). Run 474 added STALL_BANNER_REFRESH so pure banner-timestamp refreshes are flagged. Checklist banner intentionally left at Run 473 (do not rediscover updating it solely for timestamp). Next agent prioritizes the human step (three secrets + one dispatch) or identifies a truly new small anti-rediscovery preparation that does not invent data, media, metrics, or expand locked surfaces. Do not scaffold Q2, poll secrets, or extend locked surfaces. Do not refresh the checklist banner solely for the timestamp. Run 478 escalated the stall-length suspicion in this printer. Run 479 made the live idle_streak dynamic. Run 480 made media_status report master SHA MATCH/MISMATCH when present. Run 481 made the missing path also print the target SHA prefix. Run 482 added the after-dispatch confirmation signals to the primary status command so agents see the private video id look-up without opening the checklist.")
+    print("Preferred list complete (Run 471). Run 474 added STALL_BANNER_REFRESH so pure banner-timestamp refreshes are flagged. Checklist banner intentionally left at Run 473 (do not rediscover updating it solely for timestamp). Next agent prioritizes the human step (three secrets + one dispatch) or identifies a truly new small anti-rediscovery preparation that does not invent data, media, metrics, or expand locked surfaces. Do not scaffold Q2, poll secrets, or extend locked surfaces. Do not refresh the checklist banner solely for the timestamp. Run 478 escalated the stall-length suspicion in this printer. Run 479 made the live idle_streak dynamic. Run 480 made media_status report master SHA MATCH/MISMATCH when present. Run 481 made the missing path also print the target SHA prefix. Run 482 added the after-dispatch confirmation signals to the primary status command so agents see the private video id look-up without opening the checklist. Run 483 made the PRESENT path also print the target SHA prefix for full consistency, and restored the STALL_OAUTH_IDLE active lock in NEXT.md so next_compact_contract and selftest stay green.")
     return 0
 
 
