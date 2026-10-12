@@ -1,5 +1,7 @@
 # FAILURES
 
+None this run. Continued OAuth idle is the known external blocker (not a new failure).
+
 No new failures. OAuth stall continues; no change to external blockers.
 
 - Run 487: no failures. next_action_code extraction and last_gates refresh succeeded; selftest PASS.

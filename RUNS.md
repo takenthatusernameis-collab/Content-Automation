@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 489 — 2026-10-12T09:30:00Z
+- Objective: Reduce rediscovery of the exact three YouTube secret names and gh secret set commands by embedding them in the primary status_report.py human step section.
+- Action: Materialized Q1 media locally (not committed). Re-ran media_qa (PASS), next_action (upload-blocked), confirmed master SHA MATCH, closed_brief_gate (PASS), selftest (PASS). Updated tools/status_report.py to print the three secret names and the three gh secret set lines, and refreshed last_gates_confirmed to Run 489. Updated preferred-list note. Prepended logs via record_run.py. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
+- Result: Videos published stay 0. Primary status command now surfaces the exact secret setup commands without opening the checklist. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: python3 tools/status_report.py shows the three gh secret set lines in the human step section after materialize. media_qa PASS. next_action upload-blocked. SHA MATCH. selftest PASS.
+- Discovery: Explicit secret names and set commands in the primary status printer reduce the chance future agents open docs/human_oauth_checklist.md solely to copy the gh secret set syntax.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
 ## Run 488 — 2026-10-12T08:15:00Z
 - Objective: Reduce rediscovery of the optional playlist_id status by extracting and printing it in the primary status_report.py.
 - Action: Materialized Q1 media locally (not committed). Re-ran media_qa (PASS), next_action (upload-blocked), confirmed master SHA MATCH, closed_brief_gate (PASS), selftest (PASS). Updated tools/status_report.py to parse and print optional_playlist from docs/channel.md and refreshed last_gates_confirmed to Run 488. Updated preferred-list note. Prepended logs via record_run.py. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
