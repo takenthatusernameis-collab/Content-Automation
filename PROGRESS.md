@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 485 (2026-10-12): enhanced status_report.py to print the exact gh workflow dispatch command in the human step section. Estimated save: future agents no longer need to open the checklist or operator_card solely for the dispatch syntax. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: primary status command is more self-contained for the human step.
+
 - Run 484 (2026-10-12): added explicit recommended_next line to tools/status_report.py (materialize if MISSING, else human_step). Estimated save: future agents see the single highest-leverage action without parsing next_action or HANDOFF. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: primary status command is more self-contained for first-step guidance.
 
 - Run 483 (2026-10-12): enhanced status_report.py media_status to print the target r253 master SHA prefix on the PRESENT path as well (consistent with MISSING). Restored STALL_OAUTH_IDLE in NEXT.md. Estimated save: future agents no longer need to open HANDOFF for the checksum whether media is present or missing; selftest stays green without rediscovery. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: primary status command and log contracts remain accurate.

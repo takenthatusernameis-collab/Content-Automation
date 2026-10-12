@@ -1,5 +1,7 @@
 # FAILURES
 
+- Run 485: no new failures. OAuth stall continues; no secret poll or dispatch attempted.
+
 None. No new failures observed. Stall continues as expected.
 
 - None this run. Selftest was failing on missing STALL_OAUTH_IDLE in NEXT.md; fixed by carrying the lock string forward in the newest note.

@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 485 — 2026-10-12T05:13:00Z
+- Objective: Reduce rediscovery of the exact dispatch command by embedding it in the primary status_report.py human step section.
+- Action: Updated tools/status_report.py to print the full gh workflow dispatch line under the human step reminder. Updated preferred-list note. Prepended logs via record_run.py. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
+- Result: Videos published stay 0. Primary status command now shows the precise one-line dispatch without opening the checklist or operator_card. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: python3 tools/status_report.py prints the dispatch command in the human step section.
+- Discovery: Agents can copy the exact dispatch from the primary status printer; no need to reconstruct it from HANDOFF or the checklist.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
 ## Run 484 — 2026-10-12T04:20:00Z
 - Objective: Reduce rediscovery of the immediate next action by adding an explicit recommended_next line to the primary status_report.py command.
 - Action: Updated tools/status_report.py to print recommended_next (materialize if media MISSING, else human_step). Updated preferred-list note. Materialized media locally for verification (not committed). Prepended logs via record_run.py. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.

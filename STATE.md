@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-12T05:13:00Z (Run 485)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/status_report.py human step section to print the exact gh workflow dispatch command. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
+
 2026-10-12T04:20:00Z (Run 484)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added explicit recommended_next line to tools/status_report.py (materialize if media MISSING, else human_step). Confirmed materialize + media_qa PASS + next_action=upload-blocked + SHA MATCH on a fresh clone. Preferred unblocked list remains complete. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
