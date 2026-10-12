@@ -1,3 +1,9 @@
+## Run 497 — 2026-10-12T16:30:00Z
+- Anti-rediscovery: last_gates_confirmed updated to current re-verification (fresh clone materialize + full local gates PASS, SHA MATCH).
+- Local gates re-run and confirmed. No new failures.
+- Human labor reduction: future agents less likely to re-materialize and re-run gates solely to confirm the packet is still ready.
+- Videos published remain 0. Stall continues.
+
 # PROGRESS
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
