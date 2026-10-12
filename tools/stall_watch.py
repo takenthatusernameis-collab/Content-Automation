@@ -27,6 +27,7 @@ RECOVERY_EDGE_FLAG = "STALL_RECOVERY_EDGE"
 OPERATOR_CARD_FLAG = "STALL_OPERATOR_CARD"
 LOG_HYGIENE_FLAG = "STALL_LOG_HYGIENE"
 BANNER_REFRESH_FLAG = "STALL_BANNER_REFRESH"
+GATE_CONFIRM_FLAG = "STALL_GATE_CONFIRM"
 WINDOW = 3
 IDLE_WINDOW = 8
 UPLOAD_EDGE_WINDOW = 4
@@ -35,6 +36,8 @@ RECOVERY_EDGE_WINDOW = 4
 OPERATOR_CARD_WINDOW = 3
 LOG_HYGIENE_WINDOW = 3
 BANNER_WINDOW = 4
+GATE_CONFIRM_WINDOW = 4
+
 UPLOAD_EDGE_TOKENS = (
     "early-persist",
     "early persist",
@@ -110,6 +113,23 @@ BANNER_NEGATIONS = (
     "no banner refresh",
     "banner remains current without update",
 )
+# Runs 494-497 each refreshed last_gates_confirmed after a fresh-clone materialize
+# and full local gate re-run while videos published stayed 0. That is the
+# credential stall, not a missing confirmation. A lock sentence is not a wired refresh.
+GATE_CONFIRM_TOKENS = (
+    "last_gates_confirmed",
+    "re-verification",
+    "fresh clone materialize",
+    "media_qa pass",
+    "sha match",
+)
+GATE_CONFIRM_NEGATIONS = (
+    "do not re-run solely for confirmation",
+    "did not refresh last_gates_confirmed",
+    "no gate re-verification",
+    "gates already confirmed",
+)
+
 # Lock sentences repeat these tokens. A "do not add" line is not a wired probe.
 PREUPLOAD_NEGATIONS = (
     "do not add another export probe, media checker, or caption cue gate",
@@ -393,7 +413,30 @@ def flag_text(text: str, window: int = WINDOW) -> list[str]:
                 "next: wait for the three YouTube secrets; the checklist remains usable with the last known run number",
             ])
             flags.append("suspicious: banner_refresh_without_publish")
+    # Runs 494-497 each refreshed last_gates_confirmed after a fresh-clone
+    # materialize + full local gate re-run while videos published stayed 0.
+    # That is the credential stall, not a missing confirmation.
+    confirm_deltas = run_deltas(text)[:GATE_CONFIRM_WINDOW]
+    if _oauth_stall(confirm_deltas) and len(confirm_deltas) >= GATE_CONFIRM_WINDOW:
+        confirm = True
+        for delta in confirm_deltas:
+            lowered = delta.lower()
+            scrubbed = lowered
+            for phrase in GATE_CONFIRM_NEGATIONS:
+                scrubbed = scrubbed.replace(phrase, "")
+            if not any(token in scrubbed for token in GATE_CONFIRM_TOKENS):
+                confirm = False
+                break
+        if confirm:
+            flags.extend([
+                GATE_CONFIRM_FLAG,
+                f"last_{GATE_CONFIRM_WINDOW}_runs: oauth_unpolled_and_gate_confirm",
+                "do_not: refresh last_gates_confirmed or re-run full local gates solely for confirmation while this flag is set (media already present or last confirmation recent)",
+                "next: wait for the three YouTube secrets; do not rematerialize or re-verify gates unless packet or tools changed",
+            ])
+            flags.append("suspicious: gate_confirm_without_publish")
     # Count the whole file, not the 8-delta flag window. A cleared newest
+
     # delta resets the streak to 0. A zero streak is not a flag: callers
     # treat a non-empty list as a stall. This does not poll secrets.
     streak = idle_streak(run_deltas(text))
