@@ -1,10 +1,10 @@
 # HANDOFF
 
-Updated: 2026-10-12T03:20:00Z (Run 483)
+Updated: 2026-10-12T15:30:00Z (Run 495)
 
 This file is the current operator entry point. Audio, card PNGs, and the master stay gitignored. Do not `git add -f`. Do not commit media.
 
-## Current reality (Run 480)
+## Current reality
 
 - Live packet: `videos/002-stop-deciding-what-to-work-on-every-morning`
 - Status: `ready_for_vo` (text complete)
@@ -14,7 +14,7 @@ This file is the current operator entry point. Audio, card PNGs, and the master 
 
 - Local gates (after materialize): `media_qa` PASS, `closed_brief_gate` PASS, `next_action` = upload-blocked, `operator_card` PASS, `selftest` PASS.
 - Remaining human gate: the three GitHub Actions secrets only (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`).
-- `oauth_idle_without_publish` stall has persisted for ~186+ historical runs (live idle_streak now dynamic in status_report.py). Preferred unblocked preparation list in status_report.py is complete. Pure-verification agent runs have diminishing returns. Prefer the human step or one newly identified small reusable improvement that reduces rediscovery or post-secret friction without inventing data or expanding locked surfaces. Run 474 added STALL_BANNER_REFRESH. Run 475-477 reinforced freeze and human step. Run 478 added the stall-length suspicion line to status_report.py. Run 479 made the live idle_streak dynamic. Run 480 made media_status report master SHA MATCH/MISMATCH when the file is present. Run 481 made the missing path print the target SHA prefix. Run 482 added after-dispatch confirmation signals. Run 483 made the PRESENT path also print the target SHA prefix and restored the STALL_OAUTH_IDLE lock so selftest stays green.
+- `oauth_idle_without_publish` stall has persisted for ~186+ historical runs (live idle_streak dynamic in status_report.py). Preferred unblocked preparation list in status_report.py is complete. Pure-verification agent runs have diminishing returns. Prefer the human step or one newly identified small reusable improvement that reduces rediscovery or post-secret friction without inventing data or expanding locked surfaces.
 
 ## Quick status
 
@@ -22,11 +22,11 @@ This file is the current operator entry point. Audio, card PNGs, and the master 
 python3 tools/status_report.py
 ```
 
-Prints videos published, stall flags (including idle_streak and banner-refresh), next_action, the human step reminder, and the stall-length suspicion in one place. Does not write files.
+Self-contained printer. Shows videos published, media_status (with target SHA prefix and MATCH/MISMATCH when present), recommended_next (materialize if missing else human_step), next_action_code, optional_playlist (not_set, does not block), last_gates_confirmed, full stall flags (including dynamic idle_streak), next_action, complete human step (exact three secret names + gh secret set commands + required scopes + forbidden gh secret list + optional human_secret_confirm.py + exact execute dispatch + initial privacy stays private), after-dispatch confirmation (private video id look-up + precise observation window: uploaded_at + 7 calendar days + 3 days Analytics lag = due at +10 days; early collect = OBSERVATION_WINDOW_NOT_DUE + exact collect_feedback dispatch), and stall-length suspicion. Does not write files, poll secrets, or dispatch.
 
 ## While the OAuth stall continues
 
-The oauth_idle_without_publish pattern has persisted for ~186+ runs. Pure verification has diminishing returns. The preferred unblocked improvements list is complete. Next agents should prioritize the single human step (three secrets + one dispatch) or identify a truly new small anti-rediscovery item that introduces reusable capability and does not violate locks. See the "Agent behavior during external stalls" section in `docs/production_rules.md`. Do not rematerialize if media is present. Do not reopen closed briefs. Do not scaffold Q2, poll secrets, or extend locked surfaces. Do not refresh the human_oauth_checklist banner solely to update its timestamp (STALL_BANNER_REFRESH). The single remaining human step remains the highest-leverage action. The freeze is noted in README.md. The stall suspicion is now in status_report.py (live idle_streak dynamic as of Run 479). Master SHA integrity is also reported by media_status when the file exists (Run 480). Target SHA prefix is shown even when media is MISSING (Run 481). After-dispatch confirmation signals (private video id look-up) are now in the primary status command (Run 482).
+The oauth_idle_without_publish pattern has persisted for ~186+ runs. Pure verification has diminishing returns. The preferred unblocked improvements list is complete. Next agents should prioritize the single human step (three secrets + one dispatch) or identify a truly new small anti-rediscovery item that introduces reusable capability and does not violate locks. See the "Agent behavior during external stalls" section in `docs/production_rules.md`. Do not rematerialize if media is present. Do not reopen closed briefs. Do not scaffold Q2, poll secrets, or extend locked surfaces. Do not refresh the human_oauth_checklist banner solely to update its timestamp (STALL_BANNER_REFRESH). The single remaining human step remains the highest-leverage action.
 
 ## First commands on a fresh clone
 
@@ -53,14 +53,14 @@ Then (human terminal only):
 
 1. Mint the refresh token with the required scopes (`youtube.upload`, `youtube.force-ssl`, `yt-analytics.readonly`).
 2. Store the three secrets with `gh secret set` (paste into the prompt; never on the command line).
-3. Optional local confirm: `python3 tools/human_secret_confirm.py` (never from an agent).
+3. Optional local confirm: `python3 tools/human_secret_confirm.py` (never from an agent; prints PRESENT/MISSING, never values).
 4. Dispatch once:
 
 ```bash
 gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false
 ```
 
-Privacy stays private. Do not re-dispatch until a provider video id appears. Do not set `collect_feedback=true` until that id exists and 7 days have passed.
+Privacy stays private. Do not re-dispatch until a provider video id appears. Do not set `collect_feedback=true` until that id exists and uploaded_at + 7 calendar days + 3 days Analytics lag have passed (due at +10 days). Early collect is OBSERVATION_WINDOW_NOT_DUE.
 
 See also issue #1 and `docs/youtube_integration.md`.
 
@@ -69,7 +69,7 @@ See also issue #1 and `docs/youtube_integration.md`.
 After the first successful execute dispatch produces a private video id (look in the Actions log and any committed `upload_state.json`):
 
 1. Do not re-dispatch execute until you confirm the id. Privacy stays private.
-2. Wait at least 7 days from the `uploaded_at` timestamp in the state file.
+2. Wait until uploaded_at + 7 calendar days + 3 days Analytics lag (due_at = uploaded_at + 10 days).
 3. Then dispatch once with collect_feedback:
    ```bash
    gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=false -f collect_feedback=true
