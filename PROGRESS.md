@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 492 (2026-10-12): enhanced status_report.py human step with explicit 'initial upload privacy stays private' line. Estimated save: future agents no longer open the checklist or operator_card solely to confirm the first-upload privacy setting. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: primary status command is more self-contained for the privacy constraint.
+
 - Run 491 (2026-10-12): added exact collect_feedback dispatch command to tools/status_report.py after-dispatch section, and refreshed last_gates_confirmed after re-verifying full local gates (media_qa PASS, SHA MATCH, upload-blocked, closed_brief_gate PASS, selftest PASS). Estimated save: future agents see the precise next command after a private video id appears without opening the checklist. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: primary status command is more self-contained for the post-upload path.
 
 - Run 490 (2026-10-12): added required OAuth scopes to tools/status_report.py human step section, and refreshed last_gates_confirmed after re-verifying full local gates (media_qa PASS, SHA MATCH, upload-blocked, closed_brief_gate PASS, selftest PASS). Estimated save: future agents see the precise token scopes without opening oauth_setup.py or the checklist. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: primary status command is more self-contained for the human OAuth step.

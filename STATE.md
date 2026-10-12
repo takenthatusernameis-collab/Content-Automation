@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-12T12:20:00Z (Run 492)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media locally for verification (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH, closed_brief_gate PASS, selftest PASS. Preferred unblocked list remains complete. Added explicit initial-privacy-stays-private line to tools/status_report.py human step section so future agents see the privacy constraint without opening the checklist or operator_card. Refreshed last_gates_confirmed after re-verification. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
+
 2026-10-12T10:30:00Z (Run 490)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media locally for verification (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH, closed_brief_gate PASS, selftest PASS. Preferred unblocked list remains complete. Added required OAuth scopes to tools/status_report.py human step section so future agents see the exact token scopes without opening oauth_setup.py or the checklist. Refreshed last_gates_confirmed after re-verification. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
@@ -43,8 +47,4 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. En
 2026-10-12T00:12:00Z (Run 480)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/status_report.py media_status to report master SHA MATCH/MISMATCH against the documented r253 hash when the file is present, reducing rediscovery of the exact checksum. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-11T23:13:00Z (Run 479)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Made the STALL SUSPICION line in tools/status_report.py dynamic so it reports the live idle_streak from stall_watch.py (currently 8 on compacted STATE) alongside the historical ~186+ note. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
 
