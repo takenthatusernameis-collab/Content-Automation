@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 486 — 2026-10-12T06:11:00Z
+- Objective: Reduce rediscovery of full local gate readiness by embedding a last_gates_confirmed signal in the primary status_report.py after re-verifying the complete gate set.
+- Action: Materialized Q1 media locally (not committed). Re-ran media_qa (PASS), next_action (upload-blocked), closed_brief_gate (PASS), selftest (PASS), confirmed master SHA MATCH. Updated tools/status_report.py to print a last_gates_confirmed line with the verification date and results. Updated preferred-list note. Prepended logs via record_run.py. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
+- Result: Videos published stay 0. Primary status command now surfaces that full local gates were green as of Run 486 without needing to re-materialize solely for confirmation. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: python3 tools/status_report.py shows last_gates_confirmed after materialize. media_qa PASS. next_action upload-blocked. SHA MATCH. selftest PASS.
+- Discovery: Explicit recent gate confirmation in the primary status printer reduces the chance future agents re-materialize and re-run the full gate set on every clone solely to rediscover that the path is still ready.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
 ## Run 485 — 2026-10-12T05:13:00Z
 - Objective: Reduce rediscovery of the exact dispatch command by embedding it in the primary status_report.py human step section.
 - Action: Updated tools/status_report.py to print the full gh workflow dispatch line under the human step reminder. Updated preferred-list note. Prepended logs via record_run.py. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.

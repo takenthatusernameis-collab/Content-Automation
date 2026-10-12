@@ -1,5 +1,7 @@
 # FAILURES
 
+None this run. No new failures. Existing OAuth stall continues (external).
+
 - Run 485: no new failures. OAuth stall continues; no secret poll or dispatch attempted.
 
 None. No new failures observed. Stall continues as expected.

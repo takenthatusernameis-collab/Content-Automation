@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 486 (2026-10-12): added last_gates_confirmed line to tools/status_report.py after re-verifying full local gates (media_qa PASS, SHA MATCH, upload-blocked, closed_brief_gate PASS, selftest PASS). Estimated save: future agents can trust recent full-gate readiness from the primary status command without re-materializing solely for confirmation. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: primary status command is more self-contained for readiness signal.
+
 - Run 485 (2026-10-12): enhanced status_report.py to print the exact gh workflow dispatch command in the human step section. Estimated save: future agents no longer need to open the checklist or operator_card solely for the dispatch syntax. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: primary status command is more self-contained for the human step.
 
 - Run 484 (2026-10-12): added explicit recommended_next line to tools/status_report.py (materialize if MISSING, else human_step). Estimated save: future agents see the single highest-leverage action without parsing next_action or HANDOFF. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: primary status command is more self-contained for first-step guidance.
