@@ -1,5 +1,7 @@
 # FAILURES
 
+No new failures. OAuth stall continues; no change to external blockers.
+
 - Run 487: no failures. next_action_code extraction and last_gates refresh succeeded; selftest PASS.
 
 None this run. No new failures. Existing OAuth stall continues (external).
