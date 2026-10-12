@@ -1,5 +1,7 @@
 # FAILURES
 
+No new failures. Existing stall on OAuth secrets continues.
+
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 494 — 2026-10-12T14:20:00Z

@@ -95,7 +95,7 @@ def main() -> int:
             playlist = line.split(":", 1)[1].strip()
             break
     print(f"optional_playlist: {playlist} (does not block upload; create in Studio later if desired)")
-    print("last_gates_confirmed: 2026-10-12 Run 493 (after materialize: media_qa PASS, master SHA MATCH, next_action=upload-blocked, closed_brief_gate PASS, selftest PASS). Do not re-run solely for confirmation unless packet or tools change.")
+    print("last_gates_confirmed: 2026-10-12 Run 496 (after materialize in fresh clone: media_qa PASS, master SHA MATCH, next_action=upload-blocked, closed_brief_gate PASS, selftest PASS). Do not re-run solely for confirmation unless packet or tools change.")
     print()
     print("--- stall_watch ---")
     print(stall_out.strip())
