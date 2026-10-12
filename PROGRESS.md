@@ -2,6 +2,12 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 501 — 2026-10-13T00:14:00Z
+- Anti-rediscovery: packet.md remaining human work checkboxes updated to check off generated VO, cards, and master steps (with materialize notes) so agents see media is ready on release without opening releases or treating boxes as open.
+- Local gates not re-run (media absent). No new failures.
+- Human labor reduction: future agents less likely to rediscover or re-attempt media generation/editing steps that are already complete via the private release.
+- Videos published remain 0. Stall continues.
+
 ## Run 500 — 2026-10-12T20:15:00Z
 - Anti-rediscovery: master_sha_target full checksum line added to status_report.py so agents can copy the exact r253 SHA without opening HANDOFF.md or scanning media_status prefixes.
 - Local gates not re-run (media absent). No new failures.
