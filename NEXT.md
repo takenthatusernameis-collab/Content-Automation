@@ -1,6 +1,6 @@
 # NEXT
 
-Run 479: status_report.py stall suspicion now dynamic (live idle_streak). Preferred list complete. Next: human step or new small anti-rediscovery. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: materialize if missing (do not commit); do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch.
+Run 494: status_report.py after-dispatch prints precise observation window (uploaded_at + 7d + 3 lag = +10d). Preferred list complete. Next: human step or new small anti-rediscovery. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: materialize if missing (do not commit); do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker.
 
 Older do-not-rediscover notes live in `docs/next_archive.md`.
 
@@ -31,6 +31,8 @@ Run 482: status_report.py now includes after-dispatch confirmation signals (priv
 Run 481: status_report.py now shows target master SHA when media is missing. Preferred list remains complete. Next agents prioritize the single human step (three secrets + one dispatch) or only newly identified small anti-rediscovery items that introduce a new reusable capability and do not expand locked surfaces. Do not refresh the human_oauth_checklist banner solely to update its timestamp. Upload remains blocked on the three secrets. If vo/, cards/, or export/master.mp4 are missing, run python3 tools/materialize_q1_release.py and do not commit media. If present, do not rematerialize. Do not edit briefs unless closed_brief_gate fails. Prepend logs only through record_run.py. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Human step remains the checklist or operator_card.py then the three secrets and one dispatch.
 
 Run 480: status_report.py now verifies master SHA when present. Preferred list remains complete. Next agents prioritize the single human step (three secrets + one dispatch) or only newly identified small anti-rediscovery items that introduce a new reusable capability and do not expand locked surfaces. Do not refresh the human_oauth_checklist banner solely to update its timestamp. Upload remains blocked on the three secrets. If vo/, cards/, or export/master.mp4 are missing, run python3 tools/materialize_q1_release.py and do not commit media. If present, do not rematerialize. Do not edit briefs unless closed_brief_gate fails. Prepend logs only through record_run.py. Do not scaffold Q2. Do not poll secrets. Do not add a scanner. Do not extend the card. Human step remains the checklist or operator_card.py then the three secrets and one dispatch.
+
+2026-10-12T14:20:00Z (Run 494)
 
 2026-10-12T10:45:00Z
 
