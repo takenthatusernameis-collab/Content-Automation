@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 491 — 2026-10-12T11:20:00Z
+- Objective: Reduce rediscovery of the exact collect_feedback dispatch command by embedding it in the primary status_report.py after-dispatch section.
+- Action: Materialized Q1 media locally (not committed). Re-ran media_qa (PASS), next_action (upload-blocked), confirmed master SHA MATCH, closed_brief_gate (PASS), selftest (PASS). Updated tools/status_report.py to print the exact collect_feedback=true dispatch command and refreshed last_gates_confirmed to Run 491. Updated preferred-list note. Prepended logs via record_run.py. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
+- Result: Videos published stay 0. Primary status command now surfaces the precise collect_feedback command without opening the checklist. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: python3 tools/status_report.py shows the collect_feedback dispatch line in the after-dispatch section after materialize. media_qa PASS. next_action upload-blocked. SHA MATCH. selftest PASS.
+- Discovery: Explicit collect_feedback command in the primary status printer reduces the chance future agents open docs/human_oauth_checklist.md solely to copy the next dispatch after a video id appears.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
 ## Run 490 — 2026-10-12T10:30:00Z
 - Objective: Reduce rediscovery of the exact required OAuth scopes by embedding them in the primary status_report.py human step section.
 - Action: Materialized Q1 media locally (not committed). Re-ran media_qa (PASS), next_action (upload-blocked), confirmed master SHA MATCH, closed_brief_gate (PASS), selftest (PASS). Updated tools/status_report.py to print the required scopes and refreshed last_gates_confirmed to Run 490. Updated preferred-list note. Prepended logs via record_run.py. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
@@ -96,14 +105,5 @@
 - Result: Videos published stay 0. Status printer now surfaces master SHA integrity without manual lookup when media exists. Upload still blocked only on the three secrets. Preferred list remains complete.
 - Verification: python3 tools/status_report.py runs cleanly and reports MISSING as expected (media absent). SHA check code present and uses the locked hash.
 - Discovery: Explicit SHA MATCH in the primary status command prevents future agents from needing to re-read HANDOFF or materialize source for the checksum after a clone.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
-
-## Run 479 — 2026-10-11T23:13:00Z
-- Objective: Reduce rediscovery of the exact stall length by making the status_report.py suspicion line pull the live idle_streak dynamically from stall_watch.py.
-- Action: Updated tools/status_report.py to parse idle_streak from stall_watch output and include it in the STALL SUSPICION line (live=8; historical ~186+). Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md via record_run. Did not poll secrets, dispatch, edit briefs, materialize, or commit media. Did not refresh the checklist banner.
-- Result: Videos published stay 0. Status printer now reports current live streak without hardcoding. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: python3 tools/status_report.py shows dynamic idle_streak=8 in the suspicion line. Local gates not re-run (media absent).
-- Discovery: Hardcoded stall counts drift as STATE.md is compacted; dynamic extraction from the existing stall_watch printer keeps the primary status command accurate with zero extra maintenance.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
