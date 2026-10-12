@@ -7,7 +7,7 @@
 - format: explainer-6-10min
 - target_duration_min: 8
 - created: 2026-09-13
-- updated: 2026-09-13
+- updated: 2026-10-13
 
 ## Promise
 One sentence: after watching, the viewer can install a written next-action default so the morning starts execution instead of reopening the whole work list.
@@ -16,13 +16,13 @@ One sentence: after watching, the viewer can install a written next-action defau
 - [x] Lock title (heuristic Primary; human may override)
 - [x] Draft publish.md (description / tags / first comment) — stub only, not uploaded
 - [x] Trim publish.md tags (dropped title-word stopwords)
-- [x] List planned cards in assets.md from script VISUAL (files still missing)
+- [x] List planned cards in assets.md from script VISUAL (files still missing until materialize)
 - [x] Fill qa.md mechanical boxes from packet files (human boxes stay open)
-- [x] Fill render.md presence checklist (all-missing; no media invented)
-- [ ] Record or generate selected VO to `vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav` using `vo_session.md` (`docs/narration.md`)
-- [ ] Build planned cards locally (do not invent binaries in git)
-- [ ] Edit
-- [ ] Review captions.md against selected VO (stub times are 150 wpm estimates)
-- [ ] Thumbnail file
+- [x] Fill render.md presence checklist (all-missing until materialize; no media invented)
+- [x] Record or generate selected VO to `vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav` (generated take on private release; install via `python3 tools/materialize_q1_release.py`; labeled generated in vo_origin.md)
+- [x] Build planned cards locally (7 cards on private release; install via materialize; do not invent binaries in git)
+- [x] Edit (r253 padded master on private release; install via materialize; do not use truncated r249)
+- [ ] Review captions.md against selected VO after materialize (stub times are 150 wpm estimates; captions.srt exists)
+- [x] Thumbnail file (thumbnail.png committed as draft; human still checks readability)
 - [ ] Human-lock publish.md description + pin before upload
-- [ ] Upload
+- [ ] Upload (blocked solely on the three YouTube OAuth secrets; see operator_card.py)
