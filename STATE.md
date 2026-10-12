@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-12T15:30:00Z (Run 495)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Local gates not re-run (media absent in this session). Preferred unblocked list remains complete. Refreshed HANDOFF.md (operator entry point) to current reality so it fully reflects status_report.py self-contained guidance (observation window timing, scopes, secret confirmation method, privacy, SHA, next_action_code, recommended_next, collect_feedback command). Reduces rediscovery of the complete handoff without opening status_report history or older notes. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
+
 2026-10-12T14:20:00Z (Run 494)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Local gates not re-run (media absent in this session). Preferred unblocked list remains complete. Added precise observation window timing (uploaded_at + 7 calendar days + 3 days Analytics lag = due at +10 days) to tools/status_report.py after-dispatch section so future agents see the exact due calculation without opening youtube_feedback.py. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
@@ -7,51 +11,3 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Lo
 2026-10-12T10:45:00Z (Run 493)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media locally for verification (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH, closed_brief_gate PASS, selftest PASS. Preferred unblocked list remains complete. Added forbidden `gh secret list` reminder and optional human_secret_confirm.py command to tools/status_report.py human step section so future agents see the exact confirmation method without opening the checklist or operator_card. Refreshed last_gates_confirmed after re-verification. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-12T12:20:00Z (Run 492)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media locally for verification (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH, closed_brief_gate PASS, selftest PASS. Preferred unblocked list remains complete. Added explicit initial-privacy-stays-private line to tools/status_report.py human step section so future agents see the privacy constraint without opening the checklist or operator_card. Refreshed last_gates_confirmed after re-verification. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-12T10:30:00Z (Run 490)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media locally for verification (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH, closed_brief_gate PASS, selftest PASS. Preferred unblocked list remains complete. Added required OAuth scopes to tools/status_report.py human step section so future agents see the exact token scopes without opening oauth_setup.py or the checklist. Refreshed last_gates_confirmed after re-verification. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-12T09:30:00Z (Run 489)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media locally for verification (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH, closed_brief_gate PASS, selftest PASS. Preferred unblocked list remains complete. Added the exact three secret names (YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN) and the three gh secret set commands to tools/status_report.py human step section so future agents see the precise setup without opening the checklist. Refreshed last_gates_confirmed after re-verification. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-12T08:15:00Z (Run 488)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media locally for verification (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH, closed_brief_gate PASS, selftest PASS. Preferred unblocked list remains complete. Added optional_playlist extraction to tools/status_report.py so future agents see that playlist_id is not_set and does not block upload without opening docs/channel.md or BLOCKED.md. Refreshed last_gates_confirmed after re-verification. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-12T07:13:00Z (Run 487)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media locally for verification (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH, closed_brief_gate PASS, selftest PASS. Preferred unblocked list remains complete. Added next_action_code extraction to tools/status_report.py so future agents see the gate code (upload-blocked or materialize-q1) immediately without parsing the full next_action section. Refreshed last_gates_confirmed after re-verification. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-12T06:11:00Z (Run 486)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized media locally for verification (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH, closed_brief_gate PASS, selftest PASS. Preferred unblocked list remains complete. Added a one-line last_gates_confirmed note to status_report.py so future agents see the recent full-gate verification without re-running materialize solely for confirmation. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-12T05:13:00Z (Run 485)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/status_report.py human step section to print the exact gh workflow dispatch command. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-12T04:20:00Z (Run 484)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Added explicit recommended_next line to tools/status_report.py (materialize if media MISSING, else human_step). Confirmed materialize + media_qa PASS + next_action=upload-blocked + SHA MATCH on a fresh clone. Preferred unblocked list remains complete. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-12T03:20:00Z (Run 483)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/status_report.py media_status PRESENT path to also print the target master SHA prefix (consistent with the MISSING path). Restored the STALL_OAUTH_IDLE active lock string in NEXT.md so next_compact_contract and selftest pass again. Preferred unblocked list remains complete. Local gates re-run after materialize (media_qa PASS, next_action=upload-blocked, SHA MATCH). Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-12T02:20:00Z (Run 482)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/status_report.py with an after-dispatch confirmation section that reprints the private video id look-up signals so the primary status command is self-contained for the post-secret confirmation without opening the checklist. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-12T01:20:00Z (Run 481)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/status_report.py media_status to include the target master SHA prefix even when media is MISSING, so the documented r253 hash is visible without opening HANDOFF.md. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
-
-2026-10-12T00:12:00Z (Run 480)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/status_report.py media_status to report master SHA MATCH/MISMATCH against the documented r253 hash when the file is present, reducing rediscovery of the exact checksum. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
