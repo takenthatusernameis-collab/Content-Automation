@@ -1,5 +1,7 @@
 # FAILURES
 
+- Run 487: no failures. next_action_code extraction and last_gates refresh succeeded; selftest PASS.
+
 None this run. No new failures. Existing OAuth stall continues (external).
 
 - Run 485: no new failures. OAuth stall continues; no secret poll or dispatch attempted.

@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 487 — 2026-10-12T07:13:00Z
+- Objective: Reduce rediscovery of the next_action gate code by extracting and printing it immediately in the primary status_report.py, and refresh last_gates_confirmed after re-verifying full local gates.
+- Action: Materialized Q1 media locally (not committed). Re-ran media_qa (PASS), next_action (upload-blocked), confirmed master SHA MATCH, closed_brief_gate (PASS), selftest (PASS). Updated tools/status_report.py to extract and print next_action_code and refreshed last_gates_confirmed to Run 487. Updated preferred-list note. Prepended logs via record_run.py. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
+- Result: Videos published stay 0. Primary status command now surfaces next_action_code (upload-blocked when media present) without parsing the full section. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: python3 tools/status_report.py shows next_action_code: upload-blocked and updated last_gates_confirmed after materialize. media_qa PASS. next_action upload-blocked. SHA MATCH. selftest PASS.
+- Discovery: Extracting the gate code into the top of the status printer reduces the chance future agents miss or re-parse the next_action section solely to learn the current code.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
 ## Run 486 — 2026-10-12T06:11:00Z
 - Objective: Reduce rediscovery of full local gate readiness by embedding a last_gates_confirmed signal in the primary status_report.py after re-verifying the complete gate set.
 - Action: Materialized Q1 media locally (not committed). Re-ran media_qa (PASS), next_action (upload-blocked), closed_brief_gate (PASS), selftest (PASS), confirmed master SHA MATCH. Updated tools/status_report.py to print a last_gates_confirmed line with the verification date and results. Updated preferred-list note. Prepended logs via record_run.py. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.

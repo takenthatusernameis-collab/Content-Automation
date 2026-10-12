@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-12T07:13:00Z (Run 487)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media locally for verification (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH, closed_brief_gate PASS, selftest PASS. Preferred unblocked list remains complete. Added next_action_code extraction to tools/status_report.py so future agents see the gate code (upload-blocked or materialize-q1) immediately without parsing the full next_action section. Refreshed last_gates_confirmed after re-verification. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
+
 2026-10-12T06:11:00Z (Run 486)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized media locally for verification (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH, closed_brief_gate PASS, selftest PASS. Preferred unblocked list remains complete. Added a one-line last_gates_confirmed note to status_report.py so future agents see the recent full-gate verification without re-running materialize solely for confirmation. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
