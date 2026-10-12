@@ -1,6 +1,9 @@
 # NEXT
 
 
+Run 503: publish-lock box checked off in packet.md (already agent-approved in publish.md). remaining_open_boxes now captions review + upload only. Preferred list complete. Next: human step or new small anti-rediscovery that does not re-verify gates solely for confirmation. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: materialize if missing (do not commit); do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker.
+
+
 Run 502: remaining_open_boxes parser added to status_report.py. Preferred list complete. Next: human step or new small anti-rediscovery that does not re-verify gates solely for confirmation. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: materialize if missing (do not commit); do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker.
 
 

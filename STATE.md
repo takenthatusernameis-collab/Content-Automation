@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-12T23:25:00Z (Run 503)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Checked off the publish-lock box in packet.md remaining human work because publish.md already records delegated agent review (description/tags/first-comment approved 2026-10-02). remaining_open_boxes now surfaces only captions review (when VO accessible) and upload. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
+
 2026-10-13T01:14:00Z (Run 502)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Added remaining_open_boxes parser to tools/status_report.py so agents see the exact unchecked human-work items from packet.md (captions review, publish lock, upload) without opening the file. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.

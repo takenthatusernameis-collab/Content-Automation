@@ -1,6 +1,6 @@
 # HANDOFF
 
-Updated: 2026-10-13T01:14:00Z (Run 502)
+Updated: 2026-10-12T23:25:00Z (Run 503)
 
 This file is the current operator entry point. Audio, card PNGs, and the master stay gitignored. Do not `git add -f`. Do not commit media.
 
@@ -11,8 +11,8 @@ This file is the current operator entry point. Audio, card PNGs, and the master 
 - Videos published: **0**
 - Pre-upload path: stable. Q1 VO + 7 cards + r253 master exist on private GitHub releases and are installed by `tools/materialize_q1_release.py`.
 - r253 master SHA256 (documented, must be present): `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546`
-- packet.md remaining human work now checks off the generated VO / cards / edit steps (with materialize notes) so agents do not rediscover open media boxes.
-- status_report.py now prints remaining_open_boxes so agents see the exact unchecked items (captions review, publish lock, upload) without opening packet.md.
+- packet.md remaining human work checks off generated VO / cards / edit steps and the publish-lock (delegated agent review already in publish.md). Open boxes: captions review (when VO accessible) and upload.
+- status_report.py prints remaining_open_boxes so agents see the exact unchecked items without opening packet.md.
 
 - Local gates (after materialize): `media_qa` PASS, `closed_brief_gate` PASS, `next_action` = upload-blocked, `operator_card` PASS, `selftest` PASS.
 - Remaining human gate: the three GitHub Actions secrets only (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`).

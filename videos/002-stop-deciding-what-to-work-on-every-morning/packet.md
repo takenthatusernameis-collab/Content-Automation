@@ -22,7 +22,7 @@ One sentence: after watching, the viewer can install a written next-action defau
 - [x] Record or generate selected VO to `vo/002-stop-deciding-what-to-work-on-every-morning-take-selected.wav` (generated take on private release; install via `python3 tools/materialize_q1_release.py`; labeled generated in vo_origin.md)
 - [x] Build planned cards locally (7 cards on private release; install via materialize; do not invent binaries in git)
 - [x] Edit (r253 padded master on private release; install via materialize; do not use truncated r249)
-- [ ] Review captions.md against selected VO after materialize (stub times are 150 wpm estimates; captions.srt exists)
+- [ ] Review captions.md against selected VO after materialize (stub times are 150 wpm estimates; captions.srt exists; spot-check captions_review.md when VO accessible)
 - [x] Thumbnail file (thumbnail.png committed as draft; human still checks readability)
-- [ ] Human-lock publish.md description + pin before upload
+- [x] Human-lock publish.md description + pin before upload (delegated agent review recorded in publish.md 2026-10-02; description/tags/first-comment approved; live upload still blocked on the three OAuth secrets)
 - [ ] Upload (blocked solely on the three YouTube OAuth secrets; see operator_card.py)
