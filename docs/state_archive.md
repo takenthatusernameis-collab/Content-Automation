@@ -1100,3 +1100,7 @@ Updated: 2026-10-09T08:14:00Z (Run 423)
 
 Updated: 2026-10-09T09:12:00Z (Run 424)
 
+2026-10-11T22:12:00Z (Run 478)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Escalated the prolonged oauth_idle_without_publish stall (~186+ runs) as a process-level suspicion in tools/status_report.py so future agents treat continued pure documentation updates as low-leverage unless they introduce a new reusable capability. Preferred unblocked list remains complete. Local gates not re-run (media absent in this session). Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
+
