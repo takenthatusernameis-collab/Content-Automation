@@ -2,6 +2,12 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 502 — 2026-10-13T01:14:00Z
+- Anti-rediscovery: remaining_open_boxes parser added to status_report.py so agents see the exact unchecked human-work items from packet.md without opening the file.
+- Local gates not re-run (media absent). No new failures.
+- Human labor reduction: future agents less likely to open packet.md solely to discover which checkboxes remain open after media steps were checked off.
+- Videos published remain 0. Stall continues.
+
 ## Run 501 — 2026-10-13T00:14:00Z
 - Anti-rediscovery: packet.md remaining human work checkboxes updated to check off generated VO, cards, and master steps (with materialize notes) so agents see media is ready on release without opening releases or treating boxes as open.
 - Local gates not re-run (media absent). No new failures.

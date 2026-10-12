@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-13T01:14:00Z (Run 502)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Added remaining_open_boxes parser to tools/status_report.py so agents see the exact unchecked human-work items from packet.md (captions review, publish lock, upload) without opening the file. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
+
 2026-10-13T00:14:00Z (Run 501)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Updated videos/002-.../packet.md remaining human work checkboxes to check off generated VO, cards, and master steps (with materialize notes) so future agents see the media is ready on release without rediscovering open boxes that no longer apply. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
