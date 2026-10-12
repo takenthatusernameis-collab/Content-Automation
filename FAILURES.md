@@ -1,5 +1,10 @@
 # FAILURES
 
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
+## Run 493 — 2026-10-12T10:45:00Z
+- No new failures. Continued OAuth stall is external and expected. No retry of blocked paths.
+
 none
 
 None this run. No failed approaches.
@@ -29,5 +34,3 @@ None this run. Stall continues; no new failed approach.
 - None this run. Dynamic extraction succeeded; no secret poll or media commit.
 
 None this run. OAuth secrets remain the sole publish blocker.
-
-Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.

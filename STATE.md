@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-12T10:45:00Z (Run 493)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media locally for verification (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH, closed_brief_gate PASS, selftest PASS. Preferred unblocked list remains complete. Added forbidden `gh secret list` reminder and optional human_secret_confirm.py command to tools/status_report.py human step section so future agents see the exact confirmation method without opening the checklist or operator_card. Refreshed last_gates_confirmed after re-verification. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
+
 2026-10-12T12:20:00Z (Run 492)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media locally for verification (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH, closed_brief_gate PASS, selftest PASS. Preferred unblocked list remains complete. Added explicit initial-privacy-stays-private line to tools/status_report.py human step section so future agents see the privacy constraint without opening the checklist or operator_card. Refreshed last_gates_confirmed after re-verification. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.

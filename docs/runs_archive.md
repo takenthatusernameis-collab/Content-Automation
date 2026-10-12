@@ -1589,3 +1589,12 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Explicit SHA MATCH in the primary status command prevents future agents from needing to re-read HANDOFF or materialize source for the checksum after a clone.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
+## Run 481 — 2026-10-12T01:20:00Z
+- Objective: Reduce rediscovery of the documented r253 master SHA by surfacing the target hash prefix in status_report.py even when media is MISSING.
+- Action: Updated tools/status_report.py media_status missing path to include (target master SHA 4ff4c0e80ac6b571...). Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md via record_run. Did not poll secrets, dispatch, edit briefs, materialize, or commit media. Did not refresh the checklist banner.
+- Result: Videos published stay 0. Primary status command now shows the target checksum without opening HANDOFF. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: python3 tools/status_report.py reports the target SHA prefix in the MISSING line. Local gates not re-run (media absent).
+- Discovery: Agents on fresh clones see media MISSING; embedding the target hash in that line prevents a separate lookup of the exact SHA.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.

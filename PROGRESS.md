@@ -1,5 +1,13 @@
 # PROGRESS
 
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
+## Run 493 — 2026-10-12T10:45:00Z
+- Anti-rediscovery: status_report.py now surfaces secret confirmation method (no gh secret list from agent; optional human_secret_confirm.py) in the primary human step section.
+- Gates re-verified green after materialize (media_qa, SHA MATCH, upload-blocked, closed_brief_gate, selftest).
+- Human labor reduction: future agents less likely to rediscover confirmation steps or attempt forbidden secret listing.
+- Videos published remain 0. Stall continues.
+
 - Run 492 (2026-10-12): enhanced status_report.py human step with explicit 'initial upload privacy stays private' line. Estimated save: future agents no longer open the checklist or operator_card solely to confirm the first-upload privacy setting. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: primary status command is more self-contained for the privacy constraint.
 
 - Run 491 (2026-10-12): added exact collect_feedback dispatch command to tools/status_report.py after-dispatch section, and refreshed last_gates_confirmed after re-verifying full local gates (media_qa PASS, SHA MATCH, upload-blocked, closed_brief_gate PASS, selftest PASS). Estimated save: future agents see the precise next command after a private video id appears without opening the checklist. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: primary status command is more self-contained for the post-upload path.
@@ -29,5 +37,3 @@
 - Run 479 (2026-10-11): made the STALL SUSPICION line in tools/status_report.py dynamic (pulls live idle_streak from stall_watch.py). Estimated save: future agents no longer need to manually update or rediscover the exact streak number after each compact. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: primary status command now stays accurate as the live streak changes.
 
 - Run 478 (2026-10-11): escalated the prolonged oauth_idle_without_publish stall (~186+ runs) as a process-level suspicion in tools/status_report.py. Estimated save: reduces future agent cycles spent on pure documentation updates while the external blocker remains. Videos published stay 0. Human minutes per video remain blocked on the secrets. Reliability: primary status printer now surfaces diminishing-returns guidance immediately.
-
-Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
