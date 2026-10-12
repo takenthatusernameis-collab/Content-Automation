@@ -17,3 +17,12 @@
 - Discovery: Explicit confirmation method in the primary status printer reduces the chance future agents open docs/human_oauth_checklist.md or operator_card solely to learn how to confirm secrets or avoid forbidden commands.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
+## Run 492 — 2026-10-12T12:20:00Z
+- Objective: Reduce rediscovery of the first-upload privacy constraint by embedding an explicit 'initial upload privacy stays private' line in the primary status_report.py human step section.
+- Action: Materialized Q1 media locally (not committed). Re-ran media_qa (PASS), next_action (upload-blocked), confirmed master SHA MATCH, closed_brief_gate (PASS), selftest (PASS). Updated tools/status_report.py to print the privacy reminder and refreshed last_gates_confirmed to Run 492. Updated preferred-list note. Prepended logs via record_run.py. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
+- Result: Videos published stay 0. Primary status command now surfaces the privacy constraint without opening the checklist or operator_card. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: python3 tools/status_report.py shows the privacy line in the human step section after materialize. media_qa PASS. next_action upload-blocked. SHA MATCH. selftest PASS. next_compact_contract PASS.
+- Discovery: Explicit privacy reminder in the primary status printer reduces the chance future agents open docs/human_oauth_checklist.md or operator_card solely to confirm that the first upload remains private.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
