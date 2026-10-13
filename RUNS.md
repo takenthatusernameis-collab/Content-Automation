@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 505 — 2026-10-13T04:20:00Z
+- Objective: Reduce rediscovery of the exact captions spot-check scope by surfacing the 5 silence-proportional checkpoints and method directly in the primary status_report.py printer.
+- Action: Added captions_review_checkpoints one-liner immediately after captions_review_ready in tools/status_report.py. Refreshed HANDOFF.md to include the new line and current status. Prepended logs. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
+- Result: Videos published stay 0. Primary status command now shows the exact 5 checkpoint times and method without opening captions_review.md. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File updates committed. status_report.py and HANDOFF.md contain the new summary. No gate re-run claimed.
+- Discovery: Explicit checkpoint summary reduces the chance future agents open captions_review.md solely to learn the spot-check times and method when VO is present.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
+
 ## Run 504 — 2026-10-13T00:25:00Z
 - Objective: Reduce rediscovery of whether the remaining captions-review human-work box is currently actionable by surfacing VO presence directly in the primary status_report.py printer.
 - Action: Added captions_review_ready one-liner (yes/no based on vo/*.wav presence) immediately after remaining_open_boxes in tools/status_report.py. Materialized Q1 media for verification (not committed). Confirmed media_qa PASS and next_action=upload-blocked. Prepended logs via record_run. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
