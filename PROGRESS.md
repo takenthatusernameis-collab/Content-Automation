@@ -2,6 +2,13 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 512 — 2026-10-13T11:15:00Z
+- Anti-rediscovery: exact_collect_command one-liner added to status_report.py so agents see the precise gh workflow dispatch for collect_feedback=true (only after private video id + 10-day window) without scanning the after-dispatch section. HANDOFF.md refreshed to reflect the new line.
+- Local gates not re-run (media absent). No new failures.
+- Human labor reduction: future agents less likely to open the after-dispatch section or checklist solely to copy the collect command once a video id exists.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
+
 ## Run 510 — 2026-10-13T09:15:00Z
 - Added exact_dispatch_command one-liner to status_report.py (precise gh workflow dispatch). Refreshed HANDOFF.md. No media change, no gate re-verification. Videos published remain 0. Preferred unblocked list complete.
 
@@ -74,11 +81,4 @@ Run 506: Added thumbnail_review_status one-liner to status_report.py. Reduces on
 - Anti-rediscovery: last_gates_confirmed updated to current re-verification (fresh clone materialize + full local gates PASS, SHA MATCH).
 - Local gates re-run and confirmed. No new failures.
 - Human labor reduction: future agents less likely to re-materialize and re-run gates solely to confirm the packet is still ready.
-- Videos published remain 0. Stall continues.
-
-
-## Run 495 — 2026-10-12T15:30:00Z
-- Anti-rediscovery: HANDOFF.md (operator entry point) refreshed to fully reflect current self-contained status_report.py guidance (observation window +10d, scopes, confirmation method, privacy, SHA, next_action_code, recommended_next).
-- Local gates not re-run (media absent). No new failures.
-- Human labor reduction: future agents and humans less likely to assemble guidance by opening multiple files or status_report history.
 - Videos published remain 0. Stall continues.
