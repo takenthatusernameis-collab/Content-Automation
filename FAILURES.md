@@ -6,6 +6,9 @@ None this run.
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 505 — 2026-10-13T04:20:00Z
+None.
+
 ## Run 501 — 2026-10-13T00:14:00Z
 None.
 
