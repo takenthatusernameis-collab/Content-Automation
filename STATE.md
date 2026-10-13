@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-13T16:30:00Z (Run 517)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media was materialized for local verification only; do not rematerialize if present). Added optional_human_secret_confirm one-liner to tools/status_report.py so agents see the precise human-only confirmation command (prints PRESENT/MISSING, never values; exit 0 = all three exist) immediately after exact_secret_set_commands without scanning the human step section. Refreshed HANDOFF.md. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
+
 2026-10-13T12:30:00Z (Run 516)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Added exact_secret_set_commands one-liner to tools/status_report.py so agents see the precise three gh secret set commands immediately after exact_collect_command without scanning the human step section. Restored HANDOFF.md from the broken shell-substitution placeholder to a usable operator entry point. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
@@ -27,3 +31,4 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Di
 2026-10-13T05:20:00Z (Run 509)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Added upload_blocker one-liner to tools/status_report.py so agents see the exact three secret names and issue #1 immediately after remaining_open_boxes without opening operator_card or the checklist. Refreshed HANDOFF.md. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
+

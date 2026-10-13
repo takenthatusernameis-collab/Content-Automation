@@ -1,5 +1,7 @@
 # FAILURES
 
+None. No new failures this run.
+
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 516 — 2026-10-13T12:30:00Z

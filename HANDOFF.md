@@ -1,6 +1,6 @@
 # HANDOFF
 
-2026-10-13T12:30:00Z (Run 516)
+2026-10-13T16:30:00Z (Run 517)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` (self-contained; do not open other files solely to rediscover the lines it already prints).
 
@@ -20,11 +20,12 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
    gh secret set YOUTUBE_CLIENT_SECRET --repo takenthatusernameis-collab/Content-Automation
    gh secret set YOUTUBE_REFRESH_TOKEN --repo takenthatusernameis-collab/Content-Automation
    ```
-4. Dispatch once:
+4. Optional human-terminal confirmation (never from an agent): `python3 tools/human_secret_confirm.py` (prints PRESENT/MISSING, never values; exit 0 = all three exist).
+5. Dispatch once:
    ```
    gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false
    ```
-5. Confirm success only by a private provider video id appearing in the Actions log AND in the packet upload_state.json. Privacy stays private. Do not re-dispatch execute until that id is visible. Do not invent an id.
+6. Confirm success only by a private provider video id appearing in the Actions log AND in the packet upload_state.json. Privacy stays private. Do not re-dispatch execute until that id is visible. Do not invent an id.
 
 **After private video id**
 - Observation window: due_at = uploaded_at + 7 calendar days + 3 days Analytics lag (= +10 days). Early collect returns OBSERVATION_WINDOW_NOT_DUE.
@@ -35,6 +36,6 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Do not rematerialize if media present. Do not re-verify local gates solely for confirmation (STALL_GATE_CONFIRM).
 - Do not refresh the human_oauth_checklist.md banner solely for its timestamp (STALL_BANNER_REFRESH).
 - Logs via `tools/record_run.py`. See production_rules.md for stall behavior.
-- status_report.py now also prints exact_secret_set_commands, exact_dispatch_command, exact_collect_command, required_oauth_scopes, privacy_constraint, observation_window_formula, post_upload_confirmation_signals, and the other anti-rediscovery lines.
+- status_report.py now also prints exact_secret_set_commands, optional_human_secret_confirm, exact_dispatch_command, exact_collect_command, required_oauth_scopes, privacy_constraint, observation_window_formula, post_upload_confirmation_signals, and the other anti-rediscovery lines.
 
 See STATE.md, NEXT.md, RUNS.md, and tools/status_report.py for full history. Preferred list remains complete.

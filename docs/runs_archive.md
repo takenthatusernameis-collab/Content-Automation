@@ -1670,3 +1670,21 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Explicit checked media steps in the live packet reduce the chance future agents open packet.md and attempt unnecessary VO/card/edit work or treat the boxes as still open.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
+
+## Run 503 — 2026-10-12T23:25:00Z
+- Objective: Reduce rediscovery of an already-completed publish-lock step by aligning packet.md remaining human work with the delegated agent approval already recorded in publish.md.
+- Action: Checked off the Human-lock publish.md box in packet.md with a note pointing to the 2026-10-02 delegated review. Prepended logs. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent). Did not claim captions review (VO audio inaccessible this session).
+- Result: Videos published stay 0. remaining_open_boxes now surfaces only captions review (when VO accessible) and upload. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: packet.md remaining work updated; publish.md already had agent-approved boxes. No gate re-run claimed.
+- Discovery: Aligning the live packet checkbox with the existing delegated approval reduces the chance future agents re-review metadata or treat the lock as still open.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
+
+## Run 502 — 2026-10-13T01:14:00Z
+- Objective: Reduce rediscovery of remaining open human-work checkboxes by surfacing them immediately in the primary status_report.py printer.
+- Action: Added remaining_open_boxes() parser and print line to tools/status_report.py. Updated preferred-list note. Prepended logs. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
+- Result: Videos published stay 0. Primary status command now shows the exact unchecked items (captions review after materialize, human-lock publish.md, upload blocked on secrets) without opening packet.md. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: status_report.py runs and prints the remaining_open_boxes line correctly from the live packet.md. File update prepared.
+- Discovery: Explicit open-box summary reduces the chance future agents open packet.md solely to learn which human steps remain after the generated media items were checked off.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
