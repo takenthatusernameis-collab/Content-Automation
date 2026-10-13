@@ -2113,9 +2113,13 @@ def check_thumbnail_draft_fail_closed() -> list[str]:
     sheet = q1 / "thumbnail_review.md"
     if sheet.is_file():
         raw = sheet.read_text(encoding="utf-8")
-        if "approval: pending-evidence" not in raw:
-            failures.append("Q1 thumbnail review must remain evidence-gated until the PNG is accessible")
-        if not (q1 / "thumbnail.png").is_file():
+        png_ok = (q1 / "thumbnail.png").is_file() and (q1 / "thumbnail.png").stat().st_size > 1000
+        if png_ok:
+            if "approval: approved" not in raw and "approval: pending-evidence" not in raw:
+                failures.append("Q1 thumbnail review should be approved or pending-evidence when PNG is accessible")
+        else:
+            if "approval: pending-evidence" not in raw:
+                failures.append("Q1 thumbnail review must remain evidence-gated until the PNG is accessible")
             failures.append("Q1 thumbnail.png missing beside the review")
     return failures
 
