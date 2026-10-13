@@ -1,5 +1,7 @@
 # PROGRESS
 
+Run 506: Added thumbnail_review_status one-liner to status_report.py. Reduces one more rediscovery step for the remaining open human work (thumbnail is committed). Estimated small efficiency gain for future agents inspecting readiness without opening thumbnail_review.md. Preferred list still complete; OAuth stall unchanged.
+
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
 ## Run 505 — 2026-10-13T04:20:00Z

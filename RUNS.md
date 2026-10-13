@@ -1,5 +1,21 @@
 # RUNS
 
+## Run 506
+
+**Objective**: Add small anti-rediscovery for thumbnail review status while OAuth stall continues.
+
+**Action**: Inserted thumbnail_review_status printer into tools/status_report.py (reads - approval: from thumbnail_review.md). Updated HANDOFF.md mentions and timestamp. Ran status_report.py to confirm the new line appears (pending-evidence).
+
+**Result**: completed. status_report now surfaces thumbnail approval without opening the review file. PNG accessibility is explicit.
+
+**Verification**: local python3 tools/status_report.py shows the new line. No gates re-run solely for confirmation. No media rematerialized.
+
+**Discovery**: Thumbnail PNG is already committed, so review evidence is available in-repo; approval remains pending-evidence until agent records checks.
+
+**Blocker**: STALL_OAUTH_IDLE (three YouTube secrets absent). Videos published 0.
+
+**Next**: human secrets + dispatch, or another new small reusable anti-rediscovery item.
+
 ## Run 505 — 2026-10-13T04:20:00Z
 - Objective: Reduce rediscovery of the exact captions spot-check scope by surfacing the 5 silence-proportional checkpoints and method directly in the primary status_report.py printer.
 - Action: Added captions_review_checkpoints one-liner immediately after captions_review_ready in tools/status_report.py. Refreshed HANDOFF.md to include the new line and current status. Prepended logs. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
@@ -96,14 +112,5 @@
 - Result: Videos published stay 0. Operator entry point now self-contained for the full pre-upload and post-dispatch path. Upload still blocked only on the three secrets. Preferred list remains complete.
 - Verification: File update committed. HANDOFF.md now surfaces the precise window, scopes, confirmation method, and privacy without opening other files.
 - Discovery: Keeping the operator entry point current reduces the chance future agents open status_report.py or multiple docs solely to assemble the full guidance.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
-
-## Run 494 — 2026-10-12T14:20:00Z
-- Objective: Reduce rediscovery of the exact observation window timing by embedding the precise calculation (uploaded_at + 7 calendar days + 3 days Analytics lag = due at +10 days) in the primary status_report.py after-dispatch section.
-- Action: Updated tools/status_report.py to print the exact due_at formula and OBSERVATION_WINDOW_NOT_DUE note. Updated preferred-list note. Prepended logs. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
-- Result: Videos published stay 0. Primary status command now surfaces the precise window timing without opening youtube_feedback.py. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File update committed. status_report.py contains the new timing line. No gate re-run claimed.
-- Discovery: Explicit 7+3 lag formula in the primary status printer reduces the chance future agents open youtube_feedback.py or workflow comments solely to learn the observation due date.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.

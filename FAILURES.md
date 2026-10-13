@@ -1,5 +1,7 @@
 # FAILURES
 
+None. No failed approaches this run. OAuth secrets still absent as expected.
+
 No new failures this run.
 
 None this run.

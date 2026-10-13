@@ -1598,3 +1598,12 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Agents on fresh clones see media MISSING; embedding the target hash in that line prevents a separate lookup of the exact SHA.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
+## Run 494 — 2026-10-12T14:20:00Z
+- Objective: Reduce rediscovery of the exact observation window timing by embedding the precise calculation (uploaded_at + 7 calendar days + 3 days Analytics lag = due at +10 days) in the primary status_report.py after-dispatch section.
+- Action: Updated tools/status_report.py to print the exact due_at formula and OBSERVATION_WINDOW_NOT_DUE note. Updated preferred-list note. Prepended logs. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
+- Result: Videos published stay 0. Primary status command now surfaces the precise window timing without opening youtube_feedback.py. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File update committed. status_report.py contains the new timing line. No gate re-run claimed.
+- Discovery: Explicit 7+3 lag formula in the primary status printer reduces the chance future agents open youtube_feedback.py or workflow comments solely to learn the observation due date.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
