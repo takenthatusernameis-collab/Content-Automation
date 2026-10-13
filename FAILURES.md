@@ -1,8 +1,12 @@
 # FAILURES
 
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
+## Run 513 — 2026-10-13T12:20:00Z
+- No new failures. OAuth stall continues as expected. Media absent in session (do not rematerialize if present on other machines). No gate re-verification solely for confirmation.
+
 None this run.
 
-Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 510 — 2026-10-13T09:15:00Z
 - None. No new failure. OAuth stall continues as expected.

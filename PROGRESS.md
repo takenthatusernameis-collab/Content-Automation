@@ -2,6 +2,13 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 513 — 2026-10-13T12:20:00Z
+- Anti-rediscovery: privacy_constraint one-liner added to status_report.py so agents see the exact initial-privacy-stays-private rule and no-re-dispatch-until-id immediately after required_oauth_scopes without scanning the human step or after-dispatch sections. HANDOFF.md refreshed to reflect the new line.
+- Local gates not re-run (media absent). No new failures.
+- Human labor reduction: future agents less likely to open the human step or after-dispatch sections solely to recall the privacy constraint once secrets are set and a video id appears.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
+
 ## Run 512 — 2026-10-13T11:15:00Z
 - Anti-rediscovery: exact_collect_command one-liner added to status_report.py so agents see the precise gh workflow dispatch for collect_feedback=true (only after private video id + 10-day window) without scanning the after-dispatch section. HANDOFF.md refreshed to reflect the new line.
 - Local gates not re-run (media absent). No new failures.
@@ -71,13 +78,6 @@ Run 506: Added thumbnail_review_status one-liner to status_report.py. Reduces on
 - Videos published remain 0. Stall continues.
 
 ## Run 497 — 2026-10-12T16:30:00Z
-- Anti-rediscovery: last_gates_confirmed updated to current re-verification (fresh clone materialize + full local gates PASS, SHA MATCH).
-- Local gates re-run and confirmed. No new failures.
-- Human labor reduction: future agents less likely to re-materialize and re-run gates solely to confirm the packet is still ready.
-- Videos published remain 0. Stall continues.
-
-
-## Run 496 — 2026-10-12T14:45:00Z
 - Anti-rediscovery: last_gates_confirmed updated to current re-verification (fresh clone materialize + full local gates PASS, SHA MATCH).
 - Local gates re-run and confirmed. No new failures.
 - Human labor reduction: future agents less likely to re-materialize and re-run gates solely to confirm the packet is still ready.

@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 513 — 2026-10-13T12:20:00Z
+- Objective: Reduce rediscovery of the initial privacy constraint by surfacing it immediately in status_report.py after required_oauth_scopes.
+- Action: Added privacy_constraint one-liner to tools/status_report.py (initial upload stays private; do not change until confirmed private video id reviewed). Updated preferred-list note. Refreshed HANDOFF.md timestamp and mention. Prepended logs via record_run. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
+- Result: Videos published stay 0. Primary status command now shows the precise privacy constraint without opening the human step or after-dispatch sections. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: status_report.py prints the new line correctly. File updates prepared.
+- Discovery: Explicit privacy one-liner next to scopes reduces the chance future agents scan the long human step or after-dispatch sections solely to recall that initial privacy stays private and execute must not be re-dispatched until a private video id is visible.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
+
 ## Run 512 — 2026-10-13T11:15:00Z
 - Objective: Reduce rediscovery of the exact post-upload collect_feedback command by surfacing it immediately in status_report.py after exact_dispatch_command.
 - Action: Added exact_collect_command one-liner to tools/status_report.py (with due-window note). Updated preferred-list note. Refreshed HANDOFF.md timestamp and mention. Prepended logs via record_run. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
@@ -103,14 +112,5 @@
 - Result: Videos published stay 0. Packet.md now accurately shows media steps complete via release + materialize. Upload still blocked only on the three secrets. Preferred list remains complete.
 - Verification: File update committed. packet.md remaining work boxes updated. No gate re-run claimed.
 - Discovery: Explicit checked media steps in the live packet reduce the chance future agents open packet.md and attempt unnecessary VO/card/edit work or treat the boxes as still open.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
-
-## Run 500 — 2026-10-12T20:15:00Z
-- Objective: Reduce rediscovery of the exact r253 master SHA by surfacing the full checksum immediately in the primary status_report.py printer.
-- Action: Added master_sha_target full checksum print right after media_status in tools/status_report.py. Updated preferred-list note. Prepended logs. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
-- Result: Videos published stay 0. Primary status command now shows the full target master SHA for easy copy without opening HANDOFF.md. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File update committed. status_report.py contains the new master_sha_target line. No gate re-run claimed.
-- Discovery: Explicit full checksum reduces the chance future agents open HANDOFF.md or scan media_status prefixes solely to obtain the exact SHA for verification.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.

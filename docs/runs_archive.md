@@ -1652,3 +1652,12 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Explicit early stall flag summary reduces the chance future agents scan the full stall section solely to learn which low-leverage patterns are currently flagged.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
+
+## Run 500 — 2026-10-12T20:15:00Z
+- Objective: Reduce rediscovery of the exact r253 master SHA by surfacing the full checksum immediately in the primary status_report.py printer.
+- Action: Added master_sha_target full checksum print right after media_status in tools/status_report.py. Updated preferred-list note. Prepended logs. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
+- Result: Videos published stay 0. Primary status command now shows the full target master SHA for easy copy without opening HANDOFF.md. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File update committed. status_report.py contains the new master_sha_target line. No gate re-run claimed.
+- Discovery: Explicit full checksum reduces the chance future agents open HANDOFF.md or scan media_status prefixes solely to obtain the exact SHA for verification.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
