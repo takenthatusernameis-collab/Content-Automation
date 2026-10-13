@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-13T09:15:00Z (Run 510)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Added exact_dispatch_command one-liner to tools/status_report.py so agents see the precise gh workflow dispatch command immediately after recommended_next without scanning the human step section. Refreshed HANDOFF.md. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
+
 2026-10-13T05:20:00Z (Run 509)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Added upload_blocker one-liner to tools/status_report.py so agents see the exact three secret names and issue #1 immediately after remaining_open_boxes without opening operator_card or the checklist. Refreshed HANDOFF.md. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
@@ -43,8 +47,4 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Di
 2026-10-12T19:20:00Z (Run 499)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Added active_stall_flags one-liner to tools/status_report.py so current STALL_* flags are visible immediately without parsing the full stall_watch section. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
-
-2026-10-12T17:15:00Z (Run 498)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Added STALL_GATE_CONFIRM to tools/stall_watch.py so repeated sole-purpose last_gates_confirmed refreshes or fresh-clone gate re-verifications become machine-visible while the OAuth stall continues. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
 

@@ -1,5 +1,10 @@
 # FAILURES
 
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
+## Run 510 — 2026-10-13T09:15:00Z
+- None. No new failure. OAuth stall continues as expected.
+
 - Run 509: No new failures. Local gates not re-run (media absent in session). OAuth stall continues as expected.
 
 - none
@@ -12,7 +17,6 @@ No new failures this run.
 
 None this run.
 
-Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 505 — 2026-10-13T04:20:00Z
 None.

@@ -579,3 +579,8 @@ Updated: 2026-10-09T01:20:00Z (Run 416)
 - Run 416 (2026-10-09): an unmatched later packet no longer replaces a filled viewer or why-now with the generic stall template. One less rewrite on every card that already names its viewer. Videos published still 0.
 
 - Run 420 (2026-10-09): later-packet publish stubs no longer wrap a ', so' problem in a second If, and drop lone before/starts/stays tags. Estimated tag-trim edit avoided on each future stub. Videos published stay 0.
+## Run 494 — 2026-10-12T14:20:00Z
+- Anti-rediscovery: status_report.py after-dispatch now prints the precise observation window (uploaded_at + 7 calendar days + 3 days Analytics lag = due at +10 days) and notes early collect is OBSERVATION_WINDOW_NOT_DUE.
+- Local gates not re-run (media absent). No new failures.
+- Human labor reduction: future agents less likely to open youtube_feedback.py solely for the due date calculation.
+- Videos published remain 0. Stall continues.

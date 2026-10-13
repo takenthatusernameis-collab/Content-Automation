@@ -1130,3 +1130,7 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Ma
 
 # STATE
 
+2026-10-12T17:15:00Z (Run 498)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Added STALL_GATE_CONFIRM to tools/stall_watch.py so repeated sole-purpose last_gates_confirmed refreshes or fresh-clone gate re-verifications become machine-visible while the OAuth stall continues. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
+

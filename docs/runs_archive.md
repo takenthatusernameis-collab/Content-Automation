@@ -1634,3 +1634,12 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Fresh-clone materialize + gate re-run still succeeds; recording the confirmation reduces rediscovery of whether the packet is still ready.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
+## Run 498 — 2026-10-12T17:15:00Z
+- Objective: Reduce repeated sole-purpose gate re-verifications and last_gates_confirmed refreshes by making the pattern machine-visible in stall_watch.py.
+- Action: Added STALL_GATE_CONFIRM flag, tokens, and detection logic to tools/stall_watch.py (window=4). Updated preferred-list note in tools/status_report.py. Prepended logs via record_run. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. The new flag will activate on future consecutive re-verification runs. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: stall_watch.py runs without error; flag code present and consistent with existing stall patterns.
+- Discovery: Recent runs 493/496/497 followed a re-verification pattern; making it visible reduces the chance future agents spend a full run only confirming already-green gates.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.

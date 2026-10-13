@@ -1,5 +1,10 @@
 # PROGRESS
 
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
+## Run 510 — 2026-10-13T09:15:00Z
+- Added exact_dispatch_command one-liner to status_report.py (precise gh workflow dispatch). Refreshed HANDOFF.md. No media change, no gate re-verification. Videos published remain 0. Preferred unblocked list complete.
+
 - Run 509: Added upload_blocker one-liner to status_report.py. Reduces rediscovery of the exact three secret names blocking the last open human-work box. Estimated small efficiency gain for future agents. Preferred list still complete; OAuth stall unchanged.
 
 - Run 508: Closed the captions review human-work box via delegated structural approval after materialize (VO accessible). Added captions_review_status to status_report.py so future agents see approval without opening the file. remaining_open_boxes reduced to upload-only. Compounds by eliminating rediscovery of the captions checklist state.
@@ -8,7 +13,6 @@ Run 507: Recorded delegated thumbnail approval after inspecting committed PNG (s
 
 Run 506: Added thumbnail_review_status one-liner to status_report.py. Reduces one more rediscovery step for the remaining open human work (thumbnail is committed). Estimated small efficiency gain for future agents inspecting readiness without opening thumbnail_review.md. Preferred list still complete; OAuth stall unchanged.
 
-Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
 ## Run 505 — 2026-10-13T04:20:00Z
 - Anti-rediscovery: captions_review_checkpoints one-liner added to status_report.py summarizing the 5 silence-proportional spots and method so agents see the exact spot-check scope without opening captions_review.md. HANDOFF.md refreshed to reflect the new line.
@@ -77,10 +81,4 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 - Anti-rediscovery: HANDOFF.md (operator entry point) refreshed to fully reflect current self-contained status_report.py guidance (observation window +10d, scopes, confirmation method, privacy, SHA, next_action_code, recommended_next).
 - Local gates not re-run (media absent). No new failures.
 - Human labor reduction: future agents and humans less likely to assemble guidance by opening multiple files or status_report history.
-- Videos published remain 0. Stall continues.
-
-## Run 494 — 2026-10-12T14:20:00Z
-- Anti-rediscovery: status_report.py after-dispatch now prints the precise observation window (uploaded_at + 7 calendar days + 3 days Analytics lag = due at +10 days) and notes early collect is OBSERVATION_WINDOW_NOT_DUE.
-- Local gates not re-run (media absent). No new failures.
-- Human labor reduction: future agents less likely to open youtube_feedback.py solely for the due date calculation.
 - Videos published remain 0. Stall continues.
