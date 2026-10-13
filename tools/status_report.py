@@ -102,6 +102,7 @@ def main() -> int:
     stall_flags = [line.strip() for line in stall_out.splitlines() if line.strip().startswith("STALL_")]
     print("active_stall_flags:", ", ".join(stall_flags) if stall_flags else "none (see stall_watch section)")
     print("remaining_open_boxes:", remaining_open_boxes())
+    print("upload_blocker:", "three GitHub Actions secrets only (YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN); issue #1; do not poll")
     # Captions review readiness (reduces rediscovery of whether the remaining open box is actionable)
     vo_ready = (PACKET / "vo").is_dir() and any((PACKET / "vo").glob("*.wav"))
     print("captions_review_ready:", "yes (VO present; spot-check 5 checkpoints in captions_review.md against audio)" if vo_ready else "no (materialize first; VO not accessible)")

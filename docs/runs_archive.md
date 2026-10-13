@@ -1625,3 +1625,12 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Fresh-clone materialize + gate re-run still succeeds; recording the confirmation reduces rediscovery of whether the packet is still ready.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
+## Run 497 — 2026-10-12T16:30:00Z
+- Objective: Re-verify local gates after materialize in a fresh clone (media absent at start) and update last_gates_confirmed so future agents see current readiness evidence without sole-purpose re-verification.
+- Action: Ran materialize_q1_release.py (success, SHA MATCH), media_qa PASS, next_action=upload-blocked, closed_brief_gate PASS, selftest PASS. Updated the last_gates_confirmed line in tools/status_report.py. Prepended logs. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
+- Result: Videos published stay 0. Local gates remain green with current confirmation. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: Commands executed; outputs showed PASS and MATCH. File updates prepared.
+- Discovery: Fresh-clone materialize + gate re-run still succeeds; recording the confirmation reduces rediscovery of whether the packet is still ready.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.

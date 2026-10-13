@@ -1,5 +1,7 @@
 # FAILURES
 
+- Run 509: No new failures. Local gates not re-run (media absent in session). OAuth stall continues as expected.
+
 - none
 
 None. Thumbnail inspection succeeded; approval recorded without inventing sensory evidence beyond accessible PNG properties.
