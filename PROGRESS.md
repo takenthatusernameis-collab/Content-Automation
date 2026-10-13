@@ -2,6 +2,12 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 505 — 2026-10-13T04:20:00Z
+- Anti-rediscovery: captions_review_checkpoints one-liner added to status_report.py summarizing the 5 silence-proportional spots and method so agents see the exact spot-check scope without opening captions_review.md. HANDOFF.md refreshed to reflect the new line.
+- Local gates not re-run (media absent). No new failures.
+- Human labor reduction: future agents less likely to open captions_review.md solely to learn the checkpoint times and method when VO is present and the box is open.
+- Videos published remain 0. Stall continues.
+
 ## Run 504 — 2026-10-13T00:25:00Z
 - Anti-rediscovery: captions_review_ready one-liner added to status_report.py so agents see immediately whether the remaining open captions-review box is actionable (VO present after materialize) without opening packet.md or the vo/ directory.
 - Local gates re-run after materialize and confirmed PASS. No new failures.
