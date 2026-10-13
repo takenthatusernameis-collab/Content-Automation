@@ -102,6 +102,9 @@ def main() -> int:
     stall_flags = [line.strip() for line in stall_out.splitlines() if line.strip().startswith("STALL_")]
     print("active_stall_flags:", ", ".join(stall_flags) if stall_flags else "none (see stall_watch section)")
     print("remaining_open_boxes:", remaining_open_boxes())
+    # Captions review readiness (reduces rediscovery of whether the remaining open box is actionable)
+    vo_ready = (PACKET / "vo").is_dir() and any((PACKET / "vo").glob("*.wav"))
+    print("captions_review_ready:", "yes (VO present; spot-check 5 checkpoints in captions_review.md against audio)" if vo_ready else "no (materialize first; VO not accessible)")
     # Extract next_action code for immediate visibility (reduces parsing the full section)
     na_out = run_tool("next_action.py", [str(PACKET.relative_to(ROOT))])
     code = "unknown"

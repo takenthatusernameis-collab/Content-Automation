@@ -2,6 +2,13 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 504 — 2026-10-13T00:25:00Z
+- Anti-rediscovery: captions_review_ready one-liner added to status_report.py so agents see immediately whether the remaining open captions-review box is actionable (VO present after materialize) without opening packet.md or the vo/ directory.
+- Local gates re-run after materialize and confirmed PASS. No new failures.
+- Human labor reduction: future agents less likely to rediscover VO accessibility solely to decide if the captions spot-check step can proceed.
+- Videos published remain 0. Stall continues.
+
+
 ## Run 503 — 2026-10-12T23:25:00Z
 - Anti-rediscovery: checked off publish-lock box in packet.md remaining human work (publish.md already records delegated agent review of description/tags/first-comment). remaining_open_boxes now surfaces only captions review (when VO accessible) and upload.
 - Local gates not re-run (media absent). No new failures.

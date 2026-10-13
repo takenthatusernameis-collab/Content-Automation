@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 504 — 2026-10-13T00:25:00Z
+- Objective: Reduce rediscovery of whether the remaining captions-review human-work box is currently actionable by surfacing VO presence directly in the primary status_report.py printer.
+- Action: Added captions_review_ready one-liner (yes/no based on vo/*.wav presence) immediately after remaining_open_boxes in tools/status_report.py. Materialized Q1 media for verification (not committed). Confirmed media_qa PASS and next_action=upload-blocked. Prepended logs via record_run. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
+- Result: Videos published stay 0. Primary status command now shows captions_review_ready immediately. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: status_report.py prints the new line correctly (yes after materialize). media_qa PASS, SHA MATCH, upload-blocked confirmed.
+- Discovery: Explicit readiness flag reduces the chance future agents open packet.md or inspect vo/ solely to learn if the captions spot-check can be performed this session.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
+
 ## Run 503 — 2026-10-12T23:25:00Z
 - Objective: Reduce rediscovery of an already-completed publish-lock step by aligning packet.md remaining human work with the delegated agent approval already recorded in publish.md.
 - Action: Checked off the Human-lock publish.md box in packet.md with a note pointing to the 2026-10-02 delegated review. Prepended logs. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent). Did not claim captions review (VO audio inaccessible this session).

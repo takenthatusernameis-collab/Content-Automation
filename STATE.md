@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-13T00:25:00Z (Run 504)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media in this session (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH. Added captions_review_ready one-liner to tools/status_report.py so agents see immediately whether the remaining captions-review box is actionable (VO present) without opening packet.md or checking the vo/ directory. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
+
 2026-10-12T23:25:00Z (Run 503)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Checked off the publish-lock box in packet.md remaining human work because publish.md already records delegated agent review (description/tags/first-comment approved 2026-10-02). remaining_open_boxes now surfaces only captions review (when VO accessible) and upload. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.

@@ -1,5 +1,7 @@
 # FAILURES
 
+No new failures this run.
+
 None this run.
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
