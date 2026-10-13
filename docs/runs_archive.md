@@ -1607,3 +1607,12 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Explicit 7+3 lag formula in the primary status printer reduces the chance future agents open youtube_feedback.py or workflow comments solely to learn the observation due date.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
+
+## Run 495 — 2026-10-12T15:30:00Z
+- Objective: Reduce rediscovery of the complete current operator guidance by refreshing HANDOFF.md (primary entry point) to fully reflect the self-contained status_report.py (observation window timing, scopes, secret confirmation, privacy, SHA, next_action_code, recommended_next, collect command).
+- Action: Updated HANDOFF.md timestamp and sections so it matches current reality without requiring agents to open status_report.py history or older notes. Prepended logs. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
+- Result: Videos published stay 0. Operator entry point now self-contained for the full pre-upload and post-dispatch path. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File update committed. HANDOFF.md now surfaces the precise window, scopes, confirmation method, and privacy without opening other files.
+- Discovery: Keeping the operator entry point current reduces the chance future agents open status_report.py or multiple docs solely to assemble the full guidance.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.

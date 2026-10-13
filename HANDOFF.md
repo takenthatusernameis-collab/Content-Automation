@@ -1,6 +1,6 @@
 # HANDOFF
 
-Updated: 2026-10-13T05:20:00Z (Run 506)
+Updated: 2026-10-13T03:15:00Z (Run 507)
 
 This file is the current operator entry point. Audio, card PNGs, and the master stay gitignored. Do not `git add -f`. Do not commit media.
 
@@ -24,7 +24,7 @@ This file is the current operator entry point. Audio, card PNGs, and the master 
 python3 tools/status_report.py
 ```
 
-Self-contained printer. Shows videos published, media_status (with target SHA prefix and MATCH/MISMATCH when present), master_sha_target (full r253 checksum for easy copy), recommended_next (materialize if missing else human_step), active_stall_flags, remaining_open_boxes, captions_review_ready, captions_review_checkpoints (5 silence-proportional spots and method), thumbnail_review_status (approval state; PNG committed), next_action_code, optional_playlist (not_set, does not block), last_gates_confirmed, full stall flags (including dynamic idle_streak), next_action, complete human step (exact three secret names + gh secret set commands + required scopes + forbidden gh secret list + optional human_secret_confirm.py + exact execute dispatch + initial privacy stays private), after-dispatch confirmation (private video id look-up + precise observation window: uploaded_at + 7 calendar days + 3 days Analytics lag = due at +10 days; early collect = OBSERVATION_WINDOW_NOT_DUE + exact collect_feedback dispatch), and stall-length suspicion. Does not write files, poll secrets, or dispatch.
+Self-contained printer. Shows videos published, media_status (with target SHA prefix and MATCH/MISMATCH when present), master_sha_target (full r253 checksum for easy copy), recommended_next (materialize if missing else human_step), active_stall_flags, remaining_open_boxes, captions_review_ready, captions_review_checkpoints (5 silence-proportional spots and method), thumbnail_review_status (approved under delegated review; PNG committed and inspected), next_action_code, optional_playlist (not_set, does not block), last_gates_confirmed, full stall flags (including dynamic idle_streak), next_action, complete human step (exact three secret names + gh secret set commands + required scopes + forbidden gh secret list + optional human_secret_confirm.py + exact execute dispatch + initial privacy stays private), after-dispatch confirmation (private video id look-up + precise observation window: uploaded_at + 7 calendar days + 3 days Analytics lag = due at +10 days; early collect = OBSERVATION_WINDOW_NOT_DUE + exact collect_feedback dispatch), and stall-length suspicion. Does not write files, poll secrets, or dispatch.
 
 ## While the OAuth stall continues
 

@@ -1116,3 +1116,7 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Lo
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media locally for verification (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH, closed_brief_gate PASS, selftest PASS. Preferred unblocked list remains complete. Added forbidden `gh secret list` reminder and optional human_secret_confirm.py command to tools/status_report.py human step section so future agents see the exact confirmation method without opening the checklist or operator_card. Refreshed last_gates_confirmed after re-verification. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
 
+2026-10-12T15:30:00Z (Run 495)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Local gates not re-run (media absent in this session). Preferred unblocked list remains complete. Refreshed HANDOFF.md (operator entry point) to current reality so it fully reflects status_report.py self-contained guidance (observation window timing, scopes, secret confirmation method, privacy, SHA, next_action_code, recommended_next, collect_feedback command). Reduces rediscovery of the complete handoff without opening status_report history or older notes. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
+
