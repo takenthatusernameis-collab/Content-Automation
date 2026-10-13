@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-13T04:20:00Z (Run 505)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Added captions_review_checkpoints one-liner to tools/status_report.py summarizing the 5 silence-proportional spots and method so agents see the exact spot-check scope without opening captions_review.md. Refreshed HANDOFF.md to reflect the new line and current status. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
+
 2026-10-13T00:25:00Z (Run 504)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media in this session (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH. Added captions_review_ready one-liner to tools/status_report.py so agents see immediately whether the remaining captions-review box is actionable (VO present) without opening packet.md or checking the vo/ directory. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
