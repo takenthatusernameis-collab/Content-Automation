@@ -463,3 +463,5 @@ Updated: 2026-10-05T18:20:00Z
 ## Run 426 — 2026-10-09T11:20:00Z
 - Failed approach not retried: another publish-stub tag skip after a clean later-packet dry-run, regenerating Q1, scaffolding Q2, another compact check, freeze module, card reprint, recovery edge, exchange parser, scanner, or secret poll while videos published stay 0.
 - Lesson: Caption contract passed, then a later-packet dry-run still deleted emphasized words and printed on-screen labels. Unwrap inline emphasis. Stop the cue before ON SCREEN. Do not rewrite the approved Q1 caption file. oauth_idle_without_publish remains; the human step is issue 1.
+## Run 497 — 2026-10-12T16:30:00Z
+None.

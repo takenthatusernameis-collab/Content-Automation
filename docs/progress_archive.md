@@ -620,3 +620,8 @@ Updated: 2026-10-09T01:20:00Z (Run 416)
 - Local gates not re-run (media absent). No new failures.
 - Human labor reduction: future agents less likely to rediscover or re-attempt media generation/editing steps that are already complete via the private release.
 - Videos published remain 0. Stall continues.
+## Run 502 — 2026-10-13T01:14:00Z
+- Anti-rediscovery: remaining_open_boxes parser added to status_report.py so agents see the exact unchecked human-work items from packet.md without opening the file.
+- Local gates not re-run (media absent). No new failures.
+- Human labor reduction: future agents less likely to open packet.md solely to discover which checkboxes remain open after media steps were checked off.
+- Videos published remain 0. Stall continues.

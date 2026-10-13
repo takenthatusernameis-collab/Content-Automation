@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 522 — 2026-10-13T22:13:00Z
+- Objective: Reduce rediscovery of the exact OAuth token minting commands by surfacing them immediately in status_report.py after exact_secret_set_commands.
+- Action: Added exact_oauth_exchange_command one-liner (python3 tools/oauth_exchange.py then --exchange --out /tmp/youtube-refresh-token; human only; scopes notes). Updated preferred-list note. Refreshed HANDOFF.md timestamp and mention. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
+- Result: Videos published stay 0. Primary status command now shows the precise oauth_exchange invocation without opening operator_card.py. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File updates prepared. status_report.py contains the new line (syntax verified locally; printed in output).
+- Discovery: Explicit exchange commands next to the secret-set lines reduce the chance future agents open operator_card.py solely to recall the minting step.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
+
 ## Run 521 — 2026-10-13T18:15:00Z
 - Objective: Reduce rediscovery of the exact materialize command and release tags by surfacing them immediately in status_report.py after master_sha_target.
 - Action: Added exact_materialize_command one-liner (python3 tools/materialize_q1_release.py with notes on r249/r253 and do-not-rematerialize) and media_release_tags one-liner (VO+cards from q1-media-r249; master from q1-media-r253; never install truncated r249 master). Updated preferred-list note. Refreshed HANDOFF.md timestamp and mention. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).

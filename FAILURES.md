@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 522 — 2026-10-13T22:13:00Z
+- None. No failed approaches. Continued anti-rediscovery pattern while OAuth stall persists.
+
+
 ## Run 520 — 2026-10-13T20:15:00Z
 - Recovered: Run 519 commits set tools/status_report.py to the literal string PLACEHOLDER_TO_BE_REPLACED, breaking the primary status command. Fixed by restoring from d2ce49f and re-applying the intended one-liner. No other failures. Do not repeat the placeholder overwrite pattern.
 
@@ -51,7 +55,4 @@ None.
 None.
 
 ## Run 498 — 2026-10-12T17:15:00Z
-None.
-
-## Run 497 — 2026-10-12T16:30:00Z
 None.

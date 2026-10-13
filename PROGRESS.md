@@ -2,6 +2,13 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 522 — 2026-10-13T22:13:00Z
+- Anti-rediscovery: exact_oauth_exchange_command one-liner added to status_report.py so agents see the precise human-only token minting commands (oauth_exchange.py + --exchange) immediately after exact_secret_set_commands without opening operator_card.py. HANDOFF.md refreshed.
+- Local gates not re-run (media absent). No new failures.
+- Human labor reduction: future agents less likely to open operator_card.py solely to copy the oauth_exchange steps once preparing the human terminal actions.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
+
 ## Run 520 — 2026-10-13T20:15:00Z
 - Recovery + anti-rediscovery: restored status_report.py from broken PLACEHOLDER state left by Run 519 commits and added checklist_banner_status one-liner so agents see the frozen Run 473 banner rule immediately without scanning HANDOFF or the checklist. HANDOFF.md refreshed.
 - Local gates not re-run (media absent). No new failures beyond the recovered placeholder bug.
@@ -74,10 +81,4 @@ Run 506: Added thumbnail_review_status one-liner to status_report.py. Reduces on
 - Anti-rediscovery: checked off publish-lock box in packet.md remaining human work (publish.md already records delegated agent review of description/tags/first-comment). remaining_open_boxes now surfaces only captions review (when VO accessible) and upload.
 - Local gates not re-run (media absent). No new failures.
 - Human labor reduction: future agents less likely to treat publish lock as still open or re-review metadata that was already approved under the production_rules delegation.
-- Videos published remain 0. Stall continues.
-
-## Run 502 — 2026-10-13T01:14:00Z
-- Anti-rediscovery: remaining_open_boxes parser added to status_report.py so agents see the exact unchecked human-work items from packet.md without opening the file.
-- Local gates not re-run (media absent). No new failures.
-- Human labor reduction: future agents less likely to open packet.md solely to discover which checkboxes remain open after media steps were checked off.
 - Videos published remain 0. Stall continues.

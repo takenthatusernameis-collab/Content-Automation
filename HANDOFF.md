@@ -1,6 +1,6 @@
 # HANDOFF
 
-2026-10-13T18:15:00Z (Run 521)
+2026-10-13T22:13:00Z (Run 522)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` (self-contained; do not open other files solely to rediscover the lines it already prints).
 
@@ -36,6 +36,6 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Do not rematerialize if media present. Do not re-verify local gates solely for confirmation (STALL_GATE_CONFIRM).
 - Do not refresh the human_oauth_checklist.md banner solely for its timestamp (STALL_BANNER_REFRESH).
 - Logs via `tools/record_run.py`. See production_rules.md for stall behavior.
-- status_report.py now also prints exact_materialize_command, media_release_tags, checklist_banner_status (frozen at Run 473; restored after Run 519 placeholder bug), exact_secret_set_commands, optional_human_secret_confirm, upload_state_status, exact_dispatch_command, exact_collect_command, required_oauth_scopes, privacy_constraint, observation_window_formula, post_upload_confirmation_signals, and the other anti-rediscovery lines. Run 521 added the materialize command and release tags.
+- status_report.py now also prints exact_oauth_exchange_command, exact_materialize_command, media_release_tags, checklist_banner_status (frozen at Run 473; restored after Run 519 placeholder bug), exact_secret_set_commands, optional_human_secret_confirm, upload_state_status, exact_dispatch_command, exact_collect_command, required_oauth_scopes, privacy_constraint, observation_window_formula, post_upload_confirmation_signals, and the other anti-rediscovery lines. Run 521 added the materialize command and release tags.
 
 See STATE.md, NEXT.md, RUNS.md, and tools/status_report.py for full history. Preferred list remains complete.
