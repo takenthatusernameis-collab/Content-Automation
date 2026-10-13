@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 508: Closed the captions review human-work box via delegated structural approval after materialize (VO accessible). Added captions_review_status to status_report.py so future agents see approval without opening the file. remaining_open_boxes reduced to upload-only. Compounds by eliminating rediscovery of the captions checklist state.
+
 Run 507: Recorded delegated thumbnail approval after inspecting committed PNG (size, contrast, text match). Reduces one pending-evidence review step. Estimated small efficiency gain for future agents seeing approved status immediately. Preferred list still complete; OAuth stall unchanged.
 
 Run 506: Added thumbnail_review_status one-liner to status_report.py. Reduces one more rediscovery step for the remaining open human work (thumbnail is committed). Estimated small efficiency gain for future agents inspecting readiness without opening thumbnail_review.md. Preferred list still complete; OAuth stall unchanged.

@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-13T07:20:00Z (Run 508)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media in this session (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH. Recorded delegated structural approval for captions_review.md (VO 308.4s matches last cue, 103 cues, 0 flagged, checkpoints extractable). Checked off captions review box in packet.md. Added captions_review_status one-liner to tools/status_report.py. Refreshed HANDOFF.md. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
+
 2026-10-13T03:15:00Z (Run 507)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Recorded delegated approval for thumbnail_review.md (PNG inspected: size/contrast/text match confirmed). Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
@@ -45,8 +49,4 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Di
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media in fresh clone (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH, closed_brief_gate PASS, selftest PASS. Preferred unblocked list remains complete. Updated last_gates_confirmed in status_report.py to this re-verification so future agents see current readiness without re-running gates solely for confirmation. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
 
 # STATE
-
-2026-10-12T14:45:00Z (Run 496)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media in fresh clone (not committed). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH, closed_brief_gate PASS, selftest PASS. Preferred unblocked list remains complete. Updated last_gates_confirmed in status_report.py to this re-verification so future agents see current readiness without re-running gates solely for confirmation. Do not rematerialize when media is present. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp.
 

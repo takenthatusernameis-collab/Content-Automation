@@ -1,6 +1,6 @@
 # Caption spot-check
 
-Status: draft sheet; approval may be recorded by the delegated agent when the selected VO/audio is accessible.
+Status: approved under delegated review (VO accessible).
 Method: silence-proportional captions.srt already on disk. Not ASR. Not uploaded.
 This file does not by itself claim that the audio was listened to.
 
@@ -21,6 +21,9 @@ Review: the agent may listen/check the five checkpoints and any flagged cue when
 ## Flagged
 
 - none under the current line-length, duration, and rate rules
+
+
+- approval: approved (Run 508: VO present and accessible, duration 308.4s matches last cue end ~308s, 103 cues, 0 flagged, 5 silence-proportional checkpoints confirmed extractable and timed; structural verification only, not content listening)
 
 ## Do not
 

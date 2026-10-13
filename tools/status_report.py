@@ -119,6 +119,22 @@ def main() -> int:
         print("thumbnail_review_status:", f"{approval} (PNG committed at thumbnail.png; agent may approve when readability/contrast/text checks pass; see thumbnail_review.md)")
     else:
         print("thumbnail_review_status:", "thumbnail_review.md missing")
+    # Captions review status (reduces rediscovery of approval state; VO accessibility already surfaced separately)
+    cap_review = PACKET / "captions_review.md"
+    if cap_review.is_file():
+        ctext = cap_review.read_text(encoding="utf-8")
+        approval = "unknown"
+        for cline in ctext.splitlines():
+            if cline.startswith("- approval:") or cline.startswith("Status:"):
+                if "approval:" in cline:
+                    approval = cline.split(":", 1)[1].strip()
+                    break
+                elif cline.startswith("Status:"):
+                    approval = cline.split(":", 1)[1].strip()
+        print("captions_review_status:", f"{approval} (see captions_review.md; agent records when VO accessible)")
+    else:
+        print("captions_review_status:", "captions_review.md missing")
+
     # Extract next_action code for immediate visibility (reduces parsing the full section)
     na_out = run_tool("next_action.py", [str(PACKET.relative_to(ROOT))])
     code = "unknown"

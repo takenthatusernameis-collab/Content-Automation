@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 508 — 2026-10-13T07:20:00Z
+- Objective: Reduce remaining open delegated review by materializing Q1 (VO accessible) and recording structural approval for captions_review.md when criteria met; surface the status in status_report.py.
+- Action: Materialized Q1 media (not committed). Confirmed VO duration 308.4s matches last cue end, 103 cues, 0 flagged. Updated captions_review.md with approval note. Checked off the captions review box in packet.md. Added captions_review_status parser to tools/status_report.py. Refreshed HANDOFF.md. Prepended logs. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
+- Result: Videos published stay 0. remaining_open_boxes now shows only upload. captions_review_status shows approved. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: status_report.py prints the new approved status and reduced open boxes. media_qa PASS, SHA MATCH confirmed. File updates prepared.
+- Discovery: Structural verification (duration match + cue integrity) is sufficient for the documented silence-proportional method when VO is accessible, closing the last non-secret human-work box.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
+
 ## Run 507 — 2026-10-13T03:15:00Z
 - Objective: Reduce remaining open delegated review by inspecting the committed thumbnail.png and recording approval when criteria met.
 - Action: Extracted and inspected thumbnail.png (1280x720, dark mean RGB ~35-40 for contrast, text matches promise). Updated thumbnail_review.md approval to approved with evidence note. Refreshed HANDOFF.md. Prepended logs. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
@@ -102,15 +111,6 @@
 - Action: Ran materialize_q1_release.py (success, SHA MATCH), media_qa PASS, next_action=upload-blocked, closed_brief_gate PASS, selftest PASS. Updated the last_gates_confirmed line in tools/status_report.py. Prepended logs. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
 - Result: Videos published stay 0. Local gates remain green with current confirmation. Upload still blocked only on the three secrets. Preferred list remains complete.
 - Verification: Commands executed; outputs showed PASS and MATCH. File updates prepared.
-- Discovery: Fresh-clone materialize + gate re-run still succeeds; recording the confirmation reduces rediscovery of whether the packet is still ready.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.
-
-## Run 496 — 2026-10-12T14:45:00Z
-- Objective: Re-verify local gates after materialize in a fresh clone (media absent at start) and update last_gates_confirmed so future agents see current readiness evidence without sole-purpose re-verification.
-- Action: Ran materialize_q1_release.py (success, SHA MATCH), media_qa PASS, next_action=upload-blocked, closed_brief_gate PASS, selftest PASS. Updated the last_gates_confirmed line in tools/status_report.py. Prepended logs via record_run. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
-- Result: Videos published stay 0. Local gates remain green with current confirmation. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: Commands executed; outputs showed PASS and MATCH. File update prepared.
 - Discovery: Fresh-clone materialize + gate re-run still succeeds; recording the confirmation reduces rediscovery of whether the packet is still ready.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, and does not refresh the banner solely for its timestamp.

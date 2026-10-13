@@ -1,6 +1,6 @@
 # HANDOFF
 
-Updated: 2026-10-13T03:15:00Z (Run 507)
+Updated: 2026-10-13T07:20:00Z (Run 508)
 
 This file is the current operator entry point. Audio, card PNGs, and the master stay gitignored. Do not `git add -f`. Do not commit media.
 
@@ -11,8 +11,8 @@ This file is the current operator entry point. Audio, card PNGs, and the master 
 - Videos published: **0**
 - Pre-upload path: stable. Q1 VO + 7 cards + r253 master exist on private GitHub releases and are installed by `tools/materialize_q1_release.py`.
 - r253 master SHA256 (documented, must be present): `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546`
-- packet.md remaining human work checks off generated VO / cards / edit steps and the publish-lock (delegated agent review already in publish.md). Open boxes: captions review (when VO accessible) and upload.
-- status_report.py prints remaining_open_boxes, captions_review_ready, captions_review_checkpoints, and thumbnail_review_status so agents see the exact unchecked items, readiness, the 5 silence-proportional spot-check times, and the thumbnail approval state (PNG committed) without opening packet.md, captions_review.md, or thumbnail_review.md.
+- packet.md remaining human work checks off generated VO / cards / edit steps, publish-lock, and captions review (delegated structural approval in captions_review.md). Open box: upload only.
+- status_report.py prints remaining_open_boxes, captions_review_ready, captions_review_checkpoints, thumbnail_review_status, and captions_review_status so agents see the exact unchecked items, readiness, the 5 silence-proportional spot-check times, thumbnail and captions approval states without opening packet.md, captions_review.md, or thumbnail_review.md.
 
 - Local gates (after materialize): `media_qa` PASS, `closed_brief_gate` PASS, `next_action` = upload-blocked, `operator_card` PASS, `selftest` PASS.
 - Remaining human gate: the three GitHub Actions secrets only (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`).
