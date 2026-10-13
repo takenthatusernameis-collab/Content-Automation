@@ -28,6 +28,8 @@ Run 495: HANDOFF.md refreshed as operator entry point to fully reflect current s
 
 Older do-not-rediscover notes live in `docs/next_archive.md`.
 
+Run 514: observation_window_formula one-liner added to status_report.py. HANDOFF refreshed. Preferred list complete. Next: human step or new small anti-rediscovery that does not re-verify gates solely for confirmation. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: materialize if missing (do not commit); do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker.
+
 Run 513: privacy_constraint one-liner added to status_report.py. HANDOFF refreshed. Preferred list complete. Next: human step or new small anti-rediscovery that does not re-verify gates solely for confirmation. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: materialize if missing (do not commit); do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker.
 
 Run 512: exact_collect_command one-liner added to status_report.py. HANDOFF refreshed. Preferred list complete. Next: human step or new small anti-rediscovery that does not re-verify gates solely for confirmation. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: materialize if missing (do not commit); do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker.
@@ -47,6 +49,8 @@ Run 498: STALL_GATE_CONFIRM added to stall_watch.py. Preferred list complete. Ne
 Run 496: last_gates_confirmed refreshed after re-verification in fresh environment. Preferred list complete. Next: human step or new small anti-rediscovery. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: materialize if missing (do not commit); do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker.
 
 Run 494: status_report.py after-dispatch prints precise observation window (uploaded_at + 7d + 3 lag = +10d). Preferred list complete. Next: human step or new small anti-rediscovery. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: materialize if missing (do not commit); do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker.
+
+2026-10-13T13:30:00Z (Run 514)
 
 2026-10-13T12:20:00Z (Run 513)
 
@@ -69,5 +73,3 @@ Run 494: status_report.py after-dispatch prints precise observation window (uplo
 2026-10-12T19:20:00Z (Run 499)
 
 2026-10-12T17:15:00Z (Run 498)
-
-2026-10-12T14:45:00Z (Run 496)

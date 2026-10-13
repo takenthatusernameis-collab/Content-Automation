@@ -1661,3 +1661,12 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Explicit full checksum reduces the chance future agents open HANDOFF.md or scan media_status prefixes solely to obtain the exact SHA for verification.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
+
+## Run 501 — 2026-10-13T00:14:00Z
+- Objective: Reduce rediscovery of outdated open media boxes in packet.md by updating the remaining human work section to reflect that generated VO, cards, and r253 master are ready on private releases.
+- Action: Checked off the generate/build/edit steps in videos/002-stop-deciding-what-to-work-on-every-morning/packet.md with materialize notes. Prepended logs. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
+- Result: Videos published stay 0. Packet.md now accurately shows media steps complete via release + materialize. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File update committed. packet.md remaining work boxes updated. No gate re-run claimed.
+- Discovery: Explicit checked media steps in the live packet reduce the chance future agents open packet.md and attempt unnecessary VO/card/edit work or treat the boxes as still open.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.

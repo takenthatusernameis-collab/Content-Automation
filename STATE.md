@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-13T13:30:00Z (Run 514)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Added observation_window_formula one-liner to tools/status_report.py so agents see the exact due_at calculation (uploaded_at + 7d + 3 lag = +10d) and OBSERVATION_WINDOW_NOT_DUE immediately after privacy_constraint without scanning the after-dispatch section. Refreshed HANDOFF.md. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
+
 2026-10-13T12:20:00Z (Run 513)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Added privacy_constraint one-liner to tools/status_report.py so agents see the exact initial-privacy-stays-private rule and no-re-dispatch-until-id-visible immediately after required_oauth_scopes without scanning the human step or after-dispatch sections. Refreshed HANDOFF.md. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.

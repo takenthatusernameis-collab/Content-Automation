@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 514 — 2026-10-13T13:30:00Z
+- No new failures. OAuth secrets remain the sole blocker. No gate regressions. No invented data.
+
+
 ## Run 513 — 2026-10-13T12:20:00Z
 - No new failures. OAuth stall continues as expected. Media absent in session (do not rematerialize if present on other machines). No gate re-verification solely for confirmation.
 
