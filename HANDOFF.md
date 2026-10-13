@@ -1,6 +1,6 @@
 # HANDOFF
 
-Updated: 2026-10-12T23:25:00Z (Run 503)
+Updated: 2026-10-13T04:20:00Z (Run 505)
 
 This file is the current operator entry point. Audio, card PNGs, and the master stay gitignored. Do not `git add -f`. Do not commit media.
 
@@ -12,7 +12,7 @@ This file is the current operator entry point. Audio, card PNGs, and the master 
 - Pre-upload path: stable. Q1 VO + 7 cards + r253 master exist on private GitHub releases and are installed by `tools/materialize_q1_release.py`.
 - r253 master SHA256 (documented, must be present): `4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546`
 - packet.md remaining human work checks off generated VO / cards / edit steps and the publish-lock (delegated agent review already in publish.md). Open boxes: captions review (when VO accessible) and upload.
-- status_report.py prints remaining_open_boxes so agents see the exact unchecked items without opening packet.md.
+- status_report.py prints remaining_open_boxes, captions_review_ready, and captions_review_checkpoints so agents see the exact unchecked items, readiness, and the 5 silence-proportional spot-check times without opening packet.md or captions_review.md.
 
 - Local gates (after materialize): `media_qa` PASS, `closed_brief_gate` PASS, `next_action` = upload-blocked, `operator_card` PASS, `selftest` PASS.
 - Remaining human gate: the three GitHub Actions secrets only (`YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN`).
@@ -24,7 +24,7 @@ This file is the current operator entry point. Audio, card PNGs, and the master 
 python3 tools/status_report.py
 ```
 
-Self-contained printer. Shows videos published, media_status (with target SHA prefix and MATCH/MISMATCH when present), master_sha_target (full r253 checksum for easy copy), recommended_next (materialize if missing else human_step), active_stall_flags, remaining_open_boxes, next_action_code, optional_playlist (not_set, does not block), last_gates_confirmed, full stall flags (including dynamic idle_streak), next_action, complete human step (exact three secret names + gh secret set commands + required scopes + forbidden gh secret list + optional human_secret_confirm.py + exact execute dispatch + initial privacy stays private), after-dispatch confirmation (private video id look-up + precise observation window: uploaded_at + 7 calendar days + 3 days Analytics lag = due at +10 days; early collect = OBSERVATION_WINDOW_NOT_DUE + exact collect_feedback dispatch), and stall-length suspicion. Does not write files, poll secrets, or dispatch.
+Self-contained printer. Shows videos published, media_status (with target SHA prefix and MATCH/MISMATCH when present), master_sha_target (full r253 checksum for easy copy), recommended_next (materialize if missing else human_step), active_stall_flags, remaining_open_boxes, captions_review_ready, captions_review_checkpoints (5 silence-proportional spots and method), next_action_code, optional_playlist (not_set, does not block), last_gates_confirmed, full stall flags (including dynamic idle_streak), next_action, complete human step (exact three secret names + gh secret set commands + required scopes + forbidden gh secret list + optional human_secret_confirm.py + exact execute dispatch + initial privacy stays private), after-dispatch confirmation (private video id look-up + precise observation window: uploaded_at + 7 calendar days + 3 days Analytics lag = due at +10 days; early collect = OBSERVATION_WINDOW_NOT_DUE + exact collect_feedback dispatch), and stall-length suspicion. Does not write files, poll secrets, or dispatch.
 
 ## While the OAuth stall continues
 
