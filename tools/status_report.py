@@ -99,6 +99,7 @@ def main() -> int:
     print("media_status:", media)
     print("master_sha_target:", MASTER_SHA)
     print("exact_materialize_command:", "python3 tools/materialize_q1_release.py  # verified install of r249 VO+cards + r253 master only; ignores known-truncated r249 master; do not rematerialize if media_status=PRESENT; media stays gitignored")
+    print("exact_post_materialize_verify:", "python3 tools/media_qa.py videos/002-stop-deciding-what-to-work-on-every-morning && python3 tools/next_action.py videos/002-stop-deciding-what-to-work-on-every-morning  # expect gate: PASS and CODE upload-blocked; do not re-run solely for confirmation if last_gates_confirmed is recent and media PRESENT")
     print("media_release_tags:", "VO and cards from q1-media-r249; master from q1-media-r253 (never install the r249 truncated master as export/master.mp4)")
     print("recommended_next:", "materialize (python3 tools/materialize_q1_release.py)" if "MISSING" in media else "human_step (three secrets + one execute=true dispatch). Preferred list complete.")
     print("exact_dispatch_command:", "gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false")

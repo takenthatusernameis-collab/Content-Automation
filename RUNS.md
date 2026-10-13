@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 523 — 2026-10-13T20:14:32Z
+- Objective: Reduce rediscovery of the exact post-materialize verification commands by surfacing them immediately in status_report.py after exact_materialize_command.
+- Action: Materialized Q1 media (missing in session). Confirmed media_qa PASS and next_action=upload-blocked. Added exact_post_materialize_verify one-liner (media_qa && next_action; expect PASS and upload-blocked). Updated preferred-list note implicitly. Refreshed HANDOFF.md timestamp and mention. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
+- Result: Videos published stay 0. Primary status command now shows the precise verification invocation without opening media_qa.py or next_action.py. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: python3 tools/media_qa.py PASS; next_action upload-blocked; status_report.py contains the new line (syntax verified).
+- Discovery: Explicit verify commands next to the materialize line reduce the chance future agents open separate tool docs solely to recall the confirmation steps after a materialize.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
+
 ## Run 522 — 2026-10-13T22:13:00Z
 - Objective: Reduce rediscovery of the exact OAuth token minting commands by surfacing them immediately in status_report.py after exact_secret_set_commands.
 - Action: Added exact_oauth_exchange_command one-liner (python3 tools/oauth_exchange.py then --exchange --out /tmp/youtube-refresh-token; human only; scopes notes). Updated preferred-list note. Refreshed HANDOFF.md timestamp and mention. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).

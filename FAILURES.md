@@ -1,5 +1,7 @@
 # FAILURES
 
+No new failures. Media QA and next_action confirmed after materialize.
+
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 522 — 2026-10-13T22:13:00Z

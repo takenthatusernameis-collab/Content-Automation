@@ -2,6 +2,13 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 523 — 2026-10-13T20:14:32Z
+- Anti-rediscovery: exact_post_materialize_verify one-liner added to status_report.py so agents see the precise post-materialize confirmation (media_qa PASS + next_action upload-blocked) immediately after exact_materialize_command without opening other files. HANDOFF.md refreshed. Media materialized and verified in this session (do not rematerialize if present).
+- Local gates confirmed PASS after materialize. No new failures.
+- Human labor reduction: future agents less likely to open media_qa.py or next_action.py solely to recall the verification steps after materializing the Q1 release.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
+
 ## Run 522 — 2026-10-13T22:13:00Z
 - Anti-rediscovery: exact_oauth_exchange_command one-liner added to status_report.py so agents see the precise human-only token minting commands (oauth_exchange.py + --exchange) immediately after exact_secret_set_commands without opening operator_card.py. HANDOFF.md refreshed.
 - Local gates not re-run (media absent). No new failures.
@@ -75,10 +82,4 @@ Run 506: Added thumbnail_review_status one-liner to status_report.py. Reduces on
 - Anti-rediscovery: captions_review_ready one-liner added to status_report.py so agents see immediately whether the remaining open captions-review box is actionable (VO present after materialize) without opening packet.md or the vo/ directory.
 - Local gates re-run after materialize and confirmed PASS. No new failures.
 - Human labor reduction: future agents less likely to rediscover VO accessibility solely to decide if the captions spot-check step can proceed.
-- Videos published remain 0. Stall continues.
-
-## Run 503 — 2026-10-12T23:25:00Z
-- Anti-rediscovery: checked off publish-lock box in packet.md remaining human work (publish.md already records delegated agent review of description/tags/first-comment). remaining_open_boxes now surfaces only captions review (when VO accessible) and upload.
-- Local gates not re-run (media absent). No new failures.
-- Human labor reduction: future agents less likely to treat publish lock as still open or re-review metadata that was already approved under the production_rules delegation.
 - Videos published remain 0. Stall continues.
