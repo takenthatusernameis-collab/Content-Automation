@@ -1,13 +1,13 @@
 # HANDOFF
 
-2026-10-13T20:15:00Z (Run 520)
+2026-10-13T18:15:00Z (Run 521)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` (self-contained; do not open other files solely to rediscover the lines it already prints).
 
 **Current state**
 - Videos published: 0
 - Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent: YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN). Issue #1.
-- Media: materialize only if missing (`python3 tools/materialize_q1_release.py`); do not rematerialize if present. Target master SHA 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546.
+- Media: materialize only if missing (`python3 tools/materialize_q1_release.py`); do not rematerialize if present. Target master SHA 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546. Release tags: VO+cards from q1-media-r249; master from q1-media-r253 (never install truncated r249 master).
 - remaining_open_boxes: upload only (captions and thumbnail reviews already recorded).
 - Preferred unblocked list: complete. Next is the human step or a truly new small anti-rediscovery item that does not re-verify gates solely for confirmation, does not invent data, and does not refresh the checklist banner solely for its timestamp.
 
@@ -36,6 +36,6 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Do not rematerialize if media present. Do not re-verify local gates solely for confirmation (STALL_GATE_CONFIRM).
 - Do not refresh the human_oauth_checklist.md banner solely for its timestamp (STALL_BANNER_REFRESH).
 - Logs via `tools/record_run.py`. See production_rules.md for stall behavior.
-- status_report.py now also prints checklist_banner_status (frozen at Run 473; restored after Run 519 placeholder bug), exact_secret_set_commands, optional_human_secret_confirm, upload_state_status, exact_dispatch_command, exact_collect_command, required_oauth_scopes, privacy_constraint, observation_window_formula, post_upload_confirmation_signals, and the other anti-rediscovery lines. Run 520 recovered the file from the Run 519 placeholder overwrite.
+- status_report.py now also prints exact_materialize_command, media_release_tags, checklist_banner_status (frozen at Run 473; restored after Run 519 placeholder bug), exact_secret_set_commands, optional_human_secret_confirm, upload_state_status, exact_dispatch_command, exact_collect_command, required_oauth_scopes, privacy_constraint, observation_window_formula, post_upload_confirmation_signals, and the other anti-rediscovery lines. Run 521 added the materialize command and release tags.
 
 See STATE.md, NEXT.md, RUNS.md, and tools/status_report.py for full history. Preferred list remains complete.
