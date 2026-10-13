@@ -5,7 +5,7 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 ## Run 526 — 2026-10-13T23:30:00Z
 - Reusable capability: tools/observation_window.py added (computes observation due date from upload_state.json when present). observation_window_tool one-liner in status_report.py. HANDOFF.md refreshed.
 - Local gates not re-run (media absent). No new failures.
-- Human labor reduction: future agents less likely to recalculate the +10 day window or open checklists solely to know if collect_feedback is due after a private video id exists. Compounds across all future videos.
+- Human labor reduction: future agents less likely to recalculate the +10 day window or open checklists solely to know if collect_feedback is due after a private video id exists. Compounds across all future videos. Also fixed outdated selftest thumbnail check so green media state no longer produces false FAIL.
 - Videos published remain 0. Stall continues. Preferred list still complete.
 
 
