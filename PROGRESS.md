@@ -2,6 +2,13 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 524 — 2026-10-13T21:15:00Z
+- Anti-rediscovery: status_report_maintainability one-liner added to status_report.py so agents see the Run 519 placeholder overwrite lesson and the advice to insert new one-liners carefully immediately without scanning history. HANDOFF.md refreshed.
+- Local gates not re-run (media absent). No new failures.
+- Human labor reduction: future agents less likely to introduce broken status tool commits while extending the anti-rediscovery surface.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
+
 ## Run 523 — 2026-10-13T20:14:32Z
 - Anti-rediscovery: exact_post_materialize_verify one-liner added to status_report.py so agents see the precise post-materialize confirmation (media_qa PASS + next_action upload-blocked) immediately after exact_materialize_command without opening other files. HANDOFF.md refreshed. Media materialized and verified in this session (do not rematerialize if present).
 - Local gates confirmed PASS after materialize. No new failures.
@@ -76,10 +83,4 @@ Run 506: Added thumbnail_review_status one-liner to status_report.py. Reduces on
 - Anti-rediscovery: captions_review_checkpoints one-liner added to status_report.py summarizing the 5 silence-proportional spots and method so agents see the exact spot-check scope without opening captions_review.md. HANDOFF.md refreshed to reflect the new line.
 - Local gates not re-run (media absent). No new failures.
 - Human labor reduction: future agents less likely to open captions_review.md solely to learn the checkpoint times and method when VO is present and the box is open.
-- Videos published remain 0. Stall continues.
-
-## Run 504 — 2026-10-13T00:25:00Z
-- Anti-rediscovery: captions_review_ready one-liner added to status_report.py so agents see immediately whether the remaining open captions-review box is actionable (VO present after materialize) without opening packet.md or the vo/ directory.
-- Local gates re-run after materialize and confirmed PASS. No new failures.
-- Human labor reduction: future agents less likely to rediscover VO accessibility solely to decide if the captions spot-check step can proceed.
 - Videos published remain 0. Stall continues.

@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-13T21:15:00Z (Run 524)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Added status_report_maintainability one-liner to tools/status_report.py so agents see the lesson from Run 519 placeholder overwrite immediately (insert new one-liners carefully near related lines; prefer small appends) without scanning RUNS or FAILURES. Refreshed HANDOFF.md. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
+
 2026-10-13T22:13:00Z (Run 522)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Added exact_oauth_exchange_command one-liner to tools/status_report.py so agents see the precise human-only token minting commands (oauth_exchange.py then --exchange --out /tmp/...) immediately after exact_secret_set_commands without opening operator_card.py. Refreshed HANDOFF.md. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.

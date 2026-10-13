@@ -630,3 +630,8 @@ Updated: 2026-10-09T01:20:00Z (Run 416)
 - Local gates not re-run (media absent). No new failures.
 - Human labor reduction: future agents less likely to treat publish lock as still open or re-review metadata that was already approved under the production_rules delegation.
 - Videos published remain 0. Stall continues.
+## Run 504 — 2026-10-13T00:25:00Z
+- Anti-rediscovery: captions_review_ready one-liner added to status_report.py so agents see immediately whether the remaining open captions-review box is actionable (VO present after materialize) without opening packet.md or the vo/ directory.
+- Local gates re-run after materialize and confirmed PASS. No new failures.
+- Human labor reduction: future agents less likely to rediscover VO accessibility solely to decide if the captions spot-check step can proceed.
+- Videos published remain 0. Stall continues.

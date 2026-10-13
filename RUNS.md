@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 524 — 2026-10-13T21:15:00Z
+- Objective: Reduce rediscovery of the Run 519 status_report.py placeholder overwrite failure mode by surfacing a maintainability reminder immediately in the primary status command.
+- Action: Added status_report_maintainability one-liner (warns about sequential prints in main() and the Run 519 bug; prefer small careful appends). Updated preferred-list note. Refreshed HANDOFF.md timestamp and mention. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
+- Result: Videos published stay 0. Primary status command now shows the maintainability reminder without opening RUNS.md or FAILURES.md. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: python3 tools/status_report.py prints the new line and runs cleanly (syntax verified).
+- Discovery: Explicit reminder of the placeholder overwrite risk reduces the chance future agents introduce broken status_report.py commits while adding anti-rediscovery lines.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
+
 ## Run 523 — 2026-10-13T20:14:32Z
 - Objective: Reduce rediscovery of the exact post-materialize verification commands by surfacing them immediately in status_report.py after exact_materialize_command.
 - Action: Materialized Q1 media (missing in session). Confirmed media_qa PASS and next_action=upload-blocked. Added exact_post_materialize_verify one-liner (media_qa && next_action; expect PASS and upload-blocked). Updated preferred-list note implicitly. Refreshed HANDOFF.md timestamp and mention. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
