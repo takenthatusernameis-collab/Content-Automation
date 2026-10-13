@@ -115,6 +115,7 @@ def main() -> int:
     print("required_oauth_scopes:", "youtube.upload, youtube.force-ssl, yt-analytics.readonly (or full youtube + yt-analytics.readonly); youtube.upload alone is insufficient for captions")
     print("privacy_constraint:", "initial upload privacy stays private; do not change privacy until a confirmed private video id exists and is reviewed (see after-dispatch section; do not re-dispatch execute until id visible)")
     print("observation_window_formula:", "due_at = uploaded_at + 7 calendar days + 3 days Analytics lag (= +10 days total); early collect_feedback returns OBSERVATION_WINDOW_NOT_DUE; do not invent dates")
+    print("observation_window_tool:", "python3 tools/observation_window.py videos/002-stop-deciding-what-to-work-on-every-morning  # computes DUE/WAITING from upload_state.json uploaded_at +10d if present; no invent; reusable for future packets")
     print("post_upload_confirmation_signals:", "private provider video id must appear in GitHub Actions log AND in packet upload_state.json (videos/002-stop-deciding-what-to-work-on-every-morning/upload_state.json); privacy stays private; do not re-dispatch execute until both visible; do not invent an id")
     # Live upload_state.json presence and video id (reduces rediscovery of whether a private id has appeared)
     def upload_state_status() -> str:

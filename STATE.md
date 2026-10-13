@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-13T23:30:00Z (Run 526)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Added tools/observation_window.py (computes DUE/WAITING from upload_state.json uploaded_at +10d when present; no invent) and observation_window_tool one-liner to status_report.py so agents see the exact reusable command for the post-upload observation window immediately. Refreshed HANDOFF.md. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
+
 2026-10-13T22:20:00Z (Run 525)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Added exact_record_run_usage one-liner to tools/status_report.py so agents see the precise JSON note format and invocation for logging runs immediately without opening record_run.py or guessing keys. Refreshed HANDOFF.md. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.

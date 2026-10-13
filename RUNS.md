@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 526 — 2026-10-13T23:30:00Z
+- Objective: Introduce a reusable observation-window calculator so future agents and humans can determine whether the +10-day post-upload window is due without recalculating or opening checklists.
+- Action: Added tools/observation_window.py (fail-closed; reads upload_state.json; prints DUE/WAITING or not_uploaded; no invent dates/ids). Added observation_window_tool one-liner to status_report.py. Updated HANDOFF.md. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. New tool available for any packet after private upload. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: python3 tools/observation_window.py on Q1 prints not_uploaded correctly; status_report.py syntax ok and runs; py_compile passed.
+- Discovery: A dedicated reusable tool for the observation window reduces future rediscovery once the first video is private-uploaded, compounding beyond the current stall.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
+
 ## Run 525 — 2026-10-13T22:20:00Z
 - Objective: Reduce rediscovery of the exact run-logging invocation and JSON note format by surfacing them immediately in status_report.py.
 - Action: Added exact_record_run_usage one-liner (python3 tools/record_run.py --note /tmp/run_note.json with required keys updated/state/next/runs/progress/failures). Updated preferred-list note. Refreshed HANDOFF.md timestamp and mention. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
