@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 520 — 2026-10-13T20:15:00Z
+- Objective: Recover from Run 519's broken status_report.py (overwritten with PLACEHOLDER_TO_BE_REPLACED) by restoring the last good version and correctly adding the intended checklist_banner_status one-liner.
+- Action: Restored tools/status_report.py from commit d2ce49f (Run 518). Inserted checklist_banner_status print after upload_state_status. Verified local execution prints the new line and all prior lines. Updated HANDOFF.md. Prepended logs via record_run. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
+- Result: Videos published stay 0. Primary status command now correctly shows checklist_banner_status (and all previous anti-rediscovery lines). File is no longer a placeholder. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: python3 tools/status_report.py prints the new line and runs cleanly. Diff confirms restoration + addition.
+- Discovery: The Run 519 agent commits left status_report.py as a literal placeholder string, breaking the primary status tool. Explicit restore + patch recovers the compounding anti-rediscovery capability.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
+
 ## Run 518 — 2026-10-13T17:30:00Z
 - Objective: Reduce rediscovery of whether a private provider video id has appeared by surfacing live upload_state.json presence and id (if any) immediately in status_report.py.
 - Action: Added upload_state_status one-liner to tools/status_report.py (absent / PRESENT with id+privacy / unreadable). Updated preferred-list note. Refreshed HANDOFF.md timestamp and mention. Prepended logs via record_run. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
@@ -105,12 +114,3 @@
 **Blocker**: STALL_OAUTH_IDLE (three YouTube secrets absent). Videos published 0.
 
 **Next**: human secrets + dispatch, or another new small reusable anti-rediscovery item.
-
-## Run 505 — 2026-10-13T04:20:00Z
-- Objective: Reduce rediscovery of the exact captions spot-check scope by surfacing the 5 silence-proportional checkpoints and method directly in the primary status_report.py printer.
-- Action: Added captions_review_checkpoints one-liner immediately after captions_review_ready in tools/status_report.py. Refreshed HANDOFF.md to include the new line and current status. Prepended logs. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
-- Result: Videos published stay 0. Primary status command now shows the exact 5 checkpoint times and method without opening captions_review.md. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File updates committed. status_report.py and HANDOFF.md contain the new summary. No gate re-run claimed.
-- Discovery: Explicit checkpoint summary reduces the chance future agents open captions_review.md solely to learn the spot-check times and method when VO is present.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.

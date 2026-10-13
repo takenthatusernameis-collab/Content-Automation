@@ -26,6 +26,8 @@ Run 494: status_report.py after-dispatch prints precise observation window (uplo
 
 Older do-not-rediscover notes live in `docs/next_archive.md`.
 
+Run 520: restored status_report.py (fixed PLACEHOLDER from Run 519) and added checklist_banner_status one-liner. HANDOFF refreshed. Preferred list complete. Next: human step or new small anti-rediscovery that does not re-verify gates solely for confirmation. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: materialize if missing (do not commit); do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker.
+
 Run 518: upload_state_status one-liner added to status_report.py. HANDOFF refreshed. Preferred list complete. Next: human step or new small anti-rediscovery that does not re-verify gates solely for confirmation. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: materialize if missing (do not commit); do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker.
 
 Run 517: optional_human_secret_confirm one-liner added to status_report.py. HANDOFF refreshed. Preferred list complete. Next: human step or new small anti-rediscovery that does not re-verify gates solely for confirmation. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: materialize if missing (do not commit); do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker.
@@ -58,6 +60,8 @@ Run 495: HANDOFF.md refreshed as operator entry point to fully reflect current s
 
 Older do-not-rediscover notes live in `docs/next_archive.md`.
 
+2026-10-13T20:15:00Z (Run 520)
+
 2026-10-13T17:30:00Z (Run 518)
 
 2026-10-13T16:30:00Z (Run 517)
@@ -79,5 +83,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`.
 2026-10-13T03:15:00Z (Run 507)
 
 2026-10-13T05:20:00Z (Run 506)
-
-2026-10-13T04:20:00Z (Run 505)

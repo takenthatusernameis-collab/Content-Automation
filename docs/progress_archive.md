@@ -615,3 +615,8 @@ Updated: 2026-10-09T01:20:00Z (Run 416)
 - Local gates not re-run (media absent). No new failures.
 - Human labor reduction: future agents less likely to open HANDOFF.md solely to obtain the master checksum for verification.
 - Videos published remain 0. Stall continues.
+## Run 501 — 2026-10-13T00:14:00Z
+- Anti-rediscovery: packet.md remaining human work checkboxes updated to check off generated VO, cards, and master steps (with materialize notes) so agents see media is ready on release without opening releases or treating boxes as open.
+- Local gates not re-run (media absent). No new failures.
+- Human labor reduction: future agents less likely to rediscover or re-attempt media generation/editing steps that are already complete via the private release.
+- Videos published remain 0. Stall continues.

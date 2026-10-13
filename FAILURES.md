@@ -2,6 +2,10 @@
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
+## Run 520 — 2026-10-13T20:15:00Z
+- Recovered: Run 519 commits set tools/status_report.py to the literal string PLACEHOLDER_TO_BE_REPLACED, breaking the primary status command. Fixed by restoring from d2ce49f and re-applying the intended one-liner. No other failures. Do not repeat the placeholder overwrite pattern.
+
+
 ## Run 518 — 2026-10-13T17:30:00Z
 - No new failure. OAuth stall continues (secrets absent). Videos published stay 0.
 

@@ -2,6 +2,13 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 520 — 2026-10-13T20:15:00Z
+- Recovery + anti-rediscovery: restored status_report.py from broken PLACEHOLDER state left by Run 519 commits and added checklist_banner_status one-liner so agents see the frozen Run 473 banner rule immediately without scanning HANDOFF or the checklist. HANDOFF.md refreshed.
+- Local gates not re-run (media absent). No new failures beyond the recovered placeholder bug.
+- Human labor reduction: future agents less likely to rediscover the banner freeze rule or hit a broken status tool.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
+
 ## Run 518 — 2026-10-13T17:30:00Z
 - Anti-rediscovery: upload_state_status one-liner added to status_report.py so agents see whether upload_state.json exists and (if so) the private provider_video_id without opening the packet file or scanning Actions logs. HANDOFF.md refreshed to reflect the new line.
 - Local gates not re-run (media absent). No new failures.
@@ -73,10 +80,4 @@ Run 506: Added thumbnail_review_status one-liner to status_report.py. Reduces on
 - Anti-rediscovery: remaining_open_boxes parser added to status_report.py so agents see the exact unchecked human-work items from packet.md without opening the file.
 - Local gates not re-run (media absent). No new failures.
 - Human labor reduction: future agents less likely to open packet.md solely to discover which checkboxes remain open after media steps were checked off.
-- Videos published remain 0. Stall continues.
-
-## Run 501 — 2026-10-13T00:14:00Z
-- Anti-rediscovery: packet.md remaining human work checkboxes updated to check off generated VO, cards, and master steps (with materialize notes) so agents see media is ready on release without opening releases or treating boxes as open.
-- Local gates not re-run (media absent). No new failures.
-- Human labor reduction: future agents less likely to rediscover or re-attempt media generation/editing steps that are already complete via the private release.
 - Videos published remain 0. Stall continues.
