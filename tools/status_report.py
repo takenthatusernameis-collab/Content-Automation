@@ -134,6 +134,7 @@ def main() -> int:
     # Checklist banner status (reduces rediscovery of frozen timestamp rule)
     print("checklist_banner_status:", "frozen at Run 473 (2026-10-11T13:22:00Z); STALL_BANNER_REFRESH; do not refresh solely for timestamp; see docs/human_oauth_checklist.md")
     print("status_report_maintainability:", "primary status one-liners are sequential prints in main(); insert new ones carefully near related lines to avoid Run 519-style PLACEHOLDER overwrite; prefer small appends; selftest and record_run keep logs compact")
+    print("exact_record_run_usage:", "python3 tools/record_run.py --note /tmp/run_note.json  # JSON required keys: updated,state,next,runs,progress,failures (all non-empty strings); prepends timestamped notes to STATE.md NEXT.md RUNS.md PROGRESS.md FAILURES.md then runs compact_all.py; do not include secret values; see tools/record_run.py for format")
     # Captions review readiness (reduces rediscovery of whether the remaining open box is actionable)
     vo_ready = (PACKET / "vo").is_dir() and any((PACKET / "vo").glob("*.wav"))
     print("captions_review_ready:", "yes (VO present; spot-check 5 checkpoints in captions_review.md against audio)" if vo_ready else "no (materialize first; VO not accessible)")

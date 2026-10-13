@@ -635,3 +635,8 @@ Updated: 2026-10-09T01:20:00Z (Run 416)
 - Local gates re-run after materialize and confirmed PASS. No new failures.
 - Human labor reduction: future agents less likely to rediscover VO accessibility solely to decide if the captions spot-check step can proceed.
 - Videos published remain 0. Stall continues.
+## Run 505 — 2026-10-13T04:20:00Z
+- Anti-rediscovery: captions_review_checkpoints one-liner added to status_report.py summarizing the 5 silence-proportional spots and method so agents see the exact spot-check scope without opening captions_review.md. HANDOFF.md refreshed to reflect the new line.
+- Local gates not re-run (media absent). No new failures.
+- Human labor reduction: future agents less likely to open captions_review.md solely to learn the checkpoint times and method when VO is present and the box is open.
+- Videos published remain 0. Stall continues.

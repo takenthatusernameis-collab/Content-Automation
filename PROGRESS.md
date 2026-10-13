@@ -2,6 +2,13 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 525 — 2026-10-13T22:20:00Z
+- Anti-rediscovery: exact_record_run_usage one-liner added to status_report.py so agents see the precise JSON note format and command for permanent timestamped logging immediately without opening record_run.py. HANDOFF.md refreshed.
+- Local gates not re-run (media absent). No new failures.
+- Human labor reduction: future agents less likely to guess or open tools solely to recall how to append the cumulative run history with identification timestamps.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
+
 ## Run 524 — 2026-10-13T21:15:00Z
 - Anti-rediscovery: status_report_maintainability one-liner added to status_report.py so agents see the Run 519 placeholder overwrite lesson and the advice to insert new one-liners carefully immediately without scanning history. HANDOFF.md refreshed.
 - Local gates not re-run (media absent). No new failures.
@@ -78,9 +85,3 @@ Older progress notes live in `docs/progress_archive.md`. Do not paste the archiv
 Run 507: Recorded delegated thumbnail approval after inspecting committed PNG (size, contrast, text match). Reduces one pending-evidence review step. Estimated small efficiency gain for future agents seeing approved status immediately. Preferred list still complete; OAuth stall unchanged.
 
 Run 506: Added thumbnail_review_status one-liner to status_report.py. Reduces one more rediscovery step for the remaining open human work (thumbnail is committed). Estimated small efficiency gain for future agents inspecting readiness without opening thumbnail_review.md. Preferred list still complete; OAuth stall unchanged.
-
-## Run 505 — 2026-10-13T04:20:00Z
-- Anti-rediscovery: captions_review_checkpoints one-liner added to status_report.py summarizing the 5 silence-proportional spots and method so agents see the exact spot-check scope without opening captions_review.md. HANDOFF.md refreshed to reflect the new line.
-- Local gates not re-run (media absent). No new failures.
-- Human labor reduction: future agents less likely to open captions_review.md solely to learn the checkpoint times and method when VO is present and the box is open.
-- Videos published remain 0. Stall continues.

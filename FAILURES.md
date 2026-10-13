@@ -1,10 +1,14 @@
 # FAILURES
 
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
+## Run 525 — 2026-10-13T22:20:00Z
+- None. No failed approaches. Continued anti-rediscovery pattern while OAuth stall persists. Recovered from intermediate placeholder commits during this run.
+
 None this run.
 
 No new failures. Media QA and next_action confirmed after materialize.
 
-Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 522 — 2026-10-13T22:13:00Z
 - None. No failed approaches. Continued anti-rediscovery pattern while OAuth stall persists.
@@ -56,7 +60,4 @@ None.
 None.
 
 ## Run 499 — 2026-10-12T19:20:00Z
-None.
-
-## Run 498 — 2026-10-12T17:15:00Z
 None.

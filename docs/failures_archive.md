@@ -465,3 +465,5 @@ Updated: 2026-10-05T18:20:00Z
 - Lesson: Caption contract passed, then a later-packet dry-run still deleted emphasized words and printed on-screen labels. Unwrap inline emphasis. Stop the cue before ON SCREEN. Do not rewrite the approved Q1 caption file. oauth_idle_without_publish remains; the human step is issue 1.
 ## Run 497 — 2026-10-12T16:30:00Z
 None.
+## Run 498 — 2026-10-12T17:15:00Z
+None.
