@@ -1,1 +1,1 @@
-$(cat /tmp/status_report.py)
+PLACEHOLDER_TO_BE_REPLACED
