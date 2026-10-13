@@ -1,8 +1,12 @@
 # FAILURES
 
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
+## Run 518 — 2026-10-13T17:30:00Z
+- No new failure. OAuth stall continues (secrets absent). Videos published stay 0.
+
 None. No new failures this run.
 
-Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 516 — 2026-10-13T12:30:00Z
 - No new failures. Discovered and fixed HANDOFF.md containing the literal shell placeholder `$(cat /tmp/HANDOFF.md)` (prior refresh attempts wrote the command string instead of content). OAuth secrets remain the sole blocker. No gate regressions. No invented data.

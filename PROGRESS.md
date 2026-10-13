@@ -2,6 +2,13 @@
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
+## Run 518 — 2026-10-13T17:30:00Z
+- Anti-rediscovery: upload_state_status one-liner added to status_report.py so agents see whether upload_state.json exists and (if so) the private provider_video_id without opening the packet file or scanning Actions logs. HANDOFF.md refreshed to reflect the new line.
+- Local gates not re-run (media absent). No new failures.
+- Human labor reduction: future agents less likely to open upload_state.json or dig through workflow logs solely to confirm the first successful execute once secrets are set.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
+
 ## Run 517 — 2026-10-13T16:30:00Z
 - Anti-rediscovery: optional_human_secret_confirm one-liner added to status_report.py so agents see the precise human-only confirmation command (prints PRESENT/MISSING, never values; exit 0 = all three exist) immediately after exact_secret_set_commands without scanning the human step section. HANDOFF.md refreshed to reflect the new line.
 - Local gates not re-run solely for confirmation (media was materialized for print verification). No new failures.
@@ -72,10 +79,4 @@ Run 506: Added thumbnail_review_status one-liner to status_report.py. Reduces on
 - Anti-rediscovery: packet.md remaining human work checkboxes updated to check off generated VO, cards, and master steps (with materialize notes) so agents see media is ready on release without opening releases or treating boxes as open.
 - Local gates not re-run (media absent). No new failures.
 - Human labor reduction: future agents less likely to rediscover or re-attempt media generation/editing steps that are already complete via the private release.
-- Videos published remain 0. Stall continues.
-
-## Run 500 — 2026-10-12T20:15:00Z
-- Anti-rediscovery: master_sha_target full checksum line added to status_report.py so agents can copy the exact r253 SHA without opening HANDOFF.md or scanning media_status prefixes.
-- Local gates not re-run (media absent). No new failures.
-- Human labor reduction: future agents less likely to open HANDOFF.md solely to obtain the master checksum for verification.
 - Videos published remain 0. Stall continues.

@@ -610,3 +610,8 @@ Updated: 2026-10-09T01:20:00Z (Run 416)
 - Local gates not re-run (media absent). No new failures.
 - Human labor reduction: future agents less likely to spend a run only re-materializing and re-confirming already-green local gates.
 - Videos published remain 0. Stall continues.
+## Run 500 — 2026-10-12T20:15:00Z
+- Anti-rediscovery: master_sha_target full checksum line added to status_report.py so agents can copy the exact r253 SHA without opening HANDOFF.md or scanning media_status prefixes.
+- Local gates not re-run (media absent). No new failures.
+- Human labor reduction: future agents less likely to open HANDOFF.md solely to obtain the master checksum for verification.
+- Videos published remain 0. Stall continues.
