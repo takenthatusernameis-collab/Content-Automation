@@ -1,16 +1,15 @@
 # HANDOFF
 
-2026-10-14T08:20:00Z (Run 533)
+2026-10-14T09:20:00Z (Run 534)
 
-Operator and agent entry point. Primary status: `python3 tools/status_report.py` (self-contained; do not open other files solely to rediscover the lines it already prints).
+Operator and agent entry point. Primary status: `python3 tools/status_report.py` (self-contained; do not open other files solely to rediscover the lines it already prints). **CRITICAL: status_report.py was truncated to a 1-line placeholder in prior HEAD; restored to full 250 lines in this run. Verify it executes.**
 
 **Current state**
 - Videos published: 0
 - Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent: YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN). Issue #1.
 - Media: materialize if missing (do not commit); do not rematerialize if present. Target master SHA 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546. Release tags: VO+cards from q1-media-r249; master from q1-media-r253 (never install truncated r249 master).
 - remaining_open_boxes: upload only (captions and thumbnail reviews already recorded).
-- Preferred unblocked list: complete. Next is the human step or a truly new small anti-rediscovery item that does not re-verify gates solely for confirmation, does not invent data, and does not refresh the checklist banner solely for its timestamp.
-
+- Preferred unblocked list: complete. Next is the human step or a truly new small anti-rediscovery item that does not re-verify gates solely for confirmation, does not invent data, and does not refresh the checklist banner solely for its timestamp. Prefer local clone verification for large file updates.
 **Human step (only action that advances publish)**
 1. Follow docs/human_oauth_checklist.md or `python3 tools/operator_card.py`.
 2. Mint refresh token with scopes: youtube.upload + youtube.force-ssl + yt-analytics.readonly (youtube.upload alone is insufficient).
