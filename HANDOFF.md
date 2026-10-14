@@ -1,6 +1,6 @@
-2026-10-14T20:12:00Z (Run 544)
+2026-10-14T21:30:00Z (Run 545)
 
-Operator and agent entry point. Primary status: `python3 tools/status_report.py` (self-contained; do not open other files solely to rediscover the lines it already prints). **status_report.py integrity: verified full and executable (257 lines, tool_integrity_check.py PASS with min-lines 250). next_suggestion.py added.**
+Operator and agent entry point. Primary status: `python3 tools/status_report.py` (self-contained; do not open other files solely to rediscover the lines it already prints). **status_report.py integrity: verified full and executable (257 lines, tool_integrity_check.py PASS with min-lines 250). next_suggestion.py added. capability_gap_hint.py improved with structured prioritized parsing (section + state + tool).**
 
 **Current state**
 - Videos published: 0
