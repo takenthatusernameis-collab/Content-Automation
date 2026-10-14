@@ -33,6 +33,7 @@ COMMANDS = [
     ("publish_readiness", "python3 tools/publish_readiness.py [PACKET]", "Quick local READY_FOR_HUMAN_DISPATCH (media PRESENT+MATCH + next_action=upload-blocked + open boxes); no full QA/materialize/poll"),
     ("recurring_pattern_flag", "python3 tools/recurring_pattern_flag.py", "Flags HIGHLY_SUSPICIOUS_STALL if consecutive zero-publish OAuth runs exceed threshold; reduces rediscovery of stall saturation"),
     ("after_upload_steps", "python3 tools/after_upload_steps.py [PACKET]", "Precise sequence of reusable commands and dispatches after first private provider_video_id exists (confirm, window, collect, experiment, complete); no invent"),
+    ("stall_escalation", "python3 tools/stall_escalation.py", "Clear HIGHLY_SUSPICIOUS_STALL summary with exact human commands when zero-publish streak is high; reduces rediscovery of the only advancing action"),
 ]
 
 def main() -> int:

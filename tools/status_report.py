@@ -153,6 +153,7 @@ def main() -> int:
 
         ("publish_readiness_tool", "python3 tools/publish_readiness.py [PACKET]  # quick local READY_FOR_HUMAN_DISPATCH check (media fingerprint + next_action upload-blocked + open boxes); no full QA/materialize/poll; reduces rediscovery of packet readiness before secrets+dispatch"),
         ("recurring_pattern_flag_tool", "python3 tools/recurring_pattern_flag.py  # flags HIGHLY_SUSPICIOUS_STALL on long consecutive zero-publish OAuth streaks; reduces rediscovery of stall saturation; no invent"),
+        ("stall_escalation_tool", "python3 tools/stall_escalation.py  # clear HIGHLY_SUSPICIOUS_STALL summary with exact human commands when streak high; reduces rediscovery of the only advancing action; no invent/poll"),
     ]
     for key, val in STATIC_ONE_LINERS:
         print(f"{key}:", val)

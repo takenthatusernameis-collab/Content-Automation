@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/stall_escalation.py added (prints clear HIGHLY_SUSPICIOUS_STALL summary + exact human commands when consecutive zero-publish runs high). stall_escalation_tool one-liner in status_report.py. Index and integrity check updated (duplicate key fixed). Integrity PASS.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: future agents and humans can see the escalating stall status and the precise only-advancing commands in one command without parsing RUNS.md or combining multiple tools. Compounds across future runs while the external OAuth stall continues.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 - Reusable capability: tools/recurring_pattern_flag.py added (counts consecutive zero-publish OAuth runs in RUNS.md and flags HIGHLY_SUSPICIOUS_STALL above threshold). recurring_pattern_flag_tool one-liner in status_report.py. Index and integrity check updated. Media materialized and fingerprint-verified PRESENT in this session.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: future agents can see at a glance when the stall pattern has become highly suspicious and should prefer the human OAuth path over additional one-liner tools. Compounds across future runs while the external blocker remains.

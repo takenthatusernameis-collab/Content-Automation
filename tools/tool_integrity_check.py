@@ -36,7 +36,7 @@ EXPECTED = {
     "after_upload_steps.py": 30,
     "recurring_pattern_flag.py": 30,
     "publish_readiness.py": 40,
-    "publish_readiness.py": 40,
+    "stall_escalation.py": 40,
 }
 
 def check_file(name: str, min_lines: int) -> tuple[bool, str]:
