@@ -147,6 +147,7 @@ def main() -> int:
         ("efficiency_summary_tool", "python3 tools/efficiency_summary.py  # concise recent reusable/labor-reduction gains from PROGRESS.md (no invent); shows compounding progress without opening the full file"),
         ("capability_gap_hint_tool", "python3 tools/capability_gap_hint.py  # hints at one high-value unblocked PLAN_BUILT/READY_FOR/NOT_BUILT gap from production_capabilities.md; prefer small reusable improvement when stall suspicion HIGH; no invent"),
         ("packet_stage_summary_tool", "python3 tools/packet_stage_summary.py [PACKET]  # concise TEXT_COMPLETE / MEDIA_MISSING / UPLOAD_BLOCKED stage for Q1 (default) without gates or materialize; reduces rediscovery of packet readiness; no invent"),
+        ("human_next_action_tool", "python3 tools/human_next_action.py  # concise human-only OAuth secret setup steps and dispatch (no invent, no poll); reduces rediscovery of the exact next human action while STALL_OAUTH_IDLE continues"),
     ]
     for key, val in STATIC_ONE_LINERS:
         print(f"{key}:", val)

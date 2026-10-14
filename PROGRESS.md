@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/human_next_action.py added (prints exact human-only OAuth secret setup and dispatch steps without inventing values or polling). human_next_action_tool one-liner in status_report.py. Index and integrity check updated.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: future agents and humans can see the precise next human actions in one command without parsing the full checklist or BLOCKED.md. Compounds across future runs while the external OAuth stall continues.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 - Reusable capability: tools/packet_stage_summary.py added (reports text/media/upload stage for the Q1 packet without gates or materialize). packet_stage_summary_tool one-liner in status_report.py. Index and integrity check updated.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: future agents can see packet readiness stage in one command without opening directories or risking rematerialize. Compounds across future runs while the external OAuth stall continues.

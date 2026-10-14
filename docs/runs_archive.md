@@ -1706,3 +1706,12 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: Explicit checkpoint summary reduces the chance future agents open captions_review.md solely to learn the spot-check times and method when VO is present.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
+
+## Run 530 — 2026-10-14T03:14:00Z
+- Objective: Fix the selftest failure on next_compact_contract (missing archive pointer in NEXT.md) and verify local gates after materialize.
+- Action: Materialized Q1 media via materialize_q1_release.py (media was absent). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH. Added archive pointer to NEXT.md so next_compact_contract and selftest PASS. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
+- Result: Videos published stay 0. Selftest green again. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: materialize succeeded; media_qa PASS; next_action upload-blocked; next_compact_contract PASS; selftest PASS.
+- Discovery: The archive pointer can be lost across edits; the contract catches it. Materialize remains the safe local step when media is missing.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.

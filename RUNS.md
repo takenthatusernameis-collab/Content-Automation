@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 543 — 2026-10-14T18:30:00Z
+- Objective: Add a concise human next action tool so agents and humans see the exact OAuth secret setup and dispatch steps in one command without opening the full checklist or restating the stall.
+- Action: Added tools/human_next_action.py. Appended human_next_action_tool to STATIC_ONE_LINERS in status_report.py (now 256 lines). Updated reusable_commands_index.py and tool_integrity_check.py EXPECTED. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. New human_next_action tool available and prints the exact steps. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: tool_integrity_check PASS; status_report prints the new one-liner; human_next_action.py runs and prints correct concise steps; syntax OK.
+- Discovery: Explicit one-command human path reduces rediscovery of the precise secret-setting sequence, steering agents toward either completing the human step or a true new capability instead of restating the stall.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (checklist/operator_card then secrets+dispatch) or new small anti-rediscovery that does not re-verify gates solely for confirmation.
+
 ## Run 542 — 2026-10-14T17:00:00Z
 - Objective: Add a reusable packet stage summary tool so agents can see local Q1 readiness (text complete, media missing, upload blocked) in one command without directory inspection, full gates, or materialize, compounding anti-rediscovery while the OAuth stall continues.
 - Action: Added tools/packet_stage_summary.py. Appended packet_stage_summary_tool to STATIC_ONE_LINERS in status_report.py (now 255 lines). Updated reusable_commands_index.py and tool_integrity_check.py EXPECTED. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
@@ -98,13 +107,3 @@
 - Discovery: A dedicated post-upload confirm compounds immediately after secrets are set and reduces rediscovery of confirmation signals across all subsequent videos.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
-
-## Run 530 — 2026-10-14T03:14:00Z
-- Objective: Fix the selftest failure on next_compact_contract (missing archive pointer in NEXT.md) and verify local gates after materialize.
-- Action: Materialized Q1 media via materialize_q1_release.py (media was absent). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH. Added archive pointer to NEXT.md so next_compact_contract and selftest PASS. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
-- Result: Videos published stay 0. Selftest green again. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: materialize succeeded; media_qa PASS; next_action upload-blocked; next_compact_contract PASS; selftest PASS.
-- Discovery: The archive pointer can be lost across edits; the contract catches it. Materialize remains the safe local step when media is missing.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
-
