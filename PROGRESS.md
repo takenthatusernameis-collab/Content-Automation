@@ -1,11 +1,17 @@
 # PROGRESS
 
+- Reusable capability: tools/stall_pattern_detector.py added (flags recurring published_zero/oauth_idle streaks from recent RUNS.md as LOW/MEDIUM/HIGH suspicion). stall_pattern_detector_tool one-liner in status_report.py. Index updated. HANDOFF.md refreshed.
+- Local gates not re-run (media present). No new failures.
+- Human labor reduction: future agents can see at a glance if the stall pattern is increasingly suspicious and should prefer new reusable capability over restatement. Compounds across future runs while the external blocker remains.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
+Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+
+## Run 532 — 2026-10-14T07:25:00Z
 - Reusable capability: tools/reusable_commands_index.py added (clean index of key anti-rediscovery commands including post_upload_confirm). reusable_commands_index_tool one-liner in status_report.py. HANDOFF.md refreshed.
 - Local gates not re-run (media present). No new failures.
 - Human labor reduction: future agents less likely to rediscover or guess the exact reusable commands for status, history, observation window, post-upload confirm, materialize, QA, next action, logging, and human steps. Compounds across all future runs as the surface grows.
 - Videos published remain 0. Stall continues. Preferred list still complete.
-
-Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
 ## Run 531 — 2026-10-14T04:18:00Z
 - Reusable capability: tools/post_upload_confirm.py added (CONFIRMED/INCOMPLETE/not_uploaded from upload_state.json; provider_video_id + privacy + uploaded_at; no invent). post_upload_confirm_tool one-liner in status_report.py STATIC_ONE_LINERS. HANDOFF.md refreshed.
