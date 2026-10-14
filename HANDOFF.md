@@ -1,15 +1,15 @@
 # HANDOFF
 
-2026-10-14T09:20:00Z (Run 534)
+2026-10-14T10:30:00Z (Run 535)
 
-Operator and agent entry point. Primary status: `python3 tools/status_report.py` (self-contained; do not open other files solely to rediscover the lines it already prints). **CRITICAL: status_report.py was truncated to a 1-line placeholder in prior HEAD; restored to full 250 lines in this run. Verify it executes.**
+Operator and agent entry point. Primary status: `python3 tools/status_report.py` (self-contained; do not open other files solely to rediscover the lines it already prints). **status_report.py integrity: verified full and executable (tool_integrity_check.py PASS). Truncation guard added in Run 535.**
 
 **Current state**
 - Videos published: 0
 - Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent: YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN). Issue #1.
 - Media: materialize if missing (do not commit); do not rematerialize if present. Target master SHA 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546. Release tags: VO+cards from q1-media-r249; master from q1-media-r253 (never install truncated r249 master).
 - remaining_open_boxes: upload only (captions and thumbnail reviews already recorded).
-- Preferred unblocked list: complete. Next is the human step or a truly new small anti-rediscovery item that does not re-verify gates solely for confirmation, does not invent data, and does not refresh the checklist banner solely for its timestamp. Prefer local clone verification for large file updates.
+- Preferred unblocked list: complete. Next is the human step or a truly new small anti-rediscovery item that does not re-verify gates solely for confirmation, does not invent data, and does not refresh the checklist banner solely for its timestamp. Prefer local clone verification for large file updates (or run python3 tools/tool_integrity_check.py).
 **Human step (only action that advances publish)**
 1. Follow docs/human_oauth_checklist.md or `python3 tools/operator_card.py`.
 2. Mint refresh token with scopes: youtube.upload + youtube.force-ssl + yt-analytics.readonly (youtube.upload alone is insufficient).
@@ -32,6 +32,7 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Use `python3 tools/post_upload_confirm.py PATH` to confirm provider_video_id + privacy + uploaded_at (Run 531; no invent).
 - Use `python3 tools/run_history_summary.py` for last-3 runs concise summary (Run 528; reduces rediscovery of recent history).
 - Use `python3 tools/stall_pattern_detector.py` to see if the oauth_idle / published_zero streak is HIGH and prefer new capability (Run 533).
+- Use `python3 tools/tool_integrity_check.py` to verify key tools are not truncated/PLACEHOLDER after updates (Run 535).
 - Then: `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=false -f collect_feedback=true`
 
 **Agent rules while stalled**
@@ -39,6 +40,6 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Do not rematerialize if media present. Do not re-verify local gates solely for confirmation (STALL_GATE_CONFIRM).
 - Do not refresh the human_oauth_checklist.md banner solely for its timestamp (STALL_BANNER_REFRESH).
 - Logs via `tools/record_run.py`. See production_rules.md for stall behavior.
-- status_report.py now also prints stall_pattern_detector_tool (Run 533), reusable_commands_index_tool (Run 532), post_upload_confirm_tool (Run 531), run_history_summary_tool, run_log_note, observation_window_tool, exact_record_run_usage, status_report_maintainability, exact_post_materialize_verify, exact_oauth_exchange_command, exact_materialize_command, media_release_tags, checklist_banner_status, exact_secret_set_commands, optional_human_secret_confirm, upload_state_status, exact_dispatch_command, exact_collect_command, required_oauth_scopes, privacy_constraint, observation_window_formula, post_upload_confirmation_signals, and the other anti-rediscovery lines.
+- status_report.py now also prints stall_pattern_detector_tool (Run 533), reusable_commands_index_tool (Run 532), post_upload_confirm_tool (Run 531), run_history_summary_tool, run_log_note, observation_window_tool, exact_record_run_usage, status_report_maintainability, exact_post_materialize_verify, exact_oauth_exchange_command, exact_materialize_command, media_release_tags, checklist_banner_status, exact_secret_set_commands, optional_human_secret_confirm, upload_state_status, exact_dispatch_command, exact_collect_command, required_oauth_scopes, privacy_constraint, observation_window_formula, post_upload_confirmation_signals, and the other anti-rediscovery lines. tool_integrity_check_tool one-liner to be confirmed on next local verify.
 
 See STATE.md, NEXT.md, RUNS.md, and tools/status_report.py for full history. Preferred list remains complete.
