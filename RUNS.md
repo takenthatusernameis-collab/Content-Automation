@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 548 — 2026-10-15T00:16:00Z
+- Objective: Add a reusable recurring-pattern flag tool so agents explicitly detect when the zero-publish OAuth-idle streak has become highly suspicious, compounding awareness of stall saturation and steering away from low-value restatement.
+- Action: Added tools/recurring_pattern_flag.py. Appended recurring_pattern_flag_tool to STATIC_ONE_LINERS in status_report.py. Updated reusable_commands_index.py and tool_integrity_check.py EXPECTED. Materialized Q1 media (was MISSING) and confirmed fingerprint PRESENT + SHA MATCH. Verified tool_integrity_check PASS and syntax. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
+- Result: Videos published stay 0. New recurring_pattern_flag tool available and correctly flags HIGHLY_SUSPICIOUS_STALL (streak 12 >= threshold). Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: tool_integrity_check PASS (recurring_pattern_flag.py 59 lines); status_report prints the new one-liner; recurring_pattern_flag.py runs and reports HIGHLY_SUSPICIOUS_STALL; media_fingerprint PRESENT/MATCH; syntax OK.
+- Discovery: Explicit streak flagging of the long OAuth-idle pattern reduces rediscovery of whether further pure anti-rediscovery tools are still high-value, aligning with the mission guidance to treat persistent zero-progress patterns as increasingly suspicious.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (checklist/operator_card then secrets+dispatch) or new small anti-rediscovery that does not re-verify gates solely for confirmation.
+
 ## Run 547 — 2026-10-14T23:30:00Z
 - Objective: Add a reusable publish-readiness tool so agents can confirm local Q1 is READY_FOR_HUMAN_DISPATCH (media PRESENT+MATCH + next_action=upload-blocked + remaining open boxes) in one command without full QA or materialize, compounding anti-rediscovery for the moment after OAuth secrets are set.
 - Action: Added tools/publish_readiness.py. Appended publish_readiness_tool to STATIC_ONE_LINERS in status_report.py (now 260 lines). Updated reusable_commands_index.py and tool_integrity_check.py EXPECTED. Verified tool_integrity_check PASS and syntax. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
@@ -98,12 +107,3 @@
 - Discovery: Explicitly completing deferred one-liners keeps the anti-rediscovery surface consistent and reduces the chance agents miss a useful post-update check.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set. Prefer tool_integrity_check.py after any remote file updates.
-
-## Run 536 — 2026-10-14T11:20:00Z
-- Objective: Add a quick media fingerprint tool so agents can confirm local Q1 media presence and master SHA match without running full media_qa or risking rematerialize, and verify media in this session.
-- Action: Materialized Q1 via materialize_q1_release.py (media was MISSING). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH. Added tools/media_fingerprint.py (reports PRESENT/MISSING + vo/cards/master_sha_match). Added media_fingerprint_tool one-liner to status_report.py STATIC_ONE_LINERS. Updated reusable_commands_index.py and tool_integrity_check.py. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
-- Result: Videos published stay 0. New fingerprint tool available. Media PRESENT and verified locally (gitignored). Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: materialize succeeded; media_qa PASS; next_action upload-blocked; media_fingerprint PRESENT/MATCH; tool_integrity_check PASS; status_report prints the new one-liner.
-- Discovery: A lightweight fingerprint reduces rediscovery and unnecessary full QA runs when agents only need to know if media is already local and checksum-correct.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set. Use media_fingerprint.py for quick local confirmation.

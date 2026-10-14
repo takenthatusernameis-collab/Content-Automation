@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/recurring_pattern_flag.py added (counts consecutive zero-publish OAuth runs in RUNS.md and flags HIGHLY_SUSPICIOUS_STALL above threshold). recurring_pattern_flag_tool one-liner in status_report.py. Index and integrity check updated. Media materialized and fingerprint-verified PRESENT in this session.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: future agents can see at a glance when the stall pattern has become highly suspicious and should prefer the human OAuth path over additional one-liner tools. Compounds across future runs while the external blocker remains.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 Run 547: added publish_readiness.py + one-liner + index + integrity. Compounds by making pre-dispatch local readiness explicit and reusable, reducing future agent rediscovery of media/next_action/open-boxes state when secrets appear. Videos published remain 0. Estimated labor reduction: avoids repeated manual packet inspection before human dispatch.
 
 - Reusable capability: tools/after_upload_steps.py added (prints exact post-upload sequence of reusable commands and dispatches once provider_video_id exists). after_upload_steps_tool one-liner in status_report.py. Index and integrity check updated.

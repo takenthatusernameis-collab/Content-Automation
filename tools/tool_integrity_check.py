@@ -34,6 +34,8 @@ EXPECTED = {
     "human_next_action.py": 30,
     "next_suggestion.py": 30,
     "after_upload_steps.py": 30,
+    "recurring_pattern_flag.py": 30,
+    "publish_readiness.py": 40,
     "publish_readiness.py": 40,
 }
 
