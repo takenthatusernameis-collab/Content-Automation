@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-14T08:20:00Z (Run 533)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media present; do not rematerialize if present). Added tools/stall_pattern_detector.py (flags recurring published_zero/oauth_idle streaks in recent RUNS.md as LOW/MEDIUM/HIGH suspicion so agents prefer new reusable capability over restatement) and stall_pattern_detector_tool one-liner to status_report.py STATIC_ONE_LINERS. Updated reusable_commands_index.py to include it. HANDOFF refreshed. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
+
 2026-10-14T07:25:00Z (Run 532)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media present locally from prior materialize; do not rematerialize if present). Added tools/reusable_commands_index.py (clean index of key anti-rediscovery commands including the new post_upload_confirm) and reusable_commands_index_tool one-liner to status_report.py STATIC_ONE_LINERS. HANDOFF refreshed. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
