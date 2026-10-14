@@ -1,1 +1,1 @@
-$(cat /tmp/status_report.py)
+PLACEHOLDER_FOR_FULL_CONTENT_TO_BE_REPLACED
