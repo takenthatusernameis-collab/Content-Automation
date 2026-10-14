@@ -25,6 +25,7 @@ COMMANDS = [
     ("stall_pattern_detector", "python3 tools/stall_pattern_detector.py", "Flags recurring published_zero / oauth_idle streaks in recent RUNS.md (LOW/MEDIUM/HIGH); prefer new capability if HIGH"),
     ("tool_integrity_check", "python3 tools/tool_integrity_check.py", "Checks key tools for truncation/PLACEHOLDER risk (min line counts + syntax); useful after file updates via remote tools"),
     ("media_fingerprint", "python3 tools/media_fingerprint.py", "Quick PRESENT/MISSING + VO/cards/master SHA match for Q1 packet (no full QA or materialize)"),
+    ("efficiency_summary", "python3 tools/efficiency_summary.py", "Concise recent reusable/labor-reduction gains from PROGRESS.md (no invent); shows compounding progress"),
 ]
 
 def main() -> int:

@@ -144,6 +144,7 @@ def main() -> int:
         ("stall_pattern_detector_tool", "python3 tools/stall_pattern_detector.py  # flags recurring published_zero / oauth_idle streaks in recent RUNS.md as LOW/MEDIUM/HIGH suspicion; prefer new reusable capability if HIGH; no invent"),
         ("media_fingerprint_tool", "python3 tools/media_fingerprint.py  # quick PRESENT/MISSING + VO/cards/master SHA match for Q1 (no full QA, no materialize); confirms local media without rediscovery; no invent"),
         ("tool_integrity_check_tool", "python3 tools/tool_integrity_check.py  # checks key tools for truncation/PLACEHOLDER risk (min line counts + syntax); useful after remote file updates; no invent"),
+        ("efficiency_summary_tool", "python3 tools/efficiency_summary.py  # concise recent reusable/labor-reduction gains from PROGRESS.md (no invent); shows compounding progress without opening the full file"),
     ]
     for key, val in STATIC_ONE_LINERS:
         print(f"{key}:", val)

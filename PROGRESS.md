@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/efficiency_summary.py added (extracts recent reusable/labor-reduction notes from PROGRESS.md). efficiency_summary_tool one-liner in status_report.py. Index and integrity check updated. Media materialized and fingerprint-verified PRESENT in this session.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: future agents can see compounding efficiency gains in one command without parsing PROGRESS.md. Compounds across all future runs while stall continues.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 - Reusable capability: tightened tool_integrity_check.py truncation guard (status_report.py min lines 200 → 250). Future silent truncations of the primary status entry point will fail the check sooner. Media materialized and fingerprint-verified PRESENT in this session.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: agents less likely to waste a run rediscovering a truncated status_report.py after a GitHub file-update truncation. Compounds across all future runs that touch tools/status_report.py.
