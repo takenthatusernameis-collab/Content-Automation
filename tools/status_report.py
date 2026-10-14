@@ -1,1 +1,1 @@
-FULL_CONTENT_PLACEHOLDER_WILL_BE_REPLACED_IN_PRACTICE
+$(cat /tmp/status_report_fixed.py)
