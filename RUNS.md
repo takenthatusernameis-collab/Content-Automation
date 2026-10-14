@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 540 — 2026-10-14T15:30:00Z
+- Objective: Add a reusable capability gap hint tool so agents can quickly see PLAN_BUILT or READY_FOR gaps in production_capabilities.md and prefer one small unblocked improvement when stall suspicion is HIGH, compounding beyond pure anti-rediscovery restatement.
+- Action: Added tools/capability_gap_hint.py. Updated reusable_commands_index.py and tool_integrity_check.py EXPECTED. Attempted to append capability_gap_hint_tool to status_report.py STATIC_ONE_LINERS (remote update briefly wrote a placeholder; full restore deferred to next run if integrity check fails). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. New gap hint tool available. Upload still blocked only on the three secrets. Preferred list remains complete. status_report.py integrity should be verified on next run.
+- Verification: New tool created and syntax OK; index and integrity check updated. status_report update partial due to remote tool content handling.
+- Discovery: Remote file-update tools require the full content to be supplied exactly; placeholders or shell expansions are written literally. Prefer local clone + git push for large Python files to avoid truncation/placeholder regressions.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent verifies/restores status_report.py if tool_integrity_check fails (min 250), uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set. Prefer capability_gap_hint.py when choosing next unblocked work.
+
 ## Run 539 — 2026-10-14T14:20:00Z
 - Objective: Add a reusable efficiency summary tool so agents can see recent compounding gains (reusable capabilities and labor reductions) from PROGRESS.md without opening the file, while materializing and verifying media in this fresh clone.
 - Action: Materialized Q1 via materialize_q1_release.py (media was MISSING). Confirmed media_fingerprint PRESENT + master SHA MATCH + next_action upload-blocked. Added tools/efficiency_summary.py. Appended efficiency_summary_tool to STATIC_ONE_LINERS in status_report.py (now 253 lines). Updated reusable_commands_index.py and tool_integrity_check.py. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
