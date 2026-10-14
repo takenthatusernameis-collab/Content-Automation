@@ -22,6 +22,7 @@ COMMANDS = [
     ("oauth_exchange", "python3 tools/oauth_exchange.py", "Human-only token minting (consent URL then --exchange)"),
     ("human_secret_confirm", "python3 tools/human_secret_confirm.py", "Human-only PRESENT/MISSING check for the three secrets (never values)"),
     ("stall_watch", "python3 tools/stall_watch.py", "Machine-visible stall flags and idle_streak"),
+    ("stall_pattern_detector", "python3 tools/stall_pattern_detector.py", "Flags recurring published_zero / oauth_idle streaks in recent RUNS.md (LOW/MEDIUM/HIGH); prefer new capability if HIGH"),
 ]
 
 def main() -> int:
