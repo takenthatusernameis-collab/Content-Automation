@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/capability_gap_hint.py added (scans production_capabilities.md for PLAN_BUILT/READY_FOR/NOT_BUILT gaps and prints candidates). Index and integrity check updated. status_report one-liner attempted (verify integrity on next run).
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: future agents can see concrete unblocked capability gaps in one command when stall suspicion is HIGH, preferring new reusable work over restatement. Compounds across future runs while the external OAuth stall continues.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 - Reusable capability: tools/efficiency_summary.py added (extracts recent reusable/labor-reduction notes from PROGRESS.md). efficiency_summary_tool one-liner in status_report.py. Index and integrity check updated. Media materialized and fingerprint-verified PRESENT in this session.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: future agents can see compounding efficiency gains in one command without parsing PROGRESS.md. Compounds across all future runs while stall continues.
