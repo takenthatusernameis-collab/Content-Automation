@@ -1715,3 +1715,12 @@ Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
 - Discovery: The archive pointer can be lost across edits; the contract catches it. Materialize remains the safe local step when media is missing.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
+
+## Run 531 — 2026-10-14T04:18:00Z
+- Objective: Add a reusable post-upload confirmation tool so agents and humans can verify private provider_video_id + privacy + uploaded_at from upload_state.json without inventing ids or reopening checklists.
+- Action: Added tools/post_upload_confirm.py (fail-closed; CONFIRMED/INCOMPLETE/not_uploaded). Added post_upload_confirm_tool one-liner to status_report.py STATIC_ONE_LINERS. Updated HANDOFF.md, STATE.md, NEXT.md. Did not poll secrets, dispatch, edit briefs, rematerialize, or refresh the checklist banner.
+- Result: Videos published stay 0. New reusable tool ready for every future packet after first private execute. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File created on main; status_report one-liner present; HANDOFF references the tool.
+- Discovery: A dedicated post-upload confirm compounds immediately after secrets are set and reduces rediscovery of confirmation signals across all subsequent videos.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.

@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/next_suggestion.py added (prints single preferred next action: human_step if stall suspicion HIGH, else gap hint). next_suggestion_tool one-liner in status_report.py. Index and integrity check updated.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: future agents can see the preferred next action in one command without combining stall_pattern_detector + capability_gap_hint + human_next_action outputs. Compounds across future runs while the external OAuth stall continues.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 - Reusable capability: tools/human_next_action.py added (prints exact human-only OAuth secret setup and dispatch steps without inventing values or polling). human_next_action_tool one-liner in status_report.py. Index and integrity check updated.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: future agents and humans can see the precise next human actions in one command without parsing the full checklist or BLOCKED.md. Compounds across future runs while the external OAuth stall continues.

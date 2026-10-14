@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 544 — 2026-10-14T20:12:00Z
+- Objective: Add a reusable next-suggestion tool so agents see a single preferred next action (human step if stall HIGH, else capability gap) without re-deriving the choice from multiple tools.
+- Action: Added tools/next_suggestion.py. Appended next_suggestion_tool to STATIC_ONE_LINERS in status_report.py (now 257 lines). Updated reusable_commands_index.py and tool_integrity_check.py EXPECTED. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. New next_suggestion tool available and prefers human_step on HIGH suspicion. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: tool_integrity_check PASS; status_report prints the new one-liner; next_suggestion.py runs and outputs HIGH / human_step; syntax OK.
+- Discovery: Explicit single-suggestion surface further reduces rediscovery of whether to prioritize the human OAuth path or a new reusable capability while the stall continues.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (checklist/operator_card then secrets+dispatch) or new small anti-rediscovery that does not re-verify gates solely for confirmation.
+
 ## Run 543 — 2026-10-14T18:30:00Z
 - Objective: Add a concise human next action tool so agents and humans see the exact OAuth secret setup and dispatch steps in one command without opening the full checklist or restating the stall.
 - Action: Added tools/human_next_action.py. Appended human_next_action_tool to STATIC_ONE_LINERS in status_report.py (now 256 lines). Updated reusable_commands_index.py and tool_integrity_check.py EXPECTED. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
@@ -98,12 +107,3 @@
 - Discovery: An explicit index of the anti-rediscovery surface compounds as more one-liners are added, further reducing the chance agents open multiple files or guess commands.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
-
-## Run 531 — 2026-10-14T04:18:00Z
-- Objective: Add a reusable post-upload confirmation tool so agents and humans can verify private provider_video_id + privacy + uploaded_at from upload_state.json without inventing ids or reopening checklists.
-- Action: Added tools/post_upload_confirm.py (fail-closed; CONFIRMED/INCOMPLETE/not_uploaded). Added post_upload_confirm_tool one-liner to status_report.py STATIC_ONE_LINERS. Updated HANDOFF.md, STATE.md, NEXT.md. Did not poll secrets, dispatch, edit briefs, rematerialize, or refresh the checklist banner.
-- Result: Videos published stay 0. New reusable tool ready for every future packet after first private execute. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File created on main; status_report one-liner present; HANDOFF references the tool.
-- Discovery: A dedicated post-upload confirm compounds immediately after secrets are set and reduces rediscovery of confirmation signals across all subsequent videos.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.

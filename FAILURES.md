@@ -1,5 +1,7 @@
 # FAILURES
 
+None this run. No regressions introduced.
+
 None. No new failures introduced. Integrity PASS. Tool runs cleanly.
 
 No new failures. Remote file-update truncation risk remains known; prefer local clone + push for large tools.

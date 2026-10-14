@@ -32,6 +32,7 @@ EXPECTED = {
     "capability_gap_hint.py": 30,
     "packet_stage_summary.py": 40,
     "human_next_action.py": 30,
+    "next_suggestion.py": 30,
 }
 
 def check_file(name: str, min_lines: int) -> tuple[bool, str]:
