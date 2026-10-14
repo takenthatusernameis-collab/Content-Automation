@@ -1,5 +1,8 @@
 # FAILURES
 
+## Run 529 — 2026-10-14T05:11:00Z
+- No new failures. OAuth stall continues as expected. Deferred one-liner integration completed without issues.
+
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 528 — 2026-10-14T04:17:00Z

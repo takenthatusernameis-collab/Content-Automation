@@ -1,5 +1,11 @@
 # PROGRESS
 
+## Run 529 — 2026-10-14T05:11:00Z
+- Reusable capability: completed run_history_summary_tool one-liner in status_report.py (deferred from 528). HANDOFF.md refreshed. Tool verified working.
+- Local gates not re-run (media absent). No new failures.
+- Human labor reduction: future agents see the exact reusable command for concise recent-run history immediately in the primary status output. Compounds across all future runs.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
 ## Run 528 — 2026-10-14T04:17:00Z

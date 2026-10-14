@@ -138,6 +138,7 @@ def main() -> int:
     # Run 527: future one-liners can be added as a trailing list to reduce insert risk; see below
     STATIC_ONE_LINERS = [
         ("run_log_note", "Permanent timestamped history lives in STATE.md / NEXT.md / RUNS.md / PROGRESS.md / FAILURES.md; each run prepends via tools/record_run.py; if a pattern repeats across many runs with no progress (e.g. oauth_idle), treat as increasingly suspicious and prefer new reusable capability over restatement"),
+        ("run_history_summary_tool", "python3 tools/run_history_summary.py [N]  # prints concise last-N runs summary (default 3) from RUNS.md; reduces rediscovery of recent objectives/results/stall; no invent; reusable"),
     ]
     for key, val in STATIC_ONE_LINERS:
         print(f"{key}:", val)
