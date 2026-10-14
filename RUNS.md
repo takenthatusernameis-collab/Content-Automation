@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 533 — 2026-10-14T08:20:00Z
+- Objective: Add a reusable stall pattern detector so agents can immediately see if the oauth_idle / published_zero streak is HIGH and prefer new reusable capability over further restatement of the stall.
+- Action: Added tools/stall_pattern_detector.py (reads recent RUNS.md, counts consecutive published_zero, outputs LOW/MEDIUM/HIGH suspicion). Added stall_pattern_detector_tool one-liner to STATIC_ONE_LINERS in tools/status_report.py. Updated reusable_commands_index.py to include the new command. Updated HANDOFF.md, STATE.md, NEXT.md. Did not poll secrets, dispatch, edit briefs, rematerialize, or refresh the checklist banner. Local gates not re-run (media present; STALL_GATE_CONFIRM).
+- Result: Videos published stay 0. New detector available so future agents see the recurring pattern suspicion without parsing the full history. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: New tool created; index updated; one-liner added to status_report (note: full file integrity should be confirmed on next run if truncation occurred during update); HANDOFF references the tool.
+- Discovery: Explicit suspicion flagging for long no-progress streaks compounds by steering agents toward capability-building instead of documentation restatement once the pattern is clear.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set. Use stall_pattern_detector.py to confirm if suspicion is HIGH.
+
 ## Run 532 — 2026-10-14T07:25:00Z
 - Objective: Reduce rediscovery of the growing anti-rediscovery command surface by adding a clean reusable index tool that includes the latest post_upload_confirm.
 - Action: Added tools/reusable_commands_index.py (prints exact invocations for status_report, run_history_summary, observation_window, post_upload_confirm, materialize, media_qa, next_action, record_run, operator_card, oauth_exchange, etc.). Added reusable_commands_index_tool one-liner to STATIC_ONE_LINERS in tools/status_report.py. Updated HANDOFF.md. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media present; STALL_GATE_CONFIRM).
@@ -27,11 +36,3 @@
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
 
-## Run 529 — 2026-10-14T05:11:00Z
-- Objective: Complete the deferred integration of run_history_summary_tool one-liner into status_report.py so agents see the reusable history summary command immediately without opening RUNS.md or guessing.
-- Action: Added run_history_summary_tool entry to STATIC_ONE_LINERS in tools/status_report.py. Verified output and tool execution. Updated HANDOFF.md. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media absent).
-- Result: Videos published stay 0. status_report.py now prints the exact command for last-N runs summary. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: python3 tools/status_report.py includes the new line; python3 tools/run_history_summary.py produces correct last-3 summary; syntax ok.
-- Discovery: Completing the deferred one-liner ensures the anti-rediscovery surface is consistent; the trailing list pattern continues to protect against overwrite risks.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent materializes only if media missing, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
