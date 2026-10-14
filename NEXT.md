@@ -28,6 +28,10 @@ Run 538: raised status_report min-lines in tool_integrity_check to 250. Media ma
 
 Human step or new small anti-rediscovery that does not re-verify gates solely for confirmation. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker.
 
+Human step or new small anti-rediscovery that does not re-verify gates solely for confirmation. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker. Prefer capability_gap_hint.py when choosing unblocked work. status_report.py now verified full.
+
+2026-10-14T16:30:00Z (Run 541)
+
 2026-10-14T15:30:00Z (Run 540)
 
 2026-10-14T14:20:00Z (Run 539)
@@ -50,5 +54,3 @@ Older do-not-rediscover notes live in `docs/next_archive.md`.
 2026-10-14T03:14:00Z (Run 530)
 
 2026-10-14T04:17:00Z (Run 528)
-
-2026-10-14T03:15:00Z (Run 527)

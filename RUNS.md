@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 541 — 2026-10-14T16:30:00Z
+- Objective: Verify and restore tools/status_report.py after the remote update in Run 540 produced a placeholder, ensuring the primary agent entry point and capability_gap_hint one-liner are fully functional.
+- Action: Cloned repo locally, detected 1-line placeholder in status_report.py, restored full 254-line version from prior good commit + appended capability_gap_hint_tool one-liner, verified syntax and tool_integrity_check PASS, committed and pushed.
+- Result: Videos published stay 0. Primary status surface fully restored and executable with new one-liner. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: tool_integrity_check PASS (status_report 254 >= 250); status_report.py runs and prints capability_gap_hint_tool; git push succeeded.
+- Discovery: Remote file-update tools continue to risk placeholder truncation on large files; local clone + authenticated push is the reliable path for status_report.py and similar entry points.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set. Prefer capability_gap_hint.py and tool_integrity_check.py after updates.
+
 ## Run 540 — 2026-10-14T15:30:00Z
 - Objective: Add a reusable capability gap hint tool so agents can quickly see PLAN_BUILT or READY_FOR gaps in production_capabilities.md and prefer one small unblocked improvement when stall suspicion is HIGH, compounding beyond pure anti-rediscovery restatement.
 - Action: Added tools/capability_gap_hint.py. Updated reusable_commands_index.py and tool_integrity_check.py EXPECTED. Attempted to append capability_gap_hint_tool to status_report.py STATIC_ONE_LINERS (remote update briefly wrote a placeholder; full restore deferred to next run if integrity check fails). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.

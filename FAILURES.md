@@ -1,5 +1,7 @@
 # FAILURES
 
+Remote GitHub create_or_update_file wrote literal placeholder when full content was not supplied exactly; local authenticated push succeeded.
+
 None. No new failures introduced.
 
 None. No regressions. Integrity check passes with the stricter min. Media materialize succeeded as expected for a fresh clone.

@@ -1,5 +1,7 @@
 # PROGRESS
 
+Restored primary status_report.py integrity (from 1-line placeholder to 254 lines with capability_gap_hint one-liner). Reduces rediscovery and prevents broken entry point for future runs.
+
 - Reusable capability: tools/capability_gap_hint.py added (scans production_capabilities.md for PLAN_BUILT/READY_FOR/NOT_BUILT gaps and prints candidates). Index and integrity check updated. status_report one-liner attempted (verify integrity on next run).
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: future agents can see concrete unblocked capability gaps in one command when stall suspicion is HIGH, preferring new reusable work over restatement. Compounds across future runs while the external OAuth stall continues.
