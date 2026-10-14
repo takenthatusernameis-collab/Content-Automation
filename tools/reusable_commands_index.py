@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+"""Print a clean index of key reusable anti-rediscovery commands.
+
+Reduces rediscovery of the growing list of one-liners and tools that prevent
+agents from opening multiple files or guessing commands. Does not poll secrets,
+dispatch, or modify files. Prefer this when you need the exact invocation
+without parsing the full status_report output.
+"""
+
+from __future__ import annotations
+
+COMMANDS = [
+    ("status_report", "python3 tools/status_report.py", "Primary current-system status (stall, media, next, all one-liners)"),
+    ("run_history_summary", "python3 tools/run_history_summary.py [N]", "Concise last-N runs from RUNS.md (default 3)"),
+    ("observation_window", "python3 tools/observation_window.py videos/002-stop-deciding-what-to-work-on-every-morning", "DUE/WAITING for +10d post-upload window from upload_state.json"),
+    ("post_upload_confirm", "python3 tools/post_upload_confirm.py videos/002-stop-deciding-what-to-work-on-every-morning", "CONFIRMED/INCOMPLETE/not_uploaded from upload_state.json"),
+    ("materialize", "python3 tools/materialize_q1_release.py", "Install r249 VO+cards + r253 master (ignore truncated r249 master); only if media MISSING"),
+    ("media_qa", "python3 tools/media_qa.py videos/002-stop-deciding-what-to-work-on-every-morning", "Fail-closed media QA (expect PASS when present)"),
+    ("next_action", "python3 tools/next_action.py videos/002-stop-deciding-what-to-work-on-every-morning", "Read-only next step code (expect upload-blocked)"),
+    ("record_run", "python3 tools/record_run.py --note /tmp/run_note.json", "Prepend timestamped notes to STATE/NEXT/RUNS/PROGRESS/FAILURES then compact"),
+    ("operator_card", "python3 tools/operator_card.py", "Human step card for secrets + dispatch"),
+    ("oauth_exchange", "python3 tools/oauth_exchange.py", "Human-only token minting (consent URL then --exchange)"),
+    ("human_secret_confirm", "python3 tools/human_secret_confirm.py", "Human-only PRESENT/MISSING check for the three secrets (never values)"),
+    ("stall_watch", "python3 tools/stall_watch.py", "Machine-visible stall flags and idle_streak"),
+]
+
+def main() -> int:
+    print("REUSABLE COMMANDS INDEX (anti-rediscovery; do not invent)")
+    print("Use these exact invocations. Full details in tools/status_report.py and HANDOFF.md.")
+    print()
+    for key, cmd, desc in COMMANDS:
+        print(f"{key}:")
+        print(f"  {cmd}")
+        print(f"  # {desc}")
+        print()
+    print("After secrets are set and first private video id exists, use post_upload_confirm then observation_window then collect_feedback dispatch.")
+    print("Do not rematerialize if media PRESENT. Do not re-verify gates solely for confirmation. Do not refresh checklist banner solely for timestamp.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

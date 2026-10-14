@@ -1,6 +1,6 @@
 # HANDOFF
 
-2026-10-14T04:18:00Z (Run 531)
+2026-10-14T07:25:00Z (Run 532)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` (self-contained; do not open other files solely to rediscover the lines it already prints).
 
@@ -39,6 +39,6 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Do not rematerialize if media present. Do not re-verify local gates solely for confirmation (STALL_GATE_CONFIRM).
 - Do not refresh the human_oauth_checklist.md banner solely for its timestamp (STALL_BANNER_REFRESH).
 - Logs via `tools/record_run.py`. See production_rules.md for stall behavior.
-- status_report.py now also prints post_upload_confirm_tool (Run 531), run_history_summary_tool, run_log_note, observation_window_tool, exact_record_run_usage, status_report_maintainability, exact_post_materialize_verify, exact_oauth_exchange_command, exact_materialize_command, media_release_tags, checklist_banner_status, exact_secret_set_commands, optional_human_secret_confirm, upload_state_status, exact_dispatch_command, exact_collect_command, required_oauth_scopes, privacy_constraint, observation_window_formula, post_upload_confirmation_signals, and the other anti-rediscovery lines.
+- status_report.py now also prints reusable_commands_index_tool (Run 532), post_upload_confirm_tool (Run 531), run_history_summary_tool, run_log_note, observation_window_tool, exact_record_run_usage, status_report_maintainability, exact_post_materialize_verify, exact_oauth_exchange_command, exact_materialize_command, media_release_tags, checklist_banner_status, exact_secret_set_commands, optional_human_secret_confirm, upload_state_status, exact_dispatch_command, exact_collect_command, required_oauth_scopes, privacy_constraint, observation_window_formula, post_upload_confirmation_signals, and the other anti-rediscovery lines.
 
 See STATE.md, NEXT.md, RUNS.md, and tools/status_report.py for full history. Preferred list remains complete.

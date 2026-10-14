@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/reusable_commands_index.py added (clean index of key anti-rediscovery commands including post_upload_confirm). reusable_commands_index_tool one-liner in status_report.py. HANDOFF.md refreshed.
+- Local gates not re-run (media present). No new failures.
+- Human labor reduction: future agents less likely to rediscover or guess the exact reusable commands for status, history, observation window, post-upload confirm, materialize, QA, next action, logging, and human steps. Compounds across all future runs as the surface grows.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
 
 ## Run 531 — 2026-10-14T04:18:00Z

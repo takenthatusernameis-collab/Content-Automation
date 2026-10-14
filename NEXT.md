@@ -10,6 +10,10 @@ Run 528: run_history_summary.py tool + one-liner added. HANDOFF refreshed. Prefe
 
 Run 527: trailing STATIC_ONE_LINERS + run_log_note added to status_report.py for safer future anti-rediscovery. HANDOFF refreshed. Preferred list complete. Next: human step or new small anti-rediscovery that does not re-verify gates solely for confirmation. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: materialize if missing (do not commit); do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker.
 
+Run 532: added reusable_commands_index.py + one-liner (includes post_upload_confirm). HANDOFF refreshed. Preferred list complete. Next: human step or new small anti-rediscovery that does not re-verify gates solely for confirmation. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker.
+
+2026-10-14T07:25:00Z (Run 532)
+
 2026-10-14T04:18:00Z (Run 531)
 Older do-not-rediscover notes live in `docs/next_archive.md`.
 

@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 532 — 2026-10-14T07:25:00Z
+- Objective: Reduce rediscovery of the growing anti-rediscovery command surface by adding a clean reusable index tool that includes the latest post_upload_confirm.
+- Action: Added tools/reusable_commands_index.py (prints exact invocations for status_report, run_history_summary, observation_window, post_upload_confirm, materialize, media_qa, next_action, record_run, operator_card, oauth_exchange, etc.). Added reusable_commands_index_tool one-liner to STATIC_ONE_LINERS in tools/status_report.py. Updated HANDOFF.md. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media present; STALL_GATE_CONFIRM).
+- Result: Videos published stay 0. New index tool available so future agents can see all key commands without parsing full status_report. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: New tool created and runs; status_report prints the new one-liner; syntax ok.
+- Discovery: An explicit index of the anti-rediscovery surface compounds as more one-liners are added, further reducing the chance agents open multiple files or guess commands.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
+
 ## Run 531 — 2026-10-14T04:18:00Z
 - Objective: Add a reusable post-upload confirmation tool so agents and humans can verify private provider_video_id + privacy + uploaded_at from upload_state.json without inventing ids or reopening checklists.
 - Action: Added tools/post_upload_confirm.py (fail-closed; CONFIRMED/INCOMPLETE/not_uploaded). Added post_upload_confirm_tool one-liner to status_report.py STATIC_ONE_LINERS. Updated HANDOFF.md, STATE.md, NEXT.md. Did not poll secrets, dispatch, edit briefs, rematerialize, or refresh the checklist banner.

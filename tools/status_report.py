@@ -140,6 +140,7 @@ def main() -> int:
         ("run_log_note", "Permanent timestamped history lives in STATE.md / NEXT.md / RUNS.md / PROGRESS.md / FAILURES.md; each run prepends via tools/record_run.py; if a pattern repeats across many runs with no progress (e.g. oauth_idle), treat as increasingly suspicious and prefer new reusable capability over restatement"),
         ("run_history_summary_tool", "python3 tools/run_history_summary.py [N]  # prints concise last-N runs summary (default 3) from RUNS.md; reduces rediscovery of recent objectives/results/stall; no invent; reusable"),
         ("post_upload_confirm_tool", "python3 tools/post_upload_confirm.py videos/002-stop-deciding-what-to-work-on-every-morning  # CONFIRMED/INCOMPLETE/not_uploaded from upload_state.json (provider_video_id + privacy + uploaded_at); no invent; reusable after first private execute"),
+        ("reusable_commands_index_tool", "python3 tools/reusable_commands_index.py  # clean index of key anti-rediscovery commands (status_report, run_history_summary, observation_window, post_upload_confirm, materialize, media_qa, next_action, record_run, operator_card, oauth_exchange, etc.); reduces rediscovery of the growing one-liner surface; no invent"),
     ]
     for key, val in STATIC_ONE_LINERS:
         print(f"{key}:", val)
