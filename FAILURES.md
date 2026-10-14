@@ -1,5 +1,7 @@
 # FAILURES
 
+No new failures. saturation_guard.py correctly detects the existing pattern of status-tool runs. Integrity PASS. No secret poll attempted.
+
 None this run. No new failures introduced. Previous stalls remain.
 
 None this run. Remote file updates avoided for status_report.py by using local clone + direct edit.

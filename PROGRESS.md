@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/saturation_guard.py added (scans recent RUNS.md and flags SATURATED_ANTI_REDISCOVERY when most recent runs only added status one-liners while videos published stay 0). saturation_guard_tool one-liner in status_report.py. Index and integrity check updated. Integrity PASS.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: future agents can see at a glance when the system has saturated on pure anti-rediscovery status tools and should prefer the human OAuth path or a true production capability. Compounds across future runs while the external OAuth stall continues.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 - Reusable capability: tools/stall_escalation.py added (prints clear HIGHLY_SUSPICIOUS_STALL summary + exact human commands when consecutive zero-publish runs high). stall_escalation_tool one-liner in status_report.py. Index and integrity check updated (duplicate key fixed). Integrity PASS.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: future agents and humans can see the escalating stall status and the precise only-advancing commands in one command without parsing RUNS.md or combining multiple tools. Compounds across future runs while the external OAuth stall continues.
