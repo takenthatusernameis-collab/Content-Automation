@@ -1,13 +1,13 @@
 # HANDOFF
 
-2026-10-14T12:15:00Z (Run 537)
+2026-10-14T13:45:00Z (Run 538)
 
-Operator and agent entry point. Primary status: `python3 tools/status_report.py` (self-contained; do not open other files solely to rediscover the lines it already prints). **status_report.py integrity: verified full and executable (tool_integrity_check.py PASS). Truncation guard added in Run 535.**
+Operator and agent entry point. Primary status: `python3 tools/status_report.py` (self-contained; do not open other files solely to rediscover the lines it already prints). **status_report.py integrity: verified full and executable (tool_integrity_check.py PASS with min-lines now 250). Truncation guard added in Run 535; sensitivity raised in Run 538.**
 
 **Current state**
 - Videos published: 0
 - Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent: YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN). Issue #1.
-- Media: materialize if missing (do not commit); do not rematerialize if present. Target master SHA 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546. Release tags: VO+cards from q1-media-r249; master from q1-media-r253 (never install truncated r249 master).
+- Media: materialize if missing (do not commit); do not rematerialize if present. Target master SHA 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546. Release tags: VO+cards from q1-media-r249; master from q1-media-r253 (never install truncated r249 master). Verified PRESENT + SHA MATCH in this session after materialize.
 - remaining_open_boxes: upload only (captions and thumbnail reviews already recorded).
 - Preferred unblocked list: complete. Next is the human step or a truly new small anti-rediscovery item that does not re-verify gates solely for confirmation, does not invent data, and does not refresh the checklist banner solely for its timestamp. Prefer local clone verification for large file updates (or run python3 tools/tool_integrity_check.py).
 **Human step (only action that advances publish)**

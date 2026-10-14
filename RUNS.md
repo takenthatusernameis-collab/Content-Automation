@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 538 — 2026-10-14T13:45:00Z
+- Objective: Tighten the truncation guard on the primary status tool by raising the minimum line count in tool_integrity_check.py, and confirm local media presence via materialize in this fresh clone.
+- Action: Edited tools/tool_integrity_check.py to set status_report.py EXPECTED min to 250 (was 200). Ran python3 tools/tool_integrity_check.py (PASS). Materialized Q1 via materialize_q1_release.py (media was MISSING). Confirmed media_fingerprint PRESENT + master SHA MATCH. Updated HANDOFF.md. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
+- Result: Videos published stay 0. Integrity check now more sensitive to status_report truncation. Media PRESENT and verified locally (gitignored). Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: tool_integrity_check PASS with new min; media_fingerprint PRESENT/MATCH; status_report shows media_status PRESENT.
+- Discovery: Raising the min line count for the most frequently read agent entry point compounds by catching silent truncations earlier, before agents rediscover a broken status surface.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set. Prefer tool_integrity_check.py after any remote file updates.
+
 ## Run 537 — 2026-10-14T12:15:00Z
 - Objective: Complete the pending tool_integrity_check one-liner in status_report.py so agents see the exact reusable command for truncation checks without opening the file, matching the pattern of prior anti-rediscovery additions.
 - Action: Edited tools/status_report.py locally (cloned) to append tool_integrity_check_tool to STATIC_ONE_LINERS. Verified python3 tools/status_report.py executes and prints the new line. Updated HANDOFF.md. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.

@@ -1,5 +1,7 @@
 # FAILURES
 
+None. No regressions. Integrity check passes with the stricter min. Media materialize succeeded as expected for a fresh clone.
+
 None. No regressions. status_report remains fully executable after the small append.
 
 None this run.

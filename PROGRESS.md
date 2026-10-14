@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tightened tool_integrity_check.py truncation guard (status_report.py min lines 200 → 250). Future silent truncations of the primary status entry point will fail the check sooner. Media materialized and fingerprint-verified PRESENT in this session.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: agents less likely to waste a run rediscovering a truncated status_report.py after a GitHub file-update truncation. Compounds across all future runs that touch tools/status_report.py.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 Reusable capability: completed tool_integrity_check_tool one-liner in status_report.py STATIC_ONE_LINERS (deferred from Run 535). Agents now see the exact command for truncation/syntax checks immediately in primary status output. HANDOFF.md refreshed.
 - Local gates not re-run (media absent in this session; previous verification holds). No new failures.
 - Human labor reduction: future agents less likely to rediscover or skip the integrity check after file updates via GitHub tools. Compounds across all future runs that touch large Python files.
