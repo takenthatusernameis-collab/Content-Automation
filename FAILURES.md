@@ -1,9 +1,13 @@
 # FAILURES
 
+Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
+
+## Run 530 — 2026-10-14T03:14:00Z
+- No new failures. Recovered the missing NEXT.md archive pointer that was causing next_compact_contract / selftest FAIL. OAuth stall continues as expected.
+
 ## Run 529 — 2026-10-14T05:11:00Z
 - No new failures. OAuth stall continues as expected. Deferred one-liner integration completed without issues.
 
-Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 528 — 2026-10-14T04:17:00Z
 No new failures. OAuth stall continues (expected). New reusable history summary tool added.
