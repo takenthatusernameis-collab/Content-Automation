@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/packet_stage_summary.py added (reports text/media/upload stage for the Q1 packet without gates or materialize). packet_stage_summary_tool one-liner in status_report.py. Index and integrity check updated.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: future agents can see packet readiness stage in one command without opening directories or risking rematerialize. Compounds across future runs while the external OAuth stall continues.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 Restored primary status_report.py integrity (from 1-line placeholder to 254 lines with capability_gap_hint one-liner). Reduces rediscovery and prevents broken entry point for future runs.
 
 - Reusable capability: tools/capability_gap_hint.py added (scans production_capabilities.md for PLAN_BUILT/READY_FOR/NOT_BUILT gaps and prints candidates). Index and integrity check updated. status_report one-liner attempted (verify integrity on next run).

@@ -1,15 +1,17 @@
-2026-10-14T16:30:00Z (Run 541)
+2026-10-14T17:00:00Z (Run 542)
 
-Operator and agent entry point. Primary status: `python3 tools/status_report.py` (self-contained; do not open other files solely to rediscover the lines it already prints). **status_report.py integrity: verified full and executable (254 lines, tool_integrity_check.py PASS with min-lines 250). Restored after remote placeholder in Run 540. Truncation guard added in Run 535; sensitivity raised in Run 538.**
+Operator and agent entry point. Primary status: `python3 tools/status_report.py` (self-contained; do not open other files solely to rediscover the lines it already prints). **status_report.py integrity: verified full and executable (255 lines, tool_integrity_check.py PASS with min-lines 250). packet_stage_summary.py added.**
 
 **Current state**
 - Videos published: 0
 - Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent: YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN). Issue #1.
 - Media: materialize if missing (do not commit); do not rematerialize if present. Target master SHA 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546. Release tags: VO+cards from q1-media-r249; master from q1-media-r253 (never install truncated r249 master). 
 - remaining_open_boxes: upload only (captions and thumbnail reviews already recorded).
-- Preferred unblocked list: complete. Next is the human step or a truly new small anti-rediscovery item that does not re-verify gates solely for confirmation, does not invent data, and does not refresh the checklist banner solely for its timestamp. Prefer local clone verification for large file updates (or run python3 tools/tool_integrity_check.py). Use python3 tools/capability_gap_hint.py for unblocked gaps; python3 tools/efficiency_summary.py for recent gains.
+- Preferred unblocked list: complete. Next is the human step or a truly new small anti-rediscovery item that does not re-verify gates solely for confirmation, does not invent data, and does not refresh the checklist banner solely for its timestamp. Prefer local clone verification for large file updates (or run python3 tools/tool_integrity_check.py). Use python3 tools/capability_gap_hint.py for unblocked gaps; python3 tools/packet_stage_summary.py for local packet stage; python3 tools/efficiency_summary.py for recent gains.
 
 # HANDOFF
+
+
 
 2026-10-14T14:20:00Z (Run 539)
 

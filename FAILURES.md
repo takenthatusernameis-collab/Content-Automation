@@ -1,5 +1,7 @@
 # FAILURES
 
+No new failures. Remote file-update truncation risk remains known; prefer local clone + push for large tools.
+
 Remote GitHub create_or_update_file wrote literal placeholder when full content was not supplied exactly; local authenticated push succeeded.
 
 None. No new failures introduced.

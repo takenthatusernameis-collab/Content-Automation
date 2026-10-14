@@ -27,6 +27,7 @@ COMMANDS = [
     ("media_fingerprint", "python3 tools/media_fingerprint.py", "Quick PRESENT/MISSING + VO/cards/master SHA match for Q1 packet (no full QA or materialize)"),
     ("efficiency_summary", "python3 tools/efficiency_summary.py", "Concise recent reusable/labor-reduction gains from PROGRESS.md (no invent); shows compounding progress"),
     ("capability_gap_hint", "python3 tools/capability_gap_hint.py", "Scans production_capabilities.md for PLAN_BUILT/READY_FOR gaps; suggests one unblocked reusable improvement when stall suspicion is HIGH"),
+    ("packet_stage_summary", "python3 tools/packet_stage_summary.py [PACKET]", "Concise local stage for packet (TEXT_COMPLETE_MEDIA_MISSING_UPLOAD_BLOCKED etc.); no gates/materialize/invent"),
 ]
 
 def main() -> int:

@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 542 — 2026-10-14T17:00:00Z
+- Objective: Add a reusable packet stage summary tool so agents can see local Q1 readiness (text complete, media missing, upload blocked) in one command without directory inspection, full gates, or materialize, compounding anti-rediscovery while the OAuth stall continues.
+- Action: Added tools/packet_stage_summary.py. Appended packet_stage_summary_tool to STATIC_ONE_LINERS in status_report.py (now 255 lines). Updated reusable_commands_index.py and tool_integrity_check.py EXPECTED. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. New stage summary tool available and reports TEXT_COMPLETE_MEDIA_MISSING_UPLOAD_BLOCKED for Q1. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: tool_integrity_check PASS; status_report prints the new one-liner; packet_stage_summary.py runs and reports correct stage (media absent in this clone); syntax OK.
+- Discovery: Explicit stage reporting for the working packet reduces rediscovery of whether text is done and media is still missing, steering agents toward either the human step or a true new capability instead of repeated ls/find.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set. Prefer packet_stage_summary.py for quick local packet stage.
+
 ## Run 541 — 2026-10-14T16:30:00Z
 - Objective: Verify and restore tools/status_report.py after the remote update in Run 540 produced a placeholder, ensuring the primary agent entry point and capability_gap_hint one-liner are fully functional.
 - Action: Cloned repo locally, detected 1-line placeholder in status_report.py, restored full 254-line version from prior good commit + appended capability_gap_hint_tool one-liner, verified syntax and tool_integrity_check PASS, committed and pushed.
