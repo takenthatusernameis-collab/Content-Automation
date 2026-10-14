@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reliability: restored full tools/status_report.py (was reduced to 1-line PLACEHOLDER in HEAD after Run 533 claims of restore). Confirmed it executes and includes stall_pattern_detector_tool one-liner. Primary agent entry point is usable again.
+- Local gates not re-run (media absent; STALL_GATE_CONFIRM). No new failures introduced.
+- Human labor reduction: future agents will not hit a broken status_report that only prints a placeholder, avoiding rediscovery of the stall and next actions. Compounds by keeping the main status surface reliable.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 - Reusable capability: tools/stall_pattern_detector.py added (flags recurring published_zero/oauth_idle streaks from recent RUNS.md as LOW/MEDIUM/HIGH suspicion). stall_pattern_detector_tool one-liner in status_report.py. Index updated. HANDOFF.md refreshed.
 - Local gates not re-run (media present). No new failures.
 - Human labor reduction: future agents can see at a glance if the stall pattern is increasingly suspicious and should prefer new reusable capability over restatement. Compounds across future runs while the external blocker remains.
