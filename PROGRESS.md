@@ -1,5 +1,10 @@
 # PROGRESS
 
+Reusable capability: completed tool_integrity_check_tool one-liner in status_report.py STATIC_ONE_LINERS (deferred from Run 535). Agents now see the exact command for truncation/syntax checks immediately in primary status output. HANDOFF.md refreshed.
+- Local gates not re-run (media absent in this session; previous verification holds). No new failures.
+- Human labor reduction: future agents less likely to rediscover or skip the integrity check after file updates via GitHub tools. Compounds across all future runs that touch large Python files.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 Added reusable media_fingerprint.py for fast local confirmation of Q1 media without full QA. Verified materialize + gates in this session.
 
 - Reliability: restored full tools/status_report.py (was reduced to 1-line PLACEHOLDER in HEAD after Run 533 claims of restore). Confirmed it executes and includes stall_pattern_detector_tool one-liner. Primary agent entry point is usable again.

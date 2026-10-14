@@ -143,6 +143,7 @@ def main() -> int:
         ("reusable_commands_index_tool", "python3 tools/reusable_commands_index.py  # clean index of key anti-rediscovery commands (status_report, run_history_summary, observation_window, post_upload_confirm, materialize, media_qa, next_action, record_run, operator_card, oauth_exchange, etc.); reduces rediscovery of the growing one-liner surface; no invent"),
         ("stall_pattern_detector_tool", "python3 tools/stall_pattern_detector.py  # flags recurring published_zero / oauth_idle streaks in recent RUNS.md as LOW/MEDIUM/HIGH suspicion; prefer new reusable capability if HIGH; no invent"),
         ("media_fingerprint_tool", "python3 tools/media_fingerprint.py  # quick PRESENT/MISSING + VO/cards/master SHA match for Q1 (no full QA, no materialize); confirms local media without rediscovery; no invent"),
+        ("tool_integrity_check_tool", "python3 tools/tool_integrity_check.py  # checks key tools for truncation/PLACEHOLDER risk (min line counts + syntax); useful after remote file updates; no invent"),
     ]
     for key, val in STATIC_ONE_LINERS:
         print(f"{key}:", val)

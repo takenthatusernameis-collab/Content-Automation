@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 537 — 2026-10-14T12:15:00Z
+- Objective: Complete the pending tool_integrity_check one-liner in status_report.py so agents see the exact reusable command for truncation checks without opening the file, matching the pattern of prior anti-rediscovery additions.
+- Action: Edited tools/status_report.py locally (cloned) to append tool_integrity_check_tool to STATIC_ONE_LINERS. Verified python3 tools/status_report.py executes and prints the new line. Updated HANDOFF.md. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. Primary status surface now includes the integrity check command. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: status_report.py runs cleanly and outputs the tool_integrity_check_tool one-liner; file length increased slightly with no truncation.
+- Discovery: Explicitly completing deferred one-liners keeps the anti-rediscovery surface consistent and reduces the chance agents miss a useful post-update check.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set. Prefer tool_integrity_check.py after any remote file updates.
+
 ## Run 536 — 2026-10-14T11:20:00Z
 - Objective: Add a quick media fingerprint tool so agents can confirm local Q1 media presence and master SHA match without running full media_qa or risking rematerialize, and verify media in this session.
 - Action: Materialized Q1 via materialize_q1_release.py (media was MISSING). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH. Added tools/media_fingerprint.py (reports PRESENT/MISSING + vo/cards/master_sha_match). Added media_fingerprint_tool one-liner to status_report.py STATIC_ONE_LINERS. Updated reusable_commands_index.py and tool_integrity_check.py. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
