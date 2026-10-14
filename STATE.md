@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-14T21:30:00Z (Run 545)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Improved tools/capability_gap_hint.py with structured parsing (section + state + tool extraction, prioritized PLAN_BUILT/READY_FOR_MEDIA) so agents get cleaner actionable gaps instead of truncated previous-line context. Integrity PASS. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
+
 2026-10-14T20:12:00Z (Run 544)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/next_suggestion.py (single concise next-action suggestion preferring human_step when stall suspicion HIGH, else gap hint) + next_suggestion_tool one-liner to status_report.py STATIC_ONE_LINERS + index entry + integrity check. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
@@ -43,10 +47,4 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Ma
 2026-10-14T09:20:00Z (Run 534)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this session; do not rematerialize if present). Fixed critical truncation: restored full tools/status_report.py from aee9b2f (249 lines) and correctly appended stall_pattern_detector_tool to STATIC_ONE_LINERS (now 250 lines, runs cleanly). Previous HEAD had reduced it to a 1-line PLACEHOLDER, breaking the primary status entry point. HANDOFF still valid. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
-
-2026-10-14T08:20:00Z (Run 533)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media present; do not rematerialize if present). Added tools/stall_pattern_detector.py (flags recurring published_zero/oauth_idle streaks in recent RUNS.md as LOW/MEDIUM/HIGH suspicion so agents prefer new reusable capability over restatement) and stall_pattern_detector_tool one-liner to status_report.py STATIC_ONE_LINERS. Updated reusable_commands_index.py to include it. HANDOFF refreshed. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
-
-Older notes compacted via record_run.py / compact_all.py. See docs/state_archive.md for full history.
 

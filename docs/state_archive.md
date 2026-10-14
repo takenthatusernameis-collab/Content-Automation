@@ -1146,3 +1146,9 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Di
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media was materialized for local verification only; do not rematerialize if present). Added optional_human_secret_confirm one-liner to tools/status_report.py so agents see the precise human-only confirmation command (prints PRESENT/MISSING, never values; exit 0 = all three exist) immediately after exact_secret_set_commands without scanning the human step section. Refreshed HANDOFF.md. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
 
+2026-10-14T08:20:00Z (Run 533)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media present; do not rematerialize if present). Added tools/stall_pattern_detector.py (flags recurring published_zero/oauth_idle streaks in recent RUNS.md as LOW/MEDIUM/HIGH suspicion so agents prefer new reusable capability over restatement) and stall_pattern_detector_tool one-liner to status_report.py STATIC_ONE_LINERS. Updated reusable_commands_index.py to include it. HANDOFF refreshed. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
+
+Older notes compacted via record_run.py / compact_all.py. See docs/state_archive.md for full history.
+

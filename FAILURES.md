@@ -1,5 +1,7 @@
 # FAILURES
 
+None. Improved gap parsing succeeded; integrity PASS.
+
 None this run. No regressions introduced.
 
 None. No new failures introduced. Integrity PASS. Tool runs cleanly.

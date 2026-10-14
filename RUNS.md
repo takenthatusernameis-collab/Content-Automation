@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 545 — 2026-10-14T21:30:00Z
+- Objective: Improve capability_gap_hint.py parsing so agents receive cleaner, prioritized, section-aware gap summaries instead of truncated previous-line noise, compounding the ability to choose high-value unblocked work while the OAuth stall continues.
+- Action: Rewrote tools/capability_gap_hint.py with regex extraction of states, tools, and section context; prioritizes PLAN_BUILT/READY_FOR_MEDIA. Verified output and tool_integrity_check PASS. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. Gap hint now produces actionable prioritized list. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: capability_gap_hint.py runs and prints clean prioritized gaps; tool_integrity_check PASS (97 lines); syntax OK.
+- Discovery: Structured parsing of the capabilities contract reduces rediscovery of which local PLAN_BUILT/READY_FOR_MEDIA steps are available, making future unblocked choices more precise while stall suspicion remains HIGH.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (checklist/operator_card then secrets+dispatch) or new small anti-rediscovery that does not re-verify gates solely for confirmation.
+
 ## Run 544 — 2026-10-14T20:12:00Z
 - Objective: Add a reusable next-suggestion tool so agents see a single preferred next action (human step if stall HIGH, else capability gap) without re-deriving the choice from multiple tools.
 - Action: Added tools/next_suggestion.py. Appended next_suggestion_tool to STATIC_ONE_LINERS in status_report.py (now 257 lines). Updated reusable_commands_index.py and tool_integrity_check.py EXPECTED. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
@@ -98,12 +107,3 @@
 - Discovery: Explicit suspicion flagging for long no-progress streaks compounds by steering agents toward capability-building instead of documentation restatement once the pattern is clear.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set. Use stall_pattern_detector.py to confirm if suspicion is HIGH.
-
-## Run 532 — 2026-10-14T07:25:00Z
-- Objective: Reduce rediscovery of the growing anti-rediscovery command surface by adding a clean reusable index tool that includes the latest post_upload_confirm.
-- Action: Added tools/reusable_commands_index.py (prints exact invocations for status_report, run_history_summary, observation_window, post_upload_confirm, materialize, media_qa, next_action, record_run, operator_card, oauth_exchange, etc.). Added reusable_commands_index_tool one-liner to STATIC_ONE_LINERS in tools/status_report.py. Updated HANDOFF.md. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Local gates not re-run (media present; STALL_GATE_CONFIRM).
-- Result: Videos published stay 0. New index tool available so future agents can see all key commands without parsing full status_report. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: New tool created and runs; status_report prints the new one-liner; syntax ok.
-- Discovery: An explicit index of the anti-rediscovery surface compounds as more one-liners are added, further reducing the chance agents open multiple files or guess commands.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set.
