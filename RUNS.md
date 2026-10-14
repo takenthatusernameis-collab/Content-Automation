@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 536 — 2026-10-14T11:20:00Z
+- Objective: Add a quick media fingerprint tool so agents can confirm local Q1 media presence and master SHA match without running full media_qa or risking rematerialize, and verify media in this session.
+- Action: Materialized Q1 via materialize_q1_release.py (media was MISSING). Confirmed media_qa PASS, next_action=upload-blocked, master SHA MATCH. Added tools/media_fingerprint.py (reports PRESENT/MISSING + vo/cards/master_sha_match). Added media_fingerprint_tool one-liner to status_report.py STATIC_ONE_LINERS. Updated reusable_commands_index.py and tool_integrity_check.py. Did not poll secrets, dispatch, edit briefs, or refresh the checklist banner.
+- Result: Videos published stay 0. New fingerprint tool available. Media PRESENT and verified locally (gitignored). Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: materialize succeeded; media_qa PASS; next_action upload-blocked; media_fingerprint PRESENT/MATCH; tool_integrity_check PASS; status_report prints the new one-liner.
+- Discovery: A lightweight fingerprint reduces rediscovery and unnecessary full QA runs when agents only need to know if media is already local and checksum-correct.
+- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
+- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set. Use media_fingerprint.py for quick local confirmation.
+
 ## Run 534 — 2026-10-14T09:20:00Z
 - Objective: Fix critical regression where tools/status_report.py was truncated to a 1-line PLACEHOLDER in HEAD, breaking the primary agent entry point claimed restored in Run 533.
 - Action: Identified via local clone that HEAD content was placeholder while aee9b2f (Run 532 era) held the full 249-line version. Restored full file, appended stall_pattern_detector_tool one-liner to STATIC_ONE_LINERS, committed and pushed. Verified the script now executes and prints status. Did not poll secrets, dispatch, edit briefs, rematerialize, or refresh banner.

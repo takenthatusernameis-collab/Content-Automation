@@ -27,6 +27,7 @@ EXPECTED = {
     "next_action.py": 30,
     "record_run.py": 80,
     "operator_card.py": 20,
+    "media_fingerprint.py": 20,
 }
 
 def check_file(name: str, min_lines: int) -> tuple[bool, str]:

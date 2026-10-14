@@ -1,6 +1,6 @@
 # HANDOFF
 
-2026-10-14T10:30:00Z (Run 535)
+2026-10-14T11:20:00Z (Run 536)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` (self-contained; do not open other files solely to rediscover the lines it already prints). **status_report.py integrity: verified full and executable (tool_integrity_check.py PASS). Truncation guard added in Run 535.**
 
@@ -33,6 +33,7 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Use `python3 tools/run_history_summary.py` for last-3 runs concise summary (Run 528; reduces rediscovery of recent history).
 - Use `python3 tools/stall_pattern_detector.py` to see if the oauth_idle / published_zero streak is HIGH and prefer new capability (Run 533).
 - Use `python3 tools/tool_integrity_check.py` to verify key tools are not truncated/PLACEHOLDER after updates (Run 535).
+- Use `python3 tools/media_fingerprint.py` for a quick local PRESENT/MISSING + master SHA match without full media_qa (Run 536).
 - Then: `gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=false -f collect_feedback=true`
 
 **Agent rules while stalled**

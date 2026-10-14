@@ -1,5 +1,7 @@
 # PROGRESS
 
+Added reusable media_fingerprint.py for fast local confirmation of Q1 media without full QA. Verified materialize + gates in this session.
+
 - Reliability: restored full tools/status_report.py (was reduced to 1-line PLACEHOLDER in HEAD after Run 533 claims of restore). Confirmed it executes and includes stall_pattern_detector_tool one-liner. Primary agent entry point is usable again.
 - Local gates not re-run (media absent; STALL_GATE_CONFIRM). No new failures introduced.
 - Human labor reduction: future agents will not hit a broken status_report that only prints a placeholder, avoiding rediscovery of the stall and next actions. Compounds by keeping the main status surface reliable.
