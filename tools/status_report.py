@@ -149,6 +149,8 @@ def main() -> int:
         ("packet_stage_summary_tool", "python3 tools/packet_stage_summary.py [PACKET]  # concise TEXT_COMPLETE / MEDIA_MISSING / UPLOAD_BLOCKED stage for Q1 (default) without gates or materialize; reduces rediscovery of packet readiness; no invent"),
         ("human_next_action_tool", "python3 tools/human_next_action.py  # concise human-only OAuth secret setup steps and dispatch (no invent, no poll); reduces rediscovery of the exact next human action while STALL_OAUTH_IDLE continues"),
         ("next_suggestion_tool", "python3 tools/next_suggestion.py  # single concise next-action suggestion (human_step if stall HIGH else gap hint); reduces rediscovery of agent choice logic; no invent"),
+        ("after_upload_steps_tool", "python3 tools/after_upload_steps.py [PACKET]  # precise post-upload sequence (confirm -> window -> collect_feedback dispatch -> experiment_loop -> complete); reduces rediscovery after first private video id; no invent"),
+
     ]
     for key, val in STATIC_ONE_LINERS:
         print(f"{key}:", val)

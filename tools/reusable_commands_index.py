@@ -30,6 +30,7 @@ COMMANDS = [
     ("packet_stage_summary", "python3 tools/packet_stage_summary.py [PACKET]", "Concise local stage for packet (TEXT_COMPLETE_MEDIA_MISSING_UPLOAD_BLOCKED etc.); no gates/materialize/invent"),
     ("human_next_action", "python3 tools/human_next_action.py", "Concise human-only next action: OAuth secret setup steps + dispatch (no invent, no poll); reduces rediscovery of exact human path"),
     ("next_suggestion", "python3 tools/next_suggestion.py", "Single concise next-action suggestion (human_step if stall HIGH, else gap); reduces rediscovery of choice logic"),
+    ("after_upload_steps", "python3 tools/after_upload_steps.py [PACKET]", "Precise sequence of reusable commands and dispatches after first private provider_video_id exists (confirm, window, collect, experiment, complete); no invent"),
 ]
 
 def main() -> int:

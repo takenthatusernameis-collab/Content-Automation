@@ -38,6 +38,12 @@ Run 544: next_suggestion.py + one-liner + index + integrity. HANDOFF to refresh.
 
 Human step or new small anti-rediscovery that does not re-verify gates solely for confirmation. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker. Prefer next_suggestion.py (now pairs with cleaner capability_gap_hint.py) when choosing unblocked work.
 
+Older do-not-rediscover notes live in `docs/next_archive.md`.
+
+Human step or new small anti-rediscovery that does not re-verify gates solely for confirmation. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker. Prefer next_suggestion.py, after_upload_steps.py (once video id exists), capability_gap_hint.py when choosing unblocked work.
+
+2026-10-14T22:15:00Z (Run 546)
+
 2026-10-14T21:30:00Z (Run 545)
 
 2026-10-14T20:12:00Z (Run 544)
@@ -59,5 +65,3 @@ Human step or new small anti-rediscovery that does not re-verify gates solely fo
 2026-10-14T11:20:00Z (Run 536)
 
 2026-10-14T09:20:00Z (Run 534)
-
-2026-10-14T08:20:00Z (Run 533)

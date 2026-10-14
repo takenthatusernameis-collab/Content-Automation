@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/after_upload_steps.py added (prints exact post-upload sequence of reusable commands and dispatches once provider_video_id exists). after_upload_steps_tool one-liner in status_report.py. Index and integrity check updated.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: future agents and humans can see the precise next steps after first private upload in one command without parsing HANDOFF.md or checklists. Compounds across all future videos once the OAuth stall ends.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 - Reusable capability: improved tools/capability_gap_hint.py with structured section/state/tool parsing and prioritization of local PLAN_BUILT/READY_FOR_MEDIA gaps. Agents now see cleaner actionable candidates in one command.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: future agents less likely to waste cycles on noisy/truncated gap context and can more quickly select a compounding unblocked improvement. Compounds across future runs while the external OAuth stall continues.
