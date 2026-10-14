@@ -23,6 +23,7 @@ COMMANDS = [
     ("human_secret_confirm", "python3 tools/human_secret_confirm.py", "Human-only PRESENT/MISSING check for the three secrets (never values)"),
     ("stall_watch", "python3 tools/stall_watch.py", "Machine-visible stall flags and idle_streak"),
     ("stall_pattern_detector", "python3 tools/stall_pattern_detector.py", "Flags recurring published_zero / oauth_idle streaks in recent RUNS.md (LOW/MEDIUM/HIGH); prefer new capability if HIGH"),
+    ("tool_integrity_check", "python3 tools/tool_integrity_check.py", "Checks key tools for truncation/PLACEHOLDER risk (min line counts + syntax); useful after file updates via remote tools"),
 ]
 
 def main() -> int:
