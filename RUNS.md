@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 547 — 2026-10-14T23:30:00Z
+- Objective: Add a reusable publish-readiness tool so agents can confirm local Q1 is READY_FOR_HUMAN_DISPATCH (media PRESENT+MATCH + next_action=upload-blocked + remaining open boxes) in one command without full QA or materialize, compounding anti-rediscovery for the moment after OAuth secrets are set.
+- Action: Added tools/publish_readiness.py. Appended publish_readiness_tool to STATIC_ONE_LINERS in status_report.py (now 260 lines). Updated reusable_commands_index.py and tool_integrity_check.py EXPECTED. Verified tool_integrity_check PASS and syntax. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. New publish_readiness tool available (reports NOT_READY when media absent in fresh clone, as expected). Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: tool_integrity_check PASS (publish_readiness.py 93 lines); status_report prints the new one-liner; publish_readiness.py runs and correctly detects missing media / materialize-q1 code; syntax OK.
+- Discovery: Explicit single-command local readiness check reduces rediscovery of whether the packet is ready for the human dispatch step, making the system more reliable once the external OAuth blocker is cleared.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (checklist/operator_card then secrets+dispatch) or new small anti-rediscovery that does not re-verify gates solely for confirmation.
+
 ## Run 546 — 2026-10-14T22:15:00Z
 - Objective: Add a reusable after-upload steps tool so agents and humans see the exact sequence (confirm, window, collect, experiment, complete) in one command once a private provider_video_id exists, compounding anti-rediscovery for all future videos after the OAuth stall ends.
 - Action: Added tools/after_upload_steps.py. Appended after_upload_steps_tool to STATIC_ONE_LINERS in status_report.py (now 259 lines). Updated reusable_commands_index.py and tool_integrity_check.py EXPECTED. Verified tool_integrity_check PASS and syntax. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
@@ -98,12 +107,3 @@
 - Discovery: A lightweight fingerprint reduces rediscovery and unnecessary full QA runs when agents only need to know if media is already local and checksum-correct.
 - Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
 - Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set. Use media_fingerprint.py for quick local confirmation.
-
-## Run 534 — 2026-10-14T09:20:00Z
-- Objective: Fix critical regression where tools/status_report.py was truncated to a 1-line PLACEHOLDER in HEAD, breaking the primary agent entry point claimed restored in Run 533.
-- Action: Identified via local clone that HEAD content was placeholder while aee9b2f (Run 532 era) held the full 249-line version. Restored full file, appended stall_pattern_detector_tool one-liner to STATIC_ONE_LINERS, committed and pushed. Verified the script now executes and prints status. Did not poll secrets, dispatch, edit briefs, rematerialize, or refresh banner.
-- Result: Videos published stay 0. Primary status_report.py is fully functional again (250 lines). Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File size restored; python3 tools/status_report.py runs and outputs expected lines including the new one-liner; git push succeeded.
-- Discovery: GitHub file-update tools can silently truncate large files to placeholders if content is not fully supplied; always verify post-commit file length/wc -l and executable behavior after claiming a restore. Prefer local clone + push for multi-kB Python files.
-- Blocker: YouTube OAuth secrets still absent. Playlist id still not_set.
-- Next: Human follows docs/human_oauth_checklist.md or operator_card.py / issue #1. Next agent does not rematerialize if media present, uses record_run.py, prioritizes the human step or a truly new small anti-rediscovery item that introduces reusable capability, does not invent data or expand locked surfaces, does not refresh the banner solely for its timestamp, and does not re-verify gates solely for confirmation while STALL_GATE_CONFIRM is set. Prefer local verification of large file integrity after updates.

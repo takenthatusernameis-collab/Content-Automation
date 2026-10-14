@@ -40,7 +40,11 @@ Human step or new small anti-rediscovery that does not re-verify gates solely fo
 
 Older do-not-rediscover notes live in `docs/next_archive.md`.
 
+Human step or new small anti-rediscovery that does not re-verify gates solely for confirmation. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker. Prefer publish_readiness.py, next_suggestion.py, after_upload_steps.py, capability_gap_hint.py when choosing unblocked work.
+
 Human step or new small anti-rediscovery that does not re-verify gates solely for confirmation. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. Human step: checklist/operator_card then secrets+dispatch. STALL_OAUTH_IDLE primary blocker. Prefer next_suggestion.py, after_upload_steps.py (once video id exists), capability_gap_hint.py when choosing unblocked work.
+
+2026-10-14T23:30:00Z (Run 547)
 
 2026-10-14T22:15:00Z (Run 546)
 
@@ -63,5 +67,3 @@ Human step or new small anti-rediscovery that does not re-verify gates solely fo
 2026-10-14T12:15:00Z (Run 537)
 
 2026-10-14T11:20:00Z (Run 536)
-
-2026-10-14T09:20:00Z (Run 534)

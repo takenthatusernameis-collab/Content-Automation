@@ -1152,3 +1152,7 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Di
 
 Older notes compacted via record_run.py / compact_all.py. See docs/state_archive.md for full history.
 
+2026-10-14T11:20:00Z (Run 536)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media (was MISSING in this session) and verified media_qa PASS + next_action upload-blocked + media_fingerprint PRESENT/SHA MATCH. Added tools/media_fingerprint.py (quick local VO/cards/master SHA check without full QA) and media_fingerprint_tool one-liner to status_report.py STATIC_ONE_LINERS. Updated reusable_commands_index.py and tool_integrity_check.py EXPECTED. HANDOFF to refresh. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
+

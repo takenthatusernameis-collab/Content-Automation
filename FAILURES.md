@@ -1,5 +1,7 @@
 # FAILURES
 
+None this run. Remote file tools still risk truncation on large files (prefer local clone + push). OAuth stall continues without progress on published count.
+
 None. Improved gap parsing succeeded; integrity PASS.
 
 None this run. No regressions introduced.

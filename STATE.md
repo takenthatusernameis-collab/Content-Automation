@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-14T23:30:00Z (Run 547)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/publish_readiness.py (quick local READY_FOR_HUMAN_DISPATCH check: media fingerprint + next_action upload-blocked + open boxes; no full QA/materialize/poll) + one-liner to status_report.py STATIC_ONE_LINERS + index entry + integrity check. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
+
 2026-10-14T22:15:00Z (Run 546)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/after_upload_steps.py (precise post-upload sequence: confirm, observation window, collect_feedback dispatch, experiment_loop, complete) + one-liner to status_report.py STATIC_ONE_LINERS + index entry + integrity check. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
@@ -43,8 +47,4 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Ma
 2026-10-14T12:15:00Z (Run 537)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Did not rematerialize (media absent in this fresh clone; previous Run 536 verified PRESENT). Added tool_integrity_check_tool one-liner to status_report.py STATIC_ONE_LINERS (was pending confirmation). Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
-
-2026-10-14T11:20:00Z (Run 536)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 media (was MISSING in this session) and verified media_qa PASS + next_action upload-blocked + media_fingerprint PRESENT/SHA MATCH. Added tools/media_fingerprint.py (quick local VO/cards/master SHA check without full QA) and media_fingerprint_tool one-liner to status_report.py STATIC_ONE_LINERS. Updated reusable_commands_index.py and tool_integrity_check.py EXPECTED. HANDOFF to refresh. Preferred unblocked list remains complete. Do not reopen brief stubs. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation.
 

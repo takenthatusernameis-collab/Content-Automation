@@ -1,5 +1,7 @@
 # PROGRESS
 
+Run 547: added publish_readiness.py + one-liner + index + integrity. Compounds by making pre-dispatch local readiness explicit and reusable, reducing future agent rediscovery of media/next_action/open-boxes state when secrets appear. Videos published remain 0. Estimated labor reduction: avoids repeated manual packet inspection before human dispatch.
+
 - Reusable capability: tools/after_upload_steps.py added (prints exact post-upload sequence of reusable commands and dispatches once provider_video_id exists). after_upload_steps_tool one-liner in status_report.py. Index and integrity check updated.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: future agents and humans can see the precise next steps after first private upload in one command without parsing HANDOFF.md or checklists. Compounds across all future videos once the OAuth stall ends.

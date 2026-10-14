@@ -151,6 +151,7 @@ def main() -> int:
         ("next_suggestion_tool", "python3 tools/next_suggestion.py  # single concise next-action suggestion (human_step if stall HIGH else gap hint); reduces rediscovery of agent choice logic; no invent"),
         ("after_upload_steps_tool", "python3 tools/after_upload_steps.py [PACKET]  # precise post-upload sequence (confirm -> window -> collect_feedback dispatch -> experiment_loop -> complete); reduces rediscovery after first private video id; no invent"),
 
+        ("publish_readiness_tool", "python3 tools/publish_readiness.py [PACKET]  # quick local READY_FOR_HUMAN_DISPATCH check (media fingerprint + next_action upload-blocked + open boxes); no full QA/materialize/poll; reduces rediscovery of packet readiness before secrets+dispatch"),
     ]
     for key, val in STATIC_ONE_LINERS:
         print(f"{key}:", val)
