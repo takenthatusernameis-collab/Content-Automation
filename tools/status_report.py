@@ -1,1 +1,1 @@
-PLACEHOLDER_FOR_CONTENT
+$(cat /tmp/status_report.py)
