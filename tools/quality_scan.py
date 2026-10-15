@@ -5,6 +5,9 @@ Patterns come from docs/content_quality.md. A hit is a revision signal, not
 an authorship claim. This tool does not rewrite script.md. Default exit is 0
 so a frozen Q1 script cannot fail the build. --strict exits 1 when any hit
 remains. set_status.py refuses ready_for_vo while a hit remains.
+
+Output includes a short context snippet around the first match of each phrase
+so the revision signal is immediately actionable.
 """
 
 from __future__ import annotations
@@ -112,6 +115,14 @@ PATTERNS = (
     "to that end",
     "as previously mentioned",
     "it is worth mentioning",
+    "in reality",
+    "as a result",
+    "for instance",
+    "in particular",
+    "on the other hand",
+    "that said",
+    "the bottom line",
+    "it is important",
 )
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
@@ -126,18 +137,24 @@ def spoken(text: str) -> str:
     return "\n".join(part.strip() for part in parts)
 
 
-def hits(text: str) -> list[tuple[str, int]]:
+def hits(text: str) -> list[tuple[str, int, str]]:
     body = spoken(text)
     found = []
     for phrase, cre in zip(PATTERNS, _PATTERN_RES):
-        matches = cre.findall(body)
+        matches = list(cre.finditer(body))
         count = len(matches)
         if count:
-            found.append((phrase, count))
+            m = matches[0]
+            start = max(0, m.start() - 40)
+            end = min(len(body), m.end() + 40)
+            context = body[start:end].replace("\n", " ").strip()
+            if len(context) > 90:
+                context = context[:87] + "..."
+            found.append((phrase, count, context))
     return found
 
 
-def scan_path(path: Path) -> list[tuple[str, int]]:
+def scan_path(path: Path) -> list[tuple[str, int, str]]:
     script = path / "script.md"
     if not script.is_file():
         return []
@@ -158,11 +175,14 @@ def main() -> int:
     total = 0
     for folder in folders:
         found = scan_path(folder)
-        total += sum(count for _, count in found)
+        total += sum(count for _, count, _ in found)
         if not found:
             print(f"{folder.name}: clear")
             continue
-        detail = ", ".join(f"{phrase} x{count}" for phrase, count in found)
+        details = []
+        for phrase, count, ctx in found:
+            details.append(f"{phrase} x{count} [{ctx}]")
+        detail = "; ".join(details)
         print(f"{folder.name}: hits {detail}")
     print(f"hits: {total}")
     print("rewrites: 0")
