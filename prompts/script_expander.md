@@ -53,4 +53,5 @@ It does not bump packet status.
 - No invented statistics. No extra beats unless count is under 4.
 - Do not autofill WORDS from the budget table.
 - Hook and payoff must name the idea.md mechanism.
-- Avoid high-precision anti-slop fillers tracked by quality_scan.py (e.g. “it's worth noting”, “at its core”, “when it comes to”, “keep in mind”, “in essence”, “the fact remains”, “let's be honest”, “here's the kicker”, and the accumulated list in docs/content_quality.md). Prefer concrete mechanism language. Optionally run the scanners on draft.md before --write.
+- Avoid high-precision anti-slop fillers tracked by quality_scan.py (e.g. “it's worth noting”, “at its core”, “when it comes to”, “keep in mind”, “in essence”, “the fact remains”, “let's be honest”, “here's the kicker”, and the accumulated list in docs/content_quality.md). Prefer concrete mechanism language.
+- Avoid unsourced survey/authority hedges tracked by claim_scan.py (e.g. “many studies show”, “research has shown”, “it is known that”, “statistics show”, and the full list in docs/content_quality.md) unless already cited in research.md. Optionally run the scanners on draft.md before --write.
