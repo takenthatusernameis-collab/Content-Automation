@@ -1,12 +1,12 @@
-2026-10-15T19:20:00Z (Run 567)
+2026-10-15T19:30:00Z (Run 568)
 
-Operator and agent entry point. Primary status: `python3 tools/status_report.py`. **tools/claim_scan.py strengthened with context snippets and additional high-precision hedges (survey/authority claims); prompts updated so generation and expansion proactively avoid them. Detection gates remain unchanged otherwise.**
+Operator and agent entry point. Primary status: `python3 tools/status_report.py`. **tools/title_scan.py strengthened with context snippets and additional high-precision weak title patterns (clickbait/weak claims); production rules updated. Detection gates remain unchanged otherwise.**
 
 **Current state**
 - Videos published: 0
 - Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Issue #1.
 - Media: do not rematerialize if present.
-- Preferred unblocked list: complete. Next is the human step or a truly new production capability (not another status one-liner). Prefer python3 tools/saturation_guard.py to detect SATURATED_ANTI_REDISCOVERY; python3 tools/quality_scan.py and python3 tools/claim_scan.py for script checks; python3 tools/next_suggestion.py for preferred next action.
+- Preferred unblocked list: complete. Next is the human step or a truly new production capability (not another status one-liner). Prefer python3 tools/saturation_guard.py to detect SATURATED_ANTI_REDISCOVERY; python3 tools/quality_scan.py, python3 tools/claim_scan.py, and python3 tools/title_scan.py for checks; python3 tools/next_suggestion.py for preferred next action.
 
 **Human step (only action that advances publish)**
 1. Follow docs/human_oauth_checklist.md or `python3 tools/operator_card.py` or `python3 tools/human_next_action.py` or `python3 tools/next_suggestion.py`.
