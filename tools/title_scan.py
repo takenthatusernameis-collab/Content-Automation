@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
-"""Report shouted title words and an explicit thumbnail mismatch.
+"""Report shouted title words, weak clickbait patterns, and an explicit thumbnail mismatch.
 
 Does not rewrite titles.md or thumbnail.md. A word of two or more letters
 that is all capitals is a hit, except one acronym of two to four letters in
-that title. "Matches title: No" is a hit. A missing titles.md is not a hit.
-Default exit is 0 so a clear packet cannot fail the build. --strict exits 1
-when any hit remains. set_status.py refuses ready_for_vo while a hit remains.
+that title. High-precision weak patterns are hits. "Matches title: No" is a hit.
+A missing titles.md is not a hit. Default exit is 0 so a clear packet cannot
+fail the build. --strict exits 1 when any hit remains. set_status.py refuses
+ready_for_vo while a hit remains.
+
+Output includes a short context snippet around the first match of each hit
+so the revision signal is immediately actionable.
 """
 
 from __future__ import annotations
@@ -24,6 +28,23 @@ from validate_packet import titles_from  # noqa: E402
 WORD_RE = re.compile(r"[A-Za-z][A-Za-z']*")
 MATCH_RE = re.compile(r"^Matches title:[ \t]*([^\n]*)$", re.M)
 
+# High-precision weak / clickbait title patterns. Matching uses word boundaries.
+WEAK_PATTERNS = (
+    "secret hack",
+    "you won't believe",
+    "you won’t believe",
+    "must see",
+    "this changes everything",
+    "one weird trick",
+    "will shock you",
+    "you need to see",
+    "this will change",
+    "the secret to",
+)
+_WEAK_RES = tuple(
+    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in WEAK_PATTERNS
+)
+
 
 def shouted(title: str) -> list[str]:
     words = WORD_RE.findall(title)
@@ -37,18 +58,35 @@ def shouted(title: str) -> list[str]:
     return []
 
 
-def hits(titles_text: str, thumb_text: str) -> list[tuple[str, str]]:
-    found: list[tuple[str, str]] = []
+def _context(title: str, start: int, end: int) -> str:
+    s = max(0, start - 30)
+    e = min(len(title), end + 30)
+    context = title[s:e].replace("\n", " ").strip()
+    if len(context) > 80:
+        context = context[:77] + "..."
+    return context
+
+
+def hits(titles_text: str, thumb_text: str) -> list[tuple[str, str, str]]:
+    found: list[tuple[str, str, str]] = []
     for title in titles_from(titles_text):
         for word in shouted(title):
-            found.append(("shout", f"{word} in {title}"))
+            # Locate the word for context
+            m = re.search(r"\b" + re.escape(word) + r"\b", title)
+            ctx = _context(title, m.start(), m.end()) if m else title[:60]
+            found.append(("shout", word, ctx))
+        for phrase, cre in zip(WEAK_PATTERNS, _WEAK_RES):
+            m = cre.search(title)
+            if m:
+                ctx = _context(title, m.start(), m.end())
+                found.append(("weak", phrase, ctx))
     match = MATCH_RE.search(thumb_text or "")
     if match and match.group(1).strip().lower().startswith("no"):
-        found.append(("thumb", match.group(1).strip()))
+        found.append(("thumb", "Matches title: No", match.group(1).strip()))
     return found
 
 
-def scan_path(path: Path) -> list[tuple[str, str]]:
+def scan_path(path: Path) -> list[tuple[str, str, str]]:
     titles = path / "titles.md"
     if not titles.is_file():
         return []
@@ -58,7 +96,7 @@ def scan_path(path: Path) -> list[tuple[str, str]]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Report shouted titles and an explicit thumbnail mismatch.")
+    parser = argparse.ArgumentParser(description="Report shouted titles, weak patterns, and an explicit thumbnail mismatch.")
     parser.add_argument("packet", type=Path)
     parser.add_argument("--strict", action="store_true")
     args = parser.parse_args()
@@ -66,8 +104,8 @@ def main() -> int:
     if not found:
         print("clear")
         return 0
-    for kind, detail in found:
-        print(f"{kind}: {detail}")
+    for kind, token, ctx in found:
+        print(f"{kind}: {token} [{ctx}]")
     return 1 if args.strict else 0
 
 
