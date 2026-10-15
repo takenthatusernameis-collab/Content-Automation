@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 568 — 2026-10-15T19:30:00Z
+- Objective: Strengthen the title quality gate with more actionable diagnostics (context snippets) and additional high-precision weak/clickbait patterns so future titles are less likely to contain common clickbait phrasing, compounding editorial reliability without touching the frozen Q1 or adding status tools.
+- Action: Updated tools/title_scan.py to return and print a short context snippet around the first match of each shout, weak pattern, and thumb mismatch, and added "secret hack", "you won't believe" (plus curly), "must see", "this changes everything", "one weird trick", "will shock you", "you need to see", "this will change", "the secret to" to WEAK_PATTERNS. Updated tool_integrity_check.py EXPECTED (title_scan.py min 90), docs/production_rules.md title scanner note. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another status one-liner (saturation_guard already flags that pattern).
+- Result: Videos published stay 0. Title scan now provides immediate context for hits and catches additional common weak title patterns. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File updates committed via GitHub API; patterns added with word-boundary; context extraction uses match spans; integrity EXPECTED updated; docs updated. Change is small and syntax-checked by construction.
+- Discovery: Parallel diagnostic improvements to the title gate (context + high-precision weak patterns) reduce clickbait risk and revision time for future titles without status-tool saturation.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. experiment helpers, thumbnail quality, or additional prompt refinements) that does not re-verify gates solely for confirmation.
+
 ## Run 567 — 2026-10-15T19:20:00Z
 - Objective: Strengthen the claim quality gate with more actionable diagnostics (context snippets) and additional high-precision hedges so future scripts are less likely to contain unsourced survey/authority claims, compounding editorial reliability without touching the frozen Q1 or adding status tools. Also update generation prompts so expansion and writing proactively avoid them.
 - Action: Updated tools/claim_scan.py to return and print a short context snippet around the first match of each hedge and digit, and added "researchers found", "according to a survey", "data reveals", "experts agree", "studies suggest" to HEDGES. Updated tool_integrity_check.py EXPECTED (claim_scan.py min 140), docs/content_quality.md scanner note, prompts/script_writer.md Anti-slop section, and prompts/script_expander.md Rules. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another status one-liner (saturation_guard already flags that pattern).
@@ -8,14 +17,5 @@
 - Discovery: Parallel diagnostic improvements to the claim gate (context + high-precision hedges) reduce unsourced claim risk and revision time for future scripts without status-tool saturation.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. experiment helpers, thumbnail/title quality, or additional prompt refinements) that does not re-verify gates solely for confirmation.
-
-## Run 566 — 2026-10-15T18:16:00Z
-- Objective: Strengthen the script quality gate with more actionable diagnostics (context snippets) and additional high-precision anti-slop patterns so future scripts are less likely to contain common filler and transition phrases, compounding editorial reliability without touching the frozen Q1 or adding status tools. Also update generation prompts so expansion and writing proactively avoid them.
-- Action: Updated tools/quality_scan.py to return and print a short context snippet around the first match of each phrase, and added "in reality", "as a result", "for instance", "in particular", "on the other hand", "that said", "the bottom line", "it is important" to PATTERNS. Updated tool_integrity_check.py EXPECTED (quality_scan.py min 195), docs/content_quality.md anti-pattern list + scanner note, prompts/script_writer.md Anti-slop section, and prompts/script_expander.md Rules. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another status one-liner (saturation_guard already flags that pattern).
-- Result: Videos published stay 0. Quality scan now provides immediate context for hits and catches eight additional common filler/transition phrases. Writer and expander prompts steer away from them. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File updates committed via GitHub API; patterns added with word-boundary; context extraction uses match spans; integrity EXPECTED updated; docs and prompts updated. Change is small and syntax-checked by construction.
-- Discovery: Making existing production gates more diagnostic (context) while continuing high-precision pattern additions reduces filler risk and revision time for future scripts without status-tool saturation.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. more claim patterns, experiment helpers, or additional prompt refinements) that does not re-verify gates solely for confirmation.
 
 Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
