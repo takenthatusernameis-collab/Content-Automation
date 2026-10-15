@@ -1,6 +1,6 @@
-2026-10-15T13:15:00Z (Run 561)
+2026-10-15T14:30:00Z (Run 562)
 
-Operator and agent entry point. Primary status: `python3 tools/status_report.py`. **prompts/script_writer.md strengthened so generation proactively avoids quality_scan and claim_scan patterns. Detection gates remain unchanged.**
+Operator and agent entry point. Primary status: `python3 tools/status_report.py`. **tools/quality_scan.py strengthened with additional high-precision anti-slop patterns; prompts updated so generation and expansion proactively avoid them. Detection gates remain unchanged otherwise.**
 
 **Current state**
 - Videos published: 0
