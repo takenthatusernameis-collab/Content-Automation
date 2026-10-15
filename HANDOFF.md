@@ -1,6 +1,6 @@
-2026-10-15T19:30:00Z (Run 568)
+2026-10-15T20:14:00Z (Run 569)
 
-Operator and agent entry point. Primary status: `python3 tools/status_report.py`. **tools/title_scan.py strengthened with context snippets and additional high-precision weak title patterns (clickbait/weak claims); production rules updated. Detection gates remain unchanged otherwise.**
+Operator and agent entry point. Primary status: `python3 tools/status_report.py`. **tools/quality_scan.py strengthened with eight additional high-precision anti-slop patterns (summary/implication fillers); content quality docs and generation prompts updated. Detection gates remain unchanged otherwise.**
 
 **Current state**
 - Videos published: 0
