@@ -78,6 +78,17 @@ PATTERNS = (
     "in short",
     "to be clear",
     "all things considered",
+    "it's worth noting",
+    "it’s worth noting",
+    "at its core",
+    "when it comes to",
+    "keep in mind",
+    "in essence",
+    "the fact remains",
+    "let's be honest",
+    "let’s be honest",
+    "here's the kicker",
+    "here’s the kicker",
 )
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
