@@ -42,6 +42,13 @@ PATTERNS = (
     "it’s no secret that",
     "needless to say",
     "the fact of the matter is",
+    "to put it simply",
+    "in other words",
+    "the reality is",
+    "here's the thing",
+    "here’s the thing",
+    "the truth is",
+    "make no mistake",
 )
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
