@@ -70,6 +70,14 @@ PATTERNS = (
     "for what it’s worth",
     "that being said",
     "having said that",
+    "in fact",
+    "of course",
+    "obviously",
+    "clearly",
+    "simply put",
+    "in short",
+    "to be clear",
+    "all things considered",
 )
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
