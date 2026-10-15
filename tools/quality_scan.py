@@ -49,6 +49,12 @@ PATTERNS = (
     "here’s the thing",
     "the truth is",
     "make no mistake",
+    "in a nutshell",
+    "long story short",
+    "when all is said and done",
+    "the point is",
+    "let me be clear",
+    "as it turns out",
 )
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
