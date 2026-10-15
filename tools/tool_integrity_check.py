@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-# Expected minimum lines (as of Run 568). Update if tools grow.
+# Expected minimum lines (as of Run 569). Update if tools grow.
 EXPECTED = {
     "status_report.py": 250,
     "reusable_commands_index.py": 20,
@@ -38,7 +38,7 @@ EXPECTED = {
     "publish_readiness.py": 40,
     "stall_escalation.py": 40,
     "saturation_guard.py": 40,
-    "quality_scan.py": 195,
+    "quality_scan.py": 200,
     "claim_scan.py": 140,
     "title_scan.py": 90,
 }
