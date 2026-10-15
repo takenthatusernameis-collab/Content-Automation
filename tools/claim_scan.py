@@ -6,6 +6,9 @@ spoken WORDS is a hit unless a non-placeholder Sources bullet cites that
 same token or phrase. A missing script is not a hit. Default exit is 0 so a
 clear packet cannot fail the build. --strict exits 1 when any hit remains.
 set_status.py refuses ready_for_vo while a hit remains.
+
+Output includes a short context snippet around the first match of each
+hit so the revision signal is immediately actionable.
 """
 
 from __future__ import annotations
@@ -49,6 +52,11 @@ HEDGES = (
     "data indicates",
     "as research shows",
     "studies have shown",
+    "researchers found",
+    "according to a survey",
+    "data reveals",
+    "experts agree",
+    "studies suggest",
 )
 # Precompile word-boundary patterns once (case-insensitive) for higher precision.
 _HEDGE_RES = tuple(
@@ -61,12 +69,19 @@ def spoken(text: str) -> str:
     return "\n".join(part.strip() for part in parts)
 
 
-def hedges_in_spoken(script: str) -> list[str]:
+def hedges_in_spoken(script: str) -> list[tuple[str, str]]:
     body = spoken(script)
     found = []
     for phrase, cre in zip(HEDGES, _HEDGE_RES):
-        if cre.search(body):
-            found.append(phrase)
+        matches = list(cre.finditer(body))
+        if matches:
+            m = matches[0]
+            start = max(0, m.start() - 40)
+            end = min(len(body), m.end() + 40)
+            context = body[start:end].replace("\n", " ").strip()
+            if len(context) > 90:
+                context = context[:87] + "..."
+            found.append((phrase, context))
     return found
 
 
@@ -75,19 +90,31 @@ def cited(sources: list[str], token: str) -> bool:
     return any(needle in item.lower() for item in sources)
 
 
-def hits(script: str, research: str) -> list[tuple[str, str]]:
+def hits(script: str, research: str) -> list[tuple[str, str, str]]:
     sources = human_sources(research)
-    found: list[tuple[str, str]] = []
+    body = spoken(script)
+    found: list[tuple[str, str, str]] = []
+    # Digits: extract context around the token if possible
     for token in numbers_in_spoken_words(script):
         if not cited(sources, token):
-            found.append(("digit", token))
-    for phrase in hedges_in_spoken(script):
+            # Simple context: search for the token
+            m = re.search(r"\b" + re.escape(token) + r"\b", body)
+            if m:
+                start = max(0, m.start() - 40)
+                end = min(len(body), m.end() + 40)
+                context = body[start:end].replace("\n", " ").strip()
+                if len(context) > 90:
+                    context = context[:87] + "..."
+            else:
+                context = ""
+            found.append(("digit", token, context))
+    for phrase, ctx in hedges_in_spoken(script):
         if not cited(sources, phrase):
-            found.append(("hedge", phrase))
+            found.append(("hedge", phrase, ctx))
     return found
 
 
-def scan_path(path: Path) -> list[tuple[str, str]]:
+def scan_path(path: Path) -> list[tuple[str, str, str]]:
     script = path / "script.md"
     if not script.is_file():
         return []
@@ -114,7 +141,10 @@ def main() -> int:
         if not found:
             print(f"{folder.name}: clear")
             continue
-        detail = ", ".join(f"{kind}:{token}" for kind, token in found)
+        details = []
+        for kind, token, ctx in found:
+            details.append(f"{kind}:{token} [{ctx}]")
+        detail = "; ".join(details)
         print(f"{folder.name}: hits {detail}")
     print(f"hits: {total}")
     print("CLAIM SCAN DONE")
