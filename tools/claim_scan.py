@@ -34,6 +34,17 @@ HEDGES = (
     "data shows",
     "research indicates",
     "studies indicate",
+    "according to experts",
+    "research suggests",
+    "evidence shows",
+    "it has been shown",
+    "scientists say",
+    "a study found",
+    "surveys indicate",
+)
+# Precompile word-boundary patterns once (case-insensitive) for higher precision.
+_HEDGE_RES = tuple(
+    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in HEDGES
 )
 
 
@@ -43,8 +54,12 @@ def spoken(text: str) -> str:
 
 
 def hedges_in_spoken(script: str) -> list[str]:
-    body = spoken(script).lower()
-    return [phrase for phrase in HEDGES if phrase in body]
+    body = spoken(script)
+    found = []
+    for phrase, cre in zip(HEDGES, _HEDGE_RES):
+        if cre.search(body):
+            found.append(phrase)
+    return found
 
 
 def cited(sources: list[str], token: str) -> bool:
