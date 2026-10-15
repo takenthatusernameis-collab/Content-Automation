@@ -1,12 +1,12 @@
-2026-10-15T21:18:00Z (Run 570)
+2026-10-15T22:15:00Z (Run 571)
 
-Operator and agent entry point. Primary status: `python3 tools/status_report.py`. **tools/description_scan.py added: high-precision anti-slop scanner for publish.md descriptions (with context snippets). Content quality docs updated. Detection gates remain unchanged otherwise.**
+Operator and agent entry point. Primary status: `python3 tools/status_report.py`. **tools/tags_scan.py added: high-precision weak/generic/spam tag scanner for publish.md tags (with context). Content quality docs updated. Detection gates remain unchanged otherwise.**
 
 **Current state**
 - Videos published: 0
 - Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Issue #1.
 - Media: do not rematerialize if present.
-- Preferred unblocked list: complete. Next is the human step or a truly new production capability (not another status one-liner). Prefer python3 tools/saturation_guard.py to detect SATURATED_ANTI_REDISCOVERY; python3 tools/quality_scan.py, python3 tools/claim_scan.py, python3 tools/title_scan.py, and python3 tools/description_scan.py for checks; python3 tools/next_suggestion.py for preferred next action.
+- Preferred unblocked list: complete. Next is the human step or a truly new production capability (not another status one-liner). Prefer python3 tools/saturation_guard.py to detect SATURATED_ANTI_REDISCOVERY; python3 tools/quality_scan.py, python3 tools/claim_scan.py, python3 tools/title_scan.py, python3 tools/description_scan.py, and python3 tools/tags_scan.py for checks; python3 tools/next_suggestion.py for preferred next action.
 
 **Human step (only action that advances publish)**
 1. Follow docs/human_oauth_checklist.md or `python3 tools/operator_card.py` or `python3 tools/human_next_action.py` or `python3 tools/next_suggestion.py`.
