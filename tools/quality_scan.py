@@ -30,6 +30,9 @@ PATTERNS = (
     "hit subscribe",
     "game changer",
     "at the end of the day",
+    "in conclusion",
+    "to summarize",
+    "the bottom line is",
 )
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
