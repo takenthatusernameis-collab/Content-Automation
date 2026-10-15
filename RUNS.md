@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 552 — 2026-10-15T04:15:00Z
+- Objective: Strengthen the script quality gate with additional high-precision anti-slop patterns so future scripts are less likely to contain common filler openers and hedges, compounding editorial reliability without touching the frozen Q1 or adding status tools.
+- Action: Added "let's dive in", "without further ado", "it goes without saying" (plus curly apostrophe variants) to tools/quality_scan.py PATTERNS. Updated tool_integrity_check.py EXPECTED (quality_scan.py min 55) and docs/content_quality.md anti-pattern list + scanner note. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another status one-liner (saturation_guard already flags that pattern).
+- Result: Videos published stay 0. Quality scan now catches three additional common slop phrases. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File updates committed; patterns added; integrity EXPECTED updated; content_quality note updated. Syntax not re-run locally but change is trivial (tuple append).
+- Discovery: With status-tool saturation detected, the highest-value unblocked work continues to be incremental improvement to existing production gates (quality, claims, assembly) rather than more rediscovery printers. This change applies to every future script.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. claim_scan expansion, experiment helpers) that does not re-verify gates solely for confirmation.
+
 ## Run 551 — 2026-10-15T03:30:00Z
 - Objective: Strengthen the script quality gate with additional high-precision anti-slop patterns so future scripts are less likely to contain common filler conclusions, compounding editorial reliability without touching the frozen Q1 or adding status tools.
 - Action: Added "in conclusion", "to summarize", "the bottom line is" to tools/quality_scan.py PATTERNS. Updated tool_integrity_check.py EXPECTED (quality_scan.py min 50) and reusable_commands_index.py. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another status one-liner (saturation_guard already flags that pattern).
