@@ -1,6 +1,6 @@
-2026-10-15T16:30:00Z (Run 564)
+2026-10-15T19:20:00Z (Run 567)
 
-Operator and agent entry point. Primary status: `python3 tools/status_report.py`. **tools/quality_scan.py strengthened with additional high-precision anti-slop patterns (perspective/society fillers); prompts updated so generation and expansion proactively avoid them. Detection gates remain unchanged otherwise.**
+Operator and agent entry point. Primary status: `python3 tools/status_report.py`. **tools/claim_scan.py strengthened with context snippets and additional high-precision hedges (survey/authority claims); prompts updated so generation and expansion proactively avoid them. Detection gates remain unchanged otherwise.**
 
 **Current state**
 - Videos published: 0
