@@ -30,6 +30,10 @@ HEDGES = (
     "scientists found",
     "according to a study",
     "percent of people",
+    "experts say",
+    "data shows",
+    "research indicates",
+    "studies indicate",
 )
 
 
