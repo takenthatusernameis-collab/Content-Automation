@@ -123,6 +123,14 @@ PATTERNS = (
     "that said",
     "the bottom line",
     "it is important",
+    "to sum up",
+    "in summary",
+    "put simply",
+    "what this means is",
+    "the implication is",
+    "case in point",
+    "in the final analysis",
+    "when you think about it",
 )
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
