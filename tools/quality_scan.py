@@ -33,6 +33,10 @@ PATTERNS = (
     "in conclusion",
     "to summarize",
     "the bottom line is",
+    "let's dive in",
+    "let’s dive in",
+    "without further ado",
+    "it goes without saying",
 )
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
