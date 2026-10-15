@@ -89,6 +89,17 @@ PATTERNS = (
     "let’s be honest",
     "here's the kicker",
     "here’s the kicker",
+    "bear in mind",
+    "take note that",
+    "as you can see",
+    "as we can see",
+    "the takeaway is",
+    "to put it in perspective",
+    "it's important to remember",
+    "it’s important to remember",
+    "in the modern world",
+    "in today's society",
+    "in today’s society",
 )
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
