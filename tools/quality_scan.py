@@ -100,6 +100,18 @@ PATTERNS = (
     "in the modern world",
     "in today's society",
     "in today’s society",
+    "it's safe to say",
+    "it’s safe to say",
+    "suffice it to say",
+    "one thing is clear",
+    "in a perfect world",
+    "when push comes to shove",
+    "to be fair",
+    "last but not least",
+    "with that said",
+    "to that end",
+    "as previously mentioned",
+    "it is worth mentioning",
 )
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
