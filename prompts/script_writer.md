@@ -96,4 +96,10 @@ Before returning a draft, read docs/content_quality.md. Do not optimize for soun
 
 Prefer original reasoning over generic listicles. Every body beat should add a concrete action, example, distinction, or test. Cut paragraphs whose only function is motivation, repetition, or word-count padding. Avoid repeated meta framing such as “in this video,” repeated “the key is” constructions, generic productivity slogans, and symmetrical slogan-heavy prose. Do not add claims requiring evidence when research.md does not support them.
 
+Explicitly avoid the high-precision anti-slop phrases tracked by `tools/quality_scan.py` (see the current list in docs/content_quality.md). These include assumed-certainty and summary fillers such as “in fact”, “of course”, “obviously”, “clearly”, “simply put”, “in short”, “to be clear”, “all things considered”, and the longer accumulated list of openers, hedges, and transitions. Prefer concrete mechanism language instead.
+
+Also avoid unsourced survey/authority hedges tracked by `tools/claim_scan.py` (“according to experts”, “research suggests”, “evidence shows”, “it has been shown”, “scientists say”, “a study found”, “surveys indicate”, and earlier hedges) unless the exact phrase or supporting number already appears in a non-placeholder Sources bullet in research.md.
+
+After saving the draft.md, optionally run `python3 tools/quality_scan.py PATH` and `python3 tools/claim_scan.py PATH` (or inspect the spoken WORDS against the lists) and revise any hits before apply_script.py --write. A hit is a revision signal, not an authorship claim.
+
 Before promotion, perform the seven-item originality test in docs/content_quality.md. If a quality answer is “no,” revise the draft before apply_script.py --write.
