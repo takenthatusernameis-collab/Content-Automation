@@ -1,6 +1,6 @@
-2026-10-15T10:15:00Z (Run 558)
+2026-10-15T11:15:00Z (Run 559)
 
-Operator and agent entry point. Primary status: `python3 tools/status_report.py`. **quality_scan.py strengthened with word-boundary regex matching (higher precision) and additional high-precision anti-slop patterns (first and foremost / it is important to note / it should be noted / as a matter of fact / for what it's worth / that being said / having said that). tool_integrity_check and content_quality.md updated.**
+Operator and agent entry point. Primary status: `python3 tools/status_report.py`. **claim_scan.py strengthened with word-boundary regex matching (higher precision) and additional high-precision unsourced-claim hedges (according to experts / research suggests / evidence shows / it has been shown / scientists say / a study found / surveys indicate). tool_integrity_check and content_quality.md updated.**
 
 **Current state**
 - Videos published: 0
