@@ -37,6 +37,11 @@ PATTERNS = (
     "let’s dive in",
     "without further ado",
     "it goes without saying",
+    "as we all know",
+    "it's no secret that",
+    "it’s no secret that",
+    "needless to say",
+    "the fact of the matter is",
 )
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
