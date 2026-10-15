@@ -36,6 +36,7 @@ COMMANDS = [
     ("stall_escalation", "python3 tools/stall_escalation.py", "Clear HIGHLY_SUSPICIOUS_STALL summary with exact human commands when zero-publish streak is high; reduces rediscovery of the only advancing action"),
     ("saturation_guard", "python3 tools/saturation_guard.py", "Flags SATURATED_ANTI_REDISCOVERY when recent runs only added status tools while videos=0; steers away from more one-liners"),
     ("quality_scan", "python3 tools/quality_scan.py [PACKET]", "Reports high-precision anti-slop phrases in script.md WORDS; revision signal only; --strict fails on hits; set_status refuses ready_for_vo while hits remain"),
+    ("claim_scan", "python3 tools/claim_scan.py [PACKET]", "Reports unsourced digit tokens and survey hedges in script WORDS; revision signal only; --strict fails on hits; set_status refuses ready_for_vo while hits remain"),
 ]
 
 def main() -> int:
