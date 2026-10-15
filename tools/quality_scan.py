@@ -55,6 +55,12 @@ PATTERNS = (
     "the point is",
     "let me be clear",
     "as it turns out",
+    "believe it or not",
+    "to be honest",
+    "the thing is",
+    "all in all",
+    "moving forward",
+    "going forward",
 )
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
