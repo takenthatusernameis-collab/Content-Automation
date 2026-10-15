@@ -17,6 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 # Short, high-precision phrases. Do not add a broad "not X, but Y" regex.
+# Matching uses word boundaries for higher precision (avoids partial-word false positives).
 PATTERNS = (
     "unlock your potential",
     "in today's fast-paced world",
@@ -61,9 +62,21 @@ PATTERNS = (
     "all in all",
     "moving forward",
     "going forward",
+    "first and foremost",
+    "it is important to note",
+    "it should be noted",
+    "as a matter of fact",
+    "for what it's worth",
+    "for what it’s worth",
+    "that being said",
+    "having said that",
 )
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
+# Precompile word-boundary patterns once (case-insensitive).
+_PATTERN_RES = tuple(
+    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in PATTERNS
+)
 
 
 def spoken(text: str) -> str:
@@ -72,10 +85,11 @@ def spoken(text: str) -> str:
 
 
 def hits(text: str) -> list[tuple[str, int]]:
-    body = spoken(text).lower()
+    body = spoken(text)
     found = []
-    for phrase in PATTERNS:
-        count = body.count(phrase)
+    for phrase, cre in zip(PATTERNS, _PATTERN_RES):
+        matches = cre.findall(body)
+        count = len(matches)
         if count:
             found.append((phrase, count))
     return found
