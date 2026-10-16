@@ -27,6 +27,10 @@ Write spoken WORDS for:
 
 Keep VISUAL lines as short italic stage directions, not a second script.
 
+## Draft starter (recommended first step)
+
+Before writing any WORDS, optionally run `python3 tools/draft_starter.py PATH`. It prints a complete mechanism-aligned skeleton (Hook candidates, Payoff, Body starters, Failure mode, CTA, and matching VISUAL directions) grounded in idea.md. Copy preferred lines into draft.md and expand the body beats to the word targets. This reduces sequential calls to the individual *suggest.py tools and keeps the starting point operational and packet-specific. Individual tools remain available if you need more options for one section.
+
 ## Band landing (count before you return)
 
 Spoken WORDS for `explainer-6-10min` must land in **900–1500**. Target **~1200**. Count only WORDS lines, not VISUAL, not headings.
