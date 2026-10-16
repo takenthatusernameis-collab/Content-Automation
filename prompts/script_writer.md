@@ -81,6 +81,10 @@ Before writing the ## Beat sections, optionally run `python3 tools/body_suggest.
 
 Before writing a failure-mode beat, optionally run `python3 tools/failure_mode_suggest.py PATH` and use or adapt one of its candidates inside an existing ## Beat heading. The failure mode must show the concrete stall that occurs when this packet's mechanism is absent, stay operational, and avoid generic lists that could fit any topic. Prefer the tool's suggestion over abstract "what goes wrong" filler.
 
+## Visual guidance
+
+Before writing any VISUAL: lines, optionally run `python3 tools/visual_suggest.py PATH` and use or adapt its short stage-direction candidates. Each VISUAL must show the stall or the installed default in the workspace the viewer already has (note, sticky, open file, desk edge), stay under 35 words, and remain a stage direction rather than a second script. Prefer the tool's suggestion over generic stock language.
+
 ## CTA guidance
 
 Before writing the ## CTA section, optionally run `python3 tools/cta_suggest.py PATH` and use or adapt its spoken suggestion. The CTA must install the mechanism as a concrete under-two-minute action the viewer can finish immediately (channel promise: one small default the same day). Prefer the tool's suggestion over generic engagement language. After drafting, the end-screen / final CTA text should also pass `tools/end_screen_scan.py` (no "smash the like", "subscribe for more", reply prompts, etc.).
