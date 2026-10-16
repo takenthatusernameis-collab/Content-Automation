@@ -69,6 +69,10 @@ That comment is not spoken WORDS. `words.py` still owns the official count after
 
 Before writing the ## Hook section, optionally run `python3 tools/hook_suggest.py PATH` and use or adapt one of its candidates. The hook must name the mechanism and the concrete stall from idea.md, stay calm/operational, and land in 20–35 spoken words. Prefer the tool's suggestion over generic openers.
 
+## Body guidance
+
+Before writing the ## Beat sections, optionally run `python3 tools/body_suggest.py PATH` and use or adapt its starters inside the existing beat headings. Each beat must show the viewer using the mechanism on this packet's stall, include a concrete action/example/distinction/test, and stay operational. Prefer the tool's suggestion over abstract filler. Expand to the beat word target without adding slogans.
+
 ## CTA guidance
 
 Before writing the ## CTA section, optionally run `python3 tools/cta_suggest.py PATH` and use or adapt its spoken suggestion. The CTA must install the mechanism as a concrete under-two-minute action the viewer can finish immediately (channel promise: one small default the same day). Prefer the tool's suggestion over generic engagement language. After drafting, the end-screen / final CTA text should also pass `tools/end_screen_scan.py` (no "smash the like", "subscribe for more", reply prompts, etc.).
