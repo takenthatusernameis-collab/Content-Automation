@@ -1,12 +1,12 @@
-2026-10-16T20:15:00Z (Run 593)
+2026-10-16T22:15:00Z (Run 595)
 
-Operator and agent entry point. Primary status: `python3 tools/status_report.py`. **tools/mechanism_align_scan.py added: checks significant terms from idea.md mechanism appear in draft.md / script.md WORDS. Content quality remains scanner-backed.**
+Operator and agent entry point. Primary status: `python3 tools/status_report.py`. **tools/metadata_qa_report.py added: one-command aggregator of metadata scanners (title, description, tags, first-comment, chapters, thumbnail, end-screen). Content quality remains scanner-backed.**
 
 **Current state**
 - Videos published: 0
 - Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Issue #1.
 - Media: do not rematerialize if present.
-- Preferred unblocked list: complete. Next is the human step or a truly new production capability (not another status one-liner). Prefer python3 tools/saturation_guard.py to detect SATURATED_ANTI_REDISCOVERY; python3 tools/quality_scan.py, python3 tools/claim_scan.py, python3 tools/title_scan.py, python3 tools/description_scan.py, python3 tools/tags_scan.py, python3 tools/first_comment_scan.py, python3 tools/chapters_scan.py, python3 tools/thumbnail_scan.py, python3 tools/end_screen_scan.py, python3 tools/cta_suggest.py, python3 tools/draft_starter.py, python3 tools/metadata_starter.py, python3 tools/full_production_starter.py, and python3 tools/mechanism_align_scan.py for checks/suggestions; python3 tools/next_suggestion.py for preferred next action.
+- Preferred unblocked list: complete. Next is the human step or a truly new production capability (not another status one-liner). Prefer python3 tools/saturation_guard.py to detect SATURATED_ANTI_REDISCOVERY; python3 tools/quality_scan.py, python3 tools/claim_scan.py, python3 tools/title_scan.py, python3 tools/description_scan.py, python3 tools/tags_scan.py, python3 tools/first_comment_scan.py, python3 tools/chapters_scan.py, python3 tools/thumbnail_scan.py, python3 tools/end_screen_scan.py, python3 tools/cta_suggest.py, python3 tools/draft_starter.py, python3 tools/metadata_starter.py, python3 tools/full_production_starter.py, python3 tools/mechanism_align_scan.py, python3 tools/text_qa_report.py, and python3 tools/metadata_qa_report.py for checks/suggestions; python3 tools/next_suggestion.py for preferred next action.
 
 **Human step (only action that advances publish)**
 1. Follow docs/human_oauth_checklist.md or `python3 tools/operator_card.py` or `python3 tools/human_next_action.py` or `python3 tools/next_suggestion.py`.
