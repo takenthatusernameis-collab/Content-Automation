@@ -69,6 +69,10 @@ That comment is not spoken WORDS. `words.py` still owns the official count after
 
 Before writing the ## Hook section, optionally run `python3 tools/hook_suggest.py PATH` and use or adapt one of its candidates. The hook must name the mechanism and the concrete stall from idea.md, stay calm/operational, and land in 20–35 spoken words. Prefer the tool's suggestion over generic openers.
 
+## Payoff guidance
+
+Before writing the ## Payoff promise section, optionally run `python3 tools/payoff_suggest.py PATH` and use or adapt one of its candidates. The payoff must name the concrete doable outcome and the mechanism, stay calm/operational, and land in 40–70 spoken words. Prefer the tool's suggestion over abstract encouragement.
+
 ## Body guidance
 
 Before writing the ## Beat sections, optionally run `python3 tools/body_suggest.py PATH` and use or adapt its starters inside the existing beat headings. Each beat must show the viewer using the mechanism on this packet's stall, include a concrete action/example/distinction/test, and stay operational. Prefer the tool's suggestion over abstract filler. Expand to the beat word target without adding slogans.
