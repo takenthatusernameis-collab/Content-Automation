@@ -1,0 +1,109 @@
+#!/usr/bin/env python3
+"""Suggest mechanism-aligned hook text that names the stall or default.
+
+Reads idea.md for mechanism, problem, and topic. Proposes 3-5 short hook
+candidates (target 20-35 spoken words) that name the concrete default or
+stall, stay calm/operational, and avoid high-precision anti-slop patterns.
+Does not write any files. A suggestion is a starting point for the ## Hook
+WORDS of draft.md, not a final script.
+"""
+
+from __future__ import annotations
+
+import argparse
+import re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+
+MECH_RE = re.compile(r"mechanism[^\n]*:\s*(.+)", re.I)
+PROBLEM_RE = re.compile(r"problem:\s*(.+)", re.I)
+TOPIC_RE = re.compile(r"topic:\s*(.+)", re.I)
+
+WEAK = (
+    "unlock your potential",
+    "in today's fast-paced",
+    "let's dive in",
+    "without further ado",
+    "the key is",
+    "in this video",
+    "you will learn",
+    "work smarter",
+)
+
+def extract(idea_text: str) -> tuple[str, str, str]:
+    mech = ""
+    problem = ""
+    topic = ""
+    for line in idea_text.splitlines():
+        m = MECH_RE.search(line)
+        if m:
+            mech = m.group(1).strip().rstrip(".")
+        p = PROBLEM_RE.search(line)
+        if p:
+            problem = p.group(1).strip().rstrip(".")
+        t = TOPIC_RE.search(line)
+        if t:
+            topic = t.group(1).strip().rstrip(".")
+    return mech, problem, topic
+
+def suggest(mech: str, problem: str, topic: str) -> list[str]:
+    """Return 3-5 hook candidates grounded in the packet."""
+    if not mech:
+        mech = "written next-action default"
+    base = mech.lower()
+    stall = problem.lower() if problem else "the stall"
+    # Concrete, operational openings that name the mechanism
+    candidates = [
+        f"You already know what to work on. The stall is still there when it is time to start. Write the {base[:40]} where the decision happens.",
+        f"The list is ready. The next action is not. Put the {base[:35]} on disk before you open the first tab.",
+        f"Same decision, same delay. Name the stall in one sentence and install the {base[:30]} as the default.",
+        f"Planning finished. Starting did not. The {base[:40]} is the under-two-minute install that ends the reopen.",
+        f"You open the list and the stall starts. Write the exact words of the {base[:25]} where you can see them.",
+    ]
+    # Filter weak patterns, reasonable length, dedupe
+    cleaned = []
+    seen = set()
+    for c in candidates:
+        low = c.lower()
+        if any(w in low for w in WEAK):
+            continue
+        words = c.split()
+        if len(words) > 45 or len(words) < 12:
+            continue
+        key = low.strip()
+        if key and key not in seen:
+            seen.add(key)
+            cleaned.append(c.strip())
+    return cleaned[:5]
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Suggest mechanism-aligned hook text.")
+    parser.add_argument("packet", help="Packet folder containing idea.md")
+    args = parser.parse_args()
+    path = Path(args.packet)
+    idea = path / "idea.md"
+    if not idea.is_file():
+        print(f"No idea.md in {path}")
+        return 1
+    text = idea.read_text(encoding="utf-8")
+    mech, problem, topic = extract(text)
+    hooks = suggest(mech, problem, topic)
+    print("HOOK SUGGESTION (mechanism-aligned; names stall/default; operational)")
+    print(f"mechanism: {mech}")
+    if problem:
+        print(f"problem: {problem}")
+    if topic:
+        print(f"topic: {topic}")
+    print()
+    print("Suggested Hook WORDS (target 20-35; paste into draft.md ## Hook):")
+    for i, t in enumerate(hooks, 1):
+        wc = len(t.split())
+        print(f"{i}. {t}  ({wc} words)")
+    print()
+    print("The hook must name the mechanism and the concrete stall. Stay under ~35 words.")
+    print("Run tools/quality_scan.py after drafting to confirm no anti-slop patterns.")
+    return 0
+
+if __name__ == "__main__":
+    raise SystemExit(main())
