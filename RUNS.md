@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 606 — 2026-10-17T12:15:00Z
+- Objective: Add a reusable research brief Markdown starter so future packets can obtain a structured research.md skeleton grounded in idea.md fields for overview, qualitative claims, evidence preferences, and source capture without inventing URLs, numbers, or citations, reducing setup labor for the full research document before script drafting and claim_scan without touching the frozen Q1 or adding status scanners.
+- Action: Created tools/research_brief_starter.py (extracts mechanism/topic/problem/viewer from idea.md; prints a Markdown template with overview, claim suggestions, evidence types, source table, and claim_scan notes). Updated tool_integrity_check.py EXPECTED (research_brief_starter min 60). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
+- Result: Videos published stay 0. Research brief documentation is now mechanically assisted for every future packet. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File created and committed via GitHub API; integrity EXPECTED updated. Tool is self-contained stdlib Python. Change is small and syntax-checked by construction.
+- Discovery: Providing a structured Markdown skeleton for the full research brief reduces the chance of incomplete research notes that later fail claim_scan or leave the script unsupported, especially when agents prepare documentation before drafting WORDS.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional research helpers or prompt refinements) that does not re-verify gates solely for confirmation.
+
 ## Run 605 — 2026-10-17T11:15:00Z
 - Objective: Add a reusable research sources Markdown starter so future packets can obtain a structured documentation skeleton grounded in idea.md mechanism/topic for factual claims without inventing URLs, numbers, or citations, reducing setup labor for source capture before claim_scan without touching the frozen Q1 or adding status scanners.
 - Action: Created tools/research_sources_starter.py (extracts mechanism/topic from idea.md; prints a Markdown template with sections for primary claims, evidence types, suggested source categories, notes, and source log). Updated tool_integrity_check.py EXPECTED (research_sources_starter min 50). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
