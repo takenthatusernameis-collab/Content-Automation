@@ -10,6 +10,8 @@ A ready-to-copy template lives at `docs/experiment_baseline.template.json`. Copy
 
 For a grounded starting skeleton, run `python3 tools/experiment_baseline_starter.py videos/<packet>`. It prints a contract-compliant JSON (allowed changes, null baseline, source warning) based on idea.md. Edit the baseline and source before use. Do not invent metrics.
 
+For primary metric suggestions aligned to the change type, run `python3 tools/experiment_metric_suggest.py videos/<packet>`. It detects the change and prints candidate Analytics fields. Choose one, then document a real numeric baseline.
+
 ## Template
 - ID:
 - Video / packet:
