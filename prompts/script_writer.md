@@ -41,8 +41,9 @@ After pasting a starter skeleton into draft.md, use these mechanical helpers ins
 - `python3 tools/draft_beat_expansion_starter.py PATH` — full per-beat concrete-element checklist (use once if you prefer the static view).
 - `python3 tools/draft_package_starter.py PATH` — one-command skeleton + checklist package.
 - `python3 tools/draft_pre_apply_coach.py PATH` — expansion progress + quality + claim signals on the draft before apply.
+- `python3 tools/originality_checklist.py PATH` — packet-grounded seven-item originality test with extracts before apply.
 
-These tools write nothing and invent nothing. They reduce free-form padding, slop, and unsupported claims by giving exact feedback and structured elements grounded in idea.md and research.md.
+These tools write nothing and invent nothing. They reduce free-form padding, slop, unsupported claims, and generic drafts by giving exact feedback and structured elements grounded in idea.md and research.md.
 
 ## Band landing (count before you return)
 
@@ -119,6 +120,7 @@ After writing, save as `PATH/draft.md` on a *non-fixture* packet, then run:
 
 ```bash
 python3 tools/draft_pre_apply_coach.py videos/<id>-<slug>
+python3 tools/originality_checklist.py videos/<id>-<slug>
 python3 tools/words.py videos/<id>-<slug>
 python3 tools/apply_script.py videos/<id>-<slug> --from videos/<id>-<slug>/draft.md
 ```
@@ -130,7 +132,7 @@ python3 tools/apply_script.py videos/<id>-<slug> --from videos/<id>-<slug>/draft
 python3 tools/set_status.py videos/<id>-<slug> --to ready_for_vo
 ```
 
-Only run set_status `--write` after WORDS are in band and pre-apply signals are clear. Do not pad `videos/sample-001-*`; that packet is a fixture.
+Only run set_status `--write` after WORDS are in band, pre-apply signals are clear, and originality questions are answered. Do not pad `videos/sample-001-*`; that packet is a fixture.
 
 ## Anti-slop quality gate
 
@@ -144,4 +146,4 @@ Also avoid unsourced survey/authority hedges tracked by `tools/claim_scan.py` (�
 
 After saving the draft.md, run `python3 tools/draft_pre_apply_coach.py PATH` (preferred one-command) or the individual `quality_scan.py` / `claim_scan.py` (which target script.md) and revise any hits before apply_script.py --write. Hits are revision signals, not authorship claims.
 
-Before promotion, perform the seven-item originality test in docs/content_quality.md. If a quality answer is “no,” revise the draft before apply_script.py --write.
+Before promotion, run `python3 tools/originality_checklist.py PATH` and perform the seven-item originality test. If a quality answer is “no,” revise the draft before apply_script.py --write.
