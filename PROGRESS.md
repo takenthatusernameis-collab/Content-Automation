@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: added tools/pre_production_package_starter.py (one-command aggregator of research_package_starter + script_package_starter; prints combined research skeletons + beat budget/structure + draft candidates view, no invented sources or spoken lines). tool_integrity_check EXPECTED bumped for pre_production_package_starter.py (min 50). Applies to every future packet without touching frozen Q1. Makes full research + pre-script package preparation mechanically faster by eliminating sequential package calls before first WORDS or expand_brief.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: future packets can obtain the complete research documentation and pre-script starting point in one command instead of two sequential package calls; agents have a mechanical package starter that compounds across all videos.
+- Videos published remain 0. Stall continues. Preferred list still complete. Status-tool saturation avoided this run.
+
 - Reusable capability: added tools/script_package_starter.py (one-command aggregator of expand_starter + draft_starter; prints combined beat budget/structure + mechanism-aligned draft candidates view, no invented spoken lines). tool_integrity_check EXPECTED bumped for script_package_starter.py (min 50). Applies to every future packet without touching frozen Q1. Makes full pre-script package preparation mechanically faster by eliminating sequential calls before first WORDS or expand_brief.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: future packets can obtain both the structure skeleton and the draft candidates in one command instead of two sequential calls; agents have a mechanical package starter that compounds across all videos.
