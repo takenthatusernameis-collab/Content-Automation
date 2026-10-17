@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 609 — 2026-10-17T15:30:00Z
+- Objective: Add a reusable one-command full pre-script package aggregator so future packets can obtain both the beat-budget/structure skeleton and the mechanism-aligned draft candidates in a single call without inventing spoken lines, statistics, or anecdotes, reducing sequential tool labor for the complete pre-script starting point before first WORDS or expand_brief without touching the frozen Q1 or adding status scanners.
+- Action: Created tools/script_package_starter.py (runs expand_starter and draft_starter via subprocess and prints a combined package view with next steps). Updated tool_integrity_check.py EXPECTED (script_package_starter min 50). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
+- Result: Videos published stay 0. Full pre-script package preparation is now available as a single command for every future packet. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File created and committed via GitHub API; integrity EXPECTED updated. Tool is self-contained stdlib Python that shells out to the existing starters. Change is small and syntax-checked by construction.
+- Discovery: Aggregating the beat-budget starter with the draft-candidate starter into one package reduces context-switching and sequential calls when agents prepare the complete structure and starting lines before drafting WORDS, mirroring the value of the research, experiment, and QA package aggregators.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional script helpers, prompt refinements, or quality improvements) that does not re-verify gates solely for confirmation.
+
 ## Run 608 — 2026-10-17T14:20:00Z
 - Objective: Add a reusable pre-script expand / beat-budget starter so future packets can obtain a grounded structure plan and word targets from idea.md before calling draft_starter or writing the first WORDS, reducing manual planning labor without inventing spoken lines or statistics and without touching the frozen Q1 or adding status scanners.
 - Action: Created tools/expand_starter.py (extracts mechanism/topic/problem/viewer from idea.md; prints recommended 5-beat plan with targets so total lands near ~1200). Updated tool_integrity_check.py EXPECTED (expand_starter min 50). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
