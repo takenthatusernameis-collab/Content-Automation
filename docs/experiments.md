@@ -8,6 +8,8 @@ Ledger tool: `tools/experiment_loop.py` (PLAN_BUILT). Missing provider_video_id 
 
 A ready-to-copy template lives at `docs/experiment_baseline.template.json`. Copy it to `videos/<packet>/experiment_baseline.json` only after a real documented observation exists. Fill hypothesis, choose one allowed change, set a numeric baseline, and provide a non-invented source. The ledger rejects placeholder or invented sources. Do not invent metrics.
 
+For a grounded starting skeleton, run `python3 tools/experiment_baseline_starter.py videos/<packet>`. It prints a contract-compliant JSON (allowed changes, null baseline, source warning) based on idea.md. Edit the baseline and source before use. Do not invent metrics.
+
 ## Template
 - ID:
 - Video / packet:
