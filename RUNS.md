@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 604 — 2026-10-17T10:20:00Z
+- Objective: Add a reusable one-command full experiment package aggregator so future packets can obtain change-aligned suggestions plus all skeleton printers (baseline JSON, decision JSON, notes Markdown) in a single call without inventing baselines, results, or decisions, reducing sequential tool labor for the complete experiment documentation package without touching the frozen Q1 or adding status scanners.
+- Action: Created tools/experiment_package_starter.py (runs experiment_setup_report plus the three starters via subprocess and prints a combined package view with next steps). Updated tool_integrity_check.py EXPECTED (experiment_package_starter min 50). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
+- Result: Videos published stay 0. Full experiment package preparation is now available as a single command for every future packet. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File created and committed via GitHub API; integrity EXPECTED updated. Tool is self-contained stdlib Python that shells out to the existing suggesters and starters. Change is small and syntax-checked by construction.
+- Discovery: Aggregating the setup report with the three skeleton printers into one package reduces context-switching and sequential calls when agents prepare the complete experiment ledger documentation after an idea exists, mirroring the value of the QA report aggregators.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional experiment helpers, prompt refinements, or quality improvements) that does not re-verify gates solely for confirmation.
+
 ## Run 603 — 2026-10-17T09:30:00Z
 - Objective: Add a reusable experiment notes Markdown starter so future packets can obtain a structured documentation skeleton grounded in idea.md mechanism/topic for the single allowed change without inventing baselines, results, or decisions, reducing setup labor for the experiment ledger without touching the frozen Q1 or adding status scanners.
 - Action: Created tools/experiment_notes_starter.py (detects change from baseline or idea.md heuristic; extracts mechanism/topic; prints a Markdown template with sections for hypothesis, metric, guardrails, baseline, source, window, and decision). Updated tool_integrity_check.py EXPECTED (experiment_notes_starter min 50). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
