@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-# Expected minimum lines (as of Run 618). Update if tools grow.
+# Expected minimum lines (as of Run 619). Update if tools grow.
 EXPECTED = {
     "status_report.py": 250,
     "reusable_commands_index.py": 20,
@@ -90,6 +90,7 @@ EXPECTED = {
     "draft_expansion_coach.py": 150,
     "draft_pre_apply_coach.py": 80,
     "originality_checklist.py": 80,
+    "cadence_repetition_scan.py": 100,
 }
 
 def check_file(name: str, min_lines: int) -> tuple[bool, str]:
