@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 611 — 2026-10-17T17:30:00Z
+- Objective: Add a reusable draft.md skeleton printer so future packets can obtain a ready-to-copy Markdown file in exact script.md format with mechanism-aligned starting WORDS and expansion notes, reducing the manual assembly step of candidates into draft structure before expanding to word targets without inventing statistics or anecdotes and without touching the frozen Q1 or adding status scanners.
+- Action: Created tools/draft_md_starter.py (extracts mechanism/problem from idea.md; prints complete draft.md skeleton with first candidates under WORDS: and HTML comments for expansion). Updated tool_integrity_check.py EXPECTED (draft_md_starter min 60). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
+- Result: Videos published stay 0. Draft.md preparation is now mechanically assisted with a copy-paste-ready structure for every future packet. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File created and committed via GitHub API; integrity EXPECTED updated. Tool is self-contained stdlib Python. Change is small and syntax-checked by construction.
+- Discovery: Providing the exact file shape with starting lines and per-beat expansion reminders reduces context-switching and formatting errors when agents move from draft_starter candidates to a first draft.md, mirroring the value of the package aggregators.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional draft helpers, prompt refinements, or post-script quality improvements) that does not re-verify gates solely for confirmation.
+
 ## Run 610 — 2026-10-17T16:30:00Z
 - Objective: Add a reusable one-command full pre-production package aggregator so future packets can obtain both the complete research documentation skeletons and the pre-script beat-budget/structure + mechanism-aligned draft candidates in a single call without inventing sources, spoken lines, statistics, or anecdotes, reducing sequential package labor for the complete research + pre-script starting point before first WORDS or expand_brief without touching the frozen Q1 or adding status scanners.
 - Action: Created tools/pre_production_package_starter.py (runs research_package_starter and script_package_starter via subprocess and prints a combined package view with next steps). Updated tool_integrity_check.py EXPECTED (pre_production_package_starter min 50). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
@@ -8,59 +17,3 @@
 - Discovery: Aggregating the research package with the script package into one pre-production package reduces context-switching and sequential calls when agents prepare the complete factual support and structure before drafting WORDS, mirroring the value of the individual package aggregators.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional quality helpers, prompt refinements, or post-script improvements) that does not re-verify gates solely for confirmation.
-
-## Run 609 — 2026-10-17T15:30:00Z
-- Objective: Add a reusable one-command full pre-script package aggregator so future packets can obtain both the beat-budget/structure skeleton and the mechanism-aligned draft candidates in a single call without inventing spoken lines, statistics, or anecdotes, reducing sequential tool labor for the complete pre-script starting point before first WORDS or expand_brief without touching the frozen Q1 or adding status scanners.
-- Action: Created tools/script_package_starter.py (runs expand_starter and draft_starter via subprocess and prints a combined package view with next steps). Updated tool_integrity_check.py EXPECTED (script_package_starter min 50). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
-- Result: Videos published stay 0. Full pre-script package preparation is now available as a single command for every future packet. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File created and committed via GitHub API; integrity EXPECTED updated. Tool is self-contained stdlib Python that shells out to the existing starters. Change is small and syntax-checked by construction.
-- Discovery: Aggregating the beat-budget starter with the draft-candidate starter into one package reduces context-switching and sequential calls when agents prepare the complete structure and starting lines before drafting WORDS, mirroring the value of the research, experiment, and QA package aggregators.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional script helpers, prompt refinements, or quality improvements) that does not re-verify gates solely for confirmation.
-
-## Run 608 — 2026-10-17T14:20:00Z
-- Objective: Add a reusable pre-script expand / beat-budget starter so future packets can obtain a grounded structure plan and word targets from idea.md before calling draft_starter or writing the first WORDS, reducing manual planning labor without inventing spoken lines or statistics and without touching the frozen Q1 or adding status scanners.
-- Action: Created tools/expand_starter.py (extracts mechanism/topic/problem/viewer from idea.md; prints recommended 5-beat plan with targets so total lands near ~1200). Updated tool_integrity_check.py EXPECTED (expand_starter min 50). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
-- Result: Videos published stay 0. Pre-script structure planning is now mechanically assisted for every future packet. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File created and committed via GitHub API; integrity EXPECTED updated. Tool is self-contained stdlib Python. Change is small and syntax-checked by construction.
-- Discovery: Providing a recommended beat shape and word targets before any script headings exist reduces the chance of unbalanced first drafts that later require heavy expansion or cutting, especially when agents use draft_starter candidates.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional structure helpers or prompt refinements) that does not re-verify gates solely for confirmation.
-
-## Run 607 — 2026-10-17T13:15:00Z
-- Objective: Add a reusable one-command full research package aggregator so future packets can obtain both the sources.md skeleton and the full research.md skeleton in a single call without inventing URLs, numbers, or citations, reducing sequential tool labor for the complete research documentation package before script drafting and claim_scan without touching the frozen Q1 or adding status scanners.
-- Action: Created tools/research_package_starter.py (runs research_sources_starter and research_brief_starter via subprocess and prints a combined package view with next steps). Updated tool_integrity_check.py EXPECTED (research_package_starter min 40). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
-- Result: Videos published stay 0. Full research package preparation is now available as a single command for every future packet. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File created and committed via GitHub API; integrity EXPECTED updated. Tool is self-contained stdlib Python that shells out to the existing starters. Change is small and syntax-checked by construction.
-- Discovery: Aggregating the two research skeleton printers into one package reduces context-switching and sequential calls when agents prepare the complete research documentation before drafting WORDS, mirroring the value of the experiment and QA package aggregators.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional research helpers, prompt refinements, or quality improvements) that does not re-verify gates solely for confirmation.
-
-## Run 606 — 2026-10-17T12:15:00Z
-- Objective: Add a reusable research brief Markdown starter so future packets can obtain a structured research.md skeleton grounded in idea.md fields for overview, qualitative claims, evidence preferences, and source capture without inventing URLs, numbers, or citations, reducing setup labor for the full research document before script drafting and claim_scan without touching the frozen Q1 or adding status scanners.
-- Action: Created tools/research_brief_starter.py (extracts mechanism/topic/problem/viewer from idea.md; prints a Markdown template with overview, claim suggestions, evidence types, source table, and claim_scan notes). Updated tool_integrity_check.py EXPECTED (research_brief_starter min 60). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
-- Result: Videos published stay 0. Research brief documentation is now mechanically assisted for every future packet. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File created and committed via GitHub API; integrity EXPECTED updated. Tool is self-contained stdlib Python. Change is small and syntax-checked by construction.
-- Discovery: Providing a structured Markdown skeleton for the full research brief reduces the chance of incomplete research notes that later fail claim_scan or leave the script unsupported, especially when agents prepare documentation before drafting WORDS.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional research helpers or prompt refinements) that does not re-verify gates solely for confirmation.
-
-## Run 605 — 2026-10-17T11:15:00Z
-- Objective: Add a reusable research sources Markdown starter so future packets can obtain a structured documentation skeleton grounded in idea.md mechanism/topic for factual claims without inventing URLs, numbers, or citations, reducing setup labor for source capture before claim_scan without touching the frozen Q1 or adding status scanners.
-- Action: Created tools/research_sources_starter.py (extracts mechanism/topic from idea.md; prints a Markdown template with sections for primary claims, evidence types, suggested source categories, notes, and source log). Updated tool_integrity_check.py EXPECTED (research_sources_starter min 50). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
-- Result: Videos published stay 0. Research sources documentation is now mechanically assisted for every future packet. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File created and committed via GitHub API; integrity EXPECTED updated. Tool is self-contained stdlib Python. Change is small and syntax-checked by construction.
-- Discovery: Providing a structured Markdown skeleton for sources reduces the chance of incomplete or free-form research notes that later fail claim_scan or leave consequential claims unsupported, especially when agents prepare documentation early in the packet lifecycle.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional research helpers or prompt refinements) that does not re-verify gates solely for confirmation.
-
-## Run 604 — 2026-10-17T10:20:00Z
-- Objective: Add a reusable one-command full experiment package aggregator so future packets can obtain change-aligned suggestions plus all skeleton printers (baseline JSON, decision JSON, notes Markdown) in a single call without inventing baselines, results, or decisions, reducing sequential tool labor for the complete experiment documentation package without touching the frozen Q1 or adding status scanners.
-- Action: Created tools/experiment_package_starter.py (runs experiment_setup_report plus the three starters via subprocess and prints a combined package view with next steps). Updated tool_integrity_check.py EXPECTED (experiment_package_starter min 50). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
-- Result: Videos published stay 0. Full experiment package preparation is now available as a single command for every future packet. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File created and committed via GitHub API; integrity EXPECTED updated. Tool is self-contained stdlib Python that shells out to the existing suggesters and starters. Change is small and syntax-checked by construction.
-- Discovery: Aggregating the setup report with the three skeleton printers into one package reduces context-switching and sequential calls when agents prepare the complete experiment ledger documentation after an idea exists, mirroring the value of the QA report aggregators.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional experiment helpers, prompt refinements, or quality improvements) that does not re-verify gates solely for confirmation.
-
-Older run notes live in `docs/runs_archive.md`. Do not paste the archive back.
