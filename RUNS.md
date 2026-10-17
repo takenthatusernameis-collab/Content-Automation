@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 607 — 2026-10-17T13:15:00Z
+- Objective: Add a reusable one-command full research package aggregator so future packets can obtain both the sources.md skeleton and the full research.md skeleton in a single call without inventing URLs, numbers, or citations, reducing sequential tool labor for the complete research documentation package before script drafting and claim_scan without touching the frozen Q1 or adding status scanners.
+- Action: Created tools/research_package_starter.py (runs research_sources_starter and research_brief_starter via subprocess and prints a combined package view with next steps). Updated tool_integrity_check.py EXPECTED (research_package_starter min 40). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
+- Result: Videos published stay 0. Full research package preparation is now available as a single command for every future packet. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File created and committed via GitHub API; integrity EXPECTED updated. Tool is self-contained stdlib Python that shells out to the existing starters. Change is small and syntax-checked by construction.
+- Discovery: Aggregating the two research skeleton printers into one package reduces context-switching and sequential calls when agents prepare the complete research documentation before drafting WORDS, mirroring the value of the experiment and QA package aggregators.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional research helpers, prompt refinements, or quality improvements) that does not re-verify gates solely for confirmation.
+
 ## Run 606 — 2026-10-17T12:15:00Z
 - Objective: Add a reusable research brief Markdown starter so future packets can obtain a structured research.md skeleton grounded in idea.md fields for overview, qualitative claims, evidence preferences, and source capture without inventing URLs, numbers, or citations, reducing setup labor for the full research document before script drafting and claim_scan without touching the frozen Q1 or adding status scanners.
 - Action: Created tools/research_brief_starter.py (extracts mechanism/topic/problem/viewer from idea.md; prints a Markdown template with overview, claim suggestions, evidence types, source table, and claim_scan notes). Updated tool_integrity_check.py EXPECTED (research_brief_starter min 60). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
@@ -24,24 +33,6 @@
 - Result: Videos published stay 0. Full experiment package preparation is now available as a single command for every future packet. Upload still blocked only on the three secrets. Preferred list remains complete.
 - Verification: File created and committed via GitHub API; integrity EXPECTED updated. Tool is self-contained stdlib Python that shells out to the existing suggesters and starters. Change is small and syntax-checked by construction.
 - Discovery: Aggregating the setup report with the three skeleton printers into one package reduces context-switching and sequential calls when agents prepare the complete experiment ledger documentation after an idea exists, mirroring the value of the QA report aggregators.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional experiment helpers, prompt refinements, or quality improvements) that does not re-verify gates solely for confirmation.
-
-## Run 603 — 2026-10-17T09:30:00Z
-- Objective: Add a reusable experiment notes Markdown starter so future packets can obtain a structured documentation skeleton grounded in idea.md mechanism/topic for the single allowed change without inventing baselines, results, or decisions, reducing setup labor for the experiment ledger without touching the frozen Q1 or adding status scanners.
-- Action: Created tools/experiment_notes_starter.py (detects change from baseline or idea.md heuristic; extracts mechanism/topic; prints a Markdown template with sections for hypothesis, metric, guardrails, baseline, source, window, and decision). Updated tool_integrity_check.py EXPECTED (experiment_notes_starter min 50). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
-- Result: Videos published stay 0. Experiment notes documentation is now mechanically assisted for every future packet. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File created and committed via GitHub API; integrity EXPECTED updated. Tool is self-contained stdlib Python that imports ALLOWED_CHANGES from experiment_loop.py. Change is small and syntax-checked by construction.
-- Discovery: Providing a structured Markdown skeleton that references the suggesters reduces the chance of incomplete or free-form notes that later fail experiment_loop contracts, especially when agents prepare documentation after the setup report.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional experiment helpers or prompt refinements) that does not re-verify gates solely for confirmation.
-
-## Run 602 — 2026-10-17T08:15:00Z
-- Objective: Add a reusable one-command experiment setup aggregator so future packets can obtain change-aligned metric, guardrail, and hypothesis suggestions in a single call without inventing baselines, results, or decisions, reducing sequential tool labor for the experiment ledger without touching the frozen Q1 or adding status scanners.
-- Action: Created tools/experiment_setup_report.py (runs the three existing experiment suggesters via subprocess and prints a combined setup guide with next steps). Updated tool_integrity_check.py EXPECTED (experiment_setup_report min 50). Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool (saturation_guard already flags pure status patterns).
-- Result: Videos published stay 0. Experiment setup guidance is now available as a single command for every future packet. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File created and committed via GitHub API; integrity EXPECTED updated. Tool is self-contained stdlib Python that shells out to the existing suggesters. Change is small and syntax-checked by construction.
-- Discovery: Aggregating the change-aligned suggesters into one report reduces context-switching and sequential calls when agents prepare experiment baselines, mirroring the value of the QA report aggregators.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional experiment helpers, prompt refinements, or quality improvements) that does not re-verify gates solely for confirmation.
 
