@@ -31,6 +31,17 @@ Keep VISUAL lines as short italic stage directions, not a second script.
 
 Before writing any WORDS, optionally run `python3 tools/draft_starter.py PATH`. It prints a complete mechanism-aligned skeleton (Hook candidates, Payoff, Body starters, Failure mode, CTA, and matching VISUAL directions) grounded in idea.md. Copy preferred lines into draft.md and expand the body beats to the word targets. This reduces sequential calls to the individual *suggest.py tools and keeps the starting point operational and packet-specific. Individual tools remain available if you need more options for one section.
 
+## Draft expansion helpers (recommended during expansion)
+
+After pasting a starter skeleton into draft.md, use these mechanical helpers instead of free-form padding:
+
+- `python3 tools/draft_word_progress.py PATH` — precise spoken-word counts vs targets (SHORT/OK/LONG) for every ## section and total.
+- `python3 tools/draft_short_beat_coach.py PATH` — targeted checklist + exact deficit only for body beats that are still SHORT of 140–220.
+- `python3 tools/draft_beat_expansion_starter.py PATH` — full per-beat concrete-element checklist (use once if you prefer the static view).
+- `python3 tools/draft_package_starter.py PATH` — one-command skeleton + checklist package.
+
+These tools write nothing and invent nothing. They reduce free-form padding and slop risk by giving exact feedback and structured elements grounded in idea.md.
+
 ## Band landing (count before you return)
 
 Spoken WORDS for `explainer-6-10min` must land in **900–1500**. Target **~1200**. Count only WORDS lines, not VISUAL, not headings.
