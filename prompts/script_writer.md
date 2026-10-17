@@ -35,12 +35,14 @@ Before writing any WORDS, optionally run `python3 tools/draft_starter.py PATH`. 
 
 After pasting a starter skeleton into draft.md, use these mechanical helpers instead of free-form padding:
 
+- `python3 tools/draft_expansion_coach.py PATH` — one-command progress table + targeted SHORT-beat checklist + deficit.
 - `python3 tools/draft_word_progress.py PATH` — precise spoken-word counts vs targets (SHORT/OK/LONG) for every ## section and total.
 - `python3 tools/draft_short_beat_coach.py PATH` — targeted checklist + exact deficit only for body beats that are still SHORT of 140–220.
 - `python3 tools/draft_beat_expansion_starter.py PATH` — full per-beat concrete-element checklist (use once if you prefer the static view).
 - `python3 tools/draft_package_starter.py PATH` — one-command skeleton + checklist package.
+- `python3 tools/draft_pre_apply_coach.py PATH` — expansion progress + quality + claim signals on the draft before apply.
 
-These tools write nothing and invent nothing. They reduce free-form padding and slop risk by giving exact feedback and structured elements grounded in idea.md.
+These tools write nothing and invent nothing. They reduce free-form padding, slop, and unsupported claims by giving exact feedback and structured elements grounded in idea.md and research.md.
 
 ## Band landing (count before you return)
 
@@ -116,6 +118,7 @@ Replace only the empty `WORDS:` / `VISUAL:` bodies. Preserve heading text exactl
 After writing, save as `PATH/draft.md` on a *non-fixture* packet, then run:
 
 ```bash
+python3 tools/draft_pre_apply_coach.py videos/<id>-<slug>
 python3 tools/words.py videos/<id>-<slug>
 python3 tools/apply_script.py videos/<id>-<slug> --from videos/<id>-<slug>/draft.md
 ```
@@ -127,7 +130,7 @@ python3 tools/apply_script.py videos/<id>-<slug> --from videos/<id>-<slug>/draft
 python3 tools/set_status.py videos/<id>-<slug> --to ready_for_vo
 ```
 
-Only run set_status `--write` after WORDS are in band. Do not pad `videos/sample-001-*`; that packet is a fixture.
+Only run set_status `--write` after WORDS are in band and pre-apply signals are clear. Do not pad `videos/sample-001-*`; that packet is a fixture.
 
 ## Anti-slop quality gate
 
@@ -139,6 +142,6 @@ Explicitly avoid the high-precision anti-slop phrases tracked by `tools/quality_
 
 Also avoid unsourced survey/authority hedges tracked by `tools/claim_scan.py` (“many studies show”, “research has shown”, “it is known that”, “widely known that”, “statistics show”, “data indicates”, “as research shows”, “studies have shown”, “researchers found”, “according to a survey”, “data reveals”, “experts agree”, “studies suggest”, plus “according to experts”, “research suggests”, “evidence shows”, “it has been shown”, “scientists say”, “a study found”, “surveys indicate”, and earlier hedges) unless the exact phrase or supporting number already appears in a non-placeholder Sources bullet in research.md.
 
-After saving the draft.md, optionally run `python3 tools/quality_scan.py PATH` and `python3 tools/claim_scan.py PATH` (or inspect the spoken WORDS against the lists) and revise any hits before apply_script.py --write. Both scanners now include short context snippets for each hit. A hit is a revision signal, not an authorship claim.
+After saving the draft.md, run `python3 tools/draft_pre_apply_coach.py PATH` (preferred one-command) or the individual `quality_scan.py` / `claim_scan.py` (which target script.md) and revise any hits before apply_script.py --write. Hits are revision signals, not authorship claims.
 
 Before promotion, perform the seven-item originality test in docs/content_quality.md. If a quality answer is “no,” revise the draft before apply_script.py --write.
