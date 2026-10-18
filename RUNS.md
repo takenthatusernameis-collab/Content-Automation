@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 626 — 2026-10-18T06:30:00Z
+- Objective: Complete the copy-paste readiness of draft_pre_apply_coach RECOMMENDED NEXT by extending the concrete packet path + exact re-run command to originality, cadence, and mechanism signals (quality/claim already had it), so every non-clear signal ends with an immediately executable next command.
+- Action: Updated recommended_actions in tools/draft_pre_apply_coach.py to include the full python3 tools/draft_pre_apply_coach.py <path> re-run in all signal-specific recommendations. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool.
+- Result: Videos published stay 0. The preferred one-command pre-apply path now ends with fully executable next-step commands for every signal type. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File updated and committed via GitHub API; change is small, self-contained, preserves stdlib nature, and adds no external dependencies. Line count increased modestly and remains well above integrity threshold.
+- Discovery: Extending full copy-paste readiness to all signals further collapses the editorial loop by removing remaining mechanical steps that agents previously performed after the SUMMARY on every packet.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional draft helpers, prompt refinements, or post-script quality improvements) that does not re-verify gates solely for confirmation.
+
 ## Run 625 — 2026-10-18T08:15:00Z
 - Objective: Eliminate residual substitution latency after the draft_pre_apply_coach RECOMMENDED NEXT by embedding the concrete packet path in the generated commands, so future agents can copy-paste the exact next tool invocation without manual path editing.
 - Action: Updated recommended_actions in tools/draft_pre_apply_coach.py to accept and interpolate the resolved packet Path. Quality and claim recommendations now include the full re-run command. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool.
