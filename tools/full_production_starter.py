@@ -36,6 +36,20 @@ def run_starter(script: str, packet: str) -> str:
     except Exception as e:
         return f"EXCEPTION running {script}: {e}"
 
+def recommended_actions(packet: str) -> list[str]:
+    """Provide concrete copy-paste next steps after the full production starter."""
+    p = packet
+    return [
+        f"write draft skeleton: python3 tools/draft_md_starter.py {p}  # then expand beats",
+        f"or expand checklist: python3 tools/draft_beat_expansion_starter.py {p}",
+        f"expansion coaches: python3 tools/draft_expansion_coach.py {p} and python3 tools/draft_short_beat_coach.py {p}",
+        f"pre-apply gate: python3 tools/draft_pre_apply_coach.py {p}",
+        f"quality scans: python3 tools/quality_scan.py {p} && python3 tools/claim_scan.py {p} && python3 tools/title_scan.py {p} && python3 tools/description_scan.py {p}",
+        f"more scans: python3 tools/tags_scan.py {p} && python3 tools/first_comment_scan.py {p} && python3 tools/chapters_scan.py {p} && python3 tools/thumbnail_scan.py {p} && python3 tools/end_screen_scan.py {p}",
+        f"apply script: python3 tools/apply_script.py {p} --from {p}/draft.md --write --refresh once signals clear",
+        f"or research first if needed: python3 tools/research_package_starter.py {p}",
+    ]
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Generate complete mechanism-aligned production starter (draft + metadata + visual publish)."
@@ -69,11 +83,14 @@ def main() -> int:
         print()
 
     print("=" * 72)
+    print("## RECOMMENDED NEXT (copy-paste ready; no invent)")
+    for rec in recommended_actions(packet):
+        print(f"- {rec}")
+    print()
     print("Copy preferred sections into the packet files (draft.md, titles.md, publish.md, chapters.md, assets.md).")
     print("Expand body beats to word targets, keep total spoken WORDS 900-1500.")
-    print("Then run: quality_scan.py, claim_scan.py, title_scan.py, description_scan.py, tags_scan.py,")
-    print("first_comment_scan.py, chapters_scan.py, thumbnail_scan.py, end_screen_scan.py.")
-    print("Do not invent statistics or anecdotes. Keep language calm and operational.")
+    print("Then run the scanners listed above. Do not invent statistics or anecdotes. Keep language calm and operational.")
+    print("Preferred unblocked path remains human OAuth (secrets + dispatch) before any live publish.")
     return 0
 
 if __name__ == "__main__":
