@@ -60,15 +60,15 @@ def recommended_actions(non_clear: list[str], packet_path: Path) -> list[str]:
     if "expansion" in non_clear:
         recs.append(f"expansion: python3 tools/draft_short_beat_coach.py {p} or python3 tools/draft_word_progress.py {p}")
     if "quality" in non_clear:
-        recs.append("quality: revise draft WORDS to remove anti-slop phrases (see quality_scan hits above); then re-run python3 tools/draft_pre_apply_coach.py " + p)
+        recs.append(f"quality: revise draft WORDS to remove anti-slop phrases (see quality_scan hits above); then re-run python3 tools/draft_pre_apply_coach.py {p}")
     if "claim" in non_clear:
-        recs.append("claim: replace unsourced digits/hedges with qualitative language or add source already in research.md; then re-run python3 tools/draft_pre_apply_coach.py " + p)
+        recs.append(f"claim: replace unsourced digits/hedges with qualitative language or add source already in research.md; then re-run python3 tools/draft_pre_apply_coach.py {p}")
     if "originality" in non_clear:
-        recs.append("originality: address 'no' answers in originality extracts; ground in packet mechanism/viewer; then re-run coach")
+        recs.append(f"originality: address 'no' answers in originality extracts (see above); ground in packet mechanism/viewer; then re-run python3 tools/draft_pre_apply_coach.py {p}")
     if "cadence" in non_clear:
-        recs.append("cadence: vary sentence length and cut repeated n-grams (see cadence_repetition_scan signals); then re-run coach")
+        recs.append(f"cadence: vary sentence length and cut repeated n-grams (see cadence_repetition_scan signals); then re-run python3 tools/draft_pre_apply_coach.py {p}")
     if "mechanism" in non_clear:
-        recs.append("mechanism: weave missing idea.md mechanism terms naturally into WORDS; then re-run coach")
+        recs.append(f"mechanism: weave missing idea.md mechanism terms naturally into WORDS; then re-run python3 tools/draft_pre_apply_coach.py {p}")
     if not recs:
         recs.append(f"all clear: proceed to python3 tools/apply_script.py {p} --from {p}/draft.md --write --refresh after words.py band check")
     return recs
