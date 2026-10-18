@@ -168,6 +168,19 @@ def suggest_first_comment(mech: str, problem: str) -> str:
     )
     return assignment
 
+
+def recommended_actions(packet: str) -> list[str]:
+    """Provide concrete copy-paste next steps after the metadata starter."""
+    p = packet
+    return [
+        f"adapt titles: paste Primary + alts into titles.md then python3 tools/title_scan.py {p}",
+        f"adapt description/tags/first comment: paste into publish.md ## sections then python3 tools/description_scan.py {p} && python3 tools/tags_scan.py {p} && python3 tools/first_comment_scan.py {p}",
+        f"adapt chapters: paste lines into chapters.md then python3 tools/chapters_scan.py {p}",
+        f"metadata QA report: python3 tools/metadata_qa_report.py {p}",
+        f"visual publish next: python3 tools/visual_publish_starter.py {p}",
+        f"or full production view: python3 tools/full_production_starter.py {p}",
+    ]
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generate mechanism-aligned metadata skeleton.")
     parser.add_argument("packet", help="Packet folder containing idea.md")
@@ -206,6 +219,13 @@ def main() -> int:
     print()
     print("Adapt preferred lines into the packet files, then run the corresponding *_scan.py tools.")
     print("Do not invent statistics. Keep language calm and operational.")
+    print()
+    print("=" * 72)
+    print("## RECOMMENDED NEXT (copy-paste ready; no invent)")
+    for rec in recommended_actions(str(path)):
+        print(f"- {rec}")
+    print()
+    print("Preferred unblocked path remains human OAuth (secrets + dispatch) before any live publish.")
     return 0
 
 if __name__ == "__main__":
