@@ -53,6 +53,25 @@ def is_clear(section_out: str, section_name: str = "") -> bool:
         return True
     return "clear" in low and len(section_out.strip().splitlines()) < 8
 
+def recommended_actions(non_clear: list[str]) -> list[str]:
+    """Map non-clear signals to the smallest useful next tool (no invent)."""
+    recs = []
+    if "expansion" in non_clear:
+        recs.append("expansion: python3 tools/draft_short_beat_coach.py PATH or python3 tools/draft_word_progress.py PATH")
+    if "quality" in non_clear:
+        recs.append("quality: revise draft WORDS to remove anti-slop phrases (see quality_scan hits above); re-run coach")
+    if "claim" in non_clear:
+        recs.append("claim: replace unsourced digits/hedges with qualitative language or add source already in research.md; re-run coach")
+    if "originality" in non_clear:
+        recs.append("originality: address 'no' answers in originality extracts; ground in packet mechanism/viewer")
+    if "cadence" in non_clear:
+        recs.append("cadence: vary sentence length and cut repeated n-grams (see cadence_repetition_scan signals)")
+    if "mechanism" in non_clear:
+        recs.append("mechanism: weave missing idea.md mechanism terms naturally into WORDS")
+    if not recs:
+        recs.append("all clear: proceed to python3 tools/apply_script.py PATH --from PATH/draft.md --write --refresh after words.py band check")
+    return recs
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Pre-apply coach: expansion + quality + claim + originality + cadence + mechanism alignment signals on draft.md. No writes."
@@ -137,6 +156,11 @@ def main() -> int:
     else:
         print(f"overall: REVISE ({len(non_clear)} signals need attention: {', '.join(non_clear)})")
     print("Revise draft.md for any non-clear signals before apply_script.py --write.")
+
+    print()
+    print("## RECOMMENDED NEXT (signal-specific; no invent)")
+    for rec in recommended_actions(non_clear):
+        print(f"- {rec}")
 
     print()
     print("Next (do not invent sources, numbers, anecdotes, or spoken lines):")
