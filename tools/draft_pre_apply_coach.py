@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
-"""Pre-apply coach for draft.md: expansion progress + quality + claim signals.
+"""Pre-apply coach for draft.md: expansion progress + quality + claim + originality + cadence signals.
 
-Combines the draft expansion coach view with anti-slop (quality_scan patterns)
-and unsourced-claim (claim_scan hedges/digits) checks on the draft spoken WORDS.
+Combines the draft expansion coach view with anti-slop (quality_scan patterns),
+unsourced-claim (claim_scan hedges/digits), packet-grounded originality extracts,
+and cadence/repetition signals on the draft spoken WORDS.
 Works on draft.md before promotion to script.md. Does not invent lines, numbers,
-or sources. Does not write files. One-command pre-apply quality view that
-compounds by catching padding, slop, and unsupported claims early for every
-future packet.
+sources, or anecdotes. Does not write files. One-command pre-apply quality view that
+compounds by catching padding, slop, unsupported claims, generic drafts, and monotonous
+delivery early for every future packet.
 """
 
 from __future__ import annotations
 
 import argparse
+import subprocess
 import sys
 from pathlib import Path
 
@@ -26,9 +28,19 @@ except ImportError as e:
     print(f"import error: {e}", file=sys.stderr)
     sys.exit(1)
 
+def run_tool(name: str, path: Path) -> str:
+    tool = ROOT / "tools" / name
+    if not tool.is_file():
+        return f"({name} missing; skipped)\n"
+    proc = subprocess.run([sys.executable, str(tool), str(path)], capture_output=True, text=True)
+    out = proc.stdout or ""
+    if proc.returncode != 0 and proc.stderr:
+        out += f"\n[{name} stderr]: {proc.stderr}"
+    return out
+
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Pre-apply coach: expansion + quality + claim signals on draft.md. No writes."
+        description="Pre-apply coach: expansion + quality + claim + originality + cadence signals on draft.md. No writes."
     )
     parser.add_argument("packet", help="Packet folder containing draft.md (or script.md), idea.md, research.md")
     args = parser.parse_args()
@@ -39,21 +51,13 @@ def main() -> int:
         print(f"No draft.md or script.md in {args.packet}", file=sys.stderr)
         return 1
 
-    print("DRAFT PRE-APPLY COACH (expansion progress + quality + claim signals on draft; no invented content)")
+    print("DRAFT PRE-APPLY COACH (expansion + quality + claim + originality + cadence signals on draft; no invented content)")
     print(f"Source: {source.name}")
     print(f"Packet: {path.name}")
     print()
 
-    # Delegate expansion view
-    import subprocess
-    coach = ROOT / "tools" / "draft_expansion_coach.py"
-    if coach.is_file():
-        proc = subprocess.run([sys.executable, str(coach), str(path)], capture_output=True, text=True)
-        print(proc.stdout or "")
-        if proc.returncode != 0:
-            print(proc.stderr or "")
-    else:
-        print("(draft_expansion_coach.py missing; skipping progress view)")
+    # Expansion view
+    print(run_tool("draft_expansion_coach.py", path))
 
     # Quality and claim on the draft text
     text = source.read_text(encoding="utf-8")
@@ -81,9 +85,17 @@ def main() -> int:
             print(f"- {kind}:{token} [{ctx}]")
     print()
 
-    print("Next (do not invent sources, numbers, or anecdotes):")
-    print("- Revise draft.md for any SHORT beats, quality hits, or claim hits.")
-    print("- Prefer concrete mechanism language.")
+    # Originality extracts
+    print("## ORIGINALITY EXTRACTS")
+    print(run_tool("originality_checklist.py", path))
+
+    # Cadence / repetition
+    print("## CADENCE & REPETITION SIGNALS")
+    print(run_tool("cadence_repetition_scan.py", path))
+
+    print("Next (do not invent sources, numbers, anecdotes, or spoken lines):")
+    print("- Revise draft.md for any SHORT beats, quality hits, claim hits, originality 'no' answers, or cadence signals.")
+    print("- Prefer concrete mechanism language. Vary sentence length. Cut repeated phrases.")
     print("- Then run apply_script.py --write after signals are clear.")
     print("This tool writes nothing. Preferred unblocked path remains human OAuth for publish.")
     return 0
