@@ -100,6 +100,23 @@ def checklist_for(heading: str, mech: str) -> list[str]:
     ]
 
 
+def recommended_actions(rows: list, total_status: str, short_count: int, packet_path: Path) -> list[str]:
+    """Map progress signals to smallest useful next tool with concrete copy-paste commands (no invent)."""
+    p = str(packet_path)
+    recs = []
+    if short_count > 0:
+        recs.append(f"expansion: expand SHORT beats using the checklists above; then re-run python3 tools/draft_expansion_coach.py {p} or python3 tools/draft_short_beat_coach.py {p}")
+    if total_status == "SHORT":
+        recs.append(f"total: overall spoken words SHORT of 900; grow thinnest beats with concrete mechanism scenes; then re-run python3 tools/draft_expansion_coach.py {p}")
+    elif total_status == "LONG":
+        recs.append(f"total: overall spoken words LONG of 1500; cut filler/repetition rather than mechanism; then re-run python3 tools/draft_expansion_coach.py {p}")
+    # Always suggest the full pre-apply gate as the next quality step
+    recs.append(f"quality gate: after expansion signals improve, run python3 tools/draft_pre_apply_coach.py {p} for full signals + copy-paste next")
+    if not recs or (short_count == 0 and total_status == "OK"):
+        recs.append(f"all expansion OK: proceed to python3 tools/draft_pre_apply_coach.py {p} then apply consideration")
+    return recs
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Combined progress table + SHORT-beat coach for draft.md. No invented lines."
@@ -186,6 +203,12 @@ def main() -> int:
     else:
         print(f"---\n{short_count} SHORT body beat(s). Expand using the items above, then re-run this tool.")
     print()
+
+    print("## RECOMMENDED NEXT (signal-specific; copy-paste ready; no invent)")
+    for rec in recommended_actions(rows, total_status, short_count, path):
+        print(f"- {rec}")
+    print()
+
     print("Next (do not invent sources, numbers, or anecdotes):")
     print("- Prefer concrete mechanism language; avoid anti-slop phrases in docs/content_quality.md.")
     print("- Run python3 tools/quality_scan.py and python3 tools/claim_scan.py before apply_script.py --write.")
