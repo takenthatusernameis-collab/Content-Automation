@@ -40,6 +40,18 @@ def run_tool(script: str, packet: str, extra: list[str] | None = None) -> tuple[
     except Exception as e:
         return 1, f"EXCEPTION {script}: {e}"
 
+def recommended_actions(packet: str) -> list[str]:
+    """Provide concrete copy-paste next steps after the experiment package starter."""
+    p = packet
+    return [
+        f"choose values: select one hypothesis, one primary_metric, and 3-5 guardrails from the SETUP SUGGESTIONS above",
+        f"edit baseline: set a real numeric baseline and documented source in the BASELINE SKELETON, then python3 tools/experiment_baseline_starter.py {p} --write",
+        f"notes skeleton: paste the NOTES SKELETON into experiment_notes.md and fill sections after real evidence",
+        f"decision later: after publish + 7-day window + collected metrics, edit the DECISION SKELETON then python3 tools/experiment_decision_starter.py {p} --write",
+        f"full production if needed: python3 tools/full_production_starter.py {p}",
+        f"quality scans: python3 tools/quality_scan.py {p} && python3 tools/claim_scan.py {p}",
+    ]
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Aggregate full experiment package starters and suggestions. No invented values."
@@ -77,6 +89,10 @@ def main() -> int:
     print(out or "(no output)")
 
     print("\n" + "=" * 72)
+    print("## RECOMMENDED NEXT (copy-paste ready; no invent)")
+    for rec in recommended_actions(str(path)):
+        print(f"- {rec}")
+    print()
     print("Next steps (do not invent numbers or decisions):")
     print("1. Choose one hypothesis, one primary_metric, and 3-5 guardrails from the suggestions above.")
     print("2. Edit the printed baseline JSON: set a real numeric baseline and a documented source.")
