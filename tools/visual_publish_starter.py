@@ -100,6 +100,17 @@ def suggest_end_screens(mech: str, problem: str, topic: str) -> list[str]:
             cleaned.append(c.strip())
     return cleaned[:4]
 
+def recommended_actions(packet: str) -> list[str]:
+    """Provide concrete copy-paste next steps after the visual publish starter."""
+    p = packet
+    return [
+        f"adapt thumbnails: paste preferred into publish.md ## Thumbnail or assets.md then python3 tools/thumbnail_scan.py {p}",
+        f"adapt end-screen/CTA: paste into publish.md ## End screen or ## CTA then python3 tools/end_screen_scan.py {p}",
+        f"metadata starter if needed: python3 tools/metadata_starter.py {p}",
+        f"full production view: python3 tools/full_production_starter.py {p}",
+        f"quality scans: python3 tools/quality_scan.py {p} && python3 tools/claim_scan.py {p}",
+    ]
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generate mechanism-aligned thumbnail and end-screen starters.")
     parser.add_argument("packet", help="Packet folder containing idea.md")
@@ -132,6 +143,13 @@ def main() -> int:
     print("The CTA is the concrete next action from the mechanism, not a subscribe or reply prompt.")
     print("After adapting, run tools/thumbnail_scan.py and tools/end_screen_scan.py.")
     print("Do not invent statistics. Keep language calm and operational.")
+    print()
+    print("=" * 72)
+    print("## RECOMMENDED NEXT (copy-paste ready; no invent)")
+    for rec in recommended_actions(str(path)):
+        print(f"- {rec}")
+    print()
+    print("Preferred unblocked path remains human OAuth (secrets + dispatch) before any live publish.")
     return 0
 
 if __name__ == "__main__":
