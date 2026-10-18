@@ -35,6 +35,18 @@ def extract(idea_text: str) -> tuple[str, str]:
     return mech or "the written default", problem or "the stall"
 
 
+def recommended_actions(packet: str) -> list[str]:
+    """Provide concrete copy-paste next steps after the per-beat expansion checklist."""
+    p = packet
+    return [
+        f"skeleton: python3 tools/draft_md_starter.py {p}  # ready-to-copy draft.md with starting WORDS",
+        f"expand: paste skeleton, then expand each beat using the checklist items above to 140-220 words",
+        f"coach: python3 tools/draft_expansion_coach.py {p} or python3 tools/draft_short_beat_coach.py {p} for progress + targeted guidance",
+        f"quality: python3 tools/draft_pre_apply_coach.py {p} for full signals before apply",
+        f"apply: python3 tools/apply_script.py {p} --from {p}/draft.md --write --refresh once signals clear",
+    ]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Print per-beat expansion checklist for draft.md. No invented spoken lines."
@@ -93,6 +105,10 @@ def main() -> int:
         print("<!-- Expand the starting WORDS to 140–220 spoken words using only the above elements. -->")
         print()
     print("---")
+    print("## RECOMMENDED NEXT (copy-paste ready; no invent)")
+    for rec in recommended_actions(str(path)):
+        print(f"- {rec}")
+    print()
     print("Next (do not invent sources, numbers, or anecdotes):")
     print("1. Copy the draft.md skeleton from tools/draft_md_starter.py into the packet.")
     print("2. For each body beat, expand using the checklist items above.")
