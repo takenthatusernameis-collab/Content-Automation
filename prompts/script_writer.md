@@ -40,11 +40,12 @@ After pasting a starter skeleton into draft.md, use these mechanical helpers ins
 - `python3 tools/draft_short_beat_coach.py PATH` — targeted checklist + exact deficit only for body beats that are still SHORT of 140–220.
 - `python3 tools/draft_beat_expansion_starter.py PATH` — full per-beat concrete-element checklist (use once if you prefer the static view).
 - `python3 tools/draft_package_starter.py PATH` — one-command skeleton + checklist package.
-- `python3 tools/draft_pre_apply_coach.py PATH` — full pre-apply gate: expansion progress + quality + claim + originality extracts + cadence/repetition signals on the draft before apply. Preferred single command.
+- `python3 tools/draft_pre_apply_coach.py PATH` — full pre-apply gate: expansion progress + quality + claim + originality extracts + cadence/repetition + mechanism alignment signals on the draft before apply. Preferred single command.
 - `python3 tools/originality_checklist.py PATH` — packet-grounded seven-item originality test with extracts before apply (also included in the coach).
 - `python3 tools/cadence_repetition_scan.py PATH` — sentence-length variation and repeated n-gram signals for the read-aloud pass (also included in the coach).
+- `python3 tools/mechanism_align_scan.py PATH` — presence of idea.md mechanism terms in WORDS (also included in the coach).
 
-These tools write nothing and invent nothing. They reduce free-form padding, slop, unsupported claims, generic drafts, and monotonous or repetitive delivery by giving exact feedback and structured elements grounded in idea.md and research.md.
+These tools write nothing and invent nothing. They reduce free-form padding, slop, unsupported claims, generic drafts, monotonous or repetitive delivery, and mechanism drift by giving exact feedback and structured elements grounded in idea.md and research.md.
 
 ## Band landing (count before you return)
 
@@ -125,7 +126,7 @@ python3 tools/words.py videos/<id>-<slug>
 python3 tools/apply_script.py videos/<id>-<slug> --from videos/<id>-<slug>/draft.md
 ```
 
-(The coach already includes originality extracts and cadence signals; individual tools remain available if needed.)
+(The coach already includes originality extracts, cadence signals, and mechanism alignment; individual tools remain available if needed.)
 
 Apply dry-run prints idea-lock INFO (mechanism / topic token overlap). INFO does not block `--write`. If lock miss, rewrite hook/payoff before `--write --refresh`.
 
@@ -134,7 +135,7 @@ python3 tools/apply_script.py videos/<id>-<slug> --from videos/<id>-<slug>/draft
 python3 tools/set_status.py videos/<id>-<slug> --to ready_for_vo
 ```
 
-Only run set_status `--write` after WORDS are in band and pre-apply signals (including originality and cadence) are clear. Do not pad `videos/sample-001-*`; that packet is a fixture.
+Only run set_status `--write` after WORDS are in band and pre-apply signals (including originality, cadence, and mechanism alignment) are clear. Do not pad `videos/sample-001-*`; that packet is a fixture.
 
 ## Anti-slop quality gate
 
@@ -146,6 +147,6 @@ Explicitly avoid the high-precision anti-slop phrases tracked by `tools/quality_
 
 Also avoid unsourced survey/authority hedges tracked by `tools/claim_scan.py` (“many studies show”, “research has shown”, “it is known that”, “widely known that”, “statistics show”, “data indicates”, “as research shows”, “studies have shown”, “researchers found”, “according to a survey”, “data reveals”, “experts agree”, “studies suggest”, plus “according to experts”, “research suggests”, “evidence shows”, “it has been shown”, “scientists say”, “a study found”, “surveys indicate”, and earlier hedges) unless the exact phrase or supporting number already appears in a non-placeholder Sources bullet in research.md.
 
-After saving the draft.md, run `python3 tools/draft_pre_apply_coach.py PATH` (preferred one-command that now includes originality extracts and cadence signals) or the individual tools and revise any hits before apply_script.py --write. Hits are revision signals, not authorship claims.
+After saving the draft.md, run `python3 tools/draft_pre_apply_coach.py PATH` (preferred one-command that now includes originality extracts, cadence signals, and mechanism alignment) or the individual tools and revise any hits before apply_script.py --write. Hits are revision signals, not authorship claims.
 
-Before promotion, review the originality extracts and cadence signals from the coach (or the individual tools). A quality answer of “no” or strong cadence signals is a revision signal before apply_script.py --write.
+Before promotion, review the originality extracts, cadence signals, and mechanism alignment from the coach (or the individual tools). A quality answer of “no”, strong cadence signals, or missing mechanism terms is a revision signal before apply_script.py --write.
