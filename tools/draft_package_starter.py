@@ -43,6 +43,16 @@ def run_tool(script: str, packet: str, extra: list[str] | None = None) -> tuple[
     except Exception as e:
         return 1, f"EXCEPTION {script}: {e}"
 
+def recommended_actions(packet: str) -> list[str]:
+    """Provide concrete copy-paste next steps after using the package starter."""
+    p = packet
+    return [
+        f"copy skeleton: paste the DRAFT.MD SKELETON into {p}/draft.md then expand body beats using the checklist",
+        f"expand: after pasting, run python3 tools/draft_expansion_coach.py {p} or python3 tools/draft_short_beat_coach.py {p} for progress and targeted guidance",
+        f"quality gate: after expansion, run python3 tools/draft_pre_apply_coach.py {p} for full signals + copy-paste next before apply",
+        f"apply: once signals clear, python3 tools/apply_script.py {p} --from {p}/draft.md --write --refresh",
+    ]
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Aggregate full draft package: ready-to-copy skeleton + per-beat expansion checklist. No invented spoken lines."
@@ -70,12 +80,16 @@ def main() -> int:
     print(out or "(no output)")
 
     print("\n" + "=" * 72)
+    print("## RECOMMENDED NEXT (copy-paste ready; no invent)")
+    for rec in recommended_actions(str(path)):
+        print(f"- {rec}")
+    print()
     print("Next steps (do not invent sources, numbers, spoken lines, statistics, or anecdotes):")
     print("1. Copy the DRAFT.MD SKELETON output into videos/<id>-<slug>/draft.md.")
     print("2. For each body beat, expand the starting WORDS using the matching checklist items (worked example, distinction, operational test, failure-mode scene).")
     print("3. Keep Hook / Payoff / CTA near their shorter targets; grow only the body beats so total lands in 900–1500 (~1200).")
     print("4. Replace TBD counts in the HTML comment after expansion.")
-    print("5. Run python3 tools/quality_scan.py and python3 tools/claim_scan.py before apply_script.py --write.")
+    print("5. Run python3 tools/draft_pre_apply_coach.py for full quality gate before apply_script.py --write.")
     print("6. Prefer concrete mechanism language; avoid anti-slop phrases listed in docs/content_quality.md.")
     print("This package writes nothing. Preferred unblocked path remains human OAuth for publish.")
     return 0
