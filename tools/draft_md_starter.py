@@ -95,6 +95,18 @@ def suggest_visual(mech: str) -> str:
     return f"Close on the open list. Cursor hovers. No note visible. Then a sticky note with the {base} appears at the top of the page."
 
 
+def recommended_actions(packet: str) -> list[str]:
+    """Provide concrete copy-paste next steps after using the draft.md skeleton starter."""
+    p = packet
+    return [
+        f"paste: copy the entire skeleton output into {p}/draft.md then expand body beats using checklist elements",
+        f"checklist: python3 tools/draft_beat_expansion_starter.py {p} for per-beat concrete elements to add while expanding",
+        f"progress: after pasting and expanding, run python3 tools/draft_expansion_coach.py {p} or python3 tools/draft_short_beat_coach.py {p}",
+        f"quality gate: python3 tools/draft_pre_apply_coach.py {p} for full signals + copy-paste next before apply",
+        f"apply: once signals clear, python3 tools/apply_script.py {p} --from {p}/draft.md --write --refresh",
+    ]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Print a ready-to-copy draft.md skeleton with mechanism-aligned starting WORDS. No invented content."
@@ -115,7 +127,7 @@ def main() -> int:
     print("<!-- spoken_words: TBD  hook: TBD  beats: 5  target: 900-1500 -->")
     print("Spoken words only under each beat. Visual notes in italics.")
     print()
-    print("## Hook (0:00–0:12)")
+    print("## Hook (0:00\u20130:12)")
     print("WORDS:")
     print(suggest_hook(mech, problem))
     print()
@@ -126,33 +138,33 @@ def main() -> int:
     print("WORDS:")
     print(suggest_payoff(mech))
     print()
-    print("## Beat 1 — Install the default")
+    print("## Beat 1 \u2014 Install the default")
     print("WORDS:")
     print(suggest_body(mech, problem))
-    print("<!-- Expand this beat to 140–220 spoken words with a concrete worked example of the mechanism on this packet's stall. -->")
+    print("<!-- Expand this beat to 140\u2013220 spoken words with a concrete worked example of the mechanism on this packet's stall. -->")
     print()
     print("VISUAL:")
     print(f"*{suggest_visual(mech)}*")
     print()
-    print("## Beat 2 — Place the cue")
+    print("## Beat 2 \u2014 Place the cue")
     print("WORDS:")
     print(suggest_body(mech, problem))
-    print("<!-- Expand to 140–220 words: show where the written default lives so the reopen ends. -->")
+    print("<!-- Expand to 140\u2013220 words: show where the written default lives so the reopen ends. -->")
     print()
-    print("## Beat 3 — One small test")
+    print("## Beat 3 \u2014 One small test")
     print("WORDS:")
     print(suggest_body(mech, problem))
-    print("<!-- Expand to 140–220 words: one operational check the viewer can run the same day. -->")
+    print("<!-- Expand to 140\u2013220 words: one operational check the viewer can run the same day. -->")
     print()
-    print("## Beat 4 — Failure mode")
+    print("## Beat 4 \u2014 Failure mode")
     print("WORDS:")
     print(suggest_failure(mech, problem))
-    print("<!-- Expand to 140–220 words: what repeats when the mechanism is absent. -->")
+    print("<!-- Expand to 140\u2013220 words: what repeats when the mechanism is absent. -->")
     print()
-    print("## Beat 5 — Keep the default")
+    print("## Beat 5 \u2014 Keep the default")
     print("WORDS:")
     print(suggest_body(mech, problem))
-    print("<!-- Expand to 140–220 words: how the constraint stays after the first install. -->")
+    print("<!-- Expand to 140\u2013220 words: how the constraint stays after the first install. -->")
     print()
     print("## CTA")
     print("WORDS:")
@@ -162,9 +174,13 @@ def main() -> int:
     print(f"*{suggest_visual(mech)}*")
     print()
     print("---")
+    print("## RECOMMENDED NEXT (copy-paste ready; no invent)")
+    for rec in recommended_actions(str(path)):
+        print(f"- {rec}")
+    print()
     print("Next (do not invent sources, numbers, or anecdotes):")
     print("1. Copy this output into videos/<id>-<slug>/draft.md")
-    print("2. Expand each body beat to 140–220 spoken words so total lands ~1200 (band 900–1500).")
+    print("2. Expand each body beat to 140\u2013220 spoken words so total lands ~1200 (band 900\u20131500).")
     print("3. Replace TBD in the HTML comment with actual counts after expansion.")
     print("4. Run python3 tools/quality_scan.py and python3 tools/claim_scan.py before apply_script.py --write.")
     print("5. Prefer concrete mechanism language; avoid anti-slop phrases listed in docs/content_quality.md.")
