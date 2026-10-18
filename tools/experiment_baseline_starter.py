@@ -61,6 +61,19 @@ def build_skeleton(mech: str, topic: str, change: str = "hook") -> dict:
         ),
     }
 
+def recommended_actions(packet: str) -> list[str]:
+    """Provide concrete copy-paste next steps after the baseline skeleton."""
+    p = packet
+    return [
+        f"edit skeleton: set a real numeric baseline and documented non-placeholder source in the JSON above",
+        f"write baseline: python3 tools/experiment_baseline_starter.py {p} --write",
+        f"notes next: python3 tools/experiment_notes_starter.py {p}",
+        f"full package: python3 tools/experiment_package_starter.py {p}",
+        f"quality scans: python3 tools/quality_scan.py {p} && python3 tools/claim_scan.py {p}",
+        f"full production if needed: python3 tools/full_production_starter.py {p}",
+        "do not invent metrics; experiment_loop.py rejects null baselines and placeholder sources",
+    ]
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Print experiment_baseline.json skeleton. No invented metrics."
@@ -96,6 +109,11 @@ def main() -> int:
     print("Copy the JSON above to videos/<id>-<slug>/experiment_baseline.json after")
     print("setting a real numeric baseline and a documented non-placeholder source.")
     print("Do not invent metrics or results. experiment_loop.py will reject invalid files.")
+    print()
+    print("## RECOMMENDED NEXT (copy-paste ready; no invent)")
+    for rec in recommended_actions(str(path)):
+        print(f"- {rec}")
+    print()
     if args.write:
         dest = path / "experiment_baseline.json"
         dest.write_text(out, encoding="utf-8")
