@@ -42,6 +42,17 @@ def run_tool(script: str, packet: str, extra: list[str] | None = None) -> tuple[
     except Exception as e:
         return 1, f"EXCEPTION {script}: {e}"
 
+def recommended_actions(packet: str) -> list[str]:
+    """Provide concrete copy-paste next steps after the pre-script package."""
+    p = packet
+    return [
+        f"skeleton: python3 tools/draft_md_starter.py {p}  # ready-to-copy draft.md with starting WORDS",
+        f"expand checklist: python3 tools/draft_beat_expansion_starter.py {p}  # per-beat expansion items",
+        f"coach: python3 tools/draft_expansion_coach.py {p} or python3 tools/draft_short_beat_coach.py {p}",
+        f"quality: python3 tools/draft_pre_apply_coach.py {p} for full signals before apply",
+        f"apply: python3 tools/apply_script.py {p} --from {p}/draft.md --write --refresh once signals clear",
+    ]
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Aggregate full pre-script package: beat budget + draft candidates. No invented WORDS."
@@ -69,6 +80,10 @@ def main() -> int:
     print(out or "(no output)")
 
     print("\n" + "=" * 72)
+    print("## RECOMMENDED NEXT (copy-paste ready; no invent)")
+    for rec in recommended_actions(str(path)):
+        print(f"- {rec}")
+    print()
     print("Next steps (do not invent spoken lines, statistics, or anecdotes):")
     print("1. Copy preferred candidates into videos/<id>-<slug>/draft.md, preserving exact ## headings.")
     print("2. Expand body beats to the word targets so total spoken WORDS land in 900–1500 (~1200).")
