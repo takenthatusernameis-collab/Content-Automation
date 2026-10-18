@@ -38,6 +38,14 @@ def run_tool(name: str, path: Path) -> str:
         out += f"\n[{name} stderr]: {proc.stderr}"
     return out
 
+def is_clear(section_out: str, clear_markers: tuple[str, ...] = ("clear", "no", "none", "PASS", "OK")) -> bool:
+    """Heuristic: treat section as clear if it contains a clear marker and no hit-like lines."""
+    low = section_out.lower()
+    if any(m in low for m in clear_markers) and not any(x in low for x in ("x1", "x2", "hit", "missing", "short", "long", "no'")):
+        return True
+    # fallback: if very short and contains clear
+    return "clear" in low and len(section_out.strip().splitlines()) < 8
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Pre-apply coach: expansion + quality + claim + originality + cadence + mechanism alignment signals on draft.md. No writes."
@@ -56,8 +64,12 @@ def main() -> int:
     print(f"Packet: {path.name}")
     print()
 
+    signals = []  # (name, clear: bool)
+
     # Expansion view
-    print(run_tool("draft_expansion_coach.py", path))
+    exp_out = run_tool("draft_expansion_coach.py", path)
+    print(exp_out)
+    signals.append(("expansion", is_clear(exp_out)))
 
     # Quality and claim on the draft text
     text = source.read_text(encoding="utf-8")
@@ -72,31 +84,54 @@ def main() -> int:
     print("## QUALITY SIGNALS (anti-slop phrases in draft WORDS)")
     if not q_hits:
         print("clear")
+        signals.append(("quality", True))
     else:
         for phrase, count, ctx in q_hits:
             print(f"- {phrase} x{count} [{ctx}]")
+        signals.append(("quality", False))
     print()
 
     print("## CLAIM SIGNALS (unsourced digits or hedges in draft WORDS)")
     if not c_hits:
         print("clear")
+        signals.append(("claim", True))
     else:
         for kind, token, ctx in c_hits:
             print(f"- {kind}:{token} [{ctx}]")
+        signals.append(("claim", False))
     print()
 
     # Originality extracts
+    orig_out = run_tool("originality_checklist.py", path)
     print("## ORIGINALITY EXTRACTS")
-    print(run_tool("originality_checklist.py", path))
+    print(orig_out)
+    signals.append(("originality", is_clear(orig_out)))
 
     # Cadence / repetition
+    cad_out = run_tool("cadence_repetition_scan.py", path)
     print("## CADENCE & REPETITION SIGNALS")
-    print(run_tool("cadence_repetition_scan.py", path))
+    print(cad_out)
+    signals.append(("cadence", is_clear(cad_out)))
 
     # Mechanism alignment
+    mech_out = run_tool("mechanism_align_scan.py", path)
     print("## MECHANISM ALIGNMENT SIGNALS")
-    print(run_tool("mechanism_align_scan.py", path))
+    print(mech_out)
+    signals.append(("mechanism", is_clear(mech_out)))
 
+    # Summary for quick agent triage
+    non_clear = [name for name, clear in signals if not clear]
+    print()
+    print("## SUMMARY")
+    print(f"signals_checked: {len(signals)}")
+    print(f"clear_count: {len(signals) - len(non_clear)}")
+    if not non_clear:
+        print("overall: CLEAR (all mechanical signals clear; ready for apply consideration)")
+    else:
+        print(f"overall: REVISE ({len(non_clear)} signals need attention: {', '.join(non_clear)})")
+    print("Revise draft.md for any non-clear signals before apply_script.py --write.")
+
+    print()
     print("Next (do not invent sources, numbers, anecdotes, or spoken lines):")
     print("- Revise draft.md for any SHORT beats, quality hits, claim hits, originality 'no' answers, cadence signals, or missing mechanism terms.")
     print("- Prefer concrete mechanism language. Weave missing terms naturally. Vary sentence length. Cut repeated phrases.")
