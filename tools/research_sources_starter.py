@@ -34,6 +34,18 @@ def extract_mechanism_topic(idea_text: str) -> tuple[str, str]:
     return mechanism or "unspecified mechanism", topic or "unspecified topic"
 
 
+def recommended_actions(packet: str) -> list[str]:
+    """Provide concrete copy-paste next steps after the research sources starter."""
+    p = packet
+    return [
+        f"fill sources: edit {p}/sources.md with real, verifiable sources for the listed claims (no invented URLs or citations)",
+        f"research brief: python3 tools/research_brief_starter.py {p} or python3 tools/research_package_starter.py {p}",
+        f"claim scan: python3 tools/claim_scan.py {p} after sources are filled to confirm support",
+        f"move to draft: python3 tools/draft_starter.py {p} once research is ready",
+        f"full package: python3 tools/pre_production_package_starter.py {p} for research + draft path",
+    ]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Print a structured sources.md skeleton grounded in idea.md. No invented sources."
@@ -99,7 +111,12 @@ Do not invent sources. Prefer existing reputable references. Update before promo
         out_path.write_text(skeleton, encoding="utf-8")
         print(f"Wrote {out_path}", file=sys.stderr)
 
-    print("\nNext: fill with real sources before running claim_scan.py. Preferred unblocked path remains human OAuth for publish.")
+    print("\n---")
+    print("## RECOMMENDED NEXT (copy-paste ready; no invent)")
+    for rec in recommended_actions(str(path)):
+        print(f"- {rec}")
+    print()
+    print("Next: fill with real sources before running claim_scan.py. Preferred unblocked path remains human OAuth for publish.")
     return 0
 
 
