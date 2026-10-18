@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: enhanced tools/draft_short_beat_coach.py with a ## RECOMMENDED NEXT section that maps SHORT-beat count to concrete copy-paste ready commands (re-run, expansion coach, or full pre-apply). Applies to every future packet without touching frozen Q1. Makes the targeted SHORT-beat view more immediately actionable by eliminating residual decision and substitution steps after the checklists, further reducing agent latency in the early draft stage.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: future packets obtain both the targeted checklists and fully executable next-step commands in one command; agents spend less time preparing the follow-up before revising or moving to the full expansion or pre-apply coach.
+- Videos published remain 0. Stall continues. Preferred list still complete. Status-tool saturation avoided this run.
+
 - Reusable capability: enhanced tools/draft_expansion_coach.py with a ## RECOMMENDED NEXT section that maps SHORT beats, total SHORT/LONG, and quality-gate step to concrete copy-paste ready commands. Applies to every future packet without touching frozen Q1. Makes the expansion view more immediately actionable by eliminating residual decision and substitution steps after the progress table, further reducing agent latency in the early draft stage.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: future packets obtain both the progress table, targeted checklists, and fully executable next-step commands in one command; agents spend less time preparing the follow-up before revising or moving to the full pre-apply coach.
