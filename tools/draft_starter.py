@@ -95,6 +95,18 @@ def suggest_visuals(mech: str) -> list[str]:
     ]
     return [c for c in candidates if not any(w in c.lower() for w in WEAK)][:3]
 
+def recommended_actions(packet: str) -> list[str]:
+    """Provide concrete copy-paste next steps after the draft starter skeleton."""
+    p = packet
+    return [
+        f"copy preferred: paste chosen Hook/Payoff/Body/Failure/CTA lines into {p}/draft.md",
+        f"expand elements: python3 tools/draft_beat_expansion_starter.py {p} for per-beat concrete elements while expanding body to 140-220 words",
+        f"coach progress: python3 tools/draft_expansion_coach.py {p} or python3 tools/draft_short_beat_coach.py {p}",
+        f"pre-apply signals: python3 tools/draft_pre_apply_coach.py {p} for full quality gate before apply",
+        f"scans: python3 tools/quality_scan.py {p} && python3 tools/claim_scan.py {p}",
+        f"apply: python3 tools/apply_script.py {p} --from {p}/draft.md --write --refresh once signals clear",
+    ]
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generate mechanism-aligned draft skeleton.")
     parser.add_argument("packet", help="Packet folder containing idea.md")
@@ -113,7 +125,7 @@ def main() -> int:
     if topic:
         print(f"topic: {topic}")
     print()
-    print("## Hook (0:00–0:12)")
+    print("## Hook (0:00\u20130:12)")
     print("WORDS:")
     for i, h in enumerate(suggest_hooks(mech, problem), 1):
         print(f"  {i}. {h}  ({len(h.split())} words)")
@@ -125,7 +137,7 @@ def main() -> int:
     print("WORDS:")
     print(f"  {suggest_payoff(mech)}")
     print()
-    print("## Beat 1 — (expand one of the body starters)")
+    print("## Beat 1 \u2014 (expand one of the body starters)")
     print("WORDS:")
     for i, b in enumerate(suggest_bodies(mech, problem), 1):
         print(f"  {i}. {b}  ({len(b.split())} words)")
@@ -133,7 +145,7 @@ def main() -> int:
     for v in suggest_visuals(mech)[1:2]:
         print(f"  *{v}*")
     print()
-    print("## Beat 2 — Failure mode (when the default is absent)")
+    print("## Beat 2 \u2014 Failure mode (when the default is absent)")
     print("WORDS:")
     print(f"  {suggest_failure(mech, problem)}")
     print()
@@ -143,6 +155,11 @@ def main() -> int:
     print("VISUAL:")
     for v in suggest_visuals(mech)[2:3]:
         print(f"  *{v}*")
+    print()
+    print("---")
+    print("## RECOMMENDED NEXT (copy-paste ready; no invent)")
+    for rec in recommended_actions(str(path)):
+        print(f"- {rec}")
     print()
     print("Copy preferred lines into videos/<id>-<slug>/draft.md, expand body beats to 140-220 words each,")
     print("keep total spoken WORDS 900-1500, then run tools/quality_scan.py and tools/claim_scan.py.")
