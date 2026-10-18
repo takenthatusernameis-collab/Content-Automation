@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 634 — 2026-10-18T17:20:00Z
+- Objective: Reduce residual decision and substitution latency after the pre_production_package_starter aggregated view by adding a ## RECOMMENDED NEXT section with concrete copy-paste commands, so future agents know the exact next steps (write research skeletons, skeleton, expand checklist, coaches, quality gate, apply) without extra reasoning for every packet.
+- Action: Updated tools/pre_production_package_starter.py with a recommended_actions helper and ## RECOMMENDED NEXT section that provides exact python3 commands including the packet path. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool.
+- Result: Videos published stay 0. The preferred full pre-production package path now ends with fully executable next-step commands. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File updated and committed via GitHub API; change is small, self-contained, preserves stdlib nature, and adds no external dependencies. Line count increased modestly and remains well above integrity threshold.
+- Discovery: Mapping the aggregated pre-production package output to the exact smallest next tools further collapses the research-to-draft setup loop, compounding efficiency across all future packets without touching frozen Q1 or media gates.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional starters, prompt refinements, or post-script quality improvements) that does not re-verify gates solely for confirmation.
+
+# RUNS
+
 ## Run 633 — 2026-10-18T13:24:00Z
 - Objective: Reduce residual decision and substitution latency after the script_package_starter aggregated view by adding a ## RECOMMENDED NEXT section with concrete copy-paste commands, so future agents know the exact next steps (skeleton, expand checklist, coaches, quality gate, apply) without extra reasoning for every packet.
 - Action: Updated tools/script_package_starter.py with a recommended_actions helper and ## RECOMMENDED NEXT section that provides exact python3 commands including the packet path. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool.

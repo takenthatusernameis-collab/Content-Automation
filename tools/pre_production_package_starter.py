@@ -41,6 +41,19 @@ def run_tool(script: str, packet: str, extra: list[str] | None = None) -> tuple[
     except Exception as e:
         return 1, f"EXCEPTION {script}: {e}"
 
+def recommended_actions(packet: str) -> list[str]:
+    """Provide concrete copy-paste next steps after the full pre-production package."""
+    p = packet
+    return [
+        f"research sources: python3 tools/research_sources_starter.py {p} --write  # fill then write sources.md skeleton",
+        f"research brief: python3 tools/research_brief_starter.py {p} --write  # fill then write research.md skeleton",
+        f"skeleton: python3 tools/draft_md_starter.py {p}  # ready-to-copy draft.md with starting WORDS",
+        f"expand checklist: python3 tools/draft_beat_expansion_starter.py {p}  # per-beat expansion items",
+        f"coach: python3 tools/draft_expansion_coach.py {p} or python3 tools/draft_short_beat_coach.py {p}",
+        f"quality: python3 tools/draft_pre_apply_coach.py {p} for full signals before apply",
+        f"apply: python3 tools/apply_script.py {p} --from {p}/draft.md --write --refresh once signals clear",
+    ]
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Aggregate full pre-production package: research skeletons + pre-script package. No invented content."
@@ -68,6 +81,10 @@ def main() -> int:
     print(out or "(no output)")
 
     print("\n" + "=" * 72)
+    print("## RECOMMENDED NEXT (copy-paste ready; no invent)")
+    for rec in recommended_actions(str(path)):
+        print(f"- {rec}")
+    print()
     print("Next steps (do not invent sources, numbers, citations, spoken lines, statistics, or anecdotes):")
     print("1. Fill research skeletons with real verifiable sources and qualitative claims supporting the mechanism.")
     print("2. Optionally write them with the individual starters' --write flags.")
