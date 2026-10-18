@@ -38,12 +38,19 @@ def run_tool(name: str, path: Path) -> str:
         out += f"\n[{name} stderr]: {proc.stderr}"
     return out
 
-def is_clear(section_out: str, clear_markers: tuple[str, ...] = ("clear", "no", "none", "PASS", "OK")) -> bool:
-    """Heuristic: treat section as clear if it contains a clear marker and no hit-like lines."""
+def is_clear(section_out: str, section_name: str = "") -> bool:
+    """Section-aware heuristic: more accurate CLEAR detection for SUMMARY triage.
+    Expansion is clear only with no SHORT/LONG. Quality/claim clear only without hit markers.
+    """
     low = section_out.lower()
+    if section_name == "expansion":
+        return "short" not in low and "long" not in low
+    if section_name in ("quality", "claim"):
+        return "clear" in low and not any(x in low for x in ("x1", "x2", "hit", "digit", "hedge"))
+    # fallback for originality / cadence / mechanism
+    clear_markers = ("clear", "no", "none", "pass", "ok")
     if any(m in low for m in clear_markers) and not any(x in low for x in ("x1", "x2", "hit", "missing", "short", "long", "no'")):
         return True
-    # fallback: if very short and contains clear
     return "clear" in low and len(section_out.strip().splitlines()) < 8
 
 def main() -> int:
@@ -69,7 +76,7 @@ def main() -> int:
     # Expansion view
     exp_out = run_tool("draft_expansion_coach.py", path)
     print(exp_out)
-    signals.append(("expansion", is_clear(exp_out)))
+    signals.append(("expansion", is_clear(exp_out, "expansion")))
 
     # Quality and claim on the draft text
     text = source.read_text(encoding="utf-8")
@@ -105,19 +112,19 @@ def main() -> int:
     orig_out = run_tool("originality_checklist.py", path)
     print("## ORIGINALITY EXTRACTS")
     print(orig_out)
-    signals.append(("originality", is_clear(orig_out)))
+    signals.append(("originality", is_clear(orig_out, "originality")))
 
     # Cadence / repetition
     cad_out = run_tool("cadence_repetition_scan.py", path)
     print("## CADENCE & REPETITION SIGNALS")
     print(cad_out)
-    signals.append(("cadence", is_clear(cad_out)))
+    signals.append(("cadence", is_clear(cad_out, "cadence")))
 
     # Mechanism alignment
     mech_out = run_tool("mechanism_align_scan.py", path)
     print("## MECHANISM ALIGNMENT SIGNALS")
     print(mech_out)
-    signals.append(("mechanism", is_clear(mech_out)))
+    signals.append(("mechanism", is_clear(mech_out, "mechanism")))
 
     # Summary for quick agent triage
     non_clear = [name for name, clear in signals if not clear]
