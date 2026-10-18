@@ -100,6 +100,18 @@ def checklist_for(heading: str, mech: str) -> list[str]:
     ]
 
 
+def recommended_actions(short_count: int, packet_path: Path) -> list[str]:
+    """Map SHORT-beat signals to smallest useful next tool with concrete copy-paste commands (no invent)."""
+    p = str(packet_path)
+    recs = []
+    if short_count > 0:
+        recs.append(f"expand: grow the SHORT beats using the checklists above; then re-run python3 tools/draft_short_beat_coach.py {p} or python3 tools/draft_expansion_coach.py {p}")
+    else:
+        recs.append(f"no SHORT beats: proceed to full progress view with python3 tools/draft_expansion_coach.py {p} or quality gate python3 tools/draft_pre_apply_coach.py {p}")
+    recs.append(f"quality gate: after expansion, run python3 tools/draft_pre_apply_coach.py {p} for all signals + copy-paste next")
+    return recs
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Coach SHORT body beats in draft.md. No invented spoken lines."
@@ -156,6 +168,12 @@ def main() -> int:
     else:
         print(f"---\n{short_count} SHORT body beat(s). Expand using the items above, then re-run this tool.")
     print()
+
+    print("## RECOMMENDED NEXT (signal-specific; copy-paste ready; no invent)")
+    for rec in recommended_actions(short_count, path):
+        print(f"- {rec}")
+    print()
+
     print("Next (do not invent sources, numbers, or anecdotes):")
     print("- Prefer concrete mechanism language; avoid anti-slop phrases in docs/content_quality.md.")
     print("- Run python3 tools/quality_scan.py and python3 tools/claim_scan.py before apply_script.py --write.")
