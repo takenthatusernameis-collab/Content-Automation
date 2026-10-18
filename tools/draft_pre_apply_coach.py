@@ -53,23 +53,24 @@ def is_clear(section_out: str, section_name: str = "") -> bool:
         return True
     return "clear" in low and len(section_out.strip().splitlines()) < 8
 
-def recommended_actions(non_clear: list[str]) -> list[str]:
-    """Map non-clear signals to the smallest useful next tool (no invent)."""
+def recommended_actions(non_clear: list[str], packet_path: Path) -> list[str]:
+    """Map non-clear signals to the smallest useful next tool with concrete copy-paste commands (no invent)."""
+    p = str(packet_path)
     recs = []
     if "expansion" in non_clear:
-        recs.append("expansion: python3 tools/draft_short_beat_coach.py PATH or python3 tools/draft_word_progress.py PATH")
+        recs.append(f"expansion: python3 tools/draft_short_beat_coach.py {p} or python3 tools/draft_word_progress.py {p}")
     if "quality" in non_clear:
-        recs.append("quality: revise draft WORDS to remove anti-slop phrases (see quality_scan hits above); re-run coach")
+        recs.append("quality: revise draft WORDS to remove anti-slop phrases (see quality_scan hits above); then re-run python3 tools/draft_pre_apply_coach.py " + p)
     if "claim" in non_clear:
-        recs.append("claim: replace unsourced digits/hedges with qualitative language or add source already in research.md; re-run coach")
+        recs.append("claim: replace unsourced digits/hedges with qualitative language or add source already in research.md; then re-run python3 tools/draft_pre_apply_coach.py " + p)
     if "originality" in non_clear:
-        recs.append("originality: address 'no' answers in originality extracts; ground in packet mechanism/viewer")
+        recs.append("originality: address 'no' answers in originality extracts; ground in packet mechanism/viewer; then re-run coach")
     if "cadence" in non_clear:
-        recs.append("cadence: vary sentence length and cut repeated n-grams (see cadence_repetition_scan signals)")
+        recs.append("cadence: vary sentence length and cut repeated n-grams (see cadence_repetition_scan signals); then re-run coach")
     if "mechanism" in non_clear:
-        recs.append("mechanism: weave missing idea.md mechanism terms naturally into WORDS")
+        recs.append("mechanism: weave missing idea.md mechanism terms naturally into WORDS; then re-run coach")
     if not recs:
-        recs.append("all clear: proceed to python3 tools/apply_script.py PATH --from PATH/draft.md --write --refresh after words.py band check")
+        recs.append(f"all clear: proceed to python3 tools/apply_script.py {p} --from {p}/draft.md --write --refresh after words.py band check")
     return recs
 
 def main() -> int:
@@ -158,8 +159,8 @@ def main() -> int:
     print("Revise draft.md for any non-clear signals before apply_script.py --write.")
 
     print()
-    print("## RECOMMENDED NEXT (signal-specific; no invent)")
-    for rec in recommended_actions(non_clear):
+    print("## RECOMMENDED NEXT (signal-specific; copy-paste ready; no invent)")
+    for rec in recommended_actions(non_clear, path):
         print(f"- {rec}")
 
     print()
