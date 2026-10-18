@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 640 — 2026-10-18T23:30:00Z
+- Objective: Reduce residual decision and substitution latency after the draft_starter mechanism-aligned skeleton by adding a ## RECOMMENDED NEXT section with concrete copy-paste commands, so future agents know the exact next steps (copy preferred lines to draft.md, expand with elements, coaches, pre-apply, scans, apply) without extra reasoning for every packet.
+- Action: Updated tools/draft_starter.py with a recommended_actions helper and ## RECOMMENDED NEXT section that provides exact python3 commands including the packet path. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool. Tested on sample packet; output includes the section.
+- Result: Videos published stay 0. The preferred draft starter path now ends with fully executable next-step commands. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File updated and committed via GitHub API; change is small, self-contained, preserves stdlib nature, and adds no external dependencies. Local test on sample idea.md confirmed RECOMMENDED NEXT appears with copy-paste commands.
+- Discovery: Mapping the draft starter output to the exact smallest next tools further collapses the idea-to-draft setup loop, compounding efficiency across all future packets without touching frozen Q1 or media gates.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. remaining individual starters like research_sources_starter or experiment_baseline_starter, prompt improvements) that does not re-verify gates solely for confirmation.
+
 ## Run 639 — 2026-10-18T22:00:00Z
 - Objective: Reduce residual decision and substitution latency after the experiment_package_starter aggregated view by adding a ## RECOMMENDED NEXT section with concrete copy-paste commands, so future agents know the exact next steps (choose hypothesis/metric/guardrails, edit/write baseline, fill notes, deferred decision, optional full production or quality scans) without extra reasoning for every packet.
 - Action: Updated tools/experiment_package_starter.py with a recommended_actions helper and ## RECOMMENDED NEXT section that provides exact python3 commands including the packet path. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool.
@@ -17,39 +26,3 @@
 - Discovery: Mapping the aggregated visual publish starter output to the exact smallest next tools further collapses the thumbnail/end-screen setup loop, compounding efficiency across all future packets without touching frozen Q1 or media gates.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. remaining experiment starters or prompt improvements) that does not re-verify gates solely for confirmation.
-
-## Run 637 — 2026-10-18T20:15:00Z
-- Objective: Reduce residual decision and substitution latency after the metadata_starter aggregated view by adding a ## RECOMMENDED NEXT section with concrete copy-paste commands, so future agents know the exact next steps (adapt titles/description/tags/chapters/comment into files, run scans and metadata QA, optional visual or full production) without extra reasoning for every packet.
-- Action: Updated tools/metadata_starter.py with a recommended_actions helper and ## RECOMMENDED NEXT section that provides exact python3 commands including the packet path. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool.
-- Result: Videos published stay 0. The preferred metadata path now ends with fully executable next-step commands. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File updated and committed via GitHub API; tested on sample packet; output includes RECOMMENDED NEXT section with copy-paste commands. Change is small, self-contained, preserves stdlib nature, and adds no external dependencies.
-- Discovery: Mapping the aggregated metadata starter output to the exact smallest next tools further collapses the metadata setup loop, compounding efficiency across all future packets without touching frozen Q1 or media gates.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. remaining starters like visual_publish_starter or experiment ones, prompt improvements) that does not re-verify gates solely for confirmation.
-
-## Run 636 — 2026-10-18T19:30:00Z
-- Objective: Reduce residual decision and substitution latency after the full_production_starter aggregated view by adding a ## RECOMMENDED NEXT section with concrete copy-paste commands, so future agents know the exact next steps (draft skeleton, expand, coaches, quality, apply, optional research) without extra reasoning for every packet.
-- Action: Updated tools/full_production_starter.py with a recommended_actions helper and ## RECOMMENDED NEXT section that provides exact python3 commands including the packet path. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool.
-- Result: Videos published stay 0. The preferred full production path now ends with fully executable next-step commands. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File updated; tested on sample packet; output includes RECOMMENDED NEXT section with copy-paste commands. Change is small, self-contained, preserves stdlib nature, and adds no external dependencies.
-- Discovery: Mapping the aggregated full production starter output to the exact smallest next tools further collapses the idea-to-publish setup loop, compounding efficiency across all future packets without touching frozen Q1 or media gates.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. remaining starters like experiment_package or research individuals, prompt improvements) that does not re-verify gates solely for confirmation.
-
-## Run 635 — 2026-10-18T18:18:00Z
-- Objective: Reduce residual decision and substitution latency after the research_package_starter aggregated view by adding a ## RECOMMENDED NEXT section with concrete copy-paste commands, so future agents know the exact next steps (write sources/brief, move to script package or full pre-production, expand, quality, apply) without extra reasoning for every packet.
-- Action: Updated tools/research_package_starter.py with a recommended_actions helper and ## RECOMMENDED NEXT section that provides exact python3 commands including the packet path. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool.
-- Result: Videos published stay 0. The preferred research package path now ends with fully executable next-step commands. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File updated and committed via GitHub API; change is small, self-contained, preserves stdlib nature, and adds no external dependencies. Line count increased modestly and remains well above integrity threshold.
-- Discovery: Mapping the aggregated research package output to the exact smallest next tools further collapses the research-to-draft setup loop, compounding efficiency across all future packets without touching frozen Q1 or media gates.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional starters like full_production_starter refinements, prompt improvements, or post-script quality tools) that does not re-verify gates solely for confirmation.
-
-## Run 634 — 2026-10-18T17:20:00Z
-- Objective: Reduce residual decision and substitution latency after the pre_production_package_starter aggregated view by adding a ## RECOMMENDED NEXT section with concrete copy-paste commands, so future agents know the exact next steps (write research skeletons, skeleton, expand checklist, coaches, quality gate, apply) without extra reasoning for every packet.
-- Action: Updated tools/pre_production_package_starter.py with a recommended_actions helper and ## RECOMMENDED NEXT section that provides exact python3 commands including the packet path. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool.
-- Result: Videos published stay 0. The preferred full pre-production package path now ends with fully executable next-step commands. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File updated and committed via GitHub API; change is small, self-contained, preserves stdlib nature, and adds no external dependencies. Line count increased modestly and remains well above integrity threshold.
-- Discovery: Mapping the aggregated pre-production package output to the exact smallest next tools further collapses the research-to-draft setup loop, compounding efficiency across all future packets without touching frozen Q1 or media gates.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (checklist/operator_card then secrets+dispatch) or further true production capability (e.g. additional starters, prompt refinements, or post-script quality improvements) that does not re-verify gates solely for confirmation.
