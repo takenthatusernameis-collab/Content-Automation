@@ -58,6 +58,18 @@ def suggest_claims(fields: dict[str, str]) -> list[str]:
     ]
 
 
+def recommended_actions(packet: str) -> list[str]:
+    """Provide concrete copy-paste next steps after the research brief starter."""
+    p = packet
+    return [
+        f"fill research: edit {p}/research.md with real overview, claims support, and verifiable sources (no invented URLs, numbers, or citations)",
+        f"sources detail: python3 tools/research_sources_starter.py {p} or python3 tools/research_package_starter.py {p} if more structured sources.md is needed",
+        f"claim scan: python3 tools/claim_scan.py {p} after research is filled to confirm support",
+        f"move to draft: python3 tools/draft_starter.py {p} once research is ready",
+        f"full package: python3 tools/pre_production_package_starter.py {p} or python3 tools/script_package_starter.py {p} for research + draft path",
+    ]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Print a structured research.md skeleton grounded in idea.md. No invented sources or numbers."
@@ -135,8 +147,12 @@ Preferred unblocked path remains human OAuth for publish.
         out_path.write_text(skeleton, encoding="utf-8")
         print(f"Wrote {out_path}", file=sys.stderr)
 
-    print("\nNext: fill with real sources, then run tools/claim_scan.py after drafting script WORDS.")
-    print("Complements research_sources_starter.py; use either or both.")
+    print("\n---")
+    print("## RECOMMENDED NEXT (copy-paste ready; no invent)")
+    for rec in recommended_actions(str(path)):
+        print(f"- {rec}")
+    print()
+    print("Next: fill with real sources and support, then run tools/claim_scan.py after drafting script WORDS. Complements research_sources_starter.py; use either or both. Preferred unblocked path remains human OAuth for publish.")
     return 0
 
 
