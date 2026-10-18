@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Pre-apply coach for draft.md: expansion progress + quality + claim + originality + cadence signals.
+"""Pre-apply coach for draft.md: expansion progress + quality + claim + originality + cadence + mechanism alignment signals.
 
 Combines the draft expansion coach view with anti-slop (quality_scan patterns),
 unsourced-claim (claim_scan hedges/digits), packet-grounded originality extracts,
-and cadence/repetition signals on the draft spoken WORDS.
+cadence/repetition signals, and mechanism-term alignment on the draft spoken WORDS.
 Works on draft.md before promotion to script.md. Does not invent lines, numbers,
 sources, or anecdotes. Does not write files. One-command pre-apply quality view that
-compounds by catching padding, slop, unsupported claims, generic drafts, and monotonous
-delivery early for every future packet.
+compounds by catching padding, slop, unsupported claims, generic drafts, monotonous
+delivery, and mechanism drift early for every future packet.
 """
 
 from __future__ import annotations
@@ -40,7 +40,7 @@ def run_tool(name: str, path: Path) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Pre-apply coach: expansion + quality + claim + originality + cadence signals on draft.md. No writes."
+        description="Pre-apply coach: expansion + quality + claim + originality + cadence + mechanism alignment signals on draft.md. No writes."
     )
     parser.add_argument("packet", help="Packet folder containing draft.md (or script.md), idea.md, research.md")
     args = parser.parse_args()
@@ -51,7 +51,7 @@ def main() -> int:
         print(f"No draft.md or script.md in {args.packet}", file=sys.stderr)
         return 1
 
-    print("DRAFT PRE-APPLY COACH (expansion + quality + claim + originality + cadence signals on draft; no invented content)")
+    print("DRAFT PRE-APPLY COACH (expansion + quality + claim + originality + cadence + mechanism alignment signals on draft; no invented content)")
     print(f"Source: {source.name}")
     print(f"Packet: {path.name}")
     print()
@@ -93,9 +93,13 @@ def main() -> int:
     print("## CADENCE & REPETITION SIGNALS")
     print(run_tool("cadence_repetition_scan.py", path))
 
+    # Mechanism alignment
+    print("## MECHANISM ALIGNMENT SIGNALS")
+    print(run_tool("mechanism_align_scan.py", path))
+
     print("Next (do not invent sources, numbers, anecdotes, or spoken lines):")
-    print("- Revise draft.md for any SHORT beats, quality hits, claim hits, originality 'no' answers, or cadence signals.")
-    print("- Prefer concrete mechanism language. Vary sentence length. Cut repeated phrases.")
+    print("- Revise draft.md for any SHORT beats, quality hits, claim hits, originality 'no' answers, cadence signals, or missing mechanism terms.")
+    print("- Prefer concrete mechanism language. Weave missing terms naturally. Vary sentence length. Cut repeated phrases.")
     print("- Then run apply_script.py --write after signals are clear.")
     print("This tool writes nothing. Preferred unblocked path remains human OAuth for publish.")
     return 0
