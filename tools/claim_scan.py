@@ -12,6 +12,8 @@ hit so the revision signal is immediately actionable.
 
 Also scans sources.md (if present) in addition to research.md so that
 structured sources from research_sources_starter.py can satisfy citations.
+Extracts Source log table entries and non-placeholder bullets from sources.md
+and injects them as ## Sources bullets so human_sources can use them.
 """
 
 from __future__ import annotations
@@ -25,7 +27,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "tools") not in sys.path:
     sys.path.insert(0, str(ROOT / "tools"))
 
-from research_brief import human_sources, numbers_in_spoken_words  # noqa: E402
+from research_brief import human_sources, numbers_in_spoken_words, is_placeholder_source  # noqa: E402
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
 HEDGES = (
@@ -117,6 +119,39 @@ def hits(script: str, research: str) -> list[tuple[str, str, str]]:
     return found
 
 
+def extract_sources_from_md(sources_text: str) -> list[str]:
+    """Extract usable source strings from sources.md skeleton or filled file.
+
+    Pulls non-empty Source column values from the Source log table and
+    non-placeholder bullet lines. These are injected so human_sources can
+    treat them as citations.
+    """
+    extras: list[str] = []
+    seen = set()
+    # Table rows: | Claim | Source | Retrieved | Notes |
+    for line in sources_text.splitlines():
+        stripped = line.strip()
+        if not stripped.startswith("|") or stripped.startswith("| Claim") or "---" in stripped:
+            continue
+        parts = [p.strip() for p in stripped.split("|")]
+        # parts[0] empty, [1] Claim, [2] Source, ...
+        if len(parts) > 2 and parts[2] and parts[2].lower() not in ("source", ""):
+            src = parts[2]
+            key = src.lower()
+            if key not in seen and not is_placeholder_source(src):
+                seen.add(key)
+                extras.append(src)
+    # Any bullet lines that are not placeholders
+    for m in re.finditer(r"^-\s+(.+)$", sources_text, re.M):
+        item = m.group(1).strip()
+        if item and not is_placeholder_source(item):
+            key = item.lower()
+            if key not in seen:
+                seen.add(key)
+                extras.append(item)
+    return extras
+
+
 def scan_path(path: Path) -> list[tuple[str, str, str]]:
     script = path / "script.md"
     if not script.is_file():
@@ -127,7 +162,12 @@ def scan_path(path: Path) -> list[tuple[str, str, str]]:
         research_parts.append(research_path.read_text(encoding="utf-8"))
     sources_path = path / "sources.md"
     if sources_path.is_file():
-        research_parts.append(sources_path.read_text(encoding="utf-8"))
+        sources_text = sources_path.read_text(encoding="utf-8")
+        research_parts.append(sources_text)
+        extra = extract_sources_from_md(sources_text)
+        if extra:
+            # Inject as a Sources section so human_sources picks them up
+            research_parts.append("## Sources\n" + "\n".join(f"- {s}" for s in extra))
     research = "\n".join(research_parts)
     return hits(script.read_text(encoding="utf-8"), research)
 
