@@ -63,6 +63,7 @@ def recommended_actions(packet: str) -> list[str]:
     p = packet
     return [
         f"fill research: edit {p}/research.md with real overview, claims support, and verifiable sources (no invented URLs, numbers, or citations)",
+        "  (Filled Source column values in the Primary claims table or non-placeholder bullets are auto-extracted by claim_scan.py; no need to also rewrite a ## Sources section)",
         f"sources detail: python3 tools/research_sources_starter.py {p} or python3 tools/research_package_starter.py {p} if more structured sources.md is needed",
         f"claim scan: python3 tools/claim_scan.py {p} after research is filled to confirm support",
         f"move to draft: python3 tools/draft_starter.py {p} once research is ready",
@@ -116,7 +117,10 @@ This research brief collects support for any consequential claims before script 
 
 ## Source capture
 <!-- Fill with real, verifiable sources. Do not invent URLs, dates, or citations.
-     Prefer the structure from research_sources_starter.py if more detail is needed. -->
+     Prefer the structure from research_sources_starter.py if more detail is needed.
+     Filled Source column values (non-empty, non-placeholder) in the table below
+     and any non-placeholder bullets are automatically extracted by tools/claim_scan.py
+     and treated as citations. You do not need to also rewrite a ## Sources section. -->
 
 ### Primary claims and sources
 | Claim | Source (title + link or citation) | Retrieved | How it supports the claim | Notes |
@@ -130,7 +134,7 @@ This research brief collects support for any consequential claims before script 
 - Primary data or observation:
 
 ## Claim_scan compliance notes
-- Avoid digit tokens unless the exact number appears in a non-placeholder Sources bullet.
+- Avoid digit tokens unless the exact number appears in a non-placeholder Sources bullet or extracted table Source column.
 - Avoid survey/authority hedges ("studies show", "experts agree", etc.) unless sourced.
 - Prefer qualitative language: "the stall repeats when the default is missing" rather than percentages.
 - Update this file before running claim_scan.py or promoting the script.
