@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: updated tools/claim_scan.py to extract Source log table Source-column values and non-placeholder bullets from sources.md and inject them as ## Sources bullets. Applies to every future packet that uses research_sources_starter.py. Reduces the remaining formatting step so the skeleton can be filled in its native table/bullet form and still clear claim_scan.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: operators or agents can fill the sources.md template in the format the starter produces and have citations recognized without also rewriting research.md.
+- Videos published remain 0. Stall continues. Preferred list still complete. Research-to-gate linkage further improved.
+
 - Reusable capability: updated tools/claim_scan.py so sources.md is read and concatenated with research.md when both exist. Applies to every future packet that uses research_sources_starter.py. Reduces an extra edit step between the starter skeleton and a clear claim scan.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: filling the sources.md template can now directly clear claim hits without also updating the research.md stub.
