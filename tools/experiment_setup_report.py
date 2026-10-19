@@ -36,6 +36,21 @@ def run_suggester(script: str, packet: str) -> tuple[int, str]:
     except Exception as e:
         return 1, f"EXCEPTION {script}: {e}"
 
+def recommended_actions(packet: str) -> list[str]:
+    """Provide concrete copy-paste next steps after the experiment setup report."""
+    p = packet
+    return [
+        f"pick metric: choose one primary_metric from the candidates above",
+        f"pick hypothesis: choose one hypothesis template from the suggestions",
+        f"pick guardrails: select 3-5 relevant guardrails",
+        f"baseline starter: python3 tools/experiment_baseline_starter.py {p}",
+        f"notes starter: python3 tools/experiment_notes_starter.py {p}",
+        f"package starter: python3 tools/experiment_package_starter.py {p}",
+        f"setup report again if needed: python3 tools/experiment_setup_report.py {p}",
+        f"quality scans: python3 tools/quality_scan.py {p} && python3 tools/claim_scan.py {p}",
+        f"full production: python3 tools/full_production_starter.py {p}",
+    ]
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Aggregate experiment setup suggestions for a packet. No invented values."
@@ -68,11 +83,16 @@ def main() -> int:
     print(out or "(no output)")
 
     print("\n" + "=" * 72)
+    print("## RECOMMENDED NEXT (copy-paste ready; no invent)")
+    for rec in recommended_actions(str(path)):
+        print(f"- {rec}")
+    print()
     print("Next steps (do not invent numbers or decisions):")
     print("1. Choose one primary_metric from the candidates and one hypothesis template.")
-    print("2. Run: python3 tools/experiment_baseline_starter.py", packet)
-    print("3. Edit the printed JSON: set a real numeric baseline and a documented source (not placeholder/invented).")
-    print("4. After publish + observation window + collected metrics, use experiment_decision_starter.py then edit reason/source.")
+    print("2. Select 3-5 relevant guardrails.")
+    print("3. Run: python3 tools/experiment_baseline_starter.py", packet)
+    print("4. Edit the printed JSON: set a real numeric baseline and a documented source (not placeholder/invented).")
+    print("5. After publish + observation window + collected metrics, use experiment_decision_starter.py then edit reason/source.")
     print("experiment_loop.py rejects missing numeric baselines, placeholder sources, and multi-variable changes.")
     print("Preferred unblocked path remains human OAuth (secrets + dispatch) before any live metrics exist.")
     return 0
