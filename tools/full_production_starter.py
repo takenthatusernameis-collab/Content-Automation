@@ -47,7 +47,7 @@ def recommended_actions(packet: str) -> list[str]:
         f"quality scans: python3 tools/quality_scan.py {p} && python3 tools/claim_scan.py {p} && python3 tools/title_scan.py {p} && python3 tools/description_scan.py {p}",
         f"more scans: python3 tools/tags_scan.py {p} && python3 tools/first_comment_scan.py {p} && python3 tools/chapters_scan.py {p} && python3 tools/thumbnail_scan.py {p} && python3 tools/end_screen_scan.py {p}",
         f"apply script: python3 tools/apply_script.py {p} --from {p}/draft.md --write --refresh once signals clear",
-        f"or research first if needed: python3 tools/research_package_starter.py {p}",
+        f"for research first if needed: python3 tools/research_package_starter.py {p}  # Source columns/bullets auto-clear citations via claim_scan",
     ]
 
 def main() -> int:
@@ -90,6 +90,7 @@ def main() -> int:
     print("Copy preferred sections into the packet files (draft.md, titles.md, publish.md, chapters.md, assets.md).")
     print("Expand body beats to word targets, keep total spoken WORDS 900-1500.")
     print("Then run the scanners listed above. Do not invent statistics or anecdotes. Keep language calm and operational.")
+    print("Filled Source column values (non-empty, non-placeholder) in the Primary claims table or Source log table from research.md or sources.md, and non-placeholder bullets, are auto-extracted by claim_scan.py and treated as citations. No need to also rewrite a ## Sources section.")
     print("Preferred unblocked path remains human OAuth (secrets + dispatch) before any live publish.")
     return 0
 
