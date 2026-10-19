@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: enhanced tools/experiment_setup_report.py with a ## RECOMMENDED NEXT section that provides concrete copy-paste ready commands for picking one primary_metric, one hypothesis template, and 3-5 guardrails, then baseline/notes/package starters, setup report, quality scans, or full production. Applies to every future packet without touching frozen Q1. Makes the aggregated experiment setup suggestions more immediately actionable by eliminating residual decision and substitution steps after the combined report view, further reducing agent latency in the experiment documentation setup stage.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: future packets obtain both the complete aggregated setup suggestions and fully executable next-step commands in one command; agents spend less time preparing the follow-up before filling real baselines or moving to package/quality gates.
+- Videos published remain 0. Stall continues. Preferred list still complete. Status-tool saturation avoided this run.
+
 - Reusable capability: enhanced tools/experiment_guardrail_suggest.py and tools/experiment_hypothesis_suggest.py with ## RECOMMENDED NEXT sections that provide concrete copy-paste ready commands for picking relevant guardrails/hypothesis templates, then baseline/notes/package starters, setup report, quality scans, or full production. Applies to every future packet without touching frozen Q1. Makes the experiment guardrail and hypothesis suggestions more immediately actionable by eliminating residual decision and substitution steps after the suggest views, further reducing agent latency in the experiment documentation setup stage.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: future packets obtain both the complete guardrail/hypothesis suggestions and fully executable next-step commands in one command; agents spend less time preparing the follow-up before filling real baselines or moving to package/quality gates.
