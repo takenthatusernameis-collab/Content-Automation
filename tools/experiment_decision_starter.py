@@ -45,6 +45,20 @@ def build_skeleton(comparison: dict | None, change: str = "") -> dict:
         ),
     }
 
+def recommended_actions(packet: str) -> list[str]:
+    """Provide concrete copy-paste next steps after the decision skeleton."""
+    p = packet
+    return [
+        f"edit skeleton: set an explicit decision (keep/discard/retest), real reason, and documented non-placeholder source in the JSON above",
+        f"write decision: python3 tools/experiment_decision_starter.py {p} --write",
+        f"notes if needed: python3 tools/experiment_notes_starter.py {p}",
+        f"package view: python3 tools/experiment_package_starter.py {p}",
+        f"setup suggestions: python3 tools/experiment_setup_report.py {p}",
+        f"quality scans: python3 tools/quality_scan.py {p} && python3 tools/claim_scan.py {p}",
+        f"full production if needed: python3 tools/full_production_starter.py {p}",
+        "do not invent decisions or results; experiment_loop.py rejects placeholder sources and ignores until comparison exists",
+    ]
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Print experiment_decision.json skeleton. No invented decisions."
@@ -76,6 +90,11 @@ def main() -> int:
     print("Copy the JSON above to videos/<id>-<slug>/experiment_decision.json after")
     print("setting an explicit keep/discard/retest, a real reason, and a documented non-placeholder source.")
     print("Do not invent decisions or results. experiment_loop.py will reject invalid files and ignore them until comparison exists.")
+    print()
+    print("## RECOMMENDED NEXT (copy-paste ready; no invent)")
+    for rec in recommended_actions(str(path)):
+        print(f"- {rec}")
+    print()
     if args.write:
         dest = path / "experiment_decision.json"
         dest.write_text(out, encoding="utf-8")
