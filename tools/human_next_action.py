@@ -21,6 +21,8 @@ def main() -> int:
     print("Videos published remain 0 until the three secrets are set and execute is dispatched.")
     print("Confirm local readiness first (no poll, no materialize): python3 tools/publish_readiness.py")
     print("  (expects status: READY_FOR_HUMAN_DISPATCH when media fingerprint is PRESENT and next_action is upload-blocked)")
+    print("Stall length signal: python3 tools/stall_duration.py")
+    print("Anti-rediscovery saturation: python3 tools/saturation_guard.py")
     print()
     print("Exact human steps:")
     print("1. Google Cloud: enable YouTube Data API v3 + YouTube Analytics API.")
