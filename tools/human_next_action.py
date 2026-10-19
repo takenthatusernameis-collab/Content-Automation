@@ -43,6 +43,7 @@ def main() -> int:
     print("6. Dispatch .github/workflows/youtube-production.yml with execute=true (privacy stays private).")
     print()
     print("After a private provider_video_id appears in upload_state.json, wait >=7 days then dispatch collect_feedback=true.")
+    print("Post-upload sequence (once id exists): python3 tools/after_upload_steps.py")
     print("Do not poll secrets from an agent run. Full checklist: docs/human_oauth_checklist.md")
     print("Operator card and escalation: docs/operator_escalation.md")
     return 0
