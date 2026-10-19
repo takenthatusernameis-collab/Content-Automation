@@ -19,6 +19,8 @@ def main() -> int:
     print("HUMAN NEXT ACTION (concise; human-only; do not invent credentials)")
     print("Primary blocker: YouTube Data API OAuth secrets absent on GitHub Actions.")
     print("Videos published remain 0 until the three secrets are set and execute is dispatched.")
+    print("Confirm local readiness first (no poll, no materialize): python3 tools/publish_readiness.py")
+    print("  (expects status: READY_FOR_HUMAN_DISPATCH when media fingerprint is PRESENT and next_action is upload-blocked)")
     print()
     print("Exact human steps:")
     print("1. Google Cloud: enable YouTube Data API v3 + YouTube Analytics API.")
