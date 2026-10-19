@@ -138,6 +138,15 @@ def main() -> int:
     sys.stdout.write(url + "\n")
     print("SCOPES " + ",".join(SCOPES))
     print("Redirect URI is http://localhost. The browser will not load that page. Paste the full address-bar URL on stdin. Do not commit the code.")
+    print()
+    print("After the refresh token is written outside the repo, set the three secrets (paste values into the prompts; never put them on the command line or in a file):")
+    print("  gh secret set YOUTUBE_CLIENT_ID --repo takenthatusernameis-collab/Content-Automation")
+    print("  gh secret set YOUTUBE_CLIENT_SECRET --repo takenthatusernameis-collab/Content-Automation")
+    print("  gh secret set YOUTUBE_REFRESH_TOKEN --repo takenthatusernameis-collab/Content-Automation")
+    print("Then confirm readiness: python3 tools/publish_readiness.py")
+    print("Dispatch once (privacy stays private):")
+    print("  gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false")
+    print("Full concise path: python3 tools/human_next_action.py")
     return 0
 
 
