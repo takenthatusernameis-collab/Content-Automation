@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: updated tools/claim_scan.py so sources.md is read and concatenated with research.md when both exist. Applies to every future packet that uses research_sources_starter.py. Reduces an extra edit step between the starter skeleton and a clear claim scan.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: filling the sources.md template can now directly clear claim hits without also updating the research.md stub.
+- Videos published remain 0. Stall continues. Preferred list still complete. Research-to-gate linkage improved.
+
 - Reusable capability: updated tools/oauth_exchange.py so the consent-URL path also prints the three gh secret set commands, the publish_readiness check, and the one-time execute=true dispatch. Applies to every future human who mints a token. Reduces the chance of missing a step or having to leave the terminal to recall the exact commands.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: the operator sees the complete remaining path immediately after the consent URL is printed.
@@ -9,8 +14,3 @@
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: the operator or next agent sees the post-upload command without needing to recall or separately locate after_upload_steps.py.
 - Videos published remain 0. Stall continues. Preferred list still complete. End-to-end path clarity improved.
-
-- Reusable capability: timestamped inspection record (Run 656) confirms the system remains locally ready and that further pure status/polish has low incremental value. Applies to every future run by making the current stall length and preferred next action explicit without requiring reconstruction. Reduces rediscovery of the long-running OAuth idle state.
-- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
-- Human labor reduction: future agents and the operator start from a clear 2026-10-19T15:30:00Z baseline instead of re-reading the full history.
-- Videos published remain 0. Stall continues. Preferred list still complete. Clarity of next action improved.
