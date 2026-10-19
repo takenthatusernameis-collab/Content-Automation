@@ -9,6 +9,9 @@ set_status.py refuses ready_for_vo while a hit remains.
 
 Output includes a short context snippet around the first match of each
 hit so the revision signal is immediately actionable.
+
+Also scans sources.md (if present) in addition to research.md so that
+structured sources from research_sources_starter.py can satisfy citations.
 """
 
 from __future__ import annotations
@@ -118,8 +121,14 @@ def scan_path(path: Path) -> list[tuple[str, str, str]]:
     script = path / "script.md"
     if not script.is_file():
         return []
+    research_parts = []
     research_path = path / "research.md"
-    research = research_path.read_text(encoding="utf-8") if research_path.is_file() else ""
+    if research_path.is_file():
+        research_parts.append(research_path.read_text(encoding="utf-8"))
+    sources_path = path / "sources.md"
+    if sources_path.is_file():
+        research_parts.append(sources_path.read_text(encoding="utf-8"))
+    research = "\n".join(research_parts)
     return hits(script.read_text(encoding="utf-8"), research)
 
 
