@@ -39,6 +39,7 @@ def recommended_actions(packet: str) -> list[str]:
     p = packet
     return [
         f"fill sources: edit {p}/sources.md with real, verifiable sources for the listed claims (no invented URLs or citations)",
+        "  (Source-log table Source column or non-placeholder bullets are auto-extracted by claim_scan.py; no need to also rewrite research.md)",
         f"research brief: python3 tools/research_brief_starter.py {p} or python3 tools/research_package_starter.py {p}",
         f"claim scan: python3 tools/claim_scan.py {p} after sources are filled to confirm support",
         f"move to draft: python3 tools/draft_starter.py {p} once research is ready",
@@ -96,6 +97,9 @@ def main() -> int:
      claim_scan.py will flag unsupported numbers or assertions. -->
 
 ## Source log
+<!-- Filled Source column values (non-empty, non-placeholder) and any non-placeholder
+     bullets elsewhere in this file are automatically extracted by tools/claim_scan.py
+     and treated as citations. You do not need to also rewrite research.md. -->
 | Claim | Source | Retrieved | Notes |
 |-------|--------|-----------|-------|
 |       |        |           |       |

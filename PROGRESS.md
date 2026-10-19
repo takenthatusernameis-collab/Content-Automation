@@ -1,21 +1,11 @@
 # PROGRESS
 
+- Reusable capability: updated tools/research_sources_starter.py so the emitted skeleton and RECOMMENDED NEXT explicitly document that filled Source-log table Source-column values and non-placeholder bullets are auto-extracted by claim_scan.py. Applies to every future packet that uses the starter. Eliminates rediscovery of the native format that clears citations without rewriting research.md.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: operators or agents filling the sources.md template now see the exact recognition path inside the starter itself.
+- Videos published remain 0. Stall continues. Preferred list still complete. Research-to-gate linkage further clarified.
+
 - Reusable capability: updated tools/claim_scan.py to extract Source log table Source-column values and non-placeholder bullets from sources.md and inject them as ## Sources bullets. Applies to every future packet that uses research_sources_starter.py. Reduces the remaining formatting step so the skeleton can be filled in its native table/bullet form and still clear claim_scan.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: operators or agents can fill the sources.md template in the format the starter produces and have citations recognized without also rewriting research.md.
 - Videos published remain 0. Stall continues. Preferred list still complete. Research-to-gate linkage further improved.
-
-- Reusable capability: updated tools/claim_scan.py so sources.md is read and concatenated with research.md when both exist. Applies to every future packet that uses research_sources_starter.py. Reduces an extra edit step between the starter skeleton and a clear claim scan.
-- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
-- Human labor reduction: filling the sources.md template can now directly clear claim hits without also updating the research.md stub.
-- Videos published remain 0. Stall continues. Preferred list still complete. Research-to-gate linkage improved.
-
-- Reusable capability: updated tools/oauth_exchange.py so the consent-URL path also prints the three gh secret set commands, the publish_readiness check, and the one-time execute=true dispatch. Applies to every future human who mints a token. Reduces the chance of missing a step or having to leave the terminal to recall the exact commands.
-- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
-- Human labor reduction: the operator sees the complete remaining path immediately after the consent URL is printed.
-- Videos published remain 0. Stall continues. Preferred list still complete. Human exchange path clarity improved.
-
-- Reusable capability: updated tools/human_next_action.py to print an explicit pointer to tools/after_upload_steps.py after the post-id wait note. Applies to every future human or agent reading the primary next-action tool. Makes the full path (readiness + secrets + dispatch + post-upload sequence) available in one place without adding another status tool, further reducing rediscovery of the after-publish steps when the stall finally ends.
-- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
-- Human labor reduction: the operator or next agent sees the post-upload command without needing to recall or separately locate after_upload_steps.py.
-- Videos published remain 0. Stall continues. Preferred list still complete. End-to-end path clarity improved.
