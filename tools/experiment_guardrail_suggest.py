@@ -108,6 +108,22 @@ def detect_change(packet: Path) -> str:
     return "mechanism_framing"
 
 
+def recommended_actions(packet: str) -> list[str]:
+    """Provide concrete copy-paste next steps after the guardrail suggestions."""
+    p = packet
+    return [
+        "pick relevant guardrails from the list above and add them to experiment notes or decision reason",
+        f"baseline skeleton: python3 tools/experiment_baseline_starter.py {p}",
+        f"notes skeleton: python3 tools/experiment_notes_starter.py {p}",
+        f"hypothesis templates: python3 tools/experiment_hypothesis_suggest.py {p}",
+        f"package view: python3 tools/experiment_package_starter.py {p}",
+        f"setup suggestions: python3 tools/experiment_setup_report.py {p}",
+        f"quality scans: python3 tools/quality_scan.py {p} && python3 tools/claim_scan.py {p}",
+        f"full production if needed: python3 tools/full_production_starter.py {p}",
+        "do not invent numeric baselines, results, or decisions; experiment_loop.py rejects placeholder sources",
+    ]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Suggest guardrails for an experiment change. No invented results."
@@ -132,6 +148,11 @@ def main() -> int:
     print("These reduce common single-variable violations and metric confusion.")
     print("Do not invent a baseline or result. Use experiment_baseline_starter.py and experiment_decision_starter.py.")
     print("experiment_loop.py still requires a documented numeric baseline and explicit decision file.")
+    print()
+    print("## RECOMMENDED NEXT (copy-paste ready; no invent)")
+    for rec in recommended_actions(str(path)):
+        print(f"- {rec}")
+    print()
     return 0
 
 
