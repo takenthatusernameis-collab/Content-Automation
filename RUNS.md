@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 652 — 2026-10-19T11:12:00Z
+- Objective: Add a reusable numeric signal of the OAuth idle streak length so future agents more reliably prefer the human step over further inspection while videos published stay 0.
+- Action: Created tools/stall_duration.py that scans recent RUNS.md sections for consecutive STALL_OAUTH_IDLE / secrets-absent notes with zero published videos. Self-contained stdlib, no writes, no polls. Updated STATE.md, NEXT.md, RUNS.md, and PROGRESS.md. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. New tool available to report consecutive_stall_runs. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: New file and state updates committed via GitHub API push. Tool is small, deterministic, and adds no external dependencies.
+- Discovery: A simple streak counter compounds the anti-rediscovery signal by making the duration of the known stall explicit and numeric.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Avoid more RECOMMENDED NEXT, status, or inspection polish.
+
 ## Run 651 — 2026-10-19T07:15:00Z
 - Objective: Strengthen anti-drift by broadening saturation_guard to flag pure documentation/inspection-only runs (in addition to status tools and experiment polish) while videos published stay 0, so future agents more reliably prefer the human OAuth step or a true production capability over repeated state rediscovery.
 - Action: Updated tools/saturation_guard.py to add DOC_ONLY_RE matching patterns like "Updated state files only", "No code changes", "pure documentation". Adjusted docstring, messages, and is_status_only logic. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner. Avoided adding another pure status tool.
