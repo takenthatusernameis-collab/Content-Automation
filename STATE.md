@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-19T17:25:00Z (Run 658)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/oauth_exchange.py so that when it prints the consent URL it also prints the exact three secret-set commands, the readiness check, and the one-time execute=true dispatch. This compounds the human token-mint path by keeping the full next steps visible in the same terminal session the human already uses for the exchange, without adding a new status printer. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
+
 2026-10-19T16:25:00Z (Run 657)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected live tree. Updated tools/human_next_action.py to include an explicit pointer to tools/after_upload_steps.py so the post-publish sequence is visible in the primary human-next tool once a private video id exists. This compounds the end-to-end path without adding a new printer. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
