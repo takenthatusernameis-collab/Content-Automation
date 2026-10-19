@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-19T20:15:00Z (Run 663)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Updated tools/research_package_starter.py so its RECOMMENDED NEXT and final notes explicitly document that filled Source column values (Primary claims or Source log tables) and non-placeholder bullets in either research.md or sources.md are auto-extracted by claim_scan.py. This compounds Runs 659-662 by making the aggregator starter also self-documenting about the native table format that clears citations. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
+
 2026-10-19T19:13:00Z (Run 662)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Extended tools/claim_scan.py so that Source column values from tables in either research.md or sources.md (plus non-placeholder bullets) are extracted and injected as ## Sources bullets. Updated tools/research_brief_starter.py skeleton and RECOMMENDED NEXT to document that filled Primary claims table Source-column values are auto-extracted by claim_scan.py. This compounds Runs 659-661 by making the research_brief_starter table format native for citation clearing, matching the sources.md path. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
