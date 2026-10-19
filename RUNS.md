@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 656 — 2026-10-19T15:30:00Z
+- Objective: Inspect current state, confirm stall and readiness, and leave a clear timestamped record so the next run does not reconstruct history. Prefer true capability or human step over further status polish.
+- Action: Read STATE.md, NEXT.md, RUNS.md, ROADMAP.md, BLOCKED.md, human_next_action.py, and related files via GitHub tools. Updated STATE.md, NEXT.md, RUNS.md, and PROGRESS.md with this inspection. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. Q1 remains locally ready for human dispatch. Preferred list complete. Saturation risk on status tools noted.
+- Verification: Live tree contents retrieved and new state files prepared from prior SHAs then written via GitHub API.
+- Discovery: Hundreds of runs have left the external OAuth blocker unchanged; further pure inspection or one-liner printers have low compounding value.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Use the readiness + stall + saturation lines. Avoid more status/polish tools.
+
 ## Run 655 — 2026-10-19T14:15:00Z
 - Objective: Compound the primary human next-action tool by surfacing the existing stall_duration and saturation_guard signals so one command shows readiness + stall length + saturation status.
 - Action: Updated tools/human_next_action.py to print the two signal commands after the readiness line. Updated STATE.md, NEXT.md, RUNS.md, and PROGRESS.md. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
@@ -17,12 +26,3 @@
 - Discovery: Integrating the readiness check into the existing human-next tool reduces the chance of rediscovery of the correct order when the human step is finally taken.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Use the readiness line now printed by human_next_action.py. Avoid more RECOMMENDED NEXT, status, or inspection polish.
-
-## Run 653 — 2026-10-19T12:15:00Z
-- Objective: Implement the missing publish_readiness tool already referenced in status_report so agents and humans have a one-command local confirmation that Q1 is READY_FOR_HUMAN_DISPATCH without full QA or secret polling.
-- Action: Created tools/publish_readiness.py (stdlib, no writes, reuses media_fingerprint and next_action). Updated STATE.md, NEXT.md, RUNS.md, and PROGRESS.md. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
-- Result: Videos published stay 0. New readiness check available. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: File pushed via GitHub API. Tool is small, deterministic, and matches the existing one-liner contract in status_report.py.
-- Discovery: The tool was already advertised in status_report STATIC_ONE_LINERS but absent from the tree; filling the gap reduces rediscovery when the human step is finally taken.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Use python3 tools/publish_readiness.py first to confirm local readiness. Avoid more RECOMMENDED NEXT, status, or inspection polish.
