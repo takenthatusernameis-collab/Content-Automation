@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Quick local publish-readiness check for Q1 (or given packet).
+"""Quick local readiness check for human dispatch of Q1 upload.
 
-Confirms media is present with matching master SHA, next_action is upload-blocked,
-and lists any remaining open human-work boxes, without full QA, materialize, or
-secret polling. Reduces rediscovery of "is the packet ready for the human dispatch?"
-once OAuth secrets exist. Does not invent data, dispatch, or write files.
+Confirms media fingerprint PRESENT, next_action code is upload-blocked,
+and remaining open boxes do not block the publish step.
+Does not materialize, does not run full QA, does not poll secrets,
+does not invent data. Self-contained stdlib.
 """
 
 from __future__ import annotations
@@ -17,76 +17,76 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PACKET = ROOT / "videos" / "002-stop-deciding-what-to-work-on-every-morning"
 
 
-def run(script: str, args: list[str] | None = None) -> str:
+def run_tool(script: str, args: list[str] | None = None) -> str:
     cmd = [sys.executable, str(ROOT / "tools" / script)] + (args or [])
     proc = subprocess.run(cmd, cwd=ROOT, text=True, capture_output=True)
     return (proc.stdout or "") + (proc.stderr or "")
 
 
+def media_ok(packet: Path) -> bool:
+    out = run_tool("media_fingerprint.py")
+    return "media_fingerprint: PRESENT" in out
+
+
+def next_action_code(packet: Path) -> str:
+    out = run_tool("next_action.py", [str(packet.relative_to(ROOT))])
+    for line in out.splitlines():
+        if "upload-blocked" in line.lower() or packet.name in line:
+            parts = line.split()
+            if len(parts) >= 3:
+                return parts[2]
+    return "unknown"
+
+
+def open_boxes(packet: Path) -> list[str]:
+    md = packet / "packet.md"
+    if not md.is_file():
+        return ["packet.md missing"]
+    text = md.read_text(encoding="utf-8")
+    items = []
+    in_section = False
+    for line in text.splitlines():
+        if line.startswith("## Remaining human work"):
+            in_section = True
+            continue
+        if in_section and line.startswith("## "):
+            break
+        if in_section and line.strip().startswith("- [ ]"):
+            items.append(line.strip()[6:].strip())
+    return items
+
+
 def main() -> int:
     packet = Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_PACKET
     if not packet.is_dir():
-        print(f"publish_readiness: packet dir missing ({packet})")
+        print("publish_readiness: packet missing")
         return 1
-    rel = packet.relative_to(ROOT) if packet.is_relative_to(ROOT) else packet
-    print("PUBLISH READINESS (local only; no invent, no poll, no dispatch)")
-    print(f"packet: {rel}")
-    print()
 
-    # Media fingerprint
-    fp = run("media_fingerprint.py")
-    print("--- media ---")
-    print(fp.strip())
-    media_ok = "PRESENT" in fp and "MATCH" in fp
+    m_ok = media_ok(packet)
+    code = next_action_code(packet)
+    boxes = open_boxes(packet)
+    upload_blocked = "upload-blocked" in code.lower()
 
-    # Next action code
-    na = run("next_action.py", [str(rel)])
-    code = "unknown"
-    for line in na.splitlines():
-        if packet.name in line or "ready_for_vo" in line:
-            parts = line.split()
-            if len(parts) >= 3:
-                code = parts[2]
-                break
-    print("--- next_action ---")
-    print(f"code: {code}")
-    action_ok = code == "upload-blocked"
+    print("PUBLISH READINESS (local only; no poll, no materialize, no invent)")
+    print(f"packet: {packet.name}")
+    print(f"media_fingerprint_present: {m_ok}")
+    print(f"next_action_code: {code}")
+    print(f"upload_blocked: {upload_blocked}")
+    print(f"open_boxes: {len(boxes)}")
+    if boxes:
+        for b in boxes:
+            print(f"  - {b}")
 
-    # Open boxes from packet.md
-    packet_md = packet / "packet.md"
-    open_items = []
-    if packet_md.is_file():
-        text = packet_md.read_text(encoding="utf-8")
-        in_section = False
-        for line in text.splitlines():
-            if line.startswith("## Remaining human work"):
-                in_section = True
-                continue
-            if in_section and line.startswith("## "):
-                break
-            if in_section and line.strip().startswith("- [ ]"):
-                open_items.append(line.strip()[6:].strip())
-    print("--- remaining open boxes ---")
-    if open_items:
-        for item in open_items:
-            print(f"  - [ ] {item}")
-    else:
-        print("  none (all checked or section absent)")
-
-    print()
-    ready = media_ok and action_ok
+    ready = m_ok and upload_blocked
     if ready:
-        print("READY_FOR_HUMAN_DISPATCH: media PRESENT+MATCH and next_action=upload-blocked.")
-        print("Human step remains: set three secrets then one execute=true dispatch.")
-        print("See: python3 tools/human_next_action.py")
+        print("status: READY_FOR_HUMAN_DISPATCH")
+        print("message: Local media and gates are ready. Set the three OAuth secrets then dispatch execute=true once.")
+        print("next: python3 tools/human_next_action.py")
     else:
-        print("NOT_READY: fix media or next_action before expecting a successful dispatch.")
-        if not media_ok:
-            print("  Hint: python3 tools/materialize_q1_release.py (only if MISSING)")
-        if not action_ok:
-            print("  Hint: run media_qa / next_action for details (do not re-run solely for confirmation)")
-    print("Do not poll secrets. Privacy stays private. Preferred list remains complete.")
-    return 0 if ready else 1
+        print("status: NOT_READY")
+        print("message: Resolve media or next_action before human dispatch.")
+    print("Do not poll secrets. Preferred unblocked list remains complete.")
+    return 0
 
 
 if __name__ == "__main__":

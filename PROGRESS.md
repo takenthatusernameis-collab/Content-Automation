@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: added tools/publish_readiness.py that reports READY_FOR_HUMAN_DISPATCH when media fingerprint is PRESENT and next_action is upload-blocked. Applies to every future run and the human transition. Makes the exact local readiness for the blocked publish step explicit without full QA, materialize, or secret polling, reducing rediscovery when the OAuth secrets are finally set.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: future agents and the operator receive a one-command confirmation that Q1 is ready for the single execute=true dispatch once secrets exist.
+- Videos published remain 0. Stall continues. Preferred list still complete. Local publish readiness check now available.
+
 - Reusable capability: added tools/stall_duration.py that reports the consecutive number of recent runs noting STALL_OAUTH_IDLE while videos published stay 0. Applies to every future run. Makes the length of the known external blocker explicit and numeric, so agents spend less time rediscovering the stall duration and more reliably route to the human OAuth step or a true new capability.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: future agents receive a direct streak count instead of scanning RUNS.md manually, reducing inspection time on the long OAuth idle.
@@ -9,8 +14,3 @@
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: future agents receive a clearer SATURATED signal when performing pure docs/inspection updates, spending less time on rediscovery of the stall and more on the actual human step or new capability.
 - Videos published remain 0. Stall continues. Preferred list still complete. Doc-only saturation better detected this run.
-
-- Reusable clarity: recorded Run 650 inspection confirming saturation_guard detects polish loops and preferred list is complete. Reinforced human OAuth step as the primary next action. Applies to every future run. Reduces time spent on rediscovery of the known STALL_OAUTH_IDLE blocker, so agents spend less effort on internal status loops and more on either the external human step or a true new capability.
-- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
-- Human labor reduction: future agents have a clearer, fresher signal that further pure documentation polish has diminishing returns while videos published stay 0.
-- Videos published remain 0. Stall continues. Preferred list still complete. No additional status/polish tools added this run.

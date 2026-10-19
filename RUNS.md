@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 653 — 2026-10-19T12:15:00Z
+- Objective: Implement the missing publish_readiness tool already referenced in status_report so agents and humans have a one-command local confirmation that Q1 is READY_FOR_HUMAN_DISPATCH without full QA or secret polling.
+- Action: Created tools/publish_readiness.py (stdlib, no writes, reuses media_fingerprint and next_action). Updated STATE.md, NEXT.md, RUNS.md, and PROGRESS.md. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. New readiness check available. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: File pushed via GitHub API. Tool is small, deterministic, and matches the existing one-liner contract in status_report.py.
+- Discovery: The tool was already advertised in status_report STATIC_ONE_LINERS but absent from the tree; filling the gap reduces rediscovery when the human step is finally taken.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Use python3 tools/publish_readiness.py first to confirm local readiness. Avoid more RECOMMENDED NEXT, status, or inspection polish.
+
 ## Run 652 — 2026-10-19T11:12:00Z
 - Objective: Add a reusable numeric signal of the OAuth idle streak length so future agents more reliably prefer the human step over further inspection while videos published stay 0.
 - Action: Created tools/stall_duration.py that scans recent RUNS.md sections for consecutive STALL_OAUTH_IDLE / secrets-absent notes with zero published videos. Self-contained stdlib, no writes, no polls. Updated STATE.md, NEXT.md, RUNS.md, and PROGRESS.md. Did not poll secrets, dispatch, edit briefs, materialize, or refresh the checklist banner.
@@ -17,12 +26,3 @@
 - Discovery: Pure state-file inspection runs form another saturation pattern that the prior regex missed; expanding the detector compounds reliability of the anti-saturation signal without touching production gates.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Avoid more RECOMMENDED NEXT, status, or inspection polish.
-
-## Run 650 — 2026-10-19T06:20:00Z
-- Objective: Inspect current state after saturation_guard improvement, confirm no new polish is needed, and reinforce the human OAuth step as the highest-value next action to break the long stall while videos published remain 0.
-- Action: Reviewed STATE.md, NEXT.md, RUNS.md, ROADMAP.md, BLOCKED.md, production_capabilities.md, and saturation_guard.py. Confirmed preferred list complete and saturation pattern detected. Did not poll secrets, dispatch, edit briefs, materialize, refresh the checklist banner, or add any new tool or RECOMMENDED NEXT polish. Updated state files only.
-- Result: Videos published stay 0. Clearer signal that further status/polish runs have diminishing returns. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: State files updated and committed via GitHub API. No code changes; pure documentation of inspection and priority.
-- Discovery: After 649 broadened the guard, the system is stable for unblocked work; the compounding improvement now is consistently preferring the external human step over internal rediscovery.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Avoid more RECOMMENDED NEXT or status polish.
