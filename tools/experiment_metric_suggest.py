@@ -106,6 +106,22 @@ def detect_change(packet: Path) -> str:
     return "mechanism_framing"
 
 
+def recommended_actions(packet: str) -> list[str]:
+    """Provide concrete copy-paste next steps after the metric suggestions."""
+    p = packet
+    return [
+        f"pick one primary_metric from the list above and document a real numeric baseline + source",
+        f"baseline skeleton: python3 tools/experiment_baseline_starter.py {p}",
+        f"notes skeleton: python3 tools/experiment_notes_starter.py {p}",
+        f"guardrails: python3 tools/experiment_guardrail_suggest.py {p}",
+        f"package view: python3 tools/experiment_package_starter.py {p}",
+        f"setup suggestions: python3 tools/experiment_setup_report.py {p}",
+        f"quality scans: python3 tools/quality_scan.py {p} && python3 tools/claim_scan.py {p}",
+        f"full production if needed: python3 tools/full_production_starter.py {p}",
+        "do not invent numeric baselines or results; experiment_loop.py rejects placeholder sources",
+    ]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Suggest primary metrics for an experiment change. No invented values."
@@ -130,6 +146,11 @@ def main() -> int:
     print("These are common YouTube Analytics fields that can be compared numerically.")
     print("Do not invent a baseline value. Use experiment_baseline_starter.py then edit.")
     print("experiment_loop.py will reject placeholder sources and missing numeric baselines.")
+    print()
+    print("## RECOMMENDED NEXT (copy-paste ready; no invent)")
+    for rec in recommended_actions(str(path)):
+        print(f"- {rec}")
+    print()
     return 0
 
 
