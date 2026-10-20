@@ -5,6 +5,9 @@ Prints candidate rows in markdown table format that can be pasted into
 docs/topic_queue.md. Does not invent sources, numbers, or specific claims.
 Does not write the queue file. Does not scaffold packets. Does not poll secrets.
 Useful for expanding the idea inventory while the publish path is blocked.
+
+Idea skeletons for the top candidates are emitted via idea_brief.paste_block so
+the format matches apply_idea / idea_brief --queue exactly (no hand-format drift).
 """
 
 from __future__ import annotations
@@ -20,6 +23,7 @@ if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
 from queue_lib import parse_queue  # noqa: E402
+from idea_brief import paste_block  # noqa: E402
 
 CHANNEL = ROOT / "docs" / "channel.md"
 QUEUE = ROOT / "docs" / "topic_queue.md"
@@ -152,21 +156,15 @@ def main() -> int:
     print("After adding the row(s), run: python3 tools/next_topic.py")
     print(f"Or get paste-ready idea.md (after row is in queue): python3 tools/idea_brief.py --queue Q{start_id}")
     print()
-    # Print ready idea skeletons for the first 2 candidates so the path to idea.md is one step shorter
-    print("Ready idea.md skeletons (paste into a new idea.md after scaffold; grounded, no invented claims):")
+    # Canonical idea.md skeletons via idea_brief.paste_block (same path as apply_idea)
+    print("Ready idea.md skeletons (canonical paste_block format; grounded, no invented claims):")
     print("=" * 60)
     for i, (title, one, prob) in enumerate(rows[:2]):
         qid = start_id + i
         print(f"# For Q{qid} — {title}")
-        print("# Idea")
-        print()
-        print(f"- topic: {title}")
-        print(f"- viewer: Someone who wants focused work but stalls on this: {prob[:80]}")
-        print(f"- problem: {prob}")
-        print(f"- mechanism (the system, not the pep talk): {one}")
-        print(f"- why now: The stall in this packet is this: {prob}")
-        print("- related videos to avoid repeating: none published yet")
-        print()
+        # Pass explicit problem/mechanism so paste_block does not depend on a queue row yet
+        block = paste_block(title, problem=prob, mechanism=one, topic=title)
+        print(block, end="")
         print("# After the packet folder exists, use apply_idea.py or paste the above.")
         print("# This print writes nothing.")
         print("-" * 40)
