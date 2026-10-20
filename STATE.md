@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-20T08:15:00Z (Run 675)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/topic_suggest.py — a reusable generator that prints operational topic candidates (cue/constraint/checklist defaults) grounded in docs/channel.md niche and promise, skipping existing queue titles. Agents or humans can expand the idea inventory without free-form brainstorming while the publish path remains blocked. Preferred unblocked list remains complete (now includes topic_suggest). Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
+
+# STATE
+
 2026-10-20T07:14:31Z (Run 674)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/research_source_extract_check.py — a small diagnostic that previews the exact citation strings claim_scan will extract from research.md / sources.md (header-aware Source column + Claim+Source combination). Agents can now confirm table/bullet quality early in the research-to-script path without running the full claim scan or inspecting the extractor. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
@@ -30,8 +36,3 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Do
 2026-10-20T05:15:00Z (Run 669)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Fixed latent ValueError in tools/set_status.py (claim_scan and title_scan hits are now 3-tuples with context) so ready_for_vo refusal works again. Strengthened tools/claim_scan.py extract_sources_from_md to detect the Source column from the table header and emit combined Claim+Source strings; table citations now clear both digits and hedges. Extended claim_scan_contract with a table case (passes). Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
-
-
-2026-10-20T04:15:00Z (Run 668)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Updated prompts/script_expander.md Rules section to explicitly document that filled Source column values (Primary claims or Source log tables) and non-placeholder bullets from research.md or sources.md are auto-extracted by claim_scan.py. This compounds Runs 659-667 by bringing the native table/bullet recognition path into the expander prompt used when expanding from a budget. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
