@@ -92,7 +92,7 @@ def main() -> int:
     print("4. Expand body beats to the word targets so total spoken WORDS land in 900–1500 (~1200).")
     print("5. After headings exist, python3 tools/expand_brief.py", packet, "writes the live budget from actual WORDS.")
     print("6. Run tools/quality_scan.py and tools/claim_scan.py before apply_script.py --write.")
-    print("Filled Source column values (non-empty, non-placeholder) in the Primary claims table or Source log table from research.md or sources.md, and non-placeholder bullets, are auto-extracted by claim_scan.py and treated as citations. No need to also rewrite a ## Sources section.")
+    print("Filled Source column values (non-empty, non-placeholder) in the Primary claims table or Source log table from research.md or sources.md, and non-placeholder bullets, are auto-extracted by claim_scan.py and treated as citations. The extractor is header-aware (detects Source from the table header) and combines Claim + Source strings so Primary claims / Source log tables reliably clear both quantitative digits and hedge phrases. No need to also rewrite a ## Sources section.")
     print("7. Prefer mechanism-aligned operational language; avoid anti-slop phrases.")
     print("This package writes nothing. Preferred unblocked path remains human OAuth for publish.")
     return 0
