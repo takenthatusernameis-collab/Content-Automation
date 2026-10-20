@@ -99,7 +99,9 @@ def main() -> int:
 ## Source log
 <!-- Filled Source column values (non-empty, non-placeholder) and any non-placeholder
      bullets elsewhere in this file are automatically extracted by tools/claim_scan.py
-     and treated as citations. You do not need to also rewrite research.md. -->
+     and treated as citations. The extractor is header-aware: it detects the Source column
+     from the table header and combines Claim + Source strings so both digits and hedges
+     in the claim clear reliably. You do not need to also rewrite research.md. -->
 | Claim | Source | Retrieved | Notes |
 |-------|--------|-----------|-------|
 |       |        |           |       |
