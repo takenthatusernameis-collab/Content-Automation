@@ -1,0 +1,67 @@
+[
+  {
+    "working_title": "Put the timer on the task file itself",
+    "one_line": "Attach the start timer to the file or note that holds the work so opening the work starts the clock.",
+    "problem": "the timer lives in a separate app, so starting the work means switching away first"
+  },
+  {
+    "working_title": "One visible next verb",
+    "one_line": "Write the single next verb on the edge of the open file so the stall has a concrete target.",
+    "problem": "the next action is still in the head, so the morning reopens the choice"
+  },
+  {
+    "working_title": "Close the review tab before the work tab",
+    "one_line": "A shutdown order that removes the review surface before the work surface is available.",
+    "problem": "the review tab is still open, so the work session begins with checking"
+  },
+  {
+    "working_title": "Put the constraint in the filename",
+    "one_line": "Encode the constraint in the filename of the working file so the stall sees it on open.",
+    "problem": "the constraint is in a separate note, so the open file has nothing to hit"
+  },
+  {
+    "working_title": "One list for the first two minutes",
+    "one_line": "A short list that only contains the first two minutes of the planned task.",
+    "problem": "the full list is visible, so the first action is still a choice among many"
+  },
+  {
+    "working_title": "Name the stall surface",
+    "one_line": "Identify the exact surface (tab, app, desk edge) where the delay happens and put the cue there.",
+    "problem": "the stall surface is unnamed, so the default has no place to live"
+  },
+  {
+    "working_title": "The cue is the open file",
+    "one_line": "Make the open working file itself the cue that the first two minutes have begun.",
+    "problem": "the cue is elsewhere, so opening the file does not start the work"
+  },
+  {
+    "working_title": "Remove the second list before the first",
+    "one_line": "A close-default that eliminates the competing list before the primary list is used.",
+    "problem": "two lists are open, so neither has a clear next action"
+  },
+  {
+    "working_title": "Write the stop time on the open file",
+    "one_line": "Put the planned stop time on the edge of the working file so the session has a visible end.",
+    "problem": "the session has no visible stop, so it expands or stalls at the end"
+  },
+  {
+    "working_title": "The first action is the file open itself",
+    "one_line": "Make opening the working file the start of the first two minutes so no extra step is required.",
+    "problem": "opening the file is not the start, so an extra decision remains"
+  },
+  {
+    "working_title": "Close the inbox before the work file",
+    "one_line": "A close-default that removes the inbox surface before the work file is opened.",
+    "problem": "the inbox is still open, so the work session begins with checking messages"
+  },
+  {
+    "working_title": "Put the next verb on the desktop",
+    "one_line": "Place the single next verb on the desktop so it is visible before any app opens.",
+    "problem": "the next action is inside an app, so starting means opening and choosing"
+  },
+  {
+    "working_title": "One constraint on the browser tab",
+    "one_line": "Encode the constraint in the browser tab title or pinned tab so the stall sees it immediately.",
+    "problem": "the constraint is elsewhere, so the browser stall has nothing to hit"
+  }
+]

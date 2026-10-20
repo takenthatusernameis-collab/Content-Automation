@@ -6,13 +6,15 @@ docs/topic_queue.md. Does not invent sources, numbers, or specific claims.
 Does not write the queue file. Does not scaffold packets. Does not poll secrets.
 Useful for expanding the idea inventory while the publish path is blocked.
 
-Idea skeletons for the top candidates are emitted via idea_brief.paste_block so
-the format matches apply_idea / idea_brief --queue exactly (no hand-format drift).
+Candidates load from tools/topic_candidates.json so future expansions are data-only
+(no Python edits). Idea skeletons for the top candidates are emitted via
+idea_brief.paste_block so the format matches apply_idea / idea_brief --queue exactly.
 """
 
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
@@ -27,6 +29,7 @@ from idea_brief import paste_block  # noqa: E402
 
 CHANNEL = ROOT / "docs" / "channel.md"
 QUEUE = ROOT / "docs" / "topic_queue.md"
+CANDIDATES = TOOLS / "topic_candidates.json"
 
 
 def extract_niche_promise(channel_text: str) -> tuple[str, str]:
@@ -63,75 +66,29 @@ def next_qid(queue_text: str) -> int:
     return highest + 1
 
 
+def load_candidates() -> list[tuple[str, str, str]]:
+    """Load (working_title, one_line, problem) from tools/topic_candidates.json."""
+    if not CANDIDATES.is_file():
+        print(f"Missing candidates: {CANDIDATES}", file=sys.stderr)
+        return []
+    try:
+        data = json.loads(CANDIDATES.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as e:
+        print(f"Invalid JSON in {CANDIDATES}: {e}", file=sys.stderr)
+        return []
+    out = []
+    for item in data:
+        title = item.get("working_title", "").strip()
+        one = item.get("one_line", "").strip()
+        prob = item.get("problem", "").strip()
+        if title and one and prob:
+            out.append((title, one, prob))
+    return out
+
+
 def suggestions(niche: str, promise: str, existing: set[str]) -> list[tuple[str, str, str]]:
     """Return (working_title, one_line, problem) tuples that fit the niche."""
-    candidates = [
-        (
-            "Put the timer on the task file itself",
-            "Attach the start timer to the file or note that holds the work so opening the work starts the clock.",
-            "the timer lives in a separate app, so starting the work means switching away first",
-        ),
-        (
-            "One visible next verb",
-            "Write the single next verb on the edge of the open file so the stall has a concrete target.",
-            "the next action is still in the head, so the morning reopens the choice",
-        ),
-        (
-            "Close the review tab before the work tab",
-            "A shutdown order that removes the review surface before the work surface is available.",
-            "the review tab is still open, so the work session begins with checking",
-        ),
-        (
-            "Put the constraint in the filename",
-            "Encode the constraint in the filename of the working file so the stall sees it on open.",
-            "the constraint is in a separate note, so the open file has nothing to hit",
-        ),
-        (
-            "One list for the first two minutes",
-            "A short list that only contains the first two minutes of the planned task.",
-            "the full list is visible, so the first action is still a choice among many",
-        ),
-        (
-            "Name the stall surface",
-            "Identify the exact surface (tab, app, desk edge) where the delay happens and put the cue there.",
-            "the stall surface is unnamed, so the default has no place to live",
-        ),
-        (
-            "The cue is the open file",
-            "Make the open working file itself the cue that the first two minutes have begun.",
-            "the cue is elsewhere, so opening the file does not start the work",
-        ),
-        (
-            "Remove the second list before the first",
-            "A close-default that eliminates the competing list before the primary list is used.",
-            "two lists are open, so neither has a clear next action",
-        ),
-        (
-            "Write the stop time on the open file",
-            "Put the planned stop time on the edge of the working file so the session has a visible end.",
-            "the session has no visible stop, so it expands or stalls at the end",
-        ),
-        (
-            "The first action is the file open itself",
-            "Make opening the working file the start of the first two minutes so no extra step is required.",
-            "opening the file is not the start, so an extra decision remains",
-        ),
-        (
-            "Close the inbox before the work file",
-            "A close-default that removes the inbox surface before the work file is opened.",
-            "the inbox is still open, so the work session begins with checking messages",
-        ),
-        (
-            "Put the next verb on the desktop",
-            "Place the single next verb on the desktop so it is visible before any app opens.",
-            "the next action is inside an app, so starting means opening and choosing",
-        ),
-        (
-            "One constraint on the browser tab",
-            "Encode the constraint in the browser tab title or pinned tab so the stall sees it immediately.",
-            "the constraint is elsewhere, so the browser stall has nothing to hit",
-        ),
-    ]
+    candidates = load_candidates()
     out = []
     for title, one, prob in candidates:
         if title.lower() not in existing:
