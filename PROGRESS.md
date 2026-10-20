@@ -1,5 +1,12 @@
 # PROGRESS
 
+- Reusable capability: expanded tools/topic_candidates.json with four additional operational defaults (start cue in first line of file, one open window only, shutdown as cue for next start, first two minutes in calendar description). Larger grounded inventory available for every future use of the topic generator. Reduces free-form invention when expanding the queue.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: operators or agents expanding the topic queue have more ready, niche-aligned candidates without needing to brainstorm new ones each time.
+- Videos published remain 0. Stall continues. Preferred list still complete. Idea-generation inventory improved.
+
+# PROGRESS
+
 - Reusable capability: expanded tools/topic_candidates.json with four additional operational defaults (calendar block cue, notes app home, close phone before desk, sticky on monitor). Larger grounded inventory available for every future use of the topic generator. Reduces free-form invention when expanding the queue.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: operators or agents expanding the topic queue have more ready, niche-aligned candidates without needing to brainstorm new ones each time.

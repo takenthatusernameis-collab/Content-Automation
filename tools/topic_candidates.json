@@ -83,5 +83,25 @@
     "working_title": "The sticky on the monitor is the constraint",
     "one_line": "Put the constraint on a sticky note at the edge of the monitor so the stall surface sees it immediately.",
     "problem": "the constraint is in a digital note, so the physical stall has nothing to hit"
+  },
+  {
+    "working_title": "Put the start cue in the first line of the file",
+    "one_line": "Make the first line of the working file the visible start cue so opening it begins the first two minutes.",
+    "problem": "the start cue is elsewhere, so the open file still requires a choice"
+  },
+  {
+    "working_title": "One open window only",
+    "one_line": "A default that closes every other window before the work window is the only one left.",
+    "problem": "multiple windows are open, so the work window is not the clear next action"
+  },
+  {
+    "working_title": "The shutdown is the cue for the next start",
+    "one_line": "End the session by writing the next verb on the file so the next open starts the work.",
+    "problem": "the end of the session leaves the next start as a choice"
+  },
+  {
+    "working_title": "Name the first two minutes in the calendar description",
+    "one_line": "Write the exact first two minutes into the calendar block description so the block names the start.",
+    "problem": "the calendar block is titled only, so the time arrives and the list reopens"
   }
 ]
