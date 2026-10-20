@@ -1,5 +1,12 @@
 # PROGRESS
 
+- Reusable capability: improved tools/topic_suggest.py to compute the next Q id dynamically from the existing queue (using parse_queue). Hardcoded start numbers are eliminated, so future expansions remain correctly numbered without manual correction. Applies to every future use of the topic generator.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: operators or agents expanding the topic queue no longer need to adjust starting ids by hand.
+- Videos published remain 0. Stall continues. Preferred list still complete. Idea-generation path reliability improved.
+
+# PROGRESS
+
 - Reusable capability: added tools/topic_suggest.py — a one-command generator that prints operational topic candidates (cue, constraint, or checklist defaults) grounded in docs/channel.md. Agents or humans can expand the idea inventory for many future videos without free-form brainstorming. Applies to every future queue expansion.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: operators or agents preparing the next topics can generate paste-ready candidates in one command, reducing recurring idea-generation work.
