@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-20T11:30:00Z (Run 679)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Expanded tools/topic_suggest.py candidate pool with five additional operational defaults (stop time on file, first action is file open, close inbox, next verb on desktop, constraint on browser tab). Larger grounded inventory reduces future brainstorming while publish remains blocked. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
+
+# STATE
+
 2026-10-20T10:20:00Z (Run 678)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Improved tools/topic_suggest.py so idea.md skeletons for the top candidates are emitted via idea_brief.paste_block (same canonical format as apply_idea / idea_brief --queue). Eliminates hand-format drift between suggestion and paste path. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.

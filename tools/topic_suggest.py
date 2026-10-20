@@ -106,6 +106,31 @@ def suggestions(niche: str, promise: str, existing: set[str]) -> list[tuple[str,
             "A close-default that eliminates the competing list before the primary list is used.",
             "two lists are open, so neither has a clear next action",
         ),
+        (
+            "Write the stop time on the open file",
+            "Put the planned stop time on the edge of the working file so the session has a visible end.",
+            "the session has no visible stop, so it expands or stalls at the end",
+        ),
+        (
+            "The first action is the file open itself",
+            "Make opening the working file the start of the first two minutes so no extra step is required.",
+            "opening the file is not the start, so an extra decision remains",
+        ),
+        (
+            "Close the inbox before the work file",
+            "A close-default that removes the inbox surface before the work file is opened.",
+            "the inbox is still open, so the work session begins with checking messages",
+        ),
+        (
+            "Put the next verb on the desktop",
+            "Place the single next verb on the desktop so it is visible before any app opens.",
+            "the next action is inside an app, so starting means opening and choosing",
+        ),
+        (
+            "One constraint on the browser tab",
+            "Encode the constraint in the browser tab title or pinned tab so the stall sees it immediately.",
+            "the constraint is elsewhere, so the browser stall has nothing to hit",
+        ),
     ]
     out = []
     for title, one, prob in candidates:
