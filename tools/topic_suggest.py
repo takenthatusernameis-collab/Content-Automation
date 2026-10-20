@@ -10,10 +10,17 @@ Useful for expanding the idea inventory while the publish path is blocked.
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+TOOLS = Path(__file__).resolve().parent
+if str(TOOLS) not in sys.path:
+    sys.path.insert(0, str(TOOLS))
+
+from queue_lib import parse_queue  # noqa: E402
+
 CHANNEL = ROOT / "docs" / "channel.md"
 QUEUE = ROOT / "docs" / "topic_queue.md"
 
@@ -39,6 +46,17 @@ def existing_titles(queue_text: str) -> set[str]:
             if len(parts) > 3:
                 titles.add(parts[3].lower())
     return titles
+
+
+def next_qid(queue_text: str) -> int:
+    """Return the next Q number after the highest existing QN in the queue."""
+    rows = parse_queue(queue_text)
+    highest = 0
+    for row in rows:
+        m = re.match(r"Q(\d+)", row.get("id", ""))
+        if m:
+            highest = max(highest, int(m.group(1)))
+    return highest + 1
 
 
 def suggestions(niche: str, promise: str, existing: set[str]) -> list[tuple[str, str, str]]:
@@ -108,8 +126,11 @@ def main() -> int:
     niche, promise = extract_niche_promise(channel_text)
 
     existing: set[str] = set()
+    start_id = 6
     if QUEUE.is_file():
-        existing = existing_titles(QUEUE.read_text(encoding="utf-8"))
+        queue_text = QUEUE.read_text(encoding="utf-8")
+        existing = existing_titles(queue_text)
+        start_id = next_qid(queue_text)
 
     rows = suggestions(niche, promise, existing)[: args.count]
 
@@ -117,12 +138,14 @@ def main() -> int:
     print(f"Niche: {niche}")
     print(f"Promise: {promise}")
     print(f"Existing titles skipped: {len(existing)}")
+    print(f"Next id starts at: Q{start_id}")
     print()
-    print("Candidate rows (paste into docs/topic_queue.md; next id after highest QN):")
+    print("Candidate rows (paste into docs/topic_queue.md):")
     print("| id | status | working_title | one_line | problem |")
     print("|----|--------|---------------|----------|---------|")
-    for i, (title, one, prob) in enumerate(rows, start=6):
-        print(f"| Q{i} | queued | {title} | {one} | {prob} |")
+    for i, (title, one, prob) in enumerate(rows):
+        qid = start_id + i
+        print(f"| Q{qid} | queued | {title} | {one} | {prob} |")
     print()
     print("These are suggestions only. Review, edit, and mark status before use.")
     print("Do not scaffold until Q1 ships. Do not invent a packet from this output.")
