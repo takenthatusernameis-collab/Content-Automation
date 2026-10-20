@@ -1,3 +1,11 @@
+## Run 669 — 2026-10-20T05:15:00Z
+- Objective: Fix a latent unpack error in set_status.py that broke claim_scan/title_scan gate checks after context was added to hits, and make Source-column extraction more reliable by detecting the header column and combining Claim + Source so table citations clear both numbers and hedges.
+- Action: Updated tools/set_status.py to unpack 3-tuples safely. Strengthened extract_sources_from_md in tools/claim_scan.py to locate the Source column from the header and emit combined claim+source strings. Extended tools/claim_scan_contract.py with a table test. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md. Did not poll secrets or dispatch.
+- Result: Videos published stay 0. claim_scan_contract now passes including the table path. Future packets that use Primary claims or Source log tables get reliable auto-citation without false hits or gate crashes. Upload still blocked only on the three secrets.
+- Verification: python3 tools/claim_scan_contract.py exits 0. Local diff reviewed. set_status no longer raises ValueError on current scan returns.
+- Discovery: The context addition to scan hits had silently broken the ready_for_vo refusal path; header-aware extraction removes a class of missed table citations.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer full_production_starter, research_package_starter, claim_scan, and other preferred unblocked tools. Avoid more status/polish tools.
 # RUNS
 
 ## Run 668 — 2026-10-20T04:15:00Z

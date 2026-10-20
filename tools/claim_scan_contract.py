@@ -64,6 +64,14 @@ def main() -> int:
         allowed = check(packet, "ready_for_vo")
         if any("claim_scan hits" in item for item in allowed):
             return fail(f"cited packet still refused: {allowed}")
+        # Table Source column path
+        (packet / "research.md").write_text(
+            "# Research\n\n| Claim | Source |\n| --- | --- |\n"
+            "| Most people waste 40% of the morning | https://example.com/morning-table |\n",
+            encoding="utf-8",
+        )
+        if scan_path(packet):
+            return fail(f"table Source column did not clear hits: {scan_path(packet)}")
         script_after = script.read_text(encoding="utf-8")
         if "40%" not in script_after or "Write the next action" in script_after:
             return fail("contract rewrote the spoken line")

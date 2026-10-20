@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-20T05:15:00Z (Run 669)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Fixed latent ValueError in tools/set_status.py (claim_scan and title_scan hits are now 3-tuples with context) so ready_for_vo refusal works again. Strengthened tools/claim_scan.py extract_sources_from_md to detect the Source column from the table header and emit combined Claim+Source strings; table citations now clear both digits and hedges. Extended claim_scan_contract with a table case (passes). Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
+
+# STATE
+
 2026-10-20T04:15:00Z (Run 668)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Updated prompts/script_expander.md Rules section to explicitly document that filled Source column values (Primary claims or Source log tables) and non-placeholder bullets from research.md or sources.md are auto-extracted by claim_scan.py. This compounds Runs 659-667 by bringing the native table/bullet recognition path into the expander prompt used when expanding from a budget. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.

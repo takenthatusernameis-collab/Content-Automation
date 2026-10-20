@@ -1,5 +1,12 @@
 # PROGRESS
 
+- Reusable capability: fixed set_status.py to safely unpack 3-tuple hits from claim_scan and title_scan (context added earlier). Strengthened extract_sources_from_md to locate the Source column via header and emit combined Claim+Source citations. Table-based research files now reliably clear both quantitative and hedge hits without extra rewriting. claim_scan_contract covers the table path and passes.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures. Contract verification confirms the fix.
+- Human labor reduction: operators or agents using Primary claims / Source log tables get automatic citation recognition that covers the claim text itself; gate checks no longer crash on current scan output.
+- Videos published remain 0. Stall continues. Preferred list still complete. Research-to-gate linkage more reliable.
+
+# PROGRESS
+
 - Reusable capability: updated prompts/script_expander.md Rules section to explicitly document that filled Source column values (Primary claims or Source log tables) and non-placeholder bullets from research.md or sources.md are auto-extracted by claim_scan.py. Applies to every future expansion that follows the expander prompt. Eliminates rediscovery of the native table format that clears citations without rewriting a ## Sources section.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: operators or agents expanding scripts from a budget now see the exact recognition path for research files inside the expander prompt itself.

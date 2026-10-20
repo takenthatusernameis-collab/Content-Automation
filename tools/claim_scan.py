@@ -124,31 +124,62 @@ def extract_sources_from_md(sources_text: str) -> list[str]:
     """Extract usable source strings from research.md or sources.md skeletons or filled files.
 
     Pulls non-empty Source column values from any table that has a Source column
-    and non-placeholder bullet lines. These are injected so human_sources can
-    treat them as citations. Works for both the research_sources_starter Source log
-    and the research_brief_starter Primary claims table.
+    (detected by header) and non-placeholder bullet lines. These are injected so
+    human_sources can treat them as citations. Works for both the research_sources_starter
+    Source log and the research_brief_starter Primary claims table. Prefers the explicit
+    Source column when a header is present; falls back to first plausible cell otherwise.
     """
     extras: list[str] = []
     seen = set()
-    # Table rows: look for lines starting with | that have a Source-like column
-    for line in sources_text.splitlines():
+    lines = sources_text.splitlines()
+    source_col: int | None = None
+    # First pass: find header and Source column index
+    for line in lines:
         stripped = line.strip()
         if not stripped.startswith("|") or "---" in stripped:
             continue
         parts = [p.strip() for p in stripped.split("|")]
-        # Skip header rows that contain the word Source as a column name
-        if any(p.lower() in ("source", "source (title + link or citation)", "source column") for p in parts):
+        lower_parts = [p.lower() for p in parts]
+        if any("source" in p for p in lower_parts):
+            for i, p in enumerate(lower_parts):
+                if "source" in p:
+                    source_col = i
+                    break
+            break  # use the first header that mentions Source
+    # Second pass: extract from data rows
+    for line in lines:
+        stripped = line.strip()
+        if not stripped.startswith("|") or "---" in stripped:
             continue
-        # Prefer the second non-empty part after the leading empty (typical Claim | Source ...)
-        # or scan for a part that looks like a source (non-empty, not placeholder)
-        candidates = [p for p in parts[1:] if p and p.lower() not in ("claim", "source", "retrieved", "notes", "how it supports the claim")]
-        for src in candidates:
-            if src and not is_placeholder_source(src):
-                key = src.lower()
-                if key not in seen:
-                    seen.add(key)
-                    extras.append(src)
-                break  # take the first plausible source cell per row
+        parts = [p.strip() for p in stripped.split("|")]
+        lower_parts = [p.lower() for p in parts]
+        # Skip pure header rows
+        if any(p in ("source", "claim", "retrieved", "notes") for p in lower_parts) and source_col is not None:
+            continue
+        src = ""
+        claim_text = ""
+        if source_col is not None and source_col < len(parts):
+            src = parts[source_col]
+            # Also capture the Claim cell (typically previous or first data column) so numbers in the claim are covered by this source
+            for j, p in enumerate(parts):
+                if j != source_col and p and p.lower() not in ("claim", "source", "retrieved", "notes"):
+                    claim_text = p
+                    break
+        else:
+            # Fallback: first plausible non-header cell
+            candidates = [
+                p for p in parts[1:]
+                if p and p.lower() not in ("claim", "source", "retrieved", "notes", "how it supports the claim")
+            ]
+            if candidates:
+                src = candidates[0]
+        if src and not is_placeholder_source(src):
+            # Prefer a combined citation string when we have both claim and source
+            citation = f"{claim_text} {src}".strip() if claim_text else src
+            key = citation.lower()
+            if key not in seen:
+                seen.add(key)
+                extras.append(citation)
     # Any bullet lines that are not placeholders
     for m in re.finditer(r"^-\s+(.+)$", sources_text, re.M):
         item = m.group(1).strip()
