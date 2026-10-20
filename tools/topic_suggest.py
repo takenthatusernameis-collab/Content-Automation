@@ -149,7 +149,27 @@ def main() -> int:
     print()
     print("These are suggestions only. Review, edit, and mark status before use.")
     print("Do not scaffold until Q1 ships. Do not invent a packet from this output.")
-    print("After adding, run: python3 tools/next_topic.py")
+    print("After adding the row(s), run: python3 tools/next_topic.py")
+    print(f"Or get paste-ready idea.md (after row is in queue): python3 tools/idea_brief.py --queue Q{start_id}")
+    print()
+    # Print ready idea skeletons for the first 2 candidates so the path to idea.md is one step shorter
+    print("Ready idea.md skeletons (paste into a new idea.md after scaffold; grounded, no invented claims):")
+    print("=" * 60)
+    for i, (title, one, prob) in enumerate(rows[:2]):
+        qid = start_id + i
+        print(f"# For Q{qid} — {title}")
+        print("# Idea")
+        print()
+        print(f"- topic: {title}")
+        print(f"- viewer: Someone who wants focused work but stalls on this: {prob[:80]}")
+        print(f"- problem: {prob}")
+        print(f"- mechanism (the system, not the pep talk): {one}")
+        print(f"- why now: The stall in this packet is this: {prob}")
+        print("- related videos to avoid repeating: none published yet")
+        print()
+        print("# After the packet folder exists, use apply_idea.py or paste the above.")
+        print("# This print writes nothing.")
+        print("-" * 40)
     return 0
 
 

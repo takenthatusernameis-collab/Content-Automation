@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-20T10:15:00Z (Run 677)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Improved tools/topic_suggest.py so it now prints ready idea.md skeletons for the first two candidate topics (grounded in the suggestion's title/one_line/problem). Agents can move from topic candidate to paste-ready idea content in one command without waiting for the row to be added to the queue or running idea_brief separately. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
+
+# STATE
+
 2026-10-20T09:15:00Z (Run 676)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Improved tools/topic_suggest.py so it computes the next Q id dynamically from the existing queue (via parse_queue) instead of hardcoding a start number. Future queue expansions stay correctly numbered without manual adjustment. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
