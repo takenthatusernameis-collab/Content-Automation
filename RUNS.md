@@ -1,3 +1,12 @@
+## Run 686 — 2026-10-20T18:20:00Z
+- Objective: Add a contract test for the mechanism-aligned tags suggestion path so future changes to tags generation are mechanically locked. Improves reliability of the metadata suggestion system while publish remains blocked.
+- Action: Created tools/tags_suggest_contract.py. It verifies CLI success on a tempfile packet, required output phrases, presence of operational install language (sticky note, under two minutes, written next action, name the stall), avoidance of weak/generic patterns, and that the tool does not modify idea.md. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md, HANDOFF.md. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. tags_suggest path is now contract-guarded. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: python3 tools/tags_suggest_contract.py exits 0 with TAGS SUGGEST CONTRACT PASS. No new dependencies. Live packets unchanged by the contract.
+- Discovery: Continuing to lock the suggestion tools (topic, title, description, now tags) compounds reliability of the unblocked idea-to-metadata path without requiring publish.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer tags_suggest (now contracted), description_suggest (contracted), title_suggest (contracted), topic_suggest (contracted), full_production_starter, research_package_starter, claim_scan, research_source_extract_check, and other preferred unblocked tools. Avoid more status/polish tools.
+
 ## Run 685 — 2026-10-20T17:20:00Z
 - Objective: Add a contract test for the mechanism-aligned description suggestion path so future changes to description generation are mechanically locked. Improves reliability of the metadata suggestion system while publish remains blocked.
 - Action: Created tools/description_suggest_contract.py. It verifies CLI success on a tempfile packet, required output phrases, presence of operational install language (sticky/device note, under two minutes) and stall reference, avoidance of filler/bait patterns, and that the tool does not modify idea.md. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md, HANDOFF.md. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
