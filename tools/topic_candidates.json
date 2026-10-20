@@ -63,5 +63,25 @@
     "working_title": "One constraint on the browser tab",
     "one_line": "Encode the constraint in the browser tab title or pinned tab so the stall sees it immediately.",
     "problem": "the constraint is elsewhere, so the browser stall has nothing to hit"
+  },
+  {
+    "working_title": "Put the cue on the calendar block",
+    "one_line": "Attach the start cue to the calendar event for the work block so the block itself starts the first two minutes.",
+    "problem": "the calendar block is empty of the cue, so the time arrives and the list reopens"
+  },
+  {
+    "working_title": "One default on the notes app home",
+    "one_line": "Place the single next verb on the home screen of the notes app so it is the first thing visible.",
+    "problem": "the notes app opens to a blank or full list, so the first action is still a choice"
+  },
+  {
+    "working_title": "Close the phone before the desk session",
+    "one_line": "A close-default that removes the phone surface before the work file or desk is used.",
+    "problem": "the phone is still in reach, so the session begins with a check"
+  },
+  {
+    "working_title": "The sticky on the monitor is the constraint",
+    "one_line": "Put the constraint on a sticky note at the edge of the monitor so the stall surface sees it immediately.",
+    "problem": "the constraint is in a digital note, so the physical stall has nothing to hit"
   }
 ]
