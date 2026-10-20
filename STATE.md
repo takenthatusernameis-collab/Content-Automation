@@ -1,5 +1,10 @@
 # STATE
 
+2026-10-20T06:15:00Z (Run 670)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Documented the header-aware Source-column extraction and combined Claim+Source emission (from Run 669) inside the claim_scan section of docs/content_quality.md so the main anti-slop contract now records that Primary claims / Source log tables reliably clear both digits and hedges. This compounds the reliability documentation into the quality reference agents read. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
+
+
 2026-10-20T05:15:00Z (Run 669)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Fixed latent ValueError in tools/set_status.py (claim_scan and title_scan hits are now 3-tuples with context) so ready_for_vo refusal works again. Strengthened tools/claim_scan.py extract_sources_from_md to detect the Source column from the table header and emit combined Claim+Source strings; table citations now clear both digits and hedges. Extended claim_scan_contract with a table case (passes). Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
@@ -12,7 +17,3 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Up
 2026-10-20T03:15:00Z (Run 667)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Updated prompts/script_writer.md so its Constraints and anti-slop sections explicitly document that filled Source column values (Primary claims or Source log tables) and non-placeholder bullets from research.md or sources.md are auto-extracted by claim_scan.py. This compounds Runs 659-666 by bringing the native table/bullet recognition path into the primary script-writing prompt used for every future draft. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
-
-2026-10-20T02:15:00Z (Run 666)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Updated HANDOFF.md (operator/agent entry point, previously last touched ~Run 595) to reflect current preferred unblocked list, STALL_OAUTH_IDLE, claim-source auto-extraction documentation completed in starters (Runs 659-665), frozen banner guidance, and explicit next human step. This reduces rediscovery for future runs starting from HANDOFF. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
