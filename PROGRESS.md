@@ -1,5 +1,12 @@
 # PROGRESS
 
+- Reusable capability: updated the summary print in tools/pre_production_package_starter.py to explicitly note that the Source-column extractor is header-aware (detects Source from table header) and combines Claim + Source strings. Agents using the preferred one-command pre-production package starter now see that Primary claims / Source log tables reliably clear both quantitative digits and hedge phrases without extra rewriting or inspecting lower-level starters. Applies to every future use of the higher-level aggregator.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
+- Human labor reduction: operators or agents starting from the full pre-production package now see the reliable table recognition path in the one-command output.
+- Videos published remain 0. Stall continues. Preferred list still complete. Research-to-gate linkage further documented at the preferred pre-production entry point.
+
+# PROGRESS
+
 - Reusable capability: updated the summary print in tools/research_package_starter.py to explicitly note that the Source-column extractor is header-aware (detects Source from table header) and combines Claim + Source strings. Agents using the preferred one-command research package starter now see that Primary claims / Source log tables reliably clear both quantitative digits and hedge phrases without extra rewriting or inspecting individual skeletons. Applies to every future use of the aggregator.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: operators or agents starting research via the package starter now see the reliable table recognition path in the one-command output.
@@ -11,10 +18,3 @@
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
 - Human labor reduction: operators or agents generating research files now see the reliable table recognition path inside the generated skeleton itself.
 - Videos published remain 0. Stall continues. Preferred list still complete. Research-to-gate linkage further documented at the generation step.
-
-# PROGRESS
-
-- Reusable capability: documented the header-aware Source-column extraction and combined Claim+Source emission (Run 669) inside the claim_scan section of docs/content_quality.md. The main anti-slop contract now records that Primary claims / Source log tables reliably clear both quantitative digits and hedge phrases without extra rewriting. Applies to every future agent that consults the quality reference.
-- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures.
-- Human labor reduction: operators or agents reading the central quality docs now see the reliable table recognition path without rediscovery.
-- Videos published remain 0. Stall continues. Preferred list still complete. Research-to-gate linkage further documented in the quality contract.
