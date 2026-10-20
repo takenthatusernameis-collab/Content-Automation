@@ -120,7 +120,9 @@ This research brief collects support for any consequential claims before script 
      Prefer the structure from research_sources_starter.py if more detail is needed.
      Filled Source column values (non-empty, non-placeholder) in the table below
      and any non-placeholder bullets are automatically extracted by tools/claim_scan.py
-     and treated as citations. You do not need to also rewrite a ## Sources section. -->
+     and treated as citations. The extractor is header-aware: it detects the Source column
+     from the table header and combines Claim + Source strings so both digits and hedges
+     in the claim clear reliably. You do not need to also rewrite a ## Sources section. -->
 
 ### Primary claims and sources
 | Claim | Source (title + link or citation) | Retrieved | How it supports the claim | Notes |
