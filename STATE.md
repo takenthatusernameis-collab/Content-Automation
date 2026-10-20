@@ -4,7 +4,6 @@
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Fixed latent ValueError in tools/set_status.py (claim_scan and title_scan hits are now 3-tuples with context) so ready_for_vo refusal works again. Strengthened tools/claim_scan.py extract_sources_from_md to detect the Source column from the table header and emit combined Claim+Source strings; table citations now clear both digits and hedges. Extended claim_scan_contract with a table case (passes). Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
 
-# STATE
 
 2026-10-20T04:15:00Z (Run 668)
 
