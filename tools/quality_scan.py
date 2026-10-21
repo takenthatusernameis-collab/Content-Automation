@@ -136,6 +136,14 @@ PATTERNS = (
     "for the most part",
     "generally speaking",
     "as a general rule",
+    "in today's world",
+    "in today’s world",
+    "the secret is",
+    "the secret to",
+    "trust me",
+    "believe me",
+    "here's why",
+    "here’s why",
 )
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
