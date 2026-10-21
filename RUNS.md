@@ -1,3 +1,12 @@
+## Run 701 — 2026-10-21T09:15:10Z
+- Objective: Make the TOP RECOMMENDATION in topic_priority_scan.py fully self-contained and immediately actionable by embedding the dynamic predicted path and exact scaffold commands. Reduces residual lookup steps for future agents/humans after Q1 ships.
+- Action: Enhanced tools/topic_priority_scan.py. Imported queue_lib helpers (next_id, slugify, already_used, existing_slugs). TOP RECOMMENDATION now prints predicted videos/NNN-slug plus the full parked scaffold sequence (idea_brief --queue, new_packet, new_idea, doctor). Fixed title/case preservation by loading queue text unlowered. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md, HANDOFF.md. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. topic_priority_scan TOP RECOMMENDATION now includes copy-paste commands for Q2. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: Local execution confirms dynamic path videos/003-put-the-start-cue-on-the-work-itself and correct-cased commands. No new dependencies. Live packets unchanged.
+- Discovery: Embedding the next_topic scaffold lines into the priority scan eliminates a residual context switch. Compounds by making the highest-fit queued topic one-paste ready once the OAuth stall ends.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer topic_priority_scan (now with scaffold commands), experiment_hypothesis_suggest (contracted), visual_suggest (contracted), and other preferred unblocked tools. Avoid more status/polish/suggest-contract tools.
+
 ## Run 700 — 2026-10-21T08:19:07Z
 - Objective: Strengthen topic_priority_scan.py with phrase-level mechanism continuity bonuses and an explicit TOP RECOMMENDATION so future agents and humans have a clearer, more precise signal for which queued topic to scaffold after Q1 ships. Reduces residual decision labor.
 - Action: Enhanced tools/topic_priority_scan.py. Added MECHANISM_PHRASES bonuses (+4 each for next-action default, start cue, reopen the whole list, constraint on the, where the stall, shutdown default). Printed TOP RECOMMENDATION block for the highest score pointing to next_topic.py. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md, HANDOFF.md. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
@@ -6,12 +15,3 @@
 - Discovery: Phrase-level matching captures stronger mechanism continuity than keyword sets alone (e.g., “start cue” and “reopen the whole list” in Q2). Explicit recommendation reduces the last residual choice step.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer topic_priority_scan (now enhanced), experiment_hypothesis_suggest (contracted), visual_suggest (contracted), and other preferred unblocked tools. Avoid more status/polish/suggest-contract tools.
-
-## Run 699 — 2026-10-21T07:20:00Z
-- Objective: Add a small reusable tool that ranks queued topics by channel fit and Q1 mechanism continuity so future topic selection after Q1 ships requires less human decision labor. Improves long-term prioritization while publish remains blocked.
-- Action: Created tools/topic_priority_scan.py. It scores queued rows from docs/topic_queue.md against channel.md keywords and Q1 idea.md mechanism language (start/stall/cue/default/constraint/etc.). Prints ranked list. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md, HANDOFF.md. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
-- Result: Videos published stay 0. topic_priority_scan now available (Q2 currently ranks highest). Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: Local execution on cloned repo confirms it ranks the four queued topics (Q2 score 16, Q4 12, Q5 10, Q3 6) and exits 0. No new dependencies. Live packets unchanged.
-- Discovery: Explicit ranking of existing queued topics by fit compounds by reducing ad-hoc choice when the next packet is ready to scaffold. Continues the pattern of small anti-rediscovery tools that become useful after the OAuth stall ends.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer topic_priority_scan, experiment_hypothesis_suggest (contracted), visual_suggest (contracted), and other preferred unblocked tools. Avoid more status/polish/suggest-contract tools.

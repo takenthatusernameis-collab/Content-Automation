@@ -15,9 +15,16 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+TOOLS = Path(__file__).resolve().parent
+if str(TOOLS) not in sys.path:
+    sys.path.insert(0, str(TOOLS))
+
+from queue_lib import already_used, existing_slugs, next_id, slugify  # noqa: E402
+
 QUEUE = ROOT / "docs" / "topic_queue.md"
 CHANNEL = ROOT / "docs" / "channel.md"
 Q1_IDEA = ROOT / "videos" / "002-stop-deciding-what-to-work-on-every-morning" / "idea.md"
+VIDEOS = ROOT / "videos"
 
 # Keywords that indicate strong channel fit (from niche/promise/voice)
 CHANNEL_KEYWORDS = {
@@ -27,10 +34,11 @@ CHANNEL_KEYWORDS = {
     "system", "process", "focused", "operational", "small",
 }
 
-def load_text(path: Path) -> str:
+def load_text(path: Path, lower: bool = True) -> str:
     if not path.is_file():
         return ""
-    return path.read_text(encoding="utf-8").lower()
+    text = path.read_text(encoding="utf-8")
+    return text.lower() if lower else text
 
 def extract_keywords(text: str) -> set[str]:
     words = set(re.findall(r"\b[a-z]{3,}\b", text))
@@ -73,7 +81,7 @@ def score_topic(row: dict, channel_kws: set[str], q1_kws: set[str]) -> int:
 def main() -> int:
     channel_text = load_text(CHANNEL)
     q1_text = load_text(Q1_IDEA)
-    queue_text = load_text(QUEUE) if QUEUE.is_file() else ""
+    queue_text = load_text(QUEUE, lower=False) if QUEUE.is_file() else ""
 
     channel_kws = extract_keywords(channel_text)
     q1_kws = extract_keywords(q1_text)
@@ -99,7 +107,7 @@ def main() -> int:
 
     print("Ranked by fit (higher = better continuity with niche/promise/Q1):")
     for rank, (score, row) in enumerate(scored, 1):
-        print(f"  {rank}. {row['id']} (score {score}) \u2014 {row['title']}")
+        print(f"  {rank}. {row['id']} (score {score}) — {row['title']}")
         print(f"     one_line: {row['one_line'][:90]}")
         print(f"     problem: {row['problem'][:90]}")
         print()
@@ -107,9 +115,22 @@ def main() -> int:
     if scored:
         top_score, top_row = scored[0]
         print("TOP RECOMMENDATION (after Q1 ships and Selected VO exists on gate machine):")
-        print(f"  {top_row['id']} (score {top_score}) \u2014 {top_row['title']}")
+        print(f"  {top_row['id']} (score {top_score}) — {top_row['title']}")
         print(f"  one_line: {top_row['one_line']}")
-        print("  Use python3 tools/next_topic.py to confirm the predicted videos/NNN-slug path.")
+        # Dynamic predicted path and commands (reuses queue_lib like next_topic.py)
+        slugs = existing_slugs(VIDEOS)
+        if not already_used(top_row["title"], slugs):
+            predicted_id = next_id(VIDEOS)
+            slug = slugify(top_row["title"])
+            dest = f"videos/{predicted_id}-{slug}"
+            print(f"  Predicted path: {dest}")
+            print("  # Parked until Q1 ships (copy-paste only after Selected VO exists on the gate machine):")
+            print("  Optional before scaffold (no folder required; writes nothing):")
+            print(f"    python3 tools/idea_brief.py --queue {top_row['id']}")
+            print("  Scaffold (human / instructed agent only; not the fixture):")
+            print(f'    python3 tools/new_packet.py "{top_row["title"]}"')
+            print(f'    python3 tools/new_idea.py "{top_row["one_line"]}"')
+            print(f"    python3 tools/doctor.py {dest}")
         print("  Do not scaffold while Q1 has no on-disk Selected VO.")
 
     print()
