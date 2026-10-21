@@ -59,6 +59,15 @@ def score_topic(row: dict, channel_kws: set[str], q1_kws: set[str]) -> int:
     # Bonus for explicit "start" or "stall" language
     if "start" in combined or "stall" in combined or "cue" in combined:
         score += 3
+    # Stronger phrase continuity with Q1 mechanism language
+    mechanism_phrases = (
+        "next-action default", "written next-action", "reopen the whole list",
+        "start cue", "visible start", "morning does not reopen",
+        "constraint on the", "where the stall", "shutdown default",
+    )
+    for phrase in mechanism_phrases:
+        if phrase in combined:
+            score += 4
     return score
 
 def main() -> int:
@@ -95,8 +104,16 @@ def main() -> int:
         print(f"     problem: {row['problem'][:90]}")
         print()
 
+    if scored:
+        top_score, top_row = scored[0]
+        print("TOP RECOMMENDATION (after Q1 ships and Selected VO exists on gate machine):")
+        print(f"  {top_row['id']} (score {top_score}) \u2014 {top_row['title']}")
+        print(f"  one_line: {top_row['one_line']}")
+        print("  Use python3 tools/next_topic.py to confirm the predicted videos/NNN-slug path.")
+        print("  Do not scaffold while Q1 has no on-disk Selected VO.")
+
+    print()
     print("Use this ranking when choosing the next scaffold after Q1 ships.")
-    print("Do not scaffold while Q1 has no on-disk Selected VO. See next_topic.py.")
     print("Do not invent new topics here; only scores existing queued rows.")
     return 0
 

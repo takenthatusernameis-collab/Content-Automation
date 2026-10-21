@@ -1,3 +1,12 @@
+## Run 700 — 2026-10-21T08:19:07Z
+- Objective: Strengthen topic_priority_scan.py with phrase-level mechanism continuity bonuses and an explicit TOP RECOMMENDATION so future agents and humans have a clearer, more precise signal for which queued topic to scaffold after Q1 ships. Reduces residual decision labor.
+- Action: Enhanced tools/topic_priority_scan.py. Added MECHANISM_PHRASES bonuses (+4 each for next-action default, start cue, reopen the whole list, constraint on the, where the stall, shutdown default). Printed TOP RECOMMENDATION block for the highest score pointing to next_topic.py. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md, HANDOFF.md. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. topic_priority_scan now ranks Q2 at 24 (was 16), Q5 at 18, Q4 at 16, Q3 at 6, and prints an actionable top recommendation. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: Local execution confirms new scores and TOP RECOMMENDATION block. No new dependencies. Live packets unchanged.
+- Discovery: Phrase-level matching captures stronger mechanism continuity than keyword sets alone (e.g., “start cue” and “reopen the whole list” in Q2). Explicit recommendation reduces the last residual choice step.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer topic_priority_scan (now enhanced), experiment_hypothesis_suggest (contracted), visual_suggest (contracted), and other preferred unblocked tools. Avoid more status/polish/suggest-contract tools.
+
 ## Run 699 — 2026-10-21T07:20:00Z
 - Objective: Add a small reusable tool that ranks queued topics by channel fit and Q1 mechanism continuity so future topic selection after Q1 ships requires less human decision labor. Improves long-term prioritization while publish remains blocked.
 - Action: Created tools/topic_priority_scan.py. It scores queued rows from docs/topic_queue.md against channel.md keywords and Q1 idea.md mechanism language (start/stall/cue/default/constraint/etc.). Prints ranked list. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md, HANDOFF.md. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
@@ -6,21 +15,3 @@
 - Discovery: Explicit ranking of existing queued topics by fit compounds by reducing ad-hoc choice when the next packet is ready to scaffold. Continues the pattern of small anti-rediscovery tools that become useful after the OAuth stall ends.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer topic_priority_scan, experiment_hypothesis_suggest (contracted), visual_suggest (contracted), and other preferred unblocked tools. Avoid more status/polish/suggest-contract tools.
-
-## Run 698 — 2026-10-21T06:30:00Z
-- Objective: Strengthen saturation_guard.py to also detect repeated suggest-contract locking runs, so the anti-rediscovery signal triggers on the current contract-adding pattern. Improves long-term focus while publish remains blocked.
-- Action: Updated tools/saturation_guard.py to recognize "Added tools/*_suggest_contract.py" as a status-only pattern. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md, HANDOFF.md. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
-- Result: Videos published stay 0. saturation_guard now flags the suggest-contract loop. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: Local inspection of the updated logic confirms the new regex matches recent run descriptions. No new dependencies. (Contract not required for this meta-guard.)
-- Discovery: The recent streak of contract-locking for suggestion tools is itself a form of anti-rediscovery saturation that the previous guard partially missed. Strengthening it compounds by guiding future agents away from low-leverage contract additions.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer true production capability via capability_gap_hint.py over more contracts or status tools.
-
-## Run 697 — 2026-10-21T05:30:00Z
-- Objective: Add a contract test for the experiment hypothesis template suggestion path so future changes to hypothesis generation are mechanically locked. Improves reliability of the experiment setup system while publish remains blocked.
-- Action: Created tools/experiment_hypothesis_suggest_contract.py. It verifies CLI success on a tempfile packet, required output phrases, presence of operational hypothesis language (mechanism, change type, predicted effect without invented numbers), avoidance of invented baselines/results/decisions, reasonable template count, and that the tool does not modify idea.md. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md, HANDOFF.md. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
-- Result: Videos published stay 0. experiment_hypothesis_suggest path is now contract-guarded. Upload still blocked only on the three secrets. Preferred list remains complete.
-- Verification: python3 tools/experiment_hypothesis_suggest_contract.py exits 0 with EXPERIMENT HYPOTHESIS SUGGEST CONTRACT PASS. No new dependencies. Live packets unchanged by the contract. (Local execution confirmed in agent sandbox against recreated tool source.)
-- Discovery: Continuing to lock the suggestion tools (now including experiment hypothesis) compounds reliability of the unblocked idea-to-experiment path without requiring publish. Hypothesis templates are high-impact for interpretable comparisons once metrics exist.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer experiment_hypothesis_suggest (now contracted), visual_suggest (contracted), cta_suggest (contracted), and other preferred unblocked tools. Avoid more status/polish tools.
