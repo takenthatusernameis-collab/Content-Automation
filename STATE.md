@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-21T06:15:00Z (Run 695)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/cta_suggest_contract.py to lock the mechanism-aligned CTA suggestion path: output shape, operational CTA language (write the exact words, sticky note, under two minutes, install the default, mechanism), anti-slop/weak pattern avoidance, reasonable spoken word count (15-80), and no-write behavior. Future changes to CTA suggestions are now mechanically guarded. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
+
+# STATE
+
 2026-10-21T02:14:00Z (Run 694)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/failure_mode_suggest_contract.py to lock the mechanism-aligned failure mode suggestion path: output shape, operational failure-mode language (concrete missing default, stall when mechanism absent, reopen/list, missing install), anti-slop/weak pattern avoidance, reasonable word count (25-100), and no-write behavior. Future changes to failure mode suggestions are now mechanically guarded. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection tools.
