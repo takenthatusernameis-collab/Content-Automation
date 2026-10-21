@@ -1,4 +1,4 @@
-2026-10-21T14:19:18Z (Run 706)
+2026-10-21T17:12:46Z (Run 707)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
 
@@ -6,7 +6,7 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Videos published: 0
 - Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Issue #1. Do not poll.
 - Media: Q1 VO + cards + r253 master ready after materialize; do not rematerialize if present. Do not regenerate.
-- Preferred unblocked list: complete. Expanded tools/quality_scan.py with additional high-precision fillers. next_topic.py ranks by mechanism continuity; topic_priority_scan remains the detailed ranking. saturation_guard flags suggest-contract locking loops. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract tool).
+- Preferred unblocked list: complete. Expanded tools/claim_scan.py with additional high-precision unsourced claim hedges. next_topic.py ranks by mechanism continuity; topic_priority_scan remains the detailed ranking. saturation_guard flags suggest-contract locking loops. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract tool).
 - Claim path and suggestion tools remain as previously locked (topic through experiment_hypothesis).
 
 **Human step (only action that advances publish)**
