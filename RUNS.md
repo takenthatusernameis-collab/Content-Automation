@@ -1,3 +1,12 @@
+## Run 703 — 2026-10-21T11:16:00Z
+- Objective: Make the primary next-topic recommendation consistently select the highest mechanism-continuity topic rather than table order. Reduces residual decision labor and mismatch risk for future agents and humans after Q1 ships.
+- Action: Updated tools/next_topic.py. Reuses scoring functions from topic_priority_scan.py (channel keywords + mechanism phrases). Sorts available queued topics by score descending. Prints score and matched phrases with the recommendation. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md, HANDOFF.md. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. next_topic.py now recommends Q2 (score 24) with phrases, matching the priority scan. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: Local execution confirms ranked selection and output. Syntax ok. No new dependencies. Live packets unchanged.
+- Discovery: Aligning the "next" printer with the scored ranking eliminates a potential order-vs-fit discrepancy that would otherwise require a human or agent to cross-check two tools.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer next_topic (now ranked), topic_priority_scan, experiment_hypothesis_suggest (contracted), visual_suggest (contracted), and other preferred unblocked tools. Avoid more status/polish/suggest-contract tools.
+
 ## Run 702 — 2026-10-21T10:15:00Z
 - Objective: Make the TOP RECOMMENDATION in topic_priority_scan.py fully self-contained by also surfacing the specific matching mechanism phrases that drove the score. Eliminates residual "why this one?" decision labor for future agents and humans after Q1 ships.
 - Action: Enhanced tools/topic_priority_scan.py. score_topic now returns matched phrases. Ranked list and TOP RECOMMENDATION print them. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md, HANDOFF.md. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.

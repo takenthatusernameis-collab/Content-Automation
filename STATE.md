@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-21T11:16:00Z (Run 703)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Updated tools/next_topic.py so the recommended next topic is the highest-scoring one by mechanism continuity (reuses topic_priority_scan scoring) instead of table order. Prints score and matched phrases. Makes the primary "next" command consistently prefer the best-fit queued topic. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection/suggest-contract tools.
+
+# STATE
+
 2026-10-21T10:15:00Z (Run 702)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/topic_priority_scan.py further: TOP RECOMMENDATION and ranked list now include the specific matching mechanism phrases that contributed to the score. Makes post-Q1 topic selection fully self-contained with ranking rationale (no residual "why this one?" lookup). Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection/suggest-contract tools.

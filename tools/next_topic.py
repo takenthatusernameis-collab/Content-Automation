@@ -13,6 +13,12 @@ if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
 from queue_lib import already_used, existing_slugs, next_id, parse_queue, slugify  # noqa: E402
+from topic_priority_scan import (
+    CHANNEL_KEYWORDS,
+    extract_keywords,
+    load_text,
+    score_topic,
+)  # noqa: E402
 
 QUEUE = ROOT / "docs" / "topic_queue.md"
 VIDEOS = ROOT / "videos"
@@ -48,9 +54,29 @@ def main() -> int:
         if r["status"] == "queued" and not already_used(r["working_title"], slugs)
     ]
 
+    # Rank by channel fit + mechanism continuity (same scoring as topic_priority_scan)
+    channel_text = load_text(ROOT / "docs" / "channel.md")
+    q1_text = load_text(ROOT / "videos" / "002-stop-deciding-what-to-work-on-every-morning" / "idea.md")
+    channel_kws = extract_keywords(channel_text)
+    q1_kws = extract_keywords(q1_text)
+
+    def _score(row):
+        # Adapt row keys to what score_topic expects
+        adapted = {
+            "title": row["working_title"],
+            "one_line": row["one_line"],
+            "problem": row.get("problem", ""),
+        }
+        s, phrases = score_topic(adapted, channel_kws, q1_kws)
+        return s, phrases
+
+    if available:
+        available.sort(key=lambda r: -_score(r)[0])
+
     print("This command writes nothing.")
     print("Queue file: docs/topic_queue.md")
     print(f"Queued unused: {len(available)} / {len(rows)}")
+    print("Selection: highest mechanism-continuity score (from topic_priority_scan logic)")
     print(Q1_HOLD)
     if not available:
         print("No unused queued topic. Add a row to docs/topic_queue.md or reuse an existing packet.")
@@ -63,8 +89,11 @@ def main() -> int:
         slug = slugify(title)
         vid = f"{int(predicted_id) + i:03d}" if args.all else predicted_id
         dest = f"videos/{vid}-{slug}"
-        print(f"Next (parked until Q1 ships): {row['id']} — {title}")
+        score, phrases = _score(row)
+        print(f"Next (parked until Q1 ships): {row['id']} — {title} (score {score})")
         print(f"One-line: {row['one_line']}")
+        if phrases:
+            print(f"Matched phrases: {', '.join(phrases)}")
         print(f"Predicted path: {dest}")
         print(PARKED_LABEL)
         print("Optional before scaffold (no folder required; writes nothing):")
