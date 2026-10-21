@@ -1,3 +1,12 @@
+## Run 702 — 2026-10-21T10:15:00Z
+- Objective: Make the TOP RECOMMENDATION in topic_priority_scan.py fully self-contained by also surfacing the specific matching mechanism phrases that drove the score. Eliminates residual "why this one?" decision labor for future agents and humans after Q1 ships.
+- Action: Enhanced tools/topic_priority_scan.py. score_topic now returns matched phrases. Ranked list and TOP RECOMMENDATION print them. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md, HANDOFF.md. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. topic_priority_scan now explains its ranking with explicit phrases (e.g. start cue, reopen the whole list for Q2). Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: Logic change preserves prior scoring; phrases are additive evidence. No new dependencies. Live packets unchanged. Commit b930ac1 confirms the tool update.
+- Discovery: Explicit phrase rationale compounds with the prior path + scaffold commands, making the entire post-Q1 topic selection decision one-tool, zero-lookup.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer topic_priority_scan (now with phrases + path + commands), experiment_hypothesis_suggest (contracted), visual_suggest (contracted), and other preferred unblocked tools. Avoid more status/polish/suggest-contract tools.
+
 ## Run 701 — 2026-10-21T09:15:10Z
 - Objective: Make the TOP RECOMMENDATION in topic_priority_scan.py fully self-contained and immediately actionable by embedding the dynamic predicted path and exact scaffold commands. Reduces residual lookup steps for future agents/humans after Q1 ships.
 - Action: Enhanced tools/topic_priority_scan.py. Imported queue_lib helpers (next_id, slugify, already_used, existing_slugs). TOP RECOMMENDATION now prints predicted videos/NNN-slug plus the full parked scaffold sequence (idea_brief --queue, new_packet, new_idea, doctor). Fixed title/case preservation by loading queue text unlowered. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md, HANDOFF.md. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
