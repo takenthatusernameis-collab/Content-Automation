@@ -144,6 +144,19 @@ PATTERNS = (
     "believe me",
     "here's why",
     "here’s why",
+    "here's what you need to know",
+    "here’s what you need to know",
+    "let me break it down",
+    "the long and short of it",
+    "to make a long story short",
+    "in the grand scheme of things",
+    "for all intents and purposes",
+    "at this point in time",
+    "with that in mind",
+    "when it comes down to it",
+    "the truth of the matter is",
+    "plain and simple",
+    "in layman's terms",
 )
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
