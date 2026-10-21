@@ -131,6 +131,11 @@ PATTERNS = (
     "case in point",
     "in the final analysis",
     "when you think about it",
+    "in any event",
+    "at any rate",
+    "for the most part",
+    "generally speaking",
+    "as a general rule",
 )
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
