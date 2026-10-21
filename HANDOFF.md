@@ -1,4 +1,4 @@
-2026-10-21T19:12:16Z (Run 709)
+2026-10-21T20:12:19Z (Run 710)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
 
@@ -6,7 +6,7 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Videos published: 0
 - Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Issue #1. Do not poll.
 - Media: Q1 VO + cards + r253 master ready after materialize; do not rematerialize if present. Do not regenerate.
-- Preferred unblocked list: complete. Extended tools/rewrite_suggest.py to cover unsourced digit claims (plus existing quality and hedge suggestions). next_topic.py ranks by mechanism continuity; topic_priority_scan remains the detailed ranking. saturation_guard flags suggest-contract locking loops. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract tool).
+- Preferred unblocked list: complete. Added tools/packet_rewrite_report.py (unified script/title/description starting points; reuses rewrite_suggest full claim surface). next_topic.py ranks by mechanism continuity; topic_priority_scan remains the detailed ranking. saturation_guard flags suggest-contract locking loops. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract tool).
 - Claim path and suggestion tools remain as previously locked (topic through experiment_hypothesis).
 
 **Human step (only action that advances publish)**
@@ -20,4 +20,4 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 
 After provider_video_id exists and uploaded_at >=7 days, dispatch collect_feedback=true. Use `python3 tools/after_upload_steps.py` for the exact sequence.
 
-Do not poll secrets. Do not rematerialize if media present. Logs via record_run.py. Do not scaffold Q2. Prefer quality improvements, true capability (including rewrite_suggest covering full claim surface), or anti-rediscovery documentation over more status printers or suggest-contract locks while saturation_guard reports SATURATED_ANTI_REDISCOVERY. Do not refresh the checklist banner solely for the timestamp.
+Do not poll secrets. Do not rematerialize if media present. Logs via record_run.py. Do not scaffold Q2. Prefer quality improvements, true capability (including packet_rewrite_report and rewrite_suggest covering full claim surface), or anti-rediscovery documentation over more status printers or suggest-contract locks while saturation_guard reports SATURATED_ANTI_REDISCOVERY. Do not refresh the checklist banner solely for the timestamp.
