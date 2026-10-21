@@ -1,0 +1,104 @@
+#!/usr/bin/env python3
+"""Score queued topics for channel fit and mechanism continuity from Q1.
+
+Reads docs/topic_queue.md and docs/channel.md (and optional Q1 idea.md).
+Prints ranked queued topics by keyword overlap with niche, promise, audience,
+and Q1 mechanism language (start, stall, cue, default, constraint, list, morning, etc.).
+Does not invent topics, numbers, or claims. Does not write files. Does not scaffold.
+Useful for prioritizing which queued topic to scaffold next after Q1 ships.
+"""
+
+from __future__ import annotations
+
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+QUEUE = ROOT / "docs" / "topic_queue.md"
+CHANNEL = ROOT / "docs" / "channel.md"
+Q1_IDEA = ROOT / "videos" / "002-stop-deciding-what-to-work-on-every-morning" / "idea.md"
+
+# Keywords that indicate strong channel fit (from niche/promise/voice)
+CHANNEL_KEYWORDS = {
+    "start", "stall", "cue", "default", "constraint", "checklist", "list",
+    "morning", "work", "action", "next", "visible", "physical", "file",
+    "desk", "tab", "shutdown", "reopen", "planned", "verb", "install",
+    "system", "process", "focused", "operational", "small",
+}
+
+def load_text(path: Path) -> str:
+    if not path.is_file():
+        return ""
+    return path.read_text(encoding="utf-8").lower()
+
+def extract_keywords(text: str) -> set[str]:
+    words = set(re.findall(r"\b[a-z]{3,}\b", text))
+    return words & CHANNEL_KEYWORDS
+
+def parse_queue_rows(text: str) -> list[dict]:
+    rows = []
+    for line in text.splitlines():
+        if line.lower().startswith("| q") and "|" in line:
+            parts = [p.strip() for p in line.split("|")]
+            if len(parts) >= 6:
+                rows.append({
+                    "id": parts[1],
+                    "status": parts[2].lower(),
+                    "title": parts[3],
+                    "one_line": parts[4],
+                    "problem": parts[5],
+                })
+    return rows
+
+def score_topic(row: dict, channel_kws: set[str], q1_kws: set[str]) -> int:
+    combined = (row["title"] + " " + row["one_line"] + " " + row["problem"]).lower()
+    topic_kws = extract_keywords(combined)
+    score = len(topic_kws & channel_kws) * 2
+    score += len(topic_kws & q1_kws)
+    # Bonus for explicit "start" or "stall" language
+    if "start" in combined or "stall" in combined or "cue" in combined:
+        score += 3
+    return score
+
+def main() -> int:
+    channel_text = load_text(CHANNEL)
+    q1_text = load_text(Q1_IDEA)
+    queue_text = load_text(QUEUE) if QUEUE.is_file() else ""
+
+    channel_kws = extract_keywords(channel_text)
+    q1_kws = extract_keywords(q1_text)
+
+    rows = parse_queue_rows(queue_text)
+    queued = [r for r in rows if r["status"] == "queued"]
+
+    scored = []
+    for row in queued:
+        s = score_topic(row, channel_kws, q1_kws)
+        scored.append((s, row))
+
+    scored.sort(key=lambda x: -x[0])
+
+    print("TOPIC PRIORITY SCAN (channel fit + Q1 continuity; no invent, no writes)")
+    print(f"channel keywords matched: {len(channel_kws)}")
+    print(f"Q1 mechanism keywords: {len(q1_kws)}")
+    print(f"queued topics scored: {len(scored)}")
+    print()
+    if not scored:
+        print("No queued topics found. Add rows to docs/topic_queue.md.")
+        return 0
+
+    print("Ranked by fit (higher = better continuity with niche/promise/Q1):")
+    for rank, (score, row) in enumerate(scored, 1):
+        print(f"  {rank}. {row['id']} (score {score}) \u2014 {row['title']}")
+        print(f"     one_line: {row['one_line'][:90]}")
+        print(f"     problem: {row['problem'][:90]}")
+        print()
+
+    print("Use this ranking when choosing the next scaffold after Q1 ships.")
+    print("Do not scaffold while Q1 has no on-disk Selected VO. See next_topic.py.")
+    print("Do not invent new topics here; only scores existing queued rows.")
+    return 0
+
+if __name__ == "__main__":
+    raise SystemExit(main())
