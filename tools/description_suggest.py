@@ -37,11 +37,31 @@ def extract(idea_text: str) -> tuple[str, str, str]:
             topic = t.group(1).strip().rstrip(".")
     return mech, problem, topic
 
+def _shorten(text: str, max_len: int = 50) -> str:
+    """Return a natural short phrase, preferring whole words."""
+    text = text.strip()
+    if len(text) <= max_len:
+        return text
+    for sep in (". ", ", ", " so ", " that ", " and "):
+        if sep in text:
+            cand = text.split(sep)[0].strip()
+            if 10 <= len(cand) <= max_len:
+                return cand
+    words = text.split()
+    out = []
+    for w in words:
+        trial = " ".join(out + [w])
+        if len(trial) > max_len:
+            break
+        out.append(w)
+    return " ".join(out) if out else text[:max_len].rstrip()
+
 def suggest(mech: str, problem: str, topic: str) -> str:
     """Return a short description grounded in the packet."""
     if not mech:
         mech = "the written next-action default"
-    base = mech.lower()
+    core = _shorten(mech, 55)
+    base = core.lower()
     problem_part = f" The stall is {problem.lower()}." if problem else ""
     desc = (
         f"Write the exact words of the {base} on a sticky note or device note "

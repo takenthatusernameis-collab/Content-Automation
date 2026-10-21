@@ -46,23 +46,46 @@ def extract(idea_text: str) -> tuple[str, str, str]:
             topic = t.group(1).strip().rstrip(".")
     return mech, problem, topic
 
+def _shorten(text: str, max_len: int = 40) -> str:
+    """Return a natural short phrase, preferring whole words."""
+    text = text.strip()
+    if len(text) <= max_len:
+        return text
+    # Prefer first clause or sentence
+    for sep in (". ", ", ", " so ", " that ", " and "):
+        if sep in text:
+            cand = text.split(sep)[0].strip()
+            if 15 <= len(cand) <= max_len:
+                return cand
+    # Word-boundary truncate
+    words = text.split()
+    out = []
+    for w in words:
+        trial = " ".join(out + [w])
+        if len(trial) > max_len:
+            break
+        out.append(w)
+    return " ".join(out) if out else text[:max_len].rstrip()
+
 def suggest(mech: str, problem: str, topic: str) -> list[str]:
     """Return 5+ title candidates grounded in the packet."""
     if not mech:
         mech = "the written next-action default"
-    base = mech.lower()
+    # Prefer topic when it is already a usable title-length phrase
+    core = topic.strip() if topic and len(topic) <= 60 else _shorten(mech, 45)
+    base = core.lower()
     candidates = [
-        f"Write the {base} before you open the next tab",
-        f"Install one default: {base[:40]}",
-        f"The stall is naming what to work on. The default is {base[:30]}",
-        f"Stop deciding. Write the {base}",
-        f"{base[:45]} on a sticky note",
-        f"One note that installs the {base[:35]}",
+        topic if topic else f"Write the {base}",
+        f"Install one default: {_shorten(mech, 35)}",
+        f"The stall is naming what to work on. The default is {_shorten(mech, 28)}",
+        f"Stop deciding. Write the {_shorten(mech, 30)}",
+        f"{_shorten(mech, 40)} on a sticky note",
+        f"One note that installs the {_shorten(mech, 32)}",
     ]
-    # Ensure at least one short title
-    short = f"Write the {base[:35]}"
+    # Ensure at least one short title under 50
+    short = topic if topic and len(topic) < 50 else f"Write the {_shorten(mech, 35)}"
     if len(short) >= 50:
-        short = short[:49]
+        short = _shorten(short, 48)
     candidates.insert(0, short)
     # Filter weak patterns and ALL CAPS words (except short acronyms)
     cleaned = []
