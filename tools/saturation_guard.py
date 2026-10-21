@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Flag when recent runs are saturating on pure anti-rediscovery status tools or polish loops.
 
-Scans the most recent RUNS.md sections for patterns of "Added tools/xxx.py", 
-"Enhanced tools/experiment_xxx.py", or pure documentation/inspection-only updates 
-(while videos published remain 0). When the streak of such runs is long, prints
-SATURATED_ANTI_REDISCOVERY so future agents prefer the human OAuth step or a
-true production capability over another one-liner, RECOMMENDED NEXT polish, or
-repeated state-file inspection.
-
+Scans the most recent RUNS.md sections for patterns of "Added tools/xxx.py",
+"Enhanced tools/experiment_xxx.py", pure documentation/inspection-only updates,
+or repeated contract-locking of suggestion tools (while videos published remain 0).
+When the streak of such runs is long, prints SATURATED_ANTI_REDISCOVERY so future
+agents prefer the human OAuth step or a true production capability over another
+one-liner, RECOMMENDED NEXT polish, repeated state-file inspection, or
+suggest-contract locking.
 Does not poll secrets, does not invent data, does not modify files.
 """
 
@@ -22,6 +22,10 @@ RUNS = ROOT / "RUNS.md"
 
 STATUS_TOOL_RE = re.compile(
     r"(Added|Enhanced) tools/(stall_|recurring_|publish_|after_|next_|human_|packet_|capability_|efficiency_|media_fingerprint|reusable_commands|experiment_)",
+    re.IGNORECASE,
+)
+SUGGEST_CONTRACT_RE = re.compile(
+    r"Added tools/\w+_suggest_contract\.py",
     re.IGNORECASE,
 )
 DOC_ONLY_RE = re.compile(
@@ -40,7 +44,11 @@ def recent_sections(text: str, max_n: int = 8) -> list[str]:
 def is_status_only(section: str) -> bool:
     if not ZERO_PUBLISH_RE.search(section):
         return False
-    return bool(STATUS_TOOL_RE.search(section) or DOC_ONLY_RE.search(section))
+    return bool(
+        STATUS_TOOL_RE.search(section)
+        or DOC_ONLY_RE.search(section)
+        or SUGGEST_CONTRACT_RE.search(section)
+    )
 
 
 def main() -> int:
@@ -51,16 +59,16 @@ def main() -> int:
     sections = recent_sections(text)
     status_only = sum(1 for s in sections if is_status_only(s))
     total = len(sections)
-    print("SATURATION GUARD (anti-rediscovery of status-tool, polish, and doc-only loops; no invent)")
+    print("SATURATION GUARD (anti-rediscovery of status-tool, polish, doc-only, and suggest-contract loops; no invent)")
     print(f"recent_runs_examined: {total}")
     print(f"status_tool_only_runs: {status_only}")
     if status_only >= 6:
         print("status: SATURATED_ANTI_REDISCOVERY")
-        print("message: Multiple consecutive runs have only added status tools, polished experiment documentation (RECOMMENDED NEXT), or performed pure state-file inspection/docs updates while videos published stay 0.")
-        print("recommendation: Prefer the human OAuth step (python3 tools/human_next_action.py) or a true production capability (capability_gap_hint.py) over another status tool, polish, or repeated inspection.")
+        print("message: Multiple consecutive runs have only added status tools, polished experiment documentation (RECOMMENDED NEXT), performed pure state-file inspection/docs updates, or locked suggestion tools with contracts while videos published stay 0.")
+        print("recommendation: Prefer the human OAuth step (python3 tools/human_next_action.py) or a true production capability (capability_gap_hint.py) over another status tool, polish, inspection, or suggest-contract.")
     else:
         print("status: NOT_SATURATED")
-        print("message: Recent runs have not yet saturated on pure status/polish/doc-only tools.")
+        print("message: Recent runs have not yet saturated on pure status/polish/doc-only/suggest-contract tools.")
     print("Do not poll secrets. Preferred unblocked list remains complete.")
     return 0
 
