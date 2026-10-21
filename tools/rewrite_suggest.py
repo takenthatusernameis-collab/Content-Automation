@@ -5,6 +5,8 @@ Reads script.md WORDS. Does not rewrite any file. Prints context + a short sugge
 rewrite for each high-precision hit so future agents and humans spend less time
 inventing neutral phrasing. A suggestion is a starting point, not a final sentence.
 Uses the same word-boundary patterns as the scanners.
+
+Run 709: also surfaces unsourced digit claims from claim_scan (when sources do not cite them).
 """
 
 from __future__ import annotations
@@ -20,14 +22,12 @@ if str(ROOT / "tools") not in sys.path:
 
 # Reuse the exact pattern lists by importing the scanners
 try:
-    from quality_scan import PATTERNS as QUALITY_PATTERNS, spoken as q_spoken
-    from claim_scan import HEDGES as CLAIM_HEDGES, spoken as c_spoken
+    from quality_scan import PATTERNS as QUALITY_PATTERNS
+    from claim_scan import HEDGES as CLAIM_HEDGES, scan_path as claim_scan_path
 except ImportError:
-    # Fallback if run before both exist
     QUALITY_PATTERNS = ()
     CLAIM_HEDGES = ()
-    def q_spoken(t): return t
-    def c_spoken(t): return t
+    def claim_scan_path(p): return []
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
 
@@ -54,11 +54,17 @@ def suggest_for_quality(phrase: str, ctx: str) -> str:
         return "Remove the filler. State the observation directly."
     if "subscribe" in low or "like" in low:
         return "Move any CTA to the end screen or first comment. Keep spoken WORDS free of it."
+    if any(x in low for x in ("here's what you need to know", "let me break it down", "long and short")):
+        return "Delete the transition. State the concrete observation or mechanism immediately."
     return f"Replace '{phrase}' with a direct statement of the mechanism or observed fact."
 
 def suggest_for_claim(phrase: str, ctx: str) -> str:
-    """Return a short qualitative or citation direction."""
+    """Return a short qualitative or citation direction for hedges."""
     return f"Either cite the exact source for '{phrase}' in research.md / sources.md, or rewrite the sentence as a qualitative observation without the hedge (e.g. 'some people report' or a concrete example)."
+
+def suggest_for_digit(token: str, ctx: str) -> str:
+    """Return a short qualitative direction for an unsourced number."""
+    return f"Either cite the exact source and number '{token}' in research.md / sources.md, or rewrite the claim qualitatively (e.g. 'many people', 'a large share', 'often', or a concrete non-numeric example). Do not invent a source."
 
 def scan_and_suggest(path: Path) -> list[tuple[str, str, str, str]]:
     """Return list of (kind, phrase, context, suggestion)."""
@@ -78,7 +84,7 @@ def scan_and_suggest(path: Path) -> list[tuple[str, str, str, str]]:
             results.append(("quality", phrase, ctx, sug))
             break  # first match per phrase
 
-    # Claims
+    # Claim hedges
     for phrase in CLAIM_HEDGES:
         cre = re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE)
         for m in cre.finditer(body):
@@ -86,6 +92,16 @@ def scan_and_suggest(path: Path) -> list[tuple[str, str, str, str]]:
             sug = suggest_for_claim(phrase, ctx)
             results.append(("claim", phrase, ctx, sug))
             break
+
+    # Unsourced digits (reuse claim_scan which already checks sources)
+    try:
+        claim_hits = claim_scan_path(path)
+        for kind, token, ctx in claim_hits:
+            if kind == "digit":
+                sug = suggest_for_digit(token, ctx)
+                results.append(("digit", token, ctx, sug))
+    except Exception:
+        pass  # fail open if claim_scan import or sources logic changes
 
     return results
 
