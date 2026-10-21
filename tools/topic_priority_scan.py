@@ -34,6 +34,12 @@ CHANNEL_KEYWORDS = {
     "system", "process", "focused", "operational", "small",
 }
 
+MECHANISM_PHRASES = (
+    "next-action default", "written next-action", "reopen the whole list",
+    "start cue", "visible start", "morning does not reopen",
+    "constraint on the", "where the stall", "shutdown default",
+)
+
 def load_text(path: Path, lower: bool = True) -> str:
     if not path.is_file():
         return ""
@@ -59,7 +65,7 @@ def parse_queue_rows(text: str) -> list[dict]:
                 })
     return rows
 
-def score_topic(row: dict, channel_kws: set[str], q1_kws: set[str]) -> int:
+def score_topic(row: dict, channel_kws: set[str], q1_kws: set[str]) -> tuple[int, list[str]]:
     combined = (row["title"] + " " + row["one_line"] + " " + row["problem"]).lower()
     topic_kws = extract_keywords(combined)
     score = len(topic_kws & channel_kws) * 2
@@ -68,15 +74,12 @@ def score_topic(row: dict, channel_kws: set[str], q1_kws: set[str]) -> int:
     if "start" in combined or "stall" in combined or "cue" in combined:
         score += 3
     # Stronger phrase continuity with Q1 mechanism language
-    mechanism_phrases = (
-        "next-action default", "written next-action", "reopen the whole list",
-        "start cue", "visible start", "morning does not reopen",
-        "constraint on the", "where the stall", "shutdown default",
-    )
-    for phrase in mechanism_phrases:
+    matched_phrases = []
+    for phrase in MECHANISM_PHRASES:
         if phrase in combined:
             score += 4
-    return score
+            matched_phrases.append(phrase)
+    return score, matched_phrases
 
 def main() -> int:
     channel_text = load_text(CHANNEL)
@@ -91,8 +94,8 @@ def main() -> int:
 
     scored = []
     for row in queued:
-        s = score_topic(row, channel_kws, q1_kws)
-        scored.append((s, row))
+        s, phrases = score_topic(row, channel_kws, q1_kws)
+        scored.append((s, phrases, row))
 
     scored.sort(key=lambda x: -x[0])
 
@@ -106,17 +109,23 @@ def main() -> int:
         return 0
 
     print("Ranked by fit (higher = better continuity with niche/promise/Q1):")
-    for rank, (score, row) in enumerate(scored, 1):
+    for rank, (score, phrases, row) in enumerate(scored, 1):
         print(f"  {rank}. {row['id']} (score {score}) — {row['title']}")
         print(f"     one_line: {row['one_line'][:90]}")
         print(f"     problem: {row['problem'][:90]}")
+        if phrases:
+            print(f"     matched phrases: {', '.join(phrases)}")
         print()
 
     if scored:
-        top_score, top_row = scored[0]
+        top_score, top_phrases, top_row = scored[0]
         print("TOP RECOMMENDATION (after Q1 ships and Selected VO exists on gate machine):")
         print(f"  {top_row['id']} (score {top_score}) — {top_row['title']}")
         print(f"  one_line: {top_row['one_line']}")
+        if top_phrases:
+            print(f"  Why this score (matched mechanism phrases): {', '.join(top_phrases)}")
+        else:
+            print("  Why this score: keyword overlap only (no exact mechanism phrases)")
         # Dynamic predicted path and commands (reuses queue_lib like next_topic.py)
         slugs = existing_slugs(VIDEOS)
         if not already_used(top_row["title"], slugs):
