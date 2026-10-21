@@ -63,6 +63,16 @@ HEDGES = (
     "data reveals",
     "experts agree",
     "studies suggest",
+    "researchers say",
+    "a recent study",
+    "according to research",
+    "evidence suggests",
+    "data suggests",
+    "most experts agree",
+    "studies have found",
+    "it is widely accepted",
+    "according to data",
+    "researchers suggest",
 )
 # Precompile word-boundary patterns once (case-insensitive) for higher precision.
 _HEDGE_RES = tuple(
