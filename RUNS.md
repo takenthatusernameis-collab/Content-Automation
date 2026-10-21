@@ -1,3 +1,12 @@
+## Run 699 — 2026-10-21T07:20:00Z
+- Objective: Add a small reusable tool that ranks queued topics by channel fit and Q1 mechanism continuity so future topic selection after Q1 ships requires less human decision labor. Improves long-term prioritization while publish remains blocked.
+- Action: Created tools/topic_priority_scan.py. It scores queued rows from docs/topic_queue.md against channel.md keywords and Q1 idea.md mechanism language (start/stall/cue/default/constraint/etc.). Prints ranked list. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md, HANDOFF.md. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. topic_priority_scan now available (Q2 currently ranks highest). Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: Local execution on cloned repo confirms it ranks the four queued topics (Q2 score 16, Q4 12, Q5 10, Q3 6) and exits 0. No new dependencies. Live packets unchanged.
+- Discovery: Explicit ranking of existing queued topics by fit compounds by reducing ad-hoc choice when the next packet is ready to scaffold. Continues the pattern of small anti-rediscovery tools that become useful after the OAuth stall ends.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer topic_priority_scan, experiment_hypothesis_suggest (contracted), visual_suggest (contracted), and other preferred unblocked tools. Avoid more status/polish/suggest-contract tools.
+
 ## Run 698 — 2026-10-21T06:30:00Z
 - Objective: Strengthen saturation_guard.py to also detect repeated suggest-contract locking runs, so the anti-rediscovery signal triggers on the current contract-adding pattern. Improves long-term focus while publish remains blocked.
 - Action: Updated tools/saturation_guard.py to recognize "Added tools/*_suggest_contract.py" as a status-only pattern. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md, HANDOFF.md. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
