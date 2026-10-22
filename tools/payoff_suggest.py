@@ -51,6 +51,25 @@ def extract(idea_text: str) -> tuple[str, str, str]:
             topic = t.group(1).strip().rstrip(".")
     return mech, problem, topic
 
+def _shorten(text: str, max_len: int = 40) -> str:
+    """Return a natural short phrase, preferring whole words or first clause."""
+    text = text.strip()
+    if len(text) <= max_len:
+        return text
+    for sep in (". ", ", ", " so ", " that ", " and ", " — ", " - "):
+        if sep in text:
+            cand = text.split(sep)[0].strip()
+            if 10 <= len(cand) <= max_len:
+                return cand
+    words = text.split()
+    out = []
+    for w in words:
+        trial = " ".join(out + [w])
+        if len(trial) > max_len:
+            break
+        out.append(w)
+    return " ".join(out) if out else text[:max_len].rstrip()
+
 def suggest(mech: str, problem: str, topic: str) -> list[str]:
     """Return 2-3 payoff promise candidates grounded in the packet."""
     if not mech:
@@ -58,9 +77,9 @@ def suggest(mech: str, problem: str, topic: str) -> list[str]:
     base = mech.lower()
     stall = problem.lower() if problem else "the list reopens"
     candidates = [
-        f"After this video you can write the {base} once and put it where the stall starts. The morning no longer reopens the whole list because the next action is already visible. The install takes under two minutes.",
-        f"You leave with one concrete default: the {base} written on the object or file that already sits at the start of the work. Opening the list is no longer the first action. The change is finishable today.",
-        f"The outcome is a single next-action line from the {base} that stays open. Competing lists collapse. The stall that used to reopen the decision now hits the written cue instead.",
+        f"After this video you can write the {_shorten(base, 40)} once and put it where the stall starts. The morning no longer reopens the whole list because the next action is already visible. The install takes under two minutes.",
+        f"You leave with one concrete default: the {_shorten(base, 35)} written on the object or file that already sits at the start of the work. Opening the list is no longer the first action. The change is finishable today.",
+        f"The outcome is a single next-action line from the {_shorten(base, 40)} that stays open. Competing lists collapse. The stall that used to reopen the decision now hits the written cue instead.",
     ]
     cleaned = []
     seen = set()
