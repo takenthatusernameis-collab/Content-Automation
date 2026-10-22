@@ -16,10 +16,10 @@ import re
 import sys
 from pathlib import Path
 
+from idea_utils import extract
+
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S | re.I)
 SECTION_RE = re.compile(r"^##\s+(.+?)$", re.M)
-MECH_RE = re.compile(r"mechanism[^\n]*:\s*(.+)", re.I)
-PROBLEM_RE = re.compile(r"problem:\s*(.+)", re.I)
 
 TARGETS = {
     "hook": (20, 45),
@@ -49,14 +49,7 @@ def classify(heading: str) -> str:
 
 
 def extract_mech(idea_text: str) -> tuple[str, str]:
-    mech = problem = ""
-    for line in idea_text.splitlines():
-        m = MECH_RE.search(line)
-        if m:
-            mech = m.group(1).strip().rstrip(".")
-        p = PROBLEM_RE.search(line)
-        if p:
-            problem = p.group(1).strip().rstrip(".")
+    mech, problem, _ = extract(idea_text)
     return mech or "the written default", problem or "the stall"
 
 
