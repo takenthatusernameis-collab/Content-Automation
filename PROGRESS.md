@@ -1,5 +1,12 @@
 # PROGRESS
 
+- Reusable capability: phrase_utils_contract.py is now executed in the selftest CI workflow (alongside idea_utils_contract). Future commits that break the shared whole-word shortener will fail the build automatically. Consistency and anti-drift stronger for every subsequent suggestion/starter.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures. Changes are pure addition of a contract + CI step; no writes to packets.
+- Human labor reduction: agents and future runs spend less time manually confirming shortener behavior or repairing mid-word cuts. CI enforces the lock.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
+# PROGRESS
+
 - Reusable capability: idea_utils_contract.py is now executed in the selftest CI workflow. Future commits that break the shared extractor will fail the build automatically. Consistency and anti-drift stronger for every subsequent change.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures. Changes are pure addition of a CI step; no writes to packets.
 - Human labor reduction: agents and future runs spend less time manually confirming extractor behavior. CI enforces the lock.

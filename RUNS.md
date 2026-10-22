@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 733 — 2026-10-22T19:20:00Z
+- Objective: Lock the shared phrase_utils.shorten helper into CI so future pushes catch shortener drift automatically.
+- Action: Added tools/phrase_utils_contract.py that exercises shorten on short text, first-clause preference, word-boundary fallback, empty/whitespace, and max_len edges. Added a step to .github/workflows/selftest.yml that runs python3 tools/phrase_utils_contract.py. Verified the contract passes locally. Updated state files. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. Shared shortener is now enforced on every selftest CI run (alongside idea_utils). Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: Local execution of tools/phrase_utils_contract.py prints PHRASE_UTILS_CONTRACT PASS and exits 0. Workflow file updated.
+- Discovery: phrase_utils.shorten was the remaining unlocked canonical helper after idea_utils; a parallel contract prevents silent regression of natural phrasing across suggestors.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Avoid more status/polish/suggest-contract tools.
+
+# RUNS
+
 ## Run 732 — 2026-10-22T18:15:00Z
 - Objective: Lock the shared idea.md extractor into CI so future pushes catch parser drift automatically.
 - Action: Added a step to .github/workflows/selftest.yml that runs python3 tools/idea_utils_contract.py. Verified the contract passes locally. Updated state files. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.

@@ -1,4 +1,4 @@
-2026-10-22T18:15:00Z (Run 732)
+2026-10-22T19:20:00Z (Run 733)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
 
@@ -6,7 +6,7 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Videos published: 0
 - Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Issue #1. Do not poll.
 - Media: Q1 VO + cards + r253 master ready after materialize; do not rematerialize if present. Do not regenerate.
-- Preferred unblocked list: complete. tools/phrase_utils.py holds the canonical whole-word shorten. tools/idea_utils.py holds the canonical idea.md field extractor (now locked by tools/idea_utils_contract.py and enforced in selftest CI). Key structure suggestors, draft starters, metadata suggestors, draft expansion coaches, failure-mode suggestor, originality checklist/report, experiment hypothesis suggestor, experiment baseline/notes starters, mechanism alignment scan, expand starter, and research brief/sources starters now import from idea_utils. All starters and suggestors share phrase_utils. No remaining local shorten copies. packet_rewrite_report.py includes cleaner whole-word script structure starters + originality_report signals. full_qa_report.py / text_qa_report.py cover originality. next_topic.py ranks by mechanism continuity. saturation_guard flags suggest-contract locking loops. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract tool).
+- Preferred unblocked list: complete. tools/phrase_utils.py holds the canonical whole-word shorten. tools/idea_utils.py holds the canonical idea.md field extractor (locked by tools/idea_utils_contract.py and enforced in selftest CI). tools/phrase_utils.py holds the canonical whole-word shorten (now locked by tools/phrase_utils_contract.py and enforced in selftest CI). Key structure suggestors, draft starters, metadata suggestors, draft expansion coaches, failure-mode suggestor, originality checklist/report, experiment hypothesis suggestor, experiment baseline/notes starters, mechanism alignment scan, expand starter, and research brief/sources starters now import from idea_utils. All starters and suggestors share phrase_utils. No remaining local shorten copies. packet_rewrite_report.py includes cleaner whole-word script structure starters + originality_report signals. full_qa_report.py / text_qa_report.py cover originality. next_topic.py ranks by mechanism continuity. saturation_guard flags suggest-contract locking loops. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract tool).
 - Claim path and suggestion tools remain as previously locked (topic through experiment_hypothesis).
 
 **Human step (only action that advances publish)**

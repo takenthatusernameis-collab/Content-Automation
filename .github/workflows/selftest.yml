@@ -28,3 +28,5 @@ jobs:
         run: python3 tools/prove_locks.py
       - name: Lock shared idea.md extractor
         run: python3 tools/idea_utils_contract.py
+      - name: Lock shared phrase shortener
+        run: python3 tools/phrase_utils_contract.py
