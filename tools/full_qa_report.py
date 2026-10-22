@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """One-command full QA report for a packet (text + metadata).
 
-Aggregates text_qa_report.py (word band, quality, claims, mechanism align)
-and metadata_qa_report.py (title, description, tags, first-comment, chapters,
-thumbnail, end-screen). Prints a concise combined summary so agents can check
-complete pre-promotion health without sequential tool calls.
-Does not write files. Does not invent data.
+Aggregates text_qa_report.py (word band, quality, claims, mechanism align,
+originality signals) and metadata_qa_report.py (title, description, tags,
+first-comment, chapters, thumbnail, end-screen). Prints a concise combined
+summary so agents can check complete pre-promotion health without sequential
+tool calls. Does not write files. Does not invent data.
 Default exit 0; --strict exits 1 if any underlying report signals an issue.
 """
 
@@ -52,13 +52,13 @@ def main() -> int:
         print(f"No idea.md in {packet}")
         return 1
 
-    print("FULL QA REPORT (text + metadata; read-only)")
+    print("FULL QA REPORT (text [incl. originality] + metadata; read-only)")
     print("Signals are revision prompts, not hard failures unless --strict.")
     print("=" * 72)
 
     issues = 0
 
-    # Text QA
+    # Text QA (now includes originality_report via text_qa_report)
     rc, out = run_report("text_qa_report.py", packet)
     print("\n## TEXT QA")
     print(out or "(no output)")
