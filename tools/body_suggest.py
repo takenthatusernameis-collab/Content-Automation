@@ -50,6 +50,25 @@ def extract(idea_text: str) -> tuple[str, str, str]:
             topic = t.group(1).strip().rstrip(".")
     return mech, problem, topic
 
+def _shorten(text: str, max_len: int = 40) -> str:
+    """Return a natural short phrase, preferring whole words or first clause."""
+    text = text.strip()
+    if len(text) <= max_len:
+        return text
+    for sep in (". ", ", ", " so ", " that ", " and ", " — ", " - "):
+        if sep in text:
+            cand = text.split(sep)[0].strip()
+            if 10 <= len(cand) <= max_len:
+                return cand
+    words = text.split()
+    out = []
+    for w in words:
+        trial = " ".join(out + [w])
+        if len(trial) > max_len:
+            break
+        out.append(w)
+    return " ".join(out) if out else text[:max_len].rstrip()
+
 def suggest(mech: str, problem: str, topic: str) -> list[str]:
     """Return 3-4 body beat starter candidates grounded in the packet."""
     if not mech:
@@ -57,10 +76,10 @@ def suggest(mech: str, problem: str, topic: str) -> list[str]:
     base = mech.lower()
     stall = problem.lower() if problem else "the list reopens"
     candidates = [
-        f"You open the file and the stall starts. The list is still the whole page. Write the exact next action from the {base[:40]} at the top of the document before you scroll. That single line is the difference between reopening the decision and starting the first two minutes.",
-        f"The tab is open. The work is not. Put the {base[:35]} on a sticky note on the monitor edge where the cursor already lives. When the stall hits, the note is the only thing visible. No new list. No extra decision.",
-        f"Same morning, same delay. The planned task has no cue. Name one physical object that already sits on the desk and write the {base[:30]} on it. The object becomes the start signal. Opening the list is no longer the first action.",
-        f"Competing lists each claim the next step. Collapse them. Write one verb from the {base[:40]} into a single note that stays open. Close every other list. The remaining note is the only place the decision can finish.",
+        f"You open the file and the stall starts. The list is still the whole page. Write the exact next action from the {_shorten(base, 40)} at the top of the document before you scroll. That single line is the difference between reopening the decision and starting the first two minutes.",
+        f"The tab is open. The work is not. Put the {_shorten(base, 35)} on a sticky note on the monitor edge where the cursor already lives. When the stall hits, the note is the only thing visible. No new list. No extra decision.",
+        f"Same morning, same delay. The planned task has no cue. Name one physical object that already sits on the desk and write the {_shorten(base, 30)} on it. The object becomes the start signal. Opening the list is no longer the first action.",
+        f"Competing lists each claim the next step. Collapse them. Write one verb from the {_shorten(base, 40)} into a single note that stays open. Close every other list. The remaining note is the only place the decision can finish.",
     ]
     cleaned = []
     seen = set()
