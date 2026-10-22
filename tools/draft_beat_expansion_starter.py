@@ -15,25 +15,11 @@ writing, reducing padding and slop risk for every future packet.
 from __future__ import annotations
 
 import argparse
-import re
 import sys
 from pathlib import Path
 
 from phrase_utils import shorten as _shorten
-
-MECH_RE = re.compile(r"mechanism[^\n]*:\s*(.+)", re.I)
-PROBLEM_RE = re.compile(r"problem:\s*(.+)", re.I)
-
-def extract(idea_text: str) -> tuple[str, str]:
-    mech = problem = ""
-    for line in idea_text.splitlines():
-        m = MECH_RE.search(line)
-        if m:
-            mech = m.group(1).strip().rstrip(".")
-        p = PROBLEM_RE.search(line)
-        if p:
-            problem = p.group(1).strip().rstrip(".")
-    return mech or "the written default", problem or "the stall"
+from idea_utils import extract
 
 def recommended_actions(packet: str) -> list[str]:
     """Provide concrete copy-paste next steps after the per-beat expansion checklist."""
@@ -59,7 +45,9 @@ def main() -> int:
         return 1
 
     text = idea.read_text(encoding="utf-8")
-    mech, problem = extract(text)
+    mech, problem, _ = extract(text)
+    mech = mech or "the written default"
+    problem = problem or "the stall"
     base = _shorten(mech, 50)
 
     print("DRAFT BEAT EXPANSION STARTER (checklist only; expand starting WORDS to 140–220; no invented lines/stats)")
@@ -111,12 +99,9 @@ def main() -> int:
     print("Next (do not invent sources, numbers, or anecdotes):")
     print("1. Copy the draft.md skeleton from tools/draft_md_starter.py into the packet.")
     print("2. For each body beat, expand using the checklist items above.")
-    print("3. Keep Hook/Payoff/CTA near their shorter targets; do not pad.")
-    print("4. Run python3 tools/quality_scan.py and python3 tools/claim_scan.py before apply_script.py --write.")
-    print("5. Prefer concrete mechanism language; avoid anti-slop phrases in docs/content_quality.md.")
-    print("This starter writes nothing. Preferred unblocked path remains human OAuth for publish.")
+    print("3. Run tools/draft_expansion_coach.py or tools/draft_short_beat_coach.py for progress.")
+    print("4. Run tools/draft_pre_apply_coach.py before apply_script --write.")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())
