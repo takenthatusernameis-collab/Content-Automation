@@ -1,3 +1,8 @@
+- Reusable capability: selftest reliability restored. Future pushes will not fail on the quality_scan unpack, title_scan contract, or operator_card SHA check. Consistency stronger.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures. Changes are pure reliability fixes; no writes to packets.
+- Human labor reduction: agents and future runs spend less time diagnosing red selftests from format drift in scan helpers. CI stays green.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 - Reusable capability: docs/human_oauth_checklist.md now has an explicit Success verification subsection. Future humans and agents have one place for the exact evidence (private video id + upload_state.json) that advances the published count. Clarity stronger.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures. Changes are pure documentation clarity; no writes to packets.
 - Human labor reduction: less time spent rediscovering what "success" looks like after the first dispatch. Reduces risk of premature second dispatch.
@@ -30,3 +35,4 @@
 - Videos published remain 0. Stall continues. Preferred list still complete.
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
+

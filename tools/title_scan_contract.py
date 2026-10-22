@@ -52,7 +52,7 @@ def main() -> int:
         blocked = check(packet, "ready_for_vo")
         if not any("title_scan hits" in item and "GRINDING" in item for item in blocked):
             return fail(f"set_status did not refuse shouted title: {blocked}")
-        if not any("title_scan hits" in item and "thumb:No" in item for item in blocked):
+        if not any("title_scan hits" in item and "Matches title: No" in item for item in blocked):
             return fail(f"set_status did not refuse thumbnail mismatch: {blocked}")
         (packet / "titles.md").write_text(
             "# Titles\n\nPrimary: Stop Deciding Every Morning\nAlts:\n1. Build a Default Not a Mood\n2. Use One API Default\n",
@@ -69,7 +69,7 @@ def main() -> int:
             encoding="utf-8",
         )
         shouted = scan_path(packet)
-        if not any(kind == "shout" and "STOP" in detail for kind, detail in shouted):
+        if not any(kind == "shout" and "STOP" in detail for kind, detail, *_ in shouted):
             return fail(f"two shouted words were clear: {shouted}")
         if "STOP GRINDING" not in (packet / "titles.md").read_text(encoding="utf-8"):
             return fail("contract rewrote titles.md")

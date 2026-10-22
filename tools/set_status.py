@@ -96,7 +96,7 @@ def check(packet: Path, target: str) -> list[str]:
 
         found = scan_path(packet)
         if found:
-            detail = ", ".join(phrase for phrase, _count in found)
+            detail = ", ".join(phrase for phrase, _count, *_ in found)
             errors.append(f"refusing ready_for_vo: quality_scan hits ({detail})")
         from claim_scan import scan_path as claim_scan_path
 
