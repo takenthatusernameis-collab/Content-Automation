@@ -1,5 +1,12 @@
 # PROGRESS
 
+- Reusable capability: tools/experiment_baseline_starter.py, tools/experiment_notes_starter.py, tools/mechanism_align_scan.py, tools/expand_starter.py, tools/research_brief_starter.py, and tools/research_sources_starter.py now import extract from tools/idea_utils.py. Single source of truth for idea.md field parsing now covers experiment baseline/notes, mechanism alignment, expand starter, and research brief/sources paths. Consistency locked for every future packet.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures. Changes are pure refactors; no writes to packets.
+- Human labor reduction: agents receive consistent field extraction from every migrated experiment and research path, further reducing polishing and inconsistency risk across every subsequent video.
+- Videos published remain 0. Stall continues. Preferred list still complete. Anti-drift stronger.
+
+# PROGRESS
+
 - Reusable capability: tools/originality_checklist.py, tools/experiment_hypothesis_suggest.py, and tools/originality_report.py now import extract from tools/idea_utils.py. Single source of truth for idea.md field parsing now covers originality checklist/report and experiment hypothesis path. Consistency locked for every future packet.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures. Changes are pure refactors; no writes to packets.
 - Human labor reduction: agents receive consistent field extraction from every migrated originality and experiment path, further reducing polishing and inconsistency risk across every subsequent video.

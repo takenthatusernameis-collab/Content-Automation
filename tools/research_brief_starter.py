@@ -22,24 +22,20 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def extract_fields(idea_text: str) -> dict[str, str]:
-    """Heuristic extract of key fields from idea.md."""
-    fields = {"mechanism": "", "topic": "", "problem": "", "viewer": ""}
+    """Extract key fields from idea.md using shared parser plus viewer fallback."""
+    import sys
+    TOOLS = Path(__file__).resolve().parent
+    if str(TOOLS) not in sys.path:
+        sys.path.insert(0, str(TOOLS))
+    from idea_utils import extract as idea_extract
+    import re
+    VIEWER_RE = re.compile(r"viewer:\s*(.+)", re.I)
+    mech, problem, topic = idea_extract(idea_text)
+    fields = {"mechanism": mech, "topic": topic, "problem": problem, "viewer": ""}
     for line in idea_text.splitlines():
-        low = line.lower().strip()
-        if not low or low.startswith("#"):
-            continue
-        if ":" in line:
-            key, val = line.split(":", 1)
-            key = key.strip().lower()
-            val = val.strip()
-            if "mechanism" in key and not fields["mechanism"]:
-                fields["mechanism"] = val
-            elif "topic" in key and not fields["topic"]:
-                fields["topic"] = val
-            elif "problem" in key and not fields["problem"]:
-                fields["problem"] = val
-            elif "viewer" in key and not fields["viewer"]:
-                fields["viewer"] = val
+        v = VIEWER_RE.search(line)
+        if v:
+            fields["viewer"] = v.group(1).strip().rstrip(".")
     fields["mechanism"] = fields["mechanism"] or "unspecified mechanism"
     fields["topic"] = fields["topic"] or fields["problem"] or "unspecified topic"
     fields["problem"] = fields["problem"] or "unspecified problem"

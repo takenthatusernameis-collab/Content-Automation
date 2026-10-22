@@ -20,18 +20,14 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def extract_mechanism_topic(idea_text: str) -> tuple[str, str]:
-    """Heuristic extract of mechanism and topic from idea.md."""
-    mechanism = ""
-    topic = ""
-    for line in idea_text.splitlines():
-        low = line.lower()
-        if "mechanism" in low and not mechanism:
-            mechanism = line.split(":", 1)[-1].strip() if ":" in line else line.strip()
-        if "topic" in low and not topic:
-            topic = line.split(":", 1)[-1].strip() if ":" in line else line.strip()
-        if "problem" in low and not topic:
-            topic = line.split(":", 1)[-1].strip() if ":" in line else line.strip()
-    return mechanism or "unspecified mechanism", topic or "unspecified topic"
+    """Extract mechanism and topic from idea.md using shared parser."""
+    import sys
+    TOOLS = Path(__file__).resolve().parent
+    if str(TOOLS) not in sys.path:
+        sys.path.insert(0, str(TOOLS))
+    from idea_utils import extract as idea_extract
+    mech, _problem, topic = idea_extract(idea_text)
+    return mech or "unspecified mechanism", topic or "unspecified topic"
 
 
 def recommended_actions(packet: str) -> list[str]:

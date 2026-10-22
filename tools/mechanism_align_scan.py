@@ -11,11 +11,16 @@ from __future__ import annotations
 
 import argparse
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+TOOLS = Path(__file__).resolve().parent
+if str(TOOLS) not in sys.path:
+    sys.path.insert(0, str(TOOLS))
 
-MECH_RE = re.compile(r"mechanism[^\n]*:\s*(.+)", re.I)
+from idea_utils import extract as idea_extract  # noqa: E402
+
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
 STOP = {
     "the", "a", "an", "and", "or", "of", "to", "in", "for", "so", "that",
@@ -26,8 +31,8 @@ STOP = {
 }
 
 def extract_mechanism(text: str) -> str:
-    m = MECH_RE.search(text)
-    return m.group(1).strip().rstrip(".") if m else ""
+    mech, _problem, _topic = idea_extract(text)
+    return mech
 
 def significant_terms(mech: str) -> list[str]:
     words = re.findall(r"[a-zA-Z]{4,}", mech.lower())
