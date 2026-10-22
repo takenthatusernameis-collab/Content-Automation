@@ -19,6 +19,8 @@ import re
 import sys
 from pathlib import Path
 
+from phrase_utils import shorten as _shorten
+
 MECH_RE = re.compile(r"mechanism[^\n]*:\s*(.+)", re.I)
 PROBLEM_RE = re.compile(r"problem:\s*(.+)", re.I)
 TOPIC_RE = re.compile(r"topic:\s*(.+)", re.I)
@@ -28,25 +30,6 @@ WEAK = (
     "the key is", "in this video", "you will learn", "work smarter",
     "in fact", "of course", "obviously", "to sum up", "stock footage",
 )
-
-def _shorten(text: str, max_len: int = 40) -> str:
-    """Return a natural short phrase, preferring whole words or first clause."""
-    text = text.strip()
-    if len(text) <= max_len:
-        return text
-    for sep in (". ", ", ", " so ", " that ", " and ", " — ", " - "):
-        if sep in text:
-            cand = text.split(sep)[0].strip()
-            if 10 <= len(cand) <= max_len:
-                return cand
-    words = text.split()
-    out = []
-    for w in words:
-        trial = " ".join(out + [w])
-        if len(trial) > max_len:
-            break
-        out.append(w)
-    return " ".join(out) if out else text[:max_len].rstrip()
 
 def extract(idea_text: str) -> tuple[str, str, str]:
     mech = problem = topic = ""
