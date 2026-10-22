@@ -31,20 +31,39 @@ def extract(idea_text: str) -> tuple[str, str]:
             problem = p.group(1).strip().rstrip(".")
     return mech, problem
 
+def _shorten(text: str, max_len: int = 40) -> str:
+    """Return a natural short phrase, preferring whole words or first clause."""
+    text = text.strip()
+    if len(text) <= max_len:
+        return text
+    for sep in (". ", ", ", " so ", " that ", " and ", " — ", " - "):
+        if sep in text:
+            cand = text.split(sep)[0].strip()
+            if 10 <= len(cand) <= max_len:
+                return cand
+    words = text.split()
+    out = []
+    for w in words:
+        trial = " ".join(out + [w])
+        if len(trial) > max_len:
+            break
+        out.append(w)
+    return " ".join(out) if out else text[:max_len].rstrip()
+
 def suggest(mech: str, problem: str) -> tuple[str, str]:
     """Return (spoken_cta, end_screen_line)."""
     if not mech:
         mech = "the written next-action default"
     # Concrete install action that can finish in under two minutes
     action = (
-        f"Write the exact words of the {mech.lower()} on a sticky note or in a note on the device you use to open the list. "
+        f"Write the exact words of the {_shorten(mech.lower(), 40)} on a sticky note or in a note on the device you use to open the list. "
         f"Put that note where the stall starts. Do that before you open the next tab."
     )
     spoken = (
         f"{action} "
         f"That is the whole assignment. It takes less than two minutes and it installs the default the video named."
     )
-    end = f"Install the default: {mech[:60]}"
+    end = f"Install the default: {_shorten(mech, 60)}"
     return spoken, end
 
 def main() -> int:
