@@ -2,7 +2,8 @@
 """One-command text QA report for a packet draft or script.
 
 Aggregates spoken-word band (via words.py), anti-slop hits (quality_scan),
-claim hedges (claim_scan), and mechanism-term presence (mechanism_align_scan).
+claim hedges (claim_scan), mechanism-term presence (mechanism_align_scan),
+and originality signals (originality_report).
 Prints a concise summary so agents can check text health before apply or promotion
 without sequential tool calls. Does not write files. Does not invent data.
 Default exit 0; --strict exits 1 if any scan signals an issue.
@@ -43,7 +44,7 @@ def main() -> int:
         print(f"No idea.md in {packet}")
         return 1
 
-    print("TEXT QA REPORT (band + quality + claim + mechanism align; read-only)")
+    print("TEXT QA REPORT (band + quality + claim + mechanism align + originality; read-only)")
     print("Signals are revision prompts, not hard failures unless --strict.")
     print("=" * 64)
 
@@ -77,9 +78,17 @@ def main() -> int:
     if "missing:" in out.lower() and "none" not in out.lower().split("missing:")[-1]:
         issues += 1
 
+    # Originality
+    rc, out = run_tool("originality_report.py", packet)
+    print("\n## ORIGINALITY REPORT")
+    print(out)
+    low = out.lower()
+    if any(sig in low for sig in ("signal: weak", "signal: check", "signal: review")):
+        issues += 1
+
     print("\n" + "=" * 64)
     print(f"summary_issues_detected: {issues}")
-    print("Next: revise draft.md for any signals, then re-run this report.")
+    print("Next: revise draft.md or script.md for any signals, then re-run this report.")
     print("draft.md is not script.md until apply_script.py --write.")
     if args.strict and issues:
         return 1
