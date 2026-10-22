@@ -75,6 +75,9 @@ def split_runs(text: str) -> tuple[str, list[str]]:
         if SPLIT not in body:
             if not preamble:
                 preamble = "# STATE\n\n" + body + "\n\n"
+            else:
+                # Older # STATE section without ## Run markers; archive it as a run.
+                runs.append(body + "\n\n")
             continue
         pre, rest = body.split(SPLIT, 1)
         if not preamble and pre.strip():
