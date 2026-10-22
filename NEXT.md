@@ -1,3 +1,1 @@
-# NEXT
-
-Run 716: integrated originality_report signals into packet_rewrite_report so one command covers rewrite starting points + 7-point originality. Preferred list complete. Next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py then secrets + single execute=true dispatch). Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer the expanded packet_rewrite_report (now with originality), text_qa_report / full_qa_report (with originality), rewrite_suggest, quality_scan, claim_scan, title_scan, description_scan, tags_scan, first_comment_scan, chapters_scan, thumbnail_scan, end_screen_scan, and the existing contracted suggest tools to avoid status/polish/inspection loops. Avoid additional status printers or suggest-contract locks.
+PLACEHOLDER
