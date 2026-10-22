@@ -3,22 +3,40 @@
 
 Prints qualitative suggestions from rewrite_suggest (script WORDS: quality fillers,
 claim hedges, unsourced digits), title_suggest, description_suggest, tags_suggest,
-first_comment_suggest, chapters_suggest, and end_screen_suggest.
-Does not write any files, invent facts, or call the network. A report is a
-starting point for human or agent revision, not a final rewrite.
+first_comment_suggest, chapters_suggest, end_screen_suggest, and originality_report
+(7-point test signals). Does not write any files, invent facts, or call the
+network. A report is a starting point for human or agent revision, not a final rewrite.
 
 Compounds across every future video by collapsing multiple separate suggestion
-commands into one entry point.
+and originality commands into one entry point.
 """
 
 from __future__ import annotations
 
+import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "tools") not in sys.path:
     sys.path.insert(0, str(ROOT / "tools"))
+
+
+def run_originality(packet: str) -> str:
+    """Run originality_report.py and return its output."""
+    path = ROOT / "tools" / "originality_report.py"
+    if not path.is_file():
+        return "MISSING originality_report.py"
+    try:
+        proc = subprocess.run(
+            [sys.executable, str(path), packet],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        return (proc.stdout or "") + (proc.stderr or "")
+    except Exception as e:
+        return f"EXCEPTION originality_report: {e}"
 
 
 def main() -> int:
@@ -50,6 +68,11 @@ def main() -> int:
                 print(f"    suggest: {sug}")
     except Exception as e:
         print(f"\n## SCRIPT (WORDS)\n  unavailable: {e}")
+
+    # Originality signals (7-point test)
+    print("\n## ORIGINALITY")
+    orig_out = run_originality(str(packet))
+    print(orig_out.strip() or "(no output)")
 
     # Titles
     try:
@@ -136,7 +159,7 @@ def main() -> int:
 
     print("\n" + "=" * 60)
     print("PACKET REWRITE REPORT DONE (no files written)")
-    print("Paste or adapt the starting points above. Re-run the individual scanners after edits.")
+    print("Paste or adapt the starting points above. Re-run the individual scanners and originality_report after edits.")
     return 0
 
 
