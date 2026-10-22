@@ -1,4 +1,4 @@
-2026-10-22T05:13:30Z (Run 719)
+2026-10-22T06:15:10Z (Run 720)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
 
@@ -6,7 +6,7 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Videos published: 0
 - Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Issue #1. Do not poll.
 - Media: Q1 VO + cards + r253 master ready after materialize; do not rematerialize if present. Do not regenerate.
-- Preferred unblocked list: complete. packet_rewrite_report.py now includes cleaner whole-word script structure starters (hook/body/payoff/CTA) + originality_report signals (in addition to script/title/description/tags/first_comment/chapters/end_screen). full_qa_report.py / text_qa_report.py cover originality alongside band/quality/claim/mechanism. next_topic.py ranks by mechanism continuity; topic_priority_scan remains the detailed ranking. saturation_guard flags suggest-contract locking loops. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract tool).
+- Preferred unblocked list: complete. draft_starter.py now produces natural-phrase skeletons (whole-word _shorten). packet_rewrite_report.py includes cleaner whole-word script structure starters (hook/body/payoff/CTA) + originality_report signals. full_qa_report.py / text_qa_report.py cover originality. next_topic.py ranks by mechanism continuity. saturation_guard flags suggest-contract locking loops. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract tool).
 - Claim path and suggestion tools remain as previously locked (topic through experiment_hypothesis).
 
 **Human step (only action that advances publish)**
@@ -20,4 +20,4 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 
 After provider_video_id exists and uploaded_at >=7 days, dispatch collect_feedback=true. Use `python3 tools/after_upload_steps.py` for the exact sequence.
 
-Do not poll secrets. Do not rematerialize if media present. Logs via record_run.py. Do not scaffold Q2. Prefer quality improvements (including the expanded packet_rewrite_report with cleaner script structure + originality and full_qa_report / text_qa_report with originality), true capability, or anti-rediscovery documentation over more status printers or suggest-contract locks while saturation_guard reports SATURATED_ANTI_REDISCOVERY. Do not refresh the checklist banner solely for the timestamp.
+Do not poll secrets. Do not rematerialize if media present. Logs via record_run.py. Do not scaffold Q2. Prefer quality improvements (including draft_starter.py with natural phrases, the expanded packet_rewrite_report with cleaner script structure + originality, and full_qa_report / text_qa_report with originality), true capability, or anti-rediscovery documentation over more status printers or suggest-contract locks while saturation_guard reports SATURATED_ANTI_REDISCOVERY. Do not refresh the checklist banner solely for the timestamp.
