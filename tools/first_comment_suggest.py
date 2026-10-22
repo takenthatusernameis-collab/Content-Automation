@@ -10,25 +10,12 @@ A suggestion is a starting point for the ## First comment section of publish.md.
 from __future__ import annotations
 
 import argparse
-import re
 from pathlib import Path
+
+from idea_utils import extract
 
 ROOT = Path(__file__).resolve().parents[1]
 
-MECH_RE = re.compile(r"mechanism[^\n]*:\s*(.+)", re.I)
-PROBLEM_RE = re.compile(r"problem:\s*(.+)", re.I)
-
-def extract(idea_text: str) -> tuple[str, str]:
-    mech = ""
-    problem = ""
-    for line in idea_text.splitlines():
-        m = MECH_RE.search(line)
-        if m:
-            mech = m.group(1).strip().rstrip(".")
-        p = PROBLEM_RE.search(line)
-        if p:
-            problem = p.group(1).strip().rstrip(".")
-    return mech, problem
 
 def suggest(mech: str, problem: str) -> str:
     """Return a short first-comment assignment line."""
@@ -52,7 +39,7 @@ def main() -> int:
         print(f"No idea.md in {path}")
         return 1
     text = idea.read_text(encoding="utf-8")
-    mech, problem = extract(text)
+    mech, problem, _ = extract(text)
     pin = suggest(mech, problem)
     print("FIRST COMMENT SUGGESTION (mechanism assignment; no engagement bait or reply prompt)")
     print(f"mechanism: {mech}")

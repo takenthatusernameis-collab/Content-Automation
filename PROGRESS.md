@@ -1,5 +1,12 @@
 # PROGRESS
 
+- Reusable capability: tools/description_suggest.py, tools/tags_suggest.py, tools/chapters_suggest.py, tools/thumbnail_suggest.py, tools/end_screen_suggest.py, and tools/first_comment_suggest.py now import extract from tools/idea_utils.py. Single source of truth for idea.md field parsing now covers all major structure and metadata suggestors. Consistency locked for every future packet.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures. Changes are pure refactors; no writes to packets.
+- Human labor reduction: agents receive consistent field extraction from every migrated suggestor path, further reducing polishing and inconsistency risk across every subsequent video.
+- Videos published remain 0. Stall continues. Preferred list still complete. Anti-drift stronger.
+
+# PROGRESS
+
 - Reusable capability: tools/idea_utils.py provides the canonical idea.md field extractor (mechanism, problem, topic). tools/hook_suggest.py, tools/title_suggest.py, tools/body_suggest.py, tools/payoff_suggest.py, and tools/cta_suggest.py now import extract from it. Single source of truth reduces drift risk for field parsing across suggestors. Applies to every future packet.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures. Changes are pure refactors; no writes to packets.
 - Human labor reduction: agents receive consistent field extraction from every migrated suggestor path, further reducing polishing and inconsistency risk across every subsequent video.
