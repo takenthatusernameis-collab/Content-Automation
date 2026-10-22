@@ -12,16 +12,12 @@ draft.md, not a final script.
 from __future__ import annotations
 
 import argparse
-import re
 from pathlib import Path
 
+from idea_utils import extract
 from phrase_utils import shorten as _shorten
 
 ROOT = Path(__file__).resolve().parents[1]
-
-MECH_RE = re.compile(r"mechanism[^\n]*:\s*(.+)", re.I)
-PROBLEM_RE = re.compile(r"problem:\s*(.+)", re.I)
-TOPIC_RE = re.compile(r"topic:\s*(.+)", re.I)
 
 WEAK = (
     "unlock your potential",
@@ -36,22 +32,6 @@ WEAK = (
     "obviously",
     "to sum up",
 )
-
-def extract(idea_text: str) -> tuple[str, str, str]:
-    mech = ""
-    problem = ""
-    topic = ""
-    for line in idea_text.splitlines():
-        m = MECH_RE.search(line)
-        if m:
-            mech = m.group(1).strip().rstrip(".")
-        p = PROBLEM_RE.search(line)
-        if p:
-            problem = p.group(1).strip().rstrip(".")
-        t = TOPIC_RE.search(line)
-        if t:
-            topic = t.group(1).strip().rstrip(".")
-    return mech, problem, topic
 
 def suggest(mech: str, problem: str, topic: str) -> list[str]:
     """Return 2-3 payoff promise candidates grounded in the packet."""
