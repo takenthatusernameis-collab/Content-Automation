@@ -26,6 +26,25 @@ WEAK = (
     "in fact", "of course", "obviously", "to sum up", "stock footage",
 )
 
+def _shorten(text: str, max_len: int = 40) -> str:
+    """Return a natural short phrase, preferring whole words or first clause."""
+    text = text.strip()
+    if len(text) <= max_len:
+        return text
+    for sep in (". ", ", ", " so ", " that ", " and ", " — ", " - "):
+        if sep in text:
+            cand = text.split(sep)[0].strip()
+            if 10 <= len(cand) <= max_len:
+                return cand
+    words = text.split()
+    out = []
+    for w in words:
+        trial = " ".join(out + [w])
+        if len(trial) > max_len:
+            break
+        out.append(w)
+    return " ".join(out) if out else text[:max_len].rstrip()
+
 def extract(idea_text: str) -> tuple[str, str, str]:
     mech = ""
     problem = ""
@@ -46,16 +65,17 @@ def suggest_hooks(mech: str, problem: str) -> list[str]:
     base = (mech or "written next-action default").lower()
     stall = (problem or "the stall").lower()
     candidates = [
-        f"You already know what to work on. The stall is still there when it is time to start. Write the {base[:40]} where the decision happens.",
-        f"The list is ready. The next action is not. Put the {base[:35]} on disk before you open the first tab.",
-        f"Same decision, same delay. Name the stall in one sentence and install the {base[:30]} as the default.",
+        f"You already know what to work on. The stall is still there when it is time to start. Write the {_shorten(base, 40)} where the decision happens.",
+        f"The list is ready. The next action is not. Put the {_shorten(base, 35)} on disk before you open the first tab.",
+        f"Same decision, same delay. Name the stall in one sentence and install the {_shorten(base, 30)} as the default.",
     ]
     return [c for c in candidates if not any(w in c.lower() for w in WEAK)][:3]
 
 def suggest_payoff(mech: str) -> str:
     base = (mech or "the written next-action default").lower()
+    short = _shorten(base, 40)
     return (
-        f"After this, you can install the {base[:40]} as a concrete under-two-minute action. "
+        f"After this, you can install the {short} as a concrete under-two-minute action. "
         f"Name the exact next step, write it where the stall starts, and finish the install before the next tab opens. "
         f"That is the whole outcome: one default on disk that ends the reopen."
     )
@@ -64,24 +84,26 @@ def suggest_bodies(mech: str, problem: str) -> list[str]:
     base = (mech or "written next-action default").lower()
     stall = (problem or "the list reopens").lower()
     candidates = [
-        f"You open the file and the stall starts. The list is still the whole page. Write the exact next action from the {base[:40]} at the top of the document before you scroll. That single line is the difference between reopening the decision and starting the first two minutes.",
-        f"The tab is open. The work is not. Put the {base[:35]} on a sticky note on the monitor edge where the cursor already lives. When the stall hits, the note is the only thing visible. No new list. No extra decision.",
-        f"Same morning, same delay. The planned task has no cue. Name one physical object that already sits on the desk and write the {base[:30]} on it. The object becomes the start signal. Opening the list is no longer the first action.",
+        f"You open the file and the stall starts. The list is still the whole page. Write the exact next action from the {_shorten(base, 40)} at the top of the document before you scroll. That single line is the difference between reopening the decision and starting the first two minutes.",
+        f"The tab is open. The work is not. Put the {_shorten(base, 35)} on a sticky note on the monitor edge where the cursor already lives. When the stall hits, the note is the only thing visible. No new list. No extra decision.",
+        f"Same morning, same delay. The planned task has no cue. Name one physical object that already sits on the desk and write the {_shorten(base, 30)} on it. The object becomes the start signal. Opening the list is no longer the first action.",
     ]
     return [c for c in candidates if not any(w in c.lower() for w in WEAK)][:3]
 
 def suggest_failure(mech: str, problem: str) -> str:
     base = (mech or "written next-action default").lower()
     stall = (problem or "the list reopens").lower()
+    short = _shorten(base, 40)
     return (
-        f"Without the {base[:40]}, the stall repeats. You reopen the list, the next action is still unnamed, and the same delay starts again. "
+        f"Without the {short}, the stall repeats. You reopen the list, the next action is still unnamed, and the same delay starts again. "
         f"The missing cue is the written default. No note, no object, no single verb stays open. The decision never finishes."
     )
 
 def suggest_cta(mech: str) -> str:
     base = (mech or "the written next-action default").lower()
+    short = _shorten(base, 40)
     return (
-        f"Write the exact words of the {base[:40]} on a sticky note or in a note on the device you use to open the list. "
+        f"Write the exact words of the {short} on a sticky note or in a note on the device you use to open the list. "
         f"Put that note where the stall starts. Do that before you open the next tab. "
         f"That is the whole assignment. It takes less than two minutes and it installs the default the video named."
     )
@@ -89,9 +111,9 @@ def suggest_cta(mech: str) -> str:
 def suggest_visuals(mech: str) -> list[str]:
     base = (mech or "written next-action default").lower()
     candidates = [
-        f"Close on the open list. Cursor hovers. No note visible. Then a sticky note with the {base[:40]} appears at the top of the page.",
-        f"Desk edge. Monitor shows the stalled task. Hand places a small card with the exact {base[:35]} next to the keyboard. List stays closed.",
-        f"Tab is open. Nothing is written. Camera stays on the empty first line while the viewer writes the {base[:30]} and leaves it open.",
+        f"Close on the open list. Cursor hovers. No note visible. Then a sticky note with the {_shorten(base, 40)} appears at the top of the page.",
+        f"Desk edge. Monitor shows the stalled task. Hand places a small card with the exact {_shorten(base, 35)} next to the keyboard. List stays closed.",
+        f"Tab is open. Nothing is written. Camera stays on the empty first line while the viewer writes the {_shorten(base, 30)} and leaves it open.",
     ]
     return [c for c in candidates if not any(w in c.lower() for w in WEAK)][:3]
 
