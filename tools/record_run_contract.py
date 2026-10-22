@@ -32,7 +32,7 @@ def main() -> int:
         (root / "docs").mkdir()
         (root / "STATE.md").write_text("# STATE\n\n## Run 1 delta\n- old\n")
         (root / "NEXT.md").write_text(
-            "# NEXT\n\nOlder do-not-rediscover notes live in `docs/next_archive.md`. Do not paste the archive back.\n\n1. old\n"
+            "# NEXT\n\nOlder next actions live in `docs/next_archive.md`. Do not paste the archive back.\n\n1. old\n"
         )
         (root / "RUNS.md").write_text("# RUNS\n\n## Run 1 — old\n- old\n")
         (root / "PROGRESS.md").write_text("# PROGRESS\n\n## Run 1 — old\n- old\n")

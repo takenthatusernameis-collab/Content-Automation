@@ -157,6 +157,11 @@ PATTERNS = (
     "the truth of the matter is",
     "plain and simple",
     "in layman's terms",
+    "let me explain",
+    "here's why",
+    "here’s why",
+    "the reason is",
+    "to put it another way",
 )
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)

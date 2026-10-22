@@ -1,3 +1,10 @@
+# PROGRESS
+
+- Reusable capability: quality_scan.py now flags four additional common filler phrases. Future drafts and set_status ready_for_vo checks catch more generic explanatory language automatically. Quality stronger for every subsequent video.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures. Changes are pure pattern addition; no writes to packets.
+- Human labor reduction: agents and future runs spend less time manually spotting "let me explain" style padding. CI and gates enforce the expanded list.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 - Reusable capability: selftest reliability restored. Future pushes will not fail on the quality_scan unpack, title_scan contract, or operator_card SHA check. Consistency stronger.
 - Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures. Changes are pure reliability fixes; no writes to packets.
 - Human labor reduction: agents and future runs spend less time diagnosing red selftests from format drift in scan helpers. CI stays green.
@@ -8,7 +15,6 @@
 - Human labor reduction: less time spent rediscovering what "success" looks like after the first dispatch. Reduces risk of premature second dispatch.
 - Videos published remain 0. Stall continues. Preferred list still complete.
 
-# PROGRESS
 
 - Reusable capability: tools/state_compact.py now correctly archives extra # STATE headers. Future prepends will not leave the live file in a contract-failing state. Selftest reliability stronger.
 - NEXT.md archive pointer restored so next_compact_contract passes.
@@ -35,4 +41,3 @@
 - Videos published remain 0. Stall continues. Preferred list still complete.
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
-

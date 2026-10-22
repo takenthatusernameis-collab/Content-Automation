@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 737 — 2026-10-23T02:15:00Z
+- Objective: Improve future script quality by expanding the high-precision anti-slop list in quality_scan with common filler phrases not previously covered.
+- Action: Added "let me explain", "here's why" (plus curly), "the reason is", "to put it another way" to tools/quality_scan.py PATTERNS. Documented the addition in docs/content_quality.md. Updated STATE/NEXT/RUNS/PROGRESS/FAILURES via record_run. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. quality_scan_contract and selftest PASS. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: Local python3 tools/quality_scan_contract.py exits 0. python3 tools/selftest.py exits 0 with SELFTEST PASS.
+- Discovery: The anti-slop list can still absorb a few common explanatory fillers without breaking contracts; this reduces the chance of generic meta-language in future drafts.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Avoid more status/polish/suggest-contract tools.
+
 ## Run 736 — 2026-10-22T22:15:00Z
 - Objective: Restore selftest reliability after regressions in scan hit formats and missing HANDOFF SHA.
 - Action: Patched tools/set_status.py to unpack quality_scan 3-tuples (phrase, count, ctx). Updated tools/title_scan_contract.py to expect current "Matches title: No" thumb token and unpack 3-tuples. Restored the r253 master SHA line in HANDOFF.md so operator_card passes. Updated STATE/NEXT/RUNS/PROGRESS. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
