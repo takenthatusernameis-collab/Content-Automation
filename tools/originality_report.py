@@ -16,8 +16,11 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT / "tools") not in sys.path:
-    sys.path.insert(0, str(ROOT / "tools"))
+TOOLS = Path(__file__).resolve().parent
+if str(TOOLS) not in sys.path:
+    sys.path.insert(0, str(TOOLS))
+
+from idea_utils import extract as idea_extract  # noqa: E402
 
 
 def extract_words(script_text: str) -> str:
@@ -44,8 +47,8 @@ def extract_words(script_text: str) -> str:
 
 
 def extract_mechanism(idea_text: str) -> str:
-    m = re.search(r"mechanism[^:]*:\s*(.+)", idea_text, re.IGNORECASE)
-    return m.group(1).strip() if m else ""
+    mech, _problem, _topic = idea_extract(idea_text)
+    return mech
 
 
 def main() -> int:
@@ -109,8 +112,7 @@ def main() -> int:
 
     # 4. Examples internally consistent?
     print("\n4. Examples consistent with viewer/problem?")
-    problem_m = re.search(r"problem[^:]*:\s*(.+)", idea_text, re.IGNORECASE)
-    problem = problem_m.group(1).strip() if problem_m else ""
+    _mech, problem, _topic = idea_extract(idea_text) if idea_text else ("", "", "")
     if problem and any(w in words.lower() for w in problem.lower().split() if len(w) > 4):
         print("  signal: yes (problem language echoed)")
     else:

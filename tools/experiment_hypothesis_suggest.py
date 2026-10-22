@@ -12,7 +12,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
 import sys
 from pathlib import Path
 
@@ -22,9 +21,7 @@ if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
 from experiment_loop import ALLOWED_CHANGES  # noqa: E402
-
-MECH_RE = re.compile(r"mechanism[^\n]*:\s*(.+)", re.I)
-TOPIC_RE = re.compile(r"topic:\s*(.+)", re.I)
+from idea_utils import extract as idea_extract  # noqa: E402
 
 # Mapping from change type to hypothesis templates (placeholders for mechanism and predicted effect).
 # Templates stay qualitative on the effect until a real baseline exists.
@@ -65,15 +62,7 @@ HYPOTHESIS_MAP = {
 
 
 def extract(idea_text: str) -> tuple[str, str]:
-    mech = ""
-    topic = ""
-    for line in idea_text.splitlines():
-        m = MECH_RE.search(line)
-        if m:
-            mech = m.group(1).strip().rstrip(".")
-        t = TOPIC_RE.search(line)
-        if t:
-            topic = t.group(1).strip().rstrip(".")
+    mech, _problem, topic = idea_extract(idea_text)
     return mech, topic
 
 

@@ -16,27 +16,21 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+TOOLS = Path(__file__).resolve().parent
+if str(TOOLS) not in sys.path:
+    sys.path.insert(0, str(TOOLS))
 
-MECH_RE = re.compile(r"mechanism[^\n]*:\s*(.+)", re.I)
-PROBLEM_RE = re.compile(r"problem:\s*(.+)", re.I)
-TOPIC_RE = re.compile(r"topic:\s*(.+)", re.I)
+from idea_utils import extract as idea_extract  # noqa: E402
+
 VIEWER_RE = re.compile(r"viewer:\s*(.+)", re.I)
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S | re.I)
 SECTION_RE = re.compile(r"^##\s+(.+?)$", re.M)
 
 
 def extract_idea(idea_text: str) -> dict[str, str]:
-    out = {"mech": "", "problem": "", "topic": "", "viewer": ""}
+    mech, problem, topic = idea_extract(idea_text)
+    out = {"mech": mech, "problem": problem, "topic": topic, "viewer": ""}
     for line in idea_text.splitlines():
-        m = MECH_RE.search(line)
-        if m:
-            out["mech"] = m.group(1).strip().rstrip(".")
-        p = PROBLEM_RE.search(line)
-        if p:
-            out["problem"] = p.group(1).strip().rstrip(".")
-        t = TOPIC_RE.search(line)
-        if t:
-            out["topic"] = t.group(1).strip().rstrip(".")
         v = VIEWER_RE.search(line)
         if v:
             out["viewer"] = v.group(1).strip().rstrip(".")
