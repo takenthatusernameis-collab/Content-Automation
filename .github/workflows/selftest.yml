@@ -26,3 +26,5 @@ jobs:
         run: python3 tools/selftest.py
       - name: Prove write-path locks
         run: python3 tools/prove_locks.py
+      - name: Lock shared idea.md extractor
+        run: python3 tools/idea_utils_contract.py
