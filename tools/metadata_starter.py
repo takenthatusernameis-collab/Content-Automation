@@ -11,44 +11,13 @@ Run the corresponding *_scan.py tools after adapting into the packet files.
 from __future__ import annotations
 
 import argparse
-import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-MECH_RE = re.compile(r"mechanism[^\n]*:\s*(.+)", re.I)
-PROBLEM_RE = re.compile(r"problem:\s*(.+)", re.I)
-TOPIC_RE = re.compile(r"topic:\s*(.+)", re.I)
+from idea_utils import extract
 
-WEAK_TITLE = (
-    "secret hack", "you won't believe", "must see", "this changes everything",
-    "one weird trick", "will shock you", "the secret to",
-)
-WEAK_TAG = (
-    "video", "youtube", "tutorial", "how to", "subscribe", "free", "best",
-    "amazing", "incredible", "must watch", "viral", "trending", "clickbait",
-    "secret", "hack", "tips and tricks",
-)
-WEAK_CHAPTER = (
-    "intro", "outro", "hook", "cta", "subscribe", "what you will learn",
-    "in this video", "let's dive in",
-)
 
-def extract(idea_text: str) -> tuple[str, str, str]:
-    mech = ""
-    problem = ""
-    topic = ""
-    for line in idea_text.splitlines():
-        m = MECH_RE.search(line)
-        if m:
-            mech = m.group(1).strip().rstrip(".")
-        p = PROBLEM_RE.search(line)
-        if p:
-            problem = p.group(1).strip().rstrip(".")
-        t = TOPIC_RE.search(line)
-        if t:
-            topic = t.group(1).strip().rstrip(".")
-    return mech, problem, topic
 
 def suggest_titles(mech: str, problem: str, topic: str) -> list[str]:
     if not mech:

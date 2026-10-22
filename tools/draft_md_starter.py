@@ -15,35 +15,13 @@ by assembling them into the exact file shape needed before apply_script.py.
 from __future__ import annotations
 
 import argparse
-import re
 import sys
 from pathlib import Path
 
 from phrase_utils import shorten as _shorten
 
-MECH_RE = re.compile(r"mechanism[^\n]*:\s*(.+)", re.I)
-PROBLEM_RE = re.compile(r"problem:\s*(.+)", re.I)
-TOPIC_RE = re.compile(r"topic:\s*(.+)", re.I)
+from idea_utils import extract
 
-WEAK = (
-    "unlock your potential", "in today's fast-paced", "let's dive in",
-    "the key is", "in this video", "you will learn", "work smarter",
-    "in fact", "of course", "obviously", "to sum up", "stock footage",
-)
-
-def extract(idea_text: str) -> tuple[str, str, str]:
-    mech = problem = topic = ""
-    for line in idea_text.splitlines():
-        m = MECH_RE.search(line)
-        if m:
-            mech = m.group(1).strip().rstrip(".")
-        p = PROBLEM_RE.search(line)
-        if p:
-            problem = p.group(1).strip().rstrip(".")
-        t = TOPIC_RE.search(line)
-        if t:
-            topic = t.group(1).strip().rstrip(".")
-    return mech or "written next-action default", problem or "the stall", topic or ""
 
 def suggest_hook(mech: str, problem: str) -> str:
     base = _shorten(mech.lower(), 40)
@@ -114,6 +92,8 @@ def main() -> int:
 
     text = idea.read_text(encoding="utf-8")
     mech, problem, topic = extract(text)
+    mech = mech or "written next-action default"
+    problem = problem or "the stall"
 
     print("DRAFT.MD STARTER (ready-to-copy skeleton; expand body beats to targets; no invented statistics or anecdotes)")
     print(f"# Draft skeleton for {path.name}")
