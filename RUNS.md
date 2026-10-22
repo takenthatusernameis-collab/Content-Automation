@@ -1,3 +1,14 @@
+# RUNS
+
+## Run 724 — 2026-10-22T10:15:00Z
+- Objective: Finish eliminating all duplicated whole-word shorten helpers so every starter and suggestor uses the single shared implementation.
+- Action: Refactored tools/hook_suggest.py, tools/payoff_suggest.py, tools/cta_suggest.py, tools/title_suggest.py, and tools/description_suggest.py to import shorten as _shorten from tools/phrase_utils.py and removed their local definitions. Updated state files. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. All suggestors now use the single source of truth. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: Changes are pure stdlib refactors; imports succeed; no file or network writes in the tools. Live packets unchanged. No local _shorten defs remain.
+- Discovery: Phrase helper migration is now complete; further consistency work should target other duplicated logic if any, or true new capabilities.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Avoid more status/polish/suggest-contract tools.
+
 ## Run 723 — 2026-10-22T09:15:00Z
 - Objective: Continue eliminating duplicated whole-word shorten helpers so all draft starters and structure suggestors share one consistent natural-phrase implementation.
 - Action: Refactored tools/draft_md_starter.py, tools/draft_beat_expansion_starter.py, and tools/body_suggest.py to import shorten as _shorten from tools/phrase_utils.py and removed their local definitions. Updated STATE.md, NEXT.md, RUNS.md, PROGRESS.md, HANDOFF.md. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.

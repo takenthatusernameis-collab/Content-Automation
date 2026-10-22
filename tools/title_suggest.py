@@ -14,6 +14,8 @@ import argparse
 import re
 from pathlib import Path
 
+from phrase_utils import shorten as _shorten
+
 ROOT = Path(__file__).resolve().parents[1]
 
 MECH_RE = re.compile(r"mechanism[^\n]*:\s*(.+)", re.I)
@@ -45,27 +47,6 @@ def extract(idea_text: str) -> tuple[str, str, str]:
         if t:
             topic = t.group(1).strip().rstrip(".")
     return mech, problem, topic
-
-def _shorten(text: str, max_len: int = 40) -> str:
-    """Return a natural short phrase, preferring whole words."""
-    text = text.strip()
-    if len(text) <= max_len:
-        return text
-    # Prefer first clause or sentence
-    for sep in (". ", ", ", " so ", " that ", " and "):
-        if sep in text:
-            cand = text.split(sep)[0].strip()
-            if 15 <= len(cand) <= max_len:
-                return cand
-    # Word-boundary truncate
-    words = text.split()
-    out = []
-    for w in words:
-        trial = " ".join(out + [w])
-        if len(trial) > max_len:
-            break
-        out.append(w)
-    return " ".join(out) if out else text[:max_len].rstrip()
 
 def suggest(mech: str, problem: str, topic: str) -> list[str]:
     """Return 5+ title candidates grounded in the packet."""
