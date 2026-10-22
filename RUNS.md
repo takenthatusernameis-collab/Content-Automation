@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 735 — 2026-10-22T21:20:00Z
+- Objective: Reduce rediscovery of post-dispatch success signals by clarifying the human checklist.
+- Action: Added a concise "Success verification (after dispatch)" subsection to docs/human_oauth_checklist.md covering private video id appearance in Actions log and upload_state.json, and the rule against re-dispatching blindly. Updated STATE/NEXT/RUNS/PROGRESS. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.
+- Result: Videos published stay 0. Human path after secrets is more explicit. Upload still blocked only on the three secrets. Preferred list remains complete.
+- Verification: Checklist section present; state files updated. No tool contracts broken.
+- Discovery: Post-dispatch confirmation steps were distributed; a single subsection reduces the chance a human or later agent misses the exact evidence required before the videos-published counter moves.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Avoid more status/polish/suggest-contract tools.
+
+# RUNS
+
 ## Run 734 — 2026-10-22T20:30:00Z
 - Objective: Restore selftest reliability by fixing state_compact to properly collapse extra # STATE headers and ensuring NEXT.md carries its archive pointer.
 - Action: Patched tools/state_compact.py to archive older # STATE sections that lack ## Run markers. Added the required archive pointer line to NEXT.md. Ran the compact tools and contracts. Updated state files. Did not poll secrets, dispatch, scaffold, edit any live packets, materialize, or refresh the checklist banner.

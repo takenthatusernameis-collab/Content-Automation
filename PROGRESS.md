@@ -1,3 +1,8 @@
+- Reusable capability: docs/human_oauth_checklist.md now has an explicit Success verification subsection. Future humans and agents have one place for the exact evidence (private video id + upload_state.json) that advances the published count. Clarity stronger.
+- Local gates not re-run (STALL_GATE_CONFIRM; previous verification holds). No new failures. Changes are pure documentation clarity; no writes to packets.
+- Human labor reduction: less time spent rediscovering what "success" looks like after the first dispatch. Reduces risk of premature second dispatch.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 # PROGRESS
 
 - Reusable capability: tools/state_compact.py now correctly archives extra # STATE headers. Future prepends will not leave the live file in a contract-failing state. Selftest reliability stronger.
