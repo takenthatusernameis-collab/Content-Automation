@@ -1,4 +1,4 @@
-2026-10-22T08:15:00Z (Run 722)
+2026-10-22T09:15:00Z (Run 723)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
 
@@ -6,7 +6,7 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Videos published: 0
 - Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Issue #1. Do not poll.
 - Media: Q1 VO + cards + r253 master ready after materialize; do not rematerialize if present. Do not regenerate.
-- Preferred unblocked list: complete. tools/phrase_utils.py now holds the canonical whole-word shorten; tools/draft_starter.py imports it. Remaining local copies in draft_md_starter, draft_beat_expansion_starter, and structure/metadata suggestors can migrate next for consistency. packet_rewrite_report.py includes cleaner whole-word script structure starters (hook/body/payoff/CTA) + originality_report signals. full_qa_report.py / text_qa_report.py cover originality. next_topic.py ranks by mechanism continuity. saturation_guard flags suggest-contract locking loops. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract tool).
+- Preferred unblocked list: complete. tools/phrase_utils.py holds the canonical whole-word shorten. Migrated this run: draft_md_starter.py, draft_beat_expansion_starter.py, body_suggest.py (plus prior draft_starter.py). Remaining local copies in hook/payoff/cta/title/description suggestors can migrate next for full consistency. packet_rewrite_report.py includes cleaner whole-word script structure starters + originality_report signals. full_qa_report.py / text_qa_report.py cover originality. next_topic.py ranks by mechanism continuity. saturation_guard flags suggest-contract locking loops. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract tool).
 - Claim path and suggestion tools remain as previously locked (topic through experiment_hypothesis).
 
 **Human step (only action that advances publish)**
@@ -20,4 +20,4 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 
 After provider_video_id exists and uploaded_at >=7 days, dispatch collect_feedback=true. Use `python3 tools/after_upload_steps.py` for the exact sequence.
 
-Do not poll secrets. Do not rematerialize if media present. Logs via record_run.py. Do not scaffold Q2. Prefer quality improvements (including the shared phrase_utils.shorten, draft starters with natural phrases, the expanded packet_rewrite_report with cleaner script structure + originality, and full_qa_report / text_qa_report with originality), true capability, or anti-rediscovery documentation over more status printers or suggest-contract locks while saturation_guard reports SATURATED_ANTI_REDISCOVERY. Do not refresh the checklist banner solely for the timestamp.
+Do not poll secrets. Do not rematerialize if media present. Logs via record_run.py. Do not scaffold Q2. Prefer quality improvements (including the shared phrase_utils.shorten on more tools, draft starters with natural phrases, the expanded packet_rewrite_report with cleaner script structure + originality, and full_qa_report / text_qa_report with originality), true capability, or anti-rediscovery documentation over more status printers or suggest-contract locks while saturation_guard reports SATURATED_ANTI_REDISCOVERY. Do not refresh the checklist banner solely for the timestamp.
