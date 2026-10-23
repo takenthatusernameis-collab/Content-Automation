@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: oauth_exchange.py now prints an explicit REQUIRED SCOPES banner with short names when generating the consent URL. Future operators have lower risk of minting a token with insufficient scopes at the critical mint step.
+- Tool print change only. Local verification of materialize + gates PASS. No packet writes.
+- Human labor reduction: the single remaining human step has one less opportunity for a scope-related failure that would require re-minting.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable.
+
 - Reusable capability: human OAuth checklist now has an explicit scopes reminder immediately above the quick copy-paste sequence. Future operators have lower risk of minting a token with insufficient scopes when following the paste block.
 - Doc-only change. No packet writes. Checklist update verified by commit.
 - Human labor reduction: the single remaining human step has one less opportunity for a scope-related failure that would require re-minting.

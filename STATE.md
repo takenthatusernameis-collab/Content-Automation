@@ -1,9 +1,20 @@
 # STATE
 
+2026-10-23T11:20:00Z (Run 746)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable after local materialize (gate PASS, master present). Enhanced oauth_exchange.py to print a prominent REQUIRED SCOPES banner with short names when printing the consent URL, further reducing scope-miss risk at the exact moment the human mints the token. No new status/polish/inspection/suggest-contract tools added. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability.
+
+2026-10-23T11:20:00Z (Run 746)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable after local materialize (gate PASS, master present). Enhanced oauth_exchange.py to print a prominent REQUIRED SCOPES banner with short names when printing the consent URL, further reducing scope-miss risk at the exact moment the human mints the token. No new status/polish/inspection/suggest-contract tools added. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability.
+
+2026-10-23T11:20:00Z (Run 746)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable after local materialize (gate PASS, master present). Enhanced oauth_exchange.py to print a prominent REQUIRED SCOPES banner with short names when printing the consent URL, further reducing scope-miss risk at the exact moment the human mints the token. No new status/polish/inspection/suggest-contract tools added. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability.
+
 2026-10-23T07:15:00Z (Run 745)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, selftest PASS. Added a scopes reminder line immediately above the quick copy-paste sequence in docs/human_oauth_checklist.md so the required scopes are visible in the most copy-paste-prone location. No new status/polish/inspection/suggest-contract tools added. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability.
-
 
 2026-10-23T06:16:14Z (Run 744)
 
@@ -28,3 +39,4 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Lo
 2026-10-23T00:20:00Z (Run 738)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Centralized high-precision anti-slop phrases into tools/phrase_utils.py as ANTI_SLOP_PATTERNS (single source of truth). quality_scan.py, body_suggest.py, hook_suggest.py, and draft_starter.py now import it. Fixed NameError in draft_starter.py (WEAK was undefined). Added three new phrases (so basically, what I'm saying is, the idea here is / the point being). Selftest contracts still PASS. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Prefer human OAuth step or true capability over more status/polish/inspection/suggest-contract tools.
+

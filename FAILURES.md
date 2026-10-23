@@ -1,8 +1,9 @@
 # FAILURES
 
+None this run. OAuth stall continues as the sole external blocker.
+
 None this run. Phrase addition succeeded and contracts passed. No secret poll attempted. OAuth stall continues as expected.
 
-# FAILURES
 
 None this run. Previous stalls remain.
 

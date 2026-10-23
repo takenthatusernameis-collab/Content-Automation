@@ -136,7 +136,11 @@ def main() -> int:
         print("REFUSE: consent URL must not contain the client secret", file=sys.stderr)
         return 3
     sys.stdout.write(url + "\n")
-    print("SCOPES " + ",".join(SCOPES))
+    print("REQUIRED SCOPES (grant all during consent; youtube.upload alone is insufficient):")
+    print("  - youtube.upload")
+    print("  - youtube.force-ssl")
+    print("  - yt-analytics.readonly")
+    print("Full URIs: " + ",".join(SCOPES))
     print("Redirect URI is http://localhost. The browser will not load that page. Paste the full address-bar URL on stdin. Do not commit the code.")
     print()
     print("After the refresh token is written outside the repo, set the three secrets (paste values into the prompts; never put them on the command line or in a file):")
