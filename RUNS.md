@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 739 — 2026-10-23T04:14:00Z
+- Objective: Reduce anti-slop drift between the generation prompt and the scanner by making script_writer.md reference the canonical single source.
+- Action: Edited prompts/script_writer.md to replace the long local example list with an explicit pointer to tools/phrase_utils.py ANTI_SLOP_PATTERNS (imported by quality_scan and starters). Noted that future additions apply automatically. Updated state files. Did not poll secrets, dispatch, scaffold, or rematerialize.
+- Result: Videos published stay 0. Prompt and scanner now share the same source of truth for anti-slop. Selftest PASS. Upload still blocked only on the three secrets.
+- Verification: python3 tools/selftest.py exits 0 with SELFTEST PASS. Diff shows only the expected prompt clarification.
+- Discovery: The prompt previously maintained a partial enumerated list that could drift from ANTI_SLOP_PATTERNS; pointing to the canonical source prevents that.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Avoid more status/polish/suggest-contract tools.
+
 ## Run 738 — 2026-10-23T00:20:00Z
 - Objective: Reduce anti-slop drift and fix a latent starter crash by centralizing the phrase list.
 - Action: Moved PATTERNS into tools/phrase_utils.py as ANTI_SLOP_PATTERNS. Updated quality_scan.py, body_suggest.py, hook_suggest.py, and draft_starter.py to import it. Fixed NameError in draft_starter (WEAK undefined). Added three high-precision phrases. Documented the single source in content_quality.md. Updated state files. Did not poll secrets, dispatch, scaffold, or rematerialize.

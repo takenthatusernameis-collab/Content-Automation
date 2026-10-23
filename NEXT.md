@@ -10,4 +10,8 @@ Run 735: human_oauth_checklist.md now includes an explicit Success verification 
 
 Older next actions live in `docs/next_archive.md`. Do not paste the archive back.
 
+Run 739: script_writer.md now points to canonical ANTI_SLOP_PATTERNS as single source. Preferred list complete. Next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py then secrets + single execute=true dispatch). Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer the shared-helper starters and suggestors (now using canonical anti-slop), the expanded packet_rewrite_report, text_qa_report / full_qa_report, rewrite_suggest, quality_scan, claim_scan and existing contracted tools. Avoid additional status printers or suggest-contract locks.
+
+2026-10-23T04:14:00Z
+
 2026-10-23T00:20:00Z

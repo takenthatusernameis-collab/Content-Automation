@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: script generation prompt now references the single source of truth ANTI_SLOP_PATTERNS. Future phrase additions automatically stay aligned with quality_scan and starters without manual prompt edits. Consistency stronger for every subsequent video.
+- Local selftest verified PASS. No packet writes.
+- Human labor reduction: less time spent syncing anti-slop lists between prompts and tools. One edit to phrase_utils updates generation guidance.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 - Reusable capability: anti-slop phrases now have a single source of truth in phrase_utils.ANTI_SLOP_PATTERNS. Future phrase additions automatically apply to quality_scan and key suggestors/starters. draft_starter.py no longer crashes on undefined WEAK. Quality and reliability stronger for every subsequent video and run.
 - Local contracts verified PASS (quality_scan_contract, phrase_utils_contract). No packet writes.
 - Human labor reduction: less time spent syncing local WEAK lists or debugging starter crashes. One edit updates the whole pipeline.
