@@ -1,1 +1,177 @@
-PLACEHOLDER
+#!/usr/bin/env python3
+"""Shared text helpers for mechanism-aligned suggestions.
+
+Provides whole-word / first-clause shortening so starters and suggestors
+produce natural phrases without mid-word cuts.
+"""
+
+from __future__ import annotations
+
+
+def shorten(text: str, max_len: int = 40) -> str:
+    """Return a natural short phrase, preferring whole words or first clause."""
+    text = text.strip()
+    if len(text) <= max_len:
+        return text
+    for sep in (". ", ", ", " so ", " that ", " and ", " — ", " - "):
+        if sep in text:
+            cand = text.split(sep)[0].strip()
+            if 10 <= len(cand) <= max_len:
+                return cand
+    words = text.split()
+    out = []
+    for w in words:
+        trial = " ".join(out + [w])
+        if len(trial) > max_len:
+            break
+        out.append(w)
+    return " ".join(out) if out else text[:max_len].rstrip()
+
+# Canonical high-precision anti-slop phrases.
+# Single source of truth for quality_scan, suggestors, and starters.
+# Matching is word-boundary, case-insensitive. Do not add broad regexes.
+ANTI_SLOP_PATTERNS = (
+    "unlock your potential",
+    "in today's fast-paced world",
+    "in today’s fast-paced world",
+    "we all struggle",
+    "in this video",
+    "you will learn",
+    "the key is",
+    "work smarter",
+    "smash the like",
+    "hit subscribe",
+    "game changer",
+    "at the end of the day",
+    "in conclusion",
+    "to summarize",
+    "the bottom line is",
+    "let's dive in",
+    "let’s dive in",
+    "without further ado",
+    "it goes without saying",
+    "as we all know",
+    "it's no secret that",
+    "it’s no secret that",
+    "needless to say",
+    "the fact of the matter is",
+    "to put it simply",
+    "in other words",
+    "the reality is",
+    "here's the thing",
+    "here’s the thing",
+    "the truth is",
+    "make no mistake",
+    "in a nutshell",
+    "long story short",
+    "when all is said and done",
+    "the point is",
+    "let me be clear",
+    "as it turns out",
+    "believe it or not",
+    "to be honest",
+    "the thing is",
+    "all in all",
+    "moving forward",
+    "going forward",
+    "first and foremost",
+    "it is important to note",
+    "it should be noted",
+    "as a matter of fact",
+    "for what it's worth",
+    "for what it’s worth",
+    "that being said",
+    "having said that",
+    "in fact",
+    "of course",
+    "obviously",
+    "clearly",
+    "simply put",
+    "in short",
+    "to be clear",
+    "all things considered",
+    "it's worth noting",
+    "it’s worth noting",
+    "at its core",
+    "when it comes to",
+    "keep in mind",
+    "in essence",
+    "the fact remains",
+    "let's be honest",
+    "let’s be honest",
+    "here's the kicker",
+    "here’s the kicker",
+    "bear in mind",
+    "take note that",
+    "as you can see",
+    "as we can see",
+    "the takeaway is",
+    "to put it in perspective",
+    "it's important to remember",
+    "it’s important to remember",
+    "in the modern world",
+    "in today's society",
+    "in today’s society",
+    "it's safe to say",
+    "it’s safe to say",
+    "suffice it to say",
+    "one thing is clear",
+    "in a perfect world",
+    "when push comes to shove",
+    "to be fair",
+    "last but not least",
+    "with that said",
+    "to that end",
+    "as previously mentioned",
+    "it is worth mentioning",
+    "in reality",
+    "as a result",
+    "for instance",
+    "in particular",
+    "on the other hand",
+    "that said",
+    "the bottom line",
+    "it is important",
+    "to sum up",
+    "in summary",
+    "put simply",
+    "what this means is",
+    "the implication is",
+    "case in point",
+    "in the final analysis",
+    "when you think about it",
+    "in any event",
+    "at any rate",
+    "for the most part",
+    "generally speaking",
+    "as a general rule",
+    "in today's world",
+    "in today’s world",
+    "the secret is",
+    "the secret to",
+    "trust me",
+    "believe me",
+    "here's why",
+    "here’s why",
+    "here's what you need to know",
+    "here’s what you need to know",
+    "let me break it down",
+    "the long and short of it",
+    "to make a long story short",
+    "in the grand scheme of things",
+    "for all intents and purposes",
+    "at this point in time",
+    "with that in mind",
+    "when it comes down to it",
+    "the truth of the matter is",
+    "plain and simple",
+    "in layman's terms",
+    "let me explain",
+    "the reason is",
+    "to put it another way",
+    "so basically",
+    "what I'm saying is",
+    "what I’m saying is",
+    "the idea here is",
+    "the point being",
+)
