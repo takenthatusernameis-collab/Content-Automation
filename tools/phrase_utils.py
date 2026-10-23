@@ -40,6 +40,7 @@ def shorten(text: str, max_len: int = 40) -> str:
 # Canonical high-precision anti-slop phrases.
 # Single source of truth for quality_scan, suggestors, and starters.
 # Matching is word-boundary, case-insensitive. Do not add broad regexes.
+# quality_scan normalizes curly apostrophes/dashes so one entry covers common variants.
 ANTI_SLOP_PATTERNS = (
     "unlock your potential",
     "in today's fast-paced world",
@@ -228,4 +229,10 @@ ANTI_SLOP_PATTERNS = (
     "here’s the catch",
     "spoiler alert",
     "but wait",
+    "have you ever wondered",
+    "most people don't realize",
+    "most people don’t realize",
+    "in a world where",
+    "let that sink in",
+    "to understand why",
 )
