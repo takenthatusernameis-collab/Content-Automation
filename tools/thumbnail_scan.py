@@ -9,6 +9,7 @@ Default exit is 0 so a clear packet cannot fail the build.
 Checks: presence, placeholder, high-precision clickbait/weak patterns,
 word count over 6 (YouTube readability guideline).
 Output includes short context so the revision signal is immediately actionable.
+Uses shared phrase_utils.context_snippet for consistency with other scanners.
 """
 
 from __future__ import annotations
@@ -19,6 +20,10 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT / "tools") not in sys.path:
+    sys.path.insert(0, str(ROOT / "tools"))
+
+from phrase_utils import context_snippet  # noqa: E402
 
 # High-precision weak / clickbait patterns for thumbnail text.
 WEAK_PATTERNS = (
@@ -47,10 +52,6 @@ def thumbnail_text(text: str) -> str:
     return m.group(1).strip() if m else ""
 
 
-def _context(body: str, start: int = 0, end: int = 0) -> str:
-    return body[:80].replace("\n", " ").strip()
-
-
 def hits(text: str) -> list[tuple[str, str, str]]:
     body = thumbnail_text(text)
     if not body:
@@ -64,7 +65,7 @@ def hits(text: str) -> list[tuple[str, str, str]]:
     for phrase, cre in zip(WEAK_PATTERNS, _WEAK_RES):
         m = cre.search(body)
         if m:
-            ctx = _context(body)
+            ctx = context_snippet(body, m, before=20, after=20, max_len=80)
             found.append(("weak", phrase, ctx))
     return found
 
