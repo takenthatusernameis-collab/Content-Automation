@@ -18,7 +18,7 @@ import re
 import sys
 from pathlib import Path
 
-from phrase_utils import ANTI_SLOP_PATTERNS as PATTERNS, context_snippet, spoken_words
+from phrase_utils import ANTI_SLOP_PATTERNS as PATTERNS, context_snippet, spoken_words, compile_word_boundary_patterns
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -28,10 +28,8 @@ ROOT = Path(__file__).resolve().parents[1]
 # Spoken extraction is shared via phrase_utils.spoken_words.
 # Human overview: docs/content_quality.md.
 
-# Precompile word-boundary patterns once (case-insensitive).
-_PATTERN_RES = tuple(
-    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in PATTERNS
-)
+# Precompile word-boundary patterns once (case-insensitive) via shared helper.
+_PATTERN_RES = compile_word_boundary_patterns(PATTERNS)
 
 
 def hits(text: str) -> list[tuple[str, int, str]]:
