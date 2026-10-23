@@ -2,7 +2,7 @@
 """Report cadence (sentence length variation) and repetition signals in spoken WORDS.
 
 Supports the read-aloud pass for cadence and repetition from docs/content_quality.md.
-Parses draft.md (preferred) or script.md, extracts WORDS blocks, splits into sentences,
+Parses draft.md (preferred) or script.md, extracts WORDS blocks via shared phrase_utils.spoken_words,
 computes length statistics (mean, stdev, short/long ratios), and detects repeated
 n-grams or near-duplicate phrases that may indicate padding or monotonous delivery.
 Does not invent content, rewrite files, or claim authorship. Hits are revision signals.
@@ -19,13 +19,10 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S | re.I)
+from phrase_utils import spoken_words
+
 SENTENCE_RE = re.compile(r"[^.!?]+[.!?]+" , re.S)
 WORD_TOKEN_RE = re.compile(r"\b[\w'-]+\b")
-
-def spoken(text: str) -> str:
-    parts = WORD_RE.findall(text.replace("\r\n", "\n"))
-    return "\n".join(part.strip() for part in parts if part.strip())
 
 def sentences(body: str) -> list[str]:
     return [s.strip() for s in SENTENCE_RE.findall(body) if s.strip()]
@@ -52,7 +49,7 @@ def main() -> int:
         return 1
 
     text = source.read_text(encoding="utf-8")
-    body = spoken(text)
+    body = spoken_words(text)
     if not body.strip():
         print("No WORDS blocks found.")
         return 0

@@ -1,4 +1,4 @@
-2026-10-23T18:16:00Z (Run 756)
+2026-10-23T19:20:00Z (Run 757)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
 
@@ -8,8 +8,8 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Media: Q1 VO + cards + r253 master ready after materialize; do not rematerialize if present. Do not regenerate.
 
 - Master sha256: 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546 (q1-master-r253.mp4, 328.40s). Do not regenerate while this matches. Do not install the truncated r249 master.
-- Preferred unblocked list: complete. tools/phrase_utils.py holds the canonical whole-word shorten, ANTI_SLOP_PATTERNS, shared normalize (curly-to-straight), shared context_snippet, and now shared HEDGE_PATTERNS. quality_scan.py and claim_scan.py import normalize, context_snippet, and (for claims) HEDGE_PATTERNS. tools/idea_utils.py holds the canonical idea.md field extractor. Key structure suggestors, draft starters, metadata suggestors, and quality tools import from shared helpers. No remaining local shorten, normalize, hedge-list, or context-window copies. packet_rewrite_report.py includes cleaner whole-word script structure starters + originality_report signals. full_qa_report.py / text_qa_report.py cover originality. next_topic.py ranks by mechanism continuity. saturation_guard flags suggest-contract locking loops. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract tool).
-- ANTI_SLOP_PATTERNS list is stable (170 entries after Run 752 cleanup). Phrase expansion saturated. HEDGE_PATTERNS is now also single-source.
+- Preferred unblocked list: complete. tools/phrase_utils.py holds the canonical whole-word shorten, ANTI_SLOP_PATTERNS, shared normalize (curly-to-straight), shared context_snippet, shared HEDGE_PATTERNS, and now shared spoken_words. quality_scan.py, claim_scan.py, and cadence_repetition_scan.py import spoken_words (and the relevant patterns/helpers). tools/idea_utils.py holds the canonical idea.md field extractor. Key structure suggestors, draft starters, metadata suggestors, and quality tools import from shared helpers. No remaining local shorten, normalize, hedge-list, context-window, or spoken-extractor copies. packet_rewrite_report.py includes cleaner whole-word script structure starters + originality_report signals. full_qa_report.py / text_qa_report.py cover originality. next_topic.py ranks by mechanism continuity. saturation_guard flags suggest-contract locking loops. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract tool).
+- ANTI_SLOP_PATTERNS list is stable (170 entries after Run 752 cleanup). Phrase expansion saturated. HEDGE_PATTERNS and spoken_words are now also single-source.
 - oauth_exchange.py now prints a prominent REQUIRED SCOPES banner (short names + full URIs) when generating the consent URL (Run 746).
 
 **Human step (only action that advances publish)**

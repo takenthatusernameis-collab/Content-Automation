@@ -6,6 +6,7 @@ Goal: specific, original, useful editorial writing. Prefer concrete mechanisms, 
 
 - Canonical high-precision phrases live in `tools/phrase_utils.py` as `ANTI_SLOP_PATTERNS` (word-boundary, case-insensitive matching).
 - Shared `phrase_utils.normalize` converts curly apostrophes/quotes and en/em dashes to straight equivalents. Both `quality_scan.py` and `claim_scan.py` call it before matching, so one straight entry covers common variants. Do not re-add curly duplicates or local normalize copies.
+- Shared `phrase_utils.spoken_words` extracts and normalizes WORDS blocks. quality_scan, claim_scan, and cadence_repetition_scan use it instead of local WORD_RE + spoken copies.
 - Shared `phrase_utils.context_snippet` produces the short actionable context around matches. Both scanners use it instead of local window logic.
 - A hit is a revision signal, not an authorship claim. The tool does not rewrite scripts. Default exit is 0 (frozen packets cannot fail the build); `--strict` exits 1 on remaining hits. `set_status.py` refuses `ready_for_vo` while hits remain.
 - List expansion is approaching saturation. Prefer structure detectors, claim hygiene, or true capability work over further exact-phrase additions.
@@ -13,8 +14,8 @@ Goal: specific, original, useful editorial writing. Prefer concrete mechanisms, 
 ## Claim hygiene (single source of truth)
 
 - Canonical high-precision hedge phrases live in `tools/phrase_utils.py` as `HEDGE_PATTERNS` (word-boundary, case-insensitive matching). Extracted from claim_scan for DRY consistency with the anti-slop list.
-- claim_scan normalizes input and uses shared context_snippet. Digits and hedges require a non-placeholder source citation.
-- Do not maintain a local hedge list in claim_scan.
+- claim_scan normalizes input and uses shared context_snippet and spoken_words. Digits and hedges require a non-placeholder source citation.
+- Do not maintain a local hedge list or spoken extractor in claim_scan.
 
 ## Rules for new or rewritten content
 
@@ -26,8 +27,9 @@ Goal: specific, original, useful editorial writing. Prefer concrete mechanisms, 
 
 ## Related tools
 
-- `tools/quality_scan.py` — reports hits with context snippets. Uses shared normalize, context_snippet, and ANTI_SLOP_PATTERNS.
-- `tools/claim_scan.py` — factual/hedge signals. Uses shared normalize, context_snippet, and HEDGE_PATTERNS so one hedge entry covers common variants.
-- Shared helpers in `phrase_utils.py` (normalize, shorten, context_snippet, ANTI_SLOP_PATTERNS, HEDGE_PATTERNS) and `idea_utils.py` keep starters, suggestors, and scanners consistent.
+- `tools/quality_scan.py` — reports hits with context snippets. Uses shared spoken_words, normalize, context_snippet, and ANTI_SLOP_PATTERNS.
+- `tools/claim_scan.py` — factual/hedge signals. Uses shared spoken_words, normalize, context_snippet, and HEDGE_PATTERNS so one hedge entry covers common variants.
+- `tools/cadence_repetition_scan.py` — cadence and repetition signals. Uses shared spoken_words.
+- Shared helpers in `phrase_utils.py` (normalize, shorten, context_snippet, spoken_words, ANTI_SLOP_PATTERNS, HEDGE_PATTERNS) and `idea_utils.py` keep starters, suggestors, and scanners consistent.
 
 This page is the human-readable overview. The code is the lock.

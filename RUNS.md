@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 757 — 2026-10-23T19:20:00Z
+- Objective: Inspect current state and make one small maintainability improvement that compounds for all future scanners by eliminating duplicated WORDS extraction logic.
+- Action: Confirmed preferred list complete and OAuth stall. Extracted the local WORD_RE + spoken function into phrase_utils.spoken_words (includes normalize). Updated quality_scan.py, claim_scan.py, and cadence_repetition_scan.py to import and use the shared version (removed local copies). Updated docs/content_quality.md to document the single source. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. Spoken WORDS extraction is now DRY and consistent across scanners. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Changes committed via GitHub API. Scanners import shared spoken_words. No contract breaks expected (extraction helper only).
+- Discovery: Local WORD_RE and spoken copies were a small drift risk; centralizing them in phrase_utils matches the single-source pattern already used for ANTI_SLOP_PATTERNS, HEDGE_PATTERNS, normalize, and context_snippet.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
+
 ## Run 756 — 2026-10-23T18:16:00Z
 - Objective: Inspect current state and make one small maintainability improvement that compounds for all future scanners by eliminating duplicated hedge list and context-window logic.
 - Action: Confirmed preferred list complete and OAuth stall. Extracted the local HEDGES list from claim_scan.py into phrase_utils.HEDGE_PATTERNS. Added phrase_utils.context_snippet helper. Updated quality_scan.py and claim_scan.py to import and use the shared versions (removed local copies and duplicated window code). Updated docs/content_quality.md to document the single sources. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
@@ -35,12 +44,3 @@
 - Discovery: The placeholder doc was inconsistent with tool comments and previous run notes; fixing it reduces rediscovery for agents and humans.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
-
-## Run 751 — 2026-10-23T13:42:00Z
-- Objective: Inspect current state and make one small reusable quality improvement to the shared anti-slop system that compounds for all future scripts without adding new tools.
-- Action: Inspected repo state. Confirmed preferred list complete and OAuth stall. Enhanced tools/quality_scan.py with punctuation normalization (curly to straight) and a patterns-checked print. Added five high-precision hook and context-bridge phrases to ANTI_SLOP_PATTERNS in tools/phrase_utils.py. Documented in docs/content_quality.md. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. Quality gate more robust against punctuation variants and stronger against common hook/context fillers. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: Changes committed via GitHub API. Normalization improves coverage without list duplication. No contract breaks expected (pattern list + scanner only).
-- Discovery: Normalizing input text before matching reduces the need for dual curly/straight entries and makes the single-source list more maintainable as it grows. Phrase additions continue but are approaching saturation.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality or capability work over further list expansion.
