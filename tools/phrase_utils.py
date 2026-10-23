@@ -83,10 +83,10 @@ def compile_word_boundary_patterns(phrases):
     """Compile high-precision word-boundary, case-insensitive regexes for a list of phrases.
 
     Shared by all scanners (quality_scan, claim_scan, title_scan, etc.) to avoid duplicated
-    re.compile logic and ensure consistent matching (escape + \\b + IGNORECASE).
+    re.compile logic and ensure consistent matching (escape + \b + IGNORECASE).
     """
     return tuple(
-        re.compile(r"\\b" + re.escape(phrase) + r"\\b", re.IGNORECASE) for phrase in phrases
+        re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in phrases
     )
 
 
