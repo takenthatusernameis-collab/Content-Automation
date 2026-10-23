@@ -1,5 +1,10 @@
 # STATE
 
+2026-10-23T06:16:14Z (Run 744)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, selftest PASS. Added the quick copy-paste sequence to tools/human_next_action.py so the paste-ready commands appear in the concise human path output. No new status/polish/inspection/suggest-contract tools added. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability.
+
+
 2026-10-23T05:13:45Z (Run 743)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, selftest PASS. Added a quick copy-paste sequence to docs/human_oauth_checklist.md to reduce human error on the remaining OAuth step. No new status/polish/inspection/suggest-contract tools added. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability.
