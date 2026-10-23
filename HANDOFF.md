@@ -1,4 +1,4 @@
-2026-10-23T11:20:00Z (Run 749)
+2026-10-23T17:45:00Z (Run 755)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
 
@@ -8,8 +8,8 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Media: Q1 VO + cards + r253 master ready after materialize; do not rematerialize if present. Do not regenerate.
 
 - Master sha256: 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546 (q1-master-r253.mp4, 328.40s). Do not regenerate while this matches. Do not install the truncated r249 master.
-- Preferred unblocked list: complete. tools/phrase_utils.py holds the canonical whole-word shorten (enhanced with which/when/if/while/or separators in Run 749) and ANTI_SLOP_PATTERNS (now includes six additional explanatory/meta fillers). tools/idea_utils.py holds the canonical idea.md field extractor. Key structure suggestors, draft starters, metadata suggestors, and quality tools import from shared helpers. No remaining local shorten copies. packet_rewrite_report.py includes cleaner whole-word script structure starters + originality_report signals. full_qa_report.py / text_qa_report.py cover originality. next_topic.py ranks by mechanism continuity. saturation_guard flags suggest-contract locking loops. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract tool).
-- ANTI_SLOP_PATTERNS now includes six additional high-precision explanatory/meta fillers (what you need to understand, let me put it this way, the key takeaway is, if there's one thing + curly, here's what I mean + curly, the reality of the situation is) as of Run 749, plus prior transition/starter and YouTube engagement sets.
+- Preferred unblocked list: complete. tools/phrase_utils.py holds the canonical whole-word shorten, ANTI_SLOP_PATTERNS, and now shared normalize (curly-to-straight). quality_scan.py and claim_scan.py import normalize. tools/idea_utils.py holds the canonical idea.md field extractor. Key structure suggestors, draft starters, metadata suggestors, and quality tools import from shared helpers. No remaining local shorten or normalize copies. packet_rewrite_report.py includes cleaner whole-word script structure starters + originality_report signals. full_qa_report.py / text_qa_report.py cover originality. next_topic.py ranks by mechanism continuity. saturation_guard flags suggest-contract locking loops. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract tool).
+- ANTI_SLOP_PATTERNS list is stable (170 entries after Run 752 cleanup). Phrase expansion saturated.
 - oauth_exchange.py now prints a prominent REQUIRED SCOPES banner (short names + full URIs) when generating the consent URL (Run 746).
 
 **Human step (only action that advances publish)**
