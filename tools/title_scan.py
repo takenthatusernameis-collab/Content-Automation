@@ -9,7 +9,7 @@ fail the build. --strict exits 1 when any hit remains. set_status.py refuses
 ready_for_vo while a hit remains.
 
 Output includes a short context snippet around the first match of each hit
-so the revision signal is immediately actionable.
+so the revision signal is immediately actionable. Uses shared phrase_utils.context_snippet.
 """
 
 from __future__ import annotations
@@ -24,6 +24,7 @@ if str(ROOT / "tools") not in sys.path:
     sys.path.insert(0, str(ROOT / "tools"))
 
 from validate_packet import titles_from  # noqa: E402
+from phrase_utils import context_snippet  # noqa: E402
 
 WORD_RE = re.compile(r"[A-Za-z][A-Za-z']*")
 MATCH_RE = re.compile(r"^Matches title:[ \t]*([^\n]*)$", re.M)
@@ -58,27 +59,18 @@ def shouted(title: str) -> list[str]:
     return []
 
 
-def _context(title: str, start: int, end: int) -> str:
-    s = max(0, start - 30)
-    e = min(len(title), end + 30)
-    context = title[s:e].replace("\n", " ").strip()
-    if len(context) > 80:
-        context = context[:77] + "..."
-    return context
-
-
 def hits(titles_text: str, thumb_text: str) -> list[tuple[str, str, str]]:
     found: list[tuple[str, str, str]] = []
     for title in titles_from(titles_text):
         for word in shouted(title):
             # Locate the word for context
             m = re.search(r"\b" + re.escape(word) + r"\b", title)
-            ctx = _context(title, m.start(), m.end()) if m else title[:60]
+            ctx = context_snippet(title, m, before=30, after=30, max_len=80) if m else title[:60]
             found.append(("shout", word, ctx))
         for phrase, cre in zip(WEAK_PATTERNS, _WEAK_RES):
             m = cre.search(title)
             if m:
-                ctx = _context(title, m.start(), m.end())
+                ctx = context_snippet(title, m, before=30, after=30, max_len=80)
                 found.append(("weak", phrase, ctx))
     match = MATCH_RE.search(thumb_text or "")
     if match and match.group(1).strip().lower().startswith("no"):
