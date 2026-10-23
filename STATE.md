@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-23T18:16:00Z (Run 756)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable. Extracted the local HEDGES list from claim_scan.py into shared phrase_utils.HEDGE_PATTERNS and added phrase_utils.context_snippet. Both quality_scan.py and claim_scan.py now import and use the shared helper and (for claims) the shared list. Updated docs/content_quality.md to document the single sources. No new tools, no phrase-list growth, no packet edits. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability. Phrase-list expansion remains saturated; this DRY improvement compounds for future scanners and reduces drift risk on both anti-slop and claim hedges.
+
 2026-10-23T17:45:00Z (Run 755)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable. Extracted the duplicated normalize function (curly apostrophes/quotes/dashes -> straight) from quality_scan.py and claim_scan.py into shared phrase_utils.normalize. Both scanners now import it. Updated docs/content_quality.md to document the single source. No new tools, no phrase-list growth, no packet edits. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability. Phrase-list expansion remains saturated; this DRY improvement compounds for future scanners and reduces drift risk.
@@ -15,7 +19,3 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. In
 2026-10-23T14:35:00Z (Run 752)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable. Cleaned ANTI_SLOP_PATTERNS in phrase_utils.py by removing 23 redundant curly-apostrophe/quote duplicate entries (normalization already covers them). List reduced from 193 to 170. Updated comment. Documented in content_quality.md. Selftest-compatible (scan clear). No new status/polish/inspection/suggest-contract tools added. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability. Phrase list expansion approaching saturation; this cleanup improves maintainability for future growth.
-
-2026-10-23T13:42:00Z (Run 751)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable. Enhanced quality_scan.py with text normalization (curly apostrophes/quotes/dashes to straight) so one pattern covers common variants, and added a patterns-checked count. Added five high-precision hook/context-bridge anti-slop phrases to ANTI_SLOP_PATTERNS (have you ever wondered, most people don't realize + curly, in a world where, let that sink in, to understand why). Documented in content_quality.md. No new status/polish/inspection/suggest-contract tools added. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability. Phrase list expansion approaching saturation; prefer other quality or capability work next.
