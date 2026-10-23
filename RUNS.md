@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 758 — 2026-10-23T20:16:00Z
+- Objective: Inspect current state and make one small maintainability improvement that compounds for all future scanners by eliminating duplicated context-window logic in title and thumbnail scanners.
+- Action: Confirmed preferred list complete and OAuth stall. Updated title_scan.py and thumbnail_scan.py to import and use shared phrase_utils.context_snippet (removed local _context copies). Updated docs/content_quality.md to document the additional users. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. Context snippet reporting is now DRY and consistent across more scanners. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Changes committed via GitHub API. title_scan and thumbnail_scan import shared context_snippet. No contract breaks expected (helper reuse only).
+- Discovery: Local _context helpers in title_scan and thumbnail_scan were a small drift risk; centralizing them matches the single-source pattern already used for other scanners.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
+
 ## Run 757 — 2026-10-23T19:20:00Z
 - Objective: Inspect current state and make one small maintainability improvement that compounds for all future scanners by eliminating duplicated WORDS extraction logic.
 - Action: Confirmed preferred list complete and OAuth stall. Extracted the local WORD_RE + spoken function into phrase_utils.spoken_words (includes normalize). Updated quality_scan.py, claim_scan.py, and cadence_repetition_scan.py to import and use the shared version (removed local copies). Updated docs/content_quality.md to document the single source. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
@@ -33,14 +42,5 @@
 - Result: Videos published stay 0. Claim gate more robust against punctuation variants. Pre-upload path remains stable. Upload still blocked only on the three secrets.
 - Verification: py_compile PASS. claim_scan and quality_scan run clear on existing packets. No contract breaks (normalization + output only).
 - Discovery: Applying the same normalization already proven useful in quality_scan to claim_scan reduces false negatives on common curly-quote hedges without list growth.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
-
-## Run 753 — 2026-10-23T18:18:00Z
-- Objective: Inspect current state and make one small clarity improvement that compounds for all future content and agents without adding tools or growing the saturated anti-slop list.
-- Action: Confirmed preferred list complete and OAuth stall. Replaced placeholder docs/content_quality.md with a durable quality contract that documents the single-source ANTI_SLOP_PATTERNS, the normalization behavior, editorial rules, and related tools. Updated quality_scan.py docstring and comments so they accurately point to phrase_utils (not the previously empty doc). Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. Quality system now has a clear human-readable contract that matches the code. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: Changes committed via GitHub API. Doc and tool comments are consistent. No contract breaks (comments + doc only).
-- Discovery: The placeholder doc was inconsistent with tool comments and previous run notes; fixing it reduces rediscovery for agents and humans.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
