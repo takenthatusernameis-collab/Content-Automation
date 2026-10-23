@@ -18,7 +18,7 @@ def shorten(text: str, max_len: int = 40) -> str:
     if len(text) <= max_len:
         return text
     # Prefer natural clause breaks; added more seps for higher quality shorts
-    for sep in (". ", ", ", " so ", " that ", " and ", " \u2014 ", " - ", "; ", ": ", " but ", " because "):
+    for sep in (". ", ", ", " so ", " that ", " and ", " — ", " - ", "; ", ": ", " but ", " because "):
         if sep in text:
             cand = text.split(sep)[0].strip()
             if 8 <= len(cand) <= max_len:
