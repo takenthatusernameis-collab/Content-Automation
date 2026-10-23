@@ -17,6 +17,12 @@ Goal: specific, original, useful editorial writing. Prefer concrete mechanisms, 
 - claim_scan normalizes input and uses shared context_snippet and spoken_words. Digits and hedges require a non-placeholder source citation.
 - Do not maintain a local hedge list or spoken extractor in claim_scan.
 
+## Title / thumbnail / chapter weak patterns (single source of truth)
+
+- Canonical high-precision weak/clickbait patterns live in `tools/phrase_utils.py` as `TITLE_WEAK_PATTERNS`, `THUMBNAIL_WEAK_PATTERNS`, and `CHAPTER_WEAK_PATTERNS` (word-boundary, case-insensitive matching). Extracted for DRY consistency.
+- title_scan, thumbnail_scan, and chapters_scan normalize input (curly apostrophes/quotes/dashes) before matching so one straight entry covers common variants. Do not re-add curly duplicates or local pattern lists.
+- These scanners also use shared context_snippet where applicable.
+
 ## Rules for new or rewritten content
 
 - Do not add fake anecdotes, testimonials, personal mistakes, slang, or unverifiable experience.
@@ -30,8 +36,9 @@ Goal: specific, original, useful editorial writing. Prefer concrete mechanisms, 
 - `tools/quality_scan.py` — reports hits with context snippets. Uses shared spoken_words, normalize, context_snippet, and ANTI_SLOP_PATTERNS.
 - `tools/claim_scan.py` — factual/hedge signals. Uses shared spoken_words, normalize, context_snippet, and HEDGE_PATTERNS so one hedge entry covers common variants.
 - `tools/cadence_repetition_scan.py` — cadence and repetition signals. Uses shared spoken_words.
-- `tools/title_scan.py` — shouted titles, weak patterns, thumbnail mismatch. Uses shared context_snippet.
-- `tools/thumbnail_scan.py` — weak/clickbait/long thumbnail text. Uses shared context_snippet.
-- Shared helpers in `phrase_utils.py` (normalize, shorten, context_snippet, spoken_words, ANTI_SLOP_PATTERNS, HEDGE_PATTERNS) and `idea_utils.py` keep starters, suggestors, and scanners consistent.
+- `tools/title_scan.py` — shouted titles, weak patterns, thumbnail mismatch. Uses shared context_snippet, normalize, and TITLE_WEAK_PATTERNS.
+- `tools/thumbnail_scan.py` — weak/clickbait/long thumbnail text. Uses shared context_snippet, normalize, and THUMBNAIL_WEAK_PATTERNS.
+- `tools/chapters_scan.py` — chapter structure and weak titles. Uses shared normalize and CHAPTER_WEAK_PATTERNS.
+- Shared helpers in `phrase_utils.py` (normalize, shorten, context_snippet, spoken_words, ANTI_SLOP_PATTERNS, HEDGE_PATTERNS, TITLE_WEAK_PATTERNS, THUMBNAIL_WEAK_PATTERNS, CHAPTER_WEAK_PATTERNS) and `idea_utils.py` keep starters, suggestors, and scanners consistent.
 
 This page is the human-readable overview. The code is the lock.
