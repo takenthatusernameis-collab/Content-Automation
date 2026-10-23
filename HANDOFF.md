@@ -1,4 +1,4 @@
-2026-10-23T06:16:22Z (Run 744)
+2026-10-23T07:15:00Z (Run 745)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
 
@@ -12,7 +12,7 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Claim path and suggestion tools remain as previously locked (topic through experiment_hypothesis).
 
 **Human step (only action that advances publish)**
-1. Follow docs/human_oauth_checklist.md (quick copy-paste sequence added Run 743; ONLY ACTION NEEDED banner frozen at Run 473) or `python3 tools/operator_card.py` or `python3 tools/human_next_action.py` (quick sequence also printed here as of Run 744).
+1. Follow docs/human_oauth_checklist.md (quick copy-paste sequence + scopes reminder added Run 745; ONLY ACTION NEEDED banner frozen at Run 473) or `python3 tools/operator_card.py` or `python3 tools/human_next_action.py` (quick sequence also printed here as of Run 744).
 2. Mint refresh token with scopes: youtube.upload + youtube.force-ssl + yt-analytics.readonly (youtube.upload alone is insufficient).
 3. Set the three secrets (human terminal only; paste into prompts; never from an agent):
    gh secret set YOUTUBE_CLIENT_ID --repo takenthatusernameis-collab/Content-Automation
