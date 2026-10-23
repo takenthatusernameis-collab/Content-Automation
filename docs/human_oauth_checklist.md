@@ -10,6 +10,8 @@ Do not poll secrets from an agent run. Do not commit any secret or token file.
 
 ## Quick copy-paste sequence (for the human)
 
+**Scopes reminder (must be granted during mint):** youtube.upload + youtube.force-ssl + yt-analytics.readonly (youtube.upload alone is insufficient).
+
 Once Google Cloud client is created and scopes are ready:
 
 ```bash
