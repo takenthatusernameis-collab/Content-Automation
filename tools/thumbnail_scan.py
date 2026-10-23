@@ -9,7 +9,7 @@ Default exit is 0 so a clear packet cannot fail the build.
 Checks: presence, placeholder, high-precision clickbait/weak patterns,
 word count over 6 (YouTube readability guideline).
 Output includes short context so the revision signal is immediately actionable.
-Uses shared phrase_utils.context_snippet for consistency with other scanners.
+Uses shared phrase_utils.context_snippet, THUMBNAIL_WEAK_PATTERNS, and normalize.
 """
 
 from __future__ import annotations
@@ -23,25 +23,12 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "tools") not in sys.path:
     sys.path.insert(0, str(ROOT / "tools"))
 
-from phrase_utils import context_snippet  # noqa: E402
+from phrase_utils import context_snippet, normalize, THUMBNAIL_WEAK_PATTERNS  # noqa: E402
 
-# High-precision weak / clickbait patterns for thumbnail text.
-WEAK_PATTERNS = (
-    "you won't believe",
-    "you won’t believe",
-    "must watch",
-    "must see",
-    "click here",
-    "don't miss",
-    "don’t miss",
-    "shocking",
-    "insane",
-    "mind blown",
-    "number one",
-    "best ever",
-)
+# High-precision weak / clickbait patterns live in phrase_utils.THUMBNAIL_WEAK_PATTERNS.
+# Matching uses word boundaries. Text is normalized so one straight entry covers variants.
 _WEAK_RES = tuple(
-    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in WEAK_PATTERNS
+    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in THUMBNAIL_WEAK_PATTERNS
 )
 
 THUMB_RE = re.compile(r"## Thumbnail(?: text| idea| brief)?\s*\n(.*?)(?=\n## |\Z)", re.S)
@@ -56,13 +43,14 @@ def hits(text: str) -> list[tuple[str, str, str]]:
     body = thumbnail_text(text)
     if not body:
         return [("missing", "no thumbnail section", "")]
+    body = normalize(body)
     found = []
     if len(body) < 10 or "(add" in body.lower() or body.lower() in ("thumbnail", "tbd"):
         found.append(("placeholder", body[:60], body[:60]))
     words = body.split()
     if len(words) > 6:
         found.append(("long", str(len(words)), body[:60]))
-    for phrase, cre in zip(WEAK_PATTERNS, _WEAK_RES):
+    for phrase, cre in zip(THUMBNAIL_WEAK_PATTERNS, _WEAK_RES):
         m = cre.search(body)
         if m:
             ctx = context_snippet(body, m, before=20, after=20, max_len=80)
