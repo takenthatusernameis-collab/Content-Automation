@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 756 — 2026-10-23T18:16:00Z
+- Objective: Inspect current state and make one small maintainability improvement that compounds for all future scanners by eliminating duplicated hedge list and context-window logic.
+- Action: Confirmed preferred list complete and OAuth stall. Extracted the local HEDGES list from claim_scan.py into phrase_utils.HEDGE_PATTERNS. Added phrase_utils.context_snippet helper. Updated quality_scan.py and claim_scan.py to import and use the shared versions (removed local copies and duplicated window code). Updated docs/content_quality.md to document the single sources. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. Hedge patterns and context snippet logic are now DRY and consistent. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Changes committed via GitHub API. Scanners import shared helpers. No contract breaks expected (list + helper extraction only).
+- Discovery: Local HEDGES and duplicated context window code were small drift risks; centralizing them in phrase_utils matches the single-source pattern already used for ANTI_SLOP_PATTERNS and normalize.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
+
 ## Run 755 — 2026-10-23T17:45:00Z
 - Objective: Inspect current state and make one small maintainability improvement that compounds for all future scanners by eliminating duplicated normalize logic.
 - Action: Confirmed preferred list complete and OAuth stall. Extracted the normalize function (curly-to-straight apostrophes/quotes/dashes) from quality_scan.py and claim_scan.py into phrase_utils.normalize. Updated both tools to import the shared version and removed local copies. Updated docs/content_quality.md to document the single source. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
@@ -35,12 +44,3 @@
 - Discovery: Normalizing input text before matching reduces the need for dual curly/straight entries and makes the single-source list more maintainable as it grows. Phrase additions continue but are approaching saturation.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality or capability work over further list expansion.
-
-## Run 750 — 2026-10-23T12:23:00Z
-- Objective: Inspect current state and make one small reusable quality improvement to the shared anti-slop list that compounds for all future scripts and suggestions without adding new tools.
-- Action: Cloned repo. Confirmed preferred list complete and pre-upload path stable. Added ten high-precision scene-setting and catch-phrase fillers to ANTI_SLOP_PATTERNS in tools/phrase_utils.py. Documented in docs/content_quality.md. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. Quality gate slightly stronger against common "picture this" / secret-sauce / hard-truth / catch openers. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: py_compile PASS. Local selftest PASS. No contract breaks (pattern list only).
-- Discovery: Expanding the single-source anti-slop list with precise scene-setting and catch-phrase fillers reduces future rewrite cycles on common AI openers.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Avoid more status/polish/suggest-contract tools.
