@@ -8,6 +8,29 @@ Videos published: 0. Local Q1 media (VO + cards + r253 master) is ready and gate
 
 Do not poll secrets from an agent run. Do not commit any secret or token file.
 
+## Quick copy-paste sequence (for the human)
+
+Once Google Cloud client is created and scopes are ready:
+
+```bash
+# 1. Mint token (run twice as shown; paste full localhost URL on second)
+python3 tools/oauth_exchange.py
+python3 tools/oauth_exchange.py --exchange --out /tmp/youtube-refresh-token
+
+# 2. Set secrets (paste values into the interactive prompts; never on the command line)
+gh secret set YOUTUBE_CLIENT_ID --repo takenthatusernameis-collab/Content-Automation
+gh secret set YOUTUBE_CLIENT_SECRET --repo takenthatusernameis-collab/Content-Automation
+gh secret set YOUTUBE_REFRESH_TOKEN --repo takenthatusernameis-collab/Content-Automation
+
+# 3. Optional confirm (human terminal only; never from agent)
+python3 tools/human_secret_confirm.py
+
+# 4. Dispatch once
+gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false
+```
+
+Then watch the Actions run for a private video id. Do not dispatch again until that id appears in upload_state.json.
+
 ## Steps
 
 - [ ] 1. Open Google Cloud Console and create or select a project.
