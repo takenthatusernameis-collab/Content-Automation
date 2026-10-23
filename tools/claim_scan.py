@@ -32,12 +32,10 @@ if str(ROOT / "tools") not in sys.path:
     sys.path.insert(0, str(ROOT / "tools"))
 
 from research_brief import human_sources, numbers_in_spoken_words, is_placeholder_source  # noqa: E402
-from phrase_utils import context_snippet, HEDGE_PATTERNS, spoken_words  # noqa: E402
+from phrase_utils import context_snippet, HEDGE_PATTERNS, spoken_words, compile_word_boundary_patterns  # noqa: E402
 
 # Precompile word-boundary patterns once (case-insensitive) for higher precision.
-_HEDGE_RES = tuple(
-    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in HEDGE_PATTERNS
-)
+_HEDGE_RES = compile_word_boundary_patterns(HEDGE_PATTERNS)
 
 
 def hedges_in_spoken(script: str) -> list[tuple[str, str]]:
