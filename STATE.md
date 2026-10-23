@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-23T13:20:00Z (Run 748)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable after local materialize (gate PASS, master present). Enhanced phrase_utils.shorten with additional natural separators ("; ", ": ", " but ", " because ") for better clause breaks in starters/suggestors. Added seven high-precision transition/starter anti-slop phrases to ANTI_SLOP_PATTERNS (let's get started + curly, to begin with, first of all, by the way, as a side note, moving on, with that out of the way). Documented in content_quality.md. Selftest PASS. No new status/polish/inspection/suggest-contract tools added. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability.
+
 2026-10-23T12:15:00Z (Run 747)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable after local materialize (gate PASS, master present). Added seven high-precision YouTube engagement/hype anti-slop phrases to ANTI_SLOP_PATTERNS in phrase_utils.py (comment below, let me know in the comments, drop a comment, hit the bell, what if I told you, buckle up, stay tuned). Documented in content_quality.md. Selftest PASS. No new status/polish/inspection/suggest-contract tools added. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability.

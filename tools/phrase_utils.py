@@ -9,15 +9,21 @@ from __future__ import annotations
 
 
 def shorten(text: str, max_len: int = 40) -> str:
-    """Return a natural short phrase, preferring whole words or first clause."""
+    """Return a natural short phrase, preferring whole words or first clause.
+
+    Prefers the first clause or segment that fits, then falls back to whole words.
+    Added extra separators for better natural breaks.
+    """
     text = text.strip()
     if len(text) <= max_len:
         return text
-    for sep in (". ", ", ", " so ", " that ", " and ", " — ", " - "):
+    # Prefer natural clause breaks; added more seps for higher quality shorts
+    for sep in (". ", ", ", " so ", " that ", " and ", " — ", " - ", "; ", ": ", " but ", " because "):
         if sep in text:
             cand = text.split(sep)[0].strip()
-            if 10 <= len(cand) <= max_len:
+            if 8 <= len(cand) <= max_len:
                 return cand
+    # Fallback: whole words up to max_len
     words = text.split()
     out = []
     for w in words:
@@ -25,7 +31,11 @@ def shorten(text: str, max_len: int = 40) -> str:
         if len(trial) > max_len:
             break
         out.append(w)
-    return " ".join(out) if out else text[:max_len].rstrip()
+    result = " ".join(out) if out else text[:max_len].rstrip()
+    # Prefer not ending on a tiny fragment if possible
+    if len(result) < 10 and len(text) > max_len:
+        return text[:max_len].rsplit(" ", 1)[0] if " " in text[:max_len] else text[:max_len]
+    return result
 
 # Canonical high-precision anti-slop phrases.
 # Single source of truth for quality_scan, suggestors, and starters.
@@ -189,5 +199,13 @@ ANTI_SLOP_PATTERNS = (
     "what if I told you",
     "buckle up",
     "stay tuned",
+    "let's get started",
+    "let’s get started",
+    "to begin with",
+    "first of all",
+    "by the way",
+    "as a side note",
+    "moving on",
+    "with that out of the way",
 )
 
