@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: TITLE_WEAK_PATTERNS, THUMBNAIL_WEAK_PATTERNS, and CHAPTER_WEAK_PATTERNS are now shared in phrase_utils.py. title_scan, thumbnail_scan, and chapters_scan import them and apply normalize instead of maintaining local lists (curly duplicates removed). Future scanners can reuse the same weak/clickbait patterns without duplication.
+- DRY refactor only. No packet writes, no net list growth, no new tools.
+- Human labor reduction: lower risk of inconsistent weak/clickbait detection or variant coverage across title, thumbnail, and chapter tools; clearer single-source documentation.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Phrase expansion saturated.
+
 - Reusable capability: title_scan.py and thumbnail_scan.py now import shared phrase_utils.context_snippet instead of maintaining local _context helpers. Future scanners can reuse the same context logic without duplication.
 - DRY refactor only. No packet writes, no list growth, no new tools.
 - Human labor reduction: lower risk of inconsistent context reporting across title/thumbnail and other scanners; clearer single-source documentation.
