@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Report anti-slop phrases in script.md WORDS. Does not rewrite the script.
 
-Patterns come from docs/content_quality.md. A hit is a revision signal, not
-an authorship claim. This tool does not rewrite script.md. Default exit is 0
-so a frozen Q1 script cannot fail the build. --strict exits 1 when any hit
-remains. set_status.py refuses ready_for_vo while a hit remains.
+Patterns come from tools/phrase_utils.ANTI_SLOP_PATTERNS (single source of truth).
+A hit is a revision signal, not an authorship claim. This tool does not rewrite script.md.
+Default exit is 0 so a frozen Q1 script cannot fail the build. --strict exits 1 when any hit remains.
+set_status.py refuses ready_for_vo while a hit remains.
 
-Output includes a short context snippet around the first match of each phrase
-so the revision signal is immediately actionable.
+Output includes a short context snippet around the first match of each phrase so the revision signal is immediately actionable.
+Text is normalized (curly apostrophes/quotes/dashes -> straight) so one pattern covers common variants.
 """
 
 from __future__ import annotations
@@ -24,6 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 # Canonical list lives in phrase_utils.ANTI_SLOP_PATTERNS (single source of truth).
 # Matching uses word boundaries for higher precision (avoids partial-word false positives).
 # Text is normalized (curly apostrophes -> straight, etc.) so one pattern covers common variants.
+# Human overview: docs/content_quality.md.
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
 # Precompile word-boundary patterns once (case-insensitive).
