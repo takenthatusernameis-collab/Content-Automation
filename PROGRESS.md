@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: quality_scan now normalizes curly apostrophes, quotes, and dashes before matching, so one pattern covers common variants without list duplication. ANTI_SLOP_PATTERNS now includes five additional high-precision hook and context-bridge fillers. Future scripts are protected against "have you ever wondered", "most people don't realize", "in a world where", "let that sink in", and "to understand why" patterns.
+- Normalization + pattern list expansion. No packet writes.
+- Human labor reduction: fewer future rewrite cycles on common AI hook and context-bridge phrases; more robust matching reduces false negatives from punctuation variants.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Phrase expansion approaching saturation.
+
 - Reusable capability: ANTI_SLOP_PATTERNS now includes ten additional high-precision scene-setting and catch-phrase fillers. Future scripts are protected against common "picture this", "imagine if", "secret sauce", "hard truth", and "here's the catch" patterns that previously required manual revision.
 - Pattern list expansion only. Local selftest PASS. No packet writes.
 - Human labor reduction: fewer future rewrite cycles on common AI scene-setting and catch-phrase openers.
