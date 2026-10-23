@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-23T03:14:08Z (Run 741)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added six high-precision anti-slop phrases to the canonical ANTI_SLOP_PATTERNS in phrase_utils.py (here's the deal + curly, let's get into it + curly, to wrap things up, as I mentioned, what it all comes down to, the one thing to remember). Documented in content_quality.md. Selftest and contracts PASS. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Prefer human OAuth step or true capability over more status/polish/inspection/suggest-contract tools.
+
+# STATE
+
 2026-10-23T02:11:00Z (Run 740)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Local materialize_q1_release.py succeeded (r253 master + VO + cards). media_qa.py gate PASS (VO 308.4s, 7 cards, export ftyp). next_action reports upload-blocked (OAuth). Selftest PASS. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Prefer human OAuth step or true capability over more status/polish/inspection/suggest-contract tools.

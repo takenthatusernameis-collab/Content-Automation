@@ -174,4 +174,13 @@ ANTI_SLOP_PATTERNS = (
     "what I’m saying is",
     "the idea here is",
     "the point being",
+    "here's the deal",
+    "here’s the deal",
+    "let's get into it",
+    "let’s get into it",
+    "to wrap things up",
+    "as I mentioned",
+    "what it all comes down to",
+    "the one thing to remember",
 )
+

@@ -1,5 +1,12 @@
 # PROGRESS
 
+- Reusable capability: ANTI_SLOP_PATTERNS now flags six additional common filler openers and closers. Future drafts, quality_scan, and suggestors automatically catch more generic framing. Quality stronger for every subsequent video.
+- Local contracts and selftest verified PASS. No packet writes.
+- Human labor reduction: less time spent manually spotting “here's the deal” / “to wrap things up” style padding. CI and gates enforce the expanded list.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
+# PROGRESS
+
 - Reusable capability: confirmed local materialize + full media_qa gate PASS is reproducible. Future runs can treat the Q1 pre-upload path as verified stable without re-materializing solely for confirmation.
 - Local gates verified PASS (media_qa, selftest). No packet writes.
 - Human labor reduction: less time spent re-discovering whether media materializes cleanly. The path is locked.
