@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: phrase_utils.shorten now prefers additional natural separators (which, when, if, while, or) for better clause-level breaks on spoken mechanism language. ANTI_SLOP_PATTERNS now includes six additional high-precision explanatory/meta fillers. Future scripts and suggestions are protected against common openers that previously required manual revision.
+- Pattern list + helper expansion only. Commit verified on main. No packet writes.
+- Human labor reduction: fewer future rewrite cycles on common explanatory AI filler phrases; better short phrases reduce editing of suggestion output.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable.
+
 - Reusable capability: phrase_utils.shorten now prefers additional natural separators (semicolon, colon, but, because) for better clause-level breaks. All starters and suggestors that import it produce slightly more natural short phrases without mid-word or awkward cuts. ANTI_SLOP_PATTERNS now includes seven additional high-precision transition and starter fillers. Future scripts are protected against common openers that previously required manual revision.
 - Pattern list + helper expansion only. Local selftest PASS. No packet writes.
 - Human labor reduction: fewer future rewrite cycles on common starter/transition AI filler phrases; better short phrases reduce editing of suggestion output.
@@ -18,11 +23,6 @@
 - Reusable capability: human OAuth checklist now has an explicit scopes reminder immediately above the quick copy-paste sequence. Future operators have lower risk of minting a token with insufficient scopes when following the paste block.
 - Doc-only change. No packet writes. Checklist update verified by commit.
 - Human labor reduction: the single remaining human step has one less opportunity for a scope-related failure that would require re-minting.
-- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable.
-
-- Reusable capability: human next action printer now includes the quick copy-paste sequence. Future operators (or agents directing them) have lower rediscovery and lower command-paste error risk on the remaining external step, even when using the concise tool.
-- Local selftest PASS. No packet writes. Tool update verified by local run.
-- Human labor reduction: the single remaining human step is more copy-paste friendly from multiple entry points.
 - Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable.
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
