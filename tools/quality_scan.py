@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 # Canonical list lives in phrase_utils.ANTI_SLOP_PATTERNS (single source of truth).
 # Matching uses word boundaries for higher precision (avoids partial-word false positives).
+# Text is normalized (curly apostrophes -> straight, etc.) so one pattern covers common variants.
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
 # Precompile word-boundary patterns once (case-insensitive).
@@ -31,9 +32,18 @@ _PATTERN_RES = tuple(
 )
 
 
+def normalize(text: str) -> str:
+    """Normalize common variants so patterns match more reliably without duplicating entries."""
+    text = text.replace("\u2019", "'").replace("\u2018", "'")  # curly single quotes
+    text = text.replace("\u201c", '"').replace("\u201d", '"')  # curly double
+    text = text.replace("\u2013", "-").replace("\u2014", "-")  # en/em dash
+    return text
+
+
 def spoken(text: str) -> str:
     parts = WORD_RE.findall(text.replace("\r\n", "\n"))
-    return "\n".join(part.strip() for part in parts)
+    body = "\n".join(part.strip() for part in parts)
+    return normalize(body)
 
 
 def hits(text: str) -> list[tuple[str, int, str]]:
@@ -71,6 +81,7 @@ def main() -> int:
         videos = ROOT / "videos"
         folders = sorted(p for p in videos.iterdir() if p.is_dir() and (p / "script.md").is_file())
     print("QUALITY SCAN")
+    print(f"patterns checked: {len(PATTERNS)}")
     total = 0
     for folder in folders:
         found = scan_path(folder)
