@@ -9,7 +9,8 @@ fail the build. --strict exits 1 when any hit remains. set_status.py refuses
 ready_for_vo while a hit remains.
 
 Output includes a short context snippet around the first match of each hit
-so the revision signal is immediately actionable. Uses shared phrase_utils.context_snippet.
+so the revision signal is immediately actionable. Uses shared phrase_utils.context_snippet
+and TITLE_WEAK_PATTERNS. Text is normalized so one pattern covers common variants.
 """
 
 from __future__ import annotations
@@ -24,26 +25,15 @@ if str(ROOT / "tools") not in sys.path:
     sys.path.insert(0, str(ROOT / "tools"))
 
 from validate_packet import titles_from  # noqa: E402
-from phrase_utils import context_snippet  # noqa: E402
+from phrase_utils import context_snippet, normalize, TITLE_WEAK_PATTERNS  # noqa: E402
 
 WORD_RE = re.compile(r"[A-Za-z][A-Za-z']*")
 MATCH_RE = re.compile(r"^Matches title:[ \t]*([^\n]*)$", re.M)
 
-# High-precision weak / clickbait title patterns. Matching uses word boundaries.
-WEAK_PATTERNS = (
-    "secret hack",
-    "you won't believe",
-    "you won’t believe",
-    "must see",
-    "this changes everything",
-    "one weird trick",
-    "will shock you",
-    "you need to see",
-    "this will change",
-    "the secret to",
-)
+# High-precision weak / clickbait title patterns live in phrase_utils.TITLE_WEAK_PATTERNS.
+# Matching uses word boundaries. Text is normalized so one straight entry covers variants.
 _WEAK_RES = tuple(
-    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in WEAK_PATTERNS
+    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in TITLE_WEAK_PATTERNS
 )
 
 
@@ -62,12 +52,13 @@ def shouted(title: str) -> list[str]:
 def hits(titles_text: str, thumb_text: str) -> list[tuple[str, str, str]]:
     found: list[tuple[str, str, str]] = []
     for title in titles_from(titles_text):
+        title = normalize(title)
         for word in shouted(title):
             # Locate the word for context
             m = re.search(r"\b" + re.escape(word) + r"\b", title)
             ctx = context_snippet(title, m, before=30, after=30, max_len=80) if m else title[:60]
             found.append(("shout", word, ctx))
-        for phrase, cre in zip(WEAK_PATTERNS, _WEAK_RES):
+        for phrase, cre in zip(TITLE_WEAK_PATTERNS, _WEAK_RES):
             m = cre.search(title)
             if m:
                 ctx = context_snippet(title, m, before=30, after=30, max_len=80)
