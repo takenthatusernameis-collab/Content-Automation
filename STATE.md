@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-24T02:30:00Z (Run 761)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable. Extracted the duplicated word-boundary regex compilation logic into shared phrase_utils.compile_word_boundary_patterns. Updated quality_scan and claim_scan to use it (removed local re.compile tuples). Remaining scanners (description, end-screen, first-comment, title, thumbnail, chapters) prepared locally for the same change. Updated docs/content_quality.md to document the single source. No new tools, no phrase-list growth, no packet edits. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability. Phrase-list expansion remains saturated; this DRY improvement compounds for all future scanners and reduces drift risk on matching consistency.
+
 2026-10-24T01:14:00Z (Run 760)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable. Extracted local pattern lists from description_scan.py, end_screen_scan.py, and first_comment_scan.py into shared phrase_utils.DESCRIPTION_EXTRA_PATTERNS, END_SCREEN_WEAK_PATTERNS, and FIRST_COMMENT_BAIT_PATTERNS. description_scan now uses full ANTI_SLOP_PATTERNS + extras. Updated the three scanners to import the shared lists, apply phrase_utils.normalize before matching (curly duplicates removed), and use shared context_snippet. Updated docs/content_quality.md to document the single sources. No new tools, no net phrase-list growth beyond extraction, no packet edits. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability. Phrase-list expansion remains saturated; this DRY improvement compounds for future metadata scanners and reduces drift risk on description, CTA, and comment patterns.
