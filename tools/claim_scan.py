@@ -11,6 +11,7 @@ Output includes a short context snippet around the first match of each
 hit so the revision signal is immediately actionable.
 Text is normalized (curly apostrophes/quotes/dashes -> straight) so patterns
 cover common variants without duplicating hedge entries.
+Spoken WORDS extraction uses shared phrase_utils.spoken_words.
 
 Also scans sources.md (if present) in addition to research.md so that
 structured sources from research_sources_starter.py or research_brief_starter.py
@@ -31,23 +32,16 @@ if str(ROOT / "tools") not in sys.path:
     sys.path.insert(0, str(ROOT / "tools"))
 
 from research_brief import human_sources, numbers_in_spoken_words, is_placeholder_source  # noqa: E402
-from phrase_utils import normalize, context_snippet, HEDGE_PATTERNS  # noqa: E402
+from phrase_utils import context_snippet, HEDGE_PATTERNS, spoken_words  # noqa: E402
 
-WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
 # Precompile word-boundary patterns once (case-insensitive) for higher precision.
 _HEDGE_RES = tuple(
     re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in HEDGE_PATTERNS
 )
 
 
-def spoken(text: str) -> str:
-    parts = WORD_RE.findall(text.replace("\r\n", "\n"))
-    body = "\n".join(part.strip() for part in parts)
-    return normalize(body)
-
-
 def hedges_in_spoken(script: str) -> list[tuple[str, str]]:
-    body = spoken(script)
+    body = spoken_words(script)
     found = []
     for phrase, cre in zip(HEDGE_PATTERNS, _HEDGE_RES):
         matches = list(cre.finditer(body))
@@ -65,7 +59,7 @@ def cited(sources: list[str], token: str) -> bool:
 
 def hits(script: str, research: str) -> list[tuple[str, str, str]]:
     sources = human_sources(research)
-    body = spoken(script)
+    body = spoken_words(script)
     found: list[tuple[str, str, str]] = []
     # Digits: extract context around the token if possible
     for token in numbers_in_spoken_words(script):

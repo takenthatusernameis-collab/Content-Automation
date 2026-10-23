@@ -7,6 +7,8 @@ produce natural phrases without mid-word cuts.
 
 from __future__ import annotations
 
+import re
+
 
 def shorten(text: str, max_len: int = 40) -> str:
     """Return a natural short phrase, preferring whole words or first clause.
@@ -61,6 +63,20 @@ def context_snippet(text: str, match, before: int = 40, after: int = 40, max_len
     if len(context) > max_len:
         context = context[: max_len - 3] + "..."
     return context
+
+
+WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S | re.I)
+
+
+def spoken_words(text: str) -> str:
+    """Extract and normalize spoken WORDS blocks from a script or draft.
+
+    Shared by quality_scan, claim_scan, cadence_repetition_scan, and any future scanners.
+    Removes local WORD_RE + spoken copies so extraction and normalization stay consistent.
+    """
+    parts = WORD_RE.findall(text.replace("\r\n", "\n"))
+    body = "\n".join(part.strip() for part in parts if part.strip())
+    return normalize(body)
 
 
 # Canonical high-precision anti-slop phrases.

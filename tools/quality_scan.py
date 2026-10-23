@@ -8,6 +8,7 @@ set_status.py refuses ready_for_vo while a hit remains.
 
 Output includes a short context snippet around the first match of each phrase so the revision signal is immediately actionable.
 Text is normalized (curly apostrophes/quotes/dashes -> straight) so one pattern covers common variants.
+Spoken WORDS extraction uses shared phrase_utils.spoken_words.
 """
 
 from __future__ import annotations
@@ -17,30 +18,24 @@ import re
 import sys
 from pathlib import Path
 
-from phrase_utils import ANTI_SLOP_PATTERNS as PATTERNS, normalize, context_snippet
+from phrase_utils import ANTI_SLOP_PATTERNS as PATTERNS, context_snippet, spoken_words
 
 ROOT = Path(__file__).resolve().parents[1]
 
 # Canonical list lives in phrase_utils.ANTI_SLOP_PATTERNS (single source of truth).
 # Matching uses word boundaries for higher precision (avoids partial-word false positives).
 # Text is normalized (curly apostrophes -> straight, etc.) so one pattern covers common variants.
+# Spoken extraction is shared via phrase_utils.spoken_words.
 # Human overview: docs/content_quality.md.
 
-WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
 # Precompile word-boundary patterns once (case-insensitive).
 _PATTERN_RES = tuple(
     re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in PATTERNS
 )
 
 
-def spoken(text: str) -> str:
-    parts = WORD_RE.findall(text.replace("\r\n", "\n"))
-    body = "\n".join(part.strip() for part in parts)
-    return normalize(body)
-
-
 def hits(text: str) -> list[tuple[str, int, str]]:
-    body = spoken(text)
+    body = spoken_words(text)
     found = []
     for phrase, cre in zip(PATTERNS, _PATTERN_RES):
         matches = list(cre.finditer(body))
