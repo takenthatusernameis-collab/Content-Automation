@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-23T21:18:00Z (Run 759)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable. Extracted local WEAK_PATTERNS from title_scan.py, thumbnail_scan.py, and chapters_scan.py into shared phrase_utils.TITLE_WEAK_PATTERNS, THUMBNAIL_WEAK_PATTERNS, and CHAPTER_WEAK_PATTERNS. Updated the three scanners to import the shared lists, apply phrase_utils.normalize before matching (curly duplicates removed), and use consistent word-boundary matching. Updated docs/content_quality.md to document the single sources. No new tools, no phrase-list growth beyond extraction, no packet edits. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability. Phrase-list expansion remains saturated; this DRY improvement compounds for future scanners and reduces drift risk on weak/clickbait patterns.
+
 2026-10-23T20:16:00Z (Run 758)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable. Updated title_scan.py and thumbnail_scan.py to import and use shared phrase_utils.context_snippet instead of local _context helpers (removed local copies). Updated docs/content_quality.md to document the additional users. No new tools, no phrase-list growth, no packet edits. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability. Phrase-list expansion remains saturated; this DRY improvement compounds for future scanners and reduces drift risk on context reporting.
