@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 751 — 2026-10-23T13:42:00Z
+- Objective: Inspect current state and make one small reusable quality improvement to the shared anti-slop system that compounds for all future scripts without adding new tools.
+- Action: Inspected repo state. Confirmed preferred list complete and OAuth stall. Enhanced tools/quality_scan.py with punctuation normalization (curly to straight) and a patterns-checked print. Added five high-precision hook and context-bridge phrases to ANTI_SLOP_PATTERNS in tools/phrase_utils.py. Documented in docs/content_quality.md. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. Quality gate more robust against punctuation variants and stronger against common hook/context fillers. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Changes committed via GitHub API. Normalization improves coverage without list duplication. No contract breaks expected (pattern list + scanner only).
+- Discovery: Normalizing input text before matching reduces the need for dual curly/straight entries and makes the single-source list more maintainable as it grows. Phrase additions continue but are approaching saturation.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality or capability work over further list expansion.
+
 ## Run 750 — 2026-10-23T12:23:00Z
 - Objective: Inspect current state and make one small reusable quality improvement to the shared anti-slop list that compounds for all future scripts and suggestions without adding new tools.
 - Action: Cloned repo. Confirmed preferred list complete and pre-upload path stable. Added ten high-precision scene-setting and catch-phrase fillers to ANTI_SLOP_PATTERNS in tools/phrase_utils.py. Documented in docs/content_quality.md. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
