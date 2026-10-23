@@ -14,20 +14,9 @@ import argparse
 from pathlib import Path
 
 from idea_utils import extract
-from phrase_utils import shorten as _shorten
+from phrase_utils import shorten as _shorten, ANTI_SLOP_PATTERNS as WEAK
 
 ROOT = Path(__file__).resolve().parents[1]
-
-WEAK = (
-    "unlock your potential",
-    "in today's fast-paced",
-    "let's dive in",
-    "without further ado",
-    "the key is",
-    "in this video",
-    "you will learn",
-    "work smarter",
-)
 
 def suggest(mech: str, problem: str, topic: str) -> list[str]:
     """Return 3-5 hook candidates grounded in the packet."""
