@@ -31,55 +31,12 @@ if str(ROOT / "tools") not in sys.path:
     sys.path.insert(0, str(ROOT / "tools"))
 
 from research_brief import human_sources, numbers_in_spoken_words, is_placeholder_source  # noqa: E402
-from phrase_utils import normalize  # noqa: E402
+from phrase_utils import normalize, context_snippet, HEDGE_PATTERNS  # noqa: E402
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
-HEDGES = (
-    "studies show",
-    "study shows",
-    "research shows",
-    "most people",
-    "scientists found",
-    "according to a study",
-    "percent of people",
-    "experts say",
-    "data shows",
-    "research indicates",
-    "studies indicate",
-    "according to experts",
-    "research suggests",
-    "evidence shows",
-    "it has been shown",
-    "scientists say",
-    "a study found",
-    "surveys indicate",
-    "many studies show",
-    "research has shown",
-    "it is known that",
-    "widely known that",
-    "statistics show",
-    "data indicates",
-    "as research shows",
-    "studies have shown",
-    "researchers found",
-    "according to a survey",
-    "data reveals",
-    "experts agree",
-    "studies suggest",
-    "researchers say",
-    "a recent study",
-    "according to research",
-    "evidence suggests",
-    "data suggests",
-    "most experts agree",
-    "studies have found",
-    "it is widely accepted",
-    "according to data",
-    "researchers suggest",
-)
 # Precompile word-boundary patterns once (case-insensitive) for higher precision.
 _HEDGE_RES = tuple(
-    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in HEDGES
+    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in HEDGE_PATTERNS
 )
 
 
@@ -92,15 +49,11 @@ def spoken(text: str) -> str:
 def hedges_in_spoken(script: str) -> list[tuple[str, str]]:
     body = spoken(script)
     found = []
-    for phrase, cre in zip(HEDGES, _HEDGE_RES):
+    for phrase, cre in zip(HEDGE_PATTERNS, _HEDGE_RES):
         matches = list(cre.finditer(body))
         if matches:
             m = matches[0]
-            start = max(0, m.start() - 40)
-            end = min(len(body), m.end() + 40)
-            context = body[start:end].replace("\n", " ").strip()
-            if len(context) > 90:
-                context = context[:87] + "..."
+            context = context_snippet(body, m)
             found.append((phrase, context))
     return found
 
@@ -120,11 +73,7 @@ def hits(script: str, research: str) -> list[tuple[str, str, str]]:
             # Simple context: search for the token
             m = re.search(r"\b" + re.escape(token) + r"\b", body)
             if m:
-                start = max(0, m.start() - 40)
-                end = min(len(body), m.end() + 40)
-                context = body[start:end].replace("\n", " ").strip()
-                if len(context) > 90:
-                    context = context[:87] + "..."
+                context = context_snippet(body, m)
             else:
                 context = ""
             found.append(("digit", token, context))
@@ -247,7 +196,7 @@ def main() -> int:
         videos = ROOT / "videos"
         folders = sorted(p for p in videos.iterdir() if p.is_dir() and (p / "script.md").is_file())
     print("CLAIM SCAN")
-    print(f"hedges checked: {len(HEDGES)}")
+    print(f"hedges checked: {len(HEDGE_PATTERNS)}")
     total = 0
     for folder in folders:
         found = scan_path(folder)
