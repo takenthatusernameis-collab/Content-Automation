@@ -182,5 +182,12 @@ ANTI_SLOP_PATTERNS = (
     "as I mentioned",
     "what it all comes down to",
     "the one thing to remember",
+    "comment below",
+    "let me know in the comments",
+    "drop a comment",
+    "hit the bell",
+    "what if I told you",
+    "buckle up",
+    "stay tuned",
 )
 

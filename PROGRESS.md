@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: ANTI_SLOP_PATTERNS now includes seven additional high-precision YouTube engagement and hype fillers. Future scripts are protected against common comment/bell/hype patterns that previously required manual revision.
+- Pattern list expansion only. Local selftest PASS. No packet writes.
+- Human labor reduction: fewer future rewrite cycles on common YouTube AI filler phrases.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable.
+
 - Reusable capability: oauth_exchange.py now prints an explicit REQUIRED SCOPES banner with short names when generating the consent URL. Future operators have lower risk of minting a token with insufficient scopes at the critical mint step.
 - Tool print change only. Local verification of materialize + gates PASS. No packet writes.
 - Human labor reduction: the single remaining human step has one less opportunity for a scope-related failure that would require re-minting.

@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 747 — 2026-10-23T12:15:00Z
+- Objective: Inspect current state and make one small quality improvement that compounds for future videos without adding new tools or more OAuth polish.
+- Action: Cloned repo. Confirmed local materialize + media_qa PASS + next_action upload-blocked. Added seven high-precision YouTube engagement/hype phrases to the canonical ANTI_SLOP_PATTERNS in tools/phrase_utils.py. Documented in docs/content_quality.md. Updated state files via record_run. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. Quality gate slightly stronger for future scripts (common YouTube fillers now flagged). Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: py_compile PASS. Local selftest PASS. quality_scan clear on existing script. No contract breaks expected (pattern list only).
+- Discovery: Expanding the single-source anti-slop list with precise engagement/hype fillers reduces future rewrite cycles on common YouTube AI patterns.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Avoid more status/polish/suggest-contract tools.
+
 ## Run 746 — 2026-10-23T11:20:00Z
 - Objective: Inspect current state and make one small clarity improvement to the token-mint step that further reduces scope-miss risk without adding new tools.
 - Action: Cloned repo. Confirmed local materialize + media_qa PASS + next_action upload-blocked. Enhanced tools/oauth_exchange.py to print a prominent REQUIRED SCOPES banner (short names + full URIs) immediately when printing the consent URL. Updated state files via record_run. Did not poll secrets, dispatch, scaffold, or edit packets.

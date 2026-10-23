@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-23T12:15:00Z (Run 747)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable after local materialize (gate PASS, master present). Added seven high-precision YouTube engagement/hype anti-slop phrases to ANTI_SLOP_PATTERNS in phrase_utils.py (comment below, let me know in the comments, drop a comment, hit the bell, what if I told you, buckle up, stay tuned). Documented in content_quality.md. Selftest PASS. No new status/polish/inspection/suggest-contract tools added. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability.
+
 2026-10-23T11:20:00Z (Run 746)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable after local materialize (gate PASS, master present). Enhanced oauth_exchange.py to print a prominent REQUIRED SCOPES banner with short names when printing the consent URL, further reducing scope-miss risk at the exact moment the human mints the token. No new status/polish/inspection/suggest-contract tools added. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability.

@@ -39,6 +39,7 @@ The system should produce useful, specific, original-feeling work that could sur
 - Perspective and society fillers such as “bear in mind”, “take note that”, “as you can see”, “as we can see”, “the takeaway is”, “to put it in perspective”, “it's important to remember”, “in the modern world”, or “in today's society”.
 - Additional common filler and transition phrases such as “it's safe to say”, “suffice it to say”, “one thing is clear”, “in a perfect world”, “when push comes to shove”, “to be fair”, “last but not least”, “with that said”, “to that end”, “as previously mentioned”, or “it is worth mentioning”.
 - Further common transition and filler phrases such as “in reality”, “as a result”, “for instance”, “in particular”, “on the other hand”, “that said”, “the bottom line”, or “it is important”.
+- YouTube engagement and hype fillers such as “comment below”, “let me know in the comments”, “drop a comment”, “hit the bell”, “what if I told you”, “buckle up”, or “stay tuned”.
 - Additional summary and implication fillers such as “to sum up”, “in summary”, “put simply”, “what this means is”, “the implication is”, “case in point”, “in the final analysis”, or “when you think about it”.
 
 These are revision signals, not permission for a crude regex-based “AI detector.”

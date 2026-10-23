@@ -1,4 +1,4 @@
-2026-10-23T11:20:00Z (Run 746)
+2026-10-23T12:15:00Z (Run 747)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
 
@@ -10,6 +10,7 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Master sha256: 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546 (q1-master-r253.mp4, 328.40s). Do not regenerate while this matches. Do not install the truncated r249 master.
 - Preferred unblocked list: complete. tools/phrase_utils.py holds the canonical whole-word shorten. tools/idea_utils.py holds the canonical idea.md field extractor (locked by tools/idea_utils_contract.py and enforced in selftest CI). tools/phrase_utils.py holds the canonical whole-word shorten (now locked by tools/phrase_utils_contract.py and enforced in selftest CI). Key structure suggestors, draft starters, metadata suggestors, draft expansion coaches, failure-mode suggestor, originality checklist/report, experiment hypothesis suggestor, experiment baseline/notes starters, mechanism alignment scan, expand starter, and research brief/sources starters now import from idea_utils. All starters and suggestors share phrase_utils. No remaining local shorten copies. packet_rewrite_report.py includes cleaner whole-word script structure starters + originality_report signals. full_qa_report.py / text_qa_report.py cover originality. next_topic.py ranks by mechanism continuity. saturation_guard flags suggest-contract locking loops. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract tool).
 - Claim path and suggestion tools remain as previously locked (topic through experiment_hypothesis).
+- ANTI_SLOP_PATTERNS now includes seven additional high-precision YouTube engagement/hype fillers (comment below, let me know in the comments, drop a comment, hit the bell, what if I told you, buckle up, stay tuned) as of Run 747.
 - oauth_exchange.py now prints a prominent REQUIRED SCOPES banner (short names + full URIs) when generating the consent URL (Run 746).
 
 **Human step (only action that advances publish)**

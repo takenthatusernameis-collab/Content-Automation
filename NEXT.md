@@ -8,9 +8,13 @@ Run 743: added quick copy-paste sequence to docs/human_oauth_checklist.md to red
 
 Older next actions live in `docs/next_archive.md`. Do not paste the archive back.
 
+Run 747: added seven high-precision anti-slop phrases. Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence with scopes reminder or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer existing shared-helper starters, suggestors, packet_rewrite_report, text_qa_report / full_qa_report, rewrite_suggest, quality_scan, claim_scan and contracted tools. Avoid additional status printers or suggest-contract locks.
+
 Run 746: enhanced scopes reminder in tools/oauth_exchange.py consent URL output. Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence with scopes reminder or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer existing shared-helper starters, suggestors, packet_rewrite_report, text_qa_report / full_qa_report, rewrite_suggest, quality_scan, claim_scan and contracted tools. Avoid additional status printers or suggest-contract locks.
 
 Run 746: enhanced scopes reminder in tools/oauth_exchange.py consent URL output. Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence with scopes reminder or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer existing shared-helper starters, suggestors, packet_rewrite_report, text_qa_report / full_qa_report, rewrite_suggest, quality_scan, claim_scan and contracted tools. Avoid additional status printers or suggest-contract locks.
+
+2026-10-23T12:15:00Z (Run 747)
 
 2026-10-23T11:20:00Z (Run 746)
 
