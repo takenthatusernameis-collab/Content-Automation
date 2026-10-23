@@ -13,7 +13,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from phrase_utils import shorten
+from phrase_utils import shorten, ANTI_SLOP_PATTERNS as WEAK
 
 ROOT = Path(__file__).resolve().parents[1]
 
