@@ -50,6 +50,19 @@ def normalize(text: str) -> str:
     return text
 
 
+def context_snippet(text: str, match, before: int = 40, after: int = 40, max_len: int = 90) -> str:
+    """Return a short context snippet around a regex match for actionable revision signals.
+
+    Shared by quality_scan, claim_scan, and any future scanners to avoid duplicated window logic.
+    """
+    start = max(0, match.start() - before)
+    end = min(len(text), match.end() + after)
+    context = text[start:end].replace("\n", " ").strip()
+    if len(context) > max_len:
+        context = context[: max_len - 3] + "..."
+    return context
+
+
 # Canonical high-precision anti-slop phrases.
 # Single source of truth for quality_scan, suggestors, and starters.
 # Matching is word-boundary, case-insensitive. Do not add broad regexes.
@@ -226,4 +239,53 @@ ANTI_SLOP_PATTERNS = (
     "in a world where",
     "let that sink in",
     "to understand why",
+)
+
+
+# Canonical high-precision hedge phrases for unsourced claim detection.
+# Single source of truth for claim_scan. Matching is word-boundary, case-insensitive.
+# claim_scan normalizes curly apostrophes/quotes/dashes so one straight entry covers common variants.
+# Extracted for DRY consistency with ANTI_SLOP_PATTERNS (Run 756).
+HEDGE_PATTERNS = (
+    "studies show",
+    "study shows",
+    "research shows",
+    "most people",
+    "scientists found",
+    "according to a study",
+    "percent of people",
+    "experts say",
+    "data shows",
+    "research indicates",
+    "studies indicate",
+    "according to experts",
+    "research suggests",
+    "evidence shows",
+    "it has been shown",
+    "scientists say",
+    "a study found",
+    "surveys indicate",
+    "many studies show",
+    "research has shown",
+    "it is known that",
+    "widely known that",
+    "statistics show",
+    "data indicates",
+    "as research shows",
+    "studies have shown",
+    "researchers found",
+    "according to a survey",
+    "data reveals",
+    "experts agree",
+    "studies suggest",
+    "researchers say",
+    "a recent study",
+    "according to research",
+    "evidence suggests",
+    "data suggests",
+    "most experts agree",
+    "studies have found",
+    "it is widely accepted",
+    "according to data",
+    "researchers suggest",
 )
