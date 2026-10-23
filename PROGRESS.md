@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: compile_word_boundary_patterns is now a shared function in phrase_utils.py. quality_scan and claim_scan import and use it instead of maintaining local re.compile word-boundary tuples. Remaining scanners prepared for the same. Future scanners can reuse the consistent matching logic without duplication.
+- DRY refactor only. No packet writes, no phrase-list growth, no new tools.
+- Human labor reduction: lower risk of inconsistent matching flags, escaping, or word-boundary behavior across quality scanners; clearer single-source documentation.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Phrase expansion saturated.
+
 - Reusable capability: DESCRIPTION_EXTRA_PATTERNS, END_SCREEN_WEAK_PATTERNS, and FIRST_COMMENT_BAIT_PATTERNS are now shared in phrase_utils.py. description_scan uses full ANTI_SLOP_PATTERNS + extras; end_screen_scan and first_comment_scan import their lists and apply normalize + context_snippet instead of maintaining local lists and window logic. Future metadata scanners can reuse the same patterns without duplication.
 - DRY refactor only. No packet writes, no net list growth, no new tools. description_scan coverage improved by adopting the full anti-slop list.
 - Human labor reduction: lower risk of inconsistent pattern detection or variant coverage across description, end-screen, and first-comment tools; clearer single-source documentation.
