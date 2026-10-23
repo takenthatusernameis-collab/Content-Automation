@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 761 — 2026-10-24T02:30:00Z
+- Objective: Inspect current state and make one small maintainability improvement that compounds for all future scanners by eliminating duplicated word-boundary regex compilation logic.
+- Action: Confirmed preferred list complete and OAuth stall. Added phrase_utils.compile_word_boundary_patterns. Updated quality_scan.py and claim_scan.py to import and use the shared helper (removed local re.compile tuples). Prepared the same change for remaining scanners. Updated docs/content_quality.md and state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. Pattern matching compilation is now DRY and consistent for the updated scanners. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: py_compile PASS on updated modules. Shared helper confirmed in use and correctly escaped. Changes committed via GitHub API. No contract breaks expected (compilation helper only).
+- Discovery: Local re.compile word-boundary lists were a small drift risk for matching flags/escape; centralizing them in phrase_utils matches the single-source pattern already used for pattern lists, normalize, and context helpers.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: finish applying the shared compiler to remaining scanners, then human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
+
 ## Run 760 — 2026-10-24T01:14:00Z
 - Objective: Inspect current state and make one small maintainability improvement that compounds for all future metadata scanners by eliminating duplicated pattern lists and window logic in description, end-screen, and first-comment scanners.
 - Action: Confirmed preferred list complete and OAuth stall. Extracted local patterns from description_scan.py (as DESCRIPTION_EXTRA_PATTERNS, with description_scan now using full ANTI_SLOP_PATTERNS + extras), end_screen_scan.py (END_SCREEN_WEAK_PATTERNS), and first_comment_scan.py (FIRST_COMMENT_BAIT_PATTERNS) into shared phrase_utils. Updated the three scanners to import the shared lists, apply phrase_utils.normalize before matching (removed local copies and curly duplicates), and use shared context_snippet. Updated docs/content_quality.md to document the single sources. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
