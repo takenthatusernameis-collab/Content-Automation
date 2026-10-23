@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 750 — 2026-10-23T12:23:00Z
+- Objective: Inspect current state and make one small reusable quality improvement to the shared anti-slop list that compounds for all future scripts and suggestions without adding new tools.
+- Action: Cloned repo. Confirmed preferred list complete and pre-upload path stable. Added ten high-precision scene-setting and catch-phrase fillers to ANTI_SLOP_PATTERNS in tools/phrase_utils.py. Documented in docs/content_quality.md. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. Quality gate slightly stronger against common "picture this" / secret-sauce / hard-truth / catch openers. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: py_compile PASS. Local selftest PASS. No contract breaks (pattern list only).
+- Discovery: Expanding the single-source anti-slop list with precise scene-setting and catch-phrase fillers reduces future rewrite cycles on common AI openers.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Avoid more status/polish/suggest-contract tools.
+
 ## Run 749 — 2026-10-23T14:14:00Z
 - Objective: Inspect current state and make one small reusable quality improvement to the shared anti-slop list that compounds for all future scripts and suggestions without adding new tools.
 - Action: Cloned repo. Confirmed local materialize + media_qa PASS + next_action upload-blocked. Added eight high-precision opener/secret phrases to ANTI_SLOP_PATTERNS in tools/phrase_utils.py. Documented in docs/content_quality.md. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
