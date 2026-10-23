@@ -305,3 +305,55 @@ HEDGE_PATTERNS = (
     "according to data",
     "researchers suggest",
 )
+
+
+# Canonical high-precision weak/clickbait patterns for titles.
+# Single source of truth for title_scan. Matching is word-boundary, case-insensitive.
+# title_scan normalizes curly apostrophes/quotes/dashes so one straight entry covers common variants.
+# Extracted for DRY consistency (Run 759). Curly duplicates removed.
+TITLE_WEAK_PATTERNS = (
+    "secret hack",
+    "you won't believe",
+    "must see",
+    "this changes everything",
+    "one weird trick",
+    "will shock you",
+    "you need to see",
+    "this will change",
+    "the secret to",
+)
+
+
+# Canonical high-precision weak/clickbait patterns for thumbnail text.
+# Single source of truth for thumbnail_scan. Matching is word-boundary, case-insensitive.
+# thumbnail_scan normalizes curly apostrophes/quotes/dashes so one straight entry covers common variants.
+# Extracted for DRY consistency (Run 759). Curly duplicates removed.
+THUMBNAIL_WEAK_PATTERNS = (
+    "you won't believe",
+    "must watch",
+    "must see",
+    "click here",
+    "don't miss",
+    "shocking",
+    "insane",
+    "mind blown",
+    "number one",
+    "best ever",
+)
+
+
+# Canonical high-precision weak patterns for chapter titles.
+# Single source of truth for chapters_scan. Matching is word-boundary, case-insensitive.
+# chapters_scan normalizes curly apostrophes/quotes/dashes so one straight entry covers common variants.
+# Extracted for DRY consistency (Run 759). Curly duplicates removed.
+CHAPTER_WEAK_PATTERNS = (
+    "intro",
+    "outro",
+    "hook",
+    "cta",
+    "subscribe",
+    "like and subscribe",
+    "what you will learn",
+    "in this video",
+    "let's dive in",
+)
