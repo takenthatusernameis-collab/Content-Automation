@@ -12,30 +12,13 @@ def shorten(text: str, max_len: int = 40) -> str:
     """Return a natural short phrase, preferring whole words or first clause.
 
     Prefers the first clause or segment that fits, then falls back to whole words.
-    Extra separators improve clause-level breaks for spoken mechanism language.
+    Added extra separators for better natural breaks.
     """
     text = text.strip()
     if len(text) <= max_len:
         return text
-    # Prefer natural clause breaks; more seps for higher quality shorts
-    for sep in (
-        ". ",
-        ", ",
-        " so ",
-        " that ",
-        " and ",
-        " — ",
-        " - ",
-        "; ",
-        ": ",
-        " but ",
-        " because ",
-        " which ",
-        " when ",
-        " if ",
-        " while ",
-        " or ",
-    ):
+    # Prefer natural clause breaks; added more seps for higher quality shorts
+    for sep in (". ", ", ", " so ", " that ", " and ", " — ", " - ", "; ", ": ", " but ", " because "):
         if sep in text:
             cand = text.split(sep)[0].strip()
             if 8 <= len(cand) <= max_len:
@@ -224,12 +207,13 @@ ANTI_SLOP_PATTERNS = (
     "as a side note",
     "moving on",
     "with that out of the way",
-    "what you need to understand",
-    "let me put it this way",
-    "the key takeaway is",
-    "if there's one thing",
-    "if there’s one thing",
-    "here's what I mean",
-    "here’s what I mean",
-    "the reality of the situation is",
+    "let me tell you",
+    "here's a secret",
+    "here’s a secret",
+    "the key takeaway",
+    "without wasting any time",
+    "jumping right in",
+    "let's jump in",
+    "let’s jump in",
+    "with all that said",
 )
