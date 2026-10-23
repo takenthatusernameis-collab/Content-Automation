@@ -63,3 +63,6 @@ Lesson: Place the single remaining action in the most prominent position in the 
 
 ## Run 751 — 2026-10-23T13:42:00Z
 Evidence: Runs 747–750 (and earlier) repeatedly expanded ANTI_SLOP_PATTERNS with high-precision phrases while videos published stayed 0. List is now >160 entries. Normalization in quality_scan reduces need for dual variants. Lesson: phrase-list expansion is useful but approaching saturation; future runs should prefer other quality improvements (e.g. structure detectors, claim_scan hedges, or true capability) or the human OAuth step over additional exact-phrase additions. Do not modify ORIGINAL_MASTER_PROMPT.md.
+
+## Run 753 — 2026-10-23T18:18:00Z
+Evidence: docs/content_quality.md was a placeholder while tools and prior run notes claimed it held the quality contract. Inconsistency forces rediscovery. Lesson: keep the human-readable quality overview in sync with the single-source code (phrase_utils + quality_scan normalization). Prefer documenting the existing system over further phrase-list growth while OAuth remains the publish gate. Do not modify ORIGINAL_MASTER_PROMPT.md.
