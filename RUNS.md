@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 749 — 2026-10-23T11:20:00Z
+- Objective: Inspect current state and make one small reusable quality improvement to the shared phrase helpers that compounds for all future scripts and suggestions without adding new tools.
+- Action: Inspected STATE/NEXT/ROADMAP/HANDOFF/BLOCKED via GitHub API (private repo; local artifacts FS unavailable). Confirmed STALL_OAUTH_IDLE, preferred list complete. Expanded tools/phrase_utils.py shorten() with five additional natural separators (" which ", " when ", " if ", " while ", " or "). Added six high-precision explanatory/meta phrases to ANTI_SLOP_PATTERNS. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. Shared shorten produces slightly more natural short phrases for mechanism language. Quality gate slightly stronger against common explanatory fillers. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Commit landed on main (phrase_utils SHA updated). Contract does not hardcode separator list; no expected break. Local selftest not run (sandbox artifacts I/O error + private clone auth).
+- Discovery: Extra clause separators (which/when/if/while/or) improve short-phrase quality for spoken mechanism language used by starters/suggestors.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Avoid more status/polish/suggest-contract tools.
+
 ## Run 748 — 2026-10-23T13:20:00Z
 - Objective: Inspect current state and make one small reusable quality improvement to the shared phrase helpers and anti-slop list that compounds for all future scripts and suggestions without adding new tools.
 - Action: Cloned repo. Confirmed local materialize + media_qa PASS + next_action upload-blocked. Enhanced tools/phrase_utils.py shorten() with extra natural separators for better clause breaks. Added seven high-precision transition/starter phrases to ANTI_SLOP_PATTERNS. Documented in docs/content_quality.md. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
@@ -42,14 +51,5 @@
 - Result: Videos published stay 0. Human path slightly clearer (paste block now in concise tool). Pre-upload path remains stable. Upload still blocked only on the three secrets.
 - Verification: Tool update committed. Local selftest PASS. No contract breaks.
 - Discovery: Surfacing the same paste-ready sequence in human_next_action.py (in addition to the checklist) further reduces rediscovery when agents or humans use the concise printer.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Avoid more status/polish/suggest-contract tools.
-
-## Run 743 — 2026-10-23T05:13:45Z
-- Objective: Inspect current state and make one small clarity improvement to the remaining human OAuth path that reduces error risk without adding new tools.
-- Action: Cloned repo. Confirmed selftest PASS, preferred list complete, STALL_OAUTH_IDLE. Added a quick copy-paste sequence section to docs/human_oauth_checklist.md. Updated state files. Did not poll secrets, dispatch, scaffold, rematerialize, or edit packets.
-- Result: Videos published stay 0. Human path slightly clearer. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: Checklist update committed. Local selftest PASS (pre-update). No contract breaks.
-- Discovery: Even with complete tools, a single copy-paste block in the human checklist reduces rediscovery and command-line paste risk for the operator.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Avoid more status/polish/suggest-contract tools.
