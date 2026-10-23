@@ -60,3 +60,6 @@ Lesson: When the external blocker is unchanged after many verified runs, surface
 ## Run 453 — 2026-10-10T17:13:00Z
 Evidence: oauth_idle_without_publish ~180 runs. Materialize + gates PASS. Added ONLY ACTION NEEDED banner at the top of docs/human_oauth_checklist.md.
 Lesson: Place the single remaining action in the most prominent position in the document humans are directed to. This reduces rediscovery for both humans and agents. Prefer clarity improvements in the existing human path over new verification cycles while the external blocker is unchanged. Do not modify ORIGINAL_MASTER_PROMPT.md.
+
+## Run 751 — 2026-10-23T13:42:00Z
+Evidence: Runs 747–750 (and earlier) repeatedly expanded ANTI_SLOP_PATTERNS with high-precision phrases while videos published stayed 0. List is now >160 entries. Normalization in quality_scan reduces need for dual variants. Lesson: phrase-list expansion is useful but approaching saturation; future runs should prefer other quality improvements (e.g. structure detectors, claim_scan hedges, or true capability) or the human OAuth step over additional exact-phrase additions. Do not modify ORIGINAL_MASTER_PROMPT.md.
