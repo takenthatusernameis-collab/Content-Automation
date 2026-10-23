@@ -17,7 +17,7 @@ import re
 import sys
 from pathlib import Path
 
-from phrase_utils import ANTI_SLOP_PATTERNS as PATTERNS, normalize
+from phrase_utils import ANTI_SLOP_PATTERNS as PATTERNS, normalize, context_snippet
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -47,11 +47,7 @@ def hits(text: str) -> list[tuple[str, int, str]]:
         count = len(matches)
         if count:
             m = matches[0]
-            start = max(0, m.start() - 40)
-            end = min(len(body), m.end() + 40)
-            context = body[start:end].replace("\n", " ").strip()
-            if len(context) > 90:
-                context = context[:87] + "..."
+            context = context_snippet(body, m)
             found.append((phrase, count, context))
     return found
 
