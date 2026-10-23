@@ -1,5 +1,7 @@
 # FAILURES
 
+None this run. Previous stalls remain.
+
 No new failures. Prompt clarification succeeded and selftest passed. No secret poll attempted. OAuth stall continues as expected.
 
 No new failures. quality_scan pattern expansion succeeded and contracts passed. No secret poll attempted. OAuth stall continues as expected.

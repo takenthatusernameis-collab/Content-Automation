@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 740 — 2026-10-23T02:11:00Z
+- Objective: Confirm the pre-upload path remains stable by materializing Q1 media and re-running the local gates in a fresh clone.
+- Action: Cloned repo. Ran materialize_q1_release.py (installed r253 master, VO, 7 cards). Ran media_qa.py (gate PASS, all checks green). Ran next_action.py (upload-blocked, OAuth). Confirmed selftest PASS. Updated state files. Did not poll secrets, dispatch, scaffold, or rematerialize unnecessarily.
+- Result: Videos published stay 0. Pre-upload gates remain green after materialize. Upload still blocked only on the three secrets.
+- Verification: materialize exit 0; media_qa gate: PASS; next_action CODE: upload-blocked; selftest SELFTEST PASS.
+- Discovery: The materialize + gate path is reproducible in a clean environment; no regressions since last media checks.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Avoid more status/polish/suggest-contract tools.
+
 ## Run 739 — 2026-10-23T04:14:00Z
 - Objective: Reduce anti-slop drift between the generation prompt and the scanner by making script_writer.md reference the canonical single source.
 - Action: Edited prompts/script_writer.md to replace the long local example list with an explicit pointer to tools/phrase_utils.py ANTI_SLOP_PATTERNS (imported by quality_scan and starters). Noted that future additions apply automatically. Updated state files. Did not poll secrets, dispatch, scaffold, or rematerialize.

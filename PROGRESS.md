@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: confirmed local materialize + full media_qa gate PASS is reproducible. Future runs can treat the Q1 pre-upload path as verified stable without re-materializing solely for confirmation.
+- Local gates verified PASS (media_qa, selftest). No packet writes.
+- Human labor reduction: less time spent re-discovering whether media materializes cleanly. The path is locked.
+- Videos published remain 0. Stall continues. Preferred list still complete.
+
 - Reusable capability: script generation prompt now references the single source of truth ANTI_SLOP_PATTERNS. Future phrase additions automatically stay aligned with quality_scan and starters without manual prompt edits. Consistency stronger for every subsequent video.
 - Local selftest verified PASS. No packet writes.
 - Human labor reduction: less time spent syncing anti-slop lists between prompts and tools. One edit to phrase_utils updates generation guidance.
