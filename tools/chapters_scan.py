@@ -9,6 +9,7 @@ Default exit is 0 so a clear packet cannot fail the build.
 Checks: first line 0:00, minimum 10s gaps (YouTube rule), reasonable count (3-12),
 weak/engagement-bait titles, placeholders.
 Output includes short context so the revision signal is immediately actionable.
+Uses shared phrase_utils.CHAPTER_WEAK_PATTERNS and normalize.
 """
 
 from __future__ import annotations
@@ -19,22 +20,15 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT / "tools") not in sys.path:
+    sys.path.insert(0, str(ROOT / "tools"))
 
-# High-precision weak patterns for chapter titles.
-WEAK_PATTERNS = (
-    "intro",
-    "outro",
-    "hook",
-    "cta",
-    "subscribe",
-    "like and subscribe",
-    "what you will learn",
-    "in this video",
-    "let's dive in",
-    "let\u2019s dive in",
-)
+from phrase_utils import normalize, CHAPTER_WEAK_PATTERNS  # noqa: E402
+
+# High-precision weak patterns live in phrase_utils.CHAPTER_WEAK_PATTERNS.
+# Matching uses word boundaries. Titles are normalized so one straight entry covers variants.
 _WEAK_RES = tuple(
-    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in WEAK_PATTERNS
+    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in CHAPTER_WEAK_PATTERNS
 )
 
 CHAPTER_LINE_RE = re.compile(r"^\s*(\d{1,2}:\d{2}(?::\d{2})?)\s+(.+)$", re.M)
@@ -70,10 +64,6 @@ def extract_lines(text: str) -> list[tuple[str, str]]:
     return lines
 
 
-def _context(title: str, start: int = 0, end: int = 0) -> str:
-    return title[:80].replace("\n", " ").strip()
-
-
 def hits_from_lines(lines: list[tuple[str, str]]) -> list[tuple[str, str, str]]:
     found: list[tuple[str, str, str]] = []
     if not lines:
@@ -91,8 +81,9 @@ def hits_from_lines(lines: list[tuple[str, str]]) -> list[tuple[str, str, str]]:
         if secs - prev < 10.0 and prev > 0:
             found.append(("gap", stamp, title))
         prev = secs
-        for phrase, cre in zip(WEAK_PATTERNS, _WEAK_RES):
-            if cre.search(title):
+        norm_title = normalize(title)
+        for phrase, cre in zip(CHAPTER_WEAK_PATTERNS, _WEAK_RES):
+            if cre.search(norm_title):
                 found.append(("weak", phrase, title))
         if "(add" in title.lower() or title.lower() in ("chapter", "untitled"):
             found.append(("placeholder", title, title))
