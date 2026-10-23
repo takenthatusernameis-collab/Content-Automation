@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-23T00:20:00Z (Run 738)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Centralized high-precision anti-slop phrases into tools/phrase_utils.py as ANTI_SLOP_PATTERNS (single source of truth). quality_scan.py, body_suggest.py, hook_suggest.py, and draft_starter.py now import it. Fixed NameError in draft_starter.py (WEAK was undefined). Added three new phrases (so basically, what I'm saying is, the idea here is / the point being). Selftest contracts still PASS. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Prefer human OAuth step or true capability over more status/polish/inspection/suggest-contract tools.
+
 2026-10-23T02:15:00Z (Run 737)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added four high-precision anti-slop phrases to quality_scan.py (let me explain, here's why + curly, the reason is, to put it another way) and documented them in content_quality.md. Selftest and quality_scan_contract still PASS. Preferred unblocked list remains complete. Do not refresh the checklist banner solely for the timestamp. Do not re-verify gates solely for confirmation. Prefer human OAuth step or true capability over more status/polish/inspection/suggest-contract tools.
