@@ -17,7 +17,7 @@ import re
 import sys
 from pathlib import Path
 
-from phrase_utils import ANTI_SLOP_PATTERNS as PATTERNS
+from phrase_utils import ANTI_SLOP_PATTERNS as PATTERNS, normalize
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -31,14 +31,6 @@ WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
 _PATTERN_RES = tuple(
     re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in PATTERNS
 )
-
-
-def normalize(text: str) -> str:
-    """Normalize common variants so patterns match more reliably without duplicating entries."""
-    text = text.replace("\u2019", "'").replace("\u2018", "'")  # curly single quotes
-    text = text.replace("\u201c", '"').replace("\u201d", '"')  # curly double
-    text = text.replace("\u2013", "-").replace("\u2014", "-")  # en/em dash
-    return text
 
 
 def spoken(text: str) -> str:

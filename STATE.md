@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-23T17:45:00Z (Run 755)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable. Extracted the duplicated normalize function (curly apostrophes/quotes/dashes -> straight) from quality_scan.py and claim_scan.py into shared phrase_utils.normalize. Both scanners now import it. Updated docs/content_quality.md to document the single source. No new tools, no phrase-list growth, no packet edits. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability. Phrase-list expansion remains saturated; this DRY improvement compounds for future scanners and reduces drift risk.
+
 2026-10-23T16:25:00Z (Run 754)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable. Added text normalization (curly apostrophes/quotes/dashes to straight) to tools/claim_scan.py so hedge and digit patterns cover common variants without list duplication, matching the approach already used in quality_scan.py. Printed hedges-checked count. Documented in docs/content_quality.md. No new tools, no phrase-list growth, no packet edits. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability. Phrase-list expansion remains saturated; this claim-hygiene robustness compounds for all future content.

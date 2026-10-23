@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 755 — 2026-10-23T17:45:00Z
+- Objective: Inspect current state and make one small maintainability improvement that compounds for all future scanners by eliminating duplicated normalize logic.
+- Action: Confirmed preferred list complete and OAuth stall. Extracted the normalize function (curly-to-straight apostrophes/quotes/dashes) from quality_scan.py and claim_scan.py into phrase_utils.normalize. Updated both tools to import the shared version and removed local copies. Updated docs/content_quality.md to document the single source. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. Normalization logic is now DRY and consistent. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: py_compile PASS on the three files. quality_scan and claim_scan run clear on existing packets. normalize unit-tested on sample curly text.
+- Discovery: Duplicated normalize was a small drift risk; centralizing it in phrase_utils makes future scanner additions safer and matches the single-source pattern already used for ANTI_SLOP_PATTERNS.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
+
 ## Run 754 — 2026-10-23T16:25:00Z
 - Objective: Inspect current state and make one small claim-hygiene robustness improvement that compounds for all future scripts without adding tools or growing saturated lists.
 - Action: Confirmed preferred list complete and OAuth stall. Added punctuation normalization to tools/claim_scan.py (curly to straight, same as quality_scan) and a hedges-checked print. Documented the behavior in docs/content_quality.md. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.

@@ -31,6 +31,7 @@ if str(ROOT / "tools") not in sys.path:
     sys.path.insert(0, str(ROOT / "tools"))
 
 from research_brief import human_sources, numbers_in_spoken_words, is_placeholder_source  # noqa: E402
+from phrase_utils import normalize  # noqa: E402
 
 WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
 HEDGES = (
@@ -80,14 +81,6 @@ HEDGES = (
 _HEDGE_RES = tuple(
     re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in HEDGES
 )
-
-
-def normalize(text: str) -> str:
-    """Normalize common variants so hedge and digit patterns match more reliably."""
-    text = text.replace("\u2019", "'").replace("\u2018", "'")  # curly single quotes
-    text = text.replace("\u201c", '"').replace("\u201d", '"')  # curly double
-    text = text.replace("\u2013", "-").replace("\u2014", "-")  # en/em dash
-    return text
 
 
 def spoken(text: str) -> str:

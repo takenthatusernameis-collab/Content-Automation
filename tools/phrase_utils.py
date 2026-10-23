@@ -37,6 +37,19 @@ def shorten(text: str, max_len: int = 40) -> str:
         return text[:max_len].rsplit(" ", 1)[0] if " " in text[:max_len] else text[:max_len]
     return result
 
+
+def normalize(text: str) -> str:
+    """Normalize common variants so patterns match more reliably without duplicating entries.
+
+    Converts curly apostrophes/quotes and en/em dashes to straight equivalents.
+    Shared by quality_scan, claim_scan, and any future scanners.
+    """
+    text = text.replace("’", "'").replace("‘", "'")  # curly single quotes
+    text = text.replace("“", '"').replace("”", '"')  # curly double
+    text = text.replace("–", "-").replace("—", "-")  # en/em dash
+    return text
+
+
 # Canonical high-precision anti-slop phrases.
 # Single source of truth for quality_scan, suggestors, and starters.
 # Matching is word-boundary, case-insensitive. Do not add broad regexes.

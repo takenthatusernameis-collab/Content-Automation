@@ -5,7 +5,7 @@ Goal: specific, original, useful editorial writing. Prefer concrete mechanisms, 
 ## Anti-slop system (single source of truth)
 
 - Canonical high-precision phrases live in `tools/phrase_utils.py` as `ANTI_SLOP_PATTERNS` (word-boundary, case-insensitive matching).
-- `tools/quality_scan.py` normalizes curly apostrophes/quotes and en/em dashes to straight equivalents before matching, so one straight entry covers common variants. Do not re-add curly duplicates.
+- Shared `phrase_utils.normalize` converts curly apostrophes/quotes and en/em dashes to straight equivalents. Both `quality_scan.py` and `claim_scan.py` call it before matching, so one straight entry covers common variants. Do not re-add curly duplicates or local normalize copies.
 - A hit is a revision signal, not an authorship claim. The tool does not rewrite scripts. Default exit is 0 (frozen packets cannot fail the build); `--strict` exits 1 on remaining hits. `set_status.py` refuses `ready_for_vo` while hits remain.
 - List expansion is approaching saturation. Prefer structure detectors, claim hygiene, or true capability work over further exact-phrase additions.
 
@@ -19,8 +19,8 @@ Goal: specific, original, useful editorial writing. Prefer concrete mechanisms, 
 
 ## Related tools
 
-- `tools/quality_scan.py` — reports hits with context snippets.
-- `tools/claim_scan.py` — factual/hedge signals. Normalizes curly apostrophes/quotes/dashes before matching (same approach as quality_scan) so one hedge entry covers common variants.
-- Shared helpers in `phrase_utils.py` and `idea_utils.py` keep starters, suggestors, and scanners consistent.
+- `tools/quality_scan.py` — reports hits with context snippets. Uses shared normalize.
+- `tools/claim_scan.py` — factual/hedge signals. Uses shared normalize so one hedge entry covers common variants.
+- Shared helpers in `phrase_utils.py` (normalize, shorten, ANTI_SLOP_PATTERNS) and `idea_utils.py` keep starters, suggestors, and scanners consistent.
 
 This page is the human-readable overview. The code is the lock.
