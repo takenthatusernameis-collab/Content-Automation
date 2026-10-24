@@ -7,7 +7,7 @@ This tool does not rewrite. Default exit is 0 so a clear packet cannot fail the 
 
 Output includes a short context snippet so the revision signal is immediately actionable.
 The pin should be the assignment from the mechanism, not a reply prompt (see docs/content_quality.md).
-Uses shared phrase_utils.FIRST_COMMENT_BAIT_PATTERNS, normalize, and context_snippet.
+Uses shared phrase_utils.FIRST_COMMENT_BAIT_PATTERNS, normalize, context_snippet, and compile_word_boundary_patterns.
 """
 
 from __future__ import annotations
@@ -21,13 +21,11 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "tools") not in sys.path:
     sys.path.insert(0, str(ROOT / "tools"))
 
-from phrase_utils import FIRST_COMMENT_BAIT_PATTERNS, context_snippet, normalize  # noqa: E402
+from phrase_utils import FIRST_COMMENT_BAIT_PATTERNS, context_snippet, normalize, compile_word_boundary_patterns  # noqa: E402
 
 # High-precision engagement-bait / reply-prompt patterns live in phrase_utils.FIRST_COMMENT_BAIT_PATTERNS.
-# Matching uses word boundaries. Text is normalized so one straight entry covers variants.
-_BAIT_RES = tuple(
-    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in FIRST_COMMENT_BAIT_PATTERNS
-)
+# Matching uses shared compile_word_boundary_patterns. Text is normalized so one straight entry covers variants.
+_BAIT_RES = compile_word_boundary_patterns(FIRST_COMMENT_BAIT_PATTERNS)
 
 FIRST_RE = re.compile(r"## First comment(?: \(pin candidate\))?\s*\n(.*?)(?=\n## |\Z)", re.S)
 
