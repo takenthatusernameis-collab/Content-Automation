@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/claim_source_table.py extracts digit and hedge claims from script.md/draft.md (shared helpers) and prints a fillable Markdown table mapping each claim to a Source placeholder. Agents or humans paste it into sources.md/research.md and fill only the Source column. claim_scan auto-extracts non-placeholder cells. Reduces manual claim-listing labor on every future video.
+- Small new production tool only. No packet writes, no phrase-list growth, no invented sources, no secrets polled.
+- Human labor reduction: lower time and error rate when preparing factual support before drafting or claim_scan; one command replaces ad-hoc scanning of WORDS for claims that need sources.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/media_fingerprint.py now accepts optional --packet and --target-sha (defaults remain the current Q1 packet and known master SHA). Selected VO lookup is generic (*-take-selected.wav or any .wav). Future packets can use the same quick media check without hardcoding or rediscovery.
 - Small generalization only. No packet writes, no phrase-list growth, no new tools beyond the existing one, no secrets polled.
 - Human labor reduction: lower rediscovery cost for media presence/SHA checks on the next videos; one tool works for any packet.
