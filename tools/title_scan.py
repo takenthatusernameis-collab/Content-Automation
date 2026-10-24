@@ -9,8 +9,8 @@ fail the build. --strict exits 1 when any hit remains. set_status.py refuses
 ready_for_vo while a hit remains.
 
 Output includes a short context snippet around the first match of each hit
-so the revision signal is immediately actionable. Uses shared phrase_utils.context_snippet
-and TITLE_WEAK_PATTERNS. Text is normalized so one pattern covers common variants.
+so the revision signal is immediately actionable. Uses shared phrase_utils.context_snippet,
+TITLE_WEAK_PATTERNS, normalize, and compile_word_boundary_patterns.
 """
 
 from __future__ import annotations
@@ -25,16 +25,14 @@ if str(ROOT / "tools") not in sys.path:
     sys.path.insert(0, str(ROOT / "tools"))
 
 from validate_packet import titles_from  # noqa: E402
-from phrase_utils import context_snippet, normalize, TITLE_WEAK_PATTERNS  # noqa: E402
+from phrase_utils import context_snippet, normalize, TITLE_WEAK_PATTERNS, compile_word_boundary_patterns  # noqa: E402
 
 WORD_RE = re.compile(r"[A-Za-z][A-Za-z']*")
 MATCH_RE = re.compile(r"^Matches title:[ \t]*([^\n]*)$", re.M)
 
 # High-precision weak / clickbait title patterns live in phrase_utils.TITLE_WEAK_PATTERNS.
-# Matching uses word boundaries. Text is normalized so one straight entry covers variants.
-_WEAK_RES = tuple(
-    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in TITLE_WEAK_PATTERNS
-)
+# Matching uses shared compile_word_boundary_patterns. Text is normalized so one straight entry covers variants.
+_WEAK_RES = compile_word_boundary_patterns(TITLE_WEAK_PATTERNS)
 
 
 def shouted(title: str) -> list[str]:
