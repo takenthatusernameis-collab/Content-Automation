@@ -31,12 +31,14 @@ Heuristic only. A human may retype the Type cell.
 
 `tools/asset_brief.py` always writes `planned`. It does not mark ready.
 `tools/card_generator.py` writes local PNGs. It marks ready only with `--mark-ready` after files exist.
+`tools/card_text_suggest.py` — derives 2-3 short (<=5 word) on-screen phrase candidates from the Need column. No file writes. Use before building cards.
 
 ## Generate locally
 
 Requires Pillow. Does not commit PNGs.
 
 ```bash
+python3 tools/card_text_suggest.py PATH
 python3 tools/card_generator.py PATH --write-manifest
 python3 tools/card_generator.py PATH --inspect-only
 ```
