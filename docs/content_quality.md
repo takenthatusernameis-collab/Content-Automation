@@ -11,6 +11,7 @@ Goal: specific, original, useful editorial writing. Prefer concrete mechanisms, 
 - Shared `phrase_utils.compile_word_boundary_patterns` compiles the high-precision word-boundary case-insensitive regexes. All scanners (quality_scan, claim_scan, description_scan, end_screen_scan, first_comment_scan, title_scan, thumbnail_scan, chapters_scan) use it instead of local re.compile tuples. Do not reintroduce local compilation logic.
 - A hit is a revision signal, not an authorship claim. The tool does not rewrite scripts. Default exit is 0 (frozen packets cannot fail the build); `--strict` exits 1 on remaining hits. `set_status.py` refuses `ready_for_vo` while hits remain.
 - List expansion is approaching saturation. Prefer structure detectors, claim hygiene, or true capability work over further exact-phrase additions.
+- `tools/phrase_utils_contract.py` locks the shared helpers (shorten, normalize, spoken_words, compile_word_boundary_patterns, context_snippet) and confirms lists are non-empty. Run it to prove the DRY single-source remains intact.
 
 ## Claim hygiene (single source of truth)
 
@@ -53,5 +54,6 @@ Goal: specific, original, useful editorial writing. Prefer concrete mechanisms, 
 - `tools/end_screen_scan.py` — weak/engagement-bait end-screen/CTA. Uses shared END_SCREEN_WEAK_PATTERNS, normalize, context_snippet, and compile_word_boundary_patterns.
 - `tools/first_comment_scan.py` — engagement-bait in First comment. Uses shared FIRST_COMMENT_BAIT_PATTERNS, normalize, context_snippet, and compile_word_boundary_patterns.
 - Shared helpers in `phrase_utils.py` (normalize, shorten, context_snippet, spoken_words, compile_word_boundary_patterns, ANTI_SLOP_PATTERNS, HEDGE_PATTERNS, TITLE_WEAK_PATTERNS, THUMBNAIL_WEAK_PATTERNS, CHAPTER_WEAK_PATTERNS, DESCRIPTION_EXTRA_PATTERNS, END_SCREEN_WEAK_PATTERNS, FIRST_COMMENT_BAIT_PATTERNS) and `idea_utils.py` keep starters, suggestors, and scanners consistent. `compile_word_boundary_patterns` ensures uniform word-boundary case-insensitive matching across all scanners without local re.compile duplication.
+- `tools/phrase_utils_contract.py` — proves the shared helpers remain consistent (shorten + normalize + spoken_words + compile + context_snippet). Run after any phrase_utils change.
 
 This page is the human-readable overview. The code is the lock.
