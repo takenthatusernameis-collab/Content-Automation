@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: compile_word_boundary_patterns is now used by all quality scanners (quality_scan, claim_scan, description_scan, end_screen_scan, first_comment_scan, title_scan, thumbnail_scan, chapters_scan). Local re.compile word-boundary tuples have been removed. Future scanners can reuse the consistent matching logic without duplication.
+- DRY refactor only. No packet writes, no phrase-list growth, no new tools.
+- Human labor reduction: lower risk of inconsistent matching flags, escaping, or word-boundary behavior across the entire scanner suite; clearer single-source documentation.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Phrase expansion saturated.
+
 - Reusable capability: compile_word_boundary_patterns is now a shared function in phrase_utils.py. quality_scan and claim_scan import and use it instead of maintaining local re.compile word-boundary tuples. Remaining scanners prepared for the same. Future scanners can reuse the consistent matching logic without duplication.
 - DRY refactor only. No packet writes, no phrase-list growth, no new tools.
 - Human labor reduction: lower risk of inconsistent matching flags, escaping, or word-boundary behavior across quality scanners; clearer single-source documentation.
