@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: phrase_utils_contract.py now locks the full set of shared helpers (shorten, normalize, spoken_words, compile_word_boundary_patterns, context_snippet) plus non-empty canonical lists. Future changes to the single-source helpers will fail the contract if behavior drifts.
+- Reliability lock only. No packet writes, no phrase-list growth, no new tools.
+- Human labor reduction: lower risk of undetected regression in the DRY helpers that all scanners and suggestors depend on; clearer mechanical proof of the single-source pattern.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Phrase expansion saturated.
+
 - Reusable capability: mechanism_align_scan.py now uses shared phrase_utils.spoken_words (includes normalize) instead of maintaining a local WORD_RE + extractor. Future alignment checks inherit consistent extraction and variant coverage without duplication.
 - DRY refactor only. No packet writes, no phrase-list growth, no new tools.
 - Human labor reduction: lower risk of inconsistent WORDS extraction or missing normalization in mechanism grounding; clearer single-source documentation.
