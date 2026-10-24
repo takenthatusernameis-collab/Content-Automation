@@ -1,11 +1,11 @@
-2026-10-24T03:11:00Z (Run 765)
+2026-10-24T04:15:00Z (Run 766)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
 
 **Current state**
 - Videos published: 0
 - Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Issue #1. Do not poll.
-- Media: Q1 VO + cards + r253 master ready after materialize; do not rematerialize if present. Do not regenerate.
+- Media: Q1 VO + cards + r253 master ready after materialize; do not rematerialize if present. Do not regenerate. tools/media_fingerprint.py now accepts --packet and --target-sha (defaults to Q1).
 
 - Master sha256: 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546 (q1-master-r253.mp4, 328.40s). Do not regenerate while this matches. Do not install the truncated r249 master.
 - Preferred unblocked list: complete. tools/phrase_utils.py holds the canonical whole-word shorten, ANTI_SLOP_PATTERNS, shared normalize (curly-to-straight), shared context_snippet, shared HEDGE_PATTERNS, shared spoken_words, TITLE_WEAK_PATTERNS, THUMBNAIL_WEAK_PATTERNS, CHAPTER_WEAK_PATTERNS, DESCRIPTION_EXTRA_PATTERNS, END_SCREEN_WEAK_PATTERNS, FIRST_COMMENT_BAIT_PATTERNS, and compile_word_boundary_patterns. All quality scanners plus mechanism_align_scan import the relevant shared lists/helpers. Key structure suggestors, draft starters, metadata suggestors, and quality tools import from shared helpers. No remaining local shorten, normalize, hedge-list, context-window, spoken-extractor, weak-pattern, or re.compile word-boundary copies in the scanners or mechanism aligner. packet_rewrite_report.py includes cleaner whole-word script structure starters + originality_report signals. full_qa_report.py / text_qa_report.py cover originality. next_topic.py ranks by mechanism continuity. saturation_guard flags suggest-contract locking loops. phrase_utils_contract.py now locks shorten + normalize + spoken_words + compile_word_boundary_patterns + context_snippet. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract or phrase DRY tool).
