@@ -9,7 +9,7 @@ Default exit is 0 so a clear packet cannot fail the build.
 Checks: first line 0:00, minimum 10s gaps (YouTube rule), reasonable count (3-12),
 weak/engagement-bait titles, placeholders.
 Output includes short context so the revision signal is immediately actionable.
-Uses shared phrase_utils.CHAPTER_WEAK_PATTERNS and normalize.
+Uses shared phrase_utils.CHAPTER_WEAK_PATTERNS, normalize, and compile_word_boundary_patterns.
 """
 
 from __future__ import annotations
@@ -23,13 +23,11 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "tools") not in sys.path:
     sys.path.insert(0, str(ROOT / "tools"))
 
-from phrase_utils import normalize, CHAPTER_WEAK_PATTERNS  # noqa: E402
+from phrase_utils import normalize, CHAPTER_WEAK_PATTERNS, compile_word_boundary_patterns  # noqa: E402
 
 # High-precision weak patterns live in phrase_utils.CHAPTER_WEAK_PATTERNS.
-# Matching uses word boundaries. Titles are normalized so one straight entry covers variants.
-_WEAK_RES = tuple(
-    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in CHAPTER_WEAK_PATTERNS
-)
+# Matching uses shared compile_word_boundary_patterns. Titles are normalized so one straight entry covers variants.
+_WEAK_RES = compile_word_boundary_patterns(CHAPTER_WEAK_PATTERNS)
 
 CHAPTER_LINE_RE = re.compile(r"^\s*(\d{1,2}:\d{2}(?::\d{2})?)\s+(.+)$", re.M)
 YOUTUBE_SECTION_RE = re.compile(r"## YouTube lines\s*\n(.*?)(?=\n## |\Z)", re.S)
