@@ -1,3 +1,14 @@
+2026-10-24T20:12:00Z (Run 779)
+
+Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
+
+**Current state**
+- Videos published: 0
+- Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Issue #1. Do not poll.
+- Media: Q1 VO + cards + r253 master ready after materialize; do not rematerialize if present. Do not regenerate.
+- New: tools/full_packet_prep_brief.py prints a unified full packet preparation overview by aggregating research_prep_brief, quality_prep_brief, editor_prep_brief, caption_prep_brief, media_prep_brief, publish_prep_brief, and metadata_prep_brief. No invented content. One command replaces sequential separate runs.
+- Preferred unblocked list: complete. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract or phrase DRY tool).
+
 2026-10-24T19:15:00Z (Run 778)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
