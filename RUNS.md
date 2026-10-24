@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 767 — 2026-10-24T05:20:00Z
+- Objective: Make one small reusable improvement that compounds for future videos by removing Q1 hardcoding from the primary status report tool, while the OAuth stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Generalized tools/status_report.py to accept optional --packet (defaults remain the current Q1 packet). Updated media_status, remaining_open_boxes, upload_state_status, reviews, and next_action calls to use the passed packet. Reduced hardcoded paths in output. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. Status report is now reusable for any packet. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Code review and py_compile of the updated tool; argparse added, defaults preserved, key functions parameterized. Changes committed via GitHub API.
+- Discovery: Hardcoded Q1 paths in the main status tool create future rediscovery work once more packets exist; a small generalization reduces that labor for the entire status surface.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 766 — 2026-10-24T04:15:00Z
 - Objective: Make one small reusable improvement that compounds for future videos by removing Q1 hardcoding from a media status tool, while the OAuth stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Generalized tools/media_fingerprint.py to accept optional --packet and --target-sha (defaults remain the current Q1 packet and known master SHA). Selected VO discovery now looks for *-take-selected.wav or any .wav. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
@@ -8,102 +17,3 @@
 - Discovery: Hardcoded Q1 paths in status tools create future rediscovery work once more packets exist; a small generalization reduces that labor.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
-
-## Run 765 — 2026-10-24T03:11:00Z
-- Objective: Inspect current state and confirm the preferred unblocked list is complete after the recent DRY series, then record the clear next action.
-- Action: Confirmed preferred list complete and OAuth stall. Verified that all quality scanners plus mechanism_align_scan use shared phrase_utils helpers and that phrase_utils_contract.py locks the full set. No remaining local copies of normalize, spoken_words, context_snippet, compile_word_boundary_patterns, or the canonical pattern lists exist in the scanners. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. Single-source quality system is contract-locked and complete. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: Inspection of tools/phrase_utils.py, the scanners, phrase_utils_contract.py, and docs/content_quality.md confirmed the lock. Changes committed via GitHub API.
-- Discovery: The preferred unblocked list is now fully complete. Further DRY or phrase-list work has diminishing returns. The highest-leverage remaining action is the human OAuth step.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer a truly new production capability only if it does not require credentials and compounds after publish.
-
-## Run 764 — 2026-10-24T02:15:00Z
-- Objective: Inspect current state and make one small reliability improvement that compounds by locking the shared phrase_utils helpers against future drift.
-- Action: Confirmed preferred list complete and OAuth stall. Extended tools/phrase_utils_contract.py to also verify normalize (curly-to-straight), spoken_words (extract + normalize), compile_word_boundary_patterns (word-boundary + case-insensitive + no partial), context_snippet, and non-empty canonical lists, in addition to the existing shorten checks. Updated docs/content_quality.md to document the contract as the lock. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. Shared helper behavior is now contract-locked. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: Local simulation of the contract checks passed. Changes committed via GitHub API. No contract breaks expected (additive tests only).
-- Discovery: The existing phrase_utils_contract only covered shorten; expanding it to the full set of DRY helpers (added across Runs 755–763) makes the single-source pattern mechanically enforceable and reduces the chance of silent regression.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
-
-## Run 763 — 2026-10-24T01:15:00Z
-- Objective: Inspect current state and make one small maintainability improvement that compounds for mechanism alignment by eliminating duplicated WORDS extraction logic.
-- Action: Confirmed preferred list complete and OAuth stall. Updated mechanism_align_scan.py to use shared phrase_utils.spoken_words (includes normalize) instead of local WORD_RE + extractor (removed local copies). Updated docs/content_quality.md to document the additional user. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. Spoken WORDS extraction for mechanism alignment is now DRY and consistent with other scanners. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: py_compile PASS on updated module. Import and normalize confirmed. Changes staged for commit. No contract breaks expected (extraction helper only).
-- Discovery: Local WORD_RE and spoken extractor in mechanism_align_scan was a small drift risk (no normalize); centralizing it matches the single-source pattern already used for quality_scan, claim_scan, and cadence_repetition_scan.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
-
-## Run 762 — 2026-10-24T03:20:00Z
-- Objective: Inspect current state and complete the DRY improvement by applying the shared word-boundary regex compiler to all remaining scanners.
-- Action: Confirmed preferred list complete and OAuth stall. Updated description_scan.py, end_screen_scan.py, first_comment_scan.py, title_scan.py, thumbnail_scan.py, and chapters_scan.py to import and use phrase_utils.compile_word_boundary_patterns (removed all local re.compile word-boundary tuples). Updated docs/content_quality.md to document that all scanners now use the single source. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. Pattern matching compilation is now fully DRY and consistent across all quality scanners. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: Changes committed via GitHub API. All scanners import and use the shared helper. No contract breaks expected (compilation helper only).
-- Discovery: Completing the shared compiler eliminates the last local re.compile word-boundary lists, further reducing drift risk on matching flags and escape behavior across the entire scanner suite.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
-
-## Run 761 — 2026-10-24T02:30:00Z
-- Objective: Inspect current state and make one small maintainability improvement that compounds for all future scanners by eliminating duplicated word-boundary regex compilation logic.
-- Action: Confirmed preferred list complete and OAuth stall. Added phrase_utils.compile_word_boundary_patterns. Updated quality_scan.py and claim_scan.py to import and use the shared helper (removed local re.compile tuples). Prepared the same change for remaining scanners. Updated docs/content_quality.md and state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. Pattern matching compilation is now DRY and consistent for the updated scanners. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: py_compile PASS on updated modules. Shared helper confirmed in use and correctly escaped. Changes committed via GitHub API. No contract breaks expected (compilation helper only).
-- Discovery: Local re.compile word-boundary lists were a small drift risk for matching flags/escape; centralizing them in phrase_utils matches the single-source pattern already used for pattern lists, normalize, and context helpers.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: finish applying the shared compiler to remaining scanners, then human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
-
-## Run 760 — 2026-10-24T01:14:00Z
-- Objective: Inspect current state and make one small maintainability improvement that compounds for all future metadata scanners by eliminating duplicated pattern lists and window logic in description, end-screen, and first-comment scanners.
-- Action: Confirmed preferred list complete and OAuth stall. Extracted local patterns from description_scan.py (as DESCRIPTION_EXTRA_PATTERNS, with description_scan now using full ANTI_SLOP_PATTERNS + extras), end_screen_scan.py (END_SCREEN_WEAK_PATTERNS), and first_comment_scan.py (FIRST_COMMENT_BAIT_PATTERNS) into shared phrase_utils. Updated the three scanners to import the shared lists, apply phrase_utils.normalize before matching (removed local copies and curly duplicates), and use shared context_snippet. Updated docs/content_quality.md to document the single sources. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. Description, end-screen, and first-comment pattern lists are now DRY and consistent. description_scan gains full anti-slop coverage. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: py_compile PASS on updated modules. Imports and normalize confirmed locally. Changes committed via GitHub API. No contract breaks expected (list extraction + normalize + helper reuse only).
-- Discovery: Local pattern lists and duplicated context windows in the three metadata scanners were a small drift risk; centralizing them (and expanding description to full ANTI_SLOP) matches the single-source pattern already used for other scanners.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
-
-## Run 759 — 2026-10-23T21:18:00Z
-- Objective: Inspect current state and make one small maintainability improvement that compounds for all future scanners by eliminating duplicated weak/clickbait pattern lists in title, thumbnail, and chapter scanners.
-- Action: Confirmed preferred list complete and OAuth stall. Extracted local WEAK_PATTERNS from title_scan.py, thumbnail_scan.py, and chapters_scan.py into shared phrase_utils.TITLE_WEAK_PATTERNS, THUMBNAIL_WEAK_PATTERNS, and CHAPTER_WEAK_PATTERNS. Updated the three scanners to import the shared lists, apply phrase_utils.normalize before matching (removed local copies and curly duplicates), and keep word-boundary matching. Updated docs/content_quality.md to document the single sources. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. Weak/clickbait pattern lists are now DRY and consistent across title, thumbnail, and chapter scanners. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: Changes committed via GitHub API. Scanners import shared patterns and normalize. No contract breaks expected (list extraction + normalize only).
-- Discovery: Local WEAK_PATTERNS lists (with some curly duplicates) were a small drift risk; centralizing them in phrase_utils matches the single-source pattern already used for ANTI_SLOP_PATTERNS and HEDGE_PATTERNS, and normalize covers variants without list growth.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
-
-## Run 758 — 2026-10-23T20:16:00Z
-- Objective: Inspect current state and make one small maintainability improvement that compounds for all future scanners by eliminating duplicated context-window logic in title and thumbnail scanners.
-- Action: Confirmed preferred list complete and OAuth stall. Updated title_scan.py and thumbnail_scan.py to import and use shared phrase_utils.context_snippet (removed local _context copies). Updated docs/content_quality.md to document the additional users. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. Context snippet reporting is now DRY and consistent across more scanners. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: Changes committed via GitHub API. title_scan and thumbnail_scan import shared context_snippet. No contract breaks expected (helper reuse only).
-- Discovery: Local _context helpers in title_scan and thumbnail_scan were a small drift risk; centralizing them matches the single-source pattern already used for other scanners.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
-
-## Run 757 — 2026-10-23T19:20:00Z
-- Objective: Inspect current state and make one small maintainability improvement that compounds for all future scanners by eliminating duplicated WORDS extraction logic.
-- Action: Confirmed preferred list complete and OAuth stall. Extracted the local WORD_RE + spoken function into phrase_utils.spoken_words (includes normalize). Updated quality_scan.py, claim_scan.py, and cadence_repetition_scan.py to import and use the shared version (removed local copies). Updated docs/content_quality.md to document the single source. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. Spoken WORDS extraction is now DRY and consistent across scanners. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: Changes committed via GitHub API. Scanners import shared spoken_words. No contract breaks expected (extraction helper only).
-- Discovery: Local WORD_RE and spoken copies were a small drift risk; centralizing them in phrase_utils matches the single-source pattern already used for ANTI_SLOP_PATTERNS, HEDGE_PATTERNS, normalize, and context_snippet.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
-
-## Run 756 — 2026-10-23T18:16:00Z
-- Objective: Inspect current state and make one small maintainability improvement that compounds for all future scanners by eliminating duplicated hedge list and context-window logic.
-- Action: Confirmed preferred list complete and OAuth stall. Extracted the local HEDGES list from claim_scan.py into shared phrase_utils.HEDGE_PATTERNS. Added phrase_utils.context_snippet helper. Updated quality_scan.py and claim_scan.py to import and use the shared versions (removed local copies and duplicated window code). Updated docs/content_quality.md to document the single sources. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. Hedge patterns and context snippet logic are now DRY and consistent. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: Changes committed via GitHub API. Scanners import shared helpers. No contract breaks expected (list + helper extraction only).
-- Discovery: Local HEDGES and duplicated context window code were small drift risks; centralizing them in phrase_utils matches the single-source pattern already used for ANTI_SLOP_PATTERNS and normalize.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
-
-## Run 755 — 2026-10-23T17:45:00Z
-- Objective: Inspect current state and make one small maintainability improvement that compounds for all future scanners by eliminating duplicated normalize logic.
-- Action: Confirmed preferred list complete and OAuth stall. Extracted the normalize function (curly-to-straight apostrophes/quotes/dashes) from quality_scan.py and claim_scan.py into shared phrase_utils.normalize. Updated both tools to import the shared version and removed local copies. Updated docs/content_quality.md to document the single source. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. Normalization logic is now DRY and consistent. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: py_compile PASS on the three files. quality_scan and claim_scan run clear on existing packets. normalize unit-tested on sample curly text.
-- Discovery: Duplicated normalize was a small drift risk; centralizing it in phrase_utils makes future scanner additions safer and matches the single-source pattern already used for ANTI_SLOP_PATTERNS.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
