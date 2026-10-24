@@ -39,11 +39,13 @@ python3 tools/timeline.py PATH --dry-run
 python3 tools/timeline.py PATH --write
 python3 tools/media_qa.py PATH
 python3 tools/music_cue_suggest.py PATH
+python3 tools/broll_cue_suggest.py PATH
 ```
 
 `--write` refreshes `timeline.md`. It does not render a master.
 `media_qa.py` prints FAIL until the packet-relative take and 1920x1080 cards exist.
 `music_cue_suggest.py` emits sparse operational suggestions for the MUSIC and SFX tracks (no audio generated).
+`broll_cue_suggest.py` emits sparse operational suggestions for the optional BROLL track (no footage generated; prefer empty).
 
 ## Export
 - File: `exports/NNN-slug-vN.mp4`
@@ -61,6 +63,7 @@ python3 tools/media_qa.py PATH
 python3 tools/render_brief.py PATH --force
 python3 tools/qa_checklist.py PATH --force
 python3 tools/music_cue_suggest.py PATH
+python3 tools/broll_cue_suggest.py PATH
 ```
 
 Do not commit pngs. Do not invent files to flip presence rows. Do not add an ffmpeg recipe until `timeline.py` prints ready_to_assemble=yes and `media_qa.py` prints gate PASS.
