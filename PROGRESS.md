@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/media_fingerprint.py now accepts optional --packet and --target-sha (defaults remain the current Q1 packet and known master SHA). Selected VO lookup is generic (*-take-selected.wav or any .wav). Future packets can use the same quick media check without hardcoding or rediscovery.
+- Small generalization only. No packet writes, no phrase-list growth, no new tools beyond the existing one, no secrets polled.
+- Human labor reduction: lower rediscovery cost for media presence/SHA checks on the next videos; one tool works for any packet.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or a truly new production capability.
+
 - Reusable capability: confirmed that all quality scanners plus mechanism_align_scan import and use the shared phrase_utils helpers (normalize, spoken_words, context_snippet, compile_word_boundary_patterns, and the canonical pattern lists). phrase_utils_contract.py locks the full set of helpers plus non-empty lists. No remaining local copies of those helpers exist in the scanners. Future changes to the single-source will fail the contract immediately.
 - Reliability confirmation only. No packet writes, no phrase-list growth, no new tools.
 - Human labor reduction: lower risk of undetected regression or drift in the DRY quality system; clearer mechanical proof that the preferred unblocked list is complete.
