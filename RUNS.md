@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 768 — 2026-10-24T06:17:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by reducing research/claim-sourcing labor, while the OAuth stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/claim_source_table.py. It reuses spoken_words, context_snippet, HEDGE_PATTERNS, compile_word_boundary_patterns, and numbers_in_spoken_words to emit a fillable claim-to-source Markdown table from script.md or draft.md. No invented sources. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New tool available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: py_compile succeeded; synthetic test with digits + hedges produced correct table rows; Q1 (clean) correctly reported no claims. Changes committed via GitHub API.
+- Discovery: Identifying which spoken claims need sources is still a manual step even after claim_scan exists; a dedicated fillable table reduces that rediscovery for every video.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 767 — 2026-10-24T05:20:00Z
 - Objective: Make one small reusable improvement that compounds for future videos by removing Q1 hardcoding from the primary status report tool, while the OAuth stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Generalized tools/status_report.py to accept optional --packet (defaults remain the current Q1 packet). Updated media_status, remaining_open_boxes, upload_state_status, reviews, and next_action calls to use the passed packet. Reduced hardcoded paths in output. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
