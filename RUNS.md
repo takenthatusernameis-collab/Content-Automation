@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 766 — 2026-10-24T04:15:00Z
+- Objective: Make one small reusable improvement that compounds for future videos by removing Q1 hardcoding from a media status tool, while the OAuth stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Generalized tools/media_fingerprint.py to accept optional --packet and --target-sha (defaults remain the current Q1 packet and known master SHA). Selected VO discovery now looks for *-take-selected.wav or any .wav. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. Media fingerprint is now reusable for any packet. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Code review of the updated tool; argparse added, defaults preserved, no behavior change for Q1. Changes committed via GitHub API.
+- Discovery: Hardcoded Q1 paths in status tools create future rediscovery work once more packets exist; a small generalization reduces that labor.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 765 — 2026-10-24T03:11:00Z
 - Objective: Inspect current state and confirm the preferred unblocked list is complete after the recent DRY series, then record the clear next action.
 - Action: Confirmed preferred list complete and OAuth stall. Verified that all quality scanners plus mechanism_align_scan use shared phrase_utils helpers and that phrase_utils_contract.py locks the full set. No remaining local copies of normalize, spoken_words, context_snippet, compile_word_boundary_patterns, or the canonical pattern lists exist in the scanners. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
