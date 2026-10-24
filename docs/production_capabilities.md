@@ -11,6 +11,7 @@ Local printer: `tools/complete.py` (PLAN_BUILT; fail-closed). Markdown-only pack
 ### 1. Editorial / research
 - topic queue with explicit problem, viewer, mechanism, and relation to prior videos
 - research/source capture for factual claims
+- claim-to-source table generator: `tools/claim_source_table.py` (extracts digits + hedges; fillable table; no invented sources)
 - script generation with the anti-slop contract
 - mechanical script validation and read-aloud editorial review
 - title/thumbnail/publish metadata generation
