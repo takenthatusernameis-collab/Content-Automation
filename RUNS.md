@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 762 — 2026-10-24T03:20:00Z
+- Objective: Inspect current state and complete the DRY improvement by applying the shared word-boundary regex compiler to all remaining scanners.
+- Action: Confirmed preferred list complete and OAuth stall. Updated description_scan.py, end_screen_scan.py, first_comment_scan.py, title_scan.py, thumbnail_scan.py, and chapters_scan.py to import and use phrase_utils.compile_word_boundary_patterns (removed all local re.compile word-boundary tuples). Updated docs/content_quality.md to document that all scanners now use the single source. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. Pattern matching compilation is now fully DRY and consistent across all quality scanners. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Changes committed via GitHub API. All scanners import and use the shared helper. No contract breaks expected (compilation helper only).
+- Discovery: Completing the shared compiler eliminates the last local re.compile word-boundary lists, further reducing drift risk on matching flags and escape behavior across the entire scanner suite.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
+
 ## Run 761 — 2026-10-24T02:30:00Z
 - Objective: Inspect current state and make one small maintainability improvement that compounds for all future scanners by eliminating duplicated word-boundary regex compilation logic.
 - Action: Confirmed preferred list complete and OAuth stall. Added phrase_utils.compile_word_boundary_patterns. Updated quality_scan.py and claim_scan.py to import and use the shared helper (removed local re.compile tuples). Prepared the same change for remaining scanners. Updated docs/content_quality.md and state files. Did not poll secrets, dispatch, scaffold, or edit packets.
