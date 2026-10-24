@@ -8,7 +8,7 @@ Default exit is 0 so a clear packet cannot fail the build.
 
 Checks: presence, placeholder, high-precision engagement-bait / generic CTA patterns.
 Output includes short context so the revision signal is immediately actionable.
-Uses shared phrase_utils.END_SCREEN_WEAK_PATTERNS, normalize, and context_snippet.
+Uses shared phrase_utils.END_SCREEN_WEAK_PATTERNS, normalize, context_snippet, and compile_word_boundary_patterns.
 """
 
 from __future__ import annotations
@@ -22,13 +22,11 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "tools") not in sys.path:
     sys.path.insert(0, str(ROOT / "tools"))
 
-from phrase_utils import END_SCREEN_WEAK_PATTERNS, context_snippet, normalize  # noqa: E402
+from phrase_utils import END_SCREEN_WEAK_PATTERNS, context_snippet, normalize, compile_word_boundary_patterns  # noqa: E402
 
 # High-precision weak / engagement-bait patterns live in phrase_utils.END_SCREEN_WEAK_PATTERNS.
-# Matching uses word boundaries. Text is normalized so one straight entry covers variants.
-_WEAK_RES = tuple(
-    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in END_SCREEN_WEAK_PATTERNS
-)
+# Matching uses shared compile_word_boundary_patterns. Text is normalized so one straight entry covers variants.
+_WEAK_RES = compile_word_boundary_patterns(END_SCREEN_WEAK_PATTERNS)
 
 END_RE = re.compile(r"## (?:End screen|End Screen|CTA|Call to action|Final CTA)\s*\n(.*?)(?=\n## |\Z)", re.S)
 
