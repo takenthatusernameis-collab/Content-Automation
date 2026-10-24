@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/music_cue_suggest.py derives sparse music/SFX cue recommendations from assets.md or script.md beat structure (bed start/duck under VO, optional swell at payoff, fade at CTA, no required SFX). Agents or humans use the suggestions as starting points when placing optional tracks in the editor. No invented audio. Reduces manual cue-decision labor on every future video.
+- Small new production tool only. No packet writes, no phrase-list growth, no secrets polled.
+- Human labor reduction: lower time and error rate when deciding optional MUSIC/SFX placement; one command replaces ad-hoc decisions about where a bed should start, duck, or fade.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/card_text_suggest.py derives 2-3 short (<=5 word) on-screen phrase candidates per planned text-card from the assets.md Need column using shared phrase_utils.shorten. Agents or humans use the suggestions as starting points when building local cards. No invented content. Reduces manual phrase invention labor on every future video.
 - Small new production tool only. No packet writes, no phrase-list growth, no secrets polled.
 - Human labor reduction: lower time and error rate when choosing readable on-card text before generating or drawing cards; one command replaces ad-hoc shortening of long VISUAL needs.
