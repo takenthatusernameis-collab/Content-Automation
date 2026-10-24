@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 783 — 2026-10-25T00:15:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by reducing manual structural review of scripts against the channel duration target and VISUAL completeness, while the OAuth stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/script_structure_brief.py. It extracts beats, estimates total duration at 140 wpm, checks 6-10 min target, and flags missing VISUAL cues, printing a PASS/WARN report. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New structure brief available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool created and committed via GitHub API. Reuses spoken_words helper when present; falls back to simple count and regex. Structure confirmed; no-write by design. Exit 0 on PASS, 2 on WARN.
+- Discovery: After separate pacing and visual extractors exist, the remaining friction is a single early check against format targets; one brief reduces rediscovery of duration or missing-cue issues before every recording or asset step.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 782 — 2026-10-24T22:15:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by reducing manual scanning of script VISUAL lines before card planning or editor sessions, while the OAuth stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/visual_cues_brief.py. It extracts per-beat VISUAL / card needs from script.md or draft.md (preferring asset_brief.script_cards when available) and prints a compact table. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
