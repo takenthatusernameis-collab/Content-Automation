@@ -9,7 +9,7 @@ Default exit is 0 so a clear packet cannot fail the build.
 Checks: presence, placeholder, high-precision clickbait/weak patterns,
 word count over 6 (YouTube readability guideline).
 Output includes short context so the revision signal is immediately actionable.
-Uses shared phrase_utils.context_snippet, THUMBNAIL_WEAK_PATTERNS, and normalize.
+Uses shared phrase_utils.context_snippet, THUMBNAIL_WEAK_PATTERNS, normalize, and compile_word_boundary_patterns.
 """
 
 from __future__ import annotations
@@ -23,13 +23,11 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "tools") not in sys.path:
     sys.path.insert(0, str(ROOT / "tools"))
 
-from phrase_utils import context_snippet, normalize, THUMBNAIL_WEAK_PATTERNS  # noqa: E402
+from phrase_utils import context_snippet, normalize, THUMBNAIL_WEAK_PATTERNS, compile_word_boundary_patterns  # noqa: E402
 
 # High-precision weak / clickbait patterns live in phrase_utils.THUMBNAIL_WEAK_PATTERNS.
-# Matching uses word boundaries. Text is normalized so one straight entry covers variants.
-_WEAK_RES = tuple(
-    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in THUMBNAIL_WEAK_PATTERNS
-)
+# Matching uses shared compile_word_boundary_patterns. Text is normalized so one straight entry covers variants.
+_WEAK_RES = compile_word_boundary_patterns(THUMBNAIL_WEAK_PATTERNS)
 
 THUMB_RE = re.compile(r"## Thumbnail(?: text| idea| brief)?\s*\n(.*?)(?=\n## |\Z)", re.S)
 
