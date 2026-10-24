@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/script_qa_brief.py aggregates speaking_time_estimate, script_pacing_brief, visual_cues_brief, and script_structure_brief into one unified early QA overview with overall PASS/WARN. Agents or humans run a single command instead of sequential calls for duration, pacing, visual cues, and format-target checks before recording or asset planning. No invented content. Reduces setup friction before every future packet.
+- Small new production tool only. No packet writes, no phrase-list growth, no secrets polled.
+- Human labor reduction: lower time and cognitive load when confirming script readiness; one command replaces four separate tool invocations plus manual synthesis.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/script_structure_brief.py extracts beats, estimates total duration at 140 wpm, checks against the 6-10 min channel target, and flags missing VISUAL cues. Agents or humans run a single command instead of manual structural review for format fit before recording or asset planning. No invented content. Reduces setup friction before every future packet.
 - Small new production tool only. No packet writes, no phrase-list growth, no secrets polled.
 - Human labor reduction: lower time and cognitive load when confirming script length and cue completeness; one command replaces manual duration calculation plus VISUAL scan.
