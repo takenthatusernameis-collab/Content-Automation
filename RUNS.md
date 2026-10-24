@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 765 — 2026-10-24T03:11:00Z
+- Objective: Inspect current state and confirm the preferred unblocked list is complete after the recent DRY series, then record the clear next action.
+- Action: Confirmed preferred list complete and OAuth stall. Verified that all quality scanners plus mechanism_align_scan use shared phrase_utils helpers and that phrase_utils_contract.py locks the full set. No remaining local copies of normalize, spoken_words, context_snippet, compile_word_boundary_patterns, or the canonical pattern lists exist in the scanners. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. Single-source quality system is contract-locked and complete. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Inspection of tools/phrase_utils.py, the scanners, phrase_utils_contract.py, and docs/content_quality.md confirmed the lock. Changes committed via GitHub API.
+- Discovery: The preferred unblocked list is now fully complete. Further DRY or phrase-list work has diminishing returns. The highest-leverage remaining action is the human OAuth step.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer a truly new production capability only if it does not require credentials and compounds after publish.
+
 ## Run 764 — 2026-10-24T02:15:00Z
 - Objective: Inspect current state and make one small reliability improvement that compounds by locking the shared phrase_utils helpers against future drift.
 - Action: Confirmed preferred list complete and OAuth stall. Extended tools/phrase_utils_contract.py to also verify normalize (curly-to-straight), spoken_words (extract + normalize), compile_word_boundary_patterns (word-boundary + case-insensitive + no partial), context_snippet, and non-empty canonical lists, in addition to the existing shorten checks. Updated docs/content_quality.md to document the contract as the lock. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
