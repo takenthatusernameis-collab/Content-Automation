@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-24T18:20:00Z (Run 780)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/speaking_time_estimate.py — a no-write tool that extracts spoken words from draft.md or script.md and estimates narration duration at 140 wpm. Reduces recurring labor of manual word-to-time calculations before recording, timeline planning, or assembly for every future packet. No packet edits, no phrase-list growth, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
+
 2026-10-24T20:12:00Z (Run 779)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/full_packet_prep_brief.py — a no-write aggregator that runs research_prep_brief, quality_prep_brief, editor_prep_brief, caption_prep_brief, media_prep_brief, publish_prep_brief, and metadata_prep_brief and prints a unified full packet preparation overview. Reduces recurring labor of sequential stage-brief invocations and output collection before assessing overall readiness or locking any stage. No packet edits, no phrase-list growth, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
