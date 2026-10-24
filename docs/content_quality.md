@@ -38,12 +38,13 @@ Goal: specific, original, useful editorial writing. Prefer concrete mechanisms, 
 
 - Do not add fake anecdotes, testimonials, personal mistakes, slang, or unverifiable experience.
 - Do not pad word count. Land in the spoken-word band (900–1500 for primary scripts).
-- Before promoting a script: run `python3 tools/quality_scan.py` (and related QA tools), then read aloud for repetitive phrasing and cadence.
+- Before promoting a script: run `python3 tools/quality_prep_brief.py` (or the individual scanners), then read aloud for repetitive phrasing and cadence.
 - Factual claims that matter must have a source or be rewritten qualitatively (see claim_scan tools).
 - Prefer whole-word / first-clause shortening from `phrase_utils.shorten` for any generated starters or suggestions.
 
 ## Related tools
 
+- `tools/quality_prep_brief.py` — unified aggregator of quality_scan, claim_scan, cadence_repetition_scan, and mechanism_align_scan. Prints one brief. No rewrites. Reduces sequential invocation labor before script promotion.
 - `tools/quality_scan.py` — reports hits with context snippets. Uses shared spoken_words, normalize, context_snippet, compile_word_boundary_patterns, and ANTI_SLOP_PATTERNS.
 - `tools/claim_scan.py` — factual/hedge signals. Uses shared spoken_words, normalize, context_snippet, compile_word_boundary_patterns, and HEDGE_PATTERNS so one hedge entry covers common variants.
 - `tools/cadence_repetition_scan.py` — cadence and repetition signals. Uses shared spoken_words.
