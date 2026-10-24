@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 770 — 2026-10-24T08:15:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by reducing optional music/SFX placement labor in the editor, while the OAuth stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/music_cue_suggest.py. It parses assets.md or script.md for beats and emits sparse operational cue suggestions (bed start/duck, optional swell at payoff, fade at CTA, no SFX required). No invented audio. Updated state files and docs/editor.md. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New tool available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Local py_compile and synthetic assets.md test produced correct cue list from detected beats. Changes committed via GitHub API.
+- Discovery: Deciding where to place optional music/SFX on the dedicated tracks is still a recurring manual step even after timeline and asset tools exist; a dedicated sparse-cue suggester reduces that rediscovery for every video.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 769 — 2026-10-24T10:30:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by reducing card-text invention labor in the visual/asset step, while the OAuth stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/card_text_suggest.py. It parses assets.md card table and uses phrase_utils.shorten to emit 2-3 short (<=5 word) on-screen phrase candidates per text-card. No invented content. Updated state files and docs/assets.md. Did not poll secrets, dispatch, scaffold, or edit packets.
