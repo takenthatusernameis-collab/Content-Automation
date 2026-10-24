@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-24T19:15:00Z (Run 778)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/metadata_prep_brief.py — a no-write aggregator that runs title_scan, thumbnail_scan, description_scan, end_screen_scan, first_comment_scan, chapters_scan, and mechanism_align_scan and prints a unified publish metadata preparation brief. Reduces recurring labor of sequential metadata-scanner invocations and output collection before locking titles.md / publish.md / chapters.md. No packet edits, no phrase-list growth, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
+
 2026-10-24T18:20:00Z (Run 777)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/research_prep_brief.py — a no-write aggregator that runs research_brief_starter (print only), research_source_extract_check, claim_source_table, and claim_scan and prints a unified research preparation brief. Reduces recurring labor of sequential research-tool invocations and output collection before filling research.md/sources.md or drafting a script. No packet edits, no phrase-list growth, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
