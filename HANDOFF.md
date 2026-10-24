@@ -1,3 +1,14 @@
+2026-10-24T06:17:00Z (Run 768)
+
+Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
+
+**Current state**
+- Videos published: 0
+- Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Issue #1. Do not poll.
+- Media: Q1 VO + cards + r253 master ready after materialize; do not rematerialize if present. Do not regenerate.
+- New: tools/claim_source_table.py prints a fillable claim-to-source table from script.md/draft.md (digits + hedges via shared helpers). Paste into sources.md and fill Source column. No invented sources.
+- Preferred unblocked list: complete. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract or phrase DRY tool).
+
 2026-10-24T04:15:00Z (Run 766)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
