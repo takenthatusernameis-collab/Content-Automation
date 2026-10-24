@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 764 — 2026-10-24T02:15:00Z
+- Objective: Inspect current state and make one small reliability improvement that compounds by locking the shared phrase_utils helpers against future drift.
+- Action: Confirmed preferred list complete and OAuth stall. Extended tools/phrase_utils_contract.py to also verify normalize (curly-to-straight), spoken_words (extract + normalize), compile_word_boundary_patterns (word-boundary + case-insensitive + no partial), context_snippet, and non-empty canonical lists, in addition to the existing shorten checks. Updated docs/content_quality.md to document the contract as the lock. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. Shared helper behavior is now contract-locked. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Local simulation of the contract checks passed. Changes committed via GitHub API. No contract breaks expected (additive tests only).
+- Discovery: The existing phrase_utils_contract only covered shorten; expanding it to the full set of DRY helpers (added across Runs 755–763) makes the single-source pattern mechanically enforceable and reduces the chance of silent regression.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
+
 ## Run 763 — 2026-10-24T01:15:00Z
 - Objective: Inspect current state and make one small maintainability improvement that compounds for mechanism alignment by eliminating duplicated WORDS extraction logic.
 - Action: Confirmed preferred list complete and OAuth stall. Updated mechanism_align_scan.py to use shared phrase_utils.spoken_words (includes normalize) instead of local WORD_RE + extractor (removed local copies). Updated docs/content_quality.md to document the additional user. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
