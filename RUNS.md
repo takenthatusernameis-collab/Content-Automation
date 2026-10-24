@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 777 — 2026-10-24T18:20:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by reducing sequential research-tool-invocation and output-collection labor before filling research.md/sources.md or drafting a script, while the OAuth stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/research_prep_brief.py. It subprocesses research_brief_starter.py (print only), research_source_extract_check.py, claim_source_table.py, and claim_scan.py and prints a unified research prep brief. No invented sources, numbers, or citations. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New aggregator available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool created and committed via GitHub API. Follows the aggregator pattern of media_prep_brief.py / caption_prep_brief.py / quality_prep_brief.py / publish_prep_brief.py / editor_prep_brief.py. Structure confirmed; subtools already exist and support no-write / print-only.
+- Discovery: After individual research starter, extract check, claim table, and claim scan tools exist, the remaining friction is invoking each separately and collating outputs; a single brief reduces that rediscovery before every research fill or script draft.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 776 — 2026-10-24T17:30:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by reducing sequential media-tool-invocation and output-collection labor before checking assembly readiness or locking a master, while the OAuth stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/media_prep_brief.py. It subprocesses timeline.py --dry-run, media_qa.py, assemble.py (default dry-run), and export_probe.py and prints a unified media prep brief. No invented media or encoding. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
