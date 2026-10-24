@@ -38,6 +38,7 @@ Follow `docs/format.md` and the packet `timeline.md` when present.
 python3 tools/timeline.py PATH --dry-run
 python3 tools/timeline.py PATH --write
 python3 tools/media_qa.py PATH
+python3 tools/media_prep_brief.py PATH
 python3 tools/editor_prep_brief.py PATH
 python3 tools/music_cue_suggest.py PATH
 python3 tools/broll_cue_suggest.py PATH
@@ -45,6 +46,7 @@ python3 tools/broll_cue_suggest.py PATH
 
 `--write` refreshes `timeline.md`. It does not render a master.
 `media_qa.py` prints FAIL until the packet-relative take and 1920x1080 cards exist.
+`media_prep_brief.py` aggregates timeline (dry-run), media_qa, assemble (dry-run), and export_probe into one media readiness brief (no media generated or encoded).
 `editor_prep_brief.py` aggregates music, broll, card-text, and chapter suggestions into one operational brief (no media generated).
 `music_cue_suggest.py` emits sparse operational suggestions for the MUSIC and SFX tracks (no audio generated).
 `broll_cue_suggest.py` emits sparse operational suggestions for the optional BROLL track (no footage generated; prefer empty).
@@ -62,6 +64,7 @@ Operator copy lives in `docs/human_session.md` step 6. Q1 names are the Suggeste
 python3 tools/card_generator.py PATH --write-manifest
 python3 tools/timeline.py PATH --write
 python3 tools/media_qa.py PATH
+python3 tools/media_prep_brief.py PATH
 python3 tools/render_brief.py PATH --force
 python3 tools/qa_checklist.py PATH --force
 python3 tools/editor_prep_brief.py PATH
