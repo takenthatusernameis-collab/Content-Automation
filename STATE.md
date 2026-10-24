@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-24T01:15:00Z (Run 763)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable. Updated mechanism_align_scan.py to use shared phrase_utils.spoken_words (includes normalize) instead of local WORD_RE + extractor. Removed local duplication. Updated docs/content_quality.md. No new tools, no phrase-list growth, no packet edits. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability. Phrase-list expansion remains saturated; this DRY improvement compounds for mechanism alignment consistency and reduces drift risk on WORDS extraction.
+
 2026-10-24T03:20:00Z (Run 762)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable. Applied shared phrase_utils.compile_word_boundary_patterns to remaining scanners (description_scan, end_screen_scan, first_comment_scan, title_scan, thumbnail_scan, chapters_scan), removing all local re.compile word-boundary tuples. All quality scanners now use the single-source compiler. Updated docs/content_quality.md. No new tools, no phrase-list growth, no packet edits. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability. Phrase-list expansion remains saturated; this DRY improvement compounds for all future scanners and reduces drift risk on matching consistency.

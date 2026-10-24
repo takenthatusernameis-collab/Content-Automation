@@ -45,6 +45,7 @@ Goal: specific, original, useful editorial writing. Prefer concrete mechanisms, 
 - `tools/quality_scan.py` — reports hits with context snippets. Uses shared spoken_words, normalize, context_snippet, compile_word_boundary_patterns, and ANTI_SLOP_PATTERNS.
 - `tools/claim_scan.py` — factual/hedge signals. Uses shared spoken_words, normalize, context_snippet, compile_word_boundary_patterns, and HEDGE_PATTERNS so one hedge entry covers common variants.
 - `tools/cadence_repetition_scan.py` — cadence and repetition signals. Uses shared spoken_words.
+- `tools/mechanism_align_scan.py` — mechanism term presence in WORDS. Uses shared spoken_words (includes normalize).
 - `tools/title_scan.py` — shouted titles, weak patterns, thumbnail mismatch. Uses shared context_snippet, normalize, compile_word_boundary_patterns, and TITLE_WEAK_PATTERNS.
 - `tools/thumbnail_scan.py` — weak/clickbait/long thumbnail text. Uses shared context_snippet, normalize, compile_word_boundary_patterns, and THUMBNAIL_WEAK_PATTERNS.
 - `tools/chapters_scan.py` — chapter structure and weak titles. Uses shared normalize, compile_word_boundary_patterns, and CHAPTER_WEAK_PATTERNS.

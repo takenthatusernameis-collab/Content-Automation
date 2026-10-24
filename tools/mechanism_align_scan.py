@@ -2,7 +2,7 @@
 """Check whether the packet mechanism from idea.md appears in spoken WORDS.
 
 Extracts significant terms from the mechanism line and reports which ones
-appear in the WORDS of draft.md or script.md. Helps keep scripts grounded
+appear in the WORDS of draft.md or script.md. Uses shared phrase_utils.spoken_words (includes normalize). Helps keep scripts grounded
 in the operational default rather than drifting into generic advice.
 Does not rewrite files. Default exit 0; --strict exits 1 if key terms missing.
 """
@@ -20,8 +20,7 @@ if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
 from idea_utils import extract as idea_extract  # noqa: E402
-
-WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S)
+from phrase_utils import spoken_words as shared_spoken_words  # noqa: E402
 STOP = {
     "the", "a", "an", "and", "or", "of", "to", "in", "for", "so", "that",
     "this", "it", "is", "as", "with", "by", "from", "on", "at", "be", "are",
@@ -43,8 +42,7 @@ def spoken_words(path: Path) -> str:
         f = path / name
         if f.is_file():
             text = f.read_text(encoding="utf-8")
-            parts = WORD_RE.findall(text.replace("\r\n", "\n"))
-            return "\n".join(p.strip() for p in parts).lower()
+            return shared_spoken_words(text).lower()
     return ""
 
 def main() -> int:

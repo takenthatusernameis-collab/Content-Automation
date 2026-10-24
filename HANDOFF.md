@@ -1,4 +1,4 @@
-2026-10-24T03:20:00Z (Run 762)
+2026-10-24T01:15:00Z (Run 763)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
 
@@ -8,7 +8,7 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Media: Q1 VO + cards + r253 master ready after materialize; do not rematerialize if present. Do not regenerate.
 
 - Master sha256: 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546 (q1-master-r253.mp4, 328.40s). Do not regenerate while this matches. Do not install the truncated r249 master.
-- Preferred unblocked list: complete. tools/phrase_utils.py holds the canonical whole-word shorten, ANTI_SLOP_PATTERNS, shared normalize (curly-to-straight), shared context_snippet, shared HEDGE_PATTERNS, shared spoken_words, TITLE_WEAK_PATTERNS, THUMBNAIL_WEAK_PATTERNS, CHAPTER_WEAK_PATTERNS, DESCRIPTION_EXTRA_PATTERNS, END_SCREEN_WEAK_PATTERNS, FIRST_COMMENT_BAIT_PATTERNS, and compile_word_boundary_patterns. All quality scanners (quality_scan, claim_scan, description_scan, end_screen_scan, first_comment_scan, title_scan, thumbnail_scan, chapters_scan) import the relevant shared lists/helpers and the compiler. Key structure suggestors, draft starters, metadata suggestors, and quality tools import from shared helpers. No remaining local shorten, normalize, hedge-list, context-window, spoken-extractor, weak-pattern, or re.compile word-boundary copies in the scanners. packet_rewrite_report.py includes cleaner whole-word script structure starters + originality_report signals. full_qa_report.py / text_qa_report.py cover originality. next_topic.py ranks by mechanism continuity. saturation_guard flags suggest-contract locking loops. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract tool).
+- Preferred unblocked list: complete. tools/phrase_utils.py holds the canonical whole-word shorten, ANTI_SLOP_PATTERNS, shared normalize (curly-to-straight), shared context_snippet, shared HEDGE_PATTERNS, shared spoken_words, TITLE_WEAK_PATTERNS, THUMBNAIL_WEAK_PATTERNS, CHAPTER_WEAK_PATTERNS, DESCRIPTION_EXTRA_PATTERNS, END_SCREEN_WEAK_PATTERNS, FIRST_COMMENT_BAIT_PATTERNS, and compile_word_boundary_patterns. All quality scanners plus mechanism_align_scan import the relevant shared lists/helpers. Key structure suggestors, draft starters, metadata suggestors, and quality tools import from shared helpers. No remaining local shorten, normalize, hedge-list, context-window, spoken-extractor, weak-pattern, or re.compile word-boundary copies in the scanners or mechanism aligner. packet_rewrite_report.py includes cleaner whole-word script structure starters + originality_report signals. full_qa_report.py / text_qa_report.py cover originality. next_topic.py ranks by mechanism continuity. saturation_guard flags suggest-contract locking loops. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract tool).
 - ANTI_SLOP_PATTERNS list is stable (170 entries after Run 752 cleanup). Phrase expansion saturated. All major pattern lists and helpers are now single-source.
 - oauth_exchange.py now prints a prominent REQUIRED SCOPES banner (short names + full URIs) when generating the consent URL (Run 746).
 
@@ -24,3 +24,4 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 After provider_video_id exists and uploaded_at >=7 days, dispatch collect_feedback=true. Use `python3 tools/after_upload_steps.py` for the exact sequence.
 
 Do not poll secrets. Do not rematerialize if media present. Logs via record_run.py. Do not scaffold Q2. Prefer quality improvements or true capability over more status printers or suggest-contract locks. Do not refresh the checklist banner solely for the timestamp.
+

@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: mechanism_align_scan.py now uses shared phrase_utils.spoken_words (includes normalize) instead of maintaining a local WORD_RE + extractor. Future alignment checks inherit consistent extraction and variant coverage without duplication.
+- DRY refactor only. No packet writes, no phrase-list growth, no new tools.
+- Human labor reduction: lower risk of inconsistent WORDS extraction or missing normalization in mechanism grounding; clearer single-source documentation.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Phrase expansion saturated.
+
 - Reusable capability: compile_word_boundary_patterns is now used by all quality scanners (quality_scan, claim_scan, description_scan, end_screen_scan, first_comment_scan, title_scan, thumbnail_scan, chapters_scan). Local re.compile word-boundary tuples have been removed. Future scanners can reuse the consistent matching logic without duplication.
 - DRY refactor only. No packet writes, no phrase-list growth, no new tools.
 - Human labor reduction: lower risk of inconsistent matching flags, escaping, or word-boundary behavior across the entire scanner suite; clearer single-source documentation.

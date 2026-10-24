@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 763 — 2026-10-24T01:15:00Z
+- Objective: Inspect current state and make one small maintainability improvement that compounds for mechanism alignment by eliminating duplicated WORDS extraction logic.
+- Action: Confirmed preferred list complete and OAuth stall. Updated mechanism_align_scan.py to use shared phrase_utils.spoken_words (includes normalize) instead of local WORD_RE + extractor (removed local copies). Updated docs/content_quality.md to document the additional user. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. Spoken WORDS extraction for mechanism alignment is now DRY and consistent with other scanners. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: py_compile PASS on updated module. Import and normalize confirmed. Changes staged for commit. No contract breaks expected (extraction helper only).
+- Discovery: Local WORD_RE and spoken extractor in mechanism_align_scan was a small drift risk (no normalize); centralizing it matches the single-source pattern already used for quality_scan, claim_scan, and cadence_repetition_scan.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer non-phrase quality, structure, claim, or true capability work over further list expansion.
+
 ## Run 762 — 2026-10-24T03:20:00Z
 - Objective: Inspect current state and complete the DRY improvement by applying the shared word-boundary regex compiler to all remaining scanners.
 - Action: Confirmed preferred list complete and OAuth stall. Updated description_scan.py, end_screen_scan.py, first_comment_scan.py, title_scan.py, thumbnail_scan.py, and chapters_scan.py to import and use phrase_utils.compile_word_boundary_patterns (removed all local re.compile word-boundary tuples). Updated docs/content_quality.md to document that all scanners now use the single source. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
