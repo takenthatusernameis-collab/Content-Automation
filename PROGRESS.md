@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: confirmed that all quality scanners plus mechanism_align_scan import and use the shared phrase_utils helpers (normalize, spoken_words, context_snippet, compile_word_boundary_patterns, and the canonical pattern lists). phrase_utils_contract.py locks the full set of helpers plus non-empty lists. No remaining local copies of those helpers exist in the scanners. Future changes to the single-source will fail the contract immediately.
+- Reliability confirmation only. No packet writes, no phrase-list growth, no new tools.
+- Human labor reduction: lower risk of undetected regression or drift in the DRY quality system; clearer mechanical proof that the preferred unblocked list is complete.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Phrase expansion saturated. Next high-value action is the human OAuth step or a truly new production capability.
+
 - Reusable capability: phrase_utils_contract.py now locks the full set of shared helpers (shorten, normalize, spoken_words, compile_word_boundary_patterns, context_snippet) plus non-empty canonical lists. Future changes to the single-source helpers will fail the contract if behavior drifts.
 - Reliability lock only. No packet writes, no phrase-list growth, no new tools.
 - Human labor reduction: lower risk of undetected regression in the DRY helpers that all scanners and suggestors depend on; clearer mechanical proof of the single-source pattern.
