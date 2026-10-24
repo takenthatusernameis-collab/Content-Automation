@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-25T01:30:00Z (Run 784)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/script_qa_brief.py — a no-write aggregator that runs speaking_time_estimate, script_pacing_brief, visual_cues_brief, and script_structure_brief and prints a unified early QA overview with overall PASS/WARN. Reduces recurring labor of sequential tool calls for duration, pacing, visual, and format-target checks before recording or asset steps on every future packet. No packet edits, no phrase-list growth, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
+
 2026-10-25T00:15:00Z (Run 783)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/script_structure_brief.py — a no-write tool that extracts beats, estimates total duration at 140 wpm, checks against the 6-10 min channel target, and flags missing VISUAL cues. Prints a compact PASS/WARN report. Reduces recurring labor of manual structural review before recording or card planning on every future packet. No packet edits, no phrase-list growth, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
