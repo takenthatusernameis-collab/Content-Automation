@@ -7,7 +7,7 @@ This tool does not rewrite. Default exit is 0 so a clear packet cannot fail the 
 
 Output includes a short context snippet around the first match of each phrase
 so the revision signal is immediately actionable. Uses shared phrase_utils.ANTI_SLOP_PATTERNS
-plus DESCRIPTION_EXTRA_PATTERNS, normalize, and context_snippet.
+plus DESCRIPTION_EXTRA_PATTERNS, normalize, context_snippet, and compile_word_boundary_patterns.
 """
 
 from __future__ import annotations
@@ -26,14 +26,13 @@ from phrase_utils import (
     DESCRIPTION_EXTRA_PATTERNS,
     context_snippet,
     normalize,
+    compile_word_boundary_patterns,
 )  # noqa: E402
 
 # Combined high-precision patterns for descriptions. Shared lists avoid local duplication.
 PATTERNS = ANTI_SLOP_PATTERNS + DESCRIPTION_EXTRA_PATTERNS
 DESC_RE = re.compile(r"## Description\s*\n(.*?)(?=\n## |\Z)", re.S)
-_PATTERN_RES = tuple(
-    re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in PATTERNS
-)
+_PATTERN_RES = compile_word_boundary_patterns(PATTERNS)
 
 
 def description_text(text: str) -> str:
