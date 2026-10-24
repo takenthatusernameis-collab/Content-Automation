@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-24T16:25:00Z (Run 775)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/caption_prep_brief.py — a no-write aggregator that runs caption_brief (--dry-run), caption_align (--dry-run), caption_review, and caption_gate and prints a unified caption preparation brief. Reduces recurring labor of sequential caption tool invocations and output collection before locking captions.md or captions.srt. No packet edits, no phrase-list growth, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
+
 2026-10-24T16:00:00Z (Run 774)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/quality_prep_brief.py — a no-write aggregator that runs quality_scan, claim_scan, cadence_repetition_scan, and mechanism_align_scan and prints a unified script quality brief. Reduces recurring labor of sequential scanner invocations and output collection before promoting a script or locking spoken WORDS. No packet edits, no phrase-list growth, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
