@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-24T09:15:00Z (Run 771)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/broll_cue_suggest.py — a no-write suggester that derives sparse B-roll texture cue recommendations from assets.md or script.md beat structure. Reduces recurring editor labor for optional BROLL track placement on every future packet. No packet edits, no phrase-list growth, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
+
 2026-10-24T08:15:00Z (Run 770)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/music_cue_suggest.py — a no-write suggester that derives sparse music/SFX cue recommendations from assets.md or script.md beat structure. Reduces recurring editor labor for optional MUSIC/SFX track placement on every future packet. No packet edits, no phrase-list growth, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
