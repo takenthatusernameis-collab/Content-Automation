@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 780 — 2026-10-24T18:20:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by reducing manual word-to-duration calculation labor before recording, timeline planning, or assembly, while the OAuth stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/speaking_time_estimate.py. It extracts spoken words (via phrase_utils when available) from draft.md or script.md and estimates duration at 140 wpm. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New estimator available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool created and committed via GitHub API. Uses shared spoken_words helper when present; falls back to simple count. Structure confirmed; no-write by design.
+- Discovery: After word-count progress tools exist, the remaining friction is converting the count into an expected speaking time for planning; a single estimator reduces that rediscovery before every narration or timeline step.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 779 — 2026-10-24T20:12:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by reducing sequential stage-brief-invocation and output-collection labor before assessing overall packet readiness or locking any stage, while the OAuth stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/full_packet_prep_brief.py. It subprocesses research_prep_brief.py, quality_prep_brief.py, editor_prep_brief.py, caption_prep_brief.py, media_prep_brief.py, publish_prep_brief.py, and metadata_prep_brief.py and prints a unified full packet prep overview. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
@@ -42,14 +51,5 @@
 - Result: Videos published stay 0. New aggregator available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets.
 - Verification: Tool created and committed via GitHub API. Follows the aggregator pattern of quality_prep_brief.py / publish_prep_brief.py / editor_prep_brief.py. Structure confirmed; subtools already exist and support no-write / dry-run.
 - Discovery: After individual caption brief, align, review, and gate tools exist, the remaining friction is invoking each separately and collating outputs; a single brief reduces that rediscovery before every caption lock.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
-
-## Run 774 — 2026-10-24T16:00:00Z
-- Objective: Add one small reusable production capability that compounds for future videos by reducing sequential scanner-invocation and output-collection labor before promoting a script, while the OAuth stall continues.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/quality_prep_brief.py. It subprocesses quality_scan.py, claim_scan.py, cadence_repetition_scan.py, and mechanism_align_scan.py and prints a unified script quality brief. No invented rewrites. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. New aggregator available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: Tool created and committed via GitHub API. Follows the aggregator pattern of publish_prep_brief.py / editor_prep_brief.py. Structure confirmed; subtools already exist and are no-write.
-- Discovery: After individual quality and claim scanners exist, the remaining friction is invoking each separately and collating outputs; a single brief reduces that rediscovery before every script promotion.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
