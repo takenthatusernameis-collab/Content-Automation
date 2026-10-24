@@ -18,6 +18,7 @@ Goal: specific, original, useful editorial writing. Prefer concrete mechanisms, 
 - Canonical high-precision hedge phrases live in `tools/phrase_utils.py` as `HEDGE_PATTERNS` (word-boundary, case-insensitive matching). Extracted from claim_scan for DRY consistency with the anti-slop list.
 - claim_scan normalizes input and uses shared context_snippet and spoken_words. Digits and hedges require a non-placeholder source citation.
 - Do not maintain a local hedge list or spoken extractor in claim_scan.
+- `tools/claim_source_table.py` — extracts digit and hedge claims from spoken WORDS and prints a fillable Markdown table for sources.md / research.md. Uses shared helpers. No invented sources. Reduces manual claim-listing labor before claim_scan.
 
 ## Title / thumbnail / chapter weak patterns (single source of truth)
 
