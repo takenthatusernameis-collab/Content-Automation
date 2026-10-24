@@ -1,8 +1,12 @@
 # STATE
 
+2026-10-24T03:20:00Z (Run 762)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable. Applied shared phrase_utils.compile_word_boundary_patterns to remaining scanners (description_scan, end_screen_scan, first_comment_scan, title_scan, thumbnail_scan, chapters_scan), removing all local re.compile word-boundary tuples. All quality scanners now use the single-source compiler. Updated docs/content_quality.md. No new tools, no phrase-list growth, no packet edits. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability. Phrase-list expansion remains saturated; this DRY improvement compounds for all future scanners and reduces drift risk on matching consistency.
+
 2026-10-24T02:30:00Z (Run 761)
 
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable. Extracted the duplicated word-boundary regex compilation logic into shared phrase_utils.compile_word_boundary_patterns. Updated quality_scan and claim_scan to use it (removed local re.compile tuples). Remaining scanners (description, end-screen, first-comment, title, thumbnail, chapters) prepared locally for the same change. Updated docs/content_quality.md to document the single source. No new tools, no phrase-list growth, no packet edits. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability. Phrase-list expansion remains saturated; this DRY improvement compounds for all future scanners and reduces drift risk on matching consistency.
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable. Extracted the duplicated word-boundary regex compilation logic into shared phrase_utils.compile_word_boundary_patterns. Updated quality_scan and claim_scan to use it (removed local re.compile tuples). Remaining scanners prepared locally for the same change. Updated docs/content_quality.md to document the single source. No new tools, no phrase-list growth, no packet edits. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability. Phrase-list expansion remains saturated; this DRY improvement compounds for all future scanners and reduces drift risk on matching consistency.
 
 2026-10-24T01:14:00Z (Run 760)
 
