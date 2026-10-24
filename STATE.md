@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-24T02:15:00Z (Run 764)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable. Extended tools/phrase_utils_contract.py to also lock normalize, spoken_words, compile_word_boundary_patterns, and context_snippet (plus list non-empty checks) in addition to the existing shorten tests. Updated docs/content_quality.md to document the contract as the lock for the DRY helpers. No new tools, no phrase-list growth, no packet edits. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability. Phrase-list expansion remains saturated; this reliability lock compounds by making future drift on the single-source helpers immediately detectable.
+
 2026-10-24T01:15:00Z (Run 763)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable. Updated mechanism_align_scan.py to use shared phrase_utils.spoken_words (includes normalize) instead of local WORD_RE + extractor. Removed local duplication. Updated docs/content_quality.md. No new tools, no phrase-list growth, no packet edits. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or true capability. Phrase-list expansion remains saturated; this DRY improvement compounds for mechanism alignment consistency and reduces drift risk on WORDS extraction.
