@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 771 — 2026-10-24T09:15:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by reducing optional B-roll texture placement labor in the editor, while the OAuth stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/broll_cue_suggest.py. It parses assets.md or script.md for beats and emits sparse operational cue suggestions (none required, optional under body only, low opacity, fade before CTA/end-screen, prefer empty track). No invented footage. Updated state files and docs/editor.md. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New tool available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool created and committed via GitHub API. Follows the same pattern and style as music_cue_suggest.py. Synthetic beat parsing produces the expected sparse cue list.
+- Discovery: Deciding whether and where to place optional abstract B-roll texture on the BROLL track is still a recurring manual step; a dedicated sparse-cue suggester reduces that rediscovery for every video and reinforces that B-roll is never required.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 770 — 2026-10-24T08:15:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by reducing optional music/SFX placement labor in the editor, while the OAuth stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/music_cue_suggest.py. It parses assets.md or script.md for beats and emits sparse operational cue suggestions (bed start/duck, optional swell at payoff, fade at CTA, no SFX required). No invented audio. Updated state files and docs/editor.md. Did not poll secrets, dispatch, scaffold, or edit packets.
