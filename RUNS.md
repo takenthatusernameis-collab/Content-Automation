@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 790 — 2026-10-25T07:11:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by providing an early no-write check of script/draft section word counts against locked format bands, while the OAuth stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/format_segment_check.py. It extracts ## sections, classifies Hook/Payoff/Beat/CTA, counts spoken words (preferring WORDS: blocks), and compares against bands (hook 20-35, payoff 40-70, beat 140-220, CTA 40-80, total 900-1500). Prints table + overall PASS/WARN. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New format segment checker available for every future packet before expand.md or full validate. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool created and committed via GitHub API. Reuses spoken_words when available; falls back to regex. Structure confirmed; no-write by design. Exit 0 on PASS, 2 on WARN.
+- Discovery: validate_packet.py is a full gate requiring titles/thumbnail; an early script-only segment band check reduces manual counting against docs/format.md during drafting on every future packet.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 789 — 2026-10-25T06:11:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by providing short mechanism-aligned thumbnail text candidates from idea.md, while the OAuth stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/thumbnail_text_suggest.py. It extracts mechanism/problem/topic, generates 4-6 short (2-6 word) operational candidates that name the stall or default, filters THUMBNAIL_WEAK_PATTERNS, and prints numbered suggestions. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
