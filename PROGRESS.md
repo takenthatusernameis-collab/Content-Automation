@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/card_hold_check.py extracts ## beats with VISUAL cues from script.md or draft.md, estimates spoken duration at the documented ~150 wpm, and flags any beat shorter than the 1.5 s card minimum from docs/format.md. Agents or humans run a single command instead of manual spoken-to-hold arithmetic before timeline or assembly. No invented content. Reduces setup friction before every future packet.
+- Small new production tool only. No packet writes, no phrase-list growth, no secrets polled.
+- Human labor reduction: lower time and cognitive load when confirming every card can meet the minimum hold; one command replaces manual word counting, second conversion, and comparison against the 1.5 s rule.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/format_segment_check.py extracts ## sections from script.md or draft.md, classifies Hook/Payoff/Beat/CTA, counts spoken words, and compares against locked format bands (hook 20-35, payoff 40-70, beat 140-220, CTA 40-80, total 900-1500). Agents or humans run a single command instead of manual word-counting against docs/format.md during early drafting. No invented content. Reduces setup friction before every future packet.
 - Small new production tool only. No packet writes, no phrase-list growth, no secrets polled.
 - Human labor reduction: lower time and cognitive load when confirming script segment lengths match channel targets; one command replaces manual extraction, counting, and band comparison before expand_brief or validate_packet.
