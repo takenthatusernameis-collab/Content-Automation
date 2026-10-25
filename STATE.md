@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-25T16:20:00Z (Run 798)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/minimum_timeline_estimate.py — a no-write tool that extracts ## sections from script.md or draft.md, estimates spoken duration at ~150 wpm, applies the 1.5 s minimum card hold for every VISUAL beat, and reports the resulting minimum total duration versus the 6–10 minute target. Prints a per-section table plus overall status. Reduces recurring labor of manual “spoken + forced holds” arithmetic before timeline or assembly planning on every future packet. No packet edits, no invented content, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
+
 2026-10-25T16:18:00Z (Run 797)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/end_screen_reserve_check.py — a no-write tool that estimates CTA and total spoken duration at ~150 wpm from script.md or draft.md and flags whether the CTA is long enough to support a readable hold through the final 20 s end-screen reserve required by docs/format.md. Prints a compact table with status. Reduces recurring labor of manual duration estimation before timeline or assembly planning on every future packet. No packet edits, no invented content, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
