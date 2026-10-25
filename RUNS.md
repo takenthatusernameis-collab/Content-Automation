@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 799 — 2026-10-25T17:15:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by estimating remaining human labor minutes from packet state, reducing manual guessing of remaining work while the OAuth stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/labor_estimate.py. It inspects status, spoken-word band, and presence of VO, cards, timeline, export, and publish files, then reports a per-step remaining-minutes table and total. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New labor estimator available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool created and committed via GitHub API. Structure confirmed; no-write by design. Exit 0 always (informational).
+- Discovery: Remaining human minutes are currently implicit; an explicit estimator from file presence and status reduces the cognitive load of assessing how much work is left before upload on every packet.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 798 — 2026-10-25T16:20:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by estimating minimum total duration after applying forced 1.5 s card holds, reducing manual arithmetic before timeline planning while the OAuth stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/minimum_timeline_estimate.py. It extracts ## sections from script.md or draft.md, estimates spoken duration at ~150 wpm, applies max(spoken, 1.5) for every VISUAL beat, and reports the adjusted total versus the 6–10 minute target. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
