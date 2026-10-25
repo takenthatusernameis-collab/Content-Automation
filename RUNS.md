@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 795 — 2026-10-25T11:20:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by aggregating niche source starters with the claim-to-source table into a single command, reducing sequential research invocation friction while the OAuth stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/packet_research_brief.py. It runs niche_source_suggest.py and (when a packet is supplied) claim_source_table.py via subprocess and prints a combined research brief. No invented citations. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New packet research brief available for every future packet before filling research.md or sources.md. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool created and committed via GitHub API. Structure confirmed; no-write by design. Exit 0 on success.
+- Discovery: Research starters and claim listing are sequential steps; a single aggregator reduces the number of commands an agent or human must remember and run before advancing research on a packet.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 794 — 2026-10-25T10:15:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by aggregating three recent early structure checks into a single command, reducing sequential invocation friction while the OAuth stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/packet_prep_brief.py. It runs format_segment_check.py, card_hold_check.py, and visual_readability_check.py via subprocess and prints a combined summary with overall status. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
