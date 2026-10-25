@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/format_segment_check.py extracts ## sections from script.md or draft.md, classifies Hook/Payoff/Beat/CTA, counts spoken words, and compares against locked format bands (hook 20-35, payoff 40-70, beat 140-220, CTA 40-80, total 900-1500). Agents or humans run a single command instead of manual word-counting against docs/format.md during early drafting. No invented content. Reduces setup friction before every future packet.
+- Small new production tool only. No packet writes, no phrase-list growth, no secrets polled.
+- Human labor reduction: lower time and cognitive load when confirming script segment lengths match channel targets; one command replaces manual extraction, counting, and band comparison before expand_brief or validate_packet.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/thumbnail_text_suggest.py reads idea.md and prints 4-6 short (2-6 word) mechanism-aligned thumbnail text candidates that name the stall or default and avoid THUMBNAIL_WEAK_PATTERNS. Agents or humans run a single command instead of blank-page brainstorming for thumbnail text before every publish prep. No invented content. Reduces setup friction before every future packet.
 - Small new production tool only. No packet writes, no phrase-list growth, no secrets polled.
 - Human labor reduction: lower time and cognitive load when choosing thumbnail text; one command replaces manual ideation of short high-contrast phrases grounded in the packet mechanism.
