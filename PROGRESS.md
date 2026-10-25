@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/end_screen_reserve_check.py estimates CTA and total spoken duration at ~150 wpm from script.md or draft.md and flags whether the CTA supports a readable hold through the docs/format.md 20 s end-screen reserve. Agents or humans run one command instead of manual calculation before timeline or assembly planning. No invented content. Reduces setup friction before every future packet.
+- Small new production tool only. No packet writes, no secrets polled.
+- Human labor reduction: lower time and cognitive load when confirming the CTA card can remain readable for the end-screen window; one command replaces manual word-to-seconds arithmetic against the format rule.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/packet_metadata_brief.py runs title_scan, thumbnail_scan, description_scan, and end_screen_scan and prints a combined brief. Agents or humans run one command instead of four sequential metadata quality checks before finalizing titles.md, thumbnail.md, or publish.md. No invented titles or CTAs. Reduces setup friction before every future packet.
 - Small new production tool only. No packet writes, no secrets polled.
 - Human labor reduction: lower time and cognitive load when confirming metadata quality signals; one command replaces four separate invocations and manual collation of results.

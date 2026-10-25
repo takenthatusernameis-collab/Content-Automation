@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 797 — 2026-10-25T16:18:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by estimating CTA spoken duration against the locked 20 s end-screen reserve rule, reducing manual hold verification before timeline or assembly while the OAuth stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/end_screen_reserve_check.py. It extracts CTA and total WORDS from script.md or draft.md, estimates duration at ~150 wpm, and flags whether the CTA supports a readable hold through the final 20 s. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New end-screen reserve checker available for every future packet before timeline planning or assembly. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool created and committed via GitHub API. Structure confirmed; no-write by design. Exit 0 on PASS, 2 on WARN.
+- Discovery: Format requires the CTA card to remain readable through the last 20 s end-screen reserve; a duration estimator from WORDS reduces manual calculation of whether the spoken CTA is long enough before every packet advances to timeline.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 796 — 2026-10-25T14:21:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by aggregating four metadata quality scanners into a single command, reducing sequential check friction before finalizing publish metadata while the OAuth stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/packet_metadata_brief.py. It runs title_scan.py, thumbnail_scan.py, description_scan.py, and end_screen_scan.py via subprocess and prints a combined brief. No invented titles or CTAs. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.

@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-25T16:18:00Z (Run 797)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/end_screen_reserve_check.py — a no-write tool that estimates CTA and total spoken duration at ~150 wpm from script.md or draft.md and flags whether the CTA is long enough to support a readable hold through the final 20 s end-screen reserve required by docs/format.md. Prints a compact table with status. Reduces recurring labor of manual duration estimation before timeline or assembly planning on every future packet. No packet edits, no invented content, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
+
 2026-10-25T14:21:00Z (Run 796)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/packet_metadata_brief.py — a no-write aggregator that runs title_scan, thumbnail_scan, description_scan, and end_screen_scan and prints a combined brief. Reduces recurring labor of sequential metadata quality checks before finalizing titles.md, thumbnail.md, or publish.md on every future packet. No packet edits, no invented titles or CTAs, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
