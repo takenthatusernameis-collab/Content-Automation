@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-25T14:21:00Z (Run 796)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/packet_metadata_brief.py — a no-write aggregator that runs title_scan, thumbnail_scan, description_scan, and end_screen_scan and prints a combined brief. Reduces recurring labor of sequential metadata quality checks before finalizing titles.md, thumbnail.md, or publish.md on every future packet. No packet edits, no invented titles or CTAs, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
+
 2026-10-25T11:20:00Z (Run 795)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/packet_research_brief.py — a no-write aggregator that prints the curated niche source list and (when a packet is supplied) the fillable claim-to-source table. Reduces recurring labor of sequential research starters before filling research.md or sources.md on every future packet. No packet edits, no invented citations, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.

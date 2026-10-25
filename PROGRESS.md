@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/packet_metadata_brief.py runs title_scan, thumbnail_scan, description_scan, and end_screen_scan and prints a combined brief. Agents or humans run one command instead of four sequential metadata quality checks before finalizing titles.md, thumbnail.md, or publish.md. No invented titles or CTAs. Reduces setup friction before every future packet.
+- Small new production tool only. No packet writes, no secrets polled.
+- Human labor reduction: lower time and cognitive load when confirming metadata quality signals; one command replaces four separate invocations and manual collation of results.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/packet_research_brief.py prints the curated niche source list and (when a packet is supplied) the fillable claim-to-source table. Agents or humans run one command instead of sequential research starters before filling research.md or sources.md. No invented citations. Reduces setup friction before every future packet.
 - Small new production tool only. No packet writes, no secrets polled.
 - Human labor reduction: lower time and cognitive load when starting research and listing claims that need sources; one command replaces two separate invocations and manual collation.
