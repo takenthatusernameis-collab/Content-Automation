@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/visual_readability_check.py extracts VISUAL cues from script.md or draft.md and flags any longer than 6 words or 50 characters for card readability. Agents or humans run a single command instead of manual length checks before card generation or timeline planning. No invented content. Reduces setup friction before every future packet.
+- Small new production tool only. No packet writes, no phrase-list growth, no secrets polled.
+- Human labor reduction: lower time and cognitive load when confirming on-screen text stays readable at a glance; one command replaces manual extraction and comparison against short-text limits.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/card_hold_check.py extracts ## beats with VISUAL cues from script.md or draft.md, estimates spoken duration at the documented ~150 wpm, and flags any beat shorter than the 1.5 s card minimum from docs/format.md. Agents or humans run a single command instead of manual spoken-to-hold arithmetic before timeline or assembly. No invented content. Reduces setup friction before every future packet.
 - Small new production tool only. No packet writes, no phrase-list growth, no secrets polled.
 - Human labor reduction: lower time and cognitive load when confirming every card can meet the minimum hold; one command replaces manual word counting, second conversion, and comparison against the 1.5 s rule.
@@ -33,9 +38,4 @@
 - Reusable capability: tools/end_screen_window.py estimates narration duration at 140 wpm from script.md or draft.md and prints the recommended start timestamp for the final 20s end-screen window. Agents or humans run a single command instead of manual duration subtraction for end-screen placement before timeline or assembly planning. No invented content. Reduces setup friction before every future packet.
 - Small new production tool only. No packet writes, no phrase-list growth, no secrets polled.
 - Human labor reduction: lower time and cognitive load when reserving the last 20s; one command replaces manual word-to-time conversion plus subtraction.
-- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
-
-- Reusable capability: tools/script_qa_brief.py aggregates speaking_time_estimate, script_pacing_brief, visual_cues_brief, and script_structure_brief into one unified early QA overview with overall PASS/WARN. Agents or humans run a single command instead of sequential calls for duration, pacing, visual cues, and format-target checks before recording or asset planning. No invented content. Reduces setup friction before every future packet.
-- Small new production tool only. No packet writes, no phrase-list growth, no secrets polled.
-- Human labor reduction: lower time and cognitive load when confirming script readiness; one command replaces four separate tool invocations plus manual synthesis.
 - Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
