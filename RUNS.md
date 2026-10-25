@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 786 — 2026-10-25T03:30:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by reducing manual mapping of script beats and VISUAL cues to approximate timeline card placement timestamps, while the OAuth stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/card_placement_brief.py. It extracts per-beat spoken words and VISUAL needs, estimates cumulative timing at 140 wpm, and prints a table of approximate card start times. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New card placement brief available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool created and committed via GitHub API. Reuses spoken_words and script_cards helpers when present; falls back to regex. Structure confirmed; no-write by design. Exit 0 on success.
+- Discovery: After separate pacing and visual extractors exist, the remaining friction is converting them into start timestamps for cards; one brief reduces that manual calculation before every timeline or assembly step.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 785 — 2026-10-25T02:15:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by reducing manual end-screen window calculation from estimated narration duration, while the OAuth stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/end_screen_window.py. It estimates duration at 140 wpm from script.md or draft.md and prints the recommended start timestamp for the final 20s end-screen reservation. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.

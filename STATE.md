@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-25T03:30:00Z (Run 786)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/card_placement_brief.py — a no-write tool that combines per-beat spoken-word timing at 140 wpm with VISUAL cues to print approximate start timestamps for each card. Reduces recurring labor of manual script-to-timeline mapping before assembly or editor sessions on every future packet. No packet edits, no phrase-list growth, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
+
 2026-10-25T02:15:00Z (Run 785)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/end_screen_window.py — a no-write tool that estimates narration duration at 140 wpm from script.md or draft.md and prints the recommended start timestamp for the final 20s end-screen window. Reduces recurring labor of manual duration-to-end-screen subtraction before timeline planning or assembly on every future packet. No packet edits, no phrase-list growth, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
