@@ -137,9 +137,11 @@ def main() -> int:
     print()
 
     # Media presence (lightweight)
-    vo_ok = any((path / "vo").glob("*.wav")) if (path / "vo").is_dir() else False
-    cards_ok = any((path / "cards").glob("*.png")) if (path / "cards").is_dir() else False
-    master_ok = (path / "export" / "master.mp4").is_file() or any((path / "exports").glob("*.mp4")) if (path / "exports").is_dir() else False
+    vo_ok = (path / "vo").is_dir() and any((path / "vo").glob("*.wav"))
+    cards_ok = (path / "cards").is_dir() and any((path / "cards").glob("*.png"))
+    master_ok = (path / "export" / "master.mp4").is_file() or (
+        (path / "exports").is_dir() and any((path / "exports").glob("*.mp4"))
+    )
     print(f"Media: VO={'yes' if vo_ok else 'no'} | Cards={'yes' if cards_ok else 'no'} | Master={'yes' if master_ok else 'no'}")
     print()
     print("This brief is a starting point for human review. It does not approve or upload.")
