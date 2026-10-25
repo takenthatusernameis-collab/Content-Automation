@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 798 — 2026-10-25T16:20:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by estimating minimum total duration after applying forced 1.5 s card holds, reducing manual arithmetic before timeline planning while the OAuth stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/minimum_timeline_estimate.py. It extracts ## sections from script.md or draft.md, estimates spoken duration at ~150 wpm, applies max(spoken, 1.5) for every VISUAL beat, and reports the adjusted total versus the 6–10 minute target. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New minimum timeline estimator available for every future packet before timeline or assembly planning. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool created and committed via GitHub API. Structure confirmed; no-write by design. Exit 0 on OK, 2 on SHORT/LONG.
+- Discovery: Short visual beats force a 1.5 s hold that adds to total duration; an estimator that applies the max reduces manual summation of spoken time plus padding before every packet advances to timeline.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 797 — 2026-10-25T16:18:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by estimating CTA spoken duration against the locked 20 s end-screen reserve rule, reducing manual hold verification before timeline or assembly while the OAuth stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/end_screen_reserve_check.py. It extracts CTA and total WORDS from script.md or draft.md, estimates duration at ~150 wpm, and flags whether the CTA supports a readable hold through the final 20 s. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
@@ -33,14 +42,5 @@
 - Result: Videos published stay 0. New packet prep brief available for every future packet before expand, record, or card planning. Pre-upload path remains stable. Upload still blocked only on the three secrets.
 - Verification: Tool created and committed via GitHub API. Structure confirmed; no-write by design. Exit 0 on overall PASS, 2 on WARN.
 - Discovery: Multiple early structure checks already exist; a single aggregator reduces the number of commands an agent or human must remember and run before advancing a packet.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
-
-## Run 793 — 2026-10-25T09:15:00Z
-- Objective: Add one small reusable production capability that compounds for future videos by providing a curated niche source starter list, reducing blank-page research friction while the OAuth stall continues.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/niche_source_suggest.py. It prints a short table of common high-quality sources (books, academic concepts) relevant to systems for focused work. No invented packet-specific citations. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. New niche source suggester available for every future packet before filling research.md. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: Tool created and committed via GitHub API. Structure confirmed; no-write by design. Exit 0 on success.
-- Discovery: Research for the niche often starts from the same core sources; a short curated starter list reduces rediscovery of well-known references before every research.md or claim table.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
