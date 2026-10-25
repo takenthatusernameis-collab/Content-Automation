@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 789 — 2026-10-25T06:11:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by providing short mechanism-aligned thumbnail text candidates from idea.md, while the OAuth stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/thumbnail_text_suggest.py. It extracts mechanism/problem/topic, generates 4-6 short (2-6 word) operational candidates that name the stall or default, filters THUMBNAIL_WEAK_PATTERNS, and prints numbered suggestions. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New thumbnail text suggestor available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool created and committed via GitHub API. Reuses idea_utils.extract and phrase_utils.shorten / THUMBNAIL_WEAK_PATTERNS. Structure confirmed; no-write by design. Exit 0 on success.
+- Discovery: Thumbnail text is a recurring creative friction before publish.md or assets.md is filled; one grounded suggestor reduces blank-page brainstorming and keeps text operational and short enough for readability.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 788 — 2026-10-25T05:11:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by providing approximate chapter timestamps from script beats at 140 wpm for early publish/description planning, while the OAuth stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/chapter_timing_brief.py. It extracts ## beats, estimates cumulative start times at 140 wpm, and prints suggested YouTube chapter lines (first at 0:00). No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
