@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/thumbnail_text_suggest.py reads idea.md and prints 4-6 short (2-6 word) mechanism-aligned thumbnail text candidates that name the stall or default and avoid THUMBNAIL_WEAK_PATTERNS. Agents or humans run a single command instead of blank-page brainstorming for thumbnail text before every publish prep. No invented content. Reduces setup friction before every future packet.
+- Small new production tool only. No packet writes, no phrase-list growth, no secrets polled.
+- Human labor reduction: lower time and cognitive load when choosing thumbnail text; one command replaces manual ideation of short high-contrast phrases grounded in the packet mechanism.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/chapter_timing_brief.py extracts ## beats from script.md or draft.md, estimates cumulative start times at 140 wpm, and prints suggested YouTube chapter lines (first at 0:00). Agents or humans run a single command instead of manual word counting and timestamp arithmetic for early chapter planning during description or publish prep before captions.srt exists. No invented content. Reduces setup friction before every future packet.
 - Small new production tool only. No packet writes, no phrase-list growth, no secrets polled.
 - Human labor reduction: lower time and cognitive load when drafting chapter markers early; one command replaces manual beat extraction, cumulative timing, and formatting.
