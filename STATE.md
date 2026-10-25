@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-25T05:11:00Z (Run 788)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/chapter_timing_brief.py — a no-write tool that extracts ## beats from script.md or draft.md, estimates cumulative start times at 140 wpm, and prints suggested YouTube chapter lines (first at 0:00). Reduces recurring labor of manual beat-to-timestamp arithmetic for early description or publish planning before captions.srt exists on every future packet. No packet edits, no phrase-list growth, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
+
 2026-10-25T04:20:00Z (Run 787)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/editor_timeline_brief.py — a no-write aggregator that runs script_pacing_brief, card_placement_brief, end_screen_window, and visual_cues_brief and prints a unified timeline overview for editor handoff. Reduces recurring labor of sequential tool calls for pacing, card starts, end-screen reservation, and visual needs before timeline or assembly on every future packet. No packet edits, no phrase-list growth, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
@@ -19,7 +23,3 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. In
 2026-10-25T00:15:00Z (Run 783)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/script_structure_brief.py — a no-write tool that extracts beats, estimates total duration at 140 wpm, checks against the 6-10 min channel target, and flags missing VISUAL cues. Prints a compact PASS/WARN report. Reduces recurring labor of manual structural review before recording or card planning on every future packet. No packet edits, no phrase-list growth, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
-
-2026-10-24T22:15:00Z (Run 782)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/visual_cues_brief.py — a no-write tool that extracts per-beat VISUAL / card needs from script.md or draft.md (reusing asset_brief helpers when available) and prints a compact table. Reduces recurring labor of manual scanning of script visual lines before every card planning or editor session on every future packet. No packet edits, no phrase-list growth, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
