@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 792 — 2026-10-25T08:15:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by providing an early no-write check of VISUAL cue length for card readability, while the OAuth stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/visual_readability_check.py. It extracts VISUAL cues, flags any longer than 6 words or 50 characters, and prints a table with status. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New visual readability checker available for every future packet before card generation or timeline planning. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool created and committed via GitHub API. Structure confirmed; no-write by design. Exit 0 on PASS, 2 on WARN.
+- Discovery: Card text must stay short enough to read at a glance; an early length check reduces manual verification before every card_generator or editor session.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 791 — 2026-10-25T07:20:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by providing an early no-write check of estimated spoken duration against the 1.5 s card minimum hold, while the OAuth stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/card_hold_check.py. It extracts ## beats with VISUAL cues, estimates spoken duration at the documented ~150 wpm, and flags any beat shorter than the 1.5 s minimum from docs/format.md. Prints table with status and notes. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
@@ -60,14 +69,5 @@
 - Result: Videos published stay 0. New end-screen window calculator available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets.
 - Verification: Tool created and committed via GitHub API. Reuses speaking_time_estimate helpers when present; falls back to simple count. Tested on Q1 packet (1076 words → 07:41, end-screen at 07:21). Structure confirmed; no-write by design. Exit 0 on success.
 - Discovery: After duration estimators exist, the remaining friction is converting total time into the precise end-screen start; one calculator reduces that subtraction before every timeline or assembly step.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
-
-## Run 784 — 2026-10-25T01:30:00Z
-- Objective: Add one small reusable production capability that compounds for future videos by reducing sequential tool-call labor for early script structural/pacing/visual/target review, while the OAuth stall continues.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/script_qa_brief.py. It aggregates speaking_time_estimate.py, script_pacing_brief.py, visual_cues_brief.py, and script_structure_brief.py into one unified PASS/WARN overview. No invented content. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. New aggregator available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: Tool created and committed via GitHub API. Reuses the four recent no-write tools; truncates long output. Structure confirmed; no-write by design. Exit 0 on overall PASS, 2 on WARN.
-- Discovery: After individual timing, pacing, visual, and structure extractors exist, the remaining friction is running them separately; one aggregator reduces that rediscovery before every recording or asset step.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
