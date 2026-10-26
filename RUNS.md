@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 809 — 2026-10-26T03:20:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by generating structured single-variable experiment candidates directly from script signals (anticipated questions and long sentences as retention risks), preparing the improvement loop so next-packet planning starts from concrete script-derived options without starting from a blank page while the stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/script_experiment_candidates.py. It extracts potential questions and long sentences and prints a Markdown section mapping each to a suggested ALLOWED_CHANGES type with slots for hypothesis, primary_metric, and notes. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New script-to-experiment candidates tool available for every future packet to reduce blank-page selection of the next test variable. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool created and committed via GitHub API. Structure confirmed; no-write by design. Exit 0 always (informational).
+- Discovery: Manual selection of the next single variable currently requires scanning the script for risks and mapping to change types from scratch; a single candidates printer reduces that planning step on every packet.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 808 — 2026-10-26T02:15:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by generating a structured bridge from script-extracted questions to possible experiment changes and metrics, preparing the improvement loop so post-observation analysis can turn anticipated questions into explicit tests without starting from a blank page while the stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/feedback_to_experiment_bridge.py. It extracts potential questions/objections and prints a Markdown bridge with slots for real_comment_match, possible_change, hypothesized_effect, target_metric, and next_test_idea. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
@@ -15,14 +24,5 @@
 - Result: Videos published stay 0. New comment mapping starter available for every future packet after the observation window. Pre-upload path remains stable. Upload still blocked only on the three secrets.
 - Verification: Tool created and committed via GitHub API. Structure confirmed; no-write by design. Exit 0 always (informational).
 - Discovery: Manual setup currently requires drafting the comment classification and mapping structure from scratch; a single starter reduces that analysis preparation step on every packet.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
-
-## Run 806 — 2026-10-26T00:30:00Z
-- Objective: Add one small reusable production capability that compounds for future videos by generating a structured feedback.md starter template from script-extracted questions, preparing the improvement loop so post-observation comment analysis and metrics recording start from a concrete skeleton while the stall continues.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/feedback_review_starter.py. It extracts potential questions/objections and prints a Markdown skeleton with window, analytics, mapping fields, and diagnosis slots. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. New feedback review starter available for every future packet after the observation window. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: Tool created and committed via GitHub API. Structure confirmed; no-write by design. Exit 0 always (informational).
-- Discovery: Manual setup currently requires drafting the feedback record structure and listing anticipated questions from scratch; a single starter reduces that preparation step on every packet.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
