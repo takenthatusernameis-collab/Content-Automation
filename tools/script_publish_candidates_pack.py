@@ -3,11 +3,11 @@
 
 Aggregates the no-write script_title_candidates, script_description_candidates,
 script_tags_candidates, script_chapter_candidates, script_end_screen_candidates,
-script_first_comment_candidates, script_thumbnail_candidates, script_visual_plan,
-and script_duration_brief into one overview.
+script_first_comment_candidates, script_thumbnail_candidates, script_hook_candidates,
+script_visual_plan, and script_duration_brief into one overview.
 Reduces the recurring labor of invoking multiple separate candidates printers
 and collating their structured Markdown sections before drafting titles.md,
-publish.md, chapters, end-screens, or assets for every future packet.
+publish.md, chapters, end-screens, hooks, or assets for every future packet.
 Does not invent content, write files, poll secrets, or call external services.
 Exit 0 always (informational).
 """
@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 TOOLS = ROOT / "tools"
 
 SECTIONS = [
+    ("HOOK CANDIDATES", "script_hook_candidates.py"),
     ("TITLE CANDIDATES", "script_title_candidates.py"),
     ("DESCRIPTION CANDIDATES", "script_description_candidates.py"),
     ("TAGS CANDIDATES", "script_tags_candidates.py"),
@@ -92,7 +93,7 @@ def main() -> int:
         print()
 
     print("=" * 72)
-    print("Next: select or rewrite final_choice slots in the relevant files (titles.md, publish.md, chapters, assets.md).")
+    print("Next: select or rewrite final_choice slots in the relevant files (titles.md, publish.md, chapters, assets.md, or opening script beats).")
     print("Then run the matching scanners (title_scan.py, description_scan.py, etc.) for weak-pattern confirmation.")
     print("This pack does not invent content or write files.")
     print("Useful before publish-stage drafting to reduce multi-command collation on every packet.")
