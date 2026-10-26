@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/script_thumbnail_candidates.py extracts key sentences from spoken WORDS (preferring early ones) and prints a structured Markdown thumbnail text candidates section mapping each signal to a suggested short high-contrast phrase (via shared shorten, capped ~40 chars) with weak-pattern flags (THUMBNAIL_WEAK_PATTERNS) and blank final_choice slots. Agents or humans run one command instead of manually scanning the script and drafting specific short thumbnail texts from scratch for every future packet. No invented claims or content. Reduces thumbnail-stage drafting friction before every future packet. Pack aggregator now includes it.
+- Small new production tool only. No packet writes, no secrets polled.
+- Human labor reduction: lower time and cognitive load when drafting short YouTube thumbnail text from the current script; one command replaces manual candidate generation while flagging weak clickbait.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/script_publish_candidates_pack.py aggregates the existing no-write script_*_candidates and script_visual_plan tools into one unified Markdown overview of title, description, tags, chapter, end-screen, first-comment, and visual starters with final_choice slots. Agents or humans run one command instead of invoking and collating multiple separate candidates printers for every future packet. No invented claims or content. Reduces publish-stage multi-command collation friction before every future packet.
 - Small new production tool only. No packet writes, no secrets polled.
 - Human labor reduction: lower time and cognitive load when preparing YouTube publish metadata, chapters, end-screens, and visual plans from the current script; one command replaces running and merging several candidates tools.

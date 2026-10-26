@@ -3,7 +3,7 @@
 
 Aggregates the no-write script_title_candidates, script_description_candidates,
 script_tags_candidates, script_chapter_candidates, script_end_screen_candidates,
-script_first_comment_candidates, and script_visual_plan into one overview.
+script_first_comment_candidates, script_thumbnail_candidates, and script_visual_plan into one overview.
 Reduces the recurring labor of invoking multiple separate candidates printers
 and collating their structured Markdown sections before drafting titles.md,
 publish.md, chapters, end-screens, or assets for every future packet.
@@ -28,6 +28,7 @@ SECTIONS = [
     ("CHAPTER CANDIDATES", "script_chapter_candidates.py"),
     ("END-SCREEN / CTA CANDIDATES", "script_end_screen_candidates.py"),
     ("FIRST COMMENT CANDIDATES", "script_first_comment_candidates.py"),
+    ("THUMBNAIL TEXT CANDIDATES", "script_thumbnail_candidates.py"),
     ("VISUAL PLAN", "script_visual_plan.py"),
 ]
 
