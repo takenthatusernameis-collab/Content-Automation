@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/script_hook_candidates.py extracts opening spoken sentences (preferring ## Hook section) and prints a structured Markdown hook candidates section mapping each signal to a suggested short high-retention phrase (via shared shorten, capped ~60 chars) with weak-opener flags and blank final_choice slots. Agents or humans run one command instead of manually scanning the opening and drafting specific short hooks from scratch for every future packet. No invented claims or content. Reduces early-retention hook drafting friction before every future packet. Pack aggregator now includes it.
+- Small new production tool only. No packet writes, no secrets polled.
+- Human labor reduction: lower time and cognitive load when drafting strong YouTube opening hooks from the current script; one command replaces manual candidate generation while flagging generic openers.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/script_duration_brief.py counts spoken WORDS, estimates runtime at 150 wpm, checks against the 900–1500 word band from docs/content_quality.md, flags expansion or cutting needs, and prints an optional ## beat breakdown. Agents or humans run one command instead of manually counting words and calculating timing for every future packet before promotion or VO planning. No invented claims or content. Reduces length and pacing check friction before every future packet. Pack aggregator now includes it.
 - Small new production tool only. No packet writes, no secrets polled.
 - Human labor reduction: lower time and cognitive load when checking script length and estimating duration from the current script; one command replaces manual word count and timing calculation.
