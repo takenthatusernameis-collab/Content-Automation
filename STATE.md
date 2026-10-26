@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-26T16:30:00Z (Run 821)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/script_duration_brief.py — a no-write tool that counts spoken WORDS, estimates runtime at 150 wpm, checks against the 900–1500 word band from docs/content_quality.md, flags if outside the band, and prints an optional ## beat breakdown. Also updated tools/script_publish_candidates_pack.py to include the new duration section in the unified overview. Reduces recurring labor of manually counting words and estimating timing before every future packet promotion or VO planning. No packet edits, no invented claims or content, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
+
 2026-10-26T15:30:00Z (Run 820)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/script_thumbnail_candidates.py — a no-write tool that extracts key sentences from spoken WORDS (preferring early ones) and prints a structured Markdown thumbnail text candidates section mapping each signal to a suggested short high-contrast phrase (via shared shorten, capped ~40 chars) with weak-pattern flags (THUMBNAIL_WEAK_PATTERNS) and blank final_choice slots. Also updated tools/script_publish_candidates_pack.py to include the new thumbnail section in the unified overview. Reduces recurring labor of manually drafting short thumbnail text from the script for every future packet. No packet edits, no invented claims or content, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
