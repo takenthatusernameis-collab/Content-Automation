@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/script_duration_brief.py counts spoken WORDS, estimates runtime at 150 wpm, checks against the 900–1500 word band from docs/content_quality.md, flags expansion or cutting needs, and prints an optional ## beat breakdown. Agents or humans run one command instead of manually counting words and calculating timing for every future packet before promotion or VO planning. No invented claims or content. Reduces length and pacing check friction before every future packet. Pack aggregator now includes it.
+- Small new production tool only. No packet writes, no secrets polled.
+- Human labor reduction: lower time and cognitive load when checking script length and estimating duration from the current script; one command replaces manual word count and timing calculation.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/script_thumbnail_candidates.py extracts key sentences from spoken WORDS (preferring early ones) and prints a structured Markdown thumbnail text candidates section mapping each signal to a suggested short high-contrast phrase (via shared shorten, capped ~40 chars) with weak-pattern flags (THUMBNAIL_WEAK_PATTERNS) and blank final_choice slots. Agents or humans run one command instead of manually scanning the script and drafting specific short thumbnail texts from scratch for every future packet. No invented claims or content. Reduces thumbnail-stage drafting friction before every future packet. Pack aggregator now includes it.
 - Small new production tool only. No packet writes, no secrets polled.
 - Human labor reduction: lower time and cognitive load when drafting short YouTube thumbnail text from the current script; one command replaces manual candidate generation while flagging weak clickbait.
