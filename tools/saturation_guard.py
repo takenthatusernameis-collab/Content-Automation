@@ -4,6 +4,8 @@
 Scans the most recent RUNS.md sections for patterns of "Added tools/xxx.py",
 "Enhanced tools/experiment_xxx.py", pure documentation/inspection-only updates,
 or repeated contract-locking of suggestion tools (while videos published remain 0).
+Also flags script_*_brief.py, *_candidates.py, research_gap, packet_readiness_brief
+and similar inspection/candidate generators as status-like when they dominate recent runs.
 When the streak of such runs is long, prints SATURATED_ANTI_REDISCOVERY so future
 agents prefer the human OAuth step or a true production capability over another
 one-liner, RECOMMENDED NEXT polish, repeated state-file inspection, or
@@ -21,7 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RUNS = ROOT / "RUNS.md"
 
 STATUS_TOOL_RE = re.compile(
-    r"(Added|Enhanced) tools/(stall_|recurring_|publish_|after_|next_|human_|packet_|capability_|efficiency_|media_fingerprint|reusable_commands|experiment_)",
+    r"(Added|Enhanced) tools/(stall_|recurring_|publish_|after_|next_|human_|packet_|capability_|efficiency_|media_fingerprint|reusable_commands|experiment_|script_.*_(brief|candidates)|.*_candidates|research_gap|packet_readiness_brief)",
     re.IGNORECASE,
 )
 SUGGEST_CONTRACT_RE = re.compile(
@@ -64,8 +66,8 @@ def main() -> int:
     print(f"status_tool_only_runs: {status_only}")
     if status_only >= 6:
         print("status: SATURATED_ANTI_REDISCOVERY")
-        print("message: Multiple consecutive runs have only added status tools, polished experiment documentation (RECOMMENDED NEXT), performed pure state-file inspection/docs updates, or locked suggestion tools with contracts while videos published stay 0.")
-        print("recommendation: Prefer the human OAuth step (python3 tools/human_next_action.py) or a true production capability (capability_gap_hint.py) over another status tool, polish, inspection, or suggest-contract.")
+        print("message: Multiple consecutive runs have only added status tools (including script_*_brief, *_candidates, research_gap, packet_readiness), polished experiment documentation (RECOMMENDED NEXT), performed pure state-file inspection/docs updates, or locked suggestion tools with contracts while videos published stay 0.")
+        print("recommendation: Prefer the human OAuth step (python3 tools/human_next_action.py) or a true production capability (capability_gap_hint.py) over another status tool, polish, inspection, brief, or candidates generator.")
     else:
         print("status: NOT_SATURATED")
         print("message: Recent runs have not yet saturated on pure status/polish/doc-only/suggest-contract tools.")
