@@ -1,3 +1,14 @@
+2026-10-26T12:25:00Z (Run 817)
+
+Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
+
+**Current state**
+- Videos published: 0
+- Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Issue #1. Do not poll.
+- Media: Q1 VO + cards + r253 master ready after materialize; do not rematerialize if present. Do not regenerate.
+- New: tools/script_chapter_candidates.py (enhanced) prints structured chapter candidates from script beats with estimated 150 wpm times and suggested short titles with weak-pattern flags. No invented data. One command replaces manual scanning and candidate drafting for chapters before VO.
+- Preferred unblocked list: complete. Next is the human step or a truly new production capability (not another status/polish/inspection/suggest-contract or phrase DRY tool).
+
 2026-10-26T10:20:00Z (Run 816)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
