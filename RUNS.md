@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 808 — 2026-10-26T02:15:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by generating a structured bridge from script-extracted questions to possible experiment changes and metrics, preparing the improvement loop so post-observation analysis can turn anticipated questions into explicit tests without starting from a blank page while the stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/feedback_to_experiment_bridge.py. It extracts potential questions/objections and prints a Markdown bridge with slots for real_comment_match, possible_change, hypothesized_effect, target_metric, and next_test_idea. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New feedback-to-experiment bridge available for every future packet after the observation window. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool created and committed via GitHub API. Structure confirmed; no-write by design. Exit 0 always (informational).
+- Discovery: Manual setup currently requires drafting the connection from anticipated questions to candidate experiments from scratch; a single bridge reduces that preparation step on every packet.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 807 — 2026-10-26T01:20:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by generating a structured comment-mapping skeleton from script-extracted questions, preparing the improvement loop so post-observation comment classification and analysis start from a concrete baseline while the stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/comment_mapping_starter.py. It extracts potential questions/objections and prints a Markdown section with mapping fields, free classification counts, signal hierarchy, and diagnosis note. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
