@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: enhanced tools/saturation_guard.py to detect script_*_brief.py, *_candidates.py, research_gap_brief, and packet_readiness_brief additions as status-like saturation patterns. Agents running the guard now get a stronger SATURATED_ANTI_REDISCOVERY signal when recent runs only add inspection/candidate generators while videos published stay 0. Reduces the chance of continuing low-leverage tool-addition loops across future runs. No invented claims or content.
+- Small improvement to existing anti-rediscovery tool. No packet writes, no secrets polled.
+- Human labor reduction: lower chance that future agent runs waste cycles on additional brief/candidates tools; clearer signal to prefer the human OAuth step.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/packet_readiness_brief.py inspects the packet folder for presence of key production files and basic spoken-word band status, then prints a structured Markdown readiness checklist of pipeline stages. Agents or humans run one command instead of manually opening idea.md, research.md, script.md, assets.md, captions, publish.md and others to see the next concrete gap for every future packet. No invented claims or content. Reduces multi-file inspection friction before media, QA, or upload planning on every future packet.
 - Small new production tool only. No packet writes, no secrets polled.
 - Human labor reduction: lower time and cognitive load when checking packet progress; one command replaces manual file-by-file inspection for readiness.
