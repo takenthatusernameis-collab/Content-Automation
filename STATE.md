@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-26T14:24:00Z (Run 819)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/script_publish_candidates_pack.py — a no-write aggregator that runs the existing script_*_candidates and script_visual_plan tools and prints a unified Markdown overview of title, description, tags, chapter, end-screen, first-comment, and visual starters with final_choice slots. Reduces recurring labor of invoking and collating multiple separate candidates printers for every future packet. No packet edits, no invented claims or content, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
+
 2026-10-26T13:31:00Z (Run 818)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/script_title_candidates.py — a no-write tool that extracts key sentences from spoken WORDS (preferring early ones) and prints a structured Markdown title candidates section mapping each signal to a suggested short title phrase (via shared shorten) with weak-pattern flags (TITLE_WEAK_PATTERNS) and blank final_choice slots. Reduces recurring labor of manually drafting titles from the script for every future packet. No packet edits, no invented claims or content, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
@@ -11,7 +15,3 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. In
 2026-10-26T10:20:00Z (Run 816)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/script_description_candidates.py — a no-write tool that extracts key sentences from spoken WORDS and prints a structured Markdown description candidates section mapping each signal to a suggested short description segment (via shared shorten) with weak-pattern flags (ANTI_SLOP + DESCRIPTION_EXTRA) and blank final_choice slots. Reduces recurring labor of manually drafting description body from the script for every future packet. No packet edits, no invented claims or content, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
-
-2026-10-26T09:15:00Z (Run 815)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/script_end_screen_candidates.py — a no-write tool that extracts key sentences from spoken WORDS (preferring later ones) and prints a structured Markdown end-screen/CTA candidates section mapping each signal to a suggested short phrase (via shared shorten) with weak-pattern flags and blank final_choice slots. Reduces recurring labor of manually drafting end-screen elements from the script for every future packet. No packet edits, no invented claims or content, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
