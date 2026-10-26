@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 821 — 2026-10-26T16:30:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by generating a structured duration and pacing brief directly from script spoken WORDS (word count, 150 wpm estimate, 900–1500 band check, optional beat breakdown), so length and timing planning starts from concrete numbers without manual counting while the stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/script_duration_brief.py. It counts spoken WORDS, estimates runtime at 150 wpm, flags if outside the target band from docs/content_quality.md, and prints an approximate ## beat breakdown. Updated tools/script_publish_candidates_pack.py to include the new section. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New script duration/pacing brief available for every future packet to reduce manual word-count and timing estimation before promotion or VO. Pack now covers duration. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool created, committed via GitHub API, and tested locally against a minimal packet (exit 0, produces word count, estimate, band flag, and beat lines). Pack updated. No-write by design. Exit 0 always (informational).
+- Discovery: Manual script length and timing checks currently require counting spoken words and calculating duration by hand before every promotion; a single brief reduces that recurring step on every packet.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 820 — 2026-10-26T15:30:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by generating structured thumbnail text candidates directly from script spoken content (key sentences, preferring early ones, mapped to suggested short high-contrast phrases with weak-pattern flags), preparing the thumbnail stage so drafting short visual text starts from concrete script-derived options without starting from a blank page or generic bait while the stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/script_thumbnail_candidates.py. It extracts key sentences from spoken WORDS and prints a Markdown candidates section with suggested thumbnail text (via shared shorten, capped ~40 chars), weak-pattern flags (THUMBNAIL_WEAK_PATTERNS), and blank final_choice slots. Updated tools/script_publish_candidates_pack.py to include the new section in the unified overview. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
