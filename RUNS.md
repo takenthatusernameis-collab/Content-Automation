@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 817 — 2026-10-26T12:25:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by generating structured chapter candidates with estimated times directly from script beats (150 wpm cumulative, suggested short titles with weak-pattern flags), preparing the publish/planning stage so chapter drafting starts from concrete script-derived options without starting from a blank page or generic labels while the stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Enhanced tools/script_chapter_candidates.py (previously sentence-based). It now parses ## beat headings with WORDS, estimates start times at 150 wpm, suggests titles via shared shorten, flags CHAPTER_WEAK_PATTERNS, enforces rough 10s gaps, and prints Markdown candidates with final_choice slots. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. Enhanced script-to-chapter candidates tool available for every future packet to reduce blank-page chapter title and timing estimation before VO. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool updated and committed via GitHub API. Structure confirmed; no-write by design. Exit 0 always (informational). Syntax checked locally.
+- Discovery: Manual chapter planning currently requires scanning beats and roughly estimating times from word counts; a single candidates printer with estimates reduces that pre-VO step on every packet.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 816 — 2026-10-26T10:20:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by generating structured description body candidates directly from script spoken content (key sentences mapped to suggested short segments with weak-pattern flags), preparing the publish stage so drafting the description starts from concrete script-derived options without starting from a blank page or generic filler while the stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/script_description_candidates.py. It extracts key sentences from spoken WORDS and prints a Markdown candidates section with suggested description segment (via shared shorten), weak-pattern flags (ANTI_SLOP + DESCRIPTION_EXTRA), and blank final_choice slots. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
