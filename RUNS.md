@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 822 — 2026-10-26T17:20:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by generating structured hook candidates directly from the opening spoken WORDS (preferring ## Hook section, early sentences mapped to suggested short high-retention phrases with weak-opener flags), preparing the retention/opening stage so drafting strong first-15s hooks starts from concrete script-derived options without starting from a blank page or generic openers while the stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/script_hook_candidates.py. It extracts opening spoken text (Hook section preferred) and prints a Markdown candidates section with suggested short hooks (via shared shorten), weak-opener flags, and blank final_choice slots. Updated tools/script_publish_candidates_pack.py to include the new section in the unified overview. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New script-to-hook candidates tool available for every future packet to reduce blank-page opening hook drafting. Pack now covers hooks. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool created, committed via GitHub API, syntax checked locally (py_compile exit 0). Pack updated and confirmed to include the section. No-write by design. Exit 0 always (informational).
+- Discovery: Manual hook drafting currently requires scanning the opening beat and writing short concrete retention openers from scratch while avoiding generic phrases; a single candidates printer reduces that early-retention step on every packet.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 821 — 2026-10-26T16:30:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by generating a structured duration and pacing brief directly from script spoken WORDS (word count, 150 wpm estimate, 900–1500 band check, optional beat breakdown), so length and timing planning starts from concrete numbers without manual counting while the stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/script_duration_brief.py. It counts spoken WORDS, estimates runtime at 150 wpm, flags if outside the target band from docs/content_quality.md, and prints an approximate ## beat breakdown. Updated tools/script_publish_candidates_pack.py to include the new section. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
