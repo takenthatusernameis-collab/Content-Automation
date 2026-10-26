@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/script_publish_candidates_pack.py aggregates the existing no-write script_*_candidates and script_visual_plan tools into one unified Markdown overview of title, description, tags, chapter, end-screen, first-comment, and visual starters with final_choice slots. Agents or humans run one command instead of invoking and collating multiple separate candidates printers for every future packet. No invented claims or content. Reduces publish-stage multi-command collation friction before every future packet.
+- Small new production tool only. No packet writes, no secrets polled.
+- Human labor reduction: lower time and cognitive load when preparing YouTube publish metadata, chapters, end-screens, and visual plans from the current script; one command replaces running and merging several candidates tools.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/script_title_candidates.py extracts key sentences from spoken WORDS (preferring early ones) and prints a structured Markdown title candidates section mapping each signal to a suggested short title phrase (via shared shorten) with weak-pattern flags (TITLE_WEAK_PATTERNS) and blank final_choice slots. Agents or humans run one command instead of manually scanning the script and drafting specific titles from scratch for every future packet. No invented claims or content. Reduces titles-stage drafting friction before every future packet.
 - Small new production tool only. No packet writes, no secrets polled.
 - Human labor reduction: lower time and cognitive load when drafting YouTube titles from the current script; one command replaces manual candidate generation while flagging weak clickbait.
@@ -13,9 +18,4 @@
 - Reusable capability: tools/script_description_candidates.py extracts key sentences from spoken WORDS and prints a structured Markdown description candidates section mapping each signal to a suggested short description segment (via shared shorten) with weak-pattern flags (ANTI_SLOP + DESCRIPTION_EXTRA) and blank final_choice slots. Agents or humans run one command instead of manually scanning the script and drafting operational description segments from scratch for every future packet. No invented claims or content. Reduces publish-stage description drafting friction before every future packet.
 - Small new production tool only. No packet writes, no secrets polled.
 - Human labor reduction: lower time and cognitive load when drafting YouTube description from the current script; one command replaces manual candidate generation while flagging weak filler and bait.
-- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
-
-- Reusable capability: tools/script_end_screen_candidates.py extracts key sentences from spoken WORDS (preferring later ones) and prints a structured Markdown end-screen/CTA candidates section mapping each signal to a suggested short phrase (via shared shorten) with weak-pattern flags and blank final_choice slots. Agents or humans run one command instead of manually scanning the script and drafting specific end-screen elements from scratch for every future packet. No invented claims or content. Reduces publish-stage end-screen drafting friction before every future packet.
-- Small new production tool only. No packet writes, no secrets polled.
-- Human labor reduction: lower time and cognitive load when drafting YouTube end-screen/CTA text from the current script; one command replaces manual candidate generation while flagging weak bait.
 - Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
