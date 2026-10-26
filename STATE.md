@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-26T17:20:00Z (Run 822)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/script_hook_candidates.py — a no-write tool that extracts opening spoken sentences (preferring ## Hook section) and prints a structured Markdown hook candidates section mapping each signal to a suggested short high-retention phrase (via shared shorten, capped ~60 chars) with weak-opener flags and blank final_choice slots. Also updated tools/script_publish_candidates_pack.py to include the new hook section in the unified overview. Reduces recurring labor of manually drafting strong opening hooks from the script for every future packet. No packet edits, no invented claims or content, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
+
 2026-10-26T16:30:00Z (Run 821)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/script_duration_brief.py — a no-write tool that counts spoken WORDS, estimates runtime at 150 wpm, checks against the 900–1500 word band from docs/content_quality.md, flags if outside the band, and prints an optional ## beat breakdown. Also updated tools/script_publish_candidates_pack.py to include the new duration section in the unified overview. Reduces recurring labor of manually counting words and estimating timing before every future packet promotion or VO planning. No packet edits, no invented claims or content, no secrets polled. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
