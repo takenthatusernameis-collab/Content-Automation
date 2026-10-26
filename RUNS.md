@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 819 — 2026-10-26T14:24:00Z
+- Objective: Add one small reusable production capability that compounds for future videos by aggregating the existing script-derived candidates tools into a single unified publish candidates pack, so drafting titles, descriptions, tags, chapters, end-screens, first comments, and visual plans starts from one collated overview of concrete script-derived options without running and merging multiple commands while the stall continues.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/script_publish_candidates_pack.py. It subprocesses the existing no-write candidates tools (title, description, tags, chapter, end-screen, first-comment, visual) and prints a unified Markdown overview with truncation for readability. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
+- Result: Videos published stay 0. New unified script-to-publish candidates pack available for every future packet to reduce multi-command collation friction. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: Tool created and committed via GitHub API. Structure confirmed; no-write by design (aggregates existing no-write tools). Exit 0 always (informational) when useful output exists.
+- Discovery: Manual publish-stage drafting currently requires running and collating several separate candidates printers; a single aggregator pack reduces that collation step on every packet.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
+
 ## Run 818 — 2026-10-26T13:31:00Z
 - Objective: Add one small reusable production capability that compounds for future videos by generating structured title candidates directly from script spoken content (key sentences, preferring early ones, mapped to suggested short phrases with weak-pattern flags), preparing the titles stage so drafting titles starts from concrete script-derived options without starting from a blank page or generic bait while the stall continues.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/script_title_candidates.py. It extracts key sentences from spoken WORDS and prints a Markdown candidates section with suggested title (via shared shorten), weak-pattern flags (TITLE_WEAK_PATTERNS), and blank final_choice slots. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
@@ -24,14 +33,5 @@
 - Result: Videos published stay 0. New script-to-description candidates tool available for every future packet to reduce blank-page description drafting. Pre-upload path remains stable. Upload still blocked only on the three secrets.
 - Verification: Tool created and committed via GitHub API. Structure confirmed; no-write by design. Exit 0 always (informational).
 - Discovery: Manual description drafting currently requires scanning the script for mechanism/stall phrases and writing operational segments from scratch while avoiding filler and bait; a single candidates printer reduces that publish-stage step on every packet.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
-
-## Run 815 — 2026-10-26T09:15:00Z
-- Objective: Add one small reusable production capability that compounds for future videos by generating structured end-screen/CTA candidates directly from script spoken content (key sentences, preferring later ones, mapped to suggested short phrases with weak-pattern flags), preparing the publish stage so drafting end-screen elements starts from concrete script-derived options without starting from a blank page or generic bait while the stall continues.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/script_end_screen_candidates.py. It extracts key sentences from spoken WORDS and prints a Markdown candidates section with suggested end-screen/CTA (via shared shorten), weak-pattern flags, and blank final_choice slots. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packets.
-- Result: Videos published stay 0. New script-to-end-screen candidates tool available for every future packet to reduce blank-page end-screen drafting. Pre-upload path remains stable. Upload still blocked only on the three secrets.
-- Verification: Tool created and committed via GitHub API. Structure confirmed; no-write by design. Exit 0 always (informational).
-- Discovery: Manual end-screen drafting currently requires scanning the script for next-step/mechanism phrases and writing short specific CTAs from scratch while avoiding weak bait; a single candidates printer reduces that publish-stage step on every packet.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials.
