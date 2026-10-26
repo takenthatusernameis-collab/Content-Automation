@@ -20,6 +20,9 @@ Keep ORIGINAL_MASTER_PROMPT.md archival and unchanged.
 
 See NEXT_RUN_PROMPT.md for the copy-paste addendum.
 
+## Run 827 — 2026-10-26T23:14:00Z
+Evidence: Runs 821-826 each added a new script_*_brief.py or *_candidates.py (or packet_readiness_brief) while videos published stayed 0 and the OAuth stall continued. The existing saturation_guard regex did not fully catch these patterns. Lesson: inspection/candidate generators are low-leverage once the preferred list is complete; strengthen the saturation detector and prefer the human OAuth step or a true production capability that advances a packet toward completion. Do not add more brief or candidates tools while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
+
 ## Run 309
 Evidence: prove_locks existed and passed locally, but CI did not run it. A remembered command is not a lock. Prefer wiring an existing check into the workflow that already runs on push over adding a new upload status reason while OAuth is still the publish gate.
 
