@@ -34,6 +34,7 @@ PREVIEWS = [
     ("packet_status", "tools/packet_status_card.py"),
     ("hook", "tools/hook_preview.py"),
     ("claims", "tools/claims_preview.py"),
+    ("structure", "tools/structure_preview.py"),
 ]
 
 

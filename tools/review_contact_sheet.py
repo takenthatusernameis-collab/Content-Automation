@@ -23,6 +23,7 @@ from PIL import Image, ImageDraw, ImageFont
 CANDIDATES = [
     ("hook", "hook_preview.png"),
     ("claims", "claims_preview.png"),
+    ("structure", "structure_preview.png"),
     ("title", "title_variants_preview.png"),
     ("status", "packet_status_card.png"),
     ("storyboard", "storyboard_preview.png"),

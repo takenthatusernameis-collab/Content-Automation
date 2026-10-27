@@ -1,5 +1,12 @@
 # PROGRESS
 
+- Reusable capability: tools/structure_preview.py produces a local 1280x720 PNG of ## sections and spoken-word counts from script.md with SHORT/OK/LONG status versus explainer targets. tools/preview_all.py now includes it. Agents or humans run one command to get a glanceable structure outline instead of opening the script or running words.py just to review beat lengths on every packet. No invented content. Binaries stay gitignored. Reduces structure-review labor on every future video.
+- Small new production tool + integration only. No packet content writes, no secrets polled.
+- Human labor reduction: lower time spent confirming section outline and word bands; one image replaces opening the full script and counting for the common case.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
+# PROGRESS
+
 - Reusable capability: tools/review_contact_sheet.py produces a local multi-panel overview PNG compositing available review previews (hook, claims, title variants, packet status, storyboard, pacing, etc.). tools/preview_all.py now generates it after successful previews. Agents or humans run one command to get both the individual previews and a single glanceable overview sheet instead of opening many separate files on every packet. No invented content. Binaries stay gitignored. Reduces multi-file visual review labor on every future video.
 - Small new production tool + integration only. No packet content writes, no secrets polled.
 - Human labor reduction: lower time spent opening and comparing many preview PNGs; one contact sheet replaces sequential file opens for the common overview case.

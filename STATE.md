@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-27T19:20:00Z (Run 847)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/structure_preview.py — a local Pillow generator that extracts ## sections and spoken-word counts from script.md and renders a 1280x720 outline card with SHORT/OK/LONG status vs explainer targets. Updated tools/preview_all.py to include the structure preview. Updated .gitignore to exclude videos/**/structure_preview.png. Reduces recurring human labor of opening the script or running words.py just to review beat structure and lengths on every future packet. One command produces a glanceable structure image. No packet content edits, no invented claims, no secrets polled. Binaries remain gitignored. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
+
+# STATE
+
 2026-10-27T18:15:00Z (Run 846)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/review_contact_sheet.py — a local Pillow generator that composites available review preview PNGs (hook, claims, title variants, packet status, storyboard, pacing, etc.) into a single multi-panel overview PNG. Updated tools/preview_all.py to generate the contact sheet after successful previews. Updated .gitignore to exclude videos/**/review_contact_sheet.png. Reduces recurring human labor of opening many separate preview files after running preview_all on every future packet. One command produces the full set plus a glanceable overview sheet. No packet content edits, no invented claims, no secrets polled. Binaries remain gitignored. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).

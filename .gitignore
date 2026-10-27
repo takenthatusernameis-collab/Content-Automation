@@ -57,3 +57,4 @@ videos/**/hook_preview.png
 videos/**/claims_preview.png
 # review_contact_sheet.py writes packet/review_contact_sheet.png. Do not commit it.
 videos/**/review_contact_sheet.png
+videos/**/structure_preview.png
