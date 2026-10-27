@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-27T15:25:00Z (Run 844)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/hook_preview.py — a local Pillow generator that produces a 1280x720 PNG of the first WORDS: block (hook) extracted from script.md. Updated tools/preview_all.py to include the hook preview. Reduces recurring human labor of opening the script just to review the opening hook on every future packet. One command produces a glanceable hook image. No packet content edits, no invented claims, no secrets polled. Binaries remain gitignored. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
+
 2026-10-27T14:27:18Z (Run 843)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/packet_status_card.py — a local Pillow generator that produces a 1280x720 status dashboard PNG summarizing title, key file presence, approximate word count, and simple readiness flags from the packet folder. Updated tools/preview_all.py to include the newest visual generators (title variants, VO waveform/stats, packet status). Reduces recurring human labor of opening multiple files and running several status/preview tools just to get an at-a-glance packet health picture on every future packet. One command (preview_all or the new card) produces glanceable review images. No packet content edits, no invented claims, no secrets polled. Binaries remain gitignored. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
