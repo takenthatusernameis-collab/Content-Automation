@@ -43,3 +43,5 @@ __pycache__/
 videos/**/thumbnail_variant_*.png
 # thumbnail_contact_sheet.py writes packet/thumbnail_contact_sheet.png. Do not commit it.
 videos/**/thumbnail_contact_sheet.png
+# vo_waveform_preview.py writes packet/vo_waveform_preview.png. Do not commit it.
+videos/**/vo_waveform_preview.png
