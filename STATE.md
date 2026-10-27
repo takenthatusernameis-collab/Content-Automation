@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-27T22:20:00Z (Run 850)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/key_moments_preview.py — a local Pillow generator that extracts Hook (first WORDS), Payoff WORDS, and CTA WORDS from script.md and renders them stacked on one 1280x720 card. Updated tools/preview_all.py to include the key moments preview. Updated .gitignore to exclude videos/**/key_moments_preview.png. Reduces recurring human labor of checking three separate section previews or scrolling the script just to review the critical retention points (open, promise, close) on every future packet. One command produces a glanceable key-moments image. No packet content edits, no invented claims, no secrets polled. Binaries remain gitignored. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
+
+# STATE
+
 2026-10-27T21:15:00Z (Run 849)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/payoff_preview.py — a local Pillow generator that extracts the Payoff section WORDS from script.md and renders a 1280x720 readable card. Updated tools/preview_all.py to include the payoff preview. Updated .gitignore to exclude videos/**/payoff_preview.png. Reduces recurring human labor of scanning the script just to review the payoff promise on every future packet. One command produces a glanceable payoff image. No packet content edits, no invented claims, no secrets polled. Binaries remain gitignored. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
