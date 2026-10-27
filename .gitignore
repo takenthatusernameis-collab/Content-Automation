@@ -53,3 +53,5 @@ videos/**/title_variants_preview.png
 videos/**/packet_status_card.png
 # hook_preview.py writes packet/hook_preview.png. Do not commit it.
 videos/**/hook_preview.png
+# claims_preview.py writes packet/claims_preview.png. Do not commit it.
+videos/**/claims_preview.png
