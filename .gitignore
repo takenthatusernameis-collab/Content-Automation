@@ -20,6 +20,8 @@ videos/**/thumbnail.png
 videos/**/end_screen_preview.png
 # storyboard_preview.py writes packet/storyboard_preview.png. Do not commit it.
 videos/**/storyboard_preview.png
+# pacing_timeline.py writes packet/pacing_timeline.png. Do not commit it.
+videos/**/pacing_timeline.png
 
 # Repo-root dumps are not Selected VO and are not planned cards.
 /vo/
