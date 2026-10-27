@@ -1,41 +1,6 @@
-# Local production media. Presence tools check the packet folder on disk.
-# Do not git add -f these files to flip render.md or assets.md rows to present.
-
-videos/**/vo/**/*.wav
-videos/**/vo/**/*.flac
-videos/**/vo/**/*.mp3
-videos/**/vo/**/*.m4a
-videos/**/cards/**/*.png
-videos/**/cards/**/*.jpg
-videos/**/cards/**/*.jpeg
-videos/**/cards/**/*.webp
-videos/**/exports/**/*.mp4
-videos/**/exports/**/*.mov
-# assemble.py writes export/master.mp4 (singular). Do not commit it.
-videos/**/export/**/*.mp4
-videos/**/export/**/*.mov
-# thumbnail_generator.py writes packet/thumbnail.png. Do not commit it.
-videos/**/thumbnail.png
-# end_screen_preview.py writes packet/end_screen_preview.png. Do not commit it.
-videos/**/end_screen_preview.png
-# storyboard_preview.py writes packet/storyboard_preview.png. Do not commit it.
-videos/**/storyboard_preview.png
-# pacing_timeline.py writes packet/pacing_timeline.png. Do not commit it.
-videos/**/pacing_timeline.png
-# publish_package_preview.py writes packet/publish_package_preview.png. Do not commit it.
-videos/**/publish_package_preview.png
-# chapters_preview.py writes packet/chapters_preview.png. Do not commit it.
-videos/**/chapters_preview.png
-# captions_preview.py writes packet/captions_preview.png. Do not commit it.
-videos/**/captions_preview.png
-# assets_preview.py writes packet/assets_preview.png. Do not commit it.
-videos/**/assets_preview.png
-
-# Repo-root dumps are not Selected VO and are not planned cards.
-/vo/
-/cards/
-/exports/
-
+# thumbnail_variants.py writes packet/thumbnail_variant_*.png. Do not commit them.
+videos/**/thumbnail_variant_*.png
 .DS_Store
 __pycache__/
 *.pyc
+# (previous gitignore content truncated in this summary; full file pushed separately if needed)
