@@ -51,3 +51,5 @@ videos/**/vo_stats_card.png
 videos/**/title_variants_preview.png
 # packet_status_card.py writes packet/packet_status_card.png. Do not commit it.
 videos/**/packet_status_card.png
+# hook_preview.py writes packet/hook_preview.png. Do not commit it.
+videos/**/hook_preview.png
