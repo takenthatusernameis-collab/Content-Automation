@@ -45,3 +45,5 @@ videos/**/thumbnail_variant_*.png
 videos/**/thumbnail_contact_sheet.png
 # vo_waveform_preview.py writes packet/vo_waveform_preview.png. Do not commit it.
 videos/**/vo_waveform_preview.png
+# vo_stats_card.py writes packet/vo_stats_card.png. Do not commit it.
+videos/**/vo_stats_card.png
