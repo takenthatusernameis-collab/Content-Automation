@@ -49,3 +49,5 @@ videos/**/vo_waveform_preview.png
 videos/**/vo_stats_card.png
 # title_variants_preview.py writes packet/title_variants_preview.png. Do not commit it.
 videos/**/title_variants_preview.png
+# packet_status_card.py writes packet/packet_status_card.png. Do not commit it.
+videos/**/packet_status_card.png

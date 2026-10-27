@@ -2,8 +2,9 @@
 """Generate all local preview PNGs for a packet in one command.
 
 Runs the existing deterministic preview generators (assets, captions, chapters,
-publish package, pacing, storyboard, end-screen, thumbnail) and reports which
-succeeded. No invented content. Outputs stay local and gitignored.
+publish package, pacing, storyboard, end-screen, thumbnail, title variants,
+VO waveform, VO stats, packet status) and reports which succeeded.
+No invented content. Outputs stay local and gitignored.
 
 Reduces recurring human labor of remembering and invoking each preview tool
 separately on every future packet. One command produces the full visual review set.
@@ -25,6 +26,10 @@ PREVIEWS = [
     ("storyboard", "tools/storyboard_preview.py"),
     ("end_screen", "tools/end_screen_preview.py"),
     ("thumbnail", "tools/thumbnail_generator.py"),
+    ("title_variants", "tools/title_variants_preview.py"),
+    ("vo_waveform", "tools/vo_waveform_preview.py"),
+    ("vo_stats", "tools/vo_stats_card.py"),
+    ("packet_status", "tools/packet_status_card.py"),
 ]
 
 
@@ -66,7 +71,7 @@ def main() -> int:
         ok, msg = run_one(script, packet)
         results.append((name, ok, msg))
         status = "OK" if ok else "FAIL"
-        print(f"  {status:4} {name:12} {msg}")
+        print(f"  {status:4} {name:16} {msg}")
 
     ok_count = sum(1 for _, ok, _ in results if ok)
     print(f"\n{ok_count}/{len(results)} previews generated (binaries gitignored)")
