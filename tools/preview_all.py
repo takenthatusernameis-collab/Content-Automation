@@ -3,7 +3,7 @@
 
 Runs the existing deterministic preview generators (assets, captions, chapters,
 publish package, pacing, storyboard, end-screen, thumbnail, title variants,
-VO waveform, VO stats, packet status, hook, claims, structure, cta, payoff, key moments) and reports which succeeded.
+VO waveform, VO stats, packet status, hook, claims, structure, cta, payoff, key moments, quality overview) and reports which succeeded.
 Then generates a review contact sheet from the available previews.
 No invented content. Outputs stay local and gitignored.
 
@@ -38,6 +38,7 @@ PREVIEWS = [
     ("cta", "tools/cta_preview.py"),
     ("payoff", "tools/payoff_preview.py"),
     ("key_moments", "tools/key_moments_preview.py"),
+    ("quality_overview", "tools/quality_overview_preview.py"),
 ]
 
 
