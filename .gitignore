@@ -16,6 +16,8 @@ videos/**/export/**/*.mp4
 videos/**/export/**/*.mov
 # thumbnail_generator.py writes packet/thumbnail.png. Do not commit it.
 videos/**/thumbnail.png
+# end_screen_preview.py writes packet/end_screen_preview.png. Do not commit it.
+videos/**/end_screen_preview.png
 
 # Repo-root dumps are not Selected VO and are not planned cards.
 /vo/
