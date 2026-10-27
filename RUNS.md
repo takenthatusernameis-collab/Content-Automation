@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 832 — 2026-10-27T02:17:00Z
+- Objective: Add one small reusable production capability that compounds for future runs by generating a local pacing timeline PNG from script word counts at 150 wpm, reducing human labor of calculating and visualizing segment durations for every packet.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/pacing_timeline.py (Pillow, 1920x1080, extracts beats, estimates durations, renders timeline bars + detail list). Updated .gitignore to exclude videos/**/pacing_timeline.png. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test produced valid PNG (~50KB).
+- Result: Videos published stay 0. New pacing timeline generator available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Binary stays local.
+- Verification: Tool created, committed via GitHub API, and tested locally (1920x1080 PNG, 49934 bytes). Structure confirmed. No-write of packet content by design.
+- Discovery: Script.md ## beat sections already contain countable WORDS; a deterministic timeline fills the pacing-visualization gap without external tools or VO.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
 ## Run 831 — 2026-10-27T01:21:43Z
 - Objective: Add one small reusable production capability that compounds for future runs by generating a local multi-panel storyboard preview PNG from script beats, reducing human labor of scanning full scripts for structure overview on every packet.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/storyboard_preview.py (Pillow, 1920x1080, extracts Hook/Payoff/Beats/CTA with short summaries). Updated .gitignore to exclude videos/**/storyboard_preview.png. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test produced valid PNG.
@@ -15,14 +24,5 @@
 - Result: Videos published stay 0. New end-screen preview generator available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Binary stays local.
 - Verification: Tool created and committed via GitHub API. Structure confirmed. No-write of packet content by design.
 - Discovery: Format rule requires last 20s CTA readable with lower areas clear for YouTube elements; a deterministic preview fills the visual guidance gap without external design tools.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-## Run 829 — 2026-10-26T23:16:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by generating a valid local YouTube thumbnail PNG from the locked title, reducing human design labor for every packet.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/thumbnail_generator.py (Pillow, 1280x720, from publish.md title). Updated .gitignore to exclude videos/**/thumbnail.png. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
-- Result: Videos published stay 0. New thumbnail generator available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Binary stays local.
-- Verification: Tool created and committed via GitHub API. Local test produced valid 1280x720 PNG (28871 bytes). Structure confirmed. No-write of packet content by design.
-- Discovery: youtube_upload.py already validates packet/thumbnail.png; a deterministic generator fills the gap without requiring external design tools or stock.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
