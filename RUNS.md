@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 849 — 2026-10-27T21:15:00Z
+- Objective: Add one small reusable production capability that compounds for future runs by generating a local preview PNG of the payoff promise text from script.md, reducing human labor of scanning the script just to review the payoff on every packet.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/payoff_preview.py (Pillow, 1280x720 card with Payoff WORDS extracted). Updated tools/preview_all.py to include payoff. Updated .gitignore to exclude videos/**/payoff_preview.png. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test on sample script.md produced a valid ~50KB preview.
+- Result: Videos published stay 0. New payoff preview generator available for every future packet that has a script.md. Pre-upload path remains stable. Upload still blocked only on the three secrets. Binaries stay local.
+- Verification: Tool created and tested locally (PNG written). Structure confirmed. Handles missing script.md fail-closed. No-write of packet content by design. preview_all list extended.
+- Discovery: Payoff promise is critical for retention; a dedicated visual extract fills the quick-payoff-review gap without external services.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
+# RUNS
+
 ## Run 848 — 2026-10-27T20:20:00Z
 - Objective: Add one small reusable production capability that compounds for future runs by generating a local preview PNG of the CTA text from script.md, reducing human labor of scrolling to the end of the script just to review the closing CTA on every packet.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/cta_preview.py (Pillow, 1280x720 card with CTA WORDS extracted). Updated tools/preview_all.py to include cta. Updated .gitignore to exclude videos/**/cta_preview.png. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test on Q1 script.md produced a valid ~49KB preview.
