@@ -18,6 +18,8 @@ videos/**/export/**/*.mov
 videos/**/thumbnail.png
 # end_screen_preview.py writes packet/end_screen_preview.png. Do not commit it.
 videos/**/end_screen_preview.png
+# storyboard_preview.py writes packet/storyboard_preview.png. Do not commit it.
+videos/**/storyboard_preview.png
 
 # Repo-root dumps are not Selected VO and are not planned cards.
 /vo/
