@@ -41,3 +41,5 @@ __pycache__/
 *.pyc
 # thumbnail_variants.py writes packet/thumbnail_variant_*.png. Do not commit them.
 videos/**/thumbnail_variant_*.png
+# thumbnail_contact_sheet.py writes packet/thumbnail_contact_sheet.png. Do not commit it.
+videos/**/thumbnail_contact_sheet.png
