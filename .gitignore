@@ -60,3 +60,5 @@ videos/**/review_contact_sheet.png
 videos/**/structure_preview.png
 # cta_preview.py writes packet/cta_preview.png. Do not commit it.
 videos/**/cta_preview.png
+# payoff_preview.py writes packet/payoff_preview.png. Do not commit it.
+videos/**/payoff_preview.png
