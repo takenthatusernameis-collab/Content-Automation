@@ -35,6 +35,7 @@ PREVIEWS = [
     ("hook", "tools/hook_preview.py"),
     ("claims", "tools/claims_preview.py"),
     ("structure", "tools/structure_preview.py"),
+    ("cta", "tools/cta_preview.py"),
 ]
 
 
