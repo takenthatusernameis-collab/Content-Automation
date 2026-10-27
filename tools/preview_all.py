@@ -3,7 +3,7 @@
 
 Runs the existing deterministic preview generators (assets, captions, chapters,
 publish package, pacing, storyboard, end-screen, thumbnail, title variants,
-VO waveform, VO stats, packet status) and reports which succeeded.
+VO waveform, VO stats, packet status, hook) and reports which succeeded.
 No invented content. Outputs stay local and gitignored.
 
 Reduces recurring human labor of remembering and invoking each preview tool
@@ -30,6 +30,7 @@ PREVIEWS = [
     ("vo_waveform", "tools/vo_waveform_preview.py"),
     ("vo_stats", "tools/vo_stats_card.py"),
     ("packet_status", "tools/packet_status_card.py"),
+    ("hook", "tools/hook_preview.py"),
 ]
 
 
