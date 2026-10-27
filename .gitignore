@@ -55,3 +55,5 @@ videos/**/packet_status_card.png
 videos/**/hook_preview.png
 # claims_preview.py writes packet/claims_preview.png. Do not commit it.
 videos/**/claims_preview.png
+# review_contact_sheet.py writes packet/review_contact_sheet.png. Do not commit it.
+videos/**/review_contact_sheet.png

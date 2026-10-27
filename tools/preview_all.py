@@ -4,10 +4,12 @@
 Runs the existing deterministic preview generators (assets, captions, chapters,
 publish package, pacing, storyboard, end-screen, thumbnail, title variants,
 VO waveform, VO stats, packet status, hook, claims) and reports which succeeded.
+Then generates a review contact sheet from the available previews.
 No invented content. Outputs stay local and gitignored.
 
 Reduces recurring human labor of remembering and invoking each preview tool
-separately on every future packet. One command produces the full visual review set.
+separately on every future packet. One command produces the full visual review set
+plus a single overview sheet.
 """
 
 from __future__ import annotations
@@ -77,6 +79,18 @@ def main() -> int:
 
     ok_count = sum(1 for _, ok, _ in results if ok)
     print(f"\n{ok_count}/{len(results)} previews generated (binaries gitignored)")
+
+    # Generate overview contact sheet if any previews succeeded
+    if ok_count > 0:
+        sheet_script = repo_root / "tools" / "review_contact_sheet.py"
+        if sheet_script.is_file():
+            print("\ngenerating review contact sheet...")
+            ok, msg = run_one(sheet_script, packet)
+            status = "OK" if ok else "FAIL"
+            print(f"  {status:4} review_sheet     {msg}")
+        else:
+            print("\n(review_contact_sheet.py not found; skipping overview)")
+
     return 0 if ok_count > 0 else 1
 
 
