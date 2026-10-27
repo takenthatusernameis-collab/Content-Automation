@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-27T06:15:00Z (Run 836)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/assets_preview.py — a local Pillow-based generator that parses the ## Cards table from assets.md and writes a 1920x1080 PNG visual list of planned cards with beat, type, status, and truncated need. Reduces recurring human labor of scanning assets.md to review the visual plan and card statuses on every future packet. No packet content edits, no invented claims, no secrets polled. Binary is gitignored. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
+
 2026-10-27T05:15:00Z (Run 835)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/captions_preview.py — a local Pillow-based generator that parses captions.srt cues and writes a 1920x1080 PNG visual list of the first ~15 cues with short timings and truncated text. Reduces recurring human labor of scanning the full SRT to review caption timing and text quality on every future packet. No packet content edits, no invented claims, no secrets polled. Binary is gitignored. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
