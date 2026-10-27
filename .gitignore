@@ -26,6 +26,8 @@ videos/**/pacing_timeline.png
 videos/**/publish_package_preview.png
 # chapters_preview.py writes packet/chapters_preview.png. Do not commit it.
 videos/**/chapters_preview.png
+# captions_preview.py writes packet/captions_preview.png. Do not commit it.
+videos/**/captions_preview.png
 
 # Repo-root dumps are not Selected VO and are not planned cards.
 /vo/
