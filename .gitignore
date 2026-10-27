@@ -64,3 +64,5 @@ videos/**/cta_preview.png
 videos/**/payoff_preview.png
 # key_moments_preview.py writes packet/key_moments_preview.png. Do not commit it.
 videos/**/key_moments_preview.png
+# quality_overview_preview.py writes packet/quality_overview_preview.png. Do not commit it.
+videos/**/quality_overview_preview.png

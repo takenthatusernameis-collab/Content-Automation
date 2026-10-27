@@ -1,72 +1,21 @@
 # RUNS
 
+## Run 851 — 2026-10-28T00:15:00Z
+- Objective: Add one small reusable production capability that compounds for future runs by generating a local preview PNG summarizing quality signals (anti-slop hits, digit tokens, hedge phrases) from spoken WORDS in script.md, reducing human labor of running scanners and reading text output just to confirm quality status on every packet.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/quality_overview_preview.py (Pillow, 1280x720 card with CLEAR/ISSUES status and signal counts). Updated tools/preview_all.py to include quality overview. Updated .gitignore to exclude videos/**/quality_overview_preview.png. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test on sample script.md produced a valid ~42KB preview with ISSUES status.
+- Result: Videos published stay 0. New quality overview preview generator available for every future packet that has a script.md. Pre-upload path remains stable. Upload still blocked only on the three secrets. Binaries stay local.
+- Verification: Tool created and tested locally (PNG written). Structure confirmed. Handles missing script.md fail-closed. No-write of packet content by design. preview_all list extended. Uses shared phrase_utils when available.
+- Discovery: Quality status is a recurring check before promotion; a single visual summary fills the quick-quality-glance gap without external services or full scanner output.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
+# RUNS
+
 ## Run 850 — 2026-10-27T22:20:00Z
 - Objective: Add one small reusable production capability that compounds for future runs by generating a local preview PNG of the three key moments (Hook, Payoff, CTA) stacked from script.md, reducing human labor of checking separate previews or scrolling just to review the critical retention points on every packet.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/key_moments_preview.py (Pillow, 1280x720 stacked card with Hook + Payoff + CTA WORDS extracted). Updated tools/preview_all.py to include key_moments. Updated .gitignore to exclude videos/**/key_moments_preview.png. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
 - Result: Videos published stay 0. New key moments preview generator available for every future packet that has a script.md. Pre-upload path remains stable. Upload still blocked only on the three secrets. Binaries stay local.
 - Verification: Tool created. Structure confirmed. Handles missing script.md fail-closed. No-write of packet content by design. preview_all list extended.
 - Discovery: Critical retention points (open, promise, close) are often reviewed together; a single stacked visual fills the multi-section glance gap without external services.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-# RUNS
-
-## Run 849 — 2026-10-27T21:15:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by generating a local preview PNG of the payoff promise text from script.md, reducing human labor of scanning the script just to review the payoff on every packet.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/payoff_preview.py (Pillow, 1280x720 card with Payoff WORDS extracted). Updated tools/preview_all.py to include payoff. Updated .gitignore to exclude videos/**/payoff_preview.png. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test on sample script.md produced a valid ~50KB preview.
-- Result: Videos published stay 0. New payoff preview generator available for every future packet that has a script.md. Pre-upload path remains stable. Upload still blocked only on the three secrets. Binaries stay local.
-- Verification: Tool created and tested locally (PNG written). Structure confirmed. Handles missing script.md fail-closed. No-write of packet content by design. preview_all list extended.
-- Discovery: Payoff promise is critical for retention; a dedicated visual extract fills the quick-payoff-review gap without external services.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-# RUNS
-
-## Run 848 — 2026-10-27T20:20:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by generating a local preview PNG of the CTA text from script.md, reducing human labor of scrolling to the end of the script just to review the closing CTA on every packet.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/cta_preview.py (Pillow, 1280x720 card with CTA WORDS extracted). Updated tools/preview_all.py to include cta. Updated .gitignore to exclude videos/**/cta_preview.png. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test on Q1 script.md produced a valid ~49KB preview.
-- Result: Videos published stay 0. New CTA preview generator available for every future packet that has a script.md. Pre-upload path remains stable. Upload still blocked only on the three secrets. Binaries stay local.
-- Verification: Tool created and tested locally (PNG written). Structure confirmed. Handles missing script.md fail-closed. No-write of packet content by design. preview_all list extended.
-- Discovery: CTA is the critical closing; a dedicated visual extract fills the quick-CTA-review gap without external services.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-# RUNS
-
-## Run 847 — 2026-10-27T19:20:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by generating a local preview PNG of script structure (sections + word counts + band status), reducing human labor of opening the script or running words.py just to review beat outline and lengths on every packet.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/structure_preview.py (Pillow, 1280x720 card with ## headings, word counts, SHORT/OK/LONG). Updated tools/preview_all.py to include structure. Updated .gitignore to exclude videos/**/structure_preview.png. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test on Q1 script.md produced a valid ~55KB preview with 7 sections.
-- Result: Videos published stay 0. New structure preview generator available for every future packet that has a script.md. Pre-upload path remains stable. Upload still blocked only on the three secrets. Binaries stay local.
-- Verification: Tool created and tested locally (PNG written). Structure confirmed. Handles missing script.md fail-closed. No-write of packet content by design. preview_all list extended.
-- Discovery: Structure and beat-length review is a recurring human step; a dedicated visual outline fills the quick-structure-review gap without external services or full word-count tooling.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-# RUNS
-
-## Run 846 — 2026-10-27T18:15:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by generating a local multi-panel contact sheet PNG of the main review previews, reducing human labor of opening many separate preview files after running preview_all on every packet.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/review_contact_sheet.py (Pillow, composites available previews like hook/claims/title/status/storyboard into one overview sheet). Updated tools/preview_all.py to generate the sheet after successful previews. Updated .gitignore to exclude videos/**/review_contact_sheet.png. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test on dummy previews produced a valid ~16KB overview sheet.
-- Result: Videos published stay 0. New review contact sheet available for every future packet that has generated previews. Pre-upload path remains stable. Upload still blocked only on the three secrets. Binaries stay local.
-- Verification: Tool created and tested locally (PNG written). Structure confirmed. Handles missing previews fail-closed (requires at least one). No-write of packet content by design. preview_all now invokes it.
-- Discovery: Individual previews exist; a single overview contact sheet fills the quick multi-file visual review gap without external services.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-## Run 845 — 2026-10-27T17:20:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by generating a local preview PNG of digit tokens and hedge phrases from script.md WORDS, reducing human labor of running claim_scan and opening the script just to review factual claims on every packet.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/claims_preview.py (Pillow, 1280x720 card listing digits and hedges extracted from spoken WORDS). Updated tools/preview_all.py to include claims. Updated .gitignore to exclude videos/**/claims_preview.png. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test on dummy script.md produced a valid ~40KB preview with 4 claims detected.
-- Result: Videos published stay 0. New claims preview generator available for every future packet that has a script.md. Pre-upload path remains stable. Upload still blocked only on the three secrets. Binaries stay local.
-- Verification: Tool created and tested locally (PNG written). Structure confirmed. Handles missing script.md fail-closed. No-write of packet content by design. preview_all list extended.
-- Discovery: Claim review is a recurring human step; a dedicated visual extract fills the quick-claims-review gap without external services or full scan output.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-## Run 844 — 2026-10-27T15:25:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by generating a local preview PNG of the hook text from script.md, reducing human labor of opening the script just to review the opening on every packet.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/hook_preview.py (Pillow, 1280x720 card with first WORDS: block extracted from script.md). Updated tools/preview_all.py to include hook. Updated .gitignore to exclude videos/**/hook_preview.png. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test on dummy script.md produced a valid ~39KB preview.
-- Result: Videos published stay 0. New hook preview generator available for every future packet that has a script.md. Pre-upload path remains stable. Upload still blocked only on the three secrets. Binaries stay local.
-- Verification: Tool created and tested locally (PNG written). Structure confirmed. Handles missing script.md fail-closed. No-write of packet content by design. preview_all list extended.
-- Discovery: Hook is the critical first 10-15s; a dedicated visual extract fills the quick-hook-review gap without external services.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
