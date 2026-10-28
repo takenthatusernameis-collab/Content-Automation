@@ -54,16 +54,16 @@ def suggest_placements(problem: str, mech: str) -> list[str]:
 
 def extract_cta_spoken(text: str) -> str:
     sections: list[tuple[str, str]] = []
-    pattern = re.compile(r"^##\\s+(.+?)\\s*$", re.M)
+    pattern = re.compile(r"^##\s+(.+?)\s*$", re.M)
     matches = list(pattern.finditer(text))
     for i, m in enumerate(matches):
         header = m.group(1).strip()
         start = m.end()
         end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
         block = text[start:end]
-        wm = re.search(r"WORDS:\\s*(.*?)(?:\\nVISUAL:|\\n##|\\Z)", block, re.S | re.I)
+        wm = re.search(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n##|\Z)", block, re.S | re.I)
         if wm:
-            spoken = re.sub(r"\\s+", " ", wm.group(1).strip())
+            spoken = re.sub(r"\s+", " ", wm.group(1).strip())
             if spoken:
                 sections.append((header, spoken))
     if not sections:
@@ -152,7 +152,7 @@ def main() -> int:
         "Use one of the placements above. Do not invent a new location or default.",
     ])
 
-    out_path.write_text("\\n".join(lines) + "\\n", encoding="utf-8")
+    out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"WROTE: {out_path}")
     print(f"placements: {len(placements)}")
     print(f"mech_found: {bool(mech)}")
