@@ -108,3 +108,5 @@ videos/**/description_install_section.md
 videos/**/first_comment_install.md
 # install_package.py writes packet/install_package.md. Do not commit it.
 videos/**/install_package.md
+# install_verifier.py writes packet/install_verifier.md. Do not commit it.
+videos/**/install_verifier.md
