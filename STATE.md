@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-28T07:30:00Z (Run 857)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/visual_plan_draft.py — a local stdlib generator that extracts ## sections and spoken WORDS from script.md, estimates cumulative start times at 150 wpm, suggests short card texts, and writes a paste-ready visual_plan_draft.md with b-roll and card-file slots. Updated .gitignore to exclude videos/**/visual_plan_draft.md. Reduces recurring human labor of planning section-tied visuals and card texts for assets.md or editor notes on every future packet. One command produces a usable visual plan draft from the script structure. No packet content edits, no invented claims, no secrets polled. Text output stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
+
+# STATE
+
 2026-10-28T06:15:00Z (Run 856)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/publish_md_draft.py — a local stdlib generator that extracts topic/problem/mechanism from idea.md, produces a title candidate, operational description (summary + estimated chapters at 150 wpm from script.md when present), tags, and CTA candidate, and writes a paste-ready publish_draft.md. Updated .gitignore to exclude videos/**/publish_draft.md. Reduces recurring human labor of assembling full publish.md from multiple sources for Studio or the packet on every future packet. One command produces a usable complete publish draft. No packet content edits, no invented claims, no secrets polled. Text output stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
