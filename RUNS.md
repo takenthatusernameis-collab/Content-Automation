@@ -1,43 +1,21 @@
 # RUNS
 
+## Run 858 — 2026-10-28T08:15:00Z
+- Objective: Add one small reusable production capability that compounds for future runs by providing a one-command orchestrator for the existing local text-draft generators, reducing human labor of remembering and invoking each draft tool separately on every packet.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/drafts_all.py (stdlib orchestrator; runs chapters_from_script.py, full_description_draft.py, metadata_pack.py, publish_md_draft.py, visual_plan_draft.py; reports results). No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test on sample packet produced all five drafts successfully.
+- Result: Videos published stay 0. New drafts aggregator available for every future packet that has idea.md and/or script.md. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text outputs stay local.
+- Verification: Tool created and tested locally (all five draft files written with correct content). Structure confirmed. Handles missing files fail-closed per underlying tools. No-write of packet content by design.
+- Discovery: Running the individual draft tools is a recurring multi-step task once idea and script exist; an automatic orchestrator fills the early-prep gap without external services.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
+# RUNS
+
 ## Run 857 — 2026-10-28T07:30:00Z
 - Objective: Add one small reusable production capability that compounds for future runs by generating a local paste-ready visual plan draft (section-tied estimated start times at 150 wpm + suggested short card texts + b-roll and card-file slots from script.md spoken sections), reducing human labor of manually planning section visuals and card texts for assets.md or editor notes on every packet.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/visual_plan_draft.py (stdlib; writes packet/visual_plan_draft.md). Updated .gitignore to exclude videos/**/visual_plan_draft.md. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test on sample packet produced valid visual_plan_draft.md with real section times and card suggestions.
 - Result: Videos published stay 0. New visual plan draft generator available for every future packet that has a script.md. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
 - Verification: Tool created and tested locally (visual_plan_draft.md written with correct sections and estimates). Structure confirmed. Handles missing script.md fail-closed. No-write of packet content by design. Imports shared shorten when available.
 - Discovery: Planning section-tied visuals and short card texts is a recurring task once a script exists; an automatic draft fills the early-visual-plan gap without external services or media generation.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-# RUNS
-
-## Run 856 — 2026-10-28T06:15:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by generating a local paste-ready publish.md draft (title candidate + operational description with summary + estimated chapters at 150 wpm + tags + CTA from idea.md and optional script.md), reducing human labor of manually assembling full publish metadata for Studio or publish.md on every packet.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/publish_md_draft.py (stdlib; writes packet/publish_draft.md). Updated .gitignore to exclude videos/**/publish_draft.md. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test on sample packet produced valid publish_draft.md with real candidates and chapter estimates.
-- Result: Videos published stay 0. New publish draft generator available for every future packet that has an idea.md (script.md optional). Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: Tool created and tested locally (publish_draft.md written with correct sections). Structure confirmed. Handles missing idea.md fail-closed. No-write of packet content by design. Imports shared extractors when available.
-- Discovery: Assembling the complete publish.md (title + description + tags + CTA) is a recurring task once idea and script exist; an automatic draft fills the early-publish gap without external services.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-# RUNS
-
-## Run 855 — 2026-10-28T03:20:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by generating a local paste-ready metadata pack (title/tag/thumbnail/CTA candidates from idea.md + optional summary + estimated chapters at 150 wpm from script.md), reducing human labor of running multiple suggestors and manually assembling full publish metadata for Studio or publish.md on every packet.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/metadata_pack.py (stdlib; writes packet/metadata_pack.txt). Updated .gitignore to exclude videos/**/metadata_pack.txt. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test on sample packet produced valid metadata_pack.txt with real candidates.
-- Result: Videos published stay 0. New metadata pack generator available for every future packet that has an idea.md (script.md optional). Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: Tool created and tested locally (metadata_pack.txt written with correct sections). Structure confirmed. Handles missing idea.md fail-closed. No-write of packet content by design. Imports shared extractors when available.
-- Discovery: Assembling the complete metadata set (titles + tags + thumbnail text + CTA + description) is a recurring task once idea and script exist; an automatic pack fills the early-metadata gap without external services.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-# RUNS
-
-## Run 854 — 2026-10-28T04:13:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by generating a local paste-ready full description draft (short operational summary + estimated chapters with cumulative start times at 150 wpm from script.md spoken sections), reducing human labor of manually assembling summary + chapters + close for descriptions or Studio on every packet.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/full_description_draft.py (stdlib; writes packet/description_draft.txt). Updated .gitignore to exclude videos/**/description_draft.txt. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test on sample packet produced valid description_draft.txt with real word counts and times.
-- Result: Videos published stay 0. New full description draft generator available for every future packet that has a script.md. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: Tool created and tested locally (description_draft.txt written with correct cumulative times and summary). Structure confirmed. Handles missing script.md fail-closed. No-write of packet content by design. Fixed section extraction to capture post-WORDS text.
-- Discovery: Assembling the complete description (summary + chapters block) is a recurring metadata task once a script exists; an automatic draft from section spoken text fills the early-description gap without audio or external services.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
