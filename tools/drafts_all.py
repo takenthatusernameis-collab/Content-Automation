@@ -23,6 +23,7 @@ DRAFTS = [
     ("metadata", "tools/metadata_pack.py"),
     ("publish", "tools/publish_md_draft.py"),
     ("visual_plan", "tools/visual_plan_draft.py"),
+    ("review_pack", "tools/review_pack.py"),
 ]
 
 

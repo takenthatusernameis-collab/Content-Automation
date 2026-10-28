@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 859 — 2026-10-28T09:20:00Z
+- Objective: Add one small reusable production capability that compounds for future runs by generating a single local review pack consolidating idea excerpt, draft presence status, and short excerpts from existing text drafts into one review_pack.md with checklist, reducing human labor of opening and cross-referencing multiple draft files on every packet.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/review_pack.py (stdlib; writes packet/review_pack.md). Updated .gitignore to exclude videos/**/review_pack.md. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test on sample packet produced valid review_pack.md with status and excerpts.
+- Result: Videos published stay 0. New review pack generator available for every future packet that has idea.md (and optionally drafts). Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Tool created and tested locally (review_pack.md written with correct topic, draft status, excerpts when present). Structure confirmed. Handles missing drafts gracefully. No-write of packet content by design.
+- Discovery: After generating the individual drafts, reviewing them still requires opening several files; a consolidator fills the review-gap without external services.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
+# RUNS
+
 ## Run 858 — 2026-10-28T08:15:00Z
 - Objective: Add one small reusable production capability that compounds for future runs by providing a one-command orchestrator for the existing local text-draft generators, reducing human labor of remembering and invoking each draft tool separately on every packet.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/drafts_all.py (stdlib orchestrator; runs chapters_from_script.py, full_description_draft.py, metadata_pack.py, publish_md_draft.py, visual_plan_draft.py; reports results). No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content. Local test on sample packet produced all five drafts successfully.

@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-28T09:20:00Z (Run 859)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/review_pack.py — a local stdlib generator that consolidates idea.md excerpt, draft file presence status, and short excerpts from any existing chapters/description/metadata/publish/visual drafts into one review_pack.md with a review checklist. Updated .gitignore to exclude videos/**/review_pack.md. Reduces recurring human labor of opening and cross-referencing multiple draft files before copying useful parts into packet files on every future packet. One command produces a single reviewable pack. No packet content edits, no invented claims, no secrets polled. Text output stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
+
+# STATE
+
 2026-10-28T08:15:00Z (Run 858)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/drafts_all.py — a local orchestrator that runs the five existing text-draft generators (chapters_from_script, full_description_draft, metadata_pack, publish_md_draft, visual_plan_draft) in one command and reports which succeeded. Outputs remain gitignored. Reduces recurring human labor of remembering and invoking each draft tool separately on every future packet. One command produces the full set of paste-ready drafts. No packet content edits, no invented claims, no secrets polled. Text outputs stay local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).

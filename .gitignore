@@ -80,3 +80,6 @@ videos/**/publish_draft.md
 
 # visual_plan_draft.py writes packet/visual_plan_draft.md. Do not commit it.
 videos/**/visual_plan_draft.md
+
+# review_pack.py writes packet/review_pack.md. Do not commit it.
+videos/**/review_pack.md
