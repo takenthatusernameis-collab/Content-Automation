@@ -89,3 +89,6 @@ videos/**/captions_estimate.srt
 
 # vo_prep_pack.py writes packet/vo_prep.md. Do not commit it.
 videos/**/vo_prep.md
+
+# read_aloud_flags.py writes packet/read_aloud_flags.md. Do not commit it.
+videos/**/read_aloud_flags.md
