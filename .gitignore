@@ -104,3 +104,5 @@ videos/**/series_continuity_note.md
 videos/**/default_placement_note.md
 # description_install_section.py writes packet/description_install_section.md. Do not commit it.
 videos/**/description_install_section.md
+# first_comment_install.py writes packet/first_comment_install.md. Do not commit it.
+videos/**/first_comment_install.md
