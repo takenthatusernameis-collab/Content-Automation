@@ -77,3 +77,6 @@ videos/**/metadata_pack.txt
 
 # publish_md_draft.py writes packet/publish_draft.md. Do not commit it.
 videos/**/publish_draft.md
+
+# visual_plan_draft.py writes packet/visual_plan_draft.md. Do not commit it.
+videos/**/visual_plan_draft.md
