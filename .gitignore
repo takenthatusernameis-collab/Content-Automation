@@ -94,3 +94,5 @@ videos/**/vo_prep.md
 videos/**/read_aloud_flags.md
 videos/**/end_screen_prep.md
 # end_screen_prep.py writes packet/end_screen_prep.md. Do not commit it.
+# viewer_install_checklist.py writes packet/viewer_install_checklist.md. Do not commit it.
+videos/**/viewer_install_checklist.md
