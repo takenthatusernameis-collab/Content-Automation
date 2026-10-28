@@ -86,3 +86,6 @@ videos/**/review_pack.md
 
 # captions_estimate_srt.py writes packet/captions_estimate.srt. Do not commit it.
 videos/**/captions_estimate.srt
+
+# vo_prep_pack.py writes packet/vo_prep.md. Do not commit it.
+videos/**/vo_prep.md
