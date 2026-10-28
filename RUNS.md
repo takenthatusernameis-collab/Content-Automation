@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 868 — 2026-10-28T18:15:00Z
+- Objective: Add one small reusable production capability that compounds for future runs by generating a local description install section that combines short end-card sentence, grounded placements, and same-day steps from idea.md, reducing human labor of assembling the install-the-default block for the description or pinned comment on every future packet.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/description_install_section.py (stdlib; extracts via idea_utils, keyword-grounded placements and steps only, writes description_install_section.md). Updated .gitignore to exclude videos/**/description_install_section.md. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
+- Result: Videos published stay 0. New description install section generator available for every future packet that has an idea.md. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Tool created and tested on mock packet (structure confirmed; fail-closed on missing idea.md; extracts only existing fields; placements and steps from keyword/field match only; no invention). Handles missing fields. No-write of packet content by design.
+- Discovery: Assembling the install block for description or pinned comment requires combining placement and steps; a single section fills that recurring paste gap without external services.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
+# RUNS
+
 ## Run 867 — 2026-10-28T15:45:00Z
 - Objective: Add one small reusable production capability that compounds for future runs by generating a local default placement note that suggests where the default lives based on keywords already in the problem/mechanism, reducing human labor of deciding the placement sentence for script, description, or end card on every future packet.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/default_placement_note.py (stdlib; extracts via idea_utils, keyword-grounded placements only, writes default_placement_note.md). Updated .gitignore to exclude videos/**/default_placement_note.md. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.

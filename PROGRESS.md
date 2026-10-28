@@ -1,5 +1,12 @@
 # PROGRESS
 
+- Reusable capability: tools/description_install_section.py produces a local description_install_section.md that combines a short end-card/spoken sentence, 1-2 keyword-grounded placement suggestions, and 3-5 same-day operational steps, all extracted only from idea.md mechanism/problem. Agents or humans run one command to get a usable install section instead of assembling placement + steps from separate notes for the description or pinned comment on every future packet. No invented content. Text stays gitignored. Reduces description/pinned-comment assembly labor on every future video. Aligns with channel promise.
+- Small new production tool only. No packet content writes, no secrets polled.
+- Human labor reduction: lower time spent combining placement note and install checklist into a paste-ready description or pinned comment block; one markdown file highlights the short version and the steps.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
+# PROGRESS
+
 - Reusable capability: tools/default_placement_note.py produces a local default_placement_note.md that suggests 1-2 concrete places the default should live, grounded only in keywords already present in the idea.md problem or mechanism, plus a short spoken sentence template. Agents or humans run one command to get a usable placement note instead of deciding "where it lives" from scratch on every future packet. No invented content. Text stays gitignored. Reduces placement-sentence labor on every future video. Aligns with channel voice.
 - Small new production tool only. No packet content writes, no secrets polled.
 - Human labor reduction: lower time spent choosing and phrasing the location of the default for the script, description, or end card; one markdown file highlights grounded options and a template.

@@ -1,3 +1,14 @@
+2026-10-28T18:15:00Z (Run 868)
+
+Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.
+
+**Current state**
+- Videos published: 0
+- Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Issue #1. Do not poll.
+- Media: Q1 VO + cards + r253 master ready after materialize; do not rematerialize if present. Do not regenerate.
+- New: tools/description_install_section.py generates a local description_install_section.md with short end-card sentence, grounded placements, and same-day install steps from idea.md. Gitignored. Reduces assembly labor for description or pinned comment install block.
+- Preferred unblocked list: complete. Next is the human step or a truly new production capability (not another status/polish/inspection/brief/candidates tool).
+
 2026-10-28T15:30:00Z (Run 865)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py`.

@@ -102,3 +102,5 @@ videos/**/recording_session_checklist.md
 videos/**/series_continuity_note.md
 # default_placement_note.py writes packet/default_placement_note.md. Do not commit it.
 videos/**/default_placement_note.md
+# description_install_section.py writes packet/description_install_section.md. Do not commit it.
+videos/**/description_install_section.md
