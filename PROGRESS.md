@@ -1,5 +1,12 @@
 # PROGRESS
 
+- Reusable capability: tools/install_package.py produces a local install_package.md that consolidates the short assignment, 1-2 keyword-grounded placement suggestions, 3-5 same-day operational steps, pin-candidate comment, and description section, all extracted only from idea.md mechanism/problem. Agents or humans run one command to get a usable consolidated package instead of running multiple separate note generators and reconciling outputs for the install-the-default action on every future packet. No invented content. Text stays gitignored. Reduces multi-tool paste labor on every future video. Aligns with channel promise and avoids reply prompts.
+- Small new production tool only. No packet content writes, no secrets polled.
+- Human labor reduction: lower time spent running several generators and pasting from several files for the assignment, placement, steps, pin, and description block; one markdown file highlights all of them consistently.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
+# PROGRESS
+
 - Reusable capability: tools/first_comment_install.py produces a local first_comment_install.md that combines a short assignment sentence for the pin candidate, 1-2 keyword-grounded placement suggestions, and 3-5 same-day operational steps, all extracted only from idea.md mechanism/problem. Agents or humans run one command to get a usable pin-candidate comment instead of drafting the assignment + steps from scratch for the First comment section on every future packet. No invented content. Text stays gitignored. Reduces first-comment drafting labor on every future video. Aligns with channel promise and avoids reply prompts.
 - Small new production tool only. No packet content writes, no secrets polled.
 - Human labor reduction: lower time spent writing the pinned comment that names the stall, the default, and where it lives; one markdown file highlights the assignment and optional steps.
