@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-28T20:15:00Z (Run 870)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/install_package.py — a local stdlib consolidator that extracts mechanism/problem/topic from idea.md (via idea_utils), suggests grounded placements and same-day steps, and writes a single paste-ready install_package.md containing the short assignment, placements, steps, pin-candidate comment, and description section. Updated .gitignore to exclude videos/**/install_package.md. Reduces recurring human labor of running multiple separate note generators and reconciling their outputs for the install-the-default action on every future packet. Aligns with channel promise and voice. One command produces a usable consolidated package. No packet content edits, no invented claims, no secrets polled. Text output stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
+
+# STATE
+
 2026-10-28T19:20:00Z (Run 869)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/first_comment_install.py — a local stdlib generator that extracts mechanism/problem/topic from idea.md (via idea_utils), suggests 1-2 grounded placements from existing keywords, builds 3-5 same-day steps, and writes a paste-ready first_comment_install.md with a short assignment sentence (pin candidate) plus optional longer steps. Updated .gitignore to exclude videos/**/first_comment_install.md. Reduces recurring human labor of drafting the first/pinned comment that delivers the install-the-default action on every future packet. Aligns with channel promise and voice (assignment, not reply prompt). One command produces a usable pin-candidate comment. No packet content edits, no invented claims, no secrets polled. Text output stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
