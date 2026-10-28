@@ -106,3 +106,5 @@ videos/**/default_placement_note.md
 videos/**/description_install_section.md
 # first_comment_install.py writes packet/first_comment_install.md. Do not commit it.
 videos/**/first_comment_install.md
+# install_package.py writes packet/install_package.md. Do not commit it.
+videos/**/install_package.md
