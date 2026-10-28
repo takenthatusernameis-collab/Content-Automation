@@ -72,3 +72,5 @@ videos/**/script_balance_preview.png
 videos/**/chapters_estimate.txt
 # full_description_draft.py writes packet/description_draft.txt. Do not commit it.
 videos/**/description_draft.txt
+# metadata_pack.py writes packet/metadata_pack.txt. Do not commit it.
+videos/**/metadata_pack.txt
