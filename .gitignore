@@ -110,3 +110,5 @@ videos/**/first_comment_install.md
 videos/**/install_package.md
 # install_verifier.py writes packet/install_verifier.md. Do not commit it.
 videos/**/install_verifier.md
+# install_spoken_lines.py writes packet/install_spoken_lines.md. Do not commit it.
+videos/**/install_spoken_lines.md

@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 873 — 2026-10-28T23:15:00Z
+- Objective: Add one small reusable production capability that compounds for future runs by providing a local generator of calm operational spoken lines for the same-day install segment, reducing human labor of writing the install CTA for every future packet.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/install_spoken_lines.py (stdlib; extracts via idea_utils; writes short spoken lines only). Updated .gitignore. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
+- Result: Videos published stay 0. New install spoken-lines generator available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Tool created and committed. Fail-closed on missing idea.md. Checks only existing extracted fields. No-write of packet content by design. Output stays operational and voice-aligned.
+- Discovery: The install segment still requires recurring spoken-line drafting; a single local generator fills that gap without external services.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
 ## Run 872 — 2026-10-28T22:15:00Z
 - Objective: Add one small reusable production capability that compounds for future runs by providing a local install verification checklist generator grounded in idea.md fields, reducing human labor of writing verification language for the installed default on every future packet.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/install_verifier.py (stdlib; extracts via idea_utils; writes short checklist only). Updated .gitignore. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
