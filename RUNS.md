@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 870 — 2026-10-28T20:15:00Z
+- Objective: Add one small reusable production capability that compounds for future runs by generating a consolidated local install package that combines assignment, placements, steps, pin comment, and description section from idea.md, reducing human labor of running multiple note generators and reconciling outputs for the install-the-default action on every future packet.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/install_package.py (stdlib; extracts via idea_utils, keyword-grounded placements and steps only, writes install_package.md). Updated .gitignore to exclude videos/**/install_package.md. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
+- Result: Videos published stay 0. New install package consolidator available for every future packet that has an idea.md. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Tool created and tested on mock packet (structure confirmed; fail-closed on missing idea.md; extracts only existing fields; placements and steps from keyword/field match only; no invention). Handles missing fields. No-write of packet content by design. Output avoids engagement-bait phrasing.
+- Discovery: Multiple separate install notes require running several tools and pasting from several files; a single consolidated package fills that recurring paste gap without external services.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
+# RUNS
+
 ## Run 869 — 2026-10-28T19:20:00Z
 - Objective: Add one small reusable production capability that compounds for future runs by generating a local first-comment install section that produces a short assignment sentence (pin candidate) plus grounded placements and same-day steps from idea.md, reducing human labor of drafting the first/pinned comment that delivers the install-the-default action on every future packet.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/first_comment_install.py (stdlib; extracts via idea_utils, keyword-grounded placements and steps only, writes first_comment_install.md). Updated .gitignore to exclude videos/**/first_comment_install.md. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
