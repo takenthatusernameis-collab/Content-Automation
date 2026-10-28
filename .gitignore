@@ -100,3 +100,5 @@ videos/**/viewer_install_checklist.md
 videos/**/recording_session_checklist.md
 # series_continuity_note.py writes packet/series_continuity_note.md. Do not commit it.
 videos/**/series_continuity_note.md
+# default_placement_note.py writes packet/default_placement_note.md. Do not commit it.
+videos/**/default_placement_note.md

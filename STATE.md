@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-28T15:45:00Z (Run 867)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/default_placement_note.py — a local stdlib generator that extracts mechanism/problem from idea.md (via idea_utils), suggests 1-2 placement locations grounded only in keywords already present in the problem or mechanism (list, tab, file, desk, app, morning), and writes a paste-ready default_placement_note.md with a short spoken sentence template. Updated .gitignore to exclude videos/**/default_placement_note.md. Reduces recurring human labor of deciding where the default lives for the script, description, or end card on every future packet. Aligns with channel voice. One command produces a usable placement note. No packet content edits, no invented claims, no secrets polled. Text output stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
+
+# STATE
+
 2026-10-28T16:20:00Z (Run 866)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/series_continuity_note.py — a local stdlib generator that extracts mechanism/problem/topic from the current packet idea.md, finds the first unused queued topic from docs/topic_queue.md, and writes a paste-ready series_continuity_note.md naming the relation, suggested bridge, and what the next default should install. Updated .gitignore to exclude videos/**/series_continuity_note.md. Reduces recurring human labor of re-reading the current video and queue when preparing the next idea on every future packet after Q1. One command produces a usable continuity note. No packet content edits, no invented claims, no secrets polled. Text output stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
