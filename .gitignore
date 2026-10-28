@@ -83,3 +83,6 @@ videos/**/visual_plan_draft.md
 
 # review_pack.py writes packet/review_pack.md. Do not commit it.
 videos/**/review_pack.md
+
+# captions_estimate_srt.py writes packet/captions_estimate.srt. Do not commit it.
+videos/**/captions_estimate.srt
