@@ -66,3 +66,5 @@ videos/**/payoff_preview.png
 videos/**/key_moments_preview.png
 # quality_overview_preview.py writes packet/quality_overview_preview.png. Do not commit it.
 videos/**/quality_overview_preview.png
+# script_balance_preview.py writes packet/script_balance_preview.png. Do not commit it.
+videos/**/script_balance_preview.png
