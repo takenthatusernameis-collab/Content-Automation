@@ -92,3 +92,5 @@ videos/**/vo_prep.md
 
 # read_aloud_flags.py writes packet/read_aloud_flags.md. Do not commit it.
 videos/**/read_aloud_flags.md
+videos/**/end_screen_prep.md
+# end_screen_prep.py writes packet/end_screen_prep.md. Do not commit it.
