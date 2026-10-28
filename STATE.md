@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-28T06:15:00Z (Run 856)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/publish_md_draft.py — a local stdlib generator that extracts topic/problem/mechanism from idea.md, produces a title candidate, operational description (summary + estimated chapters at 150 wpm from script.md when present), tags, and CTA candidate, and writes a paste-ready publish_draft.md. Updated .gitignore to exclude videos/**/publish_draft.md. Reduces recurring human labor of assembling full publish.md from multiple sources for Studio or the packet on every future packet. One command produces a usable complete publish draft. No packet content edits, no invented claims, no secrets polled. Text output stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
+
+# STATE
+
 2026-10-28T03:20:00Z (Run 855)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/metadata_pack.py — a local stdlib generator that extracts mechanism/problem/topic from idea.md, produces title/tag/thumbnail/CTA candidates, and (when script.md present) a short summary + cumulative chapters at 150 wpm, writing a paste-ready metadata_pack.txt. Updated .gitignore to exclude videos/**/metadata_pack.txt. Reduces recurring human labor of running multiple suggestors and manually assembling full publish metadata for Studio or publish.md on every future packet. One command produces a usable complete metadata draft. No packet content edits, no invented claims, no secrets polled. Text output stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
