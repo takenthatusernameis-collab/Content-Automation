@@ -98,3 +98,5 @@ videos/**/end_screen_prep.md
 videos/**/viewer_install_checklist.md
 # recording_session_checklist.py writes packet/recording_session_checklist.md. Do not commit it.
 videos/**/recording_session_checklist.md
+# series_continuity_note.py writes packet/series_continuity_note.md. Do not commit it.
+videos/**/series_continuity_note.md
