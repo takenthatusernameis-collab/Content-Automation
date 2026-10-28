@@ -68,3 +68,5 @@ videos/**/key_moments_preview.png
 videos/**/quality_overview_preview.png
 # script_balance_preview.py writes packet/script_balance_preview.png. Do not commit it.
 videos/**/script_balance_preview.png
+# chapters_from_script.py writes packet/chapters_estimate.txt. Do not commit it.
+videos/**/chapters_estimate.txt
