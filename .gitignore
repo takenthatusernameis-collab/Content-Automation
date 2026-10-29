@@ -122,3 +122,5 @@ videos/**/spoken_structure_lines.md
 videos/**/visual_sequence_plan.md
 # packet_starter_pack.py writes packet/packet_starter.md. Do not commit it.
 videos/**/packet_starter.md
+# early_assets_stub.py writes packet/early_assets.md. Do not commit it.
+videos/**/early_assets.md
