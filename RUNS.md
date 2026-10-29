@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 883 — 2026-10-29T11:20:00Z
+- Objective: Add one small reusable production capability that compounds for future runs by providing a local expansion checklist writer that emits a structured expansion_checklist.md with per-beat guidance (worked example, distinction, operational test, failure-mode) grounded only in idea.md fields, reducing human/agent labor of structuring expansions while keeping them operational and anti-slop for every future packet.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/expansion_checklist_writer.py (stdlib; extracts via idea_utils; writes expansion_checklist.md with beat sections). Added matching contract. Updated .gitignore. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
+- Result: Videos published stay 0. New expansion checklist writer available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Tools created and committed. Fail-closed on missing idea.md. Checks only existing extracted fields. No-write of packet content by design. Output stays operational, short, and aligned with voice/format/word targets. Complements draft_skeleton_writer.py and draft_beat_expansion_starter.py.
+- Discovery: draft_beat_expansion_starter.py prints a checklist but still requires manual capture and re-runs; a direct writer fills that gap without external services or invented claims.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
 ## Run 882 — 2026-10-29T10:20:00Z
 - Objective: Add one small reusable production capability that compounds for future runs by providing a one-command local bootstrap that writes the three key grounded starters (draft skeleton, packet starter pack, early assets stub) from idea.md, reducing human/agent labor of invoking and reconciling three separate tools for every future packet.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/local_packet_bootstrap.py (stdlib; subprocesses the three writers; reports status). Added matching contract that verifies the three outputs, field preservation, and fail-closed on missing idea.md. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
