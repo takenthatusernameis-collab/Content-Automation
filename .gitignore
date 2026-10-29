@@ -124,3 +124,5 @@ videos/**/visual_sequence_plan.md
 videos/**/packet_starter.md
 # early_assets_stub.py writes packet/early_assets.md. Do not commit it.
 videos/**/early_assets.md
+# draft_skeleton_writer.py writes packet/draft_skeleton.md. Do not commit it.
+videos/**/draft_skeleton.md
