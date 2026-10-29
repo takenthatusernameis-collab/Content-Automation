@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/word_budget_writer.py generates a local word_budget.md with a per-segment spoken-word targets table (Hook 20-35, Payoff 40-70, four Beats 140-220 each, CTA 40-80, total 900-1500) plus grounding notes extracted only from idea.md mechanism, problem, and topic, and tracking blanks. Agents or humans run one command to obtain a fillable expansion tracker instead of manual calculation for every future packet. No invented content. Reduces budget-tracking labor on every future video. Aligns with channel voice (assignment, not reply prompt), format.md word band, and no-invent rule. Complements draft_skeleton_writer.py and expansion_checklist_writer.py.
+- Small new production tool only. No packet content writes, no secrets polled.
+- Human labor reduction: lower time spent calculating and monitoring per-segment word counts while expanding short starters to format targets; one command produces the table and tracker.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/research_notes_writer.py generates a local research_notes.md with structured sections for mechanism verification, problem examples, potential claims to source, and operational test notes extracted only from idea.md mechanism, problem, and topic. Agents or humans run one command to obtain a fillable source-capture structure instead of free-form notes for every future packet. No invented content or sources. Reduces research labor on every future video. Aligns with channel voice (assignment, not reply prompt), production_capabilities research section, and no-invent rule. Complements claim_source_table.py and research_brief.py.
 - Small new production tool only. No packet content writes, no secrets polled.
 - Human labor reduction: lower time spent structuring and grounding research notes before expansion; one command produces the fillable sections.
