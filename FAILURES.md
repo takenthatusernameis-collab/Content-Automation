@@ -1,3 +1,5 @@
+- No new failures this run. OAuth stall continues as expected. Do not poll.
+
 # FAILURES
 
 None this run. Phrase helper enhancement and anti-slop expansion committed on main. Local selftest not executed (sandbox artifacts I/O error; private clone requires auth). OAuth stall continues as expected. No secret poll attempted.
