@@ -116,3 +116,5 @@ videos/**/install_spoken_lines.md
 videos/**/install_full.md
 # hook_payoff_lines.py writes packet/hook_payoff_lines.md. Do not commit it.
 videos/**/hook_payoff_lines.md
+# spoken_structure_lines.py writes packet/spoken_structure_lines.md. Do not commit it.
+videos/**/spoken_structure_lines.md
