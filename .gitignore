@@ -112,3 +112,5 @@ videos/**/install_package.md
 videos/**/install_verifier.md
 # install_spoken_lines.py writes packet/install_spoken_lines.md. Do not commit it.
 videos/**/install_spoken_lines.md
+# install_full_pack.py writes packet/install_full.md. Do not commit it.
+videos/**/install_full.md
