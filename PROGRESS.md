@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/pre_dispatch_confirm.py checks local mechanical readiness (media_qa PASS, export/master.mp4, captions.srt, publish.md Title marker, selected VO) and prints READY FOR OAUTH + DISPATCH or a concrete GAP list. Agents or humans run one command before the secrets step to confirm the packet will not fail on local gates. No invented content. Reduces uncertainty and failed-dispatch risk on every future video. Aligns with fail-closed gates and no-invent rule.
+- Small new production tool only. No packet content writes, no secrets polled.
+- Human labor reduction: lower time spent running separate checks and interpreting output before setting the three secrets and dispatching; one command confirms readiness.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Verification: materialize_q1_release.py confirmed to install correct media (VO + cards + r253 master) and media_qa.py passes all checks when run after. Pre-upload path evidence strengthened. No new capability added. Human labor reduction: clearer confirmation that local setup is ready for the OAuth step, reducing uncertainty before the human acts.
 - Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step.
 

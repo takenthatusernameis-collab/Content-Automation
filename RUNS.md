@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 891 — 2026-10-29T19:14:27Z
+- Objective: Add one small reusable local confirmation tool that reduces human uncertainty before the OAuth step by checking mechanical readiness (media_qa, export, captions, publish.md, VO) and printing a clear READY or GAP list.
+- Action: Created tools/pre_dispatch_confirm.py (stdlib; runs media_qa; checks key files; fail-closed on missing packet). Created matching contract. Tested on materialized Q1 (READY) and temp trees. No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. New confirmation tool available for every future packet. Pre-upload path remains stable and locally verified. Upload still blocked only on the three secrets.
+- Verification: Tool and contract pass. Q1 reports READY FOR OAUTH + DISPATCH. No invented data.
+- Discovery: A single command that consolidates the mechanical checks the human would otherwise run piecemeal reduces the chance of dispatching before local gates pass, especially useful after the first video when more packets exist.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). The new tool can be run first for confirmation. Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
 ## Run 890 — 2026-10-29T18:20:00Z
 - Objective: Verify the local materialize path and pre-upload gates for Q1 to confirm stability with evidence, without adding another tool.
 - Action: Cloned the repository. Ran python3 tools/materialize_q1_release.py (succeeded: VO, 7 cards, r253 master installed; truncated r249 ignored). Ran media_qa.py — all PASS. Ran next_action.py — upload-blocked, points to human operator_card.py. No secrets polled, no dispatch, no packet content edits, no new tools.
