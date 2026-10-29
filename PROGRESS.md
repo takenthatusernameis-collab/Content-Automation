@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/expansion_checklist_writer.py generates a local expansion_checklist.md with per-beat checklist items (worked example of the mechanism, distinction, operational test, failure-mode scene) extracted only from idea.md mechanism, problem, and topic. Agents or humans run one command to obtain structured guidance for expanding short starter WORDS to 140–220 word targets instead of free-form or re-running printers for every future packet. No invented content. Reduces expansion labor on every future video. Aligns with channel voice (assignment, not reply prompt), format word targets, and no-invent rule. Complements draft_skeleton_writer.py and draft_beat_expansion_starter.py.
+- Small new production tool only. No packet content writes, no secrets polled.
+- Human labor reduction: lower time spent structuring and grounding beat expansions before drafting full WORDS; one command produces the checklist.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/local_packet_bootstrap.py orchestrates the three key local writers (draft_skeleton_writer, packet_starter_pack, early_assets_stub) in one command to produce draft_skeleton.md, packet_starter.md, and early_assets.md from idea.md mechanism/problem/topic only. Agents or humans run one command to obtain the full grounded starter set instead of three sequential invocations and manual confirmation for every future packet. No invented content. Reduces setup labor on every future video. Aligns with channel voice (assignment, not reply prompt), format, and existing tools.
 - Small new production tool only. No packet content writes, no secrets polled.
 - Human labor reduction: lower time spent launching and reconciling three separate starter generators before expansion and asset planning; one command produces the set.
