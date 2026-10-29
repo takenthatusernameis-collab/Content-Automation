@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 875 — 2026-10-29T01:20:00Z
+- Objective: Add one small reusable production capability that compounds for future runs by providing a local generator of calm operational spoken lines for the hook and early payoff segments, reducing human labor of drafting the opening promise and outcome for every future packet.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/hook_payoff_lines.py (stdlib; extracts via idea_utils; writes short spoken lines only). Updated .gitignore. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
+- Result: Videos published stay 0. New hook/payoff spoken-lines generator available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Tool created and committed. Fail-closed on missing idea.md. Checks only existing extracted fields. No-write of packet content by design. Output stays operational and voice-aligned. Matches format hook timing and payoff-before-middle rule.
+- Discovery: The opening of each video still requires recurring spoken-line drafting for the promise and outcome; a single local generator fills that gap without external services.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
 ## Run 874 — 2026-10-29T00:20:00Z
 - Objective: Add one small reusable production capability that compounds for future runs by providing a single local consolidator of install spoken lines + verification checks + package sections, reducing the labor of running three separate tools and reconciling multiple files for every future packet.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/install_full_pack.py (stdlib; extracts via idea_utils; writes one install_full.md combining prior generators). Updated .gitignore. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
