@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-29T12:15:00Z (Run 884)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/research_notes_writer.py — a local stdlib generator that extracts mechanism/problem/topic from idea.md (via idea_utils) and writes research_notes.md with structured sections for mechanism verification, problem examples, potential claims to source, and operational test notes. Added matching contract that verifies sections, field preservation, and fail-closed on missing idea.md. Updated .gitignore. Reduces recurring labor of structuring research and source capture while keeping expansions grounded and anti-slop for every future packet. Complements claim_source_table.py and research_brief.py. Aligns with channel voice (assignment, not reply prompt), production_capabilities research section, and no-invent rule. No packet content edits, no invented claims or sources, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
+
+# STATE
+
 2026-10-29T11:20:00Z (Run 883)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/expansion_checklist_writer.py — a local stdlib generator that extracts mechanism/problem/topic from idea.md (via idea_utils) and writes expansion_checklist.md with per-beat checklist items (worked example, distinction, operational test, failure-mode) for expanding short starter WORDS to 140–220 word targets. Added matching contract that verifies sections, field preservation, and fail-closed on missing idea.md. Updated .gitignore. Reduces recurring labor of structuring expansion while keeping drafts grounded and operational for every future packet. Complements draft_skeleton_writer.py and draft_beat_expansion_starter.py (printer). Aligns with channel voice (assignment, not reply prompt), format word targets, and no-invent rule. No packet content edits, no invented claims, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
@@ -21,9 +27,3 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. In
 2026-10-29T08:15:00Z (Run 880)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/early_assets_stub.py — a local stdlib generator that extracts mechanism/problem/topic from idea.md (via idea_utils) and writes early_assets.md with a preliminary card table (beat/need/type/file) grounded in the visual sequence plan. Updated .gitignore to exclude videos/**/early_assets.md. Reduces recurring labor of manually transferring visual plan into an assets intake stub before script.md exists. Complements asset_brief.py. Aligns with format (text-card first) and voice. No packet content edits, no invented claims, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
-
-# STATE
-
-2026-10-29T07:15:00Z (Run 879)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/packet_starter_pack_contract.py — a stdlib lock that verifies the consolidator writes packet_starter.md with required sections (spoken structure, visual sequence, install pack), preserves extracted mechanism/problem/topic, rejects weak patterns, and fails closed on missing idea.md. No packet content edits, no invented claims, no secrets polled. Raises reliability of the newest production capability for every future packet. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
