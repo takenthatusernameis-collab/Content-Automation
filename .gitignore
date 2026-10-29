@@ -114,3 +114,5 @@ videos/**/install_verifier.md
 videos/**/install_spoken_lines.md
 # install_full_pack.py writes packet/install_full.md. Do not commit it.
 videos/**/install_full.md
+# hook_payoff_lines.py writes packet/hook_payoff_lines.md. Do not commit it.
+videos/**/hook_payoff_lines.md
