@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-29T20:14:00Z (Run 892)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/local_learning_bootstrap.py — a one-command orchestrator that runs the grounded experiment starters (baseline, decision, notes) to produce fillable skeletons from idea.md only. Matching contract added. Tested on temp packets (fail-closed) and Q1 (READY, no writes). Reduces sequential labor of preparing the learning phase for every future packet once a video is published and metrics arrive. No packet content edits, no invented claims, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
+
 2026-10-29T19:14:36Z (Run 891)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/pre_dispatch_confirm.py — a local stdlib confirmation that runs media_qa and checks export/captions/publish.md/VO presence, printing READY FOR OAUTH + DISPATCH or a GAP list. Matching contract added. Tested on materialized Q1 (READY). Reduces human uncertainty and piecemeal checking before the secrets + dispatch step for every future packet. No packet content edits, no invented claims, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
@@ -7,25 +11,3 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Ad
 2026-10-29T18:20:00Z (Run 890)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected and verified current state: cloned repo, ran materialize_q1_release.py successfully (installed VO + 7 cards + r253 master; ignored truncated r249). Confirmed media_qa.py PASS on all checks (VO decodable 308s, cards 1920x1080, export ftyp, ready_to_assemble). next_action.py confirms upload-blocked, human operator_card.py. Preferred unblocked list complete, pre-upload path stable and verified working. STALL_OAUTH_IDLE primary. No new tool added this run (to avoid another brief/candidates generator). Evidence of materialize success recorded. Text stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step.
-
-# STATE
-
-2026-10-29T18:20:00Z (Run 890)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected and verified current state: cloned repo, ran materialize_q1_release.py successfully (installed VO + 7 cards + r253 master; ignored truncated r249). Confirmed media_qa.py PASS on all checks (VO decodable 308s, cards 1920x1080, export ftyp, ready_to_assemble). next_action.py confirms upload-blocked, human operator_card.py. Preferred unblocked list complete, pre-upload path stable and verified working. STALL_OAUTH_IDLE primary. No new tool added this run (to avoid another brief/candidates generator). Evidence of materialize success recorded. Text stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step.
-
-2026-10-29T15:20:00Z (Run 889)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/description_options_writer.py — a local stdlib generator that extracts mechanism/problem/topic from idea.md (via idea_utils) and writes description_options.md with 4 short operational description candidates grounded only in those fields. Added matching contract that verifies sections, field preservation, and fail-closed on missing idea.md. Extended tools/local_packet_bootstrap.py to orchestrate nine grounded writers (added description_options_writer) so one command produces the fuller starter set from idea.md only. Updated matching contract to verify the nine outputs, field preservation, and fail-closed on missing idea.md. Updated .gitignore. Reduces recurring labor of manually drafting description options for every future packet. Complements description_suggest.py and the other writers. Aligns with channel voice (assignment, not reply prompt), description rules (calm, specific), and no-invent rule. No packet content edits, no invented claims, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
-
-# STATE
-
-2026-10-29T16:18:00Z (Run 888)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Extended tools/local_packet_bootstrap.py to orchestrate eight grounded writers (added word_budget_writer, expansion_checklist_writer, research_notes_writer, chapters_writer, title_options_writer) so one command produces the fuller starter set from idea.md only. Updated matching contract to verify the eight outputs, field preservation, and fail-closed on missing idea.md. Reduces recurring labor of sequential invocations and confirmation for every future packet. Complements the individual writers without replacing them. Aligns with channel voice (assignment, not reply prompt), format, and no-invent rule. No packet content edits, no invented claims, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
-
-# STATE
-
-2026-10-29T15:30:00Z (Run 887)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected current state: preferred unblocked list complete, pre-upload path stable, STALL_OAUTH_IDLE primary. Added tools/title_options_writer.py — a local stdlib generator that extracts mechanism/problem/topic from idea.md (via idea_utils) and writes title_options.md with 6 short operational title candidates grounded only in those fields. Added matching contract that verifies sections, field preservation, and fail-closed on missing idea.md. Updated .gitignore. Reduces recurring labor of manually drafting title options for every future packet. Complements title_suggest.py and chapters_writer.py. Aligns with channel voice (assignment, not reply prompt), title rules (calm, specific), and no-invent rule. No packet content edits, no invented claims, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability (not another brief/candidates/status tool).
