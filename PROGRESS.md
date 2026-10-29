@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/hook_payoff_lines.py generates a local hook_payoff_lines.md with 3-6 calm operational spoken lines for the hook (8-12 s) and early payoff segments, extracted only from idea.md mechanism, problem, and topic. Agents or humans run one command to produce usable opening lines instead of manually drafting the promise and outcome for every future packet. No invented content. Reduces writing labor on every future video. Aligns with channel voice (assignment, not reply prompt) and format (viewer can state the outcome before the middle).
+- Small new production tool only. No packet content writes, no secrets polled.
+- Human labor reduction: lower time spent drafting spoken hook and payoff lines for each video; one command produces the lines.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/install_full_pack.py generates a single local install_full.md combining spoken lines, verification checks, assignment, placements, and steps extracted only from idea.md mechanism and problem. Agents or humans run one command to produce the full install pack instead of invoking three separate tools and reconciling multiple files for every future packet. No invented content. Reduces multi-tool labor on every future video. Aligns with channel voice (assignment, not reply prompt) and promise (install and verify same day).
 - Small new production tool only. No packet content writes, no secrets polled.
 - Human labor reduction: lower time spent running and reconciling separate install generators for each video; one command produces the consolidated pack.
