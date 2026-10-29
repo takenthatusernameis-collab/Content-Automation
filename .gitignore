@@ -120,3 +120,5 @@ videos/**/hook_payoff_lines.md
 videos/**/spoken_structure_lines.md
 # visual_sequence_plan.py writes packet/visual_sequence_plan.md. Do not commit it.
 videos/**/visual_sequence_plan.md
+# packet_starter_pack.py writes packet/packet_starter.md. Do not commit it.
+videos/**/packet_starter.md
