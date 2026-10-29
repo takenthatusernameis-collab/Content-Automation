@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/research_notes_writer.py generates a local research_notes.md with structured sections for mechanism verification, problem examples, potential claims to source, and operational test notes extracted only from idea.md mechanism, problem, and topic. Agents or humans run one command to obtain a fillable source-capture structure instead of free-form notes for every future packet. No invented content or sources. Reduces research labor on every future video. Aligns with channel voice (assignment, not reply prompt), production_capabilities research section, and no-invent rule. Complements claim_source_table.py and research_brief.py.
+- Small new production tool only. No packet content writes, no secrets polled.
+- Human labor reduction: lower time spent structuring and grounding research notes before expansion; one command produces the fillable sections.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/expansion_checklist_writer.py generates a local expansion_checklist.md with per-beat checklist items (worked example of the mechanism, distinction, operational test, failure-mode scene) extracted only from idea.md mechanism, problem, and topic. Agents or humans run one command to obtain structured guidance for expanding short starter WORDS to 140–220 word targets instead of free-form or re-running printers for every future packet. No invented content. Reduces expansion labor on every future video. Aligns with channel voice (assignment, not reply prompt), format word targets, and no-invent rule. Complements draft_skeleton_writer.py and draft_beat_expansion_starter.py.
 - Small new production tool only. No packet content writes, no secrets polled.
 - Human labor reduction: lower time spent structuring and grounding beat expansions before drafting full WORDS; one command produces the checklist.
@@ -13,9 +18,4 @@
 - Reusable capability: tools/draft_skeleton_writer.py generates a local draft_skeleton.md with structured ## Hook / Payoff / Beat 1–4 / CTA sections and short operational WORDS lines extracted only from idea.md mechanism, problem, and topic. Agents or humans run one command to produce a ready-to-expand skeleton instead of manually creating headings and pasting starters for every future packet. No invented content. Reduces setup labor on every future video. Aligns with channel voice (assignment, not reply prompt), format word targets, and script_writer.md constraints. Complements draft_starter.py and spoken_structure_lines.py.
 - Small new production tool only. No packet content writes, no secrets polled.
 - Human labor reduction: lower time spent setting up draft.md structure and transferring short lines before expansion to word targets; one command produces the skeleton.
-- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
-
-- Reusable capability: tools/early_assets_stub.py generates a local early_assets.md with a preliminary card table (beat, need from on-screen, type, suggested file) extracted only from idea.md mechanism, problem, and topic via the visual sequence plan. Agents or humans run one command to produce a usable assets intake stub before script.md exists, instead of manually transferring the plan for every future packet. No invented content. Reduces setup labor on every future video. Aligns with channel voice and format (text-card first).
-- Small new production tool only. No packet content writes, no secrets polled.
-- Human labor reduction: lower time spent listing planned cards from the visual sequence before the script is drafted; one command produces the preliminary table.
 - Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
