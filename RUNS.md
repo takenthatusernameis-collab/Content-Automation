@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 886 — 2026-10-29T14:25:00Z
+- Objective: Add one small reusable production capability that compounds for future runs by providing a local chapters writer that emits a structured chapters.md with estimated YouTube chapter lines (from format.md targets at 150 wpm) and short operational titles grounded only in idea.md fields, reducing human/agent labor of manually estimating and writing chapter markers for every future packet.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/chapters_writer.py (stdlib; extracts via idea_utils; writes chapters.md with ## YouTube lines and estimated times). Added matching contract. Updated .gitignore. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
+- Result: Videos published stay 0. New chapters writer available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Tools created and committed. Fail-closed on missing idea.md. Checks only existing extracted fields. No-write of packet content by design. Output stays operational, short, and aligned with voice/format/chapters rules. Complements word_budget_writer.py and draft_skeleton_writer.py.
+- Discovery: chapters_scan.py exists for quality but no local grounded writer for estimated chapter lines from idea.md; a direct writer fills that gap without external services or invented claims.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
 ## Run 885 — 2026-10-29T13:20:00Z
 - Objective: Add one small reusable production capability that compounds for future runs by providing a local word budget writer that emits a structured word_budget.md with per-segment spoken-word targets (from format.md) and tracking blanks grounded only in idea.md fields, reducing human/agent labor of calculating and monitoring expansion budgets while keeping drafts in the 900–1500 band for every future packet.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/word_budget_writer.py (stdlib; extracts via idea_utils; writes word_budget.md with targets table and grounding notes). Added matching contract. Updated .gitignore. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
