@@ -3,8 +3,8 @@
 
 Runs the key grounded writers in sequence to produce draft_skeleton.md,
 packet_starter.md, early_assets.md, word_budget.md, expansion_checklist.md,
-research_notes.md, chapters.md, and title_options.md from idea.md
-mechanism/problem/topic only. Reduces recurring labor of invoking eight
+research_notes.md, chapters.md, title_options.md, and description_options.md from idea.md
+mechanism/problem/topic only. Reduces recurring labor of invoking nine
 separate tools and confirming outputs for every future packet. No invented
 content. Outputs stay local (gitignored). Aligns with channel voice
 (assignment, not reply prompt), format, and existing individual tools.
@@ -45,7 +45,7 @@ def run_writer(script: str, packet: Path, force: bool) -> tuple[int, str]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Bootstrap local grounded starters from idea.md (skeleton + budget + checklist + notes + chapters + titles + starter + assets)"
+        description="Bootstrap local grounded starters from idea.md (skeleton + budget + checklist + notes + chapters + titles + descriptions + starter + assets)"
     )
     parser.add_argument("packet", type=Path, help="Packet directory")
     parser.add_argument("--force", action="store_true", help="Overwrite existing starter files")
@@ -74,6 +74,7 @@ def main() -> int:
         ("research_notes_writer.py", "research_notes.md"),
         ("chapters_writer.py", "chapters.md"),
         ("title_options_writer.py", "title_options.md"),
+        ("description_options_writer.py", "description_options.md"),
     ]
 
     results = []

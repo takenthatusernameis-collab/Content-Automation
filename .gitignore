@@ -136,3 +136,5 @@ videos/**/word_budget.md
 videos/**/chapters.md
 # title_options_writer.py writes packet/title_options.md. Do not commit it.
 videos/**/title_options.md
+# description_options_writer.py writes packet/description_options.md. Do not commit it.
+videos/**/description_options.md

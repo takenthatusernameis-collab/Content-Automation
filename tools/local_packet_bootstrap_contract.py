@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Contract lock for local_packet_bootstrap.py.
 
-Verifies the bootstrap runs the eight key writers, produces the expected
+Verifies the bootstrap runs the nine key writers, produces the expected
 local files when idea.md is present, fails closed on missing idea.md, and
 does not invent content or write outside the packet. Temp packet only.
 """
@@ -43,7 +43,7 @@ def main() -> int:
             encoding="utf-8",
         )
 
-        # Should succeed and write the eight files
+        # Should succeed and write the nine files
         code, out = run([sys.executable, str(BOOTSTRAP), str(packet)])
         if code != 0:
             print(f"FAIL: bootstrap exited {code}\n{out}", file=sys.stderr)
@@ -58,13 +58,14 @@ def main() -> int:
             "research_notes.md",
             "chapters.md",
             "title_options.md",
+            "description_options.md",
         ]
         for name in expected:
             if not (packet / name).is_file():
                 print(f"FAIL: missing {name}", file=sys.stderr)
                 return 1
             text = (packet / name).read_text(encoding="utf-8")
-            if "invent" in text.lower() and "no invent" not in text.lower():
+            if "invent" in text.lower() and "no invent" not in text.lower() and "do not invent" not in text.lower():
                 print(f"FAIL: possible invented content in {name}", file=sys.stderr)
                 return 1
             if "mechanism" not in text.lower() and "problem" not in text.lower():
@@ -83,7 +84,7 @@ def main() -> int:
             return 1
 
     print("PASS: local_packet_bootstrap contract")
-    print("- writes eight grounded starters from idea.md")
+    print("- writes nine grounded starters from idea.md")
     print("- preserves mechanism/problem/topic")
     print("- fails closed on missing idea.md")
     print("- no invent, local outputs only")
