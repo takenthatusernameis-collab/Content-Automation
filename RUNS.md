@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 890 — 2026-10-29T18:20:00Z
+- Objective: Verify the local materialize path and pre-upload gates for Q1 to confirm stability with evidence, without adding another tool.
+- Action: Cloned the repository. Ran python3 tools/materialize_q1_release.py (succeeded: VO, 7 cards, r253 master installed; truncated r249 ignored). Ran media_qa.py — all PASS. Ran next_action.py — upload-blocked, points to human operator_card.py. No secrets polled, no dispatch, no packet content edits, no new tools.
+- Result: Videos published stay 0. Materialize path confirmed working. Pre-upload path remains stable and locally verified. Upload still blocked only on the three secrets.
+- Verification: materialize succeeded without error; media_qa PASS on VO/cards/export; next_action confirms the human step. No invented data.
+- Discovery: The materialize tool correctly installs the proper r253 master and ignores the known-truncated r249, and all local gates pass when media is present. This confirms the pre-upload path is reliable for the human to proceed with OAuth.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
+# RUNS
+
 ## Run 889 — 2026-10-29T15:20:00Z
 - Objective: Add one small reusable production capability that compounds for future runs by providing a local description options writer that emits a structured description_options.md with 4 short operational description candidates grounded only in idea.md fields, reducing human/agent labor of manually drafting description options for every future packet, and extend the bootstrap to include it.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/description_options_writer.py (stdlib; extracts via idea_utils; writes description_options.md with ## Candidates). Added matching contract. Extended tools/local_packet_bootstrap.py to invoke the additional writer. Updated matching contract to verify the nine outputs, field preservation, and fail-closed on missing idea.md. Updated .gitignore. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
