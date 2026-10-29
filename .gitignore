@@ -132,3 +132,5 @@ videos/**/expansion_checklist.md
 videos/**/research_notes.md
 # word_budget_writer.py writes packet/word_budget.md. Do not commit it.
 videos/**/word_budget.md
+# chapters_writer.py writes packet/chapters.md. Do not commit it.
+videos/**/chapters.md
