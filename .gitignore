@@ -130,3 +130,5 @@ videos/**/draft_skeleton.md
 videos/**/expansion_checklist.md
 # research_notes_writer.py writes packet/research_notes.md. Do not commit it.
 videos/**/research_notes.md
+# word_budget_writer.py writes packet/word_budget.md. Do not commit it.
+videos/**/word_budget.md
