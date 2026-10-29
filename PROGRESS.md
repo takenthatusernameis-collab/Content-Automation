@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Reusable capability: tools/title_options_writer.py generates a local title_options.md with 6 short operational title candidates extracted only from idea.md mechanism, problem, and topic. Agents or humans run one command to obtain a fillable set of grounded titles instead of free-form drafting for every future packet. No invented content. Reduces title-drafting labor on every future video. Aligns with channel voice (assignment, not reply prompt), title rules (calm, specific), and no-invent rule. Complements title_suggest.py and chapters_writer.py.
+- Small new production tool only. No packet content writes, no secrets polled.
+- Human labor reduction: lower time spent drafting and iterating title options before title_scan and publish.md; one command produces the candidates.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Reusable capability: tools/word_budget_writer.py generates a local word_budget.md with a per-segment spoken-word targets table (Hook 20-35, Payoff 40-70, four Beats 140-220 each, CTA 40-80, total 900-1500) plus grounding notes extracted only from idea.md mechanism, problem, and topic, and tracking blanks. Agents or humans run one command to obtain a fillable expansion tracker instead of manual calculation for every future packet. No invented content. Reduces budget-tracking labor on every future video. Aligns with channel voice (assignment, not reply prompt), format.md word band, and no-invent rule. Complements draft_skeleton_writer.py and expansion_checklist_writer.py.
 - Small new production tool only. No packet content writes, no secrets polled.
 - Human labor reduction: lower time spent calculating and monitoring per-segment word counts while expanding short starters to format targets; one command produces the table and tracker.
@@ -18,9 +23,4 @@
 - Reusable capability: tools/local_packet_bootstrap.py orchestrates the three key local writers (draft_skeleton_writer, packet_starter_pack, early_assets_stub) in one command to produce draft_skeleton.md, packet_starter.md, and early_assets.md from idea.md mechanism/problem/topic only. Agents or humans run one command to obtain the full grounded starter set instead of three sequential invocations and manual confirmation for every future packet. No invented content. Reduces setup labor on every future video. Aligns with channel voice (assignment, not reply prompt), format, and existing tools.
 - Small new production tool only. No packet content writes, no secrets polled.
 - Human labor reduction: lower time spent launching and reconciling three separate starter generators before expansion and asset planning; one command produces the set.
-- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
-
-- Reusable capability: tools/draft_skeleton_writer.py generates a local draft_skeleton.md with structured ## Hook / Payoff / Beat 1–4 / CTA sections and short operational WORDS lines extracted only from idea.md mechanism, problem, and topic. Agents or humans run one command to produce a ready-to-expand skeleton instead of manually creating headings and pasting starters for every future packet. No invented content. Reduces setup labor on every future video. Aligns with channel voice (assignment, not reply prompt), format word targets, and script_writer.md constraints. Complements draft_starter.py and spoken_structure_lines.py.
-- Small new production tool only. No packet content writes, no secrets polled.
-- Human labor reduction: lower time spent setting up draft.md structure and transferring short lines before expansion to word targets; one command produces the skeleton.
 - Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
