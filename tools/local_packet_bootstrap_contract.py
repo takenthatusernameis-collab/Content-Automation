@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Contract lock for local_packet_bootstrap.py.
 
-Verifies the bootstrap runs the three key writers, produces the expected
+Verifies the bootstrap runs the eight key writers, produces the expected
 local files when idea.md is present, fails closed on missing idea.md, and
 does not invent content or write outside the packet. Temp packet only.
 """
@@ -43,13 +43,22 @@ def main() -> int:
             encoding="utf-8",
         )
 
-        # Should succeed and write the three files
+        # Should succeed and write the eight files
         code, out = run([sys.executable, str(BOOTSTRAP), str(packet)])
         if code != 0:
             print(f"FAIL: bootstrap exited {code}\n{out}", file=sys.stderr)
             return 1
 
-        expected = ["draft_skeleton.md", "packet_starter.md", "early_assets.md"]
+        expected = [
+            "draft_skeleton.md",
+            "packet_starter.md",
+            "early_assets.md",
+            "word_budget.md",
+            "expansion_checklist.md",
+            "research_notes.md",
+            "chapters.md",
+            "title_options.md",
+        ]
         for name in expected:
             if not (packet / name).is_file():
                 print(f"FAIL: missing {name}", file=sys.stderr)
@@ -74,7 +83,7 @@ def main() -> int:
             return 1
 
     print("PASS: local_packet_bootstrap contract")
-    print("- writes three grounded starters from idea.md")
+    print("- writes eight grounded starters from idea.md")
     print("- preserves mechanism/problem/topic")
     print("- fails closed on missing idea.md")
     print("- no invent, local outputs only")

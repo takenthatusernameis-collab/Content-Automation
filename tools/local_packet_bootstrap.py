@@ -2,11 +2,12 @@
 """One-command local packet bootstrap from idea.md.
 
 Runs the key grounded writers in sequence to produce draft_skeleton.md,
-packet_starter.md, and early_assets.md from idea.md mechanism/problem/topic
-only. Reduces recurring labor of invoking three separate tools and confirming
-outputs for every future packet. No invented content. Outputs stay local
-(gitignored). Aligns with channel voice (assignment, not reply prompt),
-format (text-card first, structure rules), and existing individual tools.
+packet_starter.md, early_assets.md, word_budget.md, expansion_checklist.md,
+research_notes.md, chapters.md, and title_options.md from idea.md
+mechanism/problem/topic only. Reduces recurring labor of invoking eight
+separate tools and confirming outputs for every future packet. No invented
+content. Outputs stay local (gitignored). Aligns with channel voice
+(assignment, not reply prompt), format, and existing individual tools.
 Does not edit packet content, poll secrets, or scaffold new packets.
 """
 
@@ -44,7 +45,7 @@ def run_writer(script: str, packet: Path, force: bool) -> tuple[int, str]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Bootstrap local grounded starters (draft skeleton + packet starter + early assets) from idea.md"
+        description="Bootstrap local grounded starters from idea.md (skeleton + budget + checklist + notes + chapters + titles + starter + assets)"
     )
     parser.add_argument("packet", type=Path, help="Packet directory")
     parser.add_argument("--force", action="store_true", help="Overwrite existing starter files")
@@ -68,6 +69,11 @@ def main() -> int:
         ("draft_skeleton_writer.py", "draft_skeleton.md"),
         ("packet_starter_pack.py", "packet_starter.md"),
         ("early_assets_stub.py", "early_assets.md"),
+        ("word_budget_writer.py", "word_budget.md"),
+        ("expansion_checklist_writer.py", "expansion_checklist.md"),
+        ("research_notes_writer.py", "research_notes.md"),
+        ("chapters_writer.py", "chapters.md"),
+        ("title_options_writer.py", "title_options.md"),
     ]
 
     results = []
@@ -89,7 +95,7 @@ def main() -> int:
         print(f"{status} {expected}")
     print()
     print("Starters ready (local; estimated from packet fields only).")
-    print("Next: expand draft_skeleton.md WORDS to format targets, adapt packet_starter.md, then apply_script when signals clear.")
+    print("Next: expand draft_skeleton.md WORDS to format targets using word_budget.md and expansion_checklist.md, adapt other files, then apply_script when signals clear.")
     print("Do not invent claims. Preferred unblocked path remains human OAuth step.")
     return overall
 

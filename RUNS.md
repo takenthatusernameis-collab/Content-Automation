@@ -1,55 +1,19 @@
 # RUNS
 
+## Run 888 — 2026-10-29T16:18:00Z
+- Objective: Extend the local packet bootstrap so one command generates the fuller set of grounded starters (added word budget, expansion checklist, research notes, chapters, and title options), reducing sequential human/agent labor for every future packet.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Updated tools/local_packet_bootstrap.py to invoke the five additional writers. Updated matching contract to verify the eight outputs, field preservation, and fail-closed on missing idea.md. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
+- Result: Videos published stay 0. Extended one-command bootstrap available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Tools updated and committed. Fail-closed on missing idea.md. Checks only existing extracted fields via the individual writers. No-write of packet content by design. Output stays operational, short, and aligned with voice/format. Complements the individual writers without replacing them.
+- Discovery: Individual writers and the original three-file bootstrap existed, but sequential runs were still required for the newer files; extending the orchestrator fills that gap without external services or invented claims.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
 ## Run 887 — 2026-10-29T15:30:00Z
 - Objective: Add one small reusable production capability that compounds for future runs by providing a local title options writer that emits a structured title_options.md with 6 short operational title candidates grounded only in idea.md fields, reducing human/agent labor of manually drafting title options for every future packet.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/title_options_writer.py (stdlib; extracts via idea_utils; writes title_options.md with ## Candidates). Added matching contract. Updated .gitignore. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
 - Result: Videos published stay 0. New title options writer available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
 - Verification: Tools created and committed. Fail-closed on missing idea.md. Checks only existing extracted fields. No-write of packet content by design. Output stays operational, short, and aligned with voice/title rules. Complements title_suggest.py and chapters_writer.py.
 - Discovery: title_suggest.py and title_scan.py exist for quality but no local grounded writer for a fillable set of title candidates from idea.md; a direct writer fills that gap without external services or invented claims.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-## Run 886 — 2026-10-29T14:25:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by providing a local chapters writer that emits a structured chapters.md with estimated YouTube chapter lines (from format.md targets at 150 wpm) and short operational titles grounded only in idea.md fields, reducing human/agent labor of manually estimating and writing chapter markers for every future packet.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/chapters_writer.py (stdlib; extracts via idea_utils; writes chapters.md with ## YouTube lines and estimated times). Added matching contract. Updated .gitignore. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
-- Result: Videos published stay 0. New chapters writer available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: Tools created and committed. Fail-closed on missing idea.md. Checks only existing extracted fields. No-write of packet content by design. Output stays operational, short, and aligned with voice/format/chapters rules. Complements word_budget_writer.py and draft_skeleton_writer.py.
-- Discovery: chapters_scan.py exists for quality but no local grounded writer for estimated chapter lines from idea.md; a direct writer fills that gap without external services or invented claims.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-## Run 885 — 2026-10-29T13:20:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by providing a local word budget writer that emits a structured word_budget.md with per-segment spoken-word targets (from format.md) and tracking blanks grounded only in idea.md fields, reducing human/agent labor of calculating and monitoring expansion budgets while keeping drafts in the 900–1500 band for every future packet.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/word_budget_writer.py (stdlib; extracts via idea_utils; writes word_budget.md with targets table and grounding notes). Added matching contract. Updated .gitignore. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
-- Result: Videos published stay 0. New word budget writer available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: Tools created and committed. Fail-closed on missing idea.md. Checks only existing extracted fields. No-write of packet content by design. Output stays operational, short, and aligned with voice/format/word targets. Complements draft_skeleton_writer.py and expansion_checklist_writer.py.
-- Discovery: format.md defines the band and expand_brief.py writes expand.md, but a dedicated fillable tracker for per-segment progress was still manual; a direct writer fills that gap without external services or invented claims.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-## Run 884 — 2026-10-29T12:15:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by providing a local research notes writer that emits a structured research_notes.md with sections for mechanism verification, problem examples, potential claims to source, and operational test notes grounded only in idea.md fields, reducing human/agent labor of structuring research and source capture while keeping expansions grounded and anti-slop for every future packet.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/research_notes_writer.py (stdlib; extracts via idea_utils; writes research_notes.md with source-capture sections). Added matching contract. Updated .gitignore. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
-- Result: Videos published stay 0. New research notes writer available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: Tools created and committed. Fail-closed on missing idea.md. Checks only existing extracted fields. No-write of packet content by design. Output stays operational, short, and aligned with voice/format/production_capabilities. Complements claim_source_table.py and research_brief.py.
-- Discovery: research_brief.py and claim_source_table.py exist but still require manual structuring of notes for source capture; a direct writer fills that gap without external services or invented claims.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-## Run 883 — 2026-10-29T11:20:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by providing a local expansion checklist writer that emits a structured expansion_checklist.md with per-beat guidance (worked example, distinction, operational test, failure-mode) grounded only in idea.md fields, reducing human/agent labor of structuring expansions while keeping them operational and anti-slop for every future packet.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/expansion_checklist_writer.py (stdlib; extracts via idea_utils; writes expansion_checklist.md with beat sections). Added matching contract. Updated .gitignore. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
-- Result: Videos published stay 0. New expansion checklist writer available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: Tools created and committed. Fail-closed on missing idea.md. Checks only existing extracted fields. No-write of packet content by design. Output stays operational, short, and aligned with voice/format/word targets. Complements draft_skeleton_writer.py and draft_beat_expansion_starter.py.
-- Discovery: draft_beat_expansion_starter.py prints a checklist but still requires manual capture and re-runs; a direct writer fills that gap without external services or invented claims.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-## Run 882 — 2026-10-29T10:20:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by providing a one-command local bootstrap that writes the three key grounded starters (draft skeleton, packet starter pack, early assets stub) from idea.md, reducing human/agent labor of invoking and reconciling three separate tools for every future packet.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/local_packet_bootstrap.py (stdlib; subprocesses the three writers; reports status). Added matching contract that verifies the three outputs, field preservation, and fail-closed on missing idea.md. No invented data. Updated state files. Did not poll secrets, dispatch, scaffold, or edit packet content.
-- Result: Videos published stay 0. New one-command bootstrap available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: Tools created and committed. Fail-closed on missing idea.md. Checks only existing extracted fields via the individual writers. No-write of packet content by design. Output stays operational, short, and aligned with voice/format. Complements the individual writers without replacing them.
-- Discovery: Individual writers exist but still require three sequential commands and manual confirmation; a thin orchestrator fills that gap without external services or invented claims.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
