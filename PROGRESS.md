@@ -1,5 +1,12 @@
 # PROGRESS
 
+- Run 913 enhancement: added tools/visual_prep_suite.py — a one-command runner that executes the key strict visual scanners (thumbnail_scan --strict, title_scan --strict, visual_readability_check) and reports a unified PASS/FAIL. Agents or humans get one command instead of sequential invocations before title/thumbnail promotion. No invented content. Reduces sequential labor on every future visual check. Aligns with no-invent rule.
+- Small new production capability only. No packet content writes, no secrets polled. Local test on Q1 overall FAIL (missing thumbnail + long cues) confirmed.
+- Human labor reduction: lower time spent running individual strict visual/title/thumbnail scanners separately; one command produces the aggregated result.
+- Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step or another truly new production capability.
+
+# PROGRESS
+
 - Run 912 enhancement: added tools/quality_prep_suite.py — a one-command runner that executes the key strict quality scanners (quality_scan --strict, claim_scan --strict, cadence_repetition_scan --strict, mechanism_align_scan --strict) and reports a unified PASS/FAIL. Agents or humans get one command instead of sequential invocations before script promotion. No invented content. Reduces sequential labor on every future quality check. Aligns with no-invent rule.
 - Small new production capability only. No packet content writes, no secrets polled. Local test on Q1 overall FAIL (cadence under strict) confirmed.
 - Human labor reduction: lower time spent running individual strict quality scanners separately; one command produces the aggregated result.

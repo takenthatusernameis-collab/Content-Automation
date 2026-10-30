@@ -1,5 +1,15 @@
 # STATE
 
+2026-10-30T19:20:00Z (Run 913)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/visual_prep_suite.py — a one-command strict visual/title/thumbnail runner that executes thumbnail_scan --strict + title_scan --strict + visual_readability_check and reports unified PASS/FAIL. Local test on Q1 packet produced overall FAIL (missing thumbnail section + long VISUAL cues, as expected for revision signals). Reduces sequential visual-check labor before title/thumbnail promotion on every future packet. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or another truly new production capability (not status printer, brief, candidates, sequence printer, or pure confirmation).
+
+# STATE
+
+2026-10-30T19:20:00Z
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/visual_prep_suite.py — a one-command strict visual/title/thumbnail runner that executes thumbnail_scan --strict + title_scan --strict + visual_readability_check and reports unified PASS/FAIL. Local test on Q1 packet produced overall FAIL (missing thumbnail section + long VISUAL cues, as expected for revision signals). Reduces sequential visual-check labor before title/thumbnail promotion on every future packet. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or another truly new production capability (not status printer, brief, candidates, sequence printer, or pure confirmation).
+
 2026-10-30T18:14:03Z (Run 912)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/quality_prep_suite.py — a one-command strict quality runner that executes quality_scan --strict + claim_scan --strict + cadence_repetition_scan --strict + mechanism_align_scan --strict and reports unified PASS/FAIL. Local test on Q1 packet produced overall FAIL (cadence signals under strict, as expected for revision signals). Reduces sequential quality-check labor before script promotion on every future packet. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or another truly new production capability (not status printer, brief, candidates, sequence printer, or pure confirmation).
