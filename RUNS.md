@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 901 — 2026-10-30T06:20:00Z
+- Objective: Add one small reusable reliability lock that compounds for future runs by verifying the stage guide's file-presence selection (scaffold/idea/draft/script/upload) on tempfile packets, so agents can trust the pointer without re-testing logic.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/pipeline_entry_contract.py (stdlib; tempfile only; source locks + behavioral checks for each stage; no invent, no write). Ran it (PASS). Materialized Q1 media locally (gh authenticated) and confirmed media_qa PASS + next_action upload-blocked. No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. New contract available for every future check of the stage guide. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Contract created, executed, PASS. Media materialize + media_qa PASS confirmed.
+- Discovery: Stage guide from Run 900 works as designed; adding the contract locks the selection logic so later runs do not rediscover or break it.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). The new contract can be run anytime. Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
 ## Run 900 — 2026-10-30T05:15:00Z
 - Objective: Add one small reusable production capability that compounds for future runs by providing a grounded stage guide that inspects packet file presence and points to the matching existing sequence printer (early/script/media/after-upload), reducing stage-selection labor on every future packet.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/pipeline_entry.py (stdlib; fail-closed on missing packet; references existing tools only; no invent, no write). No matching contract added this run (kept minimal). No secrets polled, no dispatch, no packet content edits, no media committed.
@@ -10,7 +19,7 @@
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). The new tool can be used to enter the correct stage. Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
 
 ## Run 899 — 2026-10-30T04:00:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by providing a grounded media-pipeline sequence printer from ready_for_vo through VO prep, selected take, cards, timeline, assemble, media QA, captions, export probe, and publish readiness, reducing sequential labor of rediscovering the order on every future packet.
+- Objective: Add one small reusable production capability that compounds for future runs by providing a grounded media-pipeline sequence printer from ready_for_vo through VO prep, selected take placement, cards, timeline, assemble, media QA, captions, export probe, and publish readiness, reducing sequential labor of rediscovering the order on every future packet.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/media_pipeline_steps.py (stdlib; fail-closed on missing packet; references existing tools only; no invent, no write). No matching contract added this run (kept minimal). No secrets polled, no dispatch, no packet content edits, no media committed.
 - Result: Videos published stay 0. New media pipeline sequence available for every future ready_for_vo packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
 - Verification: Tool created and syntax-checked. Grounded printer; no packet writes.
