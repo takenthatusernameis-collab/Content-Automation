@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-30T18:14:03Z (Run 912)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/quality_prep_suite.py — a one-command strict quality runner that executes quality_scan --strict + claim_scan --strict + cadence_repetition_scan --strict + mechanism_align_scan --strict and reports unified PASS/FAIL. Local test on Q1 packet produced overall FAIL (cadence signals under strict, as expected for revision signals). Reduces sequential quality-check labor before script promotion on every future packet. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or another truly new production capability (not status printer, brief, candidates, sequence printer, or pure confirmation).
+
+# STATE
+
 2026-10-30T17:14:23Z (Run 911)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Fixed a path-handling bug in tools/publish_readiness.py that crashed next_action_code when the packet argument was relative (ValueError on relative_to). The check now robustly resolves the relative path, reports READY_FOR_HUMAN_DISPATCH correctly, and the unified pre_upload_qa_suite now overall PASS including readiness. Local materialize + full suite PASS confirmed. Improves reliability of every future pre-dispatch readiness check. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or another truly new production capability (not status printer, brief, candidates, sequence printer, or pure confirmation).

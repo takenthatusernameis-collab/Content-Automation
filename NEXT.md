@@ -1,5 +1,11 @@
 # NEXT
 
+Updated: 2026-10-30T18:14:03Z (Run 912)
+
+Run 912: added tools/quality_prep_suite.py — unified strict quality scanner runner (overall FAIL on Q1 due to cadence signals under --strict). Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/quality_prep_suite.py videos/002-... or existing pre_upload_qa_suite / quality_prep_brief. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, or pure confirmation runs.
+
+# NEXT
+
 Updated: 2026-10-30T17:14:23Z (Run 911)
 
 Run 911: fixed relative-path crash in tools/publish_readiness.py so next_action_code succeeds and reports READY_FOR_HUMAN_DISPATCH; pre_upload_qa_suite now overall PASS. Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/pre_upload_qa_suite.py (after materialize) or existing pointers. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, or pure confirmation runs.

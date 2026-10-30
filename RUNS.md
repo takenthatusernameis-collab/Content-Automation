@@ -1,3 +1,14 @@
+## Run 912 — 2026-10-30T18:14:03Z
+- Objective: Reduce sequential quality-check labor by adding a unified strict quality prep suite that executes the key scanners (quality_scan, claim_scan, cadence_repetition_scan, mechanism_align_scan) with --strict and reports a single overall PASS/FAIL, so agents and humans no longer need to invoke each separately before promoting a script.
+- Action: Inspected current state (STALL_OAUTH_IDLE, published=0). Cloned repo, authenticated gh. Created tools/quality_prep_suite.py (stdlib subprocess; fail-closed aggregation on non-zero exits under --strict; no invent, no write, no secrets). Ran suite on Q1 packet (overall FAIL due to cadence signals under strict, which is the intended revision signal). No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. New one-command strict quality suite available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Tool created, tested locally on Q1 (overall FAIL as expected for cadence under strict), ready for commit. Individual scanners confirmed.
+- Discovery: quality_prep_brief aggregated outputs but still required sequential reading; a strict suite compounds the labor reduction without being a pure printer or confirmation.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). The new suite can be run anytime on a script packet. Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, or pure confirmation entries.
+
+# RUNS
+
 ## Run 911 — 2026-10-30T17:14:23Z
 - Objective: Improve reliability of the pre-upload readiness check by fixing a path-handling crash in publish_readiness.py that prevented correct READY_FOR_HUMAN_DISPATCH reporting when called with a relative packet path (as the QA suite does).
 - Action: Inspected current state (STALL_OAUTH_IDLE, published=0). Cloned repo, authenticated gh, ran materialize_q1_release.py (success; r253 installed). Identified ValueError in next_action_code on packet.relative_to(ROOT) for relative paths. Updated the function to resolve the path safely before calling next_action.py. Re-ran publish_readiness (now READY_FOR_HUMAN_DISPATCH) and pre_upload_qa_suite (overall PASS). No secrets polled, no dispatch, no packet content edits, no media committed.

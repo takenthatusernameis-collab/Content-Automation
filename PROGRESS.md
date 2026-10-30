@@ -1,5 +1,12 @@
 # PROGRESS
 
+- Run 912 enhancement: added tools/quality_prep_suite.py — a one-command runner that executes the key strict quality scanners (quality_scan --strict, claim_scan --strict, cadence_repetition_scan --strict, mechanism_align_scan --strict) and reports a unified PASS/FAIL. Agents or humans get one command instead of sequential invocations before script promotion. No invented content. Reduces sequential labor on every future quality check. Aligns with no-invent rule.
+- Small new production capability only. No packet content writes, no secrets polled. Local test on Q1 overall FAIL (cadence under strict) confirmed.
+- Human labor reduction: lower time spent running individual strict quality scanners separately; one command produces the aggregated result.
+- Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step or another truly new production capability.
+
+# PROGRESS
+
 - Run 911 enhancement: fixed path-handling bug in tools/publish_readiness.py (next_action_code now safely resolves relative packet paths before calling next_action.py). The readiness check no longer crashes when invoked with relative paths (as pre_upload_qa_suite does) and correctly reports READY_FOR_HUMAN_DISPATCH. Unified QA suite now overall PASS. No invented content. Improves reliability of every future pre-dispatch check. Aligns with no-invent rule.
 - Small reliability fix to existing readiness tool only. No packet content writes, no secrets polled. Local materialize + suite overall PASS confirmed.
 - Human labor reduction: lower chance of agents or humans missing a readiness failure due to path crash; one command now reliably confirms READY status.
