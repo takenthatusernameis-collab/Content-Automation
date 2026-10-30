@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 897 — 2026-10-30T02:00:00Z
+- Objective: Add one small reusable production capability that compounds for future runs by providing a grounded research.md skeleton writer/printer from idea.md or topic_queue only, reducing sequential labor of starting research notes for every future packet.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/research_notes_writer.py (stdlib; fail-closed on missing packet; extracts topic/problem/mechanism only; dry-run default; no invent). Added matching contract. No secrets polled, no dispatch, no default packet content edits, no media committed.
+- Result: Videos published stay 0. New research notes skeleton available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Tool and contract created. Grounded printer; dry-run no writes.
+- Discovery: research.md stubs existed but a single command that produces a grounded, claim-table-ready skeleton from idea/queue reduces starting labor on every future packet. Matches the future command referenced in next_packet_prep.py.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). The new tool can be used after scaffold. Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
 ## Run 896 — 2026-10-30T01:17:00Z
 - Objective: Add one small reusable production capability that compounds for future runs by providing a grounded post-draft script promotion sequence printer (quality scans, claim table, apply_script steps) for any packet, reducing sequential labor of promoting a draft to script.md.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/script_promotion_steps.py (stdlib; fail-closed on missing packet; no invent, no write). Added matching contract. No secrets polled, no dispatch, no packet content edits, no media committed.
@@ -17,12 +26,3 @@
 - Discovery: Recent prepends via record_run had dropped the archive pointers required by compact_all and next_compact_contract, and HANDOFF had lost the sha that operator_card checks. Restoring them unblocks the selftest gate.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-## Run 894 — 2026-10-30T01:20:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by providing a grounded prep package printer for the next queued topic (idea.md skeleton, research_notes skeleton, experiment hypothesis template) from topic_queue.md columns only, reducing sequential labor of preparing the next packet once Q1 is published.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/next_packet_prep.py (stdlib; parses queue; fail-closed on missing queue; no invent, no scaffold). Added matching contract. Tested (prints Q2 package). No secrets polled, no dispatch, no packet content edits, no media committed.
-- Result: Videos published stay 0. New next-packet prep available for every future topic. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: Tool and contract pass. Grounded run succeeds without inventing content. Prints expected Q2 skeletons.
-- Discovery: Individual starters existed but a single command that assembles the grounded next-packet materials from the queue reduces preparation labor after the first video ships.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). The new tool can be used after Q1 ships. Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
