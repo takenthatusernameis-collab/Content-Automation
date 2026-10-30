@@ -1,3 +1,12 @@
+## Run 910 — 2026-10-30T15:23:00Z
+- Objective: Reduce sequential pre-upload labor by adding a unified local QA suite that executes the key fail-closed checks (media_qa, caption_gate, export_probe, end_screen_reserve_check, master_sha_check, publish_readiness) in one command and reports a single PASS/FAIL, so agents and humans no longer need to invoke each separately before the human OAuth step.
+- Action: Inspected current state (STALL_OAUTH_IDLE, published=0, preferred list complete). Cloned repo, authenticated gh, ran materialize_q1_release.py (success; r253 installed). Created tools/pre_upload_qa_suite.py (stdlib subprocess; fail-closed aggregation; treats end-screen WARN as non-blocking for overall; no invent, no write, no secrets). Ran suite (overall PASS; individual checks confirmed). No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. New one-command pre-upload QA suite available for every future packet. Pre-upload path remains stable (media_qa + SHA + readiness PASS). Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Tool created, tested locally on materialized master (overall PASS), ready for commit. Individual gates PASS confirmed.
+- Discovery: Listing the sequence (pre_upload_review_steps) was useful but still required sequential invocation; a runner compounds the labor reduction without being a pure printer.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). The new suite can be run anytime after materialize. Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, or pure confirmation entries.
+
 # RUNS
 
 ## Run 909 — 2026-10-30T14:20:00Z

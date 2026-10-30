@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-30T15:23:00Z (Run 910)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/pre_upload_qa_suite.py — a one-command runner that executes media_qa + caption_gate + export_probe + end_screen_reserve_check + master_sha_check + publish_readiness and reports unified PASS/FAIL. Local materialize + suite overall PASS confirmed. Reduces sequential invocation labor on every future pre-dispatch check. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or another truly new production capability (not status printer, brief, candidates, sequence printer, or pure confirmation).
+
+# STATE
+
 2026-10-30T14:20:00Z (Run 909)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/publish_readiness.py to also verify the durable r253 master SHA via master_sha_check.py before reporting READY_FOR_HUMAN_DISPATCH. Local materialize + media_qa PASS + master_sha_check PASS + updated readiness PASS confirmed. Reduces risk of proceeding with the wrong master on every future pre-dispatch check. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or another truly new production capability (not status printer, brief, candidates, sequence printer, or pure confirmation).

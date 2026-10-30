@@ -1,5 +1,12 @@
 # PROGRESS
 
+- Run 910 enhancement: added tools/pre_upload_qa_suite.py — a one-command runner that executes the key local pre-upload checks (media_qa, caption_gate, export_probe, end_screen_reserve_check, master_sha_check, publish_readiness) and reports a unified PASS/FAIL. Agents or humans get one command instead of sequential invocations after materialize. No invented content. Reduces sequential labor on every future pre-dispatch check. Aligns with no-invent rule.
+- Small new production capability only. No packet content writes, no secrets polled. Local materialize + suite overall PASS confirmed.
+- Human labor reduction: lower time spent running individual QA checks separately; one command produces the aggregated result.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
+# PROGRESS
+
 - Run 909 enhancement: tools/publish_readiness.py now also verifies the durable r253 master SHA (via master_sha_check.py) before reporting READY_FOR_HUMAN_DISPATCH. Agents or humans get one command that confirms correct export fingerprint in addition to media presence. No invented content. Reduces risk of using truncated or wrong master on every future pre-dispatch check. Aligns with no-invent rule.
 - Small enhancement to existing readiness tool only. No packet content writes, no secrets polled.
 - Human labor reduction: lower chance of agents or humans missing a master mismatch; readiness now includes the SHA gate.
