@@ -1,16 +1,12 @@
 #!/usr/bin/env python3
-"""Write a local research_notes.md with structured source-capture sections.
+"""Print or write a grounded research.md skeleton for a packet.
 
-Extracts mechanism/problem/topic from idea.md and emits a structured
-research_notes.md with sections for verifying the mechanism, concrete problem
-examples, potential claims that need sources, and guidance to fill only with
-real external sources. No invented sources, statistics, anecdotes, or claims.
-Output stays local (gitignored). Reduces recurring human/agent labor of
-structuring research notes and source capture for every future packet while
-keeping content grounded. Aligns with channel voice (assignment, not reply
-prompt), format, production_capabilities research section, and no-invent rule.
-Complements claim_source_table.py and research_brief.py. Not a final script
-or source list.
+Reads idea.md (or falls back to topic_queue.md match) for topic, problem, and
+mechanism only. Emits a fillable research.md that matches the Q1 stub style
+plus claim-table placeholder. Does not invent sources, numbers, anecdotes, or
+URLs. Dry-run default. --write overwrites research.md only after confirmation
+flag. Reduces sequential labor of starting research notes for every future
+packet. Aligns with no-invent rule.
 """
 
 from __future__ import annotations
@@ -20,100 +16,130 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TOOLS = Path(__file__).resolve().parent
-if str(TOOLS) not in sys.path:
-    sys.path.insert(0, str(TOOLS))
+if str(ROOT / "tools") not in sys.path:
+    sys.path.insert(0, str(ROOT / "tools"))
 
-from idea_utils import extract as idea_extract  # noqa: E402
+try:
+    from queue_lib import parse_queue as parse, slugify  # type: ignore
+except ImportError:
+    parse = None
+    slugify = None
 
 
-def shorten(s: str, n: int) -> str:
-    s = (s or "").strip()
-    return s if len(s) <= n else s[: n - 1].rstrip() + "…"
+def extract_from_idea(idea_path: Path) -> dict:
+    data = {"topic": "", "problem": "", "mechanism": ""}
+    if not idea_path.is_file():
+        return data
+    text = idea_path.read_text(encoding="utf-8")
+    for line in text.splitlines():
+        line = line.strip()
+        if line.startswith("- topic:"):
+            data["topic"] = line.split(":", 1)[1].strip()
+        elif line.startswith("- problem:"):
+            data["problem"] = line.split(":", 1)[1].strip()
+        elif "mechanism" in line.lower() and ":" in line:
+            data["mechanism"] = line.split(":", 1)[1].strip()
+    return data
+
+
+def extract_from_queue(packet: Path) -> dict:
+    data = {"topic": "", "problem": "", "mechanism": ""}
+    if parse is None:
+        return data
+    queue_path = ROOT / "docs" / "topic_queue.md"
+    if not queue_path.is_file():
+        return data
+    rows = parse(queue_path.read_text(encoding="utf-8"))
+    slug = packet.name.split("-", 1)[-1] if "-" in packet.name else ""
+    for row in rows:
+        title = row.get("working_title", "")
+        if slugify and slugify(title) in packet.name:
+            data["topic"] = title
+            data["problem"] = row.get("problem", "")
+            data["mechanism"] = row.get("one_line", "")
+            break
+    return data
+
+
+def build_skeleton(data: dict) -> str:
+    topic = data.get("topic") or "(fill from idea.md)"
+    problem = data.get("problem") or "(fill from idea.md)"
+    mechanism = data.get("mechanism") or "(fill from idea.md)"
+    return f"""# Research
+
+Status: stub (grounded skeleton; fill sources only)
+
+This file is an intake stub. It does not scrape the web. A URL written
+here is a pointer for a human to check, not a verified source.
+
+Run `python3 tools/research_brief.py PATH` after intake.
+
+## Rule
+No unverifiable statistics. If a number is used in spoken WORDS, cite
+the source under Sources. See `docs/production_rules.md`.
+
+## Topic seed
+- topic: {topic}
+- Mechanism on the idea card: {mechanism}
+- Problem: {problem}
+
+## Sources
+- (add URL + the single claim it supports; listing a URL is not verification)
+
+## Facts allowed on camera
+- None yet
+
+## Claims to avoid
+- Any unsourced percentage, study result, or \"most people\" claim
+- Any number in spoken WORDS that has no matching source line below
+- Treating a URL in this file as verified just because it was typed
+
+## Spoken-number scan
+- Digits found in script.md WORDS: (run tools/research_brief.py)
+- Action: cite or remove before recording VO
+
+## Claim-to-source table (fill after draft; no invented sources)
+| Claim | Type | Source (fill) |
+|-------|------|---------------|
+| (run claim_source_table.py after draft.md exists) |  |  |
+
+## Notes
+- Do not paste search-result prose into Facts as if it were checked.
+- Prefer operational claims the viewer can test this week over studies.
+- Human still ticks \"No unsourced statistics\" in qa.md after a read.
+- No invented anecdotes or numbers. Use claim_source_table.py and research_brief.py.
+"""
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(
-        description="Write local research_notes.md from idea.md fields only"
-    )
-    parser.add_argument("packet", type=Path, help="Packet directory")
-    parser.add_argument("--force", action="store_true", help="Overwrite existing file")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("packet", nargs="?", default="videos/002-stop-deciding-what-to-work-on-every-morning")
+    parser.add_argument("--write", action="store_true", help="Write research.md (dry-run default)")
     args = parser.parse_args()
-
-    packet = args.packet.resolve()
+    packet = Path(args.packet)
+    if not packet.is_absolute():
+        packet = ROOT / packet
     if not packet.is_dir():
-        print(f"FAIL: not a directory: {packet}", file=sys.stderr)
+        print(f"research_notes_writer: packet dir missing ({packet})")
         return 1
 
-    idea_path = packet / "idea.md"
-    if not idea_path.is_file():
-        print("FAIL: idea.md missing", file=sys.stderr)
-        return 2
+    idea = packet / "idea.md"
+    data = extract_from_idea(idea)
+    if not data["topic"]:
+        data = extract_from_queue(packet)
 
-    out_path = packet / "research_notes.md"
-    if out_path.exists() and not args.force:
-        print(f"SKIP: {out_path} exists (use --force to overwrite)")
-        return 0
-
-    idea_text = idea_path.read_text(encoding="utf-8")
-    mech, problem, topic = idea_extract(idea_text)
-
-    if not mech and not problem:
-        print("FAIL: no mechanism or problem found in idea.md", file=sys.stderr)
-        return 2
-
-    base = shorten(mech or "the written next-action default", 60)
-    stall = problem or "the stall reopens the list"
-
-    lines = [
-        "# Research Notes (local; source capture only)",
-        "",
-        "Generated locally from idea.md mechanism/problem/topic only.",
-        "Structured sections for capturing real external sources that ground the",
-        "mechanism, problem examples, and any factual claims. Do not invent sources,",
-        "statistics, anecdotes, or claims. Fill placeholders with verified links or",
-        "citations only. Channel voice: calm, specific, operational.",
-        "Aligns with production_capabilities research/source capture and claim_source_table.py.",
-        "Not a final script or source list. Use to keep expansions grounded.",
-        "",
-        f"- Topic: {topic or '(none)'}",
-        f"- Problem / stall: {problem or '(none)'}",
-        f"- Mechanism / default: {mech or '(none)'}",
-        "",
-        "## Mechanism verification",
-        f"- Confirm the operational meaning of: {base}",
-        "- Source or reference that shows this default reduces the named stall (link or note):",
-        "- What the source actually demonstrates (one sentence, no invention):",
-        "",
-        "## Problem examples",
-        f"- Concrete observable scene of the stall: {stall}",
-        "- Source or personal observation note (no invented anecdote):",
-        "- Distinction from related stalls (if source supports it):",
-        "",
-        "## Potential claims to source",
-        "- Any number, percentage, or factual assertion that might appear in expansion:",
-        "  - Claim: (leave blank until grounded)",
-        "  - Source: (link or citation only)",
-        "  - Hedge if needed: (qualitative rewrite if no source)",
-        "- Do not add claims without a source line.",
-        "",
-        "## Operational test note",
-        f"- How a viewer can test the {base} the same day (from existing fields only):",
-        "- Success signal (stall does not reopen):",
-        "- Failure signal (list reopens):",
-        "",
-        "---",
-        "After filling real sources: run tools/claim_source_table.py and",
-        "tools/quality_scan.py before expanding into draft.md. Do not treat this file as script.md.",
-        "Preferred unblocked path remains the human OAuth step for publish.",
-    ]
-
-    out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(f"WROTE: {out_path}")
-    print(f"mech_found: {bool(mech)}")
-    print(f"problem_found: {bool(problem)}")
-    print(f"topic_found: {bool(topic)}")
-    print("Research notes ready (local; estimated from packet fields only; fill sources next).")
+    skeleton = build_skeleton(data)
+    print("RESEARCH NOTES SKELETON (grounded from idea.md / queue only; no invent)")
+    print(f"packet: {packet.relative_to(ROOT) if packet.is_relative_to(ROOT) else packet}")
+    print()
+    print(skeleton)
+    if args.write:
+        out = packet / "research.md"
+        out.write_text(skeleton, encoding="utf-8")
+        print(f"\nWrote {out.relative_to(ROOT)}")
+    else:
+        print("\nDry-run. Pass --write to overwrite research.md.")
+    print("No invented sources or numbers. Preferred current action remains human OAuth for Q1.")
     return 0
 
 
