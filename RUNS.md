@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 896 — 2026-10-30T01:17:00Z
+- Objective: Add one small reusable production capability that compounds for future runs by providing a grounded post-draft script promotion sequence printer (quality scans, claim table, apply_script steps) for any packet, reducing sequential labor of promoting a draft to script.md.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/script_promotion_steps.py (stdlib; fail-closed on missing packet; no invent, no write). Added matching contract. No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. New script promotion sequence available for every future draft. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Tool and contract created. Grounded printer; no packet writes.
+- Discovery: Individual quality and apply tools existed but a single command that lists the exact promotion sequence reduces rediscovery labor on every future packet.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). The new tool can be used after a draft exists. Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
 ## Run 895 — 2026-10-30T00:20:00Z
 - Objective: Restore reliability by fixing missing archive pointers (NEXT.md, PROGRESS.md) and the documented master sha in HANDOFF.md that were causing selftest and operator_card failures on recent pushes.
 - Action: Added the required archive pointer sentences to NEXT.md and PROGRESS.md. Added the r253 master sha256 to HANDOFF.md. Verified compact_all --check, next_compact_contract, operator_card, and full selftest now PASS. No secrets polled, no dispatch, no packet content edits, no media committed.
