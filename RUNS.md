@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 907 — 2026-10-30T12:30:00Z
+- Objective: Reduce future low-leverage pure confirmation runs by enhancing the saturation detector to recognize the recent confirmation pattern ("Confirmed ... no new tools", state-files-only notes) as status-only while videos published stay 0, so agents prefer the human OAuth step or a true production capability.
+- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Updated tools/saturation_guard.py DOC_ONLY_RE and messages to include pure confirmation patterns. No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. Saturation guard now flags pure confirmation runs in addition to sequence printers, status loops, briefs, and candidates generators. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: File updated and committed. Detector improved; no packet writes.
+- Discovery: Runs 904-906 were pure confirmation; catching that pattern in the guard prevents continued diminishing-returns restatement loops.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, or pure confirmation entries.
+
 ## Run 906 — 2026-10-30T13:17:00Z
 - Objective: Confirm current stall state after prior confirmation runs and record a clear entry noting the diminishing returns of pure confirmation; strengthen guidance to prefer the human OAuth step over further status loops.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, ROADMAP.md, BLOCKED.md, HANDOFF.md, PROGRESS.md, human_oauth_checklist.md, saturation_guard.py, human_next_action.py, and production_capabilities.md. Confirmed videos published stay 0, preferred unblocked list complete, STALL_OAUTH_IDLE primary. No secrets polled, no dispatch, no packet content edits, no media committed. Updated state files with this run's evidence-based note only.
