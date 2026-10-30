@@ -1,5 +1,12 @@
 # PROGRESS
 
+- Run 908 enhancement: added tools/master_sha_check.py — a fail-closed verifier for the Q1 export/master.mp4 against the known r253 SHA256. Agents or humans can run one command after materialize to confirm the correct durable master is present (prevents accidental use of truncated r249). No invented content. Reduces rediscovery labor and error risk on every future pre-dispatch check. Aligns with no-invent rule.
+- Small new production reliability tool only. No packet content writes, no secrets polled. Local materialize + media_qa PASS + sha check PASS confirmed.
+- Human labor reduction: lower chance of agents or humans using the wrong master; one command verifies the fingerprint.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
+# PROGRESS
+
 - Run 907 enhancement: tools/saturation_guard.py now flags pure confirmation runs ("Confirmed ... no new tools", "state files updated with this run's evidence-based note only", "confirmation runs") as status-only while videos published stay 0. Builds on the sequence-printer detector from Run 903. Agents or humans can run the guard to detect anti-rediscovery confirmation loops earlier. No invented content. Reduces risk of continued low-leverage pure-restatement runs. Aligns with no-invent rule.
 - Small enhancement to existing detector only. No packet content writes, no secrets polled.
 - Human labor reduction: lower chance of agents spending runs on additional pure confirmation entries; one command detects the pattern.

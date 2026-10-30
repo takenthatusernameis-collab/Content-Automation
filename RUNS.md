@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 908 — 2026-10-30T13:30:00Z
+- Objective: Add one small reusable production reliability check that compounds for future runs by verifying the Q1 master against the known durable r253 SHA256, so agents and humans can confirm the correct export is present without rediscovering the fingerprint or risking the truncated r249 master.
+- Action: Inspected current state (STALL_OAUTH_IDLE, published=0, preferred list complete). Cloned repo, authenticated gh, ran materialize_q1_release.py (success; r253 installed), media_qa.py (PASS). Created tools/master_sha_check.py (stdlib; fail-closed on missing or mismatched SHA; no invent, no write). Ran it (PASS). Committed and pushed the tool. Updated state files with this evidence. No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. New master SHA verifier available for every future pre-dispatch check. Pre-upload path remains stable (media_qa PASS). Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Tool created, tested locally (PASS on materialized master), committed and pushed. media_qa PASS confirmed.
+- Discovery: Master fingerprint check was previously only in status_report / handoff text; a dedicated fail-closed command reduces labor and error risk on every future packet that uses the durable release.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). The new tool can be run anytime after materialize. Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, or pure confirmation entries.
+
+# RUNS
+
 ## Run 907 — 2026-10-30T12:30:00Z
 - Objective: Reduce future low-leverage pure confirmation runs by enhancing the saturation detector to recognize the recent confirmation pattern ("Confirmed ... no new tools", state-files-only notes) as status-only while videos published stay 0, so agents prefer the human OAuth step or a true production capability.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Updated tools/saturation_guard.py DOC_ONLY_RE and messages to include pure confirmation patterns. No secrets polled, no dispatch, no packet content edits, no media committed.

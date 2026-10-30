@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-30T13:30:00Z (Run 908)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/master_sha_check.py — a fail-closed verifier that confirms the Q1 export/master.mp4 matches the known r253 SHA256 (4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546). Local materialize + media_qa PASS confirmed; the new check also PASS. Reduces future rediscovery of the correct master fingerprint before pre-upload review or human dispatch. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or another truly new production capability (not status printer, brief, candidates, sequence printer, or pure confirmation).
+
+# STATE
+
 2026-10-30T12:30:00Z (Run 907)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/saturation_guard.py to also flag pure confirmation runs ("Confirmed ... no new tools", "state files updated with this run's note only", "confirmation runs") as status-only while published=0. Builds on Run 903 sequence-printer detection. Reduces future low-leverage pure-restatement runs. Preferred unblocked list remains complete. STALL_OAUTH_IDLE primary. No packet content edits, no secrets polled. Text stays local. Prefer human OAuth step (docs/human_oauth_checklist.md or tools/human_next_action.py) or a truly new production capability that is not a status printer, brief, candidates generator, sequence printer, or pure confirmation entry.
