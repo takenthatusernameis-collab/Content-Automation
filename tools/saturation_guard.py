@@ -5,12 +5,14 @@ Scans the most recent RUNS.md sections for patterns of "Added tools/xxx.py",
 "Enhanced tools/experiment_xxx.py", pure documentation/inspection-only updates,
 or repeated contract-locking of suggestion tools (while videos published remain 0).
 Also flags script_*_brief.py, *_candidates.py, research_gap, packet_readiness_brief,
-pipeline_entry / pre_upload_review / *_steps.py sequence printers, and similar
-inspection/candidate/sequence generators as status-like when they dominate recent runs.
+pipeline_entry / pre_upload_review / *_steps.py sequence printers, pure confirmation
+runs ("Confirmed ... no new tools" / "state files updated with this run's note only"),
+and similar inspection/candidate/sequence generators as status-like when they dominate
+recent runs.
 When the streak of such runs is long, prints SATURATED_ANTI_REDISCOVERY so future
 agents prefer the human OAuth step or a true production capability over another
 one-liner, RECOMMENDED NEXT polish, repeated state-file inspection, or
-suggest-contract / sequence-printer locking.
+suggest-contract / sequence-printer / confirmation locking.
 Does not poll secrets, does not invent data, does not modify files.
 """
 
@@ -32,7 +34,7 @@ SUGGEST_CONTRACT_RE = re.compile(
     re.IGNORECASE,
 )
 DOC_ONLY_RE = re.compile(
-    r"(Updated state files only|No code changes|pure documentation|inspected state|Reviewed STATE\.md|state files updated)",
+    r"(Updated state files only|No code changes|pure documentation|inspected state|Reviewed STATE\.md|state files updated|Confirmed .*no new tools|confirmation runs|this run's evidence-based note only|No new tools added)",
     re.IGNORECASE,
 )
 ZERO_PUBLISH_RE = re.compile(r"Videos published stay 0|videos published remain 0", re.IGNORECASE)
@@ -62,16 +64,16 @@ def main() -> int:
     sections = recent_sections(text)
     status_only = sum(1 for s in sections if is_status_only(s))
     total = len(sections)
-    print("SATURATION GUARD (anti-rediscovery of status-tool, polish, doc-only, suggest-contract, and sequence-printer loops; no invent)")
+    print("SATURATION GUARD (anti-rediscovery of status-tool, polish, doc-only, suggest-contract, sequence-printer, and pure-confirmation loops; no invent)")
     print(f"recent_runs_examined: {total}")
     print(f"status_tool_only_runs: {status_only}")
     if status_only >= 6:
         print("status: SATURATED_ANTI_REDISCOVERY")
-        print("message: Multiple consecutive runs have only added status tools (including script_*_brief, *_candidates, research_gap, packet_readiness, pipeline_entry, pre_upload_review, *_steps.py), polished experiment documentation (RECOMMENDED NEXT), performed pure state-file inspection/docs updates, locked suggestion tools with contracts, or added sequence printers while videos published stay 0.")
-        print("recommendation: Prefer the human OAuth step (python3 tools/human_next_action.py) or a true production capability (capability_gap_hint.py) over another status tool, polish, inspection, brief, candidates generator, or sequence printer.")
+        print("message: Multiple consecutive runs have only added status tools (including script_*_brief, *_candidates, research_gap, packet_readiness, pipeline_entry, pre_upload_review, *_steps.py), polished experiment documentation (RECOMMENDED NEXT), performed pure state-file inspection/docs updates, locked suggestion tools with contracts, added sequence printers, or recorded pure confirmation notes (no new tools, state-files-only) while videos published stay 0.")
+        print("recommendation: Prefer the human OAuth step (python3 tools/human_next_action.py) or a true production capability (capability_gap_hint.py) over another status tool, polish, inspection, brief, candidates generator, sequence printer, or pure confirmation entry.")
     else:
         print("status: NOT_SATURATED")
-        print("message: Recent runs have not yet saturated on pure status/polish/doc-only/suggest-contract/sequence-printer tools.")
+        print("message: Recent runs have not yet saturated on pure status/polish/doc-only/suggest-contract/sequence-printer/confirmation tools.")
     print("Do not poll secrets. Preferred unblocked list remains complete.")
     return 0
 
