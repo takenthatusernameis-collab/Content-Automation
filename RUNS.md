@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 906 — 2026-10-30T13:17:00Z
+- Objective: Confirm current stall state after prior confirmation runs and record a clear entry noting the diminishing returns of pure confirmation; strengthen guidance to prefer the human OAuth step over further status loops.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, ROADMAP.md, BLOCKED.md, HANDOFF.md, PROGRESS.md, human_oauth_checklist.md, saturation_guard.py, human_next_action.py, and production_capabilities.md. Confirmed videos published stay 0, preferred unblocked list complete, STALL_OAUTH_IDLE primary. No secrets polled, no dispatch, no packet content edits, no media committed. Updated state files with this run's evidence-based note only.
+- Result: Videos published stay 0. Saturation guard (from Run 903) remains in place and will flag further sequence printers, status loops, briefs, and candidates generators. Pre-upload path stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: State files updated and committed. No new tools added (to avoid the anti-rediscovery pattern the guard detects).
+- Discovery: Runs 904-905 were confirmation-only; the pattern is now explicitly noted as having diminishing returns. The human OAuth step is the only action that advances published count from 0.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Prefer a truly new production capability only if it materially advances media/QA/assembly/publish readiness without being a status printer, brief, candidates generator, or sequence printer.
+
 ## Run 905 — 2026-10-30T10:15:00Z
 - Objective: Confirm current stall state after prior confirmation runs and record a clear, non-churn entry so future runs can see the preferred next action remains the human OAuth step; strengthen guidance to avoid further status/sequence-printer/brief/candidates loops.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, ROADMAP.md, BLOCKED.md, HANDOFF.md, PROGRESS.md, human_oauth_checklist.md, saturation_guard.py, human_next_action.py, capability_gap_hint.py, and production_capabilities.md. Confirmed videos published stay 0, preferred unblocked list complete, STALL_OAUTH_IDLE primary. No secrets polled, no dispatch, no packet content edits, no media committed. Updated state files with this run's evidence-based note only.

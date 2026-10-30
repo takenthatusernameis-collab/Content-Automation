@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 906 confirmation: preferred unblocked list remains complete; saturation guard detects sequence-printer, status, brief, and candidates loops. No new tools added this run to avoid low-leverage churn. Videos published remain 0. Human OAuth step is the highest-leverage next action. Aligns with anti-rediscovery and no-invent rules. Pattern of confirmation runs now explicitly noted as having diminishing returns.
+
 - Run 905 confirmation: preferred unblocked list remains complete; saturation guard detects sequence-printer, status, brief, and candidates loops. No new tools added this run to avoid low-leverage churn. Videos published remain 0. Human OAuth step is the highest-leverage next action. Aligns with anti-rediscovery and no-invent rules. Pattern of confirmation runs now explicitly noted.
 
 - Run 904 confirmation: preferred unblocked list remains complete; saturation guard now detects sequence-printer loops. No new tools added this run to avoid low-leverage churn. Videos published remain 0. Human OAuth step is the highest-leverage next action. Aligns with anti-rediscovery and no-invent rules.
