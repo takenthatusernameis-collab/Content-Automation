@@ -1,5 +1,11 @@
 # NEXT
 
+Updated: 2026-10-30T17:14:23Z (Run 911)
+
+Run 911: fixed relative-path crash in tools/publish_readiness.py so next_action_code succeeds and reports READY_FOR_HUMAN_DISPATCH; pre_upload_qa_suite now overall PASS. Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/pre_upload_qa_suite.py (after materialize) or existing pointers. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, or pure confirmation runs.
+
+# NEXT
+
 Updated: 2026-10-30T15:23:00Z (Run 910)
 
 Run 910: added tools/pre_upload_qa_suite.py — unified local QA runner (executes key checks, overall PASS on materialized Q1). Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/pre_upload_qa_suite.py (after materialize) or existing pointers. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, or pure confirmation runs.

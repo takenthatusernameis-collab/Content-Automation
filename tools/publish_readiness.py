@@ -35,7 +35,11 @@ def master_sha_ok(packet: Path) -> bool:
 
 
 def next_action_code(packet: Path) -> str:
-    out = run_tool("next_action.py", [str(packet.relative_to(ROOT))])
+    try:
+        rel = packet.resolve().relative_to(ROOT)
+    except ValueError:
+        rel = packet
+    out = run_tool("next_action.py", [str(rel)])
     for line in out.splitlines():
         if "upload-blocked" in line.lower() or packet.name in line:
             parts = line.split()
