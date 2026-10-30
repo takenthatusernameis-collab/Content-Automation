@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Run 915 enhancement: added tools/revision_signals.py — a one-command extractor that runs the key strict scanners and pulls only the hit/FAIL lines (repeated bigrams/trigrams, missing sections, bait phrases, LONG visual cues) into a clean list. Agents or humans get the concrete revision targets without reading full suite output. No invented content. Reduces reading labor on every future packet before promotion. Aligns with no-invent rule.
+- Small new production capability only. No packet content writes, no secrets polled. Local test on Q1 SIGNALS_PRESENT (expected items) confirmed.
+- Human labor reduction: lower time spent scanning long suite output to find what needs revision; one command produces the actionable list.
+- Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Run 914 enhancement: added tools/metadata_prep_suite.py — a one-command runner that executes the key strict metadata scanners (title_scan --strict, description_scan --strict, tags_scan --strict, first_comment_scan --strict, chapters_scan --strict, thumbnail_scan --strict, end_screen_scan --strict) and reports a unified PASS/FAIL. Agents or humans get one command instead of sequential invocations before metadata promotion. No invented content. Reduces sequential labor on every future metadata check. Aligns with no-invent rule.
 - Small new production capability only. No packet content writes, no secrets polled. Local test on Q1 overall FAIL (bait + missing sections) confirmed.
 - Human labor reduction: lower time spent running individual strict metadata scanners separately; one command produces the aggregated result.

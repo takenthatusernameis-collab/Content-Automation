@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-30T21:15:00Z (Run 915)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/revision_signals.py — a one-command extractor that runs the key strict scanners (quality, visual, metadata) and pulls only the hit/FAIL lines (repeated bigrams, missing sections, bait phrases, LONG cues, etc.) into a clean list. Local test on Q1 produced SIGNALS_PRESENT with the expected revision items (cadence repeats, missing thumbnail/end-screen, first-comment bait, long VISUAL cues). Reduces labor of reading full suite output to find what needs revision on every future packet. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or another truly new production capability (not status printer, brief, candidates, sequence printer, or pure confirmation).
+
 2026-10-30T20:15:00Z (Run 914)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/metadata_prep_suite.py — a one-command strict metadata runner that executes title_scan --strict + description_scan --strict + tags_scan --strict + first_comment_scan --strict + chapters_scan --strict + thumbnail_scan --strict + end_screen_scan --strict and reports unified PASS/FAIL. Local test on Q1 packet produced overall FAIL (bait in first comment + missing thumbnail/end-screen sections, as expected for revision signals). Reduces sequential metadata-check labor before promotion on every future packet. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or another truly new production capability (not status printer, brief, candidates, sequence printer, or pure confirmation).

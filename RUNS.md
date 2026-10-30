@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 915 — 2026-10-30T21:15:00Z
+- Objective: Reduce labor of identifying what needs revision by adding a one-command extractor that runs the key strict scanners and pulls only the concrete hit/FAIL lines (repeated phrases, missing sections, bait, LONG cues) into a clean list, so agents and humans no longer need to read full suite output to find revision targets.
+- Action: Inspected current state (STALL_OAUTH_IDLE, published=0). Cloned repo, authenticated gh. Created tools/revision_signals.py (stdlib subprocess; extracts signal lines; no invent, no write, no secrets). Ran on Q1 packet (SIGNALS_PRESENT with expected cadence, thumbnail, end-screen, first-comment, and visual LONG items). No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. New one-command revision signal extractor available for every future packet. Prep suites remain available for full detail. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Tool created, tested locally on Q1 (SIGNALS_PRESENT as expected), ready for commit. Individual scanners confirmed.
+- Discovery: Prep suites reduced sequential invocation; an extractor that surfaces only the actionable lines further reduces reading labor without being a pure printer or confirmation.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). The new tool can be run anytime on a script packet. Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, or pure confirmation entries.
+
 ## Run 914 — 2026-10-30T20:15:00Z
 - Objective: Reduce sequential metadata-check labor by adding a unified strict metadata prep suite that executes the key scanners (title_scan --strict, description_scan --strict, tags_scan --strict, first_comment_scan --strict, chapters_scan --strict, thumbnail_scan --strict, end_screen_scan --strict) and reports a single overall PASS/FAIL, so agents and humans no longer need to invoke each separately before promoting titles, descriptions, tags, chapters, thumbnails, or end-screens.
 - Action: Inspected current state (STALL_OAUTH_IDLE, published=0). Cloned repo, authenticated gh. Created tools/metadata_prep_suite.py (stdlib subprocess; fail-closed aggregation on non-zero exits; no invent, no write, no secrets). Ran suite on Q1 packet (overall FAIL due to first-comment bait and missing thumbnail/end-screen sections, which is the intended revision signal). No secrets polled, no dispatch, no packet content edits, no media committed.
