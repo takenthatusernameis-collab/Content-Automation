@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Run 907 enhancement: tools/saturation_guard.py now flags pure confirmation runs ("Confirmed ... no new tools", "state files updated with this run's evidence-based note only", "confirmation runs") as status-only while videos published stay 0. Builds on the sequence-printer detector from Run 903. Agents or humans can run the guard to detect anti-rediscovery confirmation loops earlier. No invented content. Reduces risk of continued low-leverage pure-restatement runs. Aligns with no-invent rule.
+- Small enhancement to existing detector only. No packet content writes, no secrets polled.
+- Human labor reduction: lower chance of agents spending runs on additional pure confirmation entries; one command detects the pattern.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Run 906 confirmation: preferred unblocked list remains complete; saturation guard detects sequence-printer, status, brief, and candidates loops. No new tools added this run to avoid low-leverage churn. Videos published remain 0. Human OAuth step is the highest-leverage next action. Aligns with anti-rediscovery and no-invent rules. Pattern of confirmation runs now explicitly noted as having diminishing returns.
 
 - Run 905 confirmation: preferred unblocked list remains complete; saturation guard detects sequence-printer, status, brief, and candidates loops. No new tools added this run to avoid low-leverage churn. Videos published remain 0. Human OAuth step is the highest-leverage next action. Aligns with anti-rediscovery and no-invent rules. Pattern of confirmation runs now explicitly noted.
