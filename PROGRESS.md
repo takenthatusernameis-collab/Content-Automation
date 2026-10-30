@@ -1,3 +1,8 @@
+- Run 916 enhancement: added tools/revision_suggest.py — a one-command suggester that turns common revision signals (long VISUAL cues, repeated phrases, missing sections, bait comments) into short packet-grounded candidates or stubs. Agents or humans get concrete starting points instead of interpreting flags alone. No invented content. Reduces revision labor on every future packet before promotion. Aligns with no-invent rule.
+- Small new production capability only. No packet content writes, no secrets polled. Local test on Q1 produced shorter visual candidates and non-bait options confirmed.
+- Human labor reduction: lower time spent converting scanner hits into edits; one command produces targeted starting points.
+- Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step or another truly new production capability.
+
 # PROGRESS
 
 - Run 915 enhancement: added tools/revision_signals.py — a one-command extractor that runs the key strict scanners and pulls only the hit/FAIL lines (repeated bigrams/trigrams, missing sections, bait phrases, LONG visual cues) into a clean list. Agents or humans get the concrete revision targets without reading full suite output. No invented content. Reduces reading labor on every future packet before promotion. Aligns with no-invent rule.

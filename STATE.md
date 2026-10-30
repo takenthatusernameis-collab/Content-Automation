@@ -1,3 +1,7 @@
+2026-10-30T22:16:00Z (Run 916)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/revision_suggest.py — a one-command suggester that turns common revision signals (long VISUAL cues, repeated phrases, missing sections, bait comments) into short packet-grounded candidates or stubs. Local test on Q1 produced concrete shorter visual candidates and non-bait first-comment options. Reduces labor of converting scanner flags into edits on every future packet. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or another truly new production capability (not status printer, brief, candidates, sequence printer, or pure confirmation).
+
 # STATE
 
 2026-10-30T21:15:00Z (Run 915)
