@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 904 — 2026-10-30T09:17:00Z
+- Objective: Confirm current stall state after saturation enhancements and record a clear, non-churn entry so future runs can see the preferred next action remains the human OAuth step; strengthen guidance to avoid further status/sequence-printer loops.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, ROADMAP.md, BLOCKED.md, and saturation_guard.py. Confirmed videos published stay 0, preferred unblocked list complete, STALL_OAUTH_IDLE primary. No secrets polled, no dispatch, no packet content edits, no media committed. Updated state files with this run's evidence-based note only.
+- Result: Videos published stay 0. Saturation guard (from Run 903) remains in place and will flag further sequence printers. Pre-upload path stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: State files updated and committed. No new tools added (to avoid the anti-rediscovery pattern the guard now detects).
+- Discovery: Runs 900-903 focused on sequence printers and the detector for them; the pattern is now self-limiting. Continued pure status additions would be low-leverage.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Prefer a truly new production capability only if it materially advances media/QA/assembly/publish readiness without being a status printer, brief, candidates generator, or sequence printer.
+
 ## Run 903 — 2026-10-30T10:30:00Z
 - Objective: Reduce future low-leverage runs by enhancing the saturation detector to recognize the recent sequence-printer pattern (pipeline_entry, pre_upload_review_steps, *_steps.py) as status-only while videos published stay 0, so agents prefer the human OAuth step or a true production capability.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Updated tools/saturation_guard.py regex and messages to include pipeline_entry|pre_upload_review|.*_steps\.py|.*_entry\.py and broader contract patterns. No secrets polled, no dispatch, no packet content edits, no media committed.

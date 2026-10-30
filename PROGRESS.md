@@ -1,5 +1,7 @@
 # PROGRESS
 
+- Run 904 confirmation: preferred unblocked list remains complete; saturation guard now detects sequence-printer loops. No new tools added this run to avoid low-leverage churn. Videos published remain 0. Human OAuth step is the highest-leverage next action. Aligns with anti-rediscovery and no-invent rules.
+
 - Reusable capability: tools/saturation_guard.py now flags sequence printers (pipeline_entry.py, pre_upload_review_steps.py, *_steps.py, *_entry.py) and broader contracts as status-only while videos published stay 0. Agents or humans can run the guard to detect anti-rediscovery loops earlier. No invented content. Reduces risk of continued low-leverage runs. Aligns with no-invent rule.
 - Small enhancement to existing detector only. No packet content writes, no secrets polled.
 - Human labor reduction: lower chance of agents spending runs on additional sequence printers; one command detects the pattern.
