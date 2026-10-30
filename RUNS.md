@@ -1,3 +1,14 @@
+## Run 917 — 2026-10-30T23:20:00Z
+- Objective: Reduce future low-leverage runs that add more inspection suites, suggestors, and signals extractors by enhancing the saturation detector to recognize those patterns as status-only while videos published stay 0.
+- Action: Inspected current state (STALL_OAUTH_IDLE, published=0). Updated tools/saturation_guard.py STATUS_TOOL_RE and messages to include *_suite.py, *_suggest.py, *_signals.py, and revision_* patterns. No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. Saturation guard now flags the recent suite/suggest/signals pattern in addition to sequence printers, status loops, briefs, candidates generators, and pure confirmation. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: File updated and committed. Detector improved; no packet writes.
+- Discovery: Runs 912-916 added suites, signals, and suggest tools; catching that pattern in the guard prevents continued diminishing-returns inspection loops.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, suites, suggests, signals, or pure confirmation entries.
+
+# RUNS
+
 ## Run 916 — 2026-10-30T22:16:00Z
 - Objective: Reduce labor of turning revision signals into concrete edits by adding a one-command suggester that produces short packet-grounded candidates for long VISUAL cues, repeated phrases, missing metadata sections, and bait comments.
 - Action: Inspected current state (STALL_OAUTH_IDLE, published=0). Cloned repo, authenticated gh. Created tools/revision_suggest.py (stdlib + shared idea_utils; extracts and proposes short alternatives; no invent, no write, no secrets). Ran on Q1 packet (produced shorter visual candidates and non-bait comment options as expected). No secrets polled, no dispatch, no packet content edits, no media committed.
@@ -109,29 +120,4 @@
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Prefer a truly new production capability only if it materially advances media/QA/assembly/publish readiness without being a status printer, brief, candidates generator, or sequence printer.
 
-## Run 905 — 2026-10-30T10:15:00Z
-- Objective: Confirm current stall state after prior confirmation runs and record a clear, non-churn entry so future runs can see the preferred next action remains the human OAuth step; strengthen guidance to avoid further status/sequence-printer/brief/candidates loops.
-- Action: Inspected STATE.md, NEXT.md, RUNS.md, ROADMAP.md, BLOCKED.md, HANDOFF.md, PROGRESS.md, human_oauth_checklist.md, saturation_guard.py, human_next_action.py, capability_gap_hint.py, and production_capabilities.md. Confirmed videos published stay 0, preferred unblocked list complete, STALL_OAUTH_IDLE primary. No secrets polled, no dispatch, no packet content edits, no media committed. Updated state files with this run's evidence-based note only.
-- Result: Videos published stay 0. Saturation guard (from Run 903) remains in place and will flag further sequence printers, status loops, briefs, and candidates generators. Pre-upload path stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: State files updated and committed. No new tools added (to avoid the anti-rediscovery pattern the guard now detects).
-- Discovery: Runs 901-904 focused on sequence printers, their detector, and confirmation entries; the pattern is now self-limiting and explicitly documented. Continued pure status or confirmation-only runs have diminishing returns. The human OAuth step is the only action that advances published count from 0.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Prefer a truly new production capability only if it materially advances media/QA/assembly/publish readiness without being a status printer, brief, candidates generator, or sequence printer.
-
-## Run 904 — 2026-10-30T09:17:00Z
-- Objective: Confirm current stall state after saturation enhancements and record a clear, non-churn entry so future runs can see the preferred next action remains the human OAuth step; strengthen guidance to avoid further status/sequence-printer loops.
-- Action: Inspected STATE.md, NEXT.md, RUNS.md, ROADMAP.md, BLOCKED.md, and saturation_guard.py. Confirmed videos published stay 0, preferred unblocked list complete, STALL_OAUTH_IDLE primary. No secrets polled, no dispatch, no packet content edits, no media committed. Updated state files with this run's evidence-based note only.
-- Result: Videos published stay 0. Saturation guard (from Run 903) remains in place and will flag further sequence printers. Pre-upload path stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: State files updated and committed. No new tools added (to avoid the anti-rediscovery pattern the guard now detects).
-- Discovery: Runs 900-903 focused on sequence printers and the detector for them; the pattern is now self-limiting. Continued pure status additions would be low-leverage.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Prefer a truly new production capability only if it materially advances media/QA/assembly/publish readiness without being a status printer, brief, candidates generator, or sequence printer.
-
-## Run 903 — 2026-10-30T10:30:00Z
-- Objective: Reduce future low-leverage runs by enhancing the saturation detector to recognize the recent sequence-printer pattern (pipeline_entry, pre_upload_review_steps, *_steps.py) as status-only while videos published stay 0, so agents prefer the human OAuth step or a true production capability.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Updated tools/saturation_guard.py regex and messages to include pipeline_entry|pre_upload_review|.*_steps\.py|.*_entry\.py and broader contract patterns. No secrets polled, no dispatch, no packet content edits, no media committed.
-- Result: Videos published stay 0. Saturation guard now flags sequence printers. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: File updated and committed. Detector improved; no packet writes.
-- Discovery: Runs 900-902 added sequence printers that the prior regex missed; catching them prevents continued anti-rediscovery loops.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, or candidates tools.
+Older run logs live in `docs/runs_archive.md`. Do not paste the archive back.
