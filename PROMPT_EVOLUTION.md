@@ -4,21 +4,8 @@ Keep ORIGINAL_MASTER_PROMPT.md archival and unchanged.
 
 ## Evidence-based additions (do not silently rewrite the master)
 
-- Run 136: After editor.md DROP agreed, pin format.md named-outputs DROP and watch hint.py so it cannot grow a second path builder. Do not treat selftest PASS as a selected take.
-- Run 135: After captions.md DROP agreed, do not add another generated packet stub. Pin editor.md and monitor selected_vo_drop imports in selftest. Do not treat selftest PASS as a selected take.
-- Run 108: template expand.md keeps empty-WORDS targets. expand_prompt pastes a live budget when expand.md is a stub. Do not make expand_prompt write expand.md. Do not add a Band-landing CLI.
-- Run 105: videos/_template/draft.md is the packet save target. Do not add a second template or a Band-landing CLI. Do not treat empty draft.md as script.md.
-- Run 104: writer prompts keep Band landing + spoken_words comment. Do not rewrite unless a real draft misses 900–1500.
-- Run 099: needed.py --plan WAVE 3 must print doctor.py then the board printers. doctor.py stays unmapped. Do not wrap doctor in start.py. Do not add WAVE 4.
-- Run 093: words.py must keep printing apply_script.idea_lock_notes() as INFO. --strict still keys off the total band only. Do not add another wrapper CLI.
-- Run 092: idea_lock.py optional extra printer. Exit 0. Unmapped.
-- Run 091: apply dry-run idea-lock INFO must stay INFO. script_writer must keep the draft.md path.
-- Run 090: expand_prompt Idea locks + idea_brief refuse text.
-- Run 089: idea_brief --block six fields; --check still three; no more page-alignment runs.
-- Runs 082–088: operator printers and pages name idea_brief after a folder exists.
-- Run 081: prove_locks.py is the first post-write command.
-
-See NEXT_RUN_PROMPT.md for the copy-paste addendum.
+## Run 903 — 2026-10-30T10:30:00Z
+Evidence: Runs 900-902 each added a sequence printer (pipeline_entry.py, pipeline_entry_contract.py, pre_upload_review_steps.py) while videos published stayed 0 and the OAuth stall continued. Prior saturation_guard regex missed *_steps.py and entry printers. Lesson: sequence printers are low-leverage once stage guides and review sequences exist; strengthen the detector and prefer the human OAuth step or a true production capability that advances a packet toward completion. Do not add more sequence printers, briefs, or candidates tools while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
 
 ## Run 827 — 2026-10-26T23:14:00Z
 Evidence: Runs 821-826 each added a new script_*_brief.py or *_candidates.py (or packet_readiness_brief) while videos published stayed 0 and the OAuth stall continued. The existing saturation_guard regex did not fully catch these patterns. Lesson: inspection/candidate generators are low-leverage once the preferred list is complete; strengthen the saturation detector and prefer the human OAuth step or a true production capability that advances a packet toward completion. Do not add more brief or candidates tools while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
