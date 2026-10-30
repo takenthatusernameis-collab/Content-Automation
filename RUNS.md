@@ -1,3 +1,14 @@
+# RUNS
+
+## Run 895 — 2026-10-30T00:20:00Z
+- Objective: Restore reliability by fixing missing archive pointers (NEXT.md, PROGRESS.md) and the documented master sha in HANDOFF.md that were causing selftest and operator_card failures on recent pushes.
+- Action: Added the required archive pointer sentences to NEXT.md and PROGRESS.md. Added the r253 master sha256 to HANDOFF.md. Verified compact_all --check, next_compact_contract, operator_card, and full selftest now PASS. No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. Selftest reliability restored. Pre-upload path remains stable. Upload still blocked only on the three secrets.
+- Verification: compact_all --check OK; next_compact_contract PASS; operator_card PASS; selftest PASS.
+- Discovery: Recent prepends via record_run had dropped the archive pointers required by compact_all and next_compact_contract, and HANDOFF had lost the sha that operator_card checks. Restoring them unblocks the selftest gate.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
+
 ## Run 894 — 2026-10-30T01:20:00Z
 - Objective: Add one small reusable production capability that compounds for future runs by providing a grounded prep package printer for the next queued topic (idea.md skeleton, research_notes skeleton, experiment hypothesis template) from topic_queue.md columns only, reducing sequential labor of preparing the next packet once Q1 is published.
 - Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/next_packet_prep.py (stdlib; parses queue; fail-closed on missing queue; no invent, no scaffold). Added matching contract. Tested (prints Q2 package). No secrets polled, no dispatch, no packet content edits, no media committed.
@@ -6,32 +17,3 @@
 - Discovery: Individual starters existed but a single command that assembles the grounded next-packet materials from the queue reduces preparation labor after the first video ships.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). The new tool can be used after Q1 ships. Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-# RUNS
-
-## Run 893 — 2026-10-29T21:20:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by providing a one-command local packet readiness orchestrator that runs the key mechanical gates (VO presence, media_qa, pre_dispatch_confirm, export_probe) and reprints the exact human next commands, reducing sequential checking labor before the OAuth step for every future packet.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/packet_ready_for_human.py (stdlib; runs existing gates; fail-closed on missing idea.md; no invent). Added matching contract. Tested on temp packets and Q1 (reports expected gaps without media). No secrets polled, no dispatch, no packet content edits, no media committed.
-- Result: Videos published stay 0. New readiness orchestrator available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: Tool and contract pass. Fail-closed on missing idea.md. Grounded run succeeds without inventing media or claims. Q1 reports gaps as expected.
-- Discovery: Individual confirmation tools existed but sequential invocation was still required for full local readiness; a single orchestrator that also embeds the human next commands fills that gap without external services or invented claims.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). The new tool can be run first for confirmation. Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-## Run 892 — 2026-10-29T20:14:00Z
-- Objective: Add one small reusable production capability that compounds for future runs by providing a one-command local learning bootstrap that orchestrates the grounded experiment starters (baseline, decision, notes) to produce fillable skeletons from idea.md only, reducing sequential human/agent labor of preparing the learning phase for every future packet once a video is published and metrics arrive.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Created tools/local_learning_bootstrap.py (stdlib; runs existing starters; fail-closed on missing idea.md; no invent). Added matching contract. Tested on temp packets and Q1 (READY, no writes). No secrets polled, no dispatch, no packet content edits, no media committed.
-- Result: Videos published stay 0. New learning bootstrap available for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: Tool and contract pass. Fail-closed on missing idea.md. Grounded run succeeds without inventing baselines or decisions. Q1 reports READY.
-- Discovery: Individual experiment starters existed but sequential invocation was still required for the learning phase; a single orchestrator fills that gap without external services or invented claims, useful after the first video is published.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). The new tool can be used after the first video exists. Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
-
-## Run 891 — 2026-10-29T19:14:27Z
-- Objective: Add one small reusable local confirmation tool that reduces human uncertainty before the OAuth step by checking mechanical readiness (media_qa, export, captions, publish.md, VO) and printing a clear READY or GAP list.
-- Action: Created tools/pre_dispatch_confirm.py (stdlib; runs media_qa; checks key files; fail-closed on missing packet). Created matching contract. Tested on materialized Q1 (READY) and temp trees. No secrets polled, no dispatch, no packet content edits, no media committed.
-- Result: Videos published stay 0. New confirmation tool available for every future packet. Pre-upload path remains stable and locally verified. Upload still blocked only on the three secrets.
-- Verification: Tool and contract pass. Q1 reports READY FOR OAUTH + DISPATCH. No invented data.
-- Discovery: A single command that consolidates the mechanical checks the human would otherwise run piecemeal reduces the chance of dispatching before local gates pass, especially useful after the first video when more packets exist.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). The new tool can be run first for confirmation. Prefer another truly new production capability if it does not require credentials. Avoid more brief/candidates tools.
