@@ -1,5 +1,12 @@
 # PROGRESS
 
+- Run 909 enhancement: tools/publish_readiness.py now also verifies the durable r253 master SHA (via master_sha_check.py) before reporting READY_FOR_HUMAN_DISPATCH. Agents or humans get one command that confirms correct export fingerprint in addition to media presence. No invented content. Reduces risk of using truncated or wrong master on every future pre-dispatch check. Aligns with no-invent rule.
+- Small enhancement to existing readiness tool only. No packet content writes, no secrets polled.
+- Human labor reduction: lower chance of agents or humans missing a master mismatch; readiness now includes the SHA gate.
+- Videos published remain 0. Stall continues. Preferred list still complete. Pre-upload path stable. Next high-value action is the human OAuth step or another truly new production capability.
+
+# PROGRESS
+
 - Run 908 enhancement: added tools/master_sha_check.py — a fail-closed verifier for the Q1 export/master.mp4 against the known r253 SHA256. Agents or humans can run one command after materialize to confirm the correct durable master is present (prevents accidental use of truncated r249). No invented content. Reduces rediscovery labor and error risk on every future pre-dispatch check. Aligns with no-invent rule.
 - Small new production reliability tool only. No packet content writes, no secrets polled. Local materialize + media_qa PASS + sha check PASS confirmed.
 - Human labor reduction: lower chance of agents or humans using the wrong master; one command verifies the fingerprint.

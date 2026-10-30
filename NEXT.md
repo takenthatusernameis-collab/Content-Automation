@@ -1,5 +1,11 @@
 # NEXT
 
+Updated: 2026-10-30T14:20:00Z (Run 909)
+
+Run 909: enhanced tools/publish_readiness.py to include fail-closed r253 master SHA verification (via master_sha_check.py) as part of READY_FOR_HUMAN_DISPATCH. Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/publish_readiness.py (now checks SHA) or existing pointers. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, or pure confirmation runs.
+
+# NEXT
+
 Updated: 2026-10-30T13:30:00Z (Run 908)
 
 Run 908: added tools/master_sha_check.py — fail-closed Q1 r253 SHA verifier (PASS on materialized master). Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/master_sha_check.py videos/002-... or existing pointers (pre_upload_review_steps.py / pipeline_entry.py / saturation_guard.py). Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, or pure confirmation runs.

@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 909 — 2026-10-30T14:20:00Z
+- Objective: Reduce future error risk on pre-dispatch readiness by integrating the durable r253 master SHA verification into the existing publish_readiness.py command, so one check confirms both media presence and the correct export fingerprint.
+- Action: Inspected current state (STALL_OAUTH_IDLE, published=0). Cloned repo, authenticated gh, ran materialize_q1_release.py (success; r253 installed), media_qa.py (PASS), master_sha_check.py (PASS). Enhanced tools/publish_readiness.py to call master_sha_check.py and require SHA match for READY_FOR_HUMAN_DISPATCH. Tested updated tool (PASS). No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. Readiness check now fail-closes on wrong or missing master. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Tool enhanced, tested locally (PASS on materialized master), ready for commit. media_qa and SHA check PASS confirmed.
+- Discovery: publish_readiness previously confirmed fingerprint presence but not the exact durable SHA; integrating the check compounds reliability without a new sequence printer.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, or pure confirmation entries.
+
+# RUNS
+
 ## Run 908 — 2026-10-30T13:30:00Z
 - Objective: Add one small reusable production reliability check that compounds for future runs by verifying the Q1 master against the known durable r253 SHA256, so agents and humans can confirm the correct export is present without rediscovering the fingerprint or risking the truncated r249 master.
 - Action: Inspected current state (STALL_OAUTH_IDLE, published=0, preferred list complete). Cloned repo, authenticated gh, ran materialize_q1_release.py (success; r253 installed), media_qa.py (PASS). Created tools/master_sha_check.py (stdlib; fail-closed on missing or mismatched SHA; no invent, no write). Ran it (PASS). Committed and pushed the tool. Updated state files with this evidence. No secrets polled, no dispatch, no packet content edits, no media committed.
