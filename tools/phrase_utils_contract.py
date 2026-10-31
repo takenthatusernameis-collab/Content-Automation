@@ -2,7 +2,8 @@
 """Contract lock for the shared phrase_utils helpers.
 
 Future runs can prove tools/phrase_utils stays consistent
-(shorten, normalize, spoken_words, compile_word_boundary_patterns, context_snippet)
+(shorten, normalize, spoken_words, count_spoken_words, extract_sections,
+compile_word_boundary_patterns, context_snippet)
 instead of allowing local copies to drift again.
 Writes nothing. Exits 0 on pass, 1 on failure.
 """
@@ -21,6 +22,8 @@ from phrase_utils import (  # noqa: E402
     shorten,
     normalize,
     spoken_words,
+    count_spoken_words,
+    extract_sections,
     compile_word_boundary_patterns,
     context_snippet,
     ANTI_SLOP_PATTERNS,
@@ -64,6 +67,27 @@ def check() -> list[str]:
         failures.append(f"spoken_words failed: {spoken!r}")
     if "\u2019" in spoken:
         failures.append("spoken_words did not normalize")
+
+    # --- count_spoken_words ---
+    if count_spoken_words("one two three") != 3:
+        failures.append("count_spoken_words simple failed")
+    if count_spoken_words("it\u2019s a test") != 3:
+        failures.append("count_spoken_words normalize failed")
+    if count_spoken_words("") != 0:
+        failures.append("count_spoken_words empty failed")
+
+    # --- extract_sections ---
+    script = "## Hook\nWORDS:\nHello world.\nVISUAL: title card\n## CTA\nWORDS:\nThanks for watching."
+    secs = extract_sections(script)
+    if len(secs) != 2:
+        failures.append(f"extract_sections count failed: {len(secs)}")
+    else:
+        if secs[0]["title"] != "Hook" or "Hello world" not in secs[0]["spoken"]:
+            failures.append("extract_sections hook failed")
+        if secs[1]["title"] != "CTA" or "Thanks" not in secs[1]["spoken"]:
+            failures.append("extract_sections cta failed")
+        if count_spoken_words(secs[0]["spoken"]) != 2:
+            failures.append("extract_sections word count failed")
 
     # --- compile_word_boundary_patterns ---
     pats = compile_word_boundary_patterns(("the key", "unlock"))
