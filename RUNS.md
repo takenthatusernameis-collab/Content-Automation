@@ -1,3 +1,12 @@
+## Run 921 — 2026-10-31T05:30:00Z
+- Objective: Catch long VISUAL cues early in the draft stage so they do not reach script.md and require later revision cycles.
+- Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Updated tools/draft_pre_apply_coach.py to run visual_readability_check.py, treat presence of LONG as non-clear, and add a specific recommendation to shorten to <=6 words / <=50 chars. Tested on Q1 packet (visual now appears in REVISE with the shorten action). No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. Pre-apply coach now surfaces visual length issues before promotion. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: File updated, local test confirmed visual signal and recommendation present. Syntax OK. No packet writes.
+- Discovery: The pre-apply coach previously omitted the visual readability check that already existed; integrating it compounds by preventing long card cues from being applied.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, suites, suggests, signals, starters, packages, or pure confirmation entries.
+
 ## Run 920 — 2026-10-31T04:13:00Z
 - Objective: Confirm current readiness of the Q1 packet after materialize on a fresh clone, verifying that all local gates still pass so the human OAuth step remains the clear next action.
 - Action: Inspected STATE/NEXT/RUNS (STALL_OAUTH_IDLE, published=0). Cloned repo, authenticated gh. Ran materialize_q1_release.py (success; r253 installed). Confirmed media_qa PASS, master_sha_check PASS, pre_upload_qa_suite overall PASS with READY_FOR_HUMAN_DISPATCH. No secrets polled, no dispatch, no packet content edits, no media committed.
@@ -106,45 +115,3 @@
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). The new suite can be run anytime after materialize. Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, or pure confirmation entries.
 
 # RUNS
-
-## Run 909 — 2026-10-30T14:20:00Z
-- Objective: Reduce future error risk on pre-dispatch readiness by integrating the durable r253 master SHA verification into the existing publish_readiness.py command, so one check confirms both media presence and the correct export fingerprint.
-- Action: Inspected current state (STALL_OAUTH_IDLE, published=0). Cloned repo, authenticated gh, ran materialize_q1_release.py (success; r253 installed), media_qa.py (PASS), master_sha_check.py (PASS). Enhanced tools/publish_readiness.py to call master_sha_check.py and require SHA match for READY_FOR_HUMAN_DISPATCH. Tested updated tool (PASS). No secrets polled, no dispatch, no packet content edits, no media committed.
-- Result: Videos published stay 0. Readiness check now fail-closes on wrong or missing master. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: Tool enhanced, tested locally (PASS on materialized master), ready for commit. media_qa and SHA check PASS confirmed.
-- Discovery: publish_readiness previously confirmed fingerprint presence but not the exact durable SHA; integrating the check compounds reliability without a new sequence printer.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, or pure confirmation entries.
-
-# RUNS
-
-## Run 908 — 2026-10-30T13:30:00Z
-- Objective: Add one small reusable production reliability check that compounds for future runs by verifying the Q1 master against the known durable r253 SHA256, so agents and humans can confirm the correct export is present without rediscovering the fingerprint or risking the truncated r249 master.
-- Action: Inspected current state (STALL_OAUTH_IDLE, published=0, preferred list complete). Cloned repo, authenticated gh, ran materialize_q1_release.py (success; r253 installed), media_qa.py (PASS). Created tools/master_sha_check.py (stdlib; fail-closed on missing or mismatched SHA; no invent, no write). Ran it (PASS). Committed and pushed the tool. Updated state files with this evidence. No secrets polled, no dispatch, no packet content edits, no media committed.
-- Result: Videos published stay 0. New master SHA verifier available for every future pre-dispatch check. Pre-upload path remains stable (media_qa PASS). Upload still blocked only on the three secrets. Text output stays local.
-- Verification: Tool created, tested locally (PASS on materialized master), committed and pushed. media_qa PASS confirmed.
-- Discovery: Master fingerprint check was previously only in status_report / handoff text; a dedicated fail-closed command reduces labor and error risk on every future packet that uses the durable release.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). The new tool can be run anytime after materialize. Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, or pure confirmation entries.
-
-# RUNS
-
-## Run 907 — 2026-10-30T12:30:00Z
-- Objective: Reduce future low-leverage pure confirmation runs by enhancing the saturation detector to recognize the recent confirmation pattern ("Confirmed ... no new tools", state-files-only notes) as status-only while videos published stay 0, so agents prefer the human OAuth step or a true production capability.
-- Action: Confirmed preferred list complete and STALL_OAUTH_IDLE. Updated tools/saturation_guard.py DOC_ONLY_RE and messages to include pure confirmation patterns. No secrets polled, no dispatch, no packet content edits, no media committed.
-- Result: Videos published stay 0. Saturation guard now flags pure confirmation runs in addition to sequence printers, status loops, briefs, and candidates generators. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: File updated and committed. Detector improved; no packet writes.
-- Discovery: Runs 904-906 were pure confirmation; catching that pattern in the guard prevents continued diminishing-returns restatement loops.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, or pure confirmation entries.
-
-## Run 906 — 2026-10-30T13:17:00Z
-- Objective: Confirm current stall state after prior confirmation runs and record a clear entry noting the diminishing returns of pure confirmation; strengthen guidance to prefer the human OAuth step over further status loops.
-- Action: Inspected STATE.md, NEXT.md, RUNS.md, ROADMAP.md, BLOCKED.md, HANDOFF.md, PROGRESS.md, human_oauth_checklist.md, saturation_guard.py, human_next_action.py, and production_capabilities.md. Confirmed videos published stay 0, preferred unblocked list complete, STALL_OAUTH_IDLE primary. No secrets polled, no dispatch, no packet content edits, no media committed. Updated state files with this run's evidence-based note only.
-- Result: Videos published stay 0. Saturation guard (from Run 903) remains in place and will flag further sequence printers, status loops, briefs, and candidates generators. Pre-upload path stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: State files updated and committed. No new tools added (to avoid the anti-rediscovery pattern the guard detects).
-- Discovery: Runs 904-905 were confirmation-only; the pattern is now explicitly noted as having diminishing returns. The human OAuth step is the only action that advances published count from 0.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Prefer a truly new production capability only if it materially advances media/QA/assembly/publish readiness without being a status printer, brief, candidates generator, or sequence printer.
-
-Older run logs live in `docs/runs_archive.md`. Do not paste the archive back.

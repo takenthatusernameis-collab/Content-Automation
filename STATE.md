@@ -1,3 +1,9 @@
+# STATE
+
+2026-10-31T05:30:00Z (Run 921)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/draft_pre_apply_coach.py to also run visual_readability_check and treat LONG VISUAL cues as a non-clear signal with a specific shorten recommendation. Local test on Q1 now includes visual in the REVISE list. Reduces later revision labor for long card cues on every future packet by catching them before apply_script. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
+
 2026-10-31T04:13:00Z (Run 920)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Materialized Q1 r253 media locally and confirmed media_qa PASS, master_sha_check PASS, pre_upload_qa_suite overall PASS (READY_FOR_HUMAN_DISPATCH). No new tools added. Confirms pre-upload path remains stable and ready for the human OAuth step. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
@@ -9,8 +15,6 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Co
 2026-10-31T00:20:00Z (Run 918)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/saturation_guard.py to also flag *_starter.py (non-experiment) and *_package tools as status-only while published=0. Builds on prior suite/suggest/signals detection. Reduces future low-leverage runs that add more starter/package printers. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
-
-# STATE
 
 2026-10-31T00:20:00Z (Run 918)
 
@@ -83,3 +87,4 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Ad
 2026-10-30T06:20:00Z (Run 901)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/pipeline_entry_contract.py — a lock that verifies stage selection by file presence (scaffold/idea/draft/script/upload) using tempfile packets. No invent, no write. Improves reliability of the stage guide for every future packet. Materialize + media_qa PASS confirmed locally with authenticated gh. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
+

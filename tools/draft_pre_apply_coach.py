@@ -69,6 +69,8 @@ def recommended_actions(non_clear: list[str], packet_path: Path) -> list[str]:
         recs.append(f"cadence: vary sentence length and cut repeated n-grams (see cadence_repetition_scan signals); then re-run python3 tools/draft_pre_apply_coach.py {p}")
     if "mechanism" in non_clear:
         recs.append(f"mechanism: weave missing idea.md mechanism terms naturally into WORDS; then re-run python3 tools/draft_pre_apply_coach.py {p}")
+    if "visual" in non_clear:
+        recs.append(f"visual: shorten LONG VISUAL cues to <=6 words / <=50 chars (see visual_readability_check); then re-run python3 tools/draft_pre_apply_coach.py {p}")
     if not recs:
         recs.append(f"all clear: proceed to python3 tools/apply_script.py {p} --from {p}/draft.md --write --refresh after words.py band check")
     return recs
@@ -86,7 +88,7 @@ def main() -> int:
         print(f"No draft.md or script.md in {args.packet}", file=sys.stderr)
         return 1
 
-    print("DRAFT PRE-APPLY COACH (expansion + quality + claim + originality + cadence + mechanism alignment signals on draft; no invented content)")
+    print("DRAFT PRE-APPLY COACH (expansion + quality + claim + originality + cadence + mechanism + visual readability signals on draft; no invented content)")
     print(f"Source: {source.name}")
     print(f"Packet: {path.name}")
     print()
@@ -146,6 +148,13 @@ def main() -> int:
     print(mech_out)
     signals.append(("mechanism", is_clear(mech_out, "mechanism")))
 
+    # Visual readability (long cues for cards)
+    vis_out = run_tool("visual_readability_check.py", path)
+    print("## VISUAL READABILITY SIGNALS")
+    print(vis_out)
+    # Treat presence of LONG as not clear
+    signals.append(("visual", "LONG" not in vis_out))
+
     # Summary for quick agent triage
     non_clear = [name for name, clear in signals if not clear]
     print()
@@ -165,7 +174,7 @@ def main() -> int:
 
     print()
     print("Next (do not invent sources, numbers, anecdotes, or spoken lines):")
-    print("- Revise draft.md for any SHORT beats, quality hits, claim hits, originality 'no' answers, cadence signals, or missing mechanism terms.")
+    print("- Revise draft.md for any SHORT beats, quality hits, claim hits, originality 'no' answers, cadence signals, missing mechanism terms, or LONG VISUAL cues.")
     print("- Prefer concrete mechanism language. Weave missing terms naturally. Vary sentence length. Cut repeated phrases.")
     print("- Then run apply_script.py --write after signals are clear.")
     print("This tool writes nothing. Preferred unblocked path remains human OAuth for publish.")

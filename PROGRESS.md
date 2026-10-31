@@ -1,3 +1,8 @@
+- Run 921 enhancement: tools/draft_pre_apply_coach.py now includes visual_readability_check and treats LONG VISUAL cues as non-clear with a targeted shorten recommendation. Agents or humans get the length signal before apply_script, reducing later revision_signals / card readability cycles on every future packet. No invented content. Aligns with no-invent rule.
+- Small enhancement to existing pre-apply coach only. No packet content writes, no secrets polled. Local test on Q1 confirmed visual in REVISE list.
+- Human labor reduction: lower chance of long VISUAL cues reaching script.md; one coach run now covers visual length.
+- Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Run 920 verification: materialized Q1 r253 and confirmed media_qa + master_sha_check + pre_upload_qa_suite overall PASS (READY_FOR_HUMAN_DISPATCH) on a fresh clone. Pre-upload path remains stable. No invented content. Confirms readiness for the human OAuth step without adding low-leverage tools. Aligns with no-invent rule.
 - Small verification only. No packet content writes, no secrets polled.
 - Human labor reduction: lower chance of agents re-discovering that gates still pass; one confirmation on fresh clone.
