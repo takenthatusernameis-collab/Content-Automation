@@ -21,10 +21,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
-try:
-    from phrase_utils import spoken_words  # type: ignore
-except Exception:
-    spoken_words = None  # type: ignore
 
 WPM = 150
 END_SCREEN_SECONDS = 20
@@ -49,9 +45,11 @@ def extract_sections(text: str) -> list[dict[str, str]]:
 
 
 def count_words(text: str) -> int:
-    if spoken_words is not None:
-        cleaned = spoken_words(text)
-        return len(cleaned.split()) if cleaned else 0
+    """Count words in already-extracted spoken section text.
+
+    The caller (extract_sections) has already pulled the body after WORDS:.
+    Do not re-apply spoken_words, which expects a full document containing WORDS: blocks.
+    """
     cleaned = re.sub(r"[^\w\s'-]", " ", text)
     return len([w for w in cleaned.split() if w.strip()])
 
