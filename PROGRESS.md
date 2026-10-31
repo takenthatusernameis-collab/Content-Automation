@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Run 936 enhancement: tools/pre_upload_qa_suite.py now also runs title_length_check.py, description_length_check.py, tags_length_check.py, and chapters_suggest.py. Agents or humans get the core media gates plus the recent metadata length and chapter-timestamp aids in one command before the human OAuth step. No invented content. Reduces sequential tool-running labor. Aligns with no-invent rule.
+- Small reliability extension of the existing pre-upload suite. No packet content writes, no secrets polled.
+- Human labor reduction: lower chance of agents or humans having to invoke the individual length and chapter tools separately after the core suite.
+- Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Run 935 enhancement: tools/chapters_suggest.py extracts ## sections, estimates cumulative spoken time with effective_rate, and prints ready-to-paste YouTube chapter lines starting at 0:00 with gap and count flags. Agents or humans get suggested timestamps without manual arithmetic on every future packet. No invented content. Reduces recurring chapter-timestamp labor. Aligns with no-invent rule.
 - Small reliability addition of a chapters generation aid complementary to existing chapters_scan. No packet content writes, no secrets polled.
 - Human labor reduction: lower chance of agents or humans spending time calculating and formatting chapter timestamps by hand before adding them to descriptions.
