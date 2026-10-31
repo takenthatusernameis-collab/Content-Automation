@@ -10,53 +10,26 @@ Prints a short table with status. Reduces recurring manual estimation of
 whether the CTA card can stay visible for the YouTube end-screen window.
 Does not invent content, rewrite files, or call external services.
 
-Total word count now uses the shared phrase_utils.spoken_words extractor so
-estimates stay consistent with quality_scan, claim_scan, and other scanners.
+Uses shared phrase_utils.extract_sections and count_spoken_words so section
+boundaries and word counts stay identical to other duration tools.
 """
 
 from __future__ import annotations
 
 import argparse
-import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
-from phrase_utils import spoken_words, normalize
+from phrase_utils import spoken_words, count_spoken_words, extract_sections
 
 
 WPM = 150
 END_SCREEN_SECONDS = 20
 MIN_CTA_SECONDS = 12  # enough for a readable hold into the reserve
 MIN_TOTAL_SECONDS = 360  # ~6 min floor from format
-
-
-def extract_sections(text: str) -> list[dict[str, str]]:
-    sections: list[dict[str, str]] = []
-    parts = re.split(r"^##[ \t]+", text, flags=re.M)
-    for part in parts[1:]:
-        lines = part.splitlines()
-        if not lines:
-            continue
-        title = lines[0].strip()
-        body = "\n".join(lines[1:])
-        words_m = re.search(r"^WORDS:\s*\n(.*?)(?=^VISUAL:|^##|\Z)", body, re.M | re.S)
-        spoken = (words_m.group(1).strip() if words_m else body)
-        spoken = re.sub(r"\s+", " ", spoken).strip()
-        sections.append({"title": title, "spoken": spoken})
-    return sections
-
-
-def count_words(text: str) -> int:
-    """Count words in already-extracted spoken section text.
-
-    Uses the shared normalize helper so curly-quote / dash variants are handled
-    the same way as the rest of the quality scanners.
-    """
-    cleaned = re.sub(r"[^\w\s'-]", " ", normalize(text))
-    return len([w for w in cleaned.split() if w.strip()])
 
 
 def classify(title: str) -> str:
@@ -97,12 +70,12 @@ def main() -> int:
     # Prefer the shared extractor for the official total so it matches
     # quality_scan / claim_scan / words.py conventions.
     total_spoken = spoken_words(text)
-    total_words = count_words(total_spoken)
+    total_words = count_spoken_words(total_spoken)
 
     cta_words = 0
     for sec in sections:
         if classify(sec["title"]) == "cta":
-            cta_words += count_words(sec["spoken"])
+            cta_words += count_spoken_words(sec["spoken"])
 
     cta_sec = (cta_words / WPM) * 60 if cta_words else 0.0
     total_sec = (total_words / WPM) * 60 if total_words else 0.0
@@ -145,7 +118,7 @@ def main() -> int:
     print("Rule (docs/format.md): CTA card stays readable through the final 20 s end-screen reserve.")
     print("Leave lower-right and lower-left clear. This tool writes nothing.")
     print("Confirm with actual VO duration when a selected take exists.")
-    print("Total word count uses shared phrase_utils.spoken_words for consistency with other scanners.")
+    print("Section extraction and word counts use shared phrase_utils helpers.")
     return 0 if overall == "PASS" else 2
 
 
