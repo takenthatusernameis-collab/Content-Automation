@@ -1,3 +1,12 @@
+## Run 929 — 2026-10-31T11:21:00Z
+- Objective: Make duration estimates self-calibrating to a real Selected VO so tools no longer require manual rate overrides once a take exists.
+- Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Added observed_wpm + effective_rate helpers to tools/phrase_utils.py (prefers observed WPM within 80-250 bounds when Selected VO is present, else falls back to select_rate). Updated tools/speaking_time_estimate.py, tools/end_screen_reserve_check.py, and tools/minimum_timeline_estimate.py to call effective_rate. No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. Duration tools now automatically use the packet's real observed rate when a take exists, eliminating remaining manual calibration labor. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Local run of speaking_time_estimate.py on Q1 (no VO in clone) still prints 190 wpm generated fallback; code changes committed and pulled cleanly. No packet writes.
+- Discovery: Prior select_rate only covered origin default; once a take exists the tools still needed a human or agent to notice and override the rate. effective_rate closes that gap permanently.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, suites, suggests, signals, starters, packages, or pure confirmation entries.
+
 ## Run 928 — 2026-10-31T10:17:00Z
 - Objective: Eliminate remaining local duplication of generated/human WPM rate selection so duration tools stay permanently consistent.
 - Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Added select_rate + HUMAN_WPM/GENERATED_WPM constants to tools/phrase_utils.py. Updated tools/speaking_time_estimate.py, tools/end_screen_reserve_check.py, and tools/minimum_timeline_estimate.py to import and call the shared helper instead of local copies. No secrets polled, no dispatch, no packet content edits, no media committed.
