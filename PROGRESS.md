@@ -1,3 +1,8 @@
+- Run 922 enhancement: tools/next_compact.py now treats "Run N:" notes as compactable items and uses MAX_ITEMS=6 so that long status notes archive automatically. NEXT.md stays under the size cap; SELFTEST and next_compact_contract pass. Agents or humans get the newest locks without truncated fetches. No invented content. Reduces rediscovery and truncation labor on every future run. Aligns with no-invent rule.
+- Small reliability fix to the state-compaction tool only. No packet content writes, no secrets polled. Local compact + contracts PASS confirmed.
+- Human labor reduction: lower chance of agents missing recent locks due to truncated NEXT.md or failing selftest; one compact keeps the file usable.
+- Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Run 921 enhancement: tools/draft_pre_apply_coach.py now includes visual_readability_check and treats LONG VISUAL cues as non-clear with a targeted shorten recommendation. Agents or humans get the length signal before apply_script, reducing later revision_signals / card readability cycles on every future packet. No invented content. Aligns with no-invent rule.
 - Small enhancement to existing pre-apply coach only. No packet content writes, no secrets polled. Local test on Q1 confirmed visual in REVISE list.
 - Human labor reduction: lower chance of long VISUAL cues reaching script.md; one coach run now covers visual length.

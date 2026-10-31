@@ -1,5 +1,11 @@
 # STATE
 
+2026-10-31T04:15:21Z (Run 922)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Fixed NEXT.md size-lock failure by updating tools/next_compact.py to treat "Run N:" notes as compactable items and lowering MAX_ITEMS from 12 to 6 so long notes archive. NEXT COMPACT CONTRACT and SELFTEST now PASS. Reduces truncated-fetch risk and agent rediscovery labor on every future run. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
+
+# STATE
+
 2026-10-31T05:30:00Z (Run 921)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/draft_pre_apply_coach.py to also run visual_readability_check and treat LONG VISUAL cues as a non-clear signal with a specific shorten recommendation. Local test on Q1 now includes visual in the REVISE list. Reduces later revision labor for long card cues on every future packet by catching them before apply_script. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
