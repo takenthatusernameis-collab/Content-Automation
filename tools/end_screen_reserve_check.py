@@ -2,7 +2,7 @@
 """End-screen reserve check for CTA spoken duration.
 
 Estimates spoken duration of the CTA section (and total) from script.md or
-draft.md. Selects rate from shared phrase_utils.select_rate (190 wpm generated, 140 wpm human)
+draft.md. Selects rate from shared phrase_utils.effective_rate (prefers observed WPM from Selected VO, else 190/140 from vo_origin)
 to match speaking_time_estimate.py. Flags whether the CTA is long enough to
 support a readable hold through the final 20 s end-screen reserve required by
 docs/format.md.
@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
-from phrase_utils import spoken_words, count_spoken_words, extract_sections, select_rate
+from phrase_utils import spoken_words, count_spoken_words, extract_sections, select_rate, effective_rate
 
 
 END_SCREEN_SECONDS = 20
@@ -77,14 +77,14 @@ def main() -> int:
         if classify(sec["title"]) == "cta":
             cta_words += count_spoken_words(sec["spoken"])
 
-    rate, rate_label = select_rate(path)
+    rate, rate_label = effective_rate(path, total_words)
     cta_sec = (cta_words / rate) * 60 if cta_words else 0.0
     total_sec = (total_words / rate) * 60 if total_words else 0.0
 
     print("END-SCREEN RESERVE CHECK (CTA hold vs docs/format.md last 20 s)")
     print(f"Source: {source.name}")
     print(f"Packet: {path.name}")
-    print(f"Clock: ~{rate} wpm ({rate_label} default from vo_origin)")
+    print(f"Clock: ~{rate} wpm ({rate_label})")
     print()
     print("| Metric | Value | Target | Status |")
     print("|--------|------:|--------|--------|")
