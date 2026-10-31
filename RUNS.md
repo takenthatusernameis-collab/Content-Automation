@@ -1,3 +1,12 @@
+## Run 928 — 2026-10-31T10:17:00Z
+- Objective: Eliminate remaining local duplication of generated/human WPM rate selection so duration tools stay permanently consistent.
+- Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Added select_rate + HUMAN_WPM/GENERATED_WPM constants to tools/phrase_utils.py. Updated tools/speaking_time_estimate.py, tools/end_screen_reserve_check.py, and tools/minimum_timeline_estimate.py to import and call the shared helper instead of local copies. No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. Rate selection is now a single source of truth. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Code changes committed; the three tools now share the identical select_rate path. No packet writes.
+- Discovery: Local rate logic remaining in each tool after prior alignment still created a maintenance surface for future divergence.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, suites, suggests, signals, starters, packages, or pure confirmation entries.
+
 ## Run 927 — 2026-10-31T09:17:00Z
 - Objective: Eliminate remaining rate divergence across duration planning tools so generated-narration packets receive consistent estimates.
 - Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Updated tools/end_screen_reserve_check.py and tools/minimum_timeline_estimate.py to select 190 wpm when vo_origin.md marks generated and 140 wpm otherwise, matching the logic already present in speaking_time_estimate.py. No secrets polled, no dispatch, no packet content edits, no media committed.
