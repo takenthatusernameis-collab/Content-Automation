@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Run 934 enhancement: tools/tags_length_check.py reports tag count, per-tag lengths, and estimated YouTube-counted total characters (join by commas + 2 for each multi-word tag's quotes) against the 500 hard limit. Agents or humans get an immediate length signal without manual counting of the combined tag string on every future packet. No invented content. Reduces recurring tags-review labor. Aligns with no-invent rule.
+- Small reliability addition of a length quality check complementary to existing tags_scan. No packet content writes, no secrets polled.
+- Human labor reduction: lower chance of shipping tag lists that exceed the 500-character budget or require manual recounting before publish.
+- Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Run 933 enhancement: tools/description_length_check.py reports total character count and first-line visible length against YouTube best practices (first ~150 chars pre-"show more"; hard max 5000). Agents or humans get an immediate length signal without manual counting on every future packet. No invented content. Reduces recurring description-review labor. Aligns with no-invent rule.
 - Small reliability addition of a length quality check complementary to existing description_scan. No packet content writes, no secrets polled.
 - Human labor reduction: lower chance of shipping descriptions whose key hook is truncated by "show more" or that hit the hard character limit.
