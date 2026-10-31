@@ -2,12 +2,14 @@
 """Run the full local pre-upload QA suite in one command and report unified status.
 
 Executes the key fail-closed checks (media_qa, caption_gate, export_probe,
-end_screen_reserve_check, master_sha_check, publish_readiness) on a packet
-after materialize. Aggregates exit codes into a single PASS / FAIL summary
-with per-check results. Does not invent media, write packet content, poll
-secrets, encode, or upload. Reduces sequential labor of running each check
-separately before the human OAuth step and single execute=true dispatch.
-Reusable for every future packet that has local media.
+end_screen_reserve_check, master_sha_check, publish_readiness) plus recent
+metadata length and chapter aids (title/description/tags length checks,
+chapters_suggest) on a packet after materialize. Aggregates exit codes into
+a single PASS / FAIL summary with per-check results. Does not invent media,
+write packet content, poll secrets, encode, or upload. Reduces sequential
+labor of running each check separately before the human OAuth step and
+single execute=true dispatch. Reusable for every future packet that has
+local media.
 """
 
 from __future__ import annotations
@@ -27,6 +29,10 @@ CHECKS = [
     ("end_screen_reserve_check", "end_screen_reserve_check.py", []),
     ("master_sha_check", "master_sha_check.py", []),
     ("publish_readiness", "publish_readiness.py", []),
+    ("title_length_check", "title_length_check.py", []),
+    ("description_length_check", "description_length_check.py", []),
+    ("tags_length_check", "tags_length_check.py", []),
+    ("chapters_suggest", "chapters_suggest.py", []),
 ]
 
 
@@ -57,8 +63,9 @@ def main() -> int:
     overall_ok = True
     for name, script, extra in CHECKS:
         code, out = run_check(name, script, packet, extra)
-        status = "PASS" if code == 0 else "FAIL" if code != 2 else "WARN"
-        if code not in (0, 2):  # 2 is often WARN for end_screen
+        # Treat non-zero as FAIL unless the tool is advisory (length checks and chapters_suggest exit 0 even with notes)
+        status = "PASS" if code == 0 else "FAIL"
+        if code != 0:
             overall_ok = False
         results.append((name, status, code, out[:400] + ("..." if len(out) > 400 else "")))
         print(f"[{status}] {name} (exit {code})")
