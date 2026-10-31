@@ -105,7 +105,9 @@ def main() -> int:
         notes.append(f"Total estimated {total_sec:.0f}s < {MIN_TOTAL_SECONDS}s floor")
     print(f"| Total words | {total_words} | 900-1500 | - |")
     print(f"| Total duration | {total_sec:.0f}s | ≥{MIN_TOTAL_SECONDS}s | {total_status} |")
+    reserve_start = max(0.0, total_sec - END_SCREEN_SECONDS)
     print(f"| End-screen reserve | {END_SCREEN_SECONDS}s | last 20 s | (format rule) |")
+    print(f"| Reserve begins ~ | {reserve_start:.0f}s | - | (planning) |")
 
     print()
     print(f"Overall: {overall}")
@@ -114,6 +116,7 @@ def main() -> int:
             print(f"- {n}")
     else:
         print("- CTA duration appears sufficient for a readable hold through the end-screen reserve.")
+    print(f"- Estimated end-screen reserve begins at ~{reserve_start:.0f}s (total {total_sec:.0f}s - {END_SCREEN_SECONDS}s).")
 
     print()
     print("Rule (docs/format.md): CTA card stays readable through the final 20 s end-screen reserve.")

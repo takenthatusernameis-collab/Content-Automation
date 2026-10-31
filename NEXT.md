@@ -1,6 +1,10 @@
 # NEXT
 
+2026-10-31T12:23:00Z (Run 930)
+
 Older next actions live in `docs/next_archive.md`. Do not paste the archive back.
+
+Run 930: enhanced end_screen_reserve_check.py with absolute reserve-start time and aligned format.md clock source to effective_rate. Preferred list complete. Next: human step (docs/human_oauth_checklist.md or tools/human_next_action.py then secrets + single execute=true dispatch). Optional: python3 tools/end_screen_reserve_check.py on a packet. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, suites, suggests, starters, packages, or pure confirmation runs.
 
 Run 929: added effective_rate (prefers observed WPM from Selected VO, else select_rate 190/140) to phrase_utils and switched the three duration tools to it. Preferred list complete. Next: human step (docs/human_oauth_checklist.md or tools/human_next_action.py then secrets + single execute=true dispatch). Optional: python3 tools/speaking_time_estimate.py on a packet that has Selected VO. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, suites, suggests, starters, packages, or pure confirmation runs.
 

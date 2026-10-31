@@ -1,3 +1,10 @@
+# PROGRESS
+
+- Run 930 enhancement: tools/end_screen_reserve_check.py now prints the estimated absolute start time of the last-20 s end-screen reserve (total estimated duration minus 20 s) using effective_rate. docs/format.md clock source now names effective_rate as the preferred observed path. Agents or humans get the concrete reserve-begin timestamp without manual arithmetic on every future packet. No invented content. Reduces remaining planning labor. Aligns with no-invent rule.
+- Small reliability extension of the shared duration rate logic into an actionable planning number. No packet content writes, no secrets polled.
+- Human labor reduction: lower chance of agents mis-calculating where the end-screen window starts relative to the spoken timeline.
+- Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Run 929 enhancement: tools/phrase_utils.py now provides effective_rate (prefers observed WPM from Selected VO within sanity bounds, else select_rate). speaking_time_estimate.py, end_screen_reserve_check.py, and minimum_timeline_estimate.py call it. Agents or humans get automatically calibrated duration estimates on any packet that already has a take, without manual rate conversion or override. No invented content. Reduces remaining calibration labor. Aligns with no-invent rule.
 - Small reliability extension of the shared duration rate logic. No packet content writes, no secrets polled.
 - Human labor reduction: once a Selected VO exists, duration planning tools no longer need a human or agent to notice the observed rate and re-run or adjust estimates by hand.

@@ -4,7 +4,7 @@ Locked format for packets with `format: explainer-6-10min`.
 Timing and named outputs only. No ffmpeg command line.
 
 Default target: 8 minutes. Allowed range: 6–10 minutes spoken plus holds.
-Clock source: selected VO take when it exists; otherwise script WORDS at the calibrated rate from tools/phrase_utils.select_rate (190 wpm when vo_origin marks generated, 140 wpm otherwise; ~150 wpm was the earlier approximate default).
+Clock source: selected VO take when it exists (observed WPM preferred via tools/phrase_utils.effective_rate); otherwise script WORDS at the calibrated rate from tools/phrase_utils.select_rate (190 wpm when vo_origin marks generated, 140 wpm otherwise; ~150 wpm was the earlier approximate default).
 
 Spoken-word band at 150 wpm: **900–1500 words**. Target ~1200.
 `tools/validate_packet.py` prints WARN when WORDS sit outside that band.

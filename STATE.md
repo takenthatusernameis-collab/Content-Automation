@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-31T12:23:00Z (Run 930)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Enhanced tools/end_screen_reserve_check.py to print the estimated absolute start time of the last-20s end-screen reserve (total_duration - 20s) using the shared effective_rate. Updated docs/format.md clock-source note to prefer observed WPM via effective_rate when a Selected VO exists. Makes end-screen planning more precise without manual arithmetic. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
+
 2026-10-31T11:21:00Z (Run 929)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added effective_rate / observed_wpm to tools/phrase_utils.py. Duration tools (speaking_time_estimate.py, end_screen_reserve_check.py, minimum_timeline_estimate.py) now call effective_rate so they automatically prefer the real observed WPM from a Selected VO when present (sanity-bounded), falling back to the 190/140 select_rate otherwise. Eliminates remaining manual rate override labor once a take exists. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).

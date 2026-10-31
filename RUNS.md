@@ -1,3 +1,4 @@
+# RUNS
 ## Run 929 — 2026-10-31T11:21:00Z
 - Objective: Make duration estimates self-calibrating to a real Selected VO so tools no longer require manual rate overrides once a take exists.
 - Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Added observed_wpm + effective_rate helpers to tools/phrase_utils.py (prefers observed WPM within 80-250 bounds when Selected VO is present, else falls back to select_rate). Updated tools/speaking_time_estimate.py, tools/end_screen_reserve_check.py, and tools/minimum_timeline_estimate.py to call effective_rate. No secrets polled, no dispatch, no packet content edits, no media committed.
