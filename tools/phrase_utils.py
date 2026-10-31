@@ -10,6 +10,7 @@ duration estimators and scanners stay consistent.
 from __future__ import annotations
 
 import re
+from pathlib import Path
 
 
 def shorten(text: str, max_len: int = 40) -> str:
@@ -119,6 +120,30 @@ def extract_sections(text: str) -> list[dict[str, str]]:
             "need": need,
         })
     return sections
+
+
+# Shared narration rate constants and selector.
+# Single source of truth so duration tools cannot diverge on human vs generated WPM.
+# Observed Q1 generated take ~199 wpm; 190 is the calibrated default for generated origin.
+HUMAN_WPM = 140  # typical clear explanatory narration rate
+GENERATED_WPM = 190  # calibrated default when vo_origin marks generated
+
+
+def select_rate(packet_path: Path) -> tuple[int, str]:
+    """Return (wpm, label) based on vo_origin.md if present.
+
+    Shared by speaking_time_estimate, end_screen_reserve_check, minimum_timeline_estimate,
+    and any future duration planners so rate selection stays identical.
+    Does not invent content or call external services.
+    """
+    origin_path = packet_path / "vo_origin.md"
+    is_generated = False
+    if origin_path.is_file():
+        origin_text = origin_path.read_text(encoding="utf-8").lower()
+        is_generated = "kind: generated" in origin_text or "kind=generated" in origin_text
+    if is_generated:
+        return GENERATED_WPM, "generated"
+    return HUMAN_WPM, "human"
 
 
 def compile_word_boundary_patterns(phrases):
