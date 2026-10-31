@@ -1,3 +1,31 @@
+# NEXT
+
+# NEXT
+
+# NEXT
+
+# NEXT
+
+# NEXT
+
+Updated: 2026-10-30T14:20:00Z (Run 909)
+
+# NEXT
+
+Updated: 2026-10-30T13:30:00Z (Run 908)
+
+Updated: 2026-10-30T12:30:00Z (Run 907)
+
+Updated: 2026-10-30T13:17:00Z (Run 906)
+
+Updated: 2026-10-30T10:15:00Z (Run 905)
+
+Updated: 2026-10-30T09:17:00Z (Run 904)
+
+Updated: 2026-10-30T10:30:00Z (Run 903)
+
+Older next actions live in `docs/next_archive.md`. Do not paste the archive back.
+
 Run 921: enhanced draft_pre_apply_coach.py with visual readability signal (LONG cues now non-clear). Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/draft_pre_apply_coach.py on a draft packet. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, suites, suggests, starters, packages, or pure confirmation runs.
 
 Run 920: verified materialize + media_qa + master_sha_check + pre_upload_qa_suite overall PASS on fresh clone. Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/saturation_guard.py or existing prep suites. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, suites, suggests, starters, packages, or pure confirmation runs.
@@ -8,62 +36,4 @@ Run 918: enhanced tools/saturation_guard.py to flag *_starter.py and *_package p
 
 Run 917: enhanced tools/saturation_guard.py to flag *_suite.py, *_suggest.py, *_signals.py, and revision_* patterns as status-only while published=0. Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/saturation_guard.py (now catches suite/suggest/signals) or existing prep suites / revision tools. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, suite, suggest, signals, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, suites, suggests, or pure confirmation runs.
 
-# NEXT
-
 Run 916: added tools/revision_suggest.py — turns signals into short grounded revision candidates (shorter visuals, non-bait comments, etc.). Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/revision_suggest.py videos/002-... or existing revision_signals / prep suites. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, or pure confirmation runs.
-
-Run 915: added tools/revision_signals.py — extracts only hit/FAIL lines from strict scanners into a clean list (SIGNALS_PRESENT on Q1 with cadence, missing sections, bait, LONG cues). Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/revision_signals.py videos/002-... or existing metadata/visual/quality/pre_upload suites. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, or pure confirmation runs.
-
-Run 914: added tools/metadata_prep_suite.py — unified strict metadata scanner runner (overall FAIL on Q1 due to first-comment bait + missing sections under checks). Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/metadata_prep_suite.py videos/002-... or existing visual_prep_suite / quality_prep_suite / pre_upload_qa_suite. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, or pure confirmation runs.
-
-Run 913: added tools/visual_prep_suite.py — unified strict visual/title/thumbnail scanner runner (overall FAIL on Q1 due to missing thumbnail + long cues under checks). Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/visual_prep_suite.py videos/002-... or existing quality_prep_suite / pre_upload_qa_suite. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, or pure confirmation runs.
-
-# NEXT
-
-Run 912: added tools/quality_prep_suite.py — unified strict quality scanner runner (overall FAIL on Q1 due to cadence signals under --strict). Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/quality_prep_suite.py videos/002-... or existing pre_upload_qa_suite / quality_prep_brief. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, or pure confirmation runs.
-
-# NEXT
-
-Run 911: fixed relative-path crash in tools/publish_readiness.py so next_action_code succeeds and reports READY_FOR_HUMAN_DISPATCH; pre_upload_qa_suite now overall PASS. Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/pre_upload_qa_suite.py (after materialize) or existing pointers. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, or pure confirmation runs.
-
-# NEXT
-
-Run 910: added tools/pre_upload_qa_suite.py — unified local QA runner (executes key checks, overall PASS on materialized Q1). Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/pre_upload_qa_suite.py (after materialize) or existing pointers. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, or pure confirmation runs.
-
-# NEXT
-
-Updated: 2026-10-30T14:20:00Z (Run 909)
-
-Run 909: enhanced tools/publish_readiness.py to include fail-closed r253 master SHA verification (via master_sha_check.py) as part of READY_FOR_HUMAN_DISPATCH. Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/publish_readiness.py (now checks SHA) or existing pointers. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, or pure confirmation runs.
-
-# NEXT
-
-Updated: 2026-10-30T13:30:00Z (Run 908)
-
-Run 908: added tools/master_sha_check.py — fail-closed Q1 r253 SHA verifier (PASS on materialized master). Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/master_sha_check.py videos/002-... or existing pointers (pre_upload_review_steps.py / pipeline_entry.py / saturation_guard.py). Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, or pure confirmation runs.
-
-Updated: 2026-10-30T12:30:00Z (Run 907)
-
-Run 907: enhanced saturation_guard.py to flag pure confirmation runs ("Confirmed ... no new tools", state-files-only notes) as status-only while published=0. Builds on prior sequence-printer detection. Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/saturation_guard.py (now catches confirmation pattern) or existing pointers (pre_upload_review_steps.py / pipeline_entry.py). Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, or pure confirmation runs.
-
-Updated: 2026-10-30T13:17:00Z (Run 906)
-
-Run 906: confirmed stall and preferred list complete; noted diminishing returns of pure confirmation runs. Saturation guard (Run 903) will flag further sequence printers, status loops, briefs, and candidates generators. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/saturation_guard.py or existing pointers (pre_upload_review_steps.py / pipeline_entry.py). Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, or sequence printer tool). Avoid additional status printers, briefs, candidates generators, or sequence printers.
-
-Updated: 2026-10-30T10:15:00Z (Run 905)
-
-Run 905: confirmed stall and preferred list complete; no new status/sequence/brief/candidates tools added. Saturation guard (Run 903) will flag further sequence printers, status loops, briefs, and candidates generators. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/saturation_guard.py or existing pointers (pre_upload_review_steps.py / pipeline_entry.py). Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, or sequence printer tool). Avoid additional status printers, briefs, candidates generators, or sequence printers.
-
-Updated: 2026-10-30T09:17:00Z (Run 904)
-
-Run 904: confirmed stall and preferred list complete; no new status/sequence tools added. Saturation guard (Run 903) will flag further sequence printers. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/saturation_guard.py or existing pointers (pre_upload_review_steps.py / pipeline_entry.py). Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, or sequence printer tool). Avoid additional status printers, briefs, candidates generators, or sequence printers.
-
-Updated: 2026-10-30T10:30:00Z (Run 903)
-
-Run 903: enhanced tools/saturation_guard.py to flag sequence printers (pipeline_entry, pre_upload_review_steps, *_steps.py) and extra contracts as status-only while published=0. Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/saturation_guard.py (now catches sequence printers) or python3 tools/pre_upload_review_steps.py / pipeline_entry.py (existing pointers). Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, or sequence printer tool). Avoid additional status printers, briefs, candidates generators, or sequence printers.
-
-Older next actions live in `docs/next_archive.md`. Do not paste the archive back.
-
-Run 918: enhanced tools/saturation_guard.py to flag *_starter.py and *_package patterns as status-only while published=0. Preferred list complete. Next: human step (docs/human_oauth_checklist.md quick sequence or python3 tools/human_next_action.py / operator_card.py / oauth_exchange.py then secrets + single execute=true dispatch). Optional: python3 tools/saturation_guard.py (now catches starter/package) or existing prep suites / revision tools. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, suites, suggests, starters, packages, or pure confirmation runs.
-
-2026-10-31T00:20:00Z (Run 918)

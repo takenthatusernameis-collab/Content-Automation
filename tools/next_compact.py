@@ -14,8 +14,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 NEXT = ROOT / "NEXT.md"
 ARCHIVE = ROOT / "docs" / "next_archive.md"
-MAX_ITEMS = 12
-ITEM_RE = re.compile(r"^[0-9]")
+MAX_ITEMS = 6
+ITEM_RE = re.compile(r"^([0-9]|Run )")
 
 
 def split_items(text: str) -> tuple[str, list[str]]:

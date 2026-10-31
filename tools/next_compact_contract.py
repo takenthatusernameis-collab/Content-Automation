@@ -38,9 +38,9 @@ def main() -> int:
         return fail("multipart note missing from archive")
     bloated = "\n\n".join(f"{i}. **Do not rediscover filler {i}.** note\n" for i in range(20, 0, -1))
     new_next, new_archive, moved = next_compact.compact_text(bloated, "# NEXT ARCHIVE\n\n")
-    if moved != 8:
+    if moved != 14:
         return fail(f"expected to move 8, moved {moved}")
-    if len(next_compact.split_items(new_next)[1]) != 12:
+    if len(next_compact.split_items(new_next)[1]) != 6:
         return fail("compact did not keep 12")
     if not new_next.startswith("20. "):
         return fail("kept the wrong end")
