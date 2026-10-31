@@ -2,8 +2,8 @@
 """Minimum timeline estimate including forced card holds.
 
 Extracts ## sections from script.md or draft.md, estimates spoken duration
-using shared phrase_utils.select_rate (190 wpm generated, 140 wpm human) to match
-speaking_time_estimate.py, and applies the docs/format.md 1.5 s minimum
+using shared phrase_utils.effective_rate (prefers observed WPM from Selected VO, else 190/140 from vo_origin)
+to match speaking_time_estimate.py, and applies the docs/format.md 1.5 s minimum
 hold for every visual card. Sums the adjusted holds to produce a minimum
 total duration that accounts for short-beat padding.
 
@@ -27,7 +27,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
-from phrase_utils import extract_sections, count_spoken_words, select_rate
+from phrase_utils import extract_sections, count_spoken_words, select_rate, effective_rate
 
 MIN_HOLD_SEC = 1.5
 TARGET_MIN_SEC = 360  # 6 min
@@ -56,12 +56,13 @@ def main() -> int:
 
     text = source.read_text(encoding="utf-8")
     sections = extract_sections(text)
-    rate, rate_label = select_rate(path)
+    total_words_for_rate = sum(count_spoken_words(sec["spoken"]) for sec in sections)
+    rate, rate_label = effective_rate(path, total_words_for_rate)
 
     print("MINIMUM TIMELINE ESTIMATE (spoken + forced 1.5s card holds)")
     print(f"Source: {source.name}")
     print(f"Packet: {path.name}")
-    print(f"Clock: ~{rate} wpm ({rate_label} default from vo_origin)")
+    print(f"Clock: ~{rate} wpm ({rate_label})")
     print(f"Min card hold: {MIN_HOLD_SEC}s (docs/format.md)")
     print()
 
