@@ -1,3 +1,8 @@
+- Run 929 enhancement: tools/phrase_utils.py now provides effective_rate (prefers observed WPM from Selected VO within sanity bounds, else select_rate). speaking_time_estimate.py, end_screen_reserve_check.py, and minimum_timeline_estimate.py call it. Agents or humans get automatically calibrated duration estimates on any packet that already has a take, without manual rate conversion or override. No invented content. Reduces remaining calibration labor. Aligns with no-invent rule.
+- Small reliability extension of the shared duration rate logic. No packet content writes, no secrets polled.
+- Human labor reduction: once a Selected VO exists, duration planning tools no longer need a human or agent to notice the observed rate and re-run or adjust estimates by hand.
+- Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Run 928 enhancement: tools/phrase_utils.py now owns select_rate + HUMAN_WPM/GENERATED_WPM constants. speaking_time_estimate.py, end_screen_reserve_check.py, and minimum_timeline_estimate.py import and call it instead of local copies. Agents or humans get permanently consistent duration estimates across speaking-time, end-screen, and minimum-timeline tools on every future generated packet without risk of re-divergence. No invented content. Reduces rediscovery and inconsistent planning labor. Aligns with no-invent rule.
 - Small reliability extraction of existing duration rate logic only. No packet content writes, no secrets polled.
 - Human labor reduction: lower chance of agents treating divergent rate assumptions as reasons to re-inspect or adjust reserves by hand.
