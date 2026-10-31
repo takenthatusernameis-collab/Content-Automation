@@ -1,4 +1,13 @@
 # RUNS
+## Run 934 — 2026-10-31T17:15:00Z
+- Objective: Add a reusable tags length check so agents and humans no longer need to manually count the combined tag string against YouTube's 500-character budget on every future packet.
+- Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Created tools/tags_length_check.py that extracts ## Tags bullets via shared normalize, reports count + per-tag lengths, and estimates YouTube-counted total (join by commas + 2 quotes per multi-word tag) vs hard max 500. Flags too_long. No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. Tags length review is now a one-command local check. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: New tool file added and committed; logic uses existing shared helper (normalize) and matches tags_scan extraction pattern. No packet writes. File presence confirmed.
+- Discovery: Combined tag character budget (including commas and implied quotes) against the YouTube 500 limit was a recurring manual step not covered by the existing tags_scan (which targets weak/generic patterns).
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, suites, suggests, signals, starters, packages, or pure confirmation entries.
+
 ## Run 933 — 2026-10-31T16:15:00Z
 - Objective: Add a reusable description length check so agents and humans no longer need to manually count characters against YouTube best practices on every future packet.
 - Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Created tools/description_length_check.py that extracts the Description section, normalizes, and reports total length vs 5000 hard max plus first-line visible length vs ~40-200 ideal for the pre-show-more zone. Flags empty/too_long/visible_short/visible_long. No secrets polled, no dispatch, no packet content edits, no media committed.
