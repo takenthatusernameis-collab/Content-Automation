@@ -21,7 +21,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
-from phrase_utils import spoken_words, count_spoken_words, select_rate
+from phrase_utils import spoken_words, count_spoken_words, select_rate, effective_rate
 from render_brief import selected_vo_drop  # noqa: E402
 
 
@@ -69,7 +69,7 @@ def main() -> int:
     words_text = spoken_words(text)
     count = count_spoken_words(words_text)
 
-    rate, rate_label = select_rate(path)
+    rate, rate_label = effective_rate(path, count)
 
     seconds = estimate_seconds(count, rate)
     duration = format_duration(seconds)
@@ -78,7 +78,7 @@ def main() -> int:
     print(f"Source: {source.name}")
     print(f"Packet: {path.name}")
     print(f"Spoken words: {count}")
-    print(f"Estimated rate: {rate} wpm ({rate_label} default from vo_origin)")
+    print(f"Estimated rate: {rate} wpm ({rate_label})")
     print(f"Estimated duration: {duration} ({seconds} seconds)")
 
     vo_rel = selected_vo_drop(path)
