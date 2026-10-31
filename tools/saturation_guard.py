@@ -27,7 +27,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RUNS = ROOT / "RUNS.md"
 
 STATUS_TOOL_RE = re.compile(
-    r"(Added|Enhanced) tools/(stall_|recurring_|publish_|after_|next_|human_|packet_|capability_|efficiency_|media_fingerprint|reusable_commands|experiment_|script_.*_(brief|candidates)|.*_candidates|research_gap|packet_readiness_brief|pipeline_entry|pre_upload_review|.*_steps\.py|.*_entry\.py|.*_suite\.py|.*_suggest\.py|.*_signals\.py|revision_)",
+    r"(Added|Enhanced) tools/(stall_|recurring_|publish_|after_|next_|human_|packet_|capability_|efficiency_|media_fingerprint|reusable_commands|experiment_|script_.*_(brief|candidates)|.*_candidates|research_gap|packet_readiness_brief|pipeline_entry|pre_upload_review|.*_steps\.py|.*_entry\.py|.*_suite\.py|.*_suggest\.py|.*_signals\.py|revision_|.*_starter\.py|.*_package\.py)",
     re.IGNORECASE,
 )
 SUGGEST_CONTRACT_RE = re.compile(

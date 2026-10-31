@@ -1,3 +1,12 @@
+## Run 919 — 2026-10-31T01:20:00Z
+- Objective: Complete the saturation_guard enhancement so *_starter.py and *_package.py patterns are actually detected in STATUS_TOOL_RE (not only mentioned in messages), reducing future low-leverage starter/package runs while published=0.
+- Action: Inspected current state (STALL_OAUTH_IDLE, published=0). Updated tools/saturation_guard.py STATUS_TOOL_RE to include .*_starter\.py|.*_package\.py. Verified is_status_only returns True on sample sections. No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. Saturation guard now reliably flags starter/package pattern in addition to prior detections. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: File updated, syntax OK, local detection test passed. No packet writes.
+- Discovery: Prior Run 918 update mentioned the patterns in messages but the regex did not catch them; completing the detection compounds the anti-rediscovery protection.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, suites, suggests, signals, starters, packages, or pure confirmation entries.
+
 ## Run 918 — 2026-10-31T00:20:00Z
 - Objective: Reduce future low-leverage runs that add more starter and package printers by enhancing the saturation detector to recognize those patterns as status-only while videos published stay 0.
 - Action: Inspected current state (STALL_OAUTH_IDLE, published=0). Updated tools/saturation_guard.py STATUS_TOOL_RE and messages to include *_starter.py and *_package patterns. No secrets polled, no dispatch, no packet content edits, no media committed.
