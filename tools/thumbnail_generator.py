@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-"""Generate a local 1280x720 YouTube thumbnail PNG from packet publish.md title.
+"""Generate a local 1280x720 YouTube thumbnail PNG.
 
-No stock, no invented text beyond the locked title, no git commits of the binary.
+Prefers short on-image text from thumbnail.md (better for readability/CTR)
+when present; falls back to the locked title from publish.md.
+No stock, no invented text, no git commits of the binary.
 Output: packet/thumbnail.png (local only). Compatible with youtube_upload.py checks
 (min 640x360, PNG with IEND, <2MB).
 """
@@ -19,6 +21,20 @@ BG = (18, 18, 22)
 FG = (245, 243, 238)
 ACCENT = (232, 196, 104)
 RULE = (58, 56, 52)
+
+
+def extract_on_image_text(thumb_text: str) -> str | None:
+    """Pull short on-image text from thumbnail.md if present."""
+    match = re.search(
+        r"On-image text(?: \(max 5 words\))?:\s*(.+)",
+        thumb_text,
+        re.I,
+    )
+    if match:
+        text = match.group(1).strip()
+        if text and len(text.split()) <= 6:  # keep short
+            return text
+    return None
 
 
 def extract_title(publish_text: str) -> str:
@@ -77,7 +93,7 @@ def _wrap(draw, text: str, font, max_width: int) -> list[str]:
     return lines
 
 
-def render_thumbnail(title: str):
+def render_thumbnail(text: str):
     Image, ImageDraw, _ = _pil()
     img = Image.new("RGB", (WIDTH, HEIGHT), BG)
     draw = ImageDraw.Draw(img)
@@ -85,8 +101,10 @@ def render_thumbnail(title: str):
     draw.rectangle((40, 40, WIDTH - 40, 100), fill=ACCENT)
     draw.text((60, 52), "YOUTUBE", font=_font(28), fill=BG)
 
-    font = _font(64)
-    lines = _wrap(draw, title, font, WIDTH - 160)
+    # Larger font for short text
+    font_size = 72 if len(text.split()) <= 4 else 56
+    font = _font(font_size)
+    lines = _wrap(draw, text, font, WIDTH - 160)
     total_h = 0
     for line in lines:
         bbox = font.getbbox(line or "X")
@@ -118,7 +136,7 @@ def inspect_png(path: Path) -> dict[str, str]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate local 1280x720 thumbnail from publish title")
+    parser = argparse.ArgumentParser(description="Generate local 1280x720 thumbnail preferring short on-image text")
     parser.add_argument("packet", help="Path to packet folder")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--inspect-only", action="store_true")
@@ -129,14 +147,26 @@ def main() -> int:
         print(f"not a directory: {path}", file=sys.stderr)
         return 1
 
-    publish = path / "publish.md"
-    if not publish.is_file():
-        print("missing publish.md", file=sys.stderr)
-        return 1
+    text = None
+    source = "title"
+    thumb_md = path / "thumbnail.md"
+    if thumb_md.is_file():
+        on_image = extract_on_image_text(thumb_md.read_text(encoding="utf-8"))
+        if on_image:
+            text = on_image
+            source = "on-image"
 
-    title = extract_title(publish.read_text(encoding="utf-8"))
+    if not text:
+        publish = path / "publish.md"
+        if not publish.is_file():
+            print("missing publish.md and no short on-image text", file=sys.stderr)
+            return 1
+        text = extract_title(publish.read_text(encoding="utf-8"))
+        source = "title"
+
     print(f"packet: {path.name}")
-    print(f"title: {title}")
+    print(f"text source: {source}")
+    print(f"text: {text}")
 
     dest = path / "thumbnail.png"
     if args.inspect_only:
@@ -149,7 +179,7 @@ def main() -> int:
         print("dry-run: no file written")
         return 0
 
-    img = render_thumbnail(title)
+    img = render_thumbnail(text)
     img.save(dest, format="PNG")
     info = inspect_png(dest)
     print(f"wrote: {dest}")
