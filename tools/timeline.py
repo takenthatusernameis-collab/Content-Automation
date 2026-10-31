@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Deterministic edit timeline from script.md WORDS + assets.md cards.
 
-Clock: 150 wpm from WORDS, floor 1.5s per card hold.
+Clock: shared phrase_utils.effective_rate (prefers observed WPM from Selected VO, else 190/140 from vo_origin).
+Floor 1.5s per card hold.
 Adds a 20s end-screen reserve after CTA.
 Does not run ffmpeg. Does not invent media. Does not bump packet status.
 Does not re-implement selected_vo_drop.
@@ -21,36 +22,16 @@ if str(TOOLS) not in sys.path:
 
 from card_generator import parse_cards  # noqa: E402
 from render_brief import selected_vo_drop  # noqa: E402
+from phrase_utils import extract_sections, count_spoken_words, effective_rate  # noqa: E402
 
-WPM = 150.0
 MIN_HOLD = 1.5
 END_SCREEN = 20.0
 
 
-def extract_beats(script: str) -> list[dict[str, str]]:
-    beats: list[dict[str, str]] = []
-    parts = re.split(r"^##[ \t]+", script, flags=re.M)
-    for part in parts[1:]:
-        lines = part.splitlines()
-        if not lines:
-            continue
-        title = lines[0].strip()
-        body = "\n".join(lines[1:])
-        words_m = re.search(r"^WORDS:\s*\n(.*?)(?=^VISUAL:|\Z)", body, re.M | re.S)
-        words = (words_m.group(1).strip() if words_m else "")
-        words = re.sub(r"\s+", " ", words).strip()
-        beats.append({"title": title, "words": words})
-    return beats
-
-
-def word_count(text: str) -> int:
-    return len([w for w in re.split(r"\s+", text.strip()) if w])
-
-
-def spoken_seconds(words: int) -> float:
+def spoken_seconds(words: int, rate: float) -> float:
     if words <= 0:
         return MIN_HOLD
-    return max(MIN_HOLD, round(words / WPM * 60.0, 1))
+    return max(MIN_HOLD, round(words / rate * 60.0, 1))
 
 
 def card_key(text: str) -> str | None:
@@ -103,23 +84,25 @@ def plan(packet: Path) -> dict:
     assets_path = packet / "assets.md"
     script = script_path.read_text(encoding="utf-8") if script_path.is_file() else ""
     assets = assets_path.read_text(encoding="utf-8") if assets_path.is_file() else ""
-    beats = extract_beats(script)
+    sections = extract_sections(script)
     cards = parse_cards(assets)
     vo_ok, vo_rel = vo_present(packet)
 
+    # Compute total words first so effective_rate can prefer observed WPM
+    total_words = sum(count_spoken_words(sec["spoken"]) for sec in sections)
+    rate, rate_label = effective_rate(packet, total_words)
+
     rows = []
     t = 0.0
-    total_words = 0
-    for beat in beats:
-        wc = word_count(beat["words"])
-        total_words += wc
-        dur = spoken_seconds(wc)
-        card = match_card(beat["title"], cards)
+    for sec in sections:
+        wc = count_spoken_words(sec["spoken"])
+        dur = spoken_seconds(wc, rate)
+        card = match_card(sec["title"], cards)
         card_rel = card["file"] if card else ""
         card_ok = bool(card_rel) and (packet / card_rel).is_file()
         rows.append(
             {
-                "title": beat["title"],
+                "title": sec["title"],
                 "words": wc,
                 "start": t,
                 "dur": dur,
@@ -142,6 +125,8 @@ def plan(packet: Path) -> dict:
         "spoken": spoken,
         "export": export,
         "words": total_words,
+        "rate": rate,
+        "rate_label": rate_label,
         "cards_ready": cards_ready,
         "cards_planned": cards_planned,
         "ready_to_assemble": vo_ok and cards_ready == cards_planned and cards_planned > 0,
@@ -156,12 +141,14 @@ def fmt_clock(sec: float) -> str:
 
 def render_markdown(data: dict) -> str:
     generated = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    rate = data.get("rate", 150)
+    rate_label = data.get("rate_label", "legacy")
     lines = [
         "# Timeline",
         "",
         f"Generated: {generated}",
         f"Packet: `{data['packet']}`",
-        f"Clock: {WPM:.0f} wpm WORDS estimate; card floor {MIN_HOLD}s; end-screen +{END_SCREEN:.0f}s",
+        f"Clock: ~{rate} wpm ({rate_label} via effective_rate); card floor {MIN_HOLD}s; end-screen +{END_SCREEN:.0f}s",
         f"Selected VO DROP: `{data['drop']}`",
         f"VO on disk: {data['vo_on_disk']} (`{data['vo_rel']}`)",
         f"Spoken estimate: {fmt_clock(data['spoken'])} ({data['words']} words)",
@@ -214,6 +201,7 @@ def main() -> int:
     print(f"vo_on_disk: {data['vo_on_disk']}")
     print(f"cards: {data['cards_ready']}/{data['cards_planned']}")
     print(f"ready_to_assemble: {'yes' if data['ready_to_assemble'] else 'no'}")
+    print(f"clock: ~{data.get('rate', 0)} wpm ({data.get('rate_label', '')})")
     if args.dry_run and not args.write:
         sys.stdout.write("\n" + text)
         return 0
