@@ -10,54 +10,29 @@ Prints a compact summary versus the 6–10 minute target. Reduces recurring
 manual arithmetic of “spoken time + forced holds” before timeline or
 assembly planning on every future packet. Does not invent content, rewrite
 files, or call external services.
+
+Uses shared phrase_utils.extract_sections and count_spoken_words so section
+boundaries and word counts stay identical to end-screen and other tools.
+Previous local count_words re-applied spoken_words to already-extracted
+section text and reported 0 words.
 """
 
 from __future__ import annotations
 
 import argparse
-import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
-try:
-    from phrase_utils import spoken_words  # type: ignore
-except Exception:
-    spoken_words = None  # type: ignore
+from phrase_utils import extract_sections, count_spoken_words
 
 WPM = 150
 MIN_HOLD_SEC = 1.5
 TARGET_MIN_SEC = 360  # 6 min
 TARGET_MAX_SEC = 600  # 10 min
 END_SCREEN_SEC = 20
-
-
-def extract_sections(text: str) -> list[dict[str, str]]:
-    sections: list[dict[str, str]] = []
-    parts = re.split(r"^##[ \t]+", text, flags=re.M)
-    for part in parts[1:]:
-        lines = part.splitlines()
-        if not lines:
-            continue
-        title = lines[0].strip()
-        body = "\n".join(lines[1:])
-        words_m = re.search(r"^WORDS:\s*\n(.*?)(?=^VISUAL:|^##|\Z)", body, re.M | re.S)
-        spoken = (words_m.group(1).strip() if words_m else body)
-        spoken = re.sub(r"\s+", " ", spoken).strip()
-        vis_m = re.search(r"VISUAL:\s*(.*?)(?:WORDS:|ON SCREEN:|\Z)", body, re.S | re.I)
-        need = re.sub(r"\s+", " ", vis_m.group(1)).strip() if vis_m else ""
-        sections.append({"title": title, "spoken": spoken, "need": need})
-    return sections
-
-
-def count_words(text: str) -> int:
-    if spoken_words is not None:
-        cleaned = spoken_words(text)
-        return len(cleaned.split()) if cleaned else 0
-    cleaned = re.sub(r"[^\w\s'-]", " ", text)
-    return len([w for w in cleaned.split() if w.strip()])
 
 
 def main() -> int:
@@ -102,7 +77,7 @@ def main() -> int:
     print("|---------|------:|-------:|-------------:|---------:|")
 
     for sec in sections:
-        wc = count_words(sec["spoken"])
+        wc = count_spoken_words(sec["spoken"])
         spoken = (wc / WPM) * 60 if wc else 0.0
         total_spoken += spoken
         has_visual = bool(sec["need"])
@@ -145,6 +120,7 @@ def main() -> int:
     print()
     print("This is a planning estimate only. Actual VO length and editor decisions differ.")
     print("CTA card must remain readable through the final 20 s end-screen reserve.")
+    print("Section extraction and word counts use shared phrase_utils helpers.")
     print("This tool writes nothing.")
     return 0 if status == "OK" else 2
 
