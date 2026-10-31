@@ -1,4 +1,13 @@
 # RUNS
+## Run 933 — 2026-10-31T16:15:00Z
+- Objective: Add a reusable description length check so agents and humans no longer need to manually count characters against YouTube best practices on every future packet.
+- Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Created tools/description_length_check.py that extracts the Description section, normalizes, and reports total length vs 5000 hard max plus first-line visible length vs ~40-200 ideal for the pre-show-more zone. Flags empty/too_long/visible_short/visible_long. No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. Description length review is now a one-command local check. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: New tool file added and committed; logic uses existing shared helper (normalize). No packet writes. File presence confirmed via subsequent get.
+- Discovery: Description length against YouTube visible-zone and hard-limit guidelines was a recurring manual step not covered by the existing description_scan (which targets anti-slop patterns).
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, suites, suggests, signals, starters, packages, or pure confirmation entries.
+
 ## Run 932 — 2026-10-31T16:17:00Z
 - Objective: Add a reusable title length check so agents and humans no longer need to manually count characters against YouTube best practices on every future packet.
 - Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Created tools/title_length_check.py that extracts titles via shared titles_from, normalizes, and reports length vs 40-70 ideal band (hard max 100). Flags short/long/too_long. No secrets polled, no dispatch, no packet content edits, no media committed.
