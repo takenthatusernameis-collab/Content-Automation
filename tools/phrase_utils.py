@@ -3,6 +3,8 @@
 
 Provides whole-word / first-clause shortening so starters and suggestors
 produce natural phrases without mid-word cuts.
+Also provides canonical section extraction and spoken-word counting so
+duration estimators and scanners stay consistent.
 """
 
 from __future__ import annotations
@@ -77,6 +79,46 @@ def spoken_words(text: str) -> str:
     parts = WORD_RE.findall(text.replace("\r\n", "\n"))
     body = "\n".join(part.strip() for part in parts if part.strip())
     return normalize(body)
+
+
+def count_spoken_words(text: str) -> int:
+    """Count words in already-extracted or normalized spoken text.
+
+    Applies normalize then a simple word split. Do not pass a full script;
+    use spoken_words first for full files, or pass a section's spoken body.
+    Shared so duration tools do not re-apply spoken_words to section text
+    (which previously produced false zero counts).
+    """
+    cleaned = re.sub(r"[^\w\s'-]", " ", normalize(text or ""))
+    return len([w for w in cleaned.split() if w.strip()])
+
+
+def extract_sections(text: str) -> list[dict[str, str]]:
+    """Extract ## sections with title, spoken body, and optional visual need.
+
+    Shared by end-screen, timeline, and other structure tools so section
+    boundaries and WORDS extraction stay identical. Spoken text is normalized.
+    Does not invent content.
+    """
+    sections: list[dict[str, str]] = []
+    parts = re.split(r"^##[ \t]+", text.replace("\r\n", "\n"), flags=re.M)
+    for part in parts[1:]:
+        lines = part.splitlines()
+        if not lines:
+            continue
+        title = lines[0].strip()
+        body = "\n".join(lines[1:])
+        words_m = re.search(r"^WORDS:\s*\n(.*?)(?=^VISUAL:|^##|\Z)", body, re.M | re.S)
+        spoken = (words_m.group(1).strip() if words_m else body)
+        spoken = re.sub(r"\s+", " ", spoken).strip()
+        vis_m = re.search(r"VISUAL:\s*(.*?)(?:WORDS:|ON SCREEN:|\Z)", body, re.S | re.I)
+        need = re.sub(r"\s+", " ", vis_m.group(1)).strip() if vis_m else ""
+        sections.append({
+            "title": title,
+            "spoken": normalize(spoken),
+            "need": need,
+        })
+    return sections
 
 
 def compile_word_boundary_patterns(phrases):
