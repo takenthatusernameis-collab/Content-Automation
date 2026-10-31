@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """Generate a local estimated captions.srt from script.md spoken WORDS.
 
-Extracts ## sections and WORDS blocks, splits long spoken text into readable
-cues (~10-15 words or by sentence), estimates timings at 150 wpm, and writes
-a standard SRT file (captions_estimate.srt).
+Extracts ## sections via shared helpers, splits long spoken text into readable
+cues (~12 words or by sentence), estimates timings with effective_rate
+(prefers observed WPM from Selected VO if present, else select_rate 190/140),
+and writes a standard SRT file (captions_estimate.srt).
 
 No invented content. Output stays local and gitignored. Not a real alignment
 to audio. Reduces recurring human labor of manually drafting initial caption
 cues and timings for review or player preview on every future packet before
-a Selected VO take exists.
+a Selected VO take exists. Rate selection now matches speaking-time, end-screen,
+timeline, and minimum-timeline tools.
 """
 
 from __future__ import annotations
@@ -18,30 +20,13 @@ import re
 import sys
 from pathlib import Path
 
-WPM = 150
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT / "tools") not in sys.path:
+    sys.path.insert(0, str(ROOT / "tools"))
+
+from phrase_utils import extract_sections, count_spoken_words, effective_rate  # noqa: E402
+
 MAX_WORDS_PER_CUE = 12
-
-
-def extract_spoken_blocks(text: str) -> list[tuple[str, str]]:
-    """Return list of (header, spoken_text) in order. Only WORDS content."""
-    sections: list[tuple[str, str]] = []
-    # Find all ## headers and their following content until next ##
-    pattern = re.compile(r"^##\s+(.+?)\s*$", re.M)
-    matches = list(pattern.finditer(text))
-    for i, m in enumerate(matches):
-        header = m.group(1).strip()
-        start = m.end()
-        end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
-        block = text[start:end]
-        # Extract WORDS: ... until VISUAL or end
-        wm = re.search(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n##|\Z)", block, re.S | re.I)
-        if wm:
-            spoken = wm.group(1).strip()
-            # Clean extra whitespace
-            spoken = re.sub(r"\s+", " ", spoken)
-            if spoken:
-                sections.append((header, spoken))
-    return sections
 
 
 def split_into_cues(text: str, max_words: int = MAX_WORDS_PER_CUE) -> list[str]:
@@ -100,13 +85,17 @@ def main() -> int:
         return 0
 
     text = script_path.read_text(encoding="utf-8")
-    blocks = extract_spoken_blocks(text)
-    if not blocks:
-        print("FAIL: no spoken WORDS found in script.md", file=sys.stderr)
+    sections = extract_sections(text)
+    if not sections:
+        print("FAIL: no ## sections / spoken WORDS found in script.md", file=sys.stderr)
         return 2
 
+    spoken_bodies = [s["spoken"] for s in sections if s.get("spoken")]
+    total_words = sum(count_spoken_words(body) for body in spoken_bodies)
+    rate, rate_label = effective_rate(packet, total_words)
+
     cues: list[str] = []
-    for header, spoken in blocks:
+    for spoken in spoken_bodies:
         for cue in split_into_cues(spoken):
             cues.append(cue)
 
@@ -114,12 +103,12 @@ def main() -> int:
         print("FAIL: no cues extracted", file=sys.stderr)
         return 2
 
-    # Assign times
+    # Assign times using shared effective rate
     srt_lines: list[str] = []
     cumulative = 0.0
     for idx, cue in enumerate(cues, 1):
-        word_count = len(cue.split())
-        duration = (word_count / WPM) * 60.0
+        word_count = count_spoken_words(cue)
+        duration = (word_count / rate) * 60.0 if rate > 0 else 1.0
         start = cumulative
         end = cumulative + max(duration, 0.8)  # minimum display time
         cumulative = end
@@ -133,8 +122,10 @@ def main() -> int:
     total_sec = int(round(cumulative))
     print(f"WROTE: {out_path}")
     print(f"cues: {len(cues)}")
+    print(f"spoken_words: {total_words}")
+    print(f"rate: {rate} wpm ({rate_label})")
     print(f"est_total_s: {total_sec}")
-    print("Estimated SRT ready (local; not aligned to real VO).")
+    print("Estimated SRT ready (local; not aligned to real VO). Rate uses shared effective_rate.")
     return 0
 
 
