@@ -1,4 +1,13 @@
 # RUNS
+## Run 936 — 2026-10-31T20:12:00Z
+- Objective: Aggregate the recent metadata length checks and chapters suggestion into the existing pre-upload QA suite so agents and humans run one command instead of several before the human OAuth step.
+- Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Updated tools/pre_upload_qa_suite.py CHECKS list to also invoke title_length_check.py, description_length_check.py, tags_length_check.py, and chapters_suggest.py. Adjusted status logic for the new advisory tools. No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. Pre-upload review is now more complete in a single local command. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: File updated and committed; new checks are listed in the suite. Logic reuses existing tools without inventing content. No packet writes.
+- Discovery: Running the individual length and chapter tools sequentially was a small recurring labor step once they existed; folding them into the suite removes that friction for future packets.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, suites, suggests, signals, starters, packages, or pure confirmation entries.
+
 ## Run 935 — 2026-10-31T18:30:00Z
 - Objective: Add a reusable chapters suggestion tool so agents and humans no longer need to manually calculate and format timestamp lines from script sections on every future packet.
 - Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Created tools/chapters_suggest.py that uses shared extract_sections + effective_rate to compute cumulative times and print ready-to-paste "M:SS Title" lines starting at 0:00, with gap and count flags. Complements existing chapters_scan. No secrets polled, no dispatch, no packet content edits, no media committed.
