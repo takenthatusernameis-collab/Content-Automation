@@ -1,8 +1,10 @@
 # NEXT
 
-2026-10-31T16:17:00Z (Run 932)
+2026-10-31T16:15:00Z (Run 933)
 
 Older next actions live in `docs/next_archive.md`. Do not paste the archive back.
+
+Run 933: added tools/description_length_check.py to report total and first-line visible character counts against YouTube description best practices (first ~150 chars pre-show-more; hard max 5000). Preferred list complete. Next: human step (docs/human_oauth_checklist.md or tools/human_next_action.py then secrets + single execute=true dispatch). Optional: python3 tools/description_length_check.py on a packet. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, suites, suggests, starters, packages, or pure confirmation runs.
 
 Run 932: added tools/title_length_check.py to report character counts and flag titles outside the 40-70 ideal band (YouTube search truncates ~60). Preferred list complete. Next: human step (docs/human_oauth_checklist.md or tools/human_next_action.py then secrets + single execute=true dispatch). Optional: python3 tools/title_length_check.py on a packet. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, suites, suggests, starters, packages, or pure confirmation runs.
 
