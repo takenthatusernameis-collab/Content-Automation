@@ -9,6 +9,9 @@ required by docs/format.md.
 Prints a short table with status. Reduces recurring manual estimation of
 whether the CTA card can stay visible for the YouTube end-screen window.
 Does not invent content, rewrite files, or call external services.
+
+Total word count now uses the shared phrase_utils.spoken_words extractor so
+estimates stay consistent with quality_scan, claim_scan, and other scanners.
 """
 
 from __future__ import annotations
@@ -20,6 +23,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
+
+from phrase_utils import spoken_words, normalize
 
 
 WPM = 150
@@ -47,10 +52,10 @@ def extract_sections(text: str) -> list[dict[str, str]]:
 def count_words(text: str) -> int:
     """Count words in already-extracted spoken section text.
 
-    The caller (extract_sections) has already pulled the body after WORDS:.
-    Do not re-apply spoken_words, which expects a full document containing WORDS: blocks.
+    Uses the shared normalize helper so curly-quote / dash variants are handled
+    the same way as the rest of the quality scanners.
     """
-    cleaned = re.sub(r"[^\w\s'-]", " ", text)
+    cleaned = re.sub(r"[^\w\s'-]", " ", normalize(text))
     return len([w for w in cleaned.split() if w.strip()])
 
 
@@ -89,13 +94,15 @@ def main() -> int:
     text = source.read_text(encoding="utf-8")
     sections = extract_sections(text)
 
+    # Prefer the shared extractor for the official total so it matches
+    # quality_scan / claim_scan / words.py conventions.
+    total_spoken = spoken_words(text)
+    total_words = count_words(total_spoken)
+
     cta_words = 0
-    total_words = 0
     for sec in sections:
-        wc = count_words(sec["spoken"])
-        total_words += wc
         if classify(sec["title"]) == "cta":
-            cta_words += wc
+            cta_words += count_words(sec["spoken"])
 
     cta_sec = (cta_words / WPM) * 60 if cta_words else 0.0
     total_sec = (total_words / WPM) * 60 if total_words else 0.0
@@ -138,6 +145,7 @@ def main() -> int:
     print("Rule (docs/format.md): CTA card stays readable through the final 20 s end-screen reserve.")
     print("Leave lower-right and lower-left clear. This tool writes nothing.")
     print("Confirm with actual VO duration when a selected take exists.")
+    print("Total word count uses shared phrase_utils.spoken_words for consistency with other scanners.")
     return 0 if overall == "PASS" else 2
 
 
