@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-31T11:21:00Z (Run 929)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added effective_rate / observed_wpm to tools/phrase_utils.py. Duration tools (speaking_time_estimate.py, end_screen_reserve_check.py, minimum_timeline_estimate.py) now call effective_rate so they automatically prefer the real observed WPM from a Selected VO when present (sanity-bounded), falling back to the 190/140 select_rate otherwise. Eliminates remaining manual rate override labor once a take exists. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
+
 2026-10-31T10:17:00Z (Run 928)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Extracted the generated/human WPM rate selection (190/140) into a shared select_rate helper in tools/phrase_utils.py and updated speaking_time_estimate.py, end_screen_reserve_check.py, and minimum_timeline_estimate.py to use it. Eliminates remaining local duplication so future duration tools cannot diverge. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
