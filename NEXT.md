@@ -1,8 +1,10 @@
 # NEXT
 
-2026-10-31T13:25:00Z (Run 931)
+2026-10-31T16:17:00Z (Run 932)
 
 Older next actions live in `docs/next_archive.md`. Do not paste the archive back.
+
+Run 932: added tools/title_length_check.py to report character counts and flag titles outside the 40-70 ideal band (YouTube search truncates ~60). Preferred list complete. Next: human step (docs/human_oauth_checklist.md or tools/human_next_action.py then secrets + single execute=true dispatch). Optional: python3 tools/title_length_check.py on a packet. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, suites, suggests, starters, packages, or pure confirmation runs.
 
 Run 931: aligned tools/timeline.py to shared effective_rate (observed or 190/140) and shared section/word helpers so cut lists stay consistent with other duration tools. Preferred list complete. Next: human step (docs/human_oauth_checklist.md or tools/human_next_action.py then secrets + single execute=true dispatch). Optional: python3 tools/timeline.py --dry-run on a packet. Do not refresh banner solely for timestamp. Upload blocked on secrets. Media: do not rematerialize if present. Logs via record_run.py. Do not scaffold Q2. Do not poll secrets. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or a truly new production capability (not another status/polish/inspection/suggest-contract, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation entry). Avoid additional status printers, briefs, candidates generators, sequence printers, suites, suggests, starters, packages, or pure confirmation runs.
 

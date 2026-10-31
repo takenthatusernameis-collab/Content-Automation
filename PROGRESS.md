@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Run 932 enhancement: tools/title_length_check.py reports character counts and flags titles outside the 40-70 ideal band (YouTube search truncates ~60). Agents or humans get an immediate length signal without manual counting on every future packet. No invented content. Reduces recurring title-review labor. Aligns with no-invent rule.
+- Small reliability addition of a length quality check complementary to existing title_scan. No packet content writes, no secrets polled.
+- Human labor reduction: lower chance of shipping titles that truncate poorly in search or underperform on CTR due to length.
+- Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Run 931 enhancement: tools/timeline.py now uses shared phrase_utils.effective_rate (prefers observed WPM from Selected VO, else 190/140) and shared extract_sections / count_spoken_words. Removed hardcoded 150 wpm. Agents or humans get cut lists whose hold timings stay consistent with speaking-time and end-screen estimates on every future packet without manual rate conversion. No invented content. Reduces remaining divergence labor. Aligns with no-invent rule.
 - Small reliability alignment of the core cut-list planner to the shared duration rate logic. No packet content writes, no secrets polled.
 - Human labor reduction: lower chance of agents treating a divergent 150 wpm timeline as a reason to re-inspect or adjust card holds and end-screen reserve by hand.

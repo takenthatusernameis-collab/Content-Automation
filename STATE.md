@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-31T16:17:00Z (Run 932)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/title_length_check.py: reports character counts and flags titles outside the 40-70 ideal band (YouTube search truncates ~60). Reduces recurring manual length review before publish on every future packet. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
+
 2026-10-31T13:25:00Z (Run 931)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Aligned tools/timeline.py to the shared effective_rate (prefers observed WPM from Selected VO, else 190/140). Replaced hardcoded 150 wpm and local extract/word-count with phrase_utils helpers. Cut lists now stay consistent with speaking-time and end-screen estimates on every future packet. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).

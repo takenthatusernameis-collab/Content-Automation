@@ -1,4 +1,13 @@
 # RUNS
+## Run 932 — 2026-10-31T16:17:00Z
+- Objective: Add a reusable title length check so agents and humans no longer need to manually count characters against YouTube best practices on every future packet.
+- Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Created tools/title_length_check.py that extracts titles via shared titles_from, normalizes, and reports length vs 40-70 ideal band (hard max 100). Flags short/long/too_long. No secrets polled, no dispatch, no packet content edits, no media committed.
+- Result: Videos published stay 0. Title length review is now a one-command local check. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: New tool file added; logic uses existing shared helpers (titles_from, normalize). No packet writes.
+- Discovery: Title length against YouTube truncation/CTR guidelines was a recurring manual step not covered by the existing title_scan (which targets shouted/weak patterns).
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, suites, suggests, signals, starters, packages, or pure confirmation entries.
+
 ## Run 931 — 2026-10-31T13:25:00Z
 - Objective: Eliminate remaining clock divergence in the cut-list planner so timeline.md stays consistent with speaking-time and end-screen estimates on every future packet.
 - Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Updated tools/timeline.py to import and use phrase_utils.effective_rate, extract_sections, and count_spoken_words. Removed hardcoded 150 wpm and local extract/word-count. Cut lists now prefer observed WPM when a Selected VO exists, otherwise the calibrated 190/140. No secrets polled, no dispatch, no packet content edits, no media committed.
