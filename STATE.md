@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-31T16:15:00Z (Run 933)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/description_length_check.py: reports total character count and first-line visible length against YouTube best practices (first ~150 chars pre-"show more" for search/CTR; hard max 5000). Reduces recurring manual length review for descriptions before publish on every future packet. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
+
 2026-10-31T16:17:00Z (Run 932)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/title_length_check.py: reports character counts and flags titles outside the 40-70 ideal band (YouTube search truncates ~60). Reduces recurring manual length review before publish on every future packet. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
