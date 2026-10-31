@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-31T17:15:00Z (Run 934)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/tags_length_check.py: reports tag count, per-tag lengths, and estimated YouTube-counted total characters (tags joined by commas + 2 for each multi-word tag's quotes) against the 500 hard limit. Reduces recurring manual length review for tags before publish on every future packet. Complements tags_scan (quality patterns). No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
+
 2026-10-31T16:15:00Z (Run 933)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/description_length_check.py: reports total character count and first-line visible length against YouTube best practices (first ~150 chars pre-"show more" for search/CTR; hard max 5000). Reduces recurring manual length review for descriptions before publish on every future packet. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
