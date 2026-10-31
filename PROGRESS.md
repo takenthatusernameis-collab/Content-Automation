@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Run 933 enhancement: tools/description_length_check.py reports total character count and first-line visible length against YouTube best practices (first ~150 chars pre-"show more"; hard max 5000). Agents or humans get an immediate length signal without manual counting on every future packet. No invented content. Reduces recurring description-review labor. Aligns with no-invent rule.
+- Small reliability addition of a length quality check complementary to existing description_scan. No packet content writes, no secrets polled.
+- Human labor reduction: lower chance of shipping descriptions whose key hook is truncated by "show more" or that hit the hard character limit.
+- Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Run 932 enhancement: tools/title_length_check.py reports character counts and flags titles outside the 40-70 ideal band (YouTube search truncates ~60). Agents or humans get an immediate length signal without manual counting on every future packet. No invented content. Reduces recurring title-review labor. Aligns with no-invent rule.
 - Small reliability addition of a length quality check complementary to existing title_scan. No packet content writes, no secrets polled.
 - Human labor reduction: lower chance of shipping titles that truncate poorly in search or underperform on CTR due to length.
