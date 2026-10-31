@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Estimate narration duration from spoken word count.
 
-Extracts spoken WORDS from draft.md or script.md using shared helpers when available,
-counts words, and estimates speaking time at a typical clear-narration rate (140 wpm).
+Extracts spoken WORDS from draft.md or script.md using shared helpers,
+counts words with the canonical counter, and estimates speaking time at a
+typical clear-narration rate (140 wpm).
 Prints minutes:seconds and a short note for timeline/planning use.
 Reduces recurring manual calculation of expected VO length before recording or assembly
 for every future packet. Does not invent content, rewrite files, or call external services.
@@ -17,10 +18,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
-try:
-    from phrase_utils import spoken_words  # type: ignore
-except Exception:
-    spoken_words = None  # type: ignore
+from phrase_utils import spoken_words, count_spoken_words
 
 WPM = 140  # typical clear explanatory narration rate
 
@@ -56,14 +54,8 @@ def main() -> int:
         return 1
 
     text = source.read_text(encoding="utf-8")
-    if spoken_words is not None:
-        words_text = spoken_words(text)
-        count = len(words_text.split()) if words_text else 0
-    else:
-        # Fallback simple count if helper unavailable
-        import re
-        cleaned = re.sub(r"[^\w\s'-]", " ", text)
-        count = len([w for w in cleaned.split() if w.strip()])
+    words_text = spoken_words(text)
+    count = count_spoken_words(words_text)
 
     seconds = estimate_seconds(count)
     duration = format_duration(seconds)
@@ -77,6 +69,7 @@ def main() -> int:
     print()
     print("Use for timeline planning and end-screen reservation (last 20s).")
     print("Actual take length may differ; run media_qa after a selected VO exists.")
+    print("Word count uses shared phrase_utils.count_spoken_words.")
     print("This tool writes nothing.")
     return 0
 
