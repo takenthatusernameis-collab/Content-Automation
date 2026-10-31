@@ -2,7 +2,8 @@
 """Minimum timeline estimate including forced card holds.
 
 Extracts ## sections from script.md or draft.md, estimates spoken duration
-at the documented ~150 wpm, and applies the docs/format.md 1.5 s minimum
+using rate from vo_origin.md (190 wpm generated, 140 wpm human) to match
+speaking_time_estimate.py, and applies the docs/format.md 1.5 s minimum
 hold for every visual card. Sums the adjusted holds to produce a minimum
 total duration that accounts for short-beat padding.
 
@@ -28,11 +29,24 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 from phrase_utils import extract_sections, count_spoken_words
 
-WPM = 150
+HUMAN_WPM = 140
+GENERATED_WPM = 190
 MIN_HOLD_SEC = 1.5
 TARGET_MIN_SEC = 360  # 6 min
 TARGET_MAX_SEC = 600  # 10 min
 END_SCREEN_SEC = 20
+
+
+def select_rate(path: Path) -> tuple[int, str]:
+    """Return (wpm, label) based on vo_origin.md if present."""
+    origin_path = path / "vo_origin.md"
+    is_generated = False
+    if origin_path.is_file():
+        origin_text = origin_path.read_text(encoding="utf-8").lower()
+        is_generated = "kind: generated" in origin_text or "kind=generated" in origin_text
+    if is_generated:
+        return GENERATED_WPM, "generated"
+    return HUMAN_WPM, "human"
 
 
 def main() -> int:
@@ -56,11 +70,12 @@ def main() -> int:
 
     text = source.read_text(encoding="utf-8")
     sections = extract_sections(text)
+    rate, rate_label = select_rate(path)
 
     print("MINIMUM TIMELINE ESTIMATE (spoken + forced 1.5s card holds)")
     print(f"Source: {source.name}")
     print(f"Packet: {path.name}")
-    print(f"Clock: ~{WPM} wpm")
+    print(f"Clock: ~{rate} wpm ({rate_label} default from vo_origin)")
     print(f"Min card hold: {MIN_HOLD_SEC}s (docs/format.md)")
     print()
 
@@ -78,7 +93,7 @@ def main() -> int:
 
     for sec in sections:
         wc = count_spoken_words(sec["spoken"])
-        spoken = (wc / WPM) * 60 if wc else 0.0
+        spoken = (wc / rate) * 60 if wc else 0.0
         total_spoken += spoken
         has_visual = bool(sec["need"])
         if has_visual:
@@ -121,6 +136,7 @@ def main() -> int:
     print("This is a planning estimate only. Actual VO length and editor decisions differ.")
     print("CTA card must remain readable through the final 20 s end-screen reserve.")
     print("Section extraction and word counts use shared phrase_utils helpers.")
+    print("Rate selection matches speaking_time_estimate.py (generated vs human).")
     print("This tool writes nothing.")
     return 0 if status == "OK" else 2
 
