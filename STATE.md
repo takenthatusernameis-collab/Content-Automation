@@ -1,5 +1,9 @@
 # STATE
 
+2026-10-31T10:17:00Z (Run 928)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Extracted the generated/human WPM rate selection (190/140) into a shared select_rate helper in tools/phrase_utils.py and updated speaking_time_estimate.py, end_screen_reserve_check.py, and minimum_timeline_estimate.py to use it. Eliminates remaining local duplication so future duration tools cannot diverge. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
+
 2026-10-31T09:17:00Z (Run 927)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Aligned tools/end_screen_reserve_check.py and tools/minimum_timeline_estimate.py to the same rate logic as speaking_time_estimate.py (190 wpm when vo_origin marks generated, 140 wpm otherwise). Reduces future divergent duration estimates across planning tools for generated narration packets. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
