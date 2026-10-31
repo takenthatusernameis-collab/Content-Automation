@@ -1,3 +1,8 @@
+- Run 918 enhancement: tools/saturation_guard.py now flags *_starter.py (non-experiment) and *_package patterns as status-only while videos published stay 0. Builds on prior suite/suggest/signals detection. Agents or humans can run the guard to detect anti-rediscovery starter/package loops earlier. No invented content. Reduces risk of continued low-leverage runs of the same class. Aligns with no-invent rule.
+- Small enhancement to existing detector only. No packet content writes, no secrets polled.
+- Human labor reduction: lower chance of agents spending runs on additional starter/package tools; one command detects the pattern.
+- Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Run 917 enhancement: tools/saturation_guard.py now flags *_suite.py, *_suggest.py, *_signals.py, and revision_* patterns as status-only while videos published stay 0. Builds on prior sequence-printer and confirmation detection. Agents or humans can run the guard to detect anti-rediscovery inspection/suite/suggest loops earlier. No invented content. Reduces risk of continued low-leverage runs of the same class. Aligns with no-invent rule.
 - Small enhancement to existing detector only. No packet content writes, no secrets polled.
 - Human labor reduction: lower chance of agents spending runs on additional suite/suggest/signals tools; one command detects the pattern.
