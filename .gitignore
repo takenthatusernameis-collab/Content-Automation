@@ -150,3 +150,5 @@ videos/**/first_comment_options.md
 videos/**/assignment_source.md
 # thumbnail_options_writer.py writes packet/thumbnail_options.md. Do not commit it.
 videos/**/thumbnail_options.md
+# recommended_publish_fill.py writes packet/recommended_publish_fill.md. Do not commit it.
+videos/**/recommended_publish_fill.md
