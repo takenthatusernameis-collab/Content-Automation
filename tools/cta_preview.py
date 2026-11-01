@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Generate a local preview PNG of the CTA text from script.md.
+"""Generate a local preview PNG of the CTA text.
 
-Extracts the last WORDS: block or the CTA section and renders it as a large, readable
-text card PNG. Output: packet/cta_preview.png (gitignored).
+Prefers ranked End screen text from recommended_publish_fill.md when present
+(compounding the metadata ranking/fill work); falls back to script.md CTA WORDS.
+Renders it as a large, readable text card PNG. Output: packet/cta_preview.png (gitignored).
 No invented content, no external services. Reduces recurring human labor of
 scrolling to the end of the script just to review the closing CTA on every future packet.
-One command produces a glanceable CTA image.
+One command produces a glanceable CTA image aligned with selected metadata when available.
 """
 
 from __future__ import annotations
@@ -23,6 +24,21 @@ FG = (245, 243, 238)
 ACCENT = (232, 196, 104)
 MUTED = (140, 136, 130)
 LINE = (58, 56, 52)
+
+
+def extract_recommended_end_screen(fill_text: str) -> str | None:
+    """Pull the End screen section from recommended_publish_fill.md if present and reasonable length."""
+    match = re.search(
+        r"^## End screen\s*\n(.+?)(?:\n##|\n\n|\Z)",
+        fill_text,
+        re.M | re.S,
+    )
+    if match:
+        text = match.group(1).strip()
+        text = re.sub(r"<!--.*?-->", "", text, flags=re.S).strip()
+        if text and 4 <= len(text.split()) <= 15:
+            return text
+    return None
 
 
 def extract_cta(script_text: str) -> str:
@@ -90,7 +106,7 @@ def _wrap(draw, text: str, font, max_width: int) -> list[str]:
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(description="Generate local CTA preview PNG")
+    p = argparse.ArgumentParser(description="Generate local CTA preview PNG preferring ranked End screen text")
     p.add_argument("packet", type=Path, help="Path to video packet folder")
     args = p.parse_args()
 
@@ -99,12 +115,25 @@ def main() -> int:
         print(f"ERROR: not a directory: {packet}", file=sys.stderr)
         return 1
 
-    script = packet / "script.md"
-    if not script.is_file():
-        print("ERROR: script.md missing", file=sys.stderr)
-        return 1
+    cta = None
+    source = "script"
+    fill_path = packet / "recommended_publish_fill.md"
+    if fill_path.is_file():
+        rec = extract_recommended_end_screen(fill_path.read_text(encoding="utf-8"))
+        if rec:
+            cta = rec
+            source = "recommended-fill"
 
-    cta = extract_cta(script.read_text(encoding="utf-8"))
+    if not cta:
+        script = packet / "script.md"
+        if not script.is_file():
+            print("ERROR: script.md missing and no recommended end-screen text", file=sys.stderr)
+            return 1
+        cta = extract_cta(script.read_text(encoding="utf-8"))
+        source = "script"
+
+    print(f"packet: {packet.name}")
+    print(f"cta source: {source}")
     print(f"cta: {cta[:80]}...")
 
     img = Image.new("RGB", (WIDTH, HEIGHT), BG)
@@ -120,7 +149,8 @@ def main() -> int:
         bbox = font.getbbox(line or "X")
         y += (bbox[3] - bbox[1]) + 12
 
-    draw.text((40, HEIGHT - 50), "CTA WORDS from script.md — gitignored preview", font=_font(16), fill=MUTED)
+    footer = "CTA from recommended fill or script.md — gitignored preview"
+    draw.text((40, HEIGHT - 50), footer, font=_font(16), fill=MUTED)
 
     out = packet / "cta_preview.png"
     img.save(out, "PNG")
