@@ -1,4 +1,13 @@
 # RUNS
+## Run 957 — 2026-11-01T19:20:00Z
+- Objective: Reduce future selection labor for publish.md by ranking existing metadata options candidates according to alignment with the canonical assignment primary and simple length fitness.
+- Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Added tools/metadata_selector.py that uses assignment_utils.read_primary, extracts key terms, scores candidates from the six options files, and prints the top recommendation plus runner-up per field. No secrets polled, no dispatch, no media committed, no packet writes.
+- Result: Videos published stay 0. Ranking step now available after options generation so the highest-alignment candidates surface automatically. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Code committed and importable; reuses shared read_primary and shorten. Scoring logic grounded only in existing candidates and primary terms. No invented content. Syntax consistent with prior tools.
+- Discovery: Turning the alignment check into a ranked recommendation compounds the recent consistency work into a concrete reduction of comparison labor before publish.md is filled.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, suites, suggests, signals, starters, packages, or pure confirmation entries.
+
 ## Run 956 — 2026-11-01T18:15:00Z
 - Objective: Compound assignment-source consistency by making the remaining metadata option writers prefer the canonical primary, reducing future drift across first comments, tags, end screens, and chapters.
 - Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Updated tools/first_comment_options_writer.py, tools/tags_options_writer.py, tools/end_screen_options_writer.py, and tools/chapters_writer.py to import and prefer assignment_utils.read_primary when present (else idea.md via shorten). Extended tools/metadata_alignment_scan.py to also scan first_comment_options.md, end_screen_options.md, and tags_options.md. No secrets polled, no dispatch, no media committed, no packet writes.
