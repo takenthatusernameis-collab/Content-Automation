@@ -142,3 +142,5 @@ videos/**/description_options.md
 videos/**/end_screen_options.md
 # tags_options_writer.py writes packet/tags_options.md. Do not commit it.
 videos/**/tags_options.md
+# chapters_options_writer.py writes packet/chapters_options.md. Do not commit it.
+videos/**/chapters_options.md
