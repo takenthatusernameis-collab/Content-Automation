@@ -90,6 +90,10 @@ def suggest(packet: Path) -> str:
     if not has_master:
         return f"ASSEMBLE_CHECK: python3 tools/assemble.py {packet.relative_to(ROOT)}  # then media_qa; encode only when READY_TO_ENCODE and gates PASS"
 
+    # Thumbnail (local only; leverages short on-image preference)
+    if not file_present(packet, "thumbnail.png"):
+        return f"GENERATE_THUMB: python3 tools/thumbnail_generator.py {packet.relative_to(ROOT)}  # prefers short on-image from thumbnail.md; local PNG only, do not commit"
+
     # Upload stage
     if not file_present(packet, "upload_state.json"):
         return "UPLOAD_BLOCKED: human OAuth step (docs/human_oauth_checklist.md) then single execute=true dispatch. Do not poll secrets."
