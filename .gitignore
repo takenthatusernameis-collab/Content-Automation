@@ -146,3 +146,5 @@ videos/**/tags_options.md
 videos/**/chapters_options.md
 # first_comment_options_writer.py writes packet/first_comment_options.md. Do not commit it.
 videos/**/first_comment_options.md
+# assignment_source_writer.py writes packet/assignment_source.md. Do not commit it.
+videos/**/assignment_source.md
