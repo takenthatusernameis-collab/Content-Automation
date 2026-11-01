@@ -2,10 +2,14 @@
 """Generate a local 1280x720 YouTube thumbnail PNG.
 
 Prefers short on-image text from thumbnail.md (better for readability/CTR)
-when present; falls back to the locked title from publish.md.
+when present; falls back to short idea.md mechanism via phrase_utils.shorten;
+then to the locked title from publish.md.
 No stock, no invented text, no git commits of the binary.
 Output: packet/thumbnail.png (local only). Compatible with youtube_upload.py checks
 (min 640x360, PNG with IEND, <2MB).
+
+Run 945: also prefers short mechanism phrase from idea.md for channel-promise consistency
+on every future packet when no dedicated on-image text exists.
 """
 
 from __future__ import annotations
@@ -15,6 +19,17 @@ import datetime as dt
 import re
 import sys
 from pathlib import Path
+
+TOOLS = Path(__file__).resolve().parent
+if str(TOOLS) not in sys.path:
+    sys.path.insert(0, str(TOOLS))
+
+try:
+    from idea_utils import extract as idea_extract
+    from phrase_utils import shorten
+except ImportError:
+    idea_extract = None
+    shorten = None
 
 WIDTH, HEIGHT = 1280, 720
 BG = (18, 18, 22)
@@ -56,6 +71,23 @@ def extract_title(publish_text: str) -> str:
                 if stripped and not stripped.startswith("#"):
                     return stripped
     return "Untitled"
+
+
+def _short_mechanism(packet: Path) -> str | None:
+    """Prefer short mechanism phrase for thumbnail consistency."""
+    if idea_extract is None or shorten is None:
+        return None
+    idea_path = packet / "idea.md"
+    if not idea_path.is_file():
+        return None
+    try:
+        mech, _problem, _topic = idea_extract(idea_path.read_text(encoding="utf-8"))
+        if not mech:
+            return None
+        short = shorten(mech, max_len=28)
+        return short if short else None
+    except Exception:
+        return None
 
 
 def _pil():
@@ -136,7 +168,7 @@ def inspect_png(path: Path) -> dict[str, str]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate local 1280x720 thumbnail preferring short on-image text")
+    parser = argparse.ArgumentParser(description="Generate local 1280x720 thumbnail preferring short on-image or mechanism text")
     parser.add_argument("packet", help="Path to packet folder")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--inspect-only", action="store_true")
@@ -157,9 +189,15 @@ def main() -> int:
             source = "on-image"
 
     if not text:
+        mech_short = _short_mechanism(path)
+        if mech_short:
+            text = mech_short
+            source = "mechanism"
+
+    if not text:
         publish = path / "publish.md"
         if not publish.is_file():
-            print("missing publish.md and no short on-image text", file=sys.stderr)
+            print("missing publish.md and no short on-image or mechanism text", file=sys.stderr)
             return 1
         text = extract_title(publish.read_text(encoding="utf-8"))
         source = "title"
