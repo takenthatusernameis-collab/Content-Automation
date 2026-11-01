@@ -2,14 +2,17 @@
 """Generate a local 1280x720 YouTube thumbnail PNG.
 
 Prefers short on-image text from thumbnail.md (better for readability/CTR)
-when present; falls back to short idea.md mechanism via phrase_utils.shorten;
-then to the locked title from publish.md.
+when present; then the ranked Thumbnail text from recommended_publish_fill.md
+(if present, from recent selector work); falls back to short idea.md mechanism
+via phrase_utils.shorten; then to the locked title from publish.md.
 No stock, no invented text, no git commits of the binary.
 Output: packet/thumbnail.png (local only). Compatible with youtube_upload.py checks
 (min 640x360, PNG with IEND, <2MB).
 
 Run 945: also prefers short mechanism phrase from idea.md for channel-promise consistency
 on every future packet when no dedicated on-image text exists.
+Run 959: prefers ranked Thumbnail text from recommended_publish_fill.md when present,
+so the visual matches the aligned metadata selection without extra manual copy.
 """
 
 from __future__ import annotations
@@ -48,6 +51,22 @@ def extract_on_image_text(thumb_text: str) -> str | None:
     if match:
         text = match.group(1).strip()
         if text and len(text.split()) <= 6:  # keep short
+            return text
+    return None
+
+
+def extract_recommended_thumbnail(fill_text: str) -> str | None:
+    """Pull the Thumbnail text section from recommended_publish_fill.md if present and short."""
+    match = re.search(
+        r"^## Thumbnail text\s*\n(.+?)(?:\n##|\n\n|\Z)",
+        fill_text,
+        re.M | re.S,
+    )
+    if match:
+        text = match.group(1).strip()
+        # strip any HTML comments or runner-up notes
+        text = re.sub(r"<!--.*?-->", "", text, flags=re.S).strip()
+        if text and len(text.split()) <= 6:
             return text
     return None
 
@@ -168,7 +187,7 @@ def inspect_png(path: Path) -> dict[str, str]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate local 1280x720 thumbnail preferring short on-image or mechanism text")
+    parser = argparse.ArgumentParser(description="Generate local 1280x720 thumbnail preferring short on-image, ranked fill, or mechanism text")
     parser.add_argument("packet", help="Path to packet folder")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--inspect-only", action="store_true")
@@ -189,6 +208,14 @@ def main() -> int:
             source = "on-image"
 
     if not text:
+        fill_path = path / "recommended_publish_fill.md"
+        if fill_path.is_file():
+            rec = extract_recommended_thumbnail(fill_path.read_text(encoding="utf-8"))
+            if rec:
+                text = rec
+                source = "recommended-fill"
+
+    if not text:
         mech_short = _short_mechanism(path)
         if mech_short:
             text = mech_short
@@ -197,7 +224,7 @@ def main() -> int:
     if not text:
         publish = path / "publish.md"
         if not publish.is_file():
-            print("missing publish.md and no short on-image or mechanism text", file=sys.stderr)
+            print("missing publish.md and no short on-image, recommended fill, or mechanism text", file=sys.stderr)
             return 1
         text = extract_title(publish.read_text(encoding="utf-8"))
         source = "title"
