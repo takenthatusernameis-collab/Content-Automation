@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Run 957 enhancement: tools/metadata_selector.py added. Ranks candidates from the six local options files by key-term overlap with the assignment primary (via assignment_utils.read_primary) plus length fitness. Prints the highest-scoring recommendation and runner-up per field. Reduces future manual comparison labor when filling publish.md. No writes, no invented options, no secrets polled. Compounds the recent assignment-source and alignment work into an actionable ranking step.
+- Small reusable textual-asset selection improvement. Ranking sits after generation and scanning.
+- Human labor reduction: lower chance of comparing every candidate by hand; one command surfaces the best-aligned options for each publish field.
+- Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Run 956 enhancement: tools/first_comment_options_writer.py, tools/tags_options_writer.py, tools/end_screen_options_writer.py, and tools/chapters_writer.py updated to prefer the primary assignment from assignment_source.md via shared assignment_utils.read_primary when present (else idea.md mechanism via shorten). tools/metadata_alignment_scan.py extended to also inspect first_comment_options.md, end_screen_options.md, and tags_options.md. Improves consistency of generated first-comment, tags, end-screen, and chapter options across future packets. Reduces duplicated parsing logic and future drift. Aligns with no-invent rule and mechanism alignment. No packet content writes, no secrets polled.
 - Small reusable textual-asset consistency improvement. Shared preference now covers the full set of major metadata generators.
 - Human labor reduction: lower chance of wording drift between independently generated options across titles, descriptions, thumbnails, pins, tags, end screens, and chapters; one reliable place and reader for the operational default language.
