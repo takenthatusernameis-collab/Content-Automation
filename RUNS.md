@@ -1,4 +1,13 @@
 # RUNS
+## Run 956 — 2026-11-01T18:15:00Z
+- Objective: Compound assignment-source consistency by making the remaining metadata option writers prefer the canonical primary, reducing future drift across first comments, tags, end screens, and chapters.
+- Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Updated tools/first_comment_options_writer.py, tools/tags_options_writer.py, tools/end_screen_options_writer.py, and tools/chapters_writer.py to import and prefer assignment_utils.read_primary when present (else idea.md via shorten). Extended tools/metadata_alignment_scan.py to also scan first_comment_options.md, end_screen_options.md, and tags_options.md. No secrets polled, no dispatch, no media committed, no packet writes.
+- Result: Videos published stay 0. All major metadata generators now share the preference for the canonical assignment statement. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Code committed and importable; writers use shared read_primary and shorten. Logic grounded only in packet fields. No invented content. Syntax consistent with prior updated writers.
+- Discovery: Extending the shared reader preference to the remaining options writers (and the scanner) compounds the assignment source across the full set of publish metadata without new tool types.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, suites, suggests, signals, starters, packages, or pure confirmation entries.
+
 ## Run 955 — 2026-11-01T15:20:00Z
 - Objective: Reduce future review labor and detect post-generation or post-edit drift by adding a read-only scanner that checks metadata options candidates against the canonical assignment primary.
 - Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Added tools/metadata_alignment_scan.py that uses assignment_utils.read_primary and reports term presence in title_options.md, description_options.md, and thumbnail_options.md. No secrets polled, no dispatch, no media committed, no packet writes.
@@ -23,15 +32,6 @@
 - Result: Videos published stay 0. Thumbnail options generation now automatically prefers natural short, mechanism-aligned on-image text for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
 - Verification: Code committed and importable; uses shared shorten and idea_utils.extract (with assignment_source preference). Output file gitignored. Candidate logic grounded only in packet fields.
 - Discovery: Preferring the dedicated assignment_source.md primary inside a thumbnail options writer compounds textual consistency for the high-visibility on-image element without requiring a separate suggestor step.
-- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, suites, suggests, signals, starters, packages, or pure confirmation entries.
-
-## Run 952 — 2026-11-01T14:30:00Z
-- Objective: Create a reusable canonical source of truth for the short operational assignment statement so all future metadata options, CTAs, and scanners can stay more tightly aligned without independent drift.
-- Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Added tools/assignment_source_writer.py that extracts idea.md fields and writes local assignment_source.md with shortened natural phrases and one recommended primary assignment using phrase_utils.shorten. Added ignore rule to .gitignore. No secrets polled, no dispatch, no media committed, no packet writes.
-- Result: Videos published stay 0. Assignment source generation now provides a single grounded core statement for every future packet. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
-- Verification: Code committed and importable; uses shared shorten and idea_utils.extract. Output file gitignored. Logic grounded only in packet fields.
-- Discovery: A dedicated canonical assignment source (rather than another multi-candidate options writer) compounds consistency by giving later tools and humans one place to prefer for the channel promise language.
 - Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, suites, suggests, signals, starters, packages, or pure confirmation entries.
 
