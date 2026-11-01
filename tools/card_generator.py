@@ -5,6 +5,10 @@ Does not commit binaries. Does not download stock. Does not bump packet status.
 Does not mark a row ready unless --mark-ready and the PNG exists on disk.
 
 Output lives under videos/NNN-slug/cards/ (gitignored).
+
+Run 944: CTA / install-related text-cards prefer a short phrase from idea.md
+mechanism via phrase_utils.shorten (no invented claims). Improves visual
+consistency of the channel promise across every future packet.
 """
 
 from __future__ import annotations
@@ -18,6 +22,13 @@ from pathlib import Path
 TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
+
+try:
+    from idea_utils import extract as idea_extract
+    from phrase_utils import shorten
+except ImportError:
+    idea_extract = None
+    shorten = None
 
 WIDTH, HEIGHT = 1920, 1080
 BG = (18, 18, 22)
@@ -79,6 +90,38 @@ def beat_label(beat: str) -> str:
     return raw.upper() or "CARD"
 
 
+def _short_install_text(packet: Path, card: dict[str, str]) -> str | None:
+    """Prefer short mechanism phrase for CTA / install cards when idea.md exists.
+
+    Aligns on-card language with the channel promise without inventing claims.
+    Returns None if helpers unavailable or no suitable text.
+    """
+    if idea_extract is None or shorten is None:
+        return None
+    beat_l = card["beat"].lower()
+    need_l = card["need"].lower()
+    is_install_related = (
+        "cta" in beat_l
+        or "install" in need_l
+        or "default" in need_l
+        or "same-day" in need_l
+        or "same day" in need_l
+    )
+    if not is_install_related:
+        return None
+    idea_path = packet / "idea.md"
+    if not idea_path.is_file():
+        return None
+    try:
+        mech, _problem, _topic = idea_extract(idea_path.read_text(encoding="utf-8"))
+        if not mech:
+            return None
+        short = shorten(mech, max_len=40)
+        return short if short else None
+    except Exception:
+        return None
+
+
 def _pil():
     from PIL import Image, ImageDraw, ImageFont
     return Image, ImageDraw, ImageFont
@@ -122,13 +165,20 @@ def _center(draw, lines: list[str], font, y: int, fill: tuple[int, int, int]) ->
         y += (bbox[3] - bbox[1]) + 18
 
 
-def render_text_card(card: dict[str, str]):
+def render_text_card(card: dict[str, str], packet: Path | None = None):
     Image, ImageDraw, _ImageFont = _pil()
     img = Image.new("RGB", (WIDTH, HEIGHT), BG)
     draw = ImageDraw.Draw(img)
     draw.rectangle((80, 80, WIDTH - 80, HEIGHT - 80), outline=RULE, width=3)
     draw.text((110, 110), beat_label(card["beat"]), font=_font(28), fill=ACCENT)
-    title = title_words(card["need"], 6)
+
+    # Prefer short install phrase for CTA / install-related cards when available
+    title = None
+    if packet is not None:
+        title = _short_install_text(packet, card)
+    if not title:
+        title = title_words(card["need"], 6)
+
     lines = _wrap(draw, title, _font(72), WIDTH - 280)
     _center(draw, lines, _font(72), 420, FG)
     note = card["need"]
@@ -168,10 +218,10 @@ def render_diagram(card: dict[str, str]):
     return img
 
 
-def render_card(card: dict[str, str]):
+def render_card(card: dict[str, str], packet: Path | None = None):
     if card["type"] == "diagram":
         return render_diagram(card)
-    return render_text_card(card)
+    return render_text_card(card, packet=packet)
 
 
 def inspect_png(path: Path) -> dict[str, str]:
@@ -202,7 +252,7 @@ def write_cards(packet: Path, dry_run: bool = False) -> list[dict[str, str]]:
         if dry_run:
             results.append({**card, "wrote": "dry-run", "ok": ""})
             continue
-        img = render_card(card)
+        img = render_card(card, packet=packet)
         dest.parent.mkdir(parents=True, exist_ok=True)
         img.save(dest, format="PNG")
         info = inspect_png(dest)
@@ -228,6 +278,7 @@ def render_manifest(packet: Path, rows: list[dict[str, str]]) -> str:
         lines.append(f"| {r['beat']} | `{r['file']}` | {r['type']} | {on} | {r.get('size', '')} |")
     lines.append("")
     lines.append("Status rows in assets.md stay `planned` unless `--mark-ready` runs after files exist.")
+    lines.append("CTA / install cards prefer short idea.md mechanism text when available.")
     lines.append("")
     return "\n".join(lines)
 
