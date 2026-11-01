@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Generate multiple local 1280x720 YouTube thumbnail PNG variants from the packet title.
 
-Deterministic designs only. No stock, no invented text beyond the locked title,
-no git commits of the binaries. Outputs: packet/thumbnail_variant_{1-4}.png
+Deterministic designs only. Prefers short on-image text from thumbnail.md (better for readability/CTR)
+when present; falls back to the locked title from publish.md.
+No stock, no invented text, no git commits of the binaries. Outputs: packet/thumbnail_variant_{1-4}.png
 (gitignored). Compatible with basic YouTube thumbnail requirements.
 
 Reduces recurring human labor of manually designing alternate thumbnail layouts
@@ -24,6 +25,20 @@ RULE = (58, 56, 52)
 BG_LIGHT = (245, 243, 238)
 FG_DARK = (18, 18, 22)
 ACCENT_DARK = (36, 42, 58)
+
+
+def extract_on_image_text(thumb_text: str) -> str | None:
+    """Pull short on-image text from thumbnail.md if present."""
+    match = re.search(
+        r"On-image text(?: \(max 5 words\))?:\s*(.+)",
+        thumb_text,
+        re.I,
+    )
+    if match:
+        text = match.group(1).strip()
+        if text and len(text.split()) <= 6:  # keep short
+            return text
+    return None
 
 
 def extract_title(publish_text: str) -> str:
@@ -90,7 +105,8 @@ def render_variant_1(title: str):
     draw.rectangle((40, 40, WIDTH - 40, 110), fill=ACCENT)
     draw.text((60, 58), "NEXT ACTION", font=_font(32), fill=BG_DARK)
 
-    font = _font(68)
+    font_size = 72 if len(title.split()) <= 4 else 64
+    font = _font(font_size)
     lines = _wrap(draw, title, font, WIDTH - 180)
     total_h = sum(font.getbbox(line or "X")[3] - font.getbbox(line or "X")[1] + 14 for line in lines)
     y = 160 + (HEIGHT - 220 - total_h) // 2
@@ -110,7 +126,8 @@ def render_variant_2(title: str):
     draw.rectangle((0, HEIGHT - 80, WIDTH, HEIGHT), fill=ACCENT)
     draw.text((40, HEIGHT - 62), "ONE WRITTEN DEFAULT", font=_font(28), fill=BG_DARK)
 
-    font = _font(64)
+    font_size = 68 if len(title.split()) <= 4 else 60
+    font = _font(font_size)
     lines = _wrap(draw, title, font, WIDTH - 120)
     total_h = sum(font.getbbox(line or "X")[3] - font.getbbox(line or "X")[1] + 12 for line in lines)
     y = 80 + (HEIGHT - 200 - total_h) // 2
@@ -128,12 +145,14 @@ def render_variant_3(title: str):
     img = Image.new("RGB", (WIDTH, HEIGHT), BG_DARK)
     draw = ImageDraw.Draw(img)
     draw.rectangle((0, 0, 420, HEIGHT), fill=ACCENT)
-    # Big keyword
+    # Big keyword from short text or default
+    kw = title.split()[0].upper() if title else "STOP"
     kw_font = _font(80)
-    draw.text((40, 280), "STOP", font=kw_font, fill=BG_DARK)
-    draw.text((40, 380), "DECIDING", font=_font(36), fill=BG_DARK)
+    draw.text((40, 280), kw[:8], font=kw_font, fill=BG_DARK)
+    if len(title.split()) > 1:
+        draw.text((40, 380), " ".join(title.split()[1:3]).upper(), font=_font(36), fill=BG_DARK)
 
-    font = _font(56)
+    font = _font(52)
     lines = _wrap(draw, title, font, WIDTH - 500)
     y = 140
     for line in lines:
@@ -151,7 +170,8 @@ def render_variant_4(title: str):
     draw.line((200, 180, WIDTH - 200, 180), fill=ACCENT, width=3)
     draw.line((200, HEIGHT - 180, WIDTH - 200, HEIGHT - 180), fill=ACCENT, width=3)
 
-    font = _font(72)
+    font_size = 76 if len(title.split()) <= 4 else 68
+    font = _font(font_size)
     lines = _wrap(draw, title, font, WIDTH - 160)
     total_h = sum(font.getbbox(line or "X")[3] - font.getbbox(line or "X")[1] + 16 for line in lines)
     y = (HEIGHT - total_h) // 2
@@ -172,7 +192,7 @@ VARIANTS = [
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(description="Generate multiple local thumbnail PNG variants from title")
+    p = argparse.ArgumentParser(description="Generate multiple local thumbnail PNG variants preferring short on-image text")
     p.add_argument("packet", type=Path, help="Path to video packet folder")
     args = p.parse_args()
 
@@ -181,18 +201,31 @@ def main() -> int:
         print(f"ERROR: not a directory: {packet}", file=sys.stderr)
         return 1
 
-    publish = packet / "publish.md"
-    if not publish.is_file():
-        print("ERROR: publish.md missing", file=sys.stderr)
-        return 1
+    text = None
+    source = "title"
+    thumb_md = packet / "thumbnail.md"
+    if thumb_md.is_file():
+        on_image = extract_on_image_text(thumb_md.read_text(encoding="utf-8"))
+        if on_image:
+            text = on_image
+            source = "on-image"
 
-    title = extract_title(publish.read_text(encoding="utf-8"))
-    print(f"title: {title}")
+    if not text:
+        publish = packet / "publish.md"
+        if not publish.is_file():
+            print("ERROR: publish.md missing and no short on-image text", file=sys.stderr)
+            return 1
+        text = extract_title(publish.read_text(encoding="utf-8"))
+        source = "title"
+
+    print(f"packet: {packet.name}")
+    print(f"text source: {source}")
+    print(f"text: {text}")
 
     generated = 0
     for suffix, renderer in VARIANTS:
         try:
-            img = renderer(title)
+            img = renderer(text)
             out = packet / f"thumbnail_variant_{suffix}.png"
             img.save(out, "PNG")
             print(f"  wrote {out.name} ({out.stat().st_size} bytes)")
