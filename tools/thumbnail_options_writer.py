@@ -25,23 +25,7 @@ if str(TOOLS) not in sys.path:
 
 from idea_utils import extract as idea_extract  # noqa: E402
 from phrase_utils import shorten  # noqa: E402
-
-
-def read_assignment_primary(packet: Path) -> str | None:
-    """Prefer the primary assignment statement from assignment_source.md if present."""
-    src = packet / "assignment_source.md"
-    if not src.is_file():
-        return None
-    text = src.read_text(encoding="utf-8")
-    for line in text.splitlines():
-        if line.startswith("Install the ") or "Primary assignment statement" in line:
-            continue
-        stripped = line.strip()
-        if stripped and not stripped.startswith("#") and not stripped.startswith("-") and len(stripped) > 10:
-            # Rough: take the first substantial non-header line after the section
-            if "stops reopening" in stripped or "Install" in stripped:
-                return stripped
-    return None
+from assignment_utils import read_primary  # noqa: E402
 
 
 def main() -> int:
@@ -75,7 +59,7 @@ def main() -> int:
         return 2
 
     # Prefer assignment source primary if available for tighter consistency
-    primary_from_src = read_assignment_primary(packet)
+    primary_from_src = read_primary(packet)
     short_mech = shorten(mech or "the written next-action default", 28)
     short_problem = shorten(problem or "the stall", 22)
     short_topic = shorten(topic or "focused work", 20)
@@ -110,7 +94,7 @@ def main() -> int:
         "Generated locally from idea.md (preferring assignment_source.md primary when present).",
         "Four short on-image text candidates for thumbnails. No invented claims.",
         f"Source preference: {source_note}.",
-        "Uses shared phrase_utils.shorten for natural breaks.",
+        "Uses shared phrase_utils.shorten and assignment_utils.read_primary for natural breaks and consistency.",
         "Channel voice: calm, specific, operational. Short enough for readable on-image text.",
         "Not a final thumbnail text. Select one for thumbnail.md or tools/thumbnail_generator.py.",
         "",
