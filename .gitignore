@@ -138,3 +138,5 @@ videos/**/chapters.md
 videos/**/title_options.md
 # description_options_writer.py writes packet/description_options.md. Do not commit it.
 videos/**/description_options.md
+# end_screen_options_writer.py writes packet/end_screen_options.md. Do not commit it.
+videos/**/end_screen_options.md
