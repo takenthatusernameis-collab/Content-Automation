@@ -9,6 +9,10 @@ options for every future packet. Aligns with channel voice (assignment,
 not reply prompt), description rules (calm, specific, operational), and no-invent rule.
 Complements description_suggest.py and description_scan.py. Not a final description;
 human or later scan selects one for publish.md.
+
+Run 946: switched local truncate to shared phrase_utils.shorten so short phrases
+prefer natural clause/word breaks, matching thumbnail_generator and card_generator.
+Improves visual and textual consistency of the channel promise across every future packet.
 """
 
 from __future__ import annotations
@@ -23,11 +27,7 @@ if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
 from idea_utils import extract as idea_extract  # noqa: E402
-
-
-def shorten(s: str, n: int) -> str:
-    s = (s or "").strip()
-    return s if len(s) <= n else s[: n - 1].rstrip() + "…"
+from phrase_utils import shorten  # noqa: E402
 
 
 def main() -> int:
