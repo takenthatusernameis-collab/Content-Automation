@@ -1,4 +1,13 @@
 # RUNS
+## Run 954 — 2026-11-01T14:23:00Z
+- Objective: Reduce future parsing drift and labor by making the canonical assignment source preferred by the main options writers through a shared reader, compounding consistency of titles, descriptions, and thumbnails.
+- Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Added tools/assignment_utils.py with read_primary. Updated tools/title_options_writer.py, tools/description_options_writer.py, and tools/thumbnail_options_writer.py to import and prefer the primary from assignment_source.md when present (else fall back to idea.md via shorten). No secrets polled, no dispatch, no media committed, no packet writes.
+- Result: Videos published stay 0. Options writers now share a reliable preference for the canonical assignment statement. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text output stays local.
+- Verification: Code committed and importable; writers use shared read_primary and shorten. Logic grounded only in packet fields. No invented content.
+- Discovery: Extracting the primary reader into a shared utility compounds the value of the assignment source by making preference automatic and consistent across multiple writers without duplicated fragile parsers.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, suites, suggests, signals, starters, packages, or pure confirmation entries.
+
 ## Run 953 — 2026-11-01T13:21:00Z
 - Objective: Reduce recurring labor of crafting concise readable on-image thumbnail text by generating grounded short candidates that prefer the canonical assignment source for tighter mechanism alignment.
 - Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Added tools/thumbnail_options_writer.py that extracts idea.md fields (preferring primary from assignment_source.md when present) and writes local thumbnail_options.md with 4 short on-image candidates using phrase_utils.shorten. Added ignore rule to .gitignore. No secrets polled, no dispatch, no media committed, no packet writes.
