@@ -1,19 +1,17 @@
 #!/usr/bin/env python3
 """Write a local title_options.md with grounded title candidates.
 
-Extracts mechanism/problem/topic from idea.md and emits a structured
-title_options.md with 6 short operational title candidates grounded only
-in those fields. No invented claims, numbers, or clickbait. Output stays
-local (gitignored). Reduces recurring labor of manually drafting title
-options for every future packet. Aligns with channel voice (assignment,
-not reply prompt), title rules (calm, specific), and no-invent rule.
-Complements title_suggest.py and chapters_writer.py. Not a final title;
-human or later scan selects one for publish.md.
+Extracts mechanism/problem/topic from idea.md (or prefers shortened primary from
+assignment_source.md when present) and emits a structured title_options.md with
+6 short operational title candidates grounded only in those fields. No invented
+claims, numbers, or clickbait. Output stays local (gitignored). Reduces recurring
+labor of manually drafting title options for every future packet. Aligns with
+channel voice (assignment, not reply prompt), title rules (calm, specific), and
+no-invent rule. Complements title_suggest.py and chapters_writer.py. Not a final
+title; human or later scan selects one for publish.md.
 
-Run 947: switched local truncate to shared phrase_utils.shorten so short phrases
-prefer natural clause/word breaks, matching description_options_writer,
-thumbnail_generator, and card_generator. Improves textual consistency of the
-channel promise across every future packet automatically when generating title options.
+Run 954: now prefers primary from assignment_source.md via shared assignment_utils.read_primary
+when present, for tighter consistency with the canonical source.
 """
 
 from __future__ import annotations
@@ -29,6 +27,7 @@ if str(TOOLS) not in sys.path:
 
 from idea_utils import extract as idea_extract  # noqa: E402
 from phrase_utils import shorten  # noqa: E402
+from assignment_utils import read_primary  # noqa: E402
 
 
 def main() -> int:
@@ -61,7 +60,13 @@ def main() -> int:
         print("FAIL: no mechanism or problem found in idea.md", file=sys.stderr)
         return 2
 
-    base = shorten(mech or "the written next-action default", 40)
+    primary_from_src = read_primary(packet)
+    if primary_from_src:
+        base = shorten(primary_from_src, 40)
+        source_note = "preferred from assignment_source.md"
+    else:
+        base = shorten(mech or "the written next-action default", 40)
+        source_note = "from idea.md mechanism"
     stall = shorten(problem or "the stall reopens the list", 40)
     top = shorten(topic or "focused work", 30)
 
@@ -77,8 +82,9 @@ def main() -> int:
     lines = [
         "# Title Options (local; grounded candidates)",
         "",
-        "Generated locally from idea.md mechanism/problem/topic only.",
+        "Generated locally from idea.md (preferring assignment_source.md primary when present).",
         "Six short operational title candidates. No invented claims, numbers, or clickbait.",
+        f"Source preference: {source_note}.",
         "Channel voice: calm, specific, operational. Assignment, not a reply prompt.",
         "Complements title_suggest.py and title_scan.py.",
         "Not a final title. Select one, run tools/title_scan.py, then copy to publish.md.",
@@ -105,6 +111,7 @@ def main() -> int:
 
     out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"WROTE: {out_path}")
+    print(f"source_preference: {source_note}")
     print(f"mech_found: {bool(mech)}")
     print(f"problem_found: {bool(problem)}")
     print(f"topic_found: {bool(topic)}")
