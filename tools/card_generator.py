@@ -9,6 +9,10 @@ Output lives under videos/NNN-slug/cards/ (gitignored).
 Run 944: CTA / install-related text-cards prefer a short phrase from idea.md
 mechanism via phrase_utils.shorten (no invented claims). Improves visual
 consistency of the channel promise across every future packet.
+Run 961: CTA / install-related text-cards now prefer ranked End screen text
+from recommended_publish_fill.md (when present) before idea.md mechanism,
+compounding the recent metadata ranking/fill work into card generation so
+on-card CTA text stays aligned with the selected metadata without extra copy.
 """
 
 from __future__ import annotations
@@ -90,14 +94,27 @@ def beat_label(beat: str) -> str:
     return raw.upper() or "CARD"
 
 
-def _short_install_text(packet: Path, card: dict[str, str]) -> str | None:
-    """Prefer short mechanism phrase for CTA / install cards when idea.md exists.
+def extract_recommended_end_screen(fill_text: str) -> str | None:
+    """Pull the End screen section from recommended_publish_fill.md if present and reasonable length."""
+    match = re.search(
+        r"^## End screen\s*\n(.+?)(?:\n##|\n\n|\Z)",
+        fill_text,
+        re.M | re.S,
+    )
+    if match:
+        text = match.group(1).strip()
+        text = re.sub(r"<!--.*?-->", "", text, flags=re.S).strip()
+        if text and 4 <= len(text.split()) <= 15:
+            return text
+    return None
 
-    Aligns on-card language with the channel promise without inventing claims.
-    Returns None if helpers unavailable or no suitable text.
+
+def _short_install_text(packet: Path, card: dict[str, str]) -> str | None:
+    """Prefer ranked End screen text, then short mechanism phrase for CTA / install cards.
+
+    Aligns on-card language with the ranked metadata selection and channel promise
+    without inventing claims. Returns None if no suitable text.
     """
-    if idea_extract is None or shorten is None:
-        return None
     beat_l = card["beat"].lower()
     need_l = card["need"].lower()
     is_install_related = (
@@ -108,6 +125,16 @@ def _short_install_text(packet: Path, card: dict[str, str]) -> str | None:
         or "same day" in need_l
     )
     if not is_install_related:
+        return None
+
+    # Prefer ranked End screen text from fill when present
+    fill_path = packet / "recommended_publish_fill.md"
+    if fill_path.is_file():
+        rec = extract_recommended_end_screen(fill_path.read_text(encoding="utf-8"))
+        if rec:
+            return rec
+
+    if idea_extract is None or shorten is None:
         return None
     idea_path = packet / "idea.md"
     if not idea_path.is_file():
@@ -172,7 +199,7 @@ def render_text_card(card: dict[str, str], packet: Path | None = None):
     draw.rectangle((80, 80, WIDTH - 80, HEIGHT - 80), outline=RULE, width=3)
     draw.text((110, 110), beat_label(card["beat"]), font=_font(28), fill=ACCENT)
 
-    # Prefer short install phrase for CTA / install-related cards when available
+    # Prefer ranked End screen (or short install phrase) for CTA / install-related cards when available
     title = None
     if packet is not None:
         title = _short_install_text(packet, card)
@@ -278,7 +305,7 @@ def render_manifest(packet: Path, rows: list[dict[str, str]]) -> str:
         lines.append(f"| {r['beat']} | `{r['file']}` | {r['type']} | {on} | {r.get('size', '')} |")
     lines.append("")
     lines.append("Status rows in assets.md stay `planned` unless `--mark-ready` runs after files exist.")
-    lines.append("CTA / install cards prefer short idea.md mechanism text when available.")
+    lines.append("CTA / install cards prefer ranked End screen text from recommended_publish_fill.md when present, then short idea.md mechanism text.")
     lines.append("")
     return "\n".join(lines)
 
