@@ -9,6 +9,11 @@ options for every future packet. Aligns with channel voice (assignment,
 not reply prompt), title rules (calm, specific), and no-invent rule.
 Complements title_suggest.py and chapters_writer.py. Not a final title;
 human or later scan selects one for publish.md.
+
+Run 947: switched local truncate to shared phrase_utils.shorten so short phrases
+prefer natural clause/word breaks, matching description_options_writer,
+thumbnail_generator, and card_generator. Improves textual consistency of the
+channel promise across every future packet automatically when generating title options.
 """
 
 from __future__ import annotations
@@ -23,11 +28,7 @@ if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
 from idea_utils import extract as idea_extract  # noqa: E402
-
-
-def shorten(s: str, n: int) -> str:
-    s = (s or "").strip()
-    return s if len(s) <= n else s[: n - 1].rstrip() + "…"
+from phrase_utils import shorten  # noqa: E402
 
 
 def main() -> int:
