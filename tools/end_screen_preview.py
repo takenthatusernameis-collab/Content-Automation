@@ -3,6 +3,8 @@
 
 Shows CTA text in the safe zone and marks lower-left / lower-right areas
 reserved for YouTube end-screen elements (last 20s rule).
+Prefers ranked End screen text from recommended_publish_fill.md when present
+(after the recent metadata ranking work); falls back to script.md CTA.
 No invented claims. Output is local only (gitignored).
 """
 
@@ -40,6 +42,21 @@ def extract_cta(script_text: str) -> str:
         if "assignment" in line.lower() or "write" in line.lower() and "tomorrow" in line.lower():
             return line.strip()[:100]
     return "Write tomorrow's sentence before you close the machine."
+
+
+def extract_recommended_end_screen(fill_text: str) -> str | None:
+    """Pull the End screen section from recommended_publish_fill.md if present and reasonable length."""
+    match = re.search(
+        r"^## End screen\s*\n(.+?)(?:\n##|\n\n|\Z)",
+        fill_text,
+        re.M | re.S,
+    )
+    if match:
+        text = match.group(1).strip()
+        text = re.sub(r"<!--.*?-->", "", text, flags=re.S).strip()
+        if text and 4 <= len(text.split()) <= 15:
+            return text
+    return None
 
 
 def _pil():
@@ -112,13 +129,25 @@ def main() -> int:
         print(f"not a directory: {path}", file=sys.stderr)
         return 1
 
-    script = path / "script.md"
-    if not script.is_file():
-        print("missing script.md", file=sys.stderr)
-        return 1
+    cta = None
+    source = "script"
+    fill_path = path / "recommended_publish_fill.md"
+    if fill_path.is_file():
+        rec = extract_recommended_end_screen(fill_path.read_text(encoding="utf-8"))
+        if rec:
+            cta = rec
+            source = "recommended-fill"
 
-    cta = extract_cta(script.read_text(encoding="utf-8"))
+    if not cta:
+        script = path / "script.md"
+        if not script.is_file():
+            print("missing script.md and no recommended end-screen text", file=sys.stderr)
+            return 1
+        cta = extract_cta(script.read_text(encoding="utf-8"))
+        source = "script"
+
     print(f"packet: {path.name}")
+    print(f"cta source: {source}")
     print(f"cta: {cta}")
 
     dest = path / "end_screen_preview.png"
