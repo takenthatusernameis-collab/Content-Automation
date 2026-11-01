@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 """Write a local chapters.md with estimated YouTube chapter lines.
 
-Extracts mechanism/problem/topic from idea.md and emits a structured
-chapters.md with ## YouTube lines using format.md segment targets at 150 wpm
-for rough timestamps (Hook ~10s, Payoff ~22s, each Beat ~72s, CTA ~22s).
-Chapter titles are short operational phrases grounded only in those fields.
-No invented spoken lines or claims. Output stays local (gitignored).
-Reduces recurring labor of manually estimating and writing chapter markers
-for every future packet. Aligns with channel voice (assignment, not reply prompt),
-format timing, and no-invent rule. Complements word_budget_writer.py and
-draft_skeleton_writer.py. Not a final chapters file; human or later tool may refine
-from real VO timestamps.
+Extracts mechanism/problem/topic from idea.md (or prefers shortened primary from
+assignment_source.md when present) and emits a structured chapters.md with
+## YouTube lines using format.md segment targets at 150 wpm for rough timestamps
+(Hook ~10s, Payoff ~22s, each Beat ~72s, CTA ~22s). Chapter titles are short
+operational phrases grounded only in those fields. No invented spoken lines or
+claims. Output stays local (gitignored). Reduces recurring labor of manually
+estimating and writing chapter markers for every future packet. Aligns with
+channel voice (assignment, not reply prompt), format timing, and no-invent rule.
+Complements word_budget_writer.py and draft_skeleton_writer.py. Not a final
+chapters file; human or later tool may refine from real VO timestamps.
+
+Run 956: now prefers primary from assignment_source.md via shared assignment_utils.read_primary
+when present, for tighter consistency with the canonical source. Uses phrase_utils.shorten.
 """
 
 from __future__ import annotations
@@ -25,11 +28,8 @@ if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
 from idea_utils import extract as idea_extract  # noqa: E402
-
-
-def shorten(s: str, n: int) -> str:
-    s = (s or "").strip()
-    return s if len(s) <= n else s[: n - 1].rstrip() + "…"
+from phrase_utils import shorten  # noqa: E402
+from assignment_utils import read_primary  # noqa: E402
 
 
 def fmt_time(secs: int) -> str:
@@ -68,7 +68,13 @@ def main() -> int:
         print("FAIL: no mechanism or problem found in idea.md", file=sys.stderr)
         return 2
 
-    base = shorten(mech or "the written next-action default", 40)
+    primary_from_src = read_primary(packet)
+    if primary_from_src:
+        base = shorten(primary_from_src, 40)
+        source_note = "preferred from assignment_source.md"
+    else:
+        base = shorten(mech or "the written next-action default", 40)
+        source_note = "from idea.md mechanism"
     stall = shorten(problem or "the stall reopens the list", 40)
 
     # Rough cumulative seconds from format.md targets at 150 wpm (~2.5 words/sec).
@@ -87,10 +93,11 @@ def main() -> int:
     lines = [
         "# Chapters (local; estimated from format targets)",
         "",
-        "Generated locally from idea.md mechanism/problem/topic only.",
+        "Generated locally from idea.md (preferring assignment_source.md primary when present).",
         "Estimated YouTube chapter lines using docs/format.md spoken-word targets",
         "at 150 wpm. Refine timestamps from real selected VO when available.",
         "Titles are short operational phrases. No invented claims or statistics.",
+        f"Source preference: {source_note}.",
         "Channel voice: calm, specific, operational. Assignment, not a reply prompt.",
         "Complements word_budget_writer.py and draft_skeleton_writer.py.",
         "Not a final chapters file. Copy preferred lines into publish.md Description",
@@ -119,6 +126,7 @@ def main() -> int:
 
     out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"WROTE: {out_path}")
+    print(f"source_preference: {source_note}")
     print(f"mech_found: {bool(mech)}")
     print(f"problem_found: {bool(problem)}")
     print(f"topic_found: {bool(topic)}")

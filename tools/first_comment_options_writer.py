@@ -1,20 +1,18 @@
 #!/usr/bin/env python3
 """Write a local first_comment_options.md with grounded pin candidates.
 
-Extracts mechanism/problem/topic from idea.md and emits a structured
-first_comment_options.md with 4 short operational first-comment / pin candidates
-grounded only in those fields. No invented claims, numbers, or engagement bait.
-Output stays local (gitignored). Reduces recurring labor of manually drafting
-the pinned first comment for every future packet. Aligns with channel voice
-(assignment, not reply prompt), first-comment rules (calm, specific, concrete
-next action), and no-invent rule. Complements first_comment_scan.py.
-Not a final pin; human or later scan selects one for publish.md ## First comment.
+Extracts mechanism/problem/topic from idea.md (or prefers shortened primary from
+assignment_source.md when present) and emits a structured first_comment_options.md
+with 4 short operational first-comment / pin candidates grounded only in those fields.
+No invented claims, numbers, or engagement bait. Output stays local (gitignored).
+Reduces recurring labor of manually drafting the pinned first comment for every
+future packet. Aligns with channel voice (assignment, not reply prompt), first-comment
+rules (calm, specific, concrete next action), and no-invent rule. Complements
+first_comment_scan.py. Not a final pin; human or later scan selects one for
+publish.md ## First comment.
 
-Uses shared phrase_utils.shorten so short phrases prefer natural clause/word
-breaks, matching title_options_writer, description_options_writer,
-tags_options_writer, chapters_options_writer, and end_screen_options_writer.
-Improves textual consistency of the channel promise across every future packet
-automatically when generating first-comment options.
+Run 956: now prefers primary from assignment_source.md via shared assignment_utils.read_primary
+when present, for tighter consistency with the canonical source.
 """
 
 from __future__ import annotations
@@ -30,6 +28,7 @@ if str(TOOLS) not in sys.path:
 
 from idea_utils import extract as idea_extract  # noqa: E402
 from phrase_utils import shorten  # noqa: E402
+from assignment_utils import read_primary  # noqa: E402
 
 
 def main() -> int:
@@ -62,7 +61,13 @@ def main() -> int:
         print("FAIL: no mechanism or problem found in idea.md", file=sys.stderr)
         return 2
 
-    base = shorten(mech or "the written next-action default", 40)
+    primary_from_src = read_primary(packet)
+    if primary_from_src:
+        base = shorten(primary_from_src, 40)
+        source_note = "preferred from assignment_source.md"
+    else:
+        base = shorten(mech or "the written next-action default", 40)
+        source_note = "from idea.md mechanism"
     stall = shorten(problem or "the stall", 30)
     top = shorten(topic or "focused work", 25)
 
@@ -76,8 +81,9 @@ def main() -> int:
     lines = [
         "# First Comment Options (local; grounded candidates)",
         "",
-        "Generated locally from idea.md mechanism/problem/topic only.",
+        "Generated locally from idea.md (preferring assignment_source.md primary when present).",
         "Four short operational first-comment / pin candidates. No invented claims, numbers, or engagement bait.",
+        f"Source preference: {source_note}.",
         "Channel voice: calm, specific, operational. Assignment, not a reply prompt.",
         "Complements first_comment_scan.py.",
         "Not a final pin. Select one, run tools/first_comment_scan.py, then copy to publish.md ## First comment.",
@@ -105,6 +111,7 @@ def main() -> int:
 
     out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"WROTE: {out_path}")
+    print(f"source_preference: {source_note}")
     print(f"mech_found: {bool(mech)}")
     print(f"problem_found: {bool(problem)}")
     print(f"topic_found: {bool(topic)}")

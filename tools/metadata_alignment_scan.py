@@ -3,8 +3,9 @@
 
 Reads the primary assignment statement from assignment_source.md (via shared
 assignment_utils.read_primary) when present. Then inspects title_options.md,
-description_options.md, and thumbnail_options.md (if they exist) and reports
-whether candidates appear to prefer or contain key terms from the primary.
+description_options.md, thumbnail_options.md, first_comment_options.md,
+end_screen_options.md, and tags_options.md (if they exist) and reports whether
+candidates appear to prefer or contain key terms from the primary.
 
 Does not write files, invent content, or rewrite options. Pure inspection
 to reduce future review labor and detect drift after human edits or older
@@ -12,6 +13,8 @@ generation. Aligns with no-invent rule and mechanism consistency goals.
 
 Exit 0 always (informational); use for human or agent review before final
 selection into publish.md.
+
+Run 956: extended to cover first_comment, end_screen, and tags options for fuller coverage.
 """
 
 from __future__ import annotations
@@ -74,7 +77,7 @@ def scan_options_file(path: Path, terms: list[str]) -> tuple[int, int, list[str]
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Scan local title/description/thumbnail options for alignment with assignment primary"
+        description="Scan local title/description/thumbnail/first-comment/end-screen/tags options for alignment with assignment primary"
     )
     parser.add_argument("packet", type=Path, help="Packet directory")
     args = parser.parse_args()
@@ -98,6 +101,9 @@ def main() -> int:
         ("title_options.md", packet / "title_options.md"),
         ("description_options.md", packet / "description_options.md"),
         ("thumbnail_options.md", packet / "thumbnail_options.md"),
+        ("first_comment_options.md", packet / "first_comment_options.md"),
+        ("end_screen_options.md", packet / "end_screen_options.md"),
+        ("tags_options.md", packet / "tags_options.md"),
     ]
     any_found = False
     for name, path in files:
