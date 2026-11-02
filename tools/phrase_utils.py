@@ -22,13 +22,11 @@ def shorten(text: str, max_len: int = 40) -> str:
     text = text.strip()
     if len(text) <= max_len:
         return text
-    # Prefer natural clause breaks; added more seps for higher quality shorts
     for sep in (". ", ", ", " so ", " that ", " and ", " — ", " - ", "; ", ": ", " but ", " because "):
         if sep in text:
             cand = text.split(sep)[0].strip()
             if 8 <= len(cand) <= max_len:
                 return cand
-    # Fallback: whole words up to max_len
     words = text.split()
     out = []
     for w in words:
@@ -37,29 +35,21 @@ def shorten(text: str, max_len: int = 40) -> str:
             break
         out.append(w)
     result = " ".join(out) if out else text[:max_len].rstrip()
-    # Prefer not ending on a tiny fragment if possible
     if len(result) < 10 and len(text) > max_len:
         return text[:max_len].rsplit(" ", 1)[0] if " " in text[:max_len] else text[:max_len]
     return result
 
 
 def normalize(text: str) -> str:
-    """Normalize common variants so patterns match more reliably without duplicating entries.
-
-    Converts curly apostrophes/quotes and en/em dashes to straight equivalents.
-    Shared by quality_scan, claim_scan, and any future scanners.
-    """
-    text = text.replace("’", "'").replace("‘", "'")  # curly single quotes
-    text = text.replace("“", '"').replace("”", '"')  # curly double
-    text = text.replace("–", "-").replace("—", "-")  # en/em dash
+    """Normalize common variants so patterns match more reliably without duplicating entries."""
+    text = text.replace("\u2019", "'").replace("\u2018", "'")
+    text = text.replace("\u201c", '"').replace("\u201d", '"')
+    text = text.replace("\u2013", "-").replace("\u2014", "-")
     return text
 
 
 def context_snippet(text: str, match, before: int = 40, after: int = 40, max_len: int = 90) -> str:
-    """Return a short context snippet around a regex match for actionable revision signals.
-
-    Shared by quality_scan, claim_scan, and any future scanners to avoid duplicated window logic.
-    """
+    """Return a short context snippet around a regex match for actionable revision signals."""
     start = max(0, match.start() - before)
     end = min(len(text), match.end() + after)
     context = text[start:end].replace("\n", " ").strip()
@@ -72,35 +62,20 @@ WORD_RE = re.compile(r"WORDS:\s*(.*?)(?:\nVISUAL:|\n## |\Z)", re.S | re.I)
 
 
 def spoken_words(text: str) -> str:
-    """Extract and normalize spoken WORDS blocks from a script or draft.
-
-    Shared by quality_scan, claim_scan, cadence_repetition_scan, and any future scanners.
-    Removes local WORD_RE + spoken copies so extraction and normalization stay consistent.
-    """
+    """Extract and normalize spoken WORDS blocks from a script or draft."""
     parts = WORD_RE.findall(text.replace("\r\n", "\n"))
     body = "\n".join(part.strip() for part in parts if part.strip())
     return normalize(body)
 
 
 def count_spoken_words(text: str) -> int:
-    """Count words in already-extracted or normalized spoken text.
-
-    Applies normalize then a simple word split. Do not pass a full script;
-    use spoken_words first for full files, or pass a section's spoken body.
-    Shared so duration tools do not re-apply spoken_words to section text
-    (which previously produced false zero counts).
-    """
+    """Count words in already-extracted or normalized spoken text."""
     cleaned = re.sub(r"[^\w\s'-]", " ", normalize(text or ""))
     return len([w for w in cleaned.split() if w.strip()])
 
 
 def extract_sections(text: str) -> list[dict[str, str]]:
-    """Extract ## sections with title, spoken body, and optional visual need.
-
-    Shared by end-screen, timeline, and other structure tools so section
-    boundaries and WORDS extraction stay identical. Spoken text is normalized.
-    Does not invent content.
-    """
+    """Extract ## sections with title, spoken body, and optional visual need."""
     sections: list[dict[str, str]] = []
     parts = re.split(r"^##[ \t]+", text.replace("\r\n", "\n"), flags=re.M)
     for part in parts[1:]:
@@ -122,20 +97,12 @@ def extract_sections(text: str) -> list[dict[str, str]]:
     return sections
 
 
-# Shared narration rate constants and selector.
-# Single source of truth so duration tools cannot diverge on human vs generated WPM.
-# Observed Q1 generated take ~199 wpm; 190 is the calibrated default for generated origin.
-HUMAN_WPM = 140  # typical clear explanatory narration rate
-GENERATED_WPM = 190  # calibrated default when vo_origin marks generated
+HUMAN_WPM = 140
+GENERATED_WPM = 190
 
 
 def select_rate(packet_path: Path) -> tuple[int, str]:
-    """Return (wpm, label) based on vo_origin.md if present.
-
-    Shared by speaking_time_estimate, end_screen_reserve_check, minimum_timeline_estimate,
-    and any future duration planners so rate selection stays identical.
-    Does not invent content or call external services.
-    """
+    """Return (wpm, label) based on vo_origin.md if present."""
     origin_path = packet_path / "vo_origin.md"
     is_generated = False
     if origin_path.is_file():
@@ -147,21 +114,19 @@ def select_rate(packet_path: Path) -> tuple[int, str]:
 
 
 def _selected_vo_path(packet_path: Path) -> Path | None:
-    """Return the canonical Selected VO path if the packet layout is standard. Does not invent files."""
-    # Prefer the shared helper when available to stay consistent with render_brief.
+    """Return the canonical Selected VO path if the packet layout is standard."""
     try:
         from render_brief import selected_vo_drop  # type: ignore
         rel = selected_vo_drop(packet_path)
         return (Path(__file__).resolve().parents[1] / rel) if not rel.startswith("/") else Path(rel)
     except Exception:
-        # Fallback: standard naming from packet directory name
         name = packet_path.name
         cand = packet_path / "vo" / f"{name}-take-selected.wav"
         return cand if cand.parent.is_dir() else None
 
 
 def observed_wpm(packet_path: Path, word_count: int) -> int | None:
-    """Return observed WPM from Selected VO if the file exists and word_count > 0. No invented durations."""
+    """Return observed WPM from Selected VO if the file exists and word_count > 0."""
     if word_count <= 0:
         return None
     vo = _selected_vo_path(packet_path)
@@ -179,35 +144,21 @@ def observed_wpm(packet_path: Path, word_count: int) -> int | None:
 
 
 def effective_rate(packet_path: Path, word_count: int = 0) -> tuple[int, str]:
-    """Return (wpm, label) preferring observed rate from Selected VO when available, else select_rate.
-
-    Shared so all duration tools automatically calibrate to a real take on the same packet
-    without manual rate overrides. Falls back cleanly when no VO exists.
-    Does not invent content or call external services.
-    """
+    """Return (wpm, label) preferring observed rate from Selected VO when available."""
     obs = observed_wpm(packet_path, word_count)
-    if obs is not None and 80 <= obs <= 250:  # sanity bounds for speech
+    if obs is not None and 80 <= obs <= 250:
         return obs, "observed"
     rate, label = select_rate(packet_path)
     return rate, label
 
 
 def compile_word_boundary_patterns(phrases):
-    """Compile high-precision word-boundary, case-insensitive regexes for a list of phrases.
-
-    Shared by all scanners (quality_scan, claim_scan, title_scan, etc.) to avoid duplicated
-    re.compile logic and ensure consistent matching (escape + \\b + IGNORECASE).
-    """
+    """Compile high-precision word-boundary, case-insensitive regexes for a list of phrases."""
     return tuple(
-        re.compile(r"\\b" + re.escape(phrase) + r"\\b", re.IGNORECASE) for phrase in phrases
+        re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in phrases
     )
 
 
-# Canonical high-precision anti-slop phrases.
-# Single source of truth for quality_scan, suggestors, and starters.
-# Matching is word-boundary, case-insensitive. Do not add broad regexes.
-# quality_scan normalizes curly apostrophes/quotes/dashes so one straight entry covers common variants.
-# Curly duplicates removed for maintainability (Run 752).
 ANTI_SLOP_PATTERNS = (
     "unlock your potential",
     "in today's fast-paced world",
@@ -381,11 +332,6 @@ ANTI_SLOP_PATTERNS = (
     "to understand why",
 )
 
-
-# Canonical high-precision hedge phrases for unsourced claim detection.
-# Single source of truth for claim_scan. Matching is word-boundary, case-insensitive.
-# claim_scan normalizes curly apostrophes/quotes/dashes so one straight entry covers common variants.
-# Extracted for DRY consistency with ANTI_SLOP_PATTERNS (Run 756).
 HEDGE_PATTERNS = (
     "studies show",
     "study shows",
@@ -430,11 +376,6 @@ HEDGE_PATTERNS = (
     "researchers suggest",
 )
 
-
-# Canonical high-precision weak/clickbait patterns for titles.
-# Single source of truth for title_scan. Matching is word-boundary, case-insensitive.
-# title_scan normalizes curly apostrophes/quotes/dashes so one straight entry covers common variants.
-# Extracted for DRY consistency (Run 759). Curly duplicates removed.
 TITLE_WEAK_PATTERNS = (
     "secret hack",
     "you won't believe",
@@ -447,11 +388,6 @@ TITLE_WEAK_PATTERNS = (
     "the secret to",
 )
 
-
-# Canonical high-precision weak/clickbait patterns for thumbnail text.
-# Single source of truth for thumbnail_scan. Matching is word-boundary, case-insensitive.
-# thumbnail_scan normalizes curly apostrophes/quotes/dashes so one straight entry covers common variants.
-# Extracted for DRY consistency (Run 759). Curly duplicates removed.
 THUMBNAIL_WEAK_PATTERNS = (
     "you won't believe",
     "must watch",
@@ -465,11 +401,6 @@ THUMBNAIL_WEAK_PATTERNS = (
     "best ever",
 )
 
-
-# Canonical high-precision weak patterns for chapter titles.
-# Single source of truth for chapters_scan. Matching is word-boundary, case-insensitive.
-# chapters_scan normalizes curly apostrophes/quotes/dashes so one straight entry covers common variants.
-# Extracted for DRY consistency (Run 759). Curly duplicates removed.
 CHAPTER_WEAK_PATTERNS = (
     "intro",
     "outro",
@@ -482,22 +413,12 @@ CHAPTER_WEAK_PATTERNS = (
     "let's dive in",
 )
 
-
-# Canonical extras for description anti-slop beyond the shared ANTI_SLOP_PATTERNS.
-# Single source of truth for description_scan additional matches.
-# Matching is word-boundary, case-insensitive. Text is normalized so one straight entry covers variants.
-# Extracted for DRY consistency (Run 760). Curly duplicates removed.
 DESCRIPTION_EXTRA_PATTERNS = (
     "don't forget to",
     "leave a comment",
     "let me know",
 )
 
-
-# Canonical high-precision weak / engagement-bait patterns for end-screen / CTA.
-# Single source of truth for end_screen_scan. Matching is word-boundary, case-insensitive.
-# end_screen_scan normalizes curly apostrophes/quotes/dashes so one straight entry covers common variants.
-# Extracted for DRY consistency (Run 760). Curly duplicates removed.
 END_SCREEN_WEAK_PATTERNS = (
     "smash the like",
     "don't forget to",
@@ -512,11 +433,6 @@ END_SCREEN_WEAK_PATTERNS = (
     "ring the bell",
 )
 
-
-# Canonical high-precision engagement-bait / reply-prompt patterns for first comment.
-# Single source of truth for first_comment_scan. Matching is word-boundary, case-insensitive.
-# first_comment_scan normalizes curly apostrophes/quotes/dashes so one straight entry covers common variants.
-# Extracted for DRY consistency (Run 760). Curly duplicates removed.
 FIRST_COMMENT_BAIT_PATTERNS = (
     "reply with",
     "let me know",
@@ -538,10 +454,7 @@ def _strip_fill_comments(text: str) -> str:
 
 
 def extract_recommended_end_screen(fill_text: str) -> str | None:
-    """Pull the End screen section from recommended_publish_fill.md if present and reasonable length.
-
-    Shared by card_generator, cta_preview, end_screen_preview so ranking preference stays consistent.
-    """
+    """Pull the End screen section from recommended_publish_fill.md if present and reasonable length."""
     match = re.search(
         r"^## End screen\s*\n(.+?)(?:\n##|\n\n|\Z)",
         fill_text,
@@ -555,10 +468,9 @@ def extract_recommended_end_screen(fill_text: str) -> str | None:
 
 
 def extract_recommended_thumbnail(fill_text: str) -> str | None:
-    """Pull the Thumbnail text section from recommended_publish_fill.md if present and short.
+    """Pull Thumbnail text from recommended_publish_fill.md.
 
     Matches both '## Thumbnail text' (writer label) and '## Thumbnail'.
-    Shared by thumbnail_generator so ranking preference stays consistent.
     Run 964: fixed mismatch where fill wrote 'Thumbnail text' but extractor
     only matched bare 'Thumbnail', so ranked text was silently ignored.
     """
@@ -575,10 +487,7 @@ def extract_recommended_thumbnail(fill_text: str) -> str | None:
 
 
 def extract_recommended_first_comment(fill_text: str) -> str | None:
-    """Pull the First comment section from recommended_publish_fill.md if present.
-
-    Shared by first_comment_preview so ranking preference stays consistent.
-    """
+    """Pull the First comment section from recommended_publish_fill.md if present."""
     match = re.search(
         r"^## First comment\s*\n(.+?)(?:\n##|\n\n|\Z)",
         fill_text,
@@ -592,10 +501,7 @@ def extract_recommended_first_comment(fill_text: str) -> str | None:
 
 
 def extract_recommended_title(fill_text: str) -> str | None:
-    """Pull the Title section from recommended_publish_fill.md if present.
-
-    Shared so any future title preference path stays consistent with ranking.
-    """
+    """Pull the Title section from recommended_publish_fill.md if present."""
     match = re.search(
         r"^## Title\s*\n(.+?)(?:\n##|\n\n|\Z)",
         fill_text,
@@ -609,10 +515,7 @@ def extract_recommended_title(fill_text: str) -> str | None:
 
 
 def extract_recommended_description(fill_text: str) -> str | None:
-    """Pull the Description section from recommended_publish_fill.md if present.
-
-    Shared so any future description preference path stays consistent with ranking.
-    """
+    """Pull the Description section from recommended_publish_fill.md if present."""
     match = re.search(
         r"^## Description\s*\n(.+?)(?:\n##|\n\n|\Z)",
         fill_text,
