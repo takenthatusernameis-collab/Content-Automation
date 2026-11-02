@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Generate a consolidated metadata_bundle.md from idea.md via the individual generators.
+"""Generate a consolidated metadata_bundle.md from idea.md and script.md via the individual generators.
 
-Calls the existing generate_* functions (titles, description, tags, thumbnail) so one
-command produces a single reviewable file that collects the primary operational
-candidates for publish.md. Reduces sequential tool runs and multi-file review.
+Calls the existing generate_* functions (titles, description, tags, thumbnail, chapters, end_screen, first_comment)
+so one command produces a single reviewable file that collects the primary operational
+candidates for publish.md and related files. Reduces sequential tool runs and multi-file review.
 Dry-run default; --write optional. No other packet content edits. No secrets.
 Compounds the recent generators into one human-facing review surface for every
 future packet.
@@ -25,6 +25,22 @@ from title_generator import generate_titles
 from description_generator import generate_description
 from tags_generator import generate_tags
 from thumbnail_generator import generate_thumbnail
+
+# Optional later-stage generators (script-based)
+try:
+    from chapters_generator import generate_chapters
+except ImportError:
+    generate_chapters = None
+
+try:
+    from end_screen_generator import generate_end_screen
+except ImportError:
+    generate_end_screen = None
+
+try:
+    from first_comment_generator import generate_first_comment
+except ImportError:
+    generate_first_comment = None
 
 
 def _extract_section(md: str, heading: str) -> str:
@@ -58,8 +74,8 @@ def generate_bundle(packet: Path) -> str:
     lines = [
         "# Metadata Bundle",
         "",
-        "Consolidated operational drafts from idea.md via the individual generators.",
-        "Review each section, adjust for channel voice, then copy into publish.md.",
+        "Consolidated operational drafts from idea.md (and script.md where available) via the individual generators.",
+        "Review each section, adjust for channel voice, then copy into publish.md or the corresponding file.",
         "Does not invent text beyond what the generators already produce. Hits against the *scan tools remain revision signals.",
         "",
         "## Title (Primary)",
@@ -83,10 +99,31 @@ def generate_bundle(packet: Path) -> str:
         "",
         thumb_cands or "(see thumbnail.md)",
         "",
+    ])
+
+    # Script-based sections when generators and script exist
+    script_exists = (packet / "script.md").is_file()
+    if script_exists and generate_chapters:
+        ch_md = generate_chapters(packet)
+        ch_lines = _extract_section(ch_md, "YouTube lines") or "(see chapters.md)"
+        lines.extend(["## Chapters (estimated)", "", ch_lines, ""])
+
+    if script_exists and generate_end_screen:
+        es_md = generate_end_screen(packet)
+        es_text = _extract_section(es_md, "Suggested text") or "(see end_screen.md)"
+        lines.extend(["## End screen text", "", es_text, ""])
+
+    if script_exists and generate_first_comment:
+        fc_md = generate_first_comment(packet)
+        fc_text = _extract_section(fc_md, "Suggested text") or "(see first_comment.md)"
+        lines.extend(["## First comment", "", fc_text, ""])
+
+    lines.extend([
         "## Notes",
         "",
         "Prefer the Primary title and the first thumbnail candidate that stays under 5 words.",
         "Keep the description calm and operational. Keep tags specific to the stall or default.",
+        "Chapters, end-screen, and first-comment appear only after script.md exists.",
         "After review, run the individual *scan.py tools or python3 tools/metadata_alignment_scan.py if available.",
         "This bundle does not write publish.md. Human (or later fill) still pastes the chosen lines.",
         "",
@@ -96,7 +133,7 @@ def generate_bundle(packet: Path) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Generate a consolidated metadata_bundle.md from idea.md generators."
+        description="Generate a consolidated metadata_bundle.md from idea.md and script generators."
     )
     parser.add_argument("packet", type=Path, help="Packet directory")
     parser.add_argument("--write", action="store_true", help="Write metadata_bundle.md")
