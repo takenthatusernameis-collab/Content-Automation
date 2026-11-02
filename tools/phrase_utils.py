@@ -530,3 +530,40 @@ FIRST_COMMENT_BAIT_PATTERNS = (
     "your thoughts",
     "let's discuss",
 )
+
+
+def extract_recommended_end_screen(fill_text: str) -> str | None:
+    """Pull the End screen section from recommended_publish_fill.md if present and reasonable length.
+
+    Shared by card_generator, cta_preview, end_screen_preview so ranking preference stays consistent.
+    """
+    match = re.search(
+        r"^## End screen\s*\n(.+?)(?:\n##|\n\n|\Z)",
+        fill_text,
+        re.M | re.S,
+    )
+    if match:
+        text = match.group(1).strip()
+        text = re.sub(r"<!--.*?-->", "", text, flags=re.S).strip()
+        if text and 4 <= len(text.split()) <= 15:
+            return text
+    return None
+
+
+def extract_recommended_thumbnail(fill_text: str) -> str | None:
+    """Pull the Thumbnail section from recommended_publish_fill.md if present and short.
+
+    Shared by thumbnail_generator so ranking preference stays consistent.
+    """
+    match = re.search(
+        r"^## Thumbnail\s*\n(.+?)(?:\n##|\n\n|\Z)",
+        fill_text,
+        re.M | re.S,
+    )
+    if match:
+        text = match.group(1).strip()
+        text = re.sub(r"<!--.*?-->", "", text, flags=re.S).strip()
+        # Prefer short for on-image
+        if text and 2 <= len(text.split()) <= 8:
+            return text
+    return None

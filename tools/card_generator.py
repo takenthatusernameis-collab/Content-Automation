@@ -29,7 +29,7 @@ if str(TOOLS) not in sys.path:
 
 try:
     from idea_utils import extract as idea_extract
-    from phrase_utils import shorten
+    from phrase_utils import shorten, extract_recommended_end_screen
 except ImportError:
     idea_extract = None
     shorten = None
@@ -92,21 +92,6 @@ def title_words(need: str, limit: int = 5) -> str:
 def beat_label(beat: str) -> str:
     raw = beat.split("\u2014")[0].split("(")[0].strip()
     return raw.upper() or "CARD"
-
-
-def extract_recommended_end_screen(fill_text: str) -> str | None:
-    """Pull the End screen section from recommended_publish_fill.md if present and reasonable length."""
-    match = re.search(
-        r"^## End screen\s*\n(.+?)(?:\n##|\n\n|\Z)",
-        fill_text,
-        re.M | re.S,
-    )
-    if match:
-        text = match.group(1).strip()
-        text = re.sub(r"<!--.*?-->", "", text, flags=re.S).strip()
-        if text and 4 <= len(text.split()) <= 15:
-            return text
-    return None
 
 
 def _short_install_text(packet: Path, card: dict[str, str]) -> str | None:

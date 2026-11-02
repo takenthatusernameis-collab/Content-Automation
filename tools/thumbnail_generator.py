@@ -29,7 +29,7 @@ if str(TOOLS) not in sys.path:
 
 try:
     from idea_utils import extract as idea_extract
-    from phrase_utils import shorten
+    from phrase_utils import shorten, extract_recommended_thumbnail
 except ImportError:
     idea_extract = None
     shorten = None
@@ -51,22 +51,6 @@ def extract_on_image_text(thumb_text: str) -> str | None:
     if match:
         text = match.group(1).strip()
         if text and len(text.split()) <= 6:  # keep short
-            return text
-    return None
-
-
-def extract_recommended_thumbnail(fill_text: str) -> str | None:
-    """Pull the Thumbnail text section from recommended_publish_fill.md if present and short."""
-    match = re.search(
-        r"^## Thumbnail text\s*\n(.+?)(?:\n##|\n\n|\Z)",
-        fill_text,
-        re.M | re.S,
-    )
-    if match:
-        text = match.group(1).strip()
-        # strip any HTML comments or runner-up notes
-        text = re.sub(r"<!--.*?-->", "", text, flags=re.S).strip()
-        if text and len(text.split()) <= 6:
             return text
     return None
 

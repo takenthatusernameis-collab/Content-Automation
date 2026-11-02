@@ -1,4 +1,14 @@
 # RUNS
+
+## Run 963 — 2026-11-02T00:20:00Z
+- Objective: Reduce future divergence in ranked-metadata visual alignment by centralizing End screen and Thumbnail extractors.
+- Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Moved extract_recommended_end_screen and extract_recommended_thumbnail into tools/phrase_utils.py. Updated card_generator.py, cta_preview.py, end_screen_preview.py, and thumbnail_generator.py to import the shared functions and removed local duplicates. No secrets polled, no dispatch, no media committed, no packet writes.
+- Result: Videos published stay 0. Ranked fill preference is now single-sourced. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text and PNG stay local.
+- Verification: Local py_compile passed on all changed files. Selftest PASS. Function tested with sample fill text. No invented text.
+- Discovery: Centralizing the extractors compounds the recent alignment work and prevents the four visual tools from drifting on section parsing or length rules.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, suites, suggests, signals, starters, packages, or pure confirmation entries.
+
 ## Run 962 — 2026-11-01T23:20:00Z
 - Objective: Reduce visual/metadata drift by making CTA preview prefer the ranked End screen text from the local recommended fill when available.
 - Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Updated tools/cta_preview.py to extract and prefer the ## End screen section from recommended_publish_fill.md for the CTA preview PNG (before script.md CTA fallback). No secrets polled, no dispatch, no media committed, no packet writes to publish.md.

@@ -18,27 +18,14 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
+from phrase_utils import extract_recommended_end_screen
+
 WIDTH, HEIGHT = 1280, 720
 BG = (18, 18, 22)
 FG = (245, 243, 238)
 ACCENT = (232, 196, 104)
 MUTED = (140, 136, 130)
 LINE = (58, 56, 52)
-
-
-def extract_recommended_end_screen(fill_text: str) -> str | None:
-    """Pull the End screen section from recommended_publish_fill.md if present and reasonable length."""
-    match = re.search(
-        r"^## End screen\s*\n(.+?)(?:\n##|\n\n|\Z)",
-        fill_text,
-        re.M | re.S,
-    )
-    if match:
-        text = match.group(1).strip()
-        text = re.sub(r"<!--.*?-->", "", text, flags=re.S).strip()
-        if text and 4 <= len(text.split()) <= 15:
-            return text
-    return None
 
 
 def extract_cta(script_text: str) -> str:
