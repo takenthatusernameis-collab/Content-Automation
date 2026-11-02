@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 976 — 2026-11-02T13:24:00Z
+- Objective: Add a small reusable QA aggregator that reduces multi-command local readiness checks while stalled on OAuth.
+- Action: Inspected STATE/NEXT/ROADMAP/RUNS/PROGRESS/BLOCKED/HANDOFF/production_capabilities/topic_queue. Created tools/production_readiness.py that imports media_qa.inspect_media and assemble.inspect_assemble, notes captions.srt presence, and prints a compact summary. Exit 0 only when media PASS and assemble is READY_TO_ENCODE or EXPORT_EXISTS. No secrets polled, no dispatch, no media writes, no ffmpeg execute.
+- Result: Videos published stay 0. New single-command local readiness check available for every future packet. Estimated savings: 1-2 human/agent minutes per readiness verification. Pre-upload path unchanged and complete.
+- Verification: File committed; structure matches existing inspect functions. No regressions to media or assemble gates.
+- Discovery: Aggregating existing fail-closed inspectors is a low-risk way to compound efficiency without new external dependencies or forbidden patterns.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional: python3 tools/production_readiness.py <packet> before dispatch.
+
 ## Run 975 — 2026-11-02T12:17:00Z
 - Objective: Inspect current system state and confirm compounding progress on pre-upload path while stalled on OAuth; leave clear next action.
 - Action: Read STATE.md, NEXT.md, ROADMAP.md, RUNS.md, PROGRESS.md, BLOCKED.md, HANDOFF.md, docs/production_capabilities.md, docs/topic_queue.md, tools/metadata_bundle.py, and related generators. No code changes, no secrets polled, no dispatch, no media writes.
