@@ -5,7 +5,8 @@ Imports and runs media_qa.inspect_media + assemble.inspect_assemble.
 Notes captions.srt, thumbnail.png presence + basic PNG dimensions (stdlib),
 VO duration when a WAV is present, mapped/present card counts, script.md presence,
 spoken/export estimates from timeline, publish.md / timeline.md presence,
-and caption CPS stats (avg/max/min + flagged fast/slow count) via caption_speed_report.
+caption CPS stats (avg/max/min + flagged fast/slow count) via caption_speed_report,
+and (when publish.md present) metadata limit status (title/desc/tags vs YouTube caps).
 Prints a compact summary. Never invents media, never runs ffmpeg, never bumps status,
 never polls secrets, never dispatches. Exit 0 only when media_qa PASS and assemble
 gate is READY_TO_ENCODE or EXPORT_EXISTS.
@@ -25,6 +26,8 @@ if str(TOOLS) not in sys.path:
 from media_qa import inspect_media  # noqa: E402
 from assemble import inspect_assemble  # noqa: E402
 from caption_speed_report import inspect_speed  # noqa: E402
+from publish_brief import section  # noqa: E402
+from youtube_upload import metadata_block_reason, tag_budget  # noqa: E402
 
 
 def _png_size(path: Path) -> tuple[int, int] | None:
@@ -37,6 +40,28 @@ def _png_size(path: Path) -> tuple[int, int] | None:
         return None
     w, h = struct.unpack(">II", data[16:24])
     return int(w), int(h)
+
+
+def _parse_publish_meta(packet: Path) -> dict | None:
+    """Extract title/description/tags from publish.md for limit check. None if absent or unreadable."""
+    pub = packet / "publish.md"
+    if not pub.is_file():
+        return None
+    try:
+        text = pub.read_text(encoding="utf-8")
+    except OSError:
+        return None
+    title = section(text, "Title to upload").strip()
+    description = section(text, "Description").strip()
+    tags_block = section(text, "Tags")
+    tags = []
+    for line in tags_block.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("- "):
+            tag = stripped[2:].strip()
+            if tag:
+                tags.append(tag)
+    return {"title": title, "description": description, "tags": tags}
 
 
 def main() -> int:
@@ -76,6 +101,17 @@ def main() -> int:
     spoken_est = media.get("spoken")
     export_est = assemble_rep.get("export_estimate")
 
+    meta = _parse_publish_meta(path) if publish_present else None
+    meta_reason = None
+    title_len = 0
+    desc_len = 0
+    tags_budget = 0
+    if meta:
+        meta_reason = metadata_block_reason(meta)
+        title_len = len(meta.get("title") or "")
+        desc_len = len(meta.get("description") or "")
+        tags_budget = tag_budget(meta.get("tags") or [])
+
     print(f"packet: {path.name}")
     print(f"media_qa: {media['gate']}")
     print(f"assemble_gate: {assemble_rep['gate']}")
@@ -97,6 +133,13 @@ def main() -> int:
         print("thumbnail_size: n/a")
     print(f"script.md: {'present' if script_present else 'missing'}")
     print(f"publish.md: {'present' if publish_present else 'missing'}")
+    if meta:
+        print(f"title_len: {title_len}/100")
+        print(f"desc_len: {desc_len}/5000")
+        print(f"tags_budget: {tags_budget}/500")
+        print(f"metadata_limits: {'ok' if not meta_reason else meta_reason}")
+    else:
+        print("metadata_limits: n/a")
     print(f"timeline.md: {'present' if timeline_present else 'missing'}")
     if vo_seconds is not None:
         print(f"vo_duration_s: {vo_seconds}")
