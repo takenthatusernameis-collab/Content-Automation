@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 982 — 2026-11-02T20:13:00Z
+- Objective: Extend the local readiness aggregator with metadata limit checks so one command covers YouTube title/description/tags caps without new tools or credentials.
+- Action: Inspected STATE/NEXT/ROADMAP/RUNS/PROGRESS/BLOCKED/HANDOFF/production_capabilities and youtube_upload.py / publish_brief.py. Updated tools/production_readiness.py to parse publish.md and report title_len/desc_len/tags_budget + metadata_block_reason. No secrets polled, no dispatch, no media writes, no ffmpeg execute. Committed and pushed.
+- Result: Videos published stay 0. production_readiness.py now reports metadata limits alongside media_qa/assemble/captions presence/CPS/thumbnail/VO/cards/script/timeline. Estimated additional savings: ~0.5 human/agent minute per readiness check on packets with publish.md by surfacing limit violations early. Pre-upload path unchanged.
+- Verification: File updated and committed (commit a0d9ed0e3f95876799dd89714545a12e7775116b). Structure preserves existing exit logic. No regressions to media or assemble gates.
+- Discovery: Reusing existing metadata_block_reason and tag_budget from the upload adapter compounds local QA visibility without introducing new tools or forbidden patterns.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional: python3 tools/production_readiness.py <packet>.
+
 ## Run 981 — 2026-11-02T19:12:00Z
 - Objective: Extend the local readiness aggregator with caption CPS stats so one command covers more QA signals without new tools or credentials.
 - Action: Inspected STATE/NEXT/ROADMAP/RUNS/PROGRESS/BLOCKED/HANDOFF/production_capabilities and caption_speed_report.py. Updated tools/production_readiness.py to import and report avg/max/min CPS + flagged count from inspect_speed. No secrets polled, no dispatch, no media writes, no ffmpeg execute. Committed and pushed.
