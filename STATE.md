@@ -4,7 +4,6 @@
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Extended tools/production_readiness.py to also report thumbnail.png presence and basic PNG dimensions (1280x720 preferred) via stdlib header parse. Still no media invent, no ffmpeg execute, no secrets. Pre-upload path remains complete. STALL_OAUTH_IDLE primary. Prefer human OAuth step (docs/human_oauth_checklist.md) or further media/QA capability that does not require credentials.
 
-# STATE
 
 2026-11-02T13:24:00Z (Run 976)
 
