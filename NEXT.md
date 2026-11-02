@@ -2,6 +2,10 @@
 
 Older next actions live in `docs/next_archive.md`. Do not paste the archive back.
 
+2026-11-02T13:24:00Z (Run 976)
+
+Run 976: added tools/production_readiness.py (single-command local media_qa + assemble + captions presence aggregator; no execute, no secrets, no media invent). Confirmed STALL_OAUTH_IDLE, published=0, pre-upload metadata path complete. Preferred unblocked list remains complete. Next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional: python3 tools/production_readiness.py <packet> for consolidated local gate check. Do not scaffold Q2. Do not poll secrets. Do not rematerialize media if present. Logs via record_run.py. Avoid additional status/brief/candidates/sequence/suite/suggest/signals/starter/package/confirmation tools. Prefer truly new production capability that advances media/QA/assembly readiness without credentials if human step is not taken.
+
 2026-11-02T12:17:00Z (Run 975)
 
 Run 975: inspected full state (STATE/NEXT/ROADMAP/RUNS/PROGRESS/BLOCKED/HANDOFF/production_capabilities/topic_queue). Confirmed STALL_OAUTH_IDLE, published=0, pre-upload metadata path complete via metadata_bundle.py (now includes chapters/end-screen/first-comment). No new tools. Preferred unblocked list remains complete. Next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional sequence for new packets: apply_idea then research/script starters then metadata generators + metadata_bundle.py --write. Do not scaffold Q2. Do not poll secrets. Do not rematerialize media if present. Logs via record_run.py. Avoid additional status/brief/candidates/sequence/suite/suggest/signals/starter/package/confirmation tools. Prefer truly new production capability that advances media/QA/assembly readiness without credentials if human step is not taken.
