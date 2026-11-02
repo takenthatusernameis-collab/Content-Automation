@@ -567,3 +567,72 @@ def extract_recommended_thumbnail(fill_text: str) -> str | None:
         if text and 2 <= len(text.split()) <= 8:
             return text
     return None
+
+
+def extract_recommended_title(fill_text: str) -> str | None:
+    """Pull the Title section from recommended_publish_fill.md if present and reasonable length.
+
+    Shared so metadata tools stay consistent on ranked title preference.
+    """
+    match = re.search(
+        r"^## Title\s*\n(.+?)(?:\n##|\n\n|\Z)",
+        fill_text,
+        re.M | re.S,
+    )
+    if match:
+        text = match.group(1).strip()
+        text = re.sub(r"<!--.*?-->", "", text, flags=re.S).strip()
+        if text and 5 <= len(text.split()) <= 15:
+            return text
+    return None
+
+
+def extract_recommended_description(fill_text: str) -> str | None:
+    """Pull the Description section from recommended_publish_fill.md if present.
+
+    Shared for consistency. Length gate is looser than titles.
+    """
+    match = re.search(
+        r"^## Description\s*\n(.+?)(?:\n##|\n\n|\Z)",
+        fill_text,
+        re.M | re.S,
+    )
+    if match:
+        text = match.group(1).strip()
+        text = re.sub(r"<!--.*?-->", "", text, flags=re.S).strip()
+        if text and 20 <= len(text.split()) <= 120:
+            return text
+    return None
+
+
+def extract_cta_from_script(script_text: str) -> str:
+    """Shared CTA extraction from script.md for preview tools.
+
+    Prefers explicit CTA section WORDS, then last WORDS block. No invention.
+    """
+    cta_match = re.search(
+        r"^##\s+.*[Cc][Tt][Aa].*?\n(.*?)(?=\n##|\Z)",
+        script_text,
+        re.M | re.S,
+    )
+    if cta_match:
+        section = cta_match.group(1)
+        words_match = re.search(
+            r"^WORDS:\s*\n(.+?)(?=\n\n|\n##|\nVISUAL:|\Z)",
+            section,
+            re.M | re.S,
+        )
+        if words_match:
+            cta = words_match.group(1).strip()
+            if cta:
+                return cta
+
+    matches = list(re.finditer(
+        r"^WORDS:\s*\n(.+?)(?=\n\n|\n##|\nVISUAL:|\Z)",
+        script_text,
+        re.M | re.S,
+    ))
+    if matches:
+        return matches[-1].group(1).strip()
+
+    return "No CTA found"

@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-02T01:21:00Z (Run 964)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added extract_recommended_title, extract_recommended_description, and extract_cta_from_script to phrase_utils.py. Updated cta_preview.py and end_screen_preview.py to use the shared CTA extractor and removed local duplicates. Compounds consistency for ranked metadata and CTA previews. No packet content edits, no secrets polled. Text and PNG stay local. STALL_OAUTH_IDLE primary.
+
 2026-11-02T00:20:00Z (Run 963)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Extracted duplicate extract_recommended_end_screen and extract_recommended_thumbnail into shared phrase_utils.py. Updated card_generator.py, cta_preview.py, end_screen_preview.py, and thumbnail_generator.py to import and use the shared versions. Removes future divergence risk in ranked-metadata preference across visual tools. No packet content edits, no secrets polled. Text and PNG stay local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).

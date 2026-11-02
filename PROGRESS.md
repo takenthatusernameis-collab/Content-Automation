@@ -1,5 +1,10 @@
 # PROGRESS
 
+- Run 964 enhancement: phrase_utils.py now provides extract_recommended_title, extract_recommended_description, and extract_cta_from_script. cta_preview and end_screen_preview import the shared CTA extractor instead of maintaining local copies. Reduces future maintenance and mismatch risk on ranked metadata preference and CTA text. No writes to publish.md, no invented text, no secrets polled. Compounds the selector and fill work into shared helpers.
+- Small reusable consistency improvement. Visual and metadata tools share more extraction implementations.
+- Human labor reduction: lower chance of one tool using a slightly different parsing rule than another for CTA or ranked fields.
+- Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step or another truly new production capability.
+
 - Run 963 enhancement: phrase_utils.py now provides extract_recommended_end_screen and extract_recommended_thumbnail. card_generator, cta_preview, end_screen_preview, and thumbnail_generator import them instead of maintaining local copies. Reduces future maintenance and mismatch risk on ranked metadata preference. No writes to publish.md, no invented text, no secrets polled. Compounds the selector and fill work into a shared helper.
 - Small reusable consistency improvement. Visual tools share one extraction implementation.
 - Human labor reduction: lower chance of one tool using a slightly different length or parsing rule than another.

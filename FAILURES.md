@@ -1,5 +1,7 @@
 # FAILURES
 
+None this run. No new failures.
+
 None this run. Shared extractors added without introducing new failure modes.
 
 None. Suite correctly fail-closed on known revision signals in Q1 metadata.

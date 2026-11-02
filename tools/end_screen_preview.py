@@ -15,7 +15,7 @@ import re
 import sys
 from pathlib import Path
 
-from phrase_utils import extract_recommended_end_screen
+from phrase_utils import extract_recommended_end_screen, extract_cta_from_script
 
 WIDTH, HEIGHT = 1920, 1080
 BG = (18, 18, 22)
@@ -25,25 +25,6 @@ MUTED = (120, 116, 110)
 SAFE = (40, 80, 40)
 RESERVED = (80, 40, 40)
 
-
-def extract_cta(script_text: str) -> str:
-    """Pull assignment text from the CTA beat if present."""
-    match = re.search(
-        r"^##\s+CTA\s*\n(?:WORDS:\s*\n)?(.*?)(?=^##|\Z)",
-        script_text,
-        re.M | re.S,
-    )
-    if match:
-        words = match.group(1).strip()
-        # Take first sentence or first 80 chars as the assignment line
-        first = words.split(".")[0].strip()
-        if first and len(first) > 10:
-            return first[:100]
-    # Fallback: look for assignment-like line
-    for line in script_text.splitlines():
-        if "assignment" in line.lower() or "write" in line.lower() and "tomorrow" in line.lower():
-            return line.strip()[:100]
-    return "Write tomorrow's sentence before you close the machine."
 
 
 def _pil():
@@ -130,7 +111,7 @@ def main() -> int:
         if not script.is_file():
             print("missing script.md and no recommended end-screen text", file=sys.stderr)
             return 1
-        cta = extract_cta(script.read_text(encoding="utf-8"))
+        cta = extract_cta_from_script(script.read_text(encoding="utf-8"))
         source = "script"
 
     print(f"packet: {path.name}")

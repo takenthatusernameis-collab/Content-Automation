@@ -18,7 +18,7 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
-from phrase_utils import extract_recommended_end_screen
+from phrase_utils import extract_recommended_end_screen, extract_cta_from_script
 
 WIDTH, HEIGHT = 1280, 720
 BG = (18, 18, 22)
@@ -27,37 +27,6 @@ ACCENT = (232, 196, 104)
 MUTED = (140, 136, 130)
 LINE = (58, 56, 52)
 
-
-def extract_cta(script_text: str) -> str:
-    """Extract the CTA WORDS block or last WORDS block."""
-    # Prefer explicit CTA section
-    cta_match = re.search(
-        r"^##\s+.*[Cc][Tt][Aa].*?\n(.*?)(?=\n##|\Z)",
-        script_text,
-        re.M | re.S,
-    )
-    if cta_match:
-        section = cta_match.group(1)
-        words_match = re.search(
-            r"^WORDS:\s*\n(.+?)(?=\n\n|\n##|\nVISUAL:|\Z)",
-            section,
-            re.M | re.S,
-        )
-        if words_match:
-            cta = words_match.group(1).strip()
-            if cta:
-                return cta
-
-    # Fallback: last WORDS block in the file
-    matches = list(re.finditer(
-        r"^WORDS:\s*\n(.+?)(?=\n\n|\n##|\nVISUAL:|\Z)",
-        script_text,
-        re.M | re.S,
-    ))
-    if matches:
-        return matches[-1].group(1).strip()
-
-    return "No CTA found"
 
 
 def _font(size: int, bold: bool = False):
@@ -116,7 +85,7 @@ def main() -> int:
         if not script.is_file():
             print("ERROR: script.md missing and no recommended end-screen text", file=sys.stderr)
             return 1
-        cta = extract_cta(script.read_text(encoding="utf-8"))
+        cta = extract_cta_from_script(script.read_text(encoding="utf-8"))
         source = "script"
 
     print(f"packet: {packet.name}")

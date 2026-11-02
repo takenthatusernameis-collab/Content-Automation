@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 964 — 2026-11-02T01:21:00Z
+- Objective: Reduce future divergence in ranked-metadata and CTA extraction by centralizing more helpers in phrase_utils.
+- Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Added extract_recommended_title, extract_recommended_description, and extract_cta_from_script to tools/phrase_utils.py. Updated tools/cta_preview.py and tools/end_screen_preview.py to import and use the shared CTA extractor; removed local duplicate functions. No secrets polled, no dispatch, no media committed, no packet writes.
+- Result: Videos published stay 0. Ranked fill preference and CTA extraction are now more single-sourced. Pre-upload path remains stable. Upload still blocked only on the three secrets. Text and PNG stay local.
+- Verification: Local py_compile passed on all changed files. Function tested with sample fill and script text. No invented text.
+- Discovery: Centralizing CTA extraction compounds the recent alignment work and prevents the preview tools from drifting on section parsing.
+- Blocker: STALL_OAUTH_IDLE (secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, suites, suggests, signals, starters, packages, or pure confirmation entries.
+
 ## Run 963 — 2026-11-02T00:20:00Z
 - Objective: Reduce future divergence in ranked-metadata visual alignment by centralizing End screen and Thumbnail extractors.
 - Action: Inspected STATE/NEXT (STALL_OAUTH_IDLE, published=0). Moved extract_recommended_end_screen and extract_recommended_thumbnail into tools/phrase_utils.py. Updated card_generator.py, cta_preview.py, end_screen_preview.py, and thumbnail_generator.py to import the shared functions and removed local duplicates. No secrets polled, no dispatch, no media committed, no packet writes.
