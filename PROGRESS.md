@@ -2,6 +2,9 @@
 
 Cumulative improvements that reduce future human labor or increase reliability.
 
+## 2026-11-02 Run 982
+- Extended tools/production_readiness.py with metadata limit checks (title_len/100, desc_len/5000, tags_budget/500 + block reason) by parsing publish.md and reusing metadata_block_reason + tag_budget from youtube_upload. One command now covers media_qa + assemble + captions presence/CPS + thumbnail + VO duration + card summary + script presence + timeline estimates + publish/timeline files + metadata limits. Estimated additional savings: ~0.5 minutes per readiness verification on future packets with publish.md by surfacing limit violations early. No credentials or media invent required.
+
 ## 2026-11-02 Run 981
 - Extended tools/production_readiness.py with caption CPS stats (avg/max/min + flagged fast/slow count) by importing inspect_speed from caption_speed_report.py. One command now covers media_qa + assemble + captions presence/CPS + thumbnail + VO duration + card summary + script presence + timeline estimates + publish/timeline files. Estimated additional savings: ~0.5 minutes per readiness verification on future packets with captions by surfacing speed flags in the aggregator. No credentials or media invent required.
 
