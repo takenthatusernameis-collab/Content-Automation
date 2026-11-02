@@ -2,6 +2,9 @@
 
 Cumulative improvements that reduce future human labor or increase reliability.
 
+## 2026-11-02 Run 981
+- Extended tools/production_readiness.py with caption CPS stats (avg/max/min + flagged fast/slow count) by importing inspect_speed from caption_speed_report.py. One command now covers media_qa + assemble + captions presence/CPS + thumbnail + VO duration + card summary + script presence + timeline estimates + publish/timeline files. Estimated additional savings: ~0.5 minutes per readiness verification on future packets with captions by surfacing speed flags in the aggregator. No credentials or media invent required.
+
 ## 2026-11-02 Run 980
 - Added tools/caption_speed_report.py. Read-only CPS/readability reporter for captions.srt (avg/max/min CPS + flags for >21 or <8 cps). Advances remaining human spot-check of draft captions for every future packet. Estimated savings: 1-2 minutes per caption review by prioritizing problem cues. No credentials or media invent required.
 
