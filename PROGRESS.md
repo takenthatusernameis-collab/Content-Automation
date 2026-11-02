@@ -2,16 +2,10 @@
 
 Cumulative improvements that reduce future human labor or increase reliability.
 
+## 2026-11-02 Run 973
+- Added tools/metadata_bundle.py. Calls the four recent generators and consolidates Title/Description/Tags/Thumbnail into one reviewable metadata_bundle.md. Reduces sequential tool runs and multi-file review for every future packet. Estimated savings: 2-4 human minutes per video once ideas exist (on top of the individual generators).
+
 ## 2026-11-02 Run 972
 - Added tools/thumbnail_generator.py. Extracts mechanism/problem/topic and shortens operational phrases (shared idea_utils + shorten/normalize). Produces reviewable thumbnail.md skeleton with short (prefer 2-5 word) candidates (weak-pattern filtered). Reduces manual thumbnail-text drafting for every future packet. Estimated savings: 2-4 human minutes per video once ideas exist.
-
-## 2026-11-02 Run 971
-- Added tools/title_generator.py. Extracts mechanism/problem/topic and shortens operational phrases (shared idea_utils + shorten/normalize). Produces reviewable titles.md skeleton with Primary + alts (weak-pattern filtered, length-aware). Reduces manual title drafting for every future packet. Estimated savings: 3-5 human minutes per video once ideas exist.
-
-## 2026-11-02 Run 970
-- Added tools/description_generator.py. Extracts mechanism/problem/topic and shortens operational phrases (shared idea_utils + shorten/normalize). Produces reviewable description.md skeleton with a calm operational description. Reduces manual description drafting for every future packet. Estimated savings: 3-5 human minutes per video once ideas exist.
-
-## 2026-11-02 Run 969
-- Added tools/tags_generator.py. Extracts mechanism/problem/topic and shortens operational phrases (shared idea_utils + shorten/normalize). Produces reviewable tags.md skeleton with 5-8 specific tags. Reduces manual tag selection for every future packet. Estimated savings: 2-4 human minutes per video once ideas exist.
 
 (Older progress notes remain in docs/progress_archive.md.)
