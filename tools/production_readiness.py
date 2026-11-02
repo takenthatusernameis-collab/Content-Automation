@@ -3,7 +3,8 @@
 
 Imports and runs media_qa.inspect_media + assemble.inspect_assemble.
 Notes captions.srt, thumbnail.png presence + basic PNG dimensions (stdlib),
-VO duration when a WAV is present, mapped/present card counts, and script.md presence.
+VO duration when a WAV is present, mapped/present card counts, script.md presence,
+spoken/export estimates from timeline, and publish.md / timeline.md presence.
 Prints a compact summary. Never invents media, never runs ffmpeg, never bumps status,
 never polls secrets, never dispatches. Exit 0 only when media_qa PASS and assemble
 gate is READY_TO_ENCODE or EXPORT_EXISTS.
@@ -55,6 +56,8 @@ def main() -> int:
     thumb_size = _png_size(thumb) if thumb_present else None
     thumb_ok = thumb_size == (1280, 720) if thumb_size else False
     script_present = (path / "script.md").is_file()
+    publish_present = (path / "publish.md").is_file()
+    timeline_present = (path / "timeline.md").is_file()
 
     vo_seconds = None
     vo = media.get("vo") or {}
@@ -66,6 +69,9 @@ def main() -> int:
     mapped = [c for c in cards if c.get("rel")]
     present_cards = [c for c in mapped if c.get("present")]
     ok_cards = [c for c in present_cards if c.get("ok")]
+
+    spoken_est = media.get("spoken")
+    export_est = assemble_rep.get("export_estimate")
 
     print(f"packet: {path.name}")
     print(f"media_qa: {media['gate']}")
@@ -79,10 +85,14 @@ def main() -> int:
     else:
         print("thumbnail_size: n/a")
     print(f"script.md: {'present' if script_present else 'missing'}")
+    print(f"publish.md: {'present' if publish_present else 'missing'}")
+    print(f"timeline.md: {'present' if timeline_present else 'missing'}")
     if vo_seconds is not None:
         print(f"vo_duration_s: {vo_seconds}")
     else:
         print("vo_duration_s: n/a")
+    print(f"spoken_estimate_s: {spoken_est if spoken_est is not None else 'n/a'}")
+    print(f"export_estimate_s: {export_est if export_est is not None else 'n/a'}")
     print(f"cards: {len(ok_cards)}/{len(present_cards)} ok of {len(mapped)} mapped")
     print(f"ffmpeg_on_path: {'yes' if assemble_rep.get('ffmpeg') else 'no'}")
 
