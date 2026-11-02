@@ -1,8 +1,8 @@
 # STATE
 
-2026-11-02T01:21:00Z (Run 964)
+2026-11-02T01:25:00Z (Run 964)
 
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Added extract_recommended_title, extract_recommended_description, and extract_cta_from_script to phrase_utils.py. Updated cta_preview.py and end_screen_preview.py to use the shared CTA extractor and removed local duplicates. Compounds consistency for ranked metadata and CTA previews. No packet content edits, no secrets polled. Text and PNG stay local. STALL_OAUTH_IDLE primary.
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Fixed extract_recommended_thumbnail so it matches the fill writer label `## Thumbnail text` (previously only matched bare `## Thumbnail`, so ranked thumbnail text was silently ignored). Added extract_recommended_first_comment / title / description to phrase_utils. Added tools/first_comment_preview.py which prefers ranked First comment from recommended_publish_fill.md. Compounds ranking into another publish-surface review step. No packet content edits, no secrets polled. Text and PNG stay local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
 
 2026-11-02T00:20:00Z (Run 963)
 
@@ -12,9 +12,4 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Ex
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Updated tools/cta_preview.py so CTA preview prefers ranked End screen text from local recommended_publish_fill.md (when present) before falling back to script.md CTA WORDS. Compounds the recent metadata ranking/fill work into the CTA visual preview so the glanceable CTA image stays aligned with the selected metadata without extra copy steps. No packet content edits, no secrets polled. Text and PNG stay local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
 
-2026-11-01T22:15:00Z (Run 961)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Updated tools/card_generator.py so CTA / install-related text-cards prefer ranked End screen text from local recommended_publish_fill.md (when present) before falling back to idea.md mechanism. Compounds the recent metadata ranking/fill work into card generation so on-card CTA text stays aligned with the selected metadata without extra copy steps. No packet content edits, no secrets polled. Text and PNG stay local. STALL_OAUTH_IDLE primary. Prefer human OAuth step or a truly new production capability (not status printer, brief, candidates, sequence printer, suite, suggest, signals, starter, package, or pure confirmation).
-
 (Older state notes remain below or in docs/state_archive.md. Do not paste the archive back.)
-
