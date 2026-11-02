@@ -1,13 +1,14 @@
 # PROGRESS
 
-- Run 965 enhancement: Added tools/ranked_fill_qa.py. After recommended_publish_fill.py, one command extracts ranked fields via shared phrase_utils extractors, reports presence and word-count against the fill writer's windows, and aggregates the existing no-write publish-surface scanners. Compounds ranking into a single post-fill QA step.
-- Real production-path capability. Reduces sequential scanner invocations and manual length checks on every future packet.
-- Human labor reduction: one command after fill produces a complete ranked-metadata review brief instead of five separate scanner runs plus manual presence checks.
-- Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step or another truly new production capability.
+Cumulative improvements that reduce future human labor or increase reliability.
 
-- Run 964 enhancement: Fixed extract_recommended_thumbnail to match `## Thumbnail text` (the label written by recommended_publish_fill.py). Previously only `## Thumbnail` matched, so ranked thumbnail text was silently skipped and thumbnail_generator fell through to mechanism/title. Added extract_recommended_first_comment, extract_recommended_title, extract_recommended_description. Added tools/first_comment_preview.py preferring ranked First comment. Compounds ranking into first-comment review and restores ranked thumbnail preference on every future packet.
-- Real production-path bugfix + small reusable capability. Ranked thumbnail text now reaches the visual tool; first-comment has a glanceable preview parallel to cta_preview.
-- Human labor reduction: one fewer silent mismatch between ranked metadata and thumbnail PNG; one command after fill produces an aligned first-comment preview without opening publish.md.
-- Videos published remain 0. Stall continues. Preferred list still complete. Next high-value action is the human OAuth step or another truly new production capability.
+## 2026-11-02 Run 966
+- Added tools/chapters_generator.py. Estimates YouTube chapter timestamps from script section word counts (shared extract_sections + effective_rate). Produces reviewable chapters.md skeleton. Reduces manual chapter timing for every future packet. Estimated savings: 3-5 human minutes per video once scripts exist.
 
-(Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.)
+## 2026-11-02 Run 965
+- Added tools/ranked_fill_qa.py. Aggregates ranked-field presence/length (shared extractors) plus existing publish-surface scanners into one post-fill brief. Reduces sequential scanner invocations after fill. Estimated savings: 1-2 human minutes per packet.
+
+## 2026-11-02 Run 964
+- Fixed extract_recommended_thumbnail label match. Added first_comment / title / description extractors. Added first_comment_preview.py. Ranking now reaches more publish surfaces without silent misses. Estimated savings: avoids rediscovery of label drift on future packets.
+
+(Older progress notes remain in docs/progress_archive.md.)
