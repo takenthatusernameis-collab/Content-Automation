@@ -1,239 +1,134 @@
 #!/usr/bin/env python3
-"""Generate a local 1280x720 YouTube thumbnail PNG.
+"""Generate a reviewable thumbnail.md skeleton from idea.md mechanism and problem.
 
-Prefers short on-image text from thumbnail.md (better for readability/CTR)
-when present; then the ranked Thumbnail text from recommended_publish_fill.md
-(if present, from recent selector work); falls back to short idea.md mechanism
-via phrase_utils.shorten; then to the locked title from publish.md.
-No stock, no invented text, no git commits of the binary.
-Output: packet/thumbnail.png (local only). Compatible with youtube_upload.py checks
-(min 640x360, PNG with IEND, <2MB).
-
-Run 945: also prefers short mechanism phrase from idea.md for channel-promise consistency
-on every future packet when no dedicated on-image text exists.
-Run 959: prefers ranked Thumbnail text from recommended_publish_fill.md when present,
-so the visual matches the aligned metadata selection without extra manual copy.
+Extracts mechanism, problem, and topic via idea_utils, shortens operational phrases
+using shared shorten/normalize, and emits thumbnail.md with 3-5 short (<=6 word)
+candidates suitable for the ## Thumbnail section of publish.md or assets.md.
+Avoids weak/clickbait patterns. Prefer concrete mechanism or stall naming.
+Dry-run default; --write optional. No packet content edits beyond the skeleton.
+Compounds idea into a ready thumbnail-text draft that reduces manual thumbnail
+labor for every future packet.
 """
 
 from __future__ import annotations
 
 import argparse
-import datetime as dt
 import re
 import sys
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parents[1]
 TOOLS = Path(__file__).resolve().parent
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
-try:
-    from idea_utils import extract as idea_extract
-    from phrase_utils import shorten, extract_recommended_thumbnail
-except ImportError:
-    idea_extract = None
-    shorten = None
-
-WIDTH, HEIGHT = 1280, 720
-BG = (18, 18, 22)
-FG = (245, 243, 238)
-ACCENT = (232, 196, 104)
-RULE = (58, 56, 52)
+from idea_utils import extract
+from phrase_utils import shorten, normalize, THUMBNAIL_WEAK_PATTERNS
 
 
-def extract_on_image_text(thumb_text: str) -> str | None:
-    """Pull short on-image text from thumbnail.md if present."""
-    match = re.search(
-        r"On-image text(?: \(max 5 words\))?:\s*(.+)",
-        thumb_text,
-        re.I,
-    )
-    if match:
-        text = match.group(1).strip()
-        if text and len(text.split()) <= 6:  # keep short
-            return text
-    return None
+def generate_thumbnail(packet: Path) -> str:
+    idea = packet / "idea.md"
+    if not idea.is_file():
+        return "# Thumbnail\n\nNo idea.md found. Run after apply_idea.\n"
 
+    text = idea.read_text(encoding="utf-8")
+    mech, problem, topic = extract(text)
+    if not mech:
+        mech = "the written next-action default"
 
-def extract_title(publish_text: str) -> str:
-    """Pull the title from the ## Title to upload section."""
-    match = re.search(
-        r"^##\s+Title to upload\s*\n(.+?)(?:\n##|\n\n|\Z)",
-        publish_text,
-        re.M | re.S,
-    )
-    if match:
-        title = match.group(1).strip()
-        if title:
-            return title
-    lines = publish_text.splitlines()
-    for i, line in enumerate(lines):
-        if "title to upload" in line.lower():
-            for next_line in lines[i + 1 :]:
-                stripped = next_line.strip()
-                if stripped and not stripped.startswith("#"):
-                    return stripped
-    return "Untitled"
+    # Prefer very short operational phrases
+    core = topic.strip() if topic and len(topic.split()) <= 5 else shorten(normalize(mech), max_len=28)
+    base = core.lower()
 
+    candidates = [
+        core if len(core.split()) <= 5 else shorten(normalize(mech), 22),
+        f"Write the {shorten(normalize(mech), 18)}",
+        f"Install the {shorten(normalize(mech), 20)}",
+        f"{shorten(normalize(problem or mech), 24)}" if problem else f"Default: {shorten(normalize(mech), 20)}",
+        f"One note. {shorten(normalize(mech), 18)}",
+        shorten(normalize(mech), 20),
+    ]
 
-def _short_mechanism(packet: Path) -> str | None:
-    """Prefer short mechanism phrase for thumbnail consistency."""
-    if idea_extract is None or shorten is None:
-        return None
-    idea_path = packet / "idea.md"
-    if not idea_path.is_file():
-        return None
-    try:
-        mech, _problem, _topic = idea_extract(idea_path.read_text(encoding="utf-8"))
-        if not mech:
-            return None
-        short = shorten(mech, max_len=28)
-        return short if short else None
-    except Exception:
-        return None
+    cleaned = []
+    seen = set()
+    for c in candidates:
+        c = c.strip()
+        if not c or len(c.split()) > 6:
+            c = shorten(c, 24)
+        low = c.lower()
+        if any(w in low for w in THUMBNAIL_WEAK_PATTERNS):
+            continue
+        # Prefer short
+        if len(c.split()) > 6:
+            continue
+        key = low.strip()
+        if key and key not in seen:
+            seen.add(key)
+            cleaned.append(c)
 
+    if not cleaned:
+        cleaned = [shorten(normalize(mech), 22)]
 
-def _pil():
-    from PIL import Image, ImageDraw, ImageFont
-    return Image, ImageDraw, ImageFont
+    # Ensure we have at least a few short ones
+    cleaned = [c for c in cleaned if 2 <= len(c.split()) <= 6][:5]
+    if not cleaned:
+        cleaned = [shorten(normalize(mech), 20)]
 
+    lines = [
+        "# Thumbnail",
+        "",
+        "Estimated short operational thumbnail text from idea.md mechanism, problem, and topic.",
+        "Review and adjust before pasting into publish.md ## Thumbnail or assets.md.",
+        "Prefer 2-5 words. Does not invent claims. Hits against thumbnail_scan are revision signals.",
+        "",
+        "## Candidates",
+        "",
+    ]
+    for cand in cleaned:
+        lines.append(f"- {cand}")
+    if not cleaned:
+        lines.append("- (adapt from mechanism or re-run after idea update)")
 
-def _font(size: int):
-    _, _, ImageFont = _pil()
-    candidates = (
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
-        "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
-    )
-    for path in candidates:
-        if Path(path).is_file():
-            return ImageFont.truetype(path, size=size)
-    return ImageFont.load_default()
-
-
-def _wrap(draw, text: str, font, max_width: int) -> list[str]:
-    words = text.split()
-    if not words:
-        return [""]
-    lines: list[str] = []
-    cur = words[0]
-    for w in words[1:]:
-        trial = f"{cur} {w}"
-        if draw.textlength(trial, font=font) <= max_width:
-            cur = trial
-        else:
-            lines.append(cur)
-            cur = w
-    lines.append(cur)
-    return lines
-
-
-def render_thumbnail(text: str):
-    Image, ImageDraw, _ = _pil()
-    img = Image.new("RGB", (WIDTH, HEIGHT), BG)
-    draw = ImageDraw.Draw(img)
-    draw.rectangle((40, 40, WIDTH - 40, HEIGHT - 40), outline=RULE, width=4)
-    draw.rectangle((40, 40, WIDTH - 40, 100), fill=ACCENT)
-    draw.text((60, 52), "YOUTUBE", font=_font(28), fill=BG)
-
-    # Larger font for short text
-    font_size = 72 if len(text.split()) <= 4 else 56
-    font = _font(font_size)
-    lines = _wrap(draw, text, font, WIDTH - 160)
-    total_h = 0
-    for line in lines:
-        bbox = font.getbbox(line or "X")
-        total_h += (bbox[3] - bbox[1]) + 12
-    y = 140 + (HEIGHT - 200 - total_h) // 2
-    for line in lines:
-        w = draw.textlength(line, font=font)
-        draw.text(((WIDTH - w) / 2, y), line, font=font, fill=FG)
-        bbox = font.getbbox(line or "X")
-        y += (bbox[3] - bbox[1]) + 12
-    return img
-
-
-def inspect_png(path: Path) -> dict[str, str]:
-    info = {"path": str(path), "bytes": str(path.stat().st_size) if path.is_file() else "0", "ok": "no"}
-    if not path.is_file():
-        info["error"] = "missing"
-        return info
-    try:
-        Image, _, _ = _pil()
-        with Image.open(path) as im:
-            info["size"] = f"{im.size[0]}x{im.size[1]}"
-            info["mode"] = im.mode
-            if im.size == (WIDTH, HEIGHT) and path.stat().st_size > 1000:
-                info["ok"] = "yes"
-    except OSError as exc:
-        info["error"] = str(exc)
-    return info
+    lines.extend([
+        "",
+        "## Notes",
+        "",
+        "Keep calm and operational. Name the concrete default or stall. Prefer under 5 words.",
+        "Avoid clickbait, weak patterns, and long phrases.",
+        "Run python3 tools/thumbnail_scan.py <packet> after review.",
+        "",
+    ])
+    return "\n".join(lines) + "\n"
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate local 1280x720 thumbnail preferring short on-image, ranked fill, or mechanism text")
-    parser.add_argument("packet", help="Path to packet folder")
-    parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument("--inspect-only", action="store_true")
+    parser = argparse.ArgumentParser(
+        description="Generate estimated thumbnail.md from idea.md."
+    )
+    parser.add_argument("packet", type=Path, help="Packet directory")
+    parser.add_argument("--write", action="store_true", help="Write thumbnail.md")
+    parser.add_argument("--force", action="store_true", help="Overwrite existing")
     args = parser.parse_args()
 
-    path = Path(args.packet).resolve()
-    if not path.is_dir():
-        print(f"not a directory: {path}", file=sys.stderr)
+    packet = args.packet.resolve()
+    if not packet.is_dir():
+        print(f"Not a directory: {packet}", file=sys.stderr)
         return 1
 
-    text = None
-    source = "title"
-    thumb_md = path / "thumbnail.md"
-    if thumb_md.is_file():
-        on_image = extract_on_image_text(thumb_md.read_text(encoding="utf-8"))
-        if on_image:
-            text = on_image
-            source = "on-image"
+    out = packet / "thumbnail.md"
+    content = generate_thumbnail(packet)
 
-    if not text:
-        fill_path = path / "recommended_publish_fill.md"
-        if fill_path.is_file():
-            rec = extract_recommended_thumbnail(fill_path.read_text(encoding="utf-8"))
-            if rec:
-                text = rec
-                source = "recommended-fill"
+    if args.write:
+        if out.exists() and not args.force:
+            print(f"SKIP: {out} exists (use --force)")
+            return 0
+        out.write_text(content, encoding="utf-8")
+        print(f"WROTE: {out}")
+    else:
+        print(content)
+        print("(dry-run; use --write to save)")
 
-    if not text:
-        mech_short = _short_mechanism(path)
-        if mech_short:
-            text = mech_short
-            source = "mechanism"
-
-    if not text:
-        publish = path / "publish.md"
-        if not publish.is_file():
-            print("missing publish.md and no short on-image, recommended fill, or mechanism text", file=sys.stderr)
-            return 1
-        text = extract_title(publish.read_text(encoding="utf-8"))
-        source = "title"
-
-    print(f"packet: {path.name}")
-    print(f"text source: {source}")
-    print(f"text: {text}")
-
-    dest = path / "thumbnail.png"
-    if args.inspect_only:
-        info = inspect_png(dest)
-        print(f"thumbnail.png: {info.get('ok')} {info.get('size', '')} {info.get('bytes')} bytes")
-        return 0 if info.get("ok") == "yes" else 1
-
-    if args.dry_run:
-        print(f"would write: {dest}")
-        print("dry-run: no file written")
-        return 0
-
-    img = render_thumbnail(text)
-    img.save(dest, format="PNG")
-    info = inspect_png(dest)
-    print(f"wrote: {dest}")
-    print(f"ok: {info.get('ok')} size: {info.get('size')} bytes: {info.get('bytes')}")
-    return 0 if info.get("ok") == "yes" else 1
+    return 0
 
 
 if __name__ == "__main__":
