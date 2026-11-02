@@ -2,6 +2,10 @@
 
 Older next actions live in `docs/next_archive.md`. Do not paste the archive back.
 
+2026-11-02T20:13:00Z (Run 982)
+
+Run 982: extended tools/production_readiness.py with metadata limit checks (title/desc/tags vs YouTube caps via metadata_block_reason + tag_budget) when publish.md is present. Confirmed STALL_OAUTH_IDLE, published=0, pre-upload metadata path complete. Preferred unblocked list remains complete. Next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional: python3 tools/production_readiness.py <packet> for consolidated local gate check including metadata limits. Do not scaffold Q2. Do not poll secrets. Do not rematerialize media if present. Logs via record_run.py. Avoid additional status/brief/candidates/sequence/suite/suggest/signals/starter/package/confirmation tools. Prefer truly new production capability that advances media/QA/assembly readiness without credentials if human step is not taken.
+
 2026-11-02T19:12:00Z (Run 981)
 
 Run 981: extended tools/production_readiness.py with caption CPS stats (avg/max/min + flagged count) via caption_speed_report.inspect_speed. Confirmed STALL_OAUTH_IDLE, published=0, pre-upload metadata path complete. Preferred unblocked list remains complete. Next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional: python3 tools/production_readiness.py <packet> for consolidated local gate check including caption speed flags. Do not scaffold Q2. Do not poll secrets. Do not rematerialize media if present. Logs via record_run.py. Avoid additional status/brief/candidates/sequence/suite/suggest/signals/starter/package/confirmation tools. Prefer truly new production capability that advances media/QA/assembly readiness without credentials if human step is not taken.
