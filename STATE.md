@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-02T13:24:00Z (Run 976)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/production_readiness.py: single-command aggregator that runs media_qa.inspect_media + assemble.inspect_assemble and notes captions.srt presence. Prints compact local readiness summary. Exit 0 only on media PASS + assemble READY_TO_ENCODE/EXPORT_EXISTS. No media invent, no ffmpeg execute, no secrets. Pre-upload path remains complete. STALL_OAUTH_IDLE primary. Prefer human OAuth step (docs/human_oauth_checklist.md) or further media/QA capability that does not require credentials.
+
 2026-11-02T12:17:00Z (Run 975)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Inspected full pipeline state, topic queue, production capabilities, and recent metadata_bundle extension (Run 974). Confirmed pre-upload path (research starters, script coaches, metadata bundle with title/desc/tags/thumb/chapters/end-screen/first-comment) is complete and compounds labor savings. No new tools added (avoids forbidden patterns). Text stays local. STALL_OAUTH_IDLE primary. Prefer human OAuth step (docs/human_oauth_checklist.md) or a truly new production capability that advances media/QA/assembly without credentials.
