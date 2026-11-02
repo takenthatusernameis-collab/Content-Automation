@@ -28,6 +28,7 @@ OPERATOR_CARD_FLAG = "STALL_OPERATOR_CARD"
 LOG_HYGIENE_FLAG = "STALL_LOG_HYGIENE"
 BANNER_REFRESH_FLAG = "STALL_BANNER_REFRESH"
 GATE_CONFIRM_FLAG = "STALL_GATE_CONFIRM"
+READINESS_AGG_FLAG = "STALL_READINESS_AGGREGATOR"
 WINDOW = 3
 IDLE_WINDOW = 8
 UPLOAD_EDGE_WINDOW = 4
@@ -37,6 +38,7 @@ OPERATOR_CARD_WINDOW = 3
 LOG_HYGIENE_WINDOW = 3
 BANNER_WINDOW = 4
 GATE_CONFIRM_WINDOW = 4
+READINESS_AGG_WINDOW = 4
 
 UPLOAD_EDGE_TOKENS = (
     "early-persist",
@@ -128,6 +130,19 @@ GATE_CONFIRM_NEGATIONS = (
     "did not refresh last_gates_confirmed",
     "no gate re-verification",
     "gates already confirmed",
+)
+
+# Runs 976-982 each extended tools/production_readiness.py with additional local QA signals while videos published stayed 0. That is the credential stall, not a missing aggregator field.
+READINESS_AGG_TOKENS = (
+    "production_readiness.py",
+    "extended tools/production_readiness",
+    "production_readiness",
+)
+READINESS_AGG_NEGATIONS = (
+    "do not further extend production_readiness",
+    "do not add another readiness field",
+    "did not extend production_readiness",
+    "no new production_readiness extension",
 )
 
 # Lock sentences repeat these tokens. A "do not add" line is not a wired probe.
@@ -435,6 +450,27 @@ def flag_text(text: str, window: int = WINDOW) -> list[str]:
                 "next: wait for the three YouTube secrets; do not rematerialize or re-verify gates unless packet or tools changed",
             ])
             flags.append("suspicious: gate_confirm_without_publish")
+    # Runs 976-982 each extended the local readiness aggregator while videos
+    # published stayed 0. That is the credential stall, not a missing local signal.
+    readiness_deltas = run_deltas(text)[:READINESS_AGG_WINDOW]
+    if _oauth_stall(readiness_deltas) and len(readiness_deltas) >= READINESS_AGG_WINDOW:
+        readiness = True
+        for delta in readiness_deltas:
+            lowered = delta.lower()
+            scrubbed = lowered
+            for phrase in READINESS_AGG_NEGATIONS:
+                scrubbed = scrubbed.replace(phrase, "")
+            if not any(token in scrubbed for token in READINESS_AGG_TOKENS):
+                readiness = False
+                break
+        if readiness:
+            flags.extend([
+                READINESS_AGG_FLAG,
+                f"last_{READINESS_AGG_WINDOW}_runs: oauth_unpolled_and_readiness_aggregator",
+                "do_not: further extend production_readiness.py with additional report fields while this flag is set",
+                "next: wait for the three YouTube secrets; the aggregator already covers media/assemble/captions/thumbnail/VO/cards/script/timeline/metadata",
+            ])
+            flags.append("suspicious: readiness_aggregator_without_publish")
     # Count the whole file, not the 8-delta flag window. A cleared newest
 
     # delta resets the streak to 0. A zero streak is not a flag: callers

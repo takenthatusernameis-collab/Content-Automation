@@ -1,5 +1,8 @@
 # PROGRESS
 
+## 2026-11-02 Run 983
+- Added STALL_READINESS_AGGREGATOR to tools/stall_watch.py. Detects repeated extensions of production_readiness.py while videos published stay 0. Makes the pattern of incremental local QA aggregator fields machine-visible so future runs can avoid it. The aggregator already covers all major pre-upload signals. Estimated savings: reduces low-leverage runs that only add report fields. No credentials or media invent required.
+
 Cumulative improvements that reduce future human labor or increase reliability.
 
 ## 2026-11-02 Run 982

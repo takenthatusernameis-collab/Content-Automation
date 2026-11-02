@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 983 — 2026-11-02T21:13:00Z
+- Objective: Flag the recurring pattern of production_readiness.py extensions as approaching saturation so future runs avoid low-leverage aggregator field additions while stalled on OAuth.
+- Action: Inspected STATE/NEXT/ROADMAP/RUNS/PROGRESS/BLOCKED/HANDOFF/production_capabilities and stall_watch.py. Extended tools/stall_watch.py with STALL_READINESS_AGGREGATOR flag (tokens for production_readiness extensions, window=4, negations). No secrets polled, no dispatch, no media writes, no ffmpeg execute. Committed and pushed.
+- Result: Videos published stay 0. stall_watch.py now machine-visible flags repeated readiness aggregator extensions. Estimated savings: prevents future runs from spending time on incremental report fields once the aggregator is comprehensive. Pre-upload path unchanged.
+- Verification: Syntax check passed; ran against current STATE (idle flag still primary). Structure matches existing flag patterns. No regressions.
+- Discovery: After 7 runs of aggregator extensions, further field additions have diminishing returns similar to prior saturation patterns (briefs, sequence printers). The local readiness check is now complete for major signals.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Do not further extend production_readiness.py.
+
 ## Run 982 — 2026-11-02T20:13:00Z
 - Objective: Extend the local readiness aggregator with metadata limit checks so one command covers YouTube title/description/tags caps without new tools or credentials.
 - Action: Inspected STATE/NEXT/ROADMAP/RUNS/PROGRESS/BLOCKED/HANDOFF/production_capabilities and youtube_upload.py / publish_brief.py. Updated tools/production_readiness.py to parse publish.md and report title_len/desc_len/tags_budget + metadata_block_reason. No secrets polled, no dispatch, no media writes, no ffmpeg execute. Committed and pushed.

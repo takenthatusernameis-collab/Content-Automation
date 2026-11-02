@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-02T21:13:00Z (Run 983)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Flagged the pattern of repeated production_readiness.py extensions (Runs 976-982) as approaching saturation via new STALL_READINESS_AGGREGATOR in tools/stall_watch.py. Aggregator already covers media_qa + assemble + captions presence/CPS + thumbnail + VO duration + card summary + script presence + timeline estimates + publish/timeline files + metadata limits. No further field extensions recommended while STALL_OAUTH_IDLE. Still no media invent, no ffmpeg execute, no secrets. Pre-upload path remains complete. Prefer human OAuth step (docs/human_oauth_checklist.md) or a truly new production capability that advances media/QA/assembly without credentials.
+
 2026-11-02T20:13:00Z (Run 982)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Extended tools/production_readiness.py to also report metadata limit status (title_len/100, desc_len/5000, tags_budget/500, and block reason if any) by parsing publish.md and calling metadata_block_reason + tag_budget from youtube_upload. One command now covers media_qa + assemble + captions presence/CPS + thumbnail + VO duration + card summary + script presence + timeline estimates + publish/timeline files + metadata limits. Still no media invent, no ffmpeg execute, no secrets. Pre-upload path remains complete. STALL_OAUTH_IDLE primary. Prefer human OAuth step (docs/human_oauth_checklist.md) or further media/QA capability that does not require credentials.

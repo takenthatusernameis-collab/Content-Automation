@@ -1,5 +1,7 @@
 # FAILURES
 
+None this run. No new failures. Pattern flag added for readiness aggregator extensions.
+
 None this run. No new failures.
 
 None this run. No new failures.
