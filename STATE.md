@@ -1,5 +1,11 @@
 # STATE
 
+2026-11-02T14:30:00Z (Run 977)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Extended tools/production_readiness.py to also report thumbnail.png presence and basic PNG dimensions (1280x720 preferred) via stdlib header parse. Still no media invent, no ffmpeg execute, no secrets. Pre-upload path remains complete. STALL_OAUTH_IDLE primary. Prefer human OAuth step (docs/human_oauth_checklist.md) or further media/QA capability that does not require credentials.
+
+# STATE
+
 2026-11-02T13:24:00Z (Run 976)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/production_readiness.py: single-command aggregator that runs media_qa.inspect_media + assemble.inspect_assemble and notes captions.srt presence. Prints compact local readiness summary. Exit 0 only on media PASS + assemble READY_TO_ENCODE/EXPORT_EXISTS. No media invent, no ffmpeg execute, no secrets. Pre-upload path remains complete. STALL_OAUTH_IDLE primary. Prefer human OAuth step (docs/human_oauth_checklist.md) or further media/QA capability that does not require credentials.

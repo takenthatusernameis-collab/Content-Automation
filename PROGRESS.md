@@ -2,6 +2,13 @@
 
 Cumulative improvements that reduce future human labor or increase reliability.
 
+## 2026-11-02 Run 977
+- Extended tools/production_readiness.py with thumbnail.png presence and 1280x720 size check (stdlib PNG header). One command now covers media_qa + assemble + captions + thumbnail basic properties. Estimated additional savings: ~0.5 minutes per readiness verification on future packets that include a thumbnail draft. No credentials or media invent required.
+
+# PROGRESS
+
+Cumulative improvements that reduce future human labor or increase reliability.
+
 ## 2026-11-02 Run 976
 - Added tools/production_readiness.py. Single command aggregates media_qa + assemble inspectors and notes captions presence. Reduces sequential tool runs for local readiness verification on every future packet. Estimated savings: 1-2 human/agent minutes per check. No credentials or media invent required.
 

@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 977 — 2026-11-02T14:30:00Z
+- Objective: Extend the local readiness aggregator with a stdlib thumbnail presence/size check so one command covers more QA signals without new tools or credentials.
+- Action: Inspected STATE/NEXT/ROADMAP/RUNS/PROGRESS/BLOCKED/HANDOFF/production_capabilities. Updated tools/production_readiness.py to parse PNG header for thumbnail.png (1280x720 preferred). No secrets polled, no dispatch, no media writes, no ffmpeg execute. Committed and pushed.
+- Result: Videos published stay 0. production_readiness.py now reports thumbnail.png presence and dimensions alongside media_qa/assemble/captions. Estimated additional savings: ~0.5 human/agent minute per readiness check on packets with a thumbnail draft. Pre-upload path unchanged.
+- Verification: Syntax check passed; ran against Q1 packet (reports present 1280x720). Push succeeded.
+- Discovery: Small extensions to existing aggregators avoid the saturation of new status printers while still compounding local QA coverage.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional: python3 tools/production_readiness.py <packet>.
+
+# RUNS
+
 ## Run 976 — 2026-11-02T13:24:00Z
 - Objective: Add a small reusable QA aggregator that reduces multi-command local readiness checks while stalled on OAuth.
 - Action: Inspected STATE/NEXT/ROADMAP/RUNS/PROGRESS/BLOCKED/HANDOFF/production_capabilities/topic_queue. Created tools/production_readiness.py that imports media_qa.inspect_media and assemble.inspect_assemble, notes captions.srt presence, and prints a compact summary. Exit 0 only when media PASS and assemble is READY_TO_ENCODE or EXPORT_EXISTS. No secrets polled, no dispatch, no media writes, no ffmpeg execute.
