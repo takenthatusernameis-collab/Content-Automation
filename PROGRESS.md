@@ -2,6 +2,9 @@
 
 Cumulative improvements that reduce future human labor or increase reliability.
 
+## 2026-11-02 Run 970
+- Added tools/description_generator.py. Extracts mechanism/problem/topic and shortens operational phrases (shared idea_utils + shorten/normalize). Produces reviewable description.md skeleton with a calm operational description. Reduces manual description drafting for every future packet. Estimated savings: 3-5 human minutes per video once ideas exist.
+
 ## 2026-11-02 Run 969
 - Added tools/tags_generator.py. Extracts mechanism/problem/topic and shortens operational phrases (shared idea_utils + shorten/normalize). Produces reviewable tags.md skeleton with 5-8 specific tags. Reduces manual tag selection for every future packet. Estimated savings: 2-4 human minutes per video once ideas exist.
 
