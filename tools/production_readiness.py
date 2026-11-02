@@ -2,7 +2,8 @@
 """Single-command local production readiness aggregator.
 
 Imports and runs media_qa.inspect_media + assemble.inspect_assemble.
-Notes captions.srt and thumbnail.png presence + basic PNG dimensions (stdlib).
+Notes captions.srt, thumbnail.png presence + basic PNG dimensions (stdlib),
+VO duration when a WAV is present, mapped/present card counts, and script.md presence.
 Prints a compact summary. Never invents media, never runs ffmpeg, never bumps status,
 never polls secrets, never dispatches. Exit 0 only when media_qa PASS and assemble
 gate is READY_TO_ENCODE or EXPORT_EXISTS.
@@ -53,6 +54,18 @@ def main() -> int:
     thumb_present = thumb.is_file()
     thumb_size = _png_size(thumb) if thumb_present else None
     thumb_ok = thumb_size == (1280, 720) if thumb_size else False
+    script_present = (path / "script.md").is_file()
+
+    vo_seconds = None
+    vo = media.get("vo") or {}
+    wav = vo.get("wav") or {}
+    if wav.get("ok") and wav.get("seconds"):
+        vo_seconds = wav["seconds"]
+
+    cards = media.get("cards") or []
+    mapped = [c for c in cards if c.get("rel")]
+    present_cards = [c for c in mapped if c.get("present")]
+    ok_cards = [c for c in present_cards if c.get("ok")]
 
     print(f"packet: {path.name}")
     print(f"media_qa: {media['gate']}")
@@ -65,6 +78,12 @@ def main() -> int:
         print(f"thumbnail_size: {thumb_size[0]}x{thumb_size[1]} {'(preferred 1280x720)' if thumb_ok else '(non-standard)'}")
     else:
         print("thumbnail_size: n/a")
+    print(f"script.md: {'present' if script_present else 'missing'}")
+    if vo_seconds is not None:
+        print(f"vo_duration_s: {vo_seconds}")
+    else:
+        print("vo_duration_s: n/a")
+    print(f"cards: {len(ok_cards)}/{len(present_cards)} ok of {len(mapped)} mapped")
     print(f"ffmpeg_on_path: {'yes' if assemble_rep.get('ffmpeg') else 'no'}")
 
     hard_ok = media["gate"] == "PASS" and assemble_rep["gate"] in {"READY_TO_ENCODE", "EXPORT_EXISTS"}
