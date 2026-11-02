@@ -196,10 +196,10 @@ def compile_word_boundary_patterns(phrases):
     """Compile high-precision word-boundary, case-insensitive regexes for a list of phrases.
 
     Shared by all scanners (quality_scan, claim_scan, title_scan, etc.) to avoid duplicated
-    re.compile logic and ensure consistent matching (escape + \b + IGNORECASE).
+    re.compile logic and ensure consistent matching (escape + \\b + IGNORECASE).
     """
     return tuple(
-        re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE) for phrase in phrases
+        re.compile(r"\\b" + re.escape(phrase) + r"\\b", re.IGNORECASE) for phrase in phrases
     )
 
 
@@ -532,6 +532,11 @@ FIRST_COMMENT_BAIT_PATTERNS = (
 )
 
 
+def _strip_fill_comments(text: str) -> str:
+    """Remove HTML comments (score/runner-up notes) from a ranked fill section body."""
+    return re.sub(r"<!--.*?-->", "", text, flags=re.S).strip()
+
+
 def extract_recommended_end_screen(fill_text: str) -> str | None:
     """Pull the End screen section from recommended_publish_fill.md if present and reasonable length.
 
@@ -543,36 +548,53 @@ def extract_recommended_end_screen(fill_text: str) -> str | None:
         re.M | re.S,
     )
     if match:
-        text = match.group(1).strip()
-        text = re.sub(r"<!--.*?-->", "", text, flags=re.S).strip()
+        text = _strip_fill_comments(match.group(1).strip())
         if text and 4 <= len(text.split()) <= 15:
             return text
     return None
 
 
 def extract_recommended_thumbnail(fill_text: str) -> str | None:
-    """Pull the Thumbnail section from recommended_publish_fill.md if present and short.
+    """Pull the Thumbnail text section from recommended_publish_fill.md if present and short.
 
+    Matches both '## Thumbnail text' (writer label) and '## Thumbnail'.
     Shared by thumbnail_generator so ranking preference stays consistent.
+    Run 964: fixed mismatch where fill wrote 'Thumbnail text' but extractor
+    only matched bare 'Thumbnail', so ranked text was silently ignored.
     """
     match = re.search(
-        r"^## Thumbnail\s*\n(.+?)(?:\n##|\n\n|\Z)",
+        r"^## Thumbnail(?: text)?\s*\n(.+?)(?:\n##|\n\n|\Z)",
         fill_text,
         re.M | re.S,
     )
     if match:
-        text = match.group(1).strip()
-        text = re.sub(r"<!--.*?-->", "", text, flags=re.S).strip()
-        # Prefer short for on-image
-        if text and 2 <= len(text.split()) <= 8:
+        text = _strip_fill_comments(match.group(1).strip())
+        if text and 1 <= len(text.split()) <= 10:
+            return text
+    return None
+
+
+def extract_recommended_first_comment(fill_text: str) -> str | None:
+    """Pull the First comment section from recommended_publish_fill.md if present.
+
+    Shared by first_comment_preview so ranking preference stays consistent.
+    """
+    match = re.search(
+        r"^## First comment\s*\n(.+?)(?:\n##|\n\n|\Z)",
+        fill_text,
+        re.M | re.S,
+    )
+    if match:
+        text = _strip_fill_comments(match.group(1).strip())
+        if text and 4 <= len(text.split()) <= 80:
             return text
     return None
 
 
 def extract_recommended_title(fill_text: str) -> str | None:
-    """Pull the Title section from recommended_publish_fill.md if present and reasonable length.
+    """Pull the Title section from recommended_publish_fill.md if present.
 
-    Shared so metadata tools stay consistent on ranked title preference.
+    Shared so any future title preference path stays consistent with ranking.
     """
     match = re.search(
         r"^## Title\s*\n(.+?)(?:\n##|\n\n|\Z)",
@@ -580,9 +602,8 @@ def extract_recommended_title(fill_text: str) -> str | None:
         re.M | re.S,
     )
     if match:
-        text = match.group(1).strip()
-        text = re.sub(r"<!--.*?-->", "", text, flags=re.S).strip()
-        if text and 5 <= len(text.split()) <= 15:
+        text = _strip_fill_comments(match.group(1).strip())
+        if text and 3 <= len(text.split()) <= 20:
             return text
     return None
 
@@ -590,7 +611,7 @@ def extract_recommended_title(fill_text: str) -> str | None:
 def extract_recommended_description(fill_text: str) -> str | None:
     """Pull the Description section from recommended_publish_fill.md if present.
 
-    Shared for consistency. Length gate is looser than titles.
+    Shared so any future description preference path stays consistent with ranking.
     """
     match = re.search(
         r"^## Description\s*\n(.+?)(?:\n##|\n\n|\Z)",
@@ -598,41 +619,7 @@ def extract_recommended_description(fill_text: str) -> str | None:
         re.M | re.S,
     )
     if match:
-        text = match.group(1).strip()
-        text = re.sub(r"<!--.*?-->", "", text, flags=re.S).strip()
-        if text and 20 <= len(text.split()) <= 120:
+        text = _strip_fill_comments(match.group(1).strip())
+        if text and 10 <= len(text.split()) <= 120:
             return text
     return None
-
-
-def extract_cta_from_script(script_text: str) -> str:
-    """Shared CTA extraction from script.md for preview tools.
-
-    Prefers explicit CTA section WORDS, then last WORDS block. No invention.
-    """
-    cta_match = re.search(
-        r"^##\s+.*[Cc][Tt][Aa].*?\n(.*?)(?=\n##|\Z)",
-        script_text,
-        re.M | re.S,
-    )
-    if cta_match:
-        section = cta_match.group(1)
-        words_match = re.search(
-            r"^WORDS:\s*\n(.+?)(?=\n\n|\n##|\nVISUAL:|\Z)",
-            section,
-            re.M | re.S,
-        )
-        if words_match:
-            cta = words_match.group(1).strip()
-            if cta:
-                return cta
-
-    matches = list(re.finditer(
-        r"^WORDS:\s*\n(.+?)(?=\n\n|\n##|\nVISUAL:|\Z)",
-        script_text,
-        re.M | re.S,
-    ))
-    if matches:
-        return matches[-1].group(1).strip()
-
-    return "No CTA found"
