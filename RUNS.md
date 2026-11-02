@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 979 — 2026-11-02T16:20:00Z
+- Objective: Extend the local readiness aggregator with spoken/export timeline estimates and key file presence so one command covers more QA signals without new tools or credentials.
+- Action: Inspected STATE/NEXT/ROADMAP/RUNS/PROGRESS/BLOCKED/HANDOFF/production_capabilities. Updated tools/production_readiness.py to report spoken_estimate_s, export_estimate_s, publish.md presence, and timeline.md presence. No secrets polled, no dispatch, no media writes, no ffmpeg execute. Committed and pushed.
+- Result: Videos published stay 0. production_readiness.py now reports timeline estimates and publish/timeline file presence alongside media_qa/assemble/captions/thumbnail/VO/cards/script. Estimated additional savings: ~0.5 human/agent minute per readiness check on packets with a timeline. Pre-upload path unchanged.
+- Verification: File updated and committed (commit 1e5d07a5c1264bab5279403961ac165e92b054b5). Structure preserves existing exit logic. No regressions to media or assemble gates.
+- Discovery: Extending the existing aggregator with already-computed timeline signals compounds visibility without introducing new tools or forbidden patterns.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional: python3 tools/production_readiness.py <packet>.
+
 ## Run 978 — 2026-11-02T15:20:00Z
 - Objective: Extend the local readiness aggregator with VO duration, card counts, and script presence so one command covers more QA signals without new tools or credentials.
 - Action: Inspected STATE/NEXT/ROADMAP/RUNS/PROGRESS/BLOCKED/HANDOFF/production_capabilities. Updated tools/production_readiness.py to report vo_duration_s (from media_qa WAV info), cards mapped/present/ok counts, and script.md presence. No secrets polled, no dispatch, no media writes, no ffmpeg execute. Committed and pushed.
