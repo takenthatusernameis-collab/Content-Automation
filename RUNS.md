@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 980 — 2026-11-02T18:15:00Z
+- Objective: Add a reusable read-only caption speed/readability reporter that advances the remaining human spot-check for captions without credentials or media invent.
+- Action: Inspected STATE/NEXT/ROADMAP/RUNS/PROGRESS/BLOCKED/HANDOFF/production_capabilities and caption_gate.py. Created tools/caption_speed_report.py (stdlib only; reuses cue parser; reports avg/max/min CPS and flags >21 or <8 cps). No secrets polled, no dispatch, no media writes, no ffmpeg execute. Committed and pushed.
+- Result: Videos published stay 0. New single-command caption speed report available for every future packet. Estimated savings: 1-2 human/agent minutes per caption review by prioritizing fast/slow cues. Pre-upload path unchanged.
+- Verification: File committed (commit 182738b141924d2653543b338eb4bdb8c4353785). Structure matches caption_gate parser. No regressions to existing gates.
+- Discovery: A focused CPS reporter compounds caption QA quality for all future packets while the system remains stalled on OAuth.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional: python3 tools/caption_speed_report.py <packet>.
+
 ## Run 979 — 2026-11-02T16:20:00Z
 - Objective: Extend the local readiness aggregator with spoken/export timeline estimates and key file presence so one command covers more QA signals without new tools or credentials.
 - Action: Inspected STATE/NEXT/ROADMAP/RUNS/PROGRESS/BLOCKED/HANDOFF/production_capabilities. Updated tools/production_readiness.py to report spoken_estimate_s, export_estimate_s, publish.md presence, and timeline.md presence. No secrets polled, no dispatch, no media writes, no ffmpeg execute. Committed and pushed.
