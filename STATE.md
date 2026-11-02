@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-02T18:15:00Z (Run 980)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/caption_speed_report.py: read-only CPS/readability reporter for captions.srt (flags fast >21cps / slow <8cps cues, overall stats). Stdlib only. Does not rewrite, invent media, run ffmpeg, or touch secrets. Advances remaining caption spot-check (ROADMAP 54) for every future packet. Pre-upload path remains complete. STALL_OAUTH_IDLE primary. Prefer human OAuth step (docs/human_oauth_checklist.md) or further media/QA capability that does not require credentials.
+
 2026-11-02T16:20:00Z (Run 979)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Extended tools/production_readiness.py to also report spoken estimate seconds, export estimate seconds (from timeline), and presence of publish.md + timeline.md. Still no media invent, no ffmpeg execute, no secrets. Pre-upload path remains complete. STALL_OAUTH_IDLE primary. Prefer human OAuth step (docs/human_oauth_checklist.md) or further media/QA capability that does not require credentials.
