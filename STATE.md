@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-02T20:13:00Z (Run 982)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Extended tools/production_readiness.py to also report metadata limit status (title_len/100, desc_len/5000, tags_budget/500, and block reason if any) by parsing publish.md and calling metadata_block_reason + tag_budget from youtube_upload. One command now covers media_qa + assemble + captions presence/CPS + thumbnail + VO duration + card summary + script presence + timeline estimates + publish/timeline files + metadata limits. Still no media invent, no ffmpeg execute, no secrets. Pre-upload path remains complete. STALL_OAUTH_IDLE primary. Prefer human OAuth step (docs/human_oauth_checklist.md) or further media/QA capability that does not require credentials.
+
 2026-11-02T19:12:00Z (Run 981)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Extended tools/production_readiness.py to also report caption CPS stats (avg/max/min + flagged fast/slow count) by importing inspect_speed from caption_speed_report.py. One command now covers media_qa + assemble + captions presence/CPS + thumbnail + VO duration + card summary + script presence + timeline estimates + publish/timeline files. Still no media invent, no ffmpeg execute, no secrets. Pre-upload path remains complete. STALL_OAUTH_IDLE primary. Prefer human OAuth step (docs/human_oauth_checklist.md) or further media/QA capability that does not require credentials.
