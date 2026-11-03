@@ -1,6 +1,8 @@
-2026-11-04 (Run 1006): Extended tools/post_publish_sequence.py. Added steps for Studio pin + end screen and optional playlist confirmation once a private provider_video_id exists. Reduces rediscovery of remaining human Studio steps. Still 0 published. OAuth stall continues.
+2026-11-04 (Run 1007): Integrated exact observation-window due-date calculation (+10 days) into tools/post_publish_sequence.py. Step 1 now prints uploaded_at, due_at, status, and days_until when a private provider_video_id and timestamp exist. Reduces rediscovery of the observation window. Still 0 published. OAuth stall continues.
 
 # PROGRESS
+
+2026-11-04 (Run 1006): Extended tools/post_publish_sequence.py. Added steps for Studio pin + end screen and optional playlist confirmation once a private provider_video_id exists. Reduces rediscovery of remaining human Studio steps. Still 0 published. OAuth stall continues.
 
 2026-11-03 (Run 1005): Updated tools/human_one_pager.py. Added step 5 pointing to tools/post_publish_sequence.py once a private provider_video_id exists. Reduces rediscovery of the ordered post-id path for the human. Still 0 published. OAuth stall continues.
 
