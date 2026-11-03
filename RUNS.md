@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 999 — 2026-11-03T15:20:00Z
+- Objective: Reduce human friction on the remaining OAuth step by adding a clear time estimate so the 10-20 minute effort is visible without rediscovery.
+- Action: Inspected STATE/NEXT/RUNS and human guidance files. Updated docs/human_oauth_checklist.md and tools/operator_card.py with estimated human time. No secrets polled, no dispatch, no media writes, no ffmpeg execute. Committed.
+- Result: Videos published stay 0. Human step now surfaces a time estimate. Estimated savings: clearer expectation reduces delay on the single remaining human action. Pre-upload path unchanged.
+- Verification: Files updated. Structure reuses existing guidance surfaces. No regressions.
+- Discovery: Explicit time estimate compounds clarity for the long-stalled human gate without adding new printers.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional: python3 tools/while_stalled_preferred.py
+
 ## Run 998 — 2026-11-03T14:20:00Z
 - Objective: Reduce future agent rediscovery of the human OAuth step and low-leverage patterns while published=0 by adding a concise preferred-actions printer.
 - Action: Inspected STATE/NEXT/RUNS and existing stall tools. Created tools/while_stalled_preferred.py (lists primary human checklist + AVOID saturation patterns + acceptable unblocked categories). No secrets polled, no dispatch, no media writes, no ffmpeg execute. Committed.
@@ -15,15 +24,6 @@
 - Result: Videos published stay 0. Suite now reports accurate PASS (with warnings) for current Q1. Estimated savings: clearer readiness signal before human dispatch, reduces false-negative friction. Pre-upload path unchanged.
 - Verification: File updated, re-ran suite, confirmed [WARN] end_screen and UNIFIED RESULT: PASS (with warnings). Structure reuses existing check list. No regressions.
 - Discovery: Treating advisory exit 2 as non-failing compounds reliability of the unified QA suite while the system remains stalled on OAuth.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch).
-
-## Run 996 — 2026-11-03T12:30:00Z
-- Objective: Strengthen stall detection for the emerging pattern of consecutive small metadata consistency printers (Runs 992-995) so future runs treat them as low-leverage during the OAuth stall.
-- Action: Inspected STATE/NEXT/RUNS and stall_watch.py. Extended tools/stall_watch.py with STALL_CONSISTENCY_PRINTER flag, tokens for consistency.py / tags_hygiene, and negation handling. Syntax-checked. No secrets polled, no dispatch, no media writes, no ffmpeg execute. Committed.
-- Result: Videos published stay 0. Machine-visible flag now surfaces the saturation pattern. Estimated savings: prevents repeated low-value printer additions across future runs. Pre-upload path unchanged.
-- Verification: File updated and syntax OK. Structure reuses the same flag pattern as prior stall detectors. No regressions.
-- Discovery: Explicit stall flag for consistency printers compounds anti-drift while the system remains stalled on OAuth. Saturation risk is now detectable without relying on prose notes.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch).
 
