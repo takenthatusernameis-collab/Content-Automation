@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1000 — 2026-11-03T14:22:00Z
+- Objective: Reduce human rediscovery and review friction on the remaining OAuth/dispatch step by adding a single-command fail-closed glance at the exact title, description excerpt, tags, and master fingerprint that will be uploaded.
+- Action: Inspected STATE/NEXT/RUNS and publish.md. Created tools/pre_dispatch_review.py (reads packet publish.md, extracts key fields, prints concise review + dispatch line + expected SHA). No secrets polled, no dispatch, no media writes, no ffmpeg execute. Committed.
+- Result: Videos published stay 0. New single-command human review surface available. Estimated savings: 1-2 human minutes per future dispatch by eliminating rediscovery of metadata details. Pre-upload path unchanged.
+- Verification: File committed. Structure reuses existing read-only printer pattern. No regressions.
+- Discovery: Explicit pre-dispatch metadata glance compounds clarity for the long-stalled human gate without adding new consistency printers.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional: python3 tools/pre_dispatch_review.py
+
 ## Run 999 — 2026-11-03T15:20:00Z
 - Objective: Reduce human friction on the remaining OAuth step by adding a clear time estimate so the 10-20 minute effort is visible without rediscovery.
 - Action: Inspected STATE/NEXT/RUNS and human guidance files. Updated docs/human_oauth_checklist.md and tools/operator_card.py with estimated human time. No secrets polled, no dispatch, no media writes, no ffmpeg execute. Committed.
@@ -17,14 +26,5 @@
 - Discovery: Explicit preferred/avoid list compounds anti-drift reliability while the system remains stalled on OAuth. Saturation of consistency printers remains the risk to monitor.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
 - Recommended next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional: python3 tools/while_stalled_preferred.py
-
-## Run 997 — 2026-11-03T13:20:00Z
-- Objective: Improve pre_upload_qa_suite reliability by correctly classifying advisory WARN exits so overall result is not falsely FAIL when only duration/CTA estimates warn.
-- Action: Inspected STATE/NEXT/RUNS and pre_upload_qa_suite.py. Updated status logic to map exit 0=PASS, 2=WARN, other=FAIL. Overall PASS (with warnings) when no hard fails. Syntax-checked and verified on Q1 after materialize. No secrets polled, no dispatch, no media writes, no ffmpeg execute. Committed.
-- Result: Videos published stay 0. Suite now reports accurate PASS (with warnings) for current Q1. Estimated savings: clearer readiness signal before human dispatch, reduces false-negative friction. Pre-upload path unchanged.
-- Verification: File updated, re-ran suite, confirmed [WARN] end_screen and UNIFIED RESULT: PASS (with warnings). Structure reuses existing check list. No regressions.
-- Discovery: Treating advisory exit 2 as non-failing compounds reliability of the unified QA suite while the system remains stalled on OAuth.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
-- Recommended next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch).
 
 (Older run logs remain in docs/runs_archive.md. Do not paste the archive back.)
