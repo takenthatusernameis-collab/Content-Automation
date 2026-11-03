@@ -1,6 +1,10 @@
 
 Older next actions live in \`docs/next_archive.md\`. Do not paste the archive back.
 
+2026-11-03T11:20:00Z (Run 995)
+
+Run 995: added tools/tags_hygiene.py (duplicates, removed-stopword leakage, long-tag flags on publish.md Tags). Confirmed STALL_OAUTH_IDLE, published=0, pre-upload metadata path complete. Preferred unblocked list remains complete. Next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional: python3 tools/tags_hygiene.py <packet> or python3 tools/title_publish_consistency.py <packet> or other consistency printers to spot tag/title/metadata drift before upload. Do not further extend production_readiness.py. Do not scaffold Q2. Do not poll secrets. Do not rematerialize media if present. Logs via record_run.py. Avoid adding another status printer while published stay 0. Consecutive small QA printers are compounding but saturation risk is noted.
+
 2026-11-03T08:20:00Z (Run 994)
 
 Run 994: added tools/title_publish_consistency.py (Primary in titles.md vs Title to upload in publish.md after normalization). Confirmed STALL_OAUTH_IDLE, published=0, pre-upload metadata path complete. Preferred unblocked list remains complete. Next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional: python3 tools/title_publish_consistency.py <packet> or python3 tools/chapters_description_consistency.py <packet> or other consistency printers to spot title/metadata drift before upload. Do not further extend production_readiness.py. Do not scaffold Q2. Do not poll secrets. Do not rematerialize media if present. Logs via record_run.py. Avoid adding another status printer while published stay 0.
