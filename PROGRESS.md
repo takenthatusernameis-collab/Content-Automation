@@ -1,5 +1,9 @@
 # PROGRESS
 
+2026-11-03 (Run 994): Added title_publish_consistency.py. Pre-upload metadata QA now includes exact Primary vs upload-title match. Still 0 published. OAuth stall continues.
+
+# PROGRESS
+
 ## 2026-11-03 Run 993
 - Added tools/chapters_description_consistency.py. Read-only check that chapters.md YouTube lines exactly match the timestamped lines in the Description of publish.md. Surfaces chapter/metadata drift early. Estimated savings: ~1 minute per packet. No credentials or media invent required. Does not extend the readiness aggregator.
 

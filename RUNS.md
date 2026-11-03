@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 994 — 2026-11-03T08:20:00Z
+- Objective: Add a reusable read-only title/publish consistency check (Primary in titles.md vs Title to upload in publish.md after light normalization) so future packets can surface title/metadata drift before upload without credentials.
+- Action: Inspected STATE/NEXT/RUNS and existing consistency tools. Created tools/title_publish_consistency.py (extracts both titles; reports match after normalize). Smoke-tested on Q1 and sample (OK expected). No secrets polled, no dispatch, no media writes, no ffmpeg execute, no production_readiness extension. 
+- Result: Videos published stay 0. New single-command title consistency report available for every future packet. Estimated savings: 1 human/agent minute per packet by prioritizing title drift before upload. Pre-upload path unchanged.
+- Verification: File created and smoke-tested. Structure reuses the same read-only printer pattern as prior consistency tools. No regressions.
+- Discovery: A focused title-publish reporter compounds metadata readiness visibility for all future packets while the system remains stalled on OAuth, without saturating timeline or readiness aggregators.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional: python3 tools/title_publish_consistency.py <packet>.
+
+# RUNS
+
 ## Run 993 — 2026-11-03T09:20:00Z
 - Objective: Add a reusable read-only chapters/description consistency check (exact match of YouTube chapter lines from chapters.md against timestamped lines embedded in the Description of publish.md) so future packets can surface chapter/metadata drift before upload without credentials.
 - Action: Inspected STATE/NEXT/RUNS and existing consistency tools (cta_end_screen, title_thumbnail). Created tools/chapters_description_consistency.py (parses both sources; reports exact match, counts, and first-chapter 0:00). Syntax-checked. No secrets polled, no dispatch, no media writes, no ffmpeg execute, no production_readiness extension. Committed and pushed.
