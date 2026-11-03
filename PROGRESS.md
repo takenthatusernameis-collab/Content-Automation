@@ -1,5 +1,9 @@
 # PROGRESS
 
+2026-11-03 (Run 995): Added tags_hygiene.py. Pre-upload metadata QA now includes tags uniqueness, removed-stopword leakage detection, and length hygiene. Still 0 published. OAuth stall continues. Consecutive small consistency printers noted as rising saturation risk.
+
+# PROGRESS
+
 2026-11-03 (Run 994): Added title_publish_consistency.py. Pre-upload metadata QA now includes exact Primary vs upload-title match. Still 0 published. OAuth stall continues.
 
 # PROGRESS
