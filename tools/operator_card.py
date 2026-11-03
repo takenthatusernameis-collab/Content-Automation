@@ -72,6 +72,7 @@ def card_text() -> str:
     return f"""OPERATOR CARD (no secret poll, no provider write)
 
 Videos published stay 0 until a human stores three GitHub Actions secrets.
+Estimated human time: 10-20 minutes (project setup longest if from scratch; mint + secrets + dispatch ~5 min once client exists).
 Do not add a recovery edge, scanner, exchange parser, or Q2 scaffold to clear that.
 This card reprints the oauth_setup console steps. Do not reconstruct them from NEXT.
 
