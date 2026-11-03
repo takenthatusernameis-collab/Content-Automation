@@ -6,6 +6,8 @@ Fail-closed single-command reminder of:
 - collect_feedback dispatch
 - experiment_baseline completeness check
 - experiment_loop
+- Studio pin + end screen (Data API cannot finish)
+- optional playlist membership confirmation
 Does not poll secrets, invent a video id or metrics, dispatch, or write files.
 Reusable for future packets after the first publish.
 """
@@ -99,6 +101,17 @@ def main() -> int:
     print()
     print("3. Once baseline is filled and metrics collected:")
     print("   python3 tools/experiment_loop.py", packet)
+    print()
+    print("4. Studio pin and end screen (Data API cannot finish these):")
+    print("   python3 tools/studio_handoff.py", packet)
+    print("   Open the printed Studio comments URL and pin the first comment.")
+    print("   In the editor URL, set end screen on the reserved last 20 seconds only.")
+    print("   Do not re-encode the master. Do not cover the center CTA card.")
+    print()
+    print("5. Playlist membership (optional; does not block publish):")
+    print("   python3 tools/playlist_membership.py", packet)
+    print("   If docs/channel.md playlist_id is set, the workflow already attempted insert.")
+    print("   Confirm in Studio if the video is not yet in the playlist. Do not invent a PL id.")
     print()
     print("Do not invent metrics. Do not re-upload the master.")
     print("POST PUBLISH SEQUENCE PASS")
