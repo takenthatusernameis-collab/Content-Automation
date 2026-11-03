@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 991 — 2026-11-03T05:15:00Z
+- Objective: Add a reusable read-only title/thumbnail consistency check (On-image text is short and shares significant words with Primary title) so future packets can surface visual/metadata drift before upload without credentials.
+- Action: Inspected STATE/NEXT/RUNS and existing thumb/title tools. Created tools/title_thumbnail_consistency.py (parses titles.md + thumbnail.md; reports overlap and length). Smoke-tested on Q1 (WARN expected for designed short phrase). No secrets polled, no dispatch, no media writes, no ffmpeg execute, no production_readiness extension. Committed and pushed.
+- Result: Videos published stay 0. New single-command title/thumbnail consistency report available for every future packet. Estimated savings: 1 human/agent minute per packet by prioritizing visual/title drift before upload. Pre-upload path unchanged.
+- Verification: File committed. Smoke test on videos/002-... produced expected WARN. No regressions.
+- Discovery: A focused title/thumbnail reporter compounds visual/metadata readiness visibility for all future packets while the system remains stalled on OAuth, without saturating timeline or readiness aggregators.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional: python3 tools/title_thumbnail_consistency.py <packet>.
+
+# RUNS
+
 ## Run 990 — 2026-11-03T04:20:00Z
 - Objective: Add a reusable read-only timeline continuity consistency check (continuous sequential coverage with no gaps/overlaps, sum of section durations equals spoken estimate, export equals spoken + 20s end-screen reserve) using shared timeline.plan so future packets can surface planning arithmetic issues before assembly without credentials.
 - Action: Inspected STATE/NEXT/ROADMAP/RUNS/PROGRESS/BLOCKED/HANDOFF/production_capabilities and timeline.py / prior consistency tools. Created tools/timeline_continuity_check.py (reuses plan(); reports continuous / sum_matches_spoken / export_matches / gaps / overlaps). No secrets polled, no dispatch, no media writes, no ffmpeg execute, no production_readiness extension. Committed and pushed.

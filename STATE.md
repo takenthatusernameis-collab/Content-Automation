@@ -1,5 +1,11 @@
 # STATE
 
+2026-11-03T05:15:00Z (Run 991)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/title_thumbnail_consistency.py: read-only check that thumbnail.md On-image text is short (1-6 words) and shares significant words with titles.md Primary (or notes the designed short-phrase case). Complements existing metadata and visual tools. Does not extend production_readiness.py. Still no media invent, no ffmpeg execute, no secrets. Pre-upload path remains complete. STALL_OAUTH_IDLE primary. Prefer human OAuth step (docs/human_oauth_checklist.md) or further truly new media/QA capability that does not require credentials.
+
+# STATE
+
 2026-11-03T04:20:00Z (Run 990)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/timeline_continuity_check.py: read-only check (via timeline.plan) of continuous sequential coverage (no gaps/overlaps), sum of section durations equals spoken estimate, and export equals spoken + 20s end-screen reserve. Complements structure_order_consistency (order), section_pacing_consistency (duration bands), and section_budget_consistency (word bands). Does not extend production_readiness.py. Still no media invent, no ffmpeg execute, no secrets. Pre-upload path remains complete. STALL_OAUTH_IDLE primary. Prefer human OAuth step (docs/human_oauth_checklist.md) or further truly new media/QA capability that does not require credentials.
