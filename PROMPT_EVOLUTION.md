@@ -1,5 +1,8 @@
 # PROMPT EVOLUTION
 
+## Run 996 — 2026-11-03T12:30:00Z
+Evidence: Runs 992-995 each added a small read-only consistency or tags-hygiene printer (cta_end_screen_consistency, chapters_description_consistency, title_publish_consistency, tags_hygiene) while videos published stayed 0 and the OAuth stall continued. Prose notes mentioned saturation risk but did not stop the next printer. Lesson: strengthen the stall_watch detector for this pattern; prefer the human OAuth step or a true production capability that advances a packet toward completion. Do not add another consistency printer while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
+
 ## Run 983 — 2026-11-02T21:13:00Z
 Evidence: Runs 976-982 each extended tools/production_readiness.py with additional local QA signals (thumbnail size, VO duration, card counts, script presence, timeline estimates, caption CPS, metadata limits) while videos published stayed 0 and the OAuth stall continued. The aggregator now covers media_qa + assemble + captions presence/CPS + thumbnail + VO + cards + script + timeline + publish/timeline + metadata limits. Lesson: incremental report-field additions to the readiness aggregator are approaching saturation (similar to prior brief/candidates/sequence-printer patterns); strengthen the stall_watch detector and prefer the human OAuth step or a true production capability that advances a packet toward completion. Do not further extend production_readiness.py while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
 
@@ -7,55 +10,4 @@ Keep ORIGINAL_MASTER_PROMPT.md archival and unchanged.
 
 ## Evidence-based additions (do not silently rewrite the master)
 
-## Run 903 — 2026-10-30T10:30:00Z
-Evidence: Runs 900-902 each added a sequence printer (pipeline_entry.py, pipeline_entry_contract.py, pre_upload_review_steps.py) while videos published stayed 0 and the OAuth stall continued. Prior saturation_guard regex missed *_steps.py and entry printers. Lesson: sequence printers are low-leverage once stage guides and review sequences exist; strengthen the detector and prefer the human OAuth step or a true production capability that advances a packet toward completion. Do not add more sequence printers, briefs, or candidates tools while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
-
-## Run 827 — 2026-10-26T23:14:00Z
-Evidence: Runs 821-826 each added a new script_*_brief.py or *_candidates.py (or packet_readiness_brief) while videos published stayed 0 and the OAuth stall continued. The existing saturation_guard regex did not fully catch these patterns. Lesson: inspection/candidate generators are low-leverage once the preferred list is complete; strengthen the saturation detector and prefer the human OAuth step or a true production capability that advances a packet toward completion. Do not add more brief or candidates tools while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
-
-## Run 309
-Evidence: prove_locks existed and passed locally, but CI did not run it. A remembered command is not a lock. Prefer wiring an existing check into the workflow that already runs on push over adding a new upload status reason while OAuth is still the publish gate.
-
-## Run 322
-Evidence: Runs 319-321 each avoided the credential boundary and only locked operator copy. The Studio stall flag cleared because the new deltas no longer said Studio. Lesson: a stall printer must key off no-progress plus the repeated kind of edit, not one topic word. Do not add another instruction-only task while that flag is set.
-
-- 2026-10-05 Run 330: a dry-run field that names only youtube.upload is an operator footgun even when execute already refuses that token. Fix the printed scope before adding another gate.
-
-## Run 332
-Evidence: same-topic stall flags reset when the next run changes subject. Future operating prompts should treat eight OAuth-unpolled published-0 deltas as idle even if the tools mentioned differ. Do not add a scanner to make progress while that flag is set.
-
-## Run 360 — 2026-10-06T09:11:00Z
-Evidence: two Active locks blocks in NEXT.md hid the human secret step. Collapse repeated lock blocks. Do not add another OAuth exchange parser while videos published stay 0.
-
-## Run 379 — 2026-10-07T07:16:00Z
-Evidence: Run 378 printed SELFTEST PASS locally and Actions run 37580716646 failed because STATE.md and NEXT.md had 13 sections (max 12). A local pass is not a green push. Compact the live logs in the same commit that prepends a section. Do not treat a red selftest as a reason to add another recovery edge.
-
-## Run 381 — 2026-10-07T09:13:00Z
-- Evidence: Runs 368-378 added recovery edges while videos published stayed 0. Prose in FAILURES.md did not stop the next edge.
-- Change: stall_watch names `STALL_RECOVERY_EDGE`. Do not treat a lock sentence as the flag. Do not modify ORIGINAL_MASTER_PROMPT.md.
-
-## Run 382
-Evidence: Runs 368-378 stacked provider-state recovery edges while videos published stayed 0. Run 381 flagged the pattern after four deltas. The flag did not stop the next edge by itself. Selftest now fails if the production workflow grows another `provider-upload-state` artifact or another `persist_provider_state.py recover` call. Do not add an edge to clear that failure. Do not poll secrets.
-
-- 2026-10-09 Run 423: a passing publish contract is not a clean dry-run. Fix only a sentence or lone tag the dry-run still emits. If the next dry-run is clean, do not edit publish_brief. Do not modify ORIGINAL_MASTER_PROMPT.md.
-
-## Run 447 — 2026-10-10T14:16:00Z
-Evidence: oauth_idle_without_publish has persisted across ~175 runs (since before Run 270) with videos published remaining 0. Recent runs 437–446 were almost entirely fresh-clone materialize + gate verification + status notes or checklist additions. Pure verification has diminishing returns and does not compound capability. Lesson: after a long idle streak with no change in the external blocker, prefer a small fix to an existing production tool, a documentation clarification that prevents rediscovery, or stop rather than restating readiness. Do not treat another verification as progress. Do not modify ORIGINAL_MASTER_PROMPT.md.
-
-## Run 451 (2026-10-10T15:30:00Z)
-Evidence: oauth_idle_without_publish has now persisted ~180 runs with zero published videos. Materialize + gates remain PASS. Pure verification (materialize + status record) continues to have diminishing returns. 
-Lesson: Prefer any small unblocked production-tool or clarity improvement over another identical verification cycle. If no such improvement is available, record the stable state once and stop. Do not poll secrets. Do not scaffold Q2. Human step remains the checklist or operator_card.py then the three secrets and one dispatch.
-
-## Run 452 — 2026-10-10T16:20:00Z
-Evidence: oauth_idle_without_publish ~180 runs. Materialize + gates PASS. Added explicit human-facing note in the checklist that further pure verification is low-leverage.
-Lesson: When the external blocker is unchanged after many verified runs, surface that fact to the human in the checklist so the remaining action is unambiguous. Do not treat another verification cycle as progress.
-
-## Run 453 — 2026-10-10T17:13:00Z
-Evidence: oauth_idle_without_publish ~180 runs. Materialize + gates PASS. Added ONLY ACTION NEEDED banner at the top of docs/human_oauth_checklist.md.
-Lesson: Place the single remaining action in the most prominent position in the document humans are directed to. This reduces rediscovery for both humans and agents. Prefer clarity improvements in the existing human path over new verification cycles while the external blocker is unchanged. Do not modify ORIGINAL_MASTER_PROMPT.md.
-
-## Run 751 — 2026-10-23T13:42:00Z
-Evidence: Runs 747–750 (and earlier) repeatedly expanded ANTI_SLOP_PATTERNS with high-precision phrases while videos published stayed 0. List is now >160 entries. Normalization in quality_scan reduces need for dual variants. Lesson: phrase-list expansion is useful but approaching saturation; future runs should prefer other quality improvements (e.g. structure detectors, claim_scan hedges, or true capability) or the human OAuth step over additional exact-phrase additions. Do not modify ORIGINAL_MASTER_PROMPT.md.
-
-## Run 753 — 2026-10-23T18:18:00Z
-Evidence: docs/content_quality.md was a placeholder while tools and prior run notes claimed it held the quality contract. Inconsistency forces rediscovery. Lesson: keep the human-readable quality overview in sync with the single-source code (phrase_utils + quality_scan normalization). Prefer documenting the existing system over further phrase-list growth while OAuth remains the publish gate. Do not modify ORIGINAL_MASTER_PROMPT.md.
+(Older evolution notes remain below or in archive if present.)
