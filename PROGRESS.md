@@ -1,5 +1,10 @@
 # PROGRESS
 
+## 2026-11-03 Run 992
+- Added tools/cta_end_screen_consistency.py. Read-only check that CTA section spoken words share significant words with the description closing paragraph. Surfaces CTA/metadata drift early. Estimated savings: ~1 minute per packet. No credentials or media invent required. Does not extend the readiness aggregator.
+
+# PROGRESS
+
 ## 2026-11-03 Run 991
 - Added tools/title_thumbnail_consistency.py. Read-only check that thumbnail On-image text is short and shares significant words with the primary title. Surfaces visual/metadata drift early. Estimated savings: ~1 minute per packet. No credentials or media invent required. Does not extend the readiness aggregator.
 
