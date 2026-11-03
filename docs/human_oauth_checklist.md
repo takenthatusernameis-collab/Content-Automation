@@ -4,6 +4,8 @@
 
 **Banner timestamp intentionally frozen at Run 473 (STALL_BANNER_REFRESH). Agents will not update it solely to refresh the date.**
 
+**Estimated human time: 10-20 minutes** (Google Cloud project setup is the longest part if starting from scratch; mint + secrets + dispatch is ~5 minutes once the client exists).
+
 Videos published: 0. Local Q1 media (VO + cards + r253 master) is ready and gates pass after materialize. After the single execute dispatch, confirm success by a private provider video id appearing in the Actions log and in the packet upload_state.json (privacy stays private). Do not invent an id. Do not re-dispatch until that id is visible.
 
 Do not poll secrets from an agent run. Do not commit any secret or token file.
