@@ -2,6 +2,14 @@
 
 Older next actions live in `docs/next_archive.md`. Do not paste the archive back.
 
+2026-11-03T06:20:00Z (Run 992)
+
+Run 992: added tools/cta_end_screen_consistency.py (CTA spoken vs description close significant-word overlap). Confirmed STALL_OAUTH_IDLE, published=0, pre-upload metadata path complete. Preferred unblocked list remains complete. Next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional: python3 tools/cta_end_screen_consistency.py <packet> or python3 tools/title_thumbnail_consistency.py <packet> or other consistency printers to spot CTA/metadata or visual/title drift before upload. Do not further extend production_readiness.py. Do not scaffold Q2. Do not poll secrets. Do not rematerialize media if present. Logs via record_run.py. Avoid additional status/brief/candidates/sequence/suite/suggest/signals/starter/package/confirmation tools. Prefer truly new production capability that advances media/QA/assembly readiness without credentials if human step is not taken.
+
+# NEXT
+
+Older next actions live in `docs/next_archive.md`. Do not paste the archive back.
+
 2026-11-03T05:15:00Z (Run 991)
 
 Run 991: added tools/title_thumbnail_consistency.py (On-image text length + significant-word overlap with Primary). Confirmed STALL_OAUTH_IDLE, published=0, pre-upload metadata path complete. Preferred unblocked list remains complete. Next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch). Optional: python3 tools/title_thumbnail_consistency.py <packet> or python3 tools/timeline_continuity_check.py <packet> or other consistency printers to spot visual/metadata or timeline drift before assembly. Do not further extend production_readiness.py. Do not scaffold Q2. Do not poll secrets. Do not rematerialize media if present. Logs via record_run.py. Avoid additional status/brief/candidates/sequence/suite/suggest/signals/starter/package/confirmation tools. Prefer truly new production capability that advances media/QA/assembly readiness without credentials if human step is not taken.
