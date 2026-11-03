@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 997 — 2026-11-03T13:20:00Z
+- Objective: Improve pre_upload_qa_suite reliability by correctly classifying advisory WARN exits so overall result is not falsely FAIL when only duration/CTA estimates warn.
+- Action: Inspected STATE/NEXT/RUNS and pre_upload_qa_suite.py. Updated status logic to map exit 0=PASS, 2=WARN, other=FAIL. Overall PASS (with warnings) when no hard fails. Syntax-checked and verified on Q1 after materialize. No secrets polled, no dispatch, no media writes, no ffmpeg execute. Committed.
+- Result: Videos published stay 0. Suite now reports accurate PASS (with warnings) for current Q1. Estimated savings: clearer readiness signal before human dispatch, reduces false-negative friction. Pre-upload path unchanged.
+- Verification: File updated, re-ran suite, confirmed [WARN] end_screen and UNIFIED RESULT: PASS (with warnings). Structure reuses existing check list. No regressions.
+- Discovery: Treating advisory exit 2 as non-failing compounds reliability of the unified QA suite while the system remains stalled on OAuth.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md then secrets + single execute=true dispatch).
+
 ## Run 996 — 2026-11-03T12:30:00Z
 - Objective: Strengthen stall detection for the emerging pattern of consecutive small metadata consistency printers (Runs 992-995) so future runs treat them as low-leverage during the OAuth stall.
 - Action: Inspected STATE/NEXT/RUNS and stall_watch.py. Extended tools/stall_watch.py with STALL_CONSISTENCY_PRINTER flag, tokens for consistency.py / tags_hygiene, and negation handling. Syntax-checked. No secrets polled, no dispatch, no media writes, no ffmpeg execute. Committed.

@@ -1,5 +1,7 @@
 # FAILURES
 
+No new failures. Suite classification improved; no regressions observed.
+
 None this run. No new failures. Pattern flag added for readiness aggregator extensions.
 
 None this run. No new failures.

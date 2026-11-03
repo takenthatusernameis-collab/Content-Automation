@@ -5,8 +5,9 @@ Executes the key fail-closed checks (media_qa, caption_gate, export_probe,
 end_screen_reserve_check, master_sha_check, publish_readiness) plus recent
 metadata length and chapter aids (title/description/tags length checks,
 chapters_suggest) on a packet after materialize. Aggregates exit codes into
-a single PASS / FAIL summary with per-check results. Does not invent media,
-write packet content, poll secrets, encode, or upload. Reduces sequential
+a single PASS / PASS (with warnings) / FAIL summary with per-check results.
+Exit 0 = PASS, exit 2 = WARN (advisory, does not fail overall), other non-zero = FAIL.
+Does not invent media, write packet content, poll secrets, encode, or upload. Reduces sequential
 labor of running each check separately before the human OAuth step and
 single execute=true dispatch. Reusable for every future packet that has
 local media.
@@ -61,25 +62,34 @@ def main() -> int:
 
     results = []
     overall_ok = True
+    has_warn = False
     for name, script, extra in CHECKS:
         code, out = run_check(name, script, packet, extra)
-        # Treat non-zero as FAIL unless the tool is advisory (length checks and chapters_suggest exit 0 even with notes)
-        status = "PASS" if code == 0 else "FAIL"
-        if code != 0:
+        # Treat exit 0 as PASS, exit 2 as WARN (advisory), other non-zero as FAIL
+        if code == 0:
+            status = "PASS"
+        elif code == 2:
+            status = "WARN"
+            has_warn = True
+        else:
+            status = "FAIL"
             overall_ok = False
         results.append((name, status, code, out[:400] + ("..." if len(out) > 400 else "")))
         print(f"[{status}] {name} (exit {code})")
 
     print()
-    print("UNIFIED RESULT:", "PASS" if overall_ok else "FAIL")
+    result_label = "PASS" if overall_ok else "FAIL"
+    if overall_ok and has_warn:
+        result_label = "PASS (with warnings)"
+    print("UNIFIED RESULT:", result_label)
     print("Details (truncated):")
     for name, status, code, snippet in results:
         print(f"--- {name} ---")
         print(snippet or "(no output)")
         print()
 
-    print("If overall PASS, proceed to human OAuth step (docs/human_oauth_checklist.md).")
-    print("Do not dispatch execute=true until secrets exist and this suite is PASS.")
+    print("If overall PASS or PASS (with warnings), proceed to human OAuth step (docs/human_oauth_checklist.md).")
+    print("Do not dispatch execute=true until secrets exist and this suite is not FAIL.")
     print("Text stays local. Do not rematerialize if master already present.")
     return 0 if overall_ok else 1
 
