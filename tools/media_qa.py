@@ -4,7 +4,7 @@
 Checks Selected VO presence/header, card PNG dimensions when files exist,
 timeline assembly readiness, and (when present) export/master.mp4 ftyp.
 When a WAV exists, also reports peak, RMS, clip fraction, silence
-fraction, and leading/trailing silence seconds from PCM (stdlib only).
+fraction, leading/trailing silence seconds, and suggested trim offsets from PCM (stdlib only).
 
 Never invents a pass. Never runs ffmpeg. Never bumps packet status.
 Never re-implements selected_vo_drop.
@@ -77,7 +77,7 @@ def _wav_info(path: Path) -> dict:
 
 
 def _wav_levels(path: Path) -> dict:
-    """Peak / RMS / silence / clip / leading / trailing from PCM. Stdlib only. Fail-closed."""
+    """Peak / RMS / silence / clip / leading / trailing / suggested trim from PCM. Stdlib only. Fail-closed."""
     out = {
         "peak": 0.0,
         "rms": 0.0,
@@ -85,6 +85,8 @@ def _wav_levels(path: Path) -> dict:
         "clip_frac": 0.0,
         "leading_silence_s": 0.0,
         "trailing_silence_s": 0.0,
+        "suggested_trim_start_s": 0.0,
+        "suggested_trim_end_s": 0.0,
         "ok": False,
         "error": "",
     }
@@ -161,12 +163,18 @@ def _wav_levels(path: Path) -> dict:
             else:
                 break
 
+        total_s = total / float(rate) if rate > 0 else 0.0
+        lead_s = leading / float(rate) if rate > 0 else 0.0
+        trail_s = trailing / float(rate) if rate > 0 else 0.0
+
         out["peak"] = round(peak, 4)
         out["rms"] = round(rms, 4)
         out["silence_frac"] = round(silent / float(total), 4)
         out["clip_frac"] = round(clipped / float(total), 4)
-        out["leading_silence_s"] = round(leading / float(rate), 3)
-        out["trailing_silence_s"] = round(trailing / float(rate), 3)
+        out["leading_silence_s"] = round(lead_s, 3)
+        out["trailing_silence_s"] = round(trail_s, 3)
+        out["suggested_trim_start_s"] = round(lead_s, 3)
+        out["suggested_trim_end_s"] = round(max(0.0, total_s - trail_s), 3)
         out["ok"] = True
     except Exception as exc:  # noqa: BLE001
         out["error"] = str(exc)
@@ -231,6 +239,7 @@ def inspect_media(packet: Path) -> dict:
         add("vo_clip", False, "no wav levels")
         add("vo_leading_silence", False, "no wav levels")
         add("vo_trailing_silence", False, "no wav levels")
+        add("vo_suggested_trim", False, "no wav levels")
     else:
         w = vo["wav"]
         add("vo_decodable", bool(w["ok"]), w["error"] or f"{w['seconds']}s {w['rate']}Hz {w['channels']}ch")
@@ -243,6 +252,7 @@ def inspect_media(packet: Path) -> dict:
             add("vo_clip", False, lv.get("error") or "levels unavailable")
             add("vo_leading_silence", False, lv.get("error") or "levels unavailable")
             add("vo_trailing_silence", False, lv.get("error") or "levels unavailable")
+            add("vo_suggested_trim", False, lv.get("error") or "levels unavailable")
         else:
             peak_ok = MIN_PEAK <= lv["peak"] <= MAX_PEAK
             rms_ok = lv["rms"] >= MIN_RMS
@@ -257,6 +267,9 @@ def inspect_media(packet: Path) -> dict:
             trail_ok = lv["trailing_silence_s"] <= MAX_TRAILING_SILENCE_S
             add("vo_leading_silence", lead_ok, f"leading={lv['leading_silence_s']}s (soft max {MAX_LEADING_SILENCE_S}s)")
             add("vo_trailing_silence", trail_ok, f"trailing={lv['trailing_silence_s']}s (soft max {MAX_TRAILING_SILENCE_S}s)")
+            # Soft suggested trim (report only)
+            trim_detail = f"start={lv['suggested_trim_start_s']}s end={lv['suggested_trim_end_s']}s (soft; for future packets)"
+            add("vo_suggested_trim", True, trim_detail)
 
     mapped = [c for c in cards if c["rel"]]
     present = [c for c in mapped if c["present"]]
@@ -281,7 +294,7 @@ def inspect_media(packet: Path) -> dict:
         hard_names.update({"vo_peak", "vo_rms", "vo_silence", "vo_clip"})
     if export_present:
         hard_names.add("export_decodable")
-    # Note: vo_leading_silence and vo_trailing_silence are intentionally soft (report only)
+    # Note: vo_leading_silence, vo_trailing_silence, and vo_suggested_trim are intentionally soft (report only)
     hard = [c for c in checks if c["name"] in hard_names]
     gate = "PASS" if hard and all(c["ok"] for c in hard) else "FAIL"
     return {
@@ -308,7 +321,7 @@ def render_text(report: dict) -> str:
         f"export: {report['export']} present={'yes' if report['export_present'] else 'no'} decodable={'yes' if report['export_decodable'] else 'no'}",
         "repo-root vo/ is not Selected VO",
         "media_qa never runs ffmpeg and never bumps status",
-        "vo_leading_silence / vo_trailing_silence are soft reports only (do not fail the gate)",
+        "vo_leading_silence / vo_trailing_silence / vo_suggested_trim are soft reports only (do not fail the gate)",
     ]
     for c in report["checks"]:
         mark = "PASS" if c["ok"] else "FAIL"
