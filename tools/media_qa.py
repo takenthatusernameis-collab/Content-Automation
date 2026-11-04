@@ -4,7 +4,8 @@
 Checks Selected VO presence/header, card PNG dimensions when files exist,
 timeline assembly readiness, and (when present) export/master.mp4 ftyp.
 When a WAV exists, also reports peak, RMS, clip fraction, silence
-fraction, leading/trailing silence seconds, and suggested trim offsets from PCM (stdlib only).
+fraction, leading/trailing silence seconds, suggested trim offsets, and a
+ready dry-run ffmpeg atrim command from PCM (stdlib only).
 
 Never invents a pass. Never runs ffmpeg. Never bumps packet status.
 Never re-implements selected_vo_drop.
@@ -267,9 +268,16 @@ def inspect_media(packet: Path) -> dict:
             trail_ok = lv["trailing_silence_s"] <= MAX_TRAILING_SILENCE_S
             add("vo_leading_silence", lead_ok, f"leading={lv['leading_silence_s']}s (soft max {MAX_LEADING_SILENCE_S}s)")
             add("vo_trailing_silence", trail_ok, f"trailing={lv['trailing_silence_s']}s (soft max {MAX_TRAILING_SILENCE_S}s)")
-            # Soft suggested trim (report only)
-            trim_detail = f"start={lv['suggested_trim_start_s']}s end={lv['suggested_trim_end_s']}s (soft; for future packets)"
+            # Soft suggested trim + ready dry-run command (report only)
+            start_s = lv["suggested_trim_start_s"]
+            end_s = lv["suggested_trim_end_s"]
+            trim_detail = f"start={start_s}s end={end_s}s (soft; for future packets)"
             add("vo_suggested_trim", True, trim_detail)
+            # Actionable command only when there is meaningful silence to trim
+            if start_s > 0.3 or (end_s > 0 and (lv.get("trailing_silence_s", 0) > 0.3)):
+                vo_rel = vo["rel"]
+                cmd = f"ffmpeg -y -i {vo_rel} -af atrim=start={start_s}:end={end_s} -c copy {vo_rel.replace('.wav', '-trimmed.wav')}"
+                add("vo_suggested_trim_cmd", True, f"dry-run only: {cmd}")
 
     mapped = [c for c in cards if c["rel"]]
     present = [c for c in mapped if c["present"]]
@@ -294,7 +302,7 @@ def inspect_media(packet: Path) -> dict:
         hard_names.update({"vo_peak", "vo_rms", "vo_silence", "vo_clip"})
     if export_present:
         hard_names.add("export_decodable")
-    # Note: vo_leading_silence, vo_trailing_silence, and vo_suggested_trim are intentionally soft (report only)
+    # Note: vo_leading_silence, vo_trailing_silence, vo_suggested_trim, and vo_suggested_trim_cmd are intentionally soft (report only)
     hard = [c for c in checks if c["name"] in hard_names]
     gate = "PASS" if hard and all(c["ok"] for c in hard) else "FAIL"
     return {
@@ -321,7 +329,7 @@ def render_text(report: dict) -> str:
         f"export: {report['export']} present={'yes' if report['export_present'] else 'no'} decodable={'yes' if report['export_decodable'] else 'no'}",
         "repo-root vo/ is not Selected VO",
         "media_qa never runs ffmpeg and never bumps status",
-        "vo_leading_silence / vo_trailing_silence / vo_suggested_trim are soft reports only (do not fail the gate)",
+        "vo_leading_silence / vo_trailing_silence / vo_suggested_trim / vo_suggested_trim_cmd are soft reports only (do not fail the gate)",
     ]
     for c in report["checks"]:
         mark = "PASS" if c["ok"] else "FAIL"
