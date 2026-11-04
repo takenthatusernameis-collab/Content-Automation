@@ -2,11 +2,11 @@
 """One-command soft pre-upload report for a packet.
 
 Aggregates the soft limit and format match tools (title length, tags length,
-description length, thumbnail size/bytes/format, VO duration, publish sections) into a single
-summary. Surfaces any hard-limit risks or soft guidelines that a human should
-glance at before the OAuth step. Does not change hard gates, invent text or
-media, rewrite files, poll secrets, encode, or upload. Reduces sequential
-command labor for future packets. Reusable.
+description length, thumbnail size/bytes/format, VO duration, publish sections,
+end-screen reserve) into a single summary. Surfaces any hard-limit risks or
+soft guidelines that a human should glance at before the OAuth step. Does not
+change hard gates, invent text or media, rewrite files, poll secrets, encode,
+or upload. Reduces sequential command labor for future packets. Reusable.
 """
 
 from __future__ import annotations
@@ -28,6 +28,7 @@ SOFT_TOOLS = [
     ("thumbnail_format_match.py", "THUMBNAIL FORMAT"),
     ("vo_duration_match.py", "VO DURATION"),
     ("publish_sections_present.py", "PUBLISH SECTIONS"),
+    ("end_screen_reserve_check.py", "END-SCREEN RESERVE"),
 ]
 
 
@@ -63,7 +64,7 @@ def main() -> int:
         print(out or "(no output)")
         print()
         low = out.lower()
-        if any(k in low for k in ("exceeded", "hard limit: exceeded", "size match: no", "under", "too brief", "may truncate", "missing required")):
+        if any(k in low for k in ("exceeded", "hard limit: exceeded", "size match: no", "under", "too brief", "may truncate", "missing required", "short", "warn", "may not cover")):
             notes.append(label)
 
     print("=" * 72)
