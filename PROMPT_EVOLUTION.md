@@ -1,5 +1,8 @@
 # PROMPT EVOLUTION
 
+## Run 1025 — 2026-11-04T17:20:00Z
+Evidence: Runs 1023-1024 added individual soft length match tools while OAuth stall continued. Aggregating them into one soft_pre_upload_report.py reduces command surface without new hard gates or another pure consistency printer. Lesson: when soft advisory tools accumulate, prefer a single aggregator over more individual printers. Prefer human OAuth step or true media/QA capability. Do not add another consistency printer while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
+
 ## Run 996 — 2026-11-03T12:30:00Z
 Evidence: Runs 992-995 each added a small read-only consistency or tags-hygiene printer (cta_end_screen_consistency, chapters_description_consistency, title_publish_consistency, tags_hygiene) while videos published stayed 0 and the OAuth stall continued. Prose notes mentioned saturation risk but did not stop the next printer. Lesson: strengthen the stall_watch detector for this pattern; prefer the human OAuth step or a true production capability that advances a packet toward completion. Do not add another consistency printer while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
 
