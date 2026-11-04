@@ -48,7 +48,8 @@ def main() -> int:
     title = extract_section(text, "## Title to upload").splitlines()
     title = title[0].strip() if title else "(missing)"
 
-    print("HUMAN ONE-PAGER (STALL_OAUTH_IDLE; published=0)")
+    print("HUMAN ONE-PAGER (STALL_OAUTH_IDLE; published=0; LONG STALL SUSPICIOUS)")
+    print("Stall signal: python3 tools/stall_duration.py (consecutive idle runs)")
     print("Estimated human time: 10-20 minutes (setup longest if from scratch).")
     print()
     print("1. Metadata glance (fail-closed):")
