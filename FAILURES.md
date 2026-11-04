@@ -1,5 +1,7 @@
 # FAILURES
 
+Run 1015: Recovered from accidental full overwrite of tools/media_qa.py with placeholder text in prior commit. Restored from history and correctly extended. No functional regression after fix. Prefer surgical content updates over full-file replacements when extending tools.
+
 No new failures. Suite classification improved; no regressions observed.
 
 None this run. No new failures. Pattern flag added for readiness aggregator extensions.
