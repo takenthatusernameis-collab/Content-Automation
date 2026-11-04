@@ -6,8 +6,9 @@ timeline assembly readiness, and (when present) export/master.mp4 ftyp.
 When a WAV exists, also reports peak, RMS, clip fraction, silence
 fraction, leading/trailing silence seconds, suggested trim offsets, a
 ready dry-run ffmpeg atrim command, a ready dry-run ffmpeg volume
-command, and (when both apply) a ready combined dry-run ffmpeg command
-from PCM (stdlib only).
+command, (when both apply) a ready combined dry-run ffmpeg command,
+and a ready dry-run ffmpeg resample command when rate or channels
+differ from 48kHz stereo (stdlib only).
 
 Never invents a pass. Never runs ffmpeg. Never bumps packet status.
 Never re-implements selected_vo_drop.
@@ -43,6 +44,8 @@ EXPORT_REL = "export/master.mp4"
 MAX_LEADING_SILENCE_S = 1.5
 MAX_TRAILING_SILENCE_S = 2.0
 TARGET_PEAK = 0.80
+TARGET_RATE = 48000
+TARGET_CHANNELS = 2
 
 
 def mp4_header_ok(path: Path) -> bool:
@@ -248,6 +251,7 @@ def inspect_media(packet: Path) -> dict:
         add("vo_suggested_trim_cmd", False, "no wav levels")
         add("vo_suggested_gain_cmd", False, "no wav levels")
         add("vo_suggested_combined_cmd", False, "no wav levels")
+        add("vo_suggested_resample_cmd", False, "no wav levels")
     else:
         w = vo["wav"]
         add("vo_decodable", bool(w["ok"]), w["error"] or f"{w['seconds']}s {w['rate']}Hz {w['channels']}ch")
@@ -264,6 +268,7 @@ def inspect_media(packet: Path) -> dict:
             add("vo_suggested_trim_cmd", False, lv.get("error") or "levels unavailable")
             add("vo_suggested_gain_cmd", False, lv.get("error") or "levels unavailable")
             add("vo_suggested_combined_cmd", False, lv.get("error") or "levels unavailable")
+            add("vo_suggested_resample_cmd", False, lv.get("error") or "levels unavailable")
         else:
             peak_ok = MIN_PEAK <= lv["peak"] <= MAX_PEAK
             rms_ok = lv["rms"] >= MIN_RMS
@@ -304,6 +309,13 @@ def inspect_media(packet: Path) -> dict:
                 out_rel = vo_rel.replace('.wav', '-trim-gain.wav')
                 cmd = f"ffmpeg -y -i {vo_rel} -af atrim=start={start_s}:end={end_s},volume={gain_db}dB -c copy {out_rel}"
                 add("vo_suggested_combined_cmd", True, f"dry-run only (trim+gain, target peak {TARGET_PEAK}): {cmd}")
+            # Soft suggested resample command when rate or channels differ from export target (report only)
+            needs_resample = w.get("rate", 0) != TARGET_RATE or w.get("channels", 0) != TARGET_CHANNELS
+            if needs_resample:
+                vo_rel = vo["rel"]
+                out_rel = vo_rel.replace('.wav', '-48k-stereo.wav')
+                cmd = f"ffmpeg -y -i {vo_rel} -ar {TARGET_RATE} -ac {TARGET_CHANNELS} {out_rel}"
+                add("vo_suggested_resample_cmd", True, f"dry-run only (target {TARGET_RATE}Hz {TARGET_CHANNELS}ch): {cmd}")
 
     mapped = [c for c in cards if c["rel"]]
     present = [c for c in mapped if c["present"]]
@@ -328,7 +340,7 @@ def inspect_media(packet: Path) -> dict:
         hard_names.update({"vo_peak", "vo_rms", "vo_silence", "vo_clip"})
     if export_present:
         hard_names.add("export_decodable")
-    # Note: vo_leading_silence, vo_trailing_silence, vo_suggested_trim, vo_suggested_trim_cmd, vo_suggested_gain_cmd, and vo_suggested_combined_cmd are intentionally soft (report only)
+    # Note: vo_leading_silence, vo_trailing_silence, vo_suggested_trim, vo_suggested_trim_cmd, vo_suggested_gain_cmd, vo_suggested_combined_cmd, and vo_suggested_resample_cmd are intentionally soft (report only)
     hard = [c for c in checks if c["name"] in hard_names]
     gate = "PASS" if hard and all(c["ok"] for c in hard) else "FAIL"
     return {
@@ -355,7 +367,7 @@ def render_text(report: dict) -> str:
         f"export: {report['export']} present={'yes' if report['export_present'] else 'no'} decodable={'yes' if report['export_decodable'] else 'no'}",
         "repo-root vo/ is not Selected VO",
         "media_qa never runs ffmpeg and never bumps status",
-        "vo_leading_silence / vo_trailing_silence / vo_suggested_trim / vo_suggested_trim_cmd / vo_suggested_gain_cmd / vo_suggested_combined_cmd are soft reports only (do not fail the gate)",
+        "vo_leading_silence / vo_trailing_silence / vo_suggested_trim / vo_suggested_trim_cmd / vo_suggested_gain_cmd / vo_suggested_combined_cmd / vo_suggested_resample_cmd are soft reports only (do not fail the gate)",
     ]
     for c in report["checks"]:
         mark = "PASS" if c["ok"] else "FAIL"
