@@ -1,5 +1,8 @@
 # PROMPT EVOLUTION
 
+## Run 1027 — 2026-11-04T19:15:00Z
+Evidence: Run 1026 integrated a new soft sections check into the aggregator. Integrating an existing soft end-screen reserve check into the same aggregator further reduces sequential rediscovery without new hard gates or pure consistency printers. Lesson: continue preferring small reusable soft structural checks that fit the aggregator, or true media/QA capability, over additional standalone printers. Prefer human OAuth step while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
+
 ## Run 1026 — 2026-11-04T18:15:00Z
 Evidence: Run 1025 aggregated soft length/format tools. Adding a soft sections-presence check and integrating it into the same aggregator further reduces sequential rediscovery without new hard gates or pure consistency printers. Lesson: continue preferring small reusable soft structural checks that fit the aggregator, or true media/QA capability, over additional standalone printers. Prefer human OAuth step while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
 
