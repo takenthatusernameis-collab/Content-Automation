@@ -58,7 +58,7 @@ def main() -> int:
     print()
     print("1b. Soft media awareness (optional; does not block dispatch):")
     print("   python3 tools/soft_pre_upload_report.py <packet>")
-    print("   (one command aggregates title/tags/description length, thumbnail size/bytes/format, VO duration soft checks)")
+    print("   (one command aggregates title/tags/description length, thumbnail size/bytes/format, VO duration, publish sections soft checks)")
     print("   python3 tools/media_qa.py <packet>   # soft cmds for resample/trim/gain appear when relevant")
     print("   (duration delta, thumbnail size/bytes/format, title/tags/description length, and suggested dry-run recipes; soft only, gates unchanged)")
     print()

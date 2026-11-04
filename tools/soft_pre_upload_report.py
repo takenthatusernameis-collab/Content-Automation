@@ -2,7 +2,7 @@
 """One-command soft pre-upload report for a packet.
 
 Aggregates the soft limit and format match tools (title length, tags length,
-description length, thumbnail size/bytes/format, VO duration) into a single
+description length, thumbnail size/bytes/format, VO duration, publish sections) into a single
 summary. Surfaces any hard-limit risks or soft guidelines that a human should
 glance at before the OAuth step. Does not change hard gates, invent text or
 media, rewrite files, poll secrets, encode, or upload. Reduces sequential
@@ -27,6 +27,7 @@ SOFT_TOOLS = [
     ("thumbnail_bytes_match.py", "THUMBNAIL BYTES"),
     ("thumbnail_format_match.py", "THUMBNAIL FORMAT"),
     ("vo_duration_match.py", "VO DURATION"),
+    ("publish_sections_present.py", "PUBLISH SECTIONS"),
 ]
 
 
@@ -62,7 +63,7 @@ def main() -> int:
         print(out or "(no output)")
         print()
         low = out.lower()
-        if any(k in low for k in ("exceeded", "hard limit: exceeded", "size match: no", "under", "too brief", "may truncate")):
+        if any(k in low for k in ("exceeded", "hard limit: exceeded", "size match: no", "under", "too brief", "may truncate", "missing required")):
             notes.append(label)
 
     print("=" * 72)

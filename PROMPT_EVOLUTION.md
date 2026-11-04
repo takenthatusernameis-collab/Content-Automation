@@ -1,5 +1,8 @@
 # PROMPT EVOLUTION
 
+## Run 1026 — 2026-11-04T18:15:00Z
+Evidence: Run 1025 aggregated soft length/format tools. Adding a soft sections-presence check and integrating it into the same aggregator further reduces sequential rediscovery without new hard gates or pure consistency printers. Lesson: continue preferring small reusable soft structural checks that fit the aggregator, or true media/QA capability, over additional standalone printers. Prefer human OAuth step while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
+
 ## Run 1025 — 2026-11-04T17:20:00Z
 Evidence: Runs 1023-1024 added individual soft length match tools while OAuth stall continued. Aggregating them into one soft_pre_upload_report.py reduces command surface without new hard gates or another pure consistency printer. Lesson: when soft advisory tools accumulate, prefer a single aggregator over more individual printers. Prefer human OAuth step or true media/QA capability. Do not add another consistency printer while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
 
