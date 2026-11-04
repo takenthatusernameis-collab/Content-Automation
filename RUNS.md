@@ -1,3 +1,12 @@
+## Run 1028 — 2026-11-04T20:13:00Z
+- Objective: Confirm current system state after soft aggregation runs and avoid low-value additional soft checks while STALL_OAUTH_IDLE persists.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, ROADMAP.md, production_capabilities.md, soft_pre_upload_report.py, human_one_pager.py, topic_queue.md, publish.md, and related tools. Verified pre-upload path complete, aggregator includes length/format/sections/end-screen, media ready after materialize. No secrets polled, no dispatch, no media writes, no new tool created. Updated state files with confirmation.
+- Result: Videos published stay 0. Soft pre-upload aggregator is mature. Estimated savings from prior aggregation: 2-4 human minutes per future packet. No new capability added this run to prevent saturation. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: State files updated with accurate inspection notes. No code changes to tools. No regressions.
+- Discovery: Soft advisory aggregation has reached a practical complete state for pre-upload rediscovery reduction; further printers have diminishing returns while OAuth remains the sole blocker.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_one_pager.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/soft_pre_upload_report.py on a packet.
+
 ## Run 1027 — 2026-11-04T19:15:00Z
 - Objective: Integrate the existing end-screen reserve soft check into the one-command soft pre-upload aggregator to further reduce sequential rediscovery during the human OAuth step.
 - Action: Inspected STATE/NEXT and soft tools. Surgically added end_screen_reserve_check.py to SOFT_TOOLS in tools/soft_pre_upload_report.py and expanded advisory keyword detection. Updated pointer text in tools/human_one_pager.py. No secrets polled, no dispatch, no media writes. Committed.

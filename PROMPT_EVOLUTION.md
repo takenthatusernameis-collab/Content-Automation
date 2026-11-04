@@ -1,5 +1,8 @@
 # PROMPT EVOLUTION
 
+## Run 1028 — 2026-11-04T20:13:00Z
+Evidence: Runs 1024-1027 successively added and aggregated soft pre-upload checks (length, format, sections, end-screen) while videos published stayed 0 and STALL_OAUTH_IDLE continued. The aggregator is now mature. Adding another soft check would be low-leverage activity. Lesson: soft advisory aggregation has reached practical completeness for pre-upload rediscovery reduction; further printers have diminishing returns. Prefer the human OAuth step or a true post-publish/experiment capability that does not invent data. Do not add another consistency printer while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
+
 ## Run 1027 — 2026-11-04T19:15:00Z
 Evidence: Run 1026 integrated a new soft sections check into the aggregator. Integrating an existing soft end-screen reserve check into the same aggregator further reduces sequential rediscovery without new hard gates or pure consistency printers. Lesson: continue preferring small reusable soft structural checks that fit the aggregator, or true media/QA capability, over additional standalone printers. Prefer human OAuth step while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
 
