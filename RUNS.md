@@ -1,3 +1,12 @@
+## Run 1027 — 2026-11-04T19:15:00Z
+- Objective: Integrate the existing end-screen reserve soft check into the one-command soft pre-upload aggregator to further reduce sequential rediscovery during the human OAuth step.
+- Action: Inspected STATE/NEXT and soft tools. Surgically added end_screen_reserve_check.py to SOFT_TOOLS in tools/soft_pre_upload_report.py and expanded advisory keyword detection. Updated pointer text in tools/human_one_pager.py. No secrets polled, no dispatch, no media writes. Committed.
+- Result: Videos published stay 0. Aggregator now includes CTA duration vs end-screen reserve advisory. Estimated savings: 0.5-1 human minute per future packet by collapsing one more soft check into the single command. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: Files edited, syntax valid. Soft only. No regressions.
+- Discovery: End-screen reserve estimation is a recurring pre-upload structural check that compounds with length/format/section soft tools when aggregated.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_one_pager.py then secrets + single execute=true dispatch). Optional: python3 tools/soft_pre_upload_report.py on a packet.
+
 ## Run 1026 — 2026-11-04T18:15:00Z
 - Objective: Add a soft, reusable check that required sections exist in publish.md, reducing rediscovery of missing metadata parts during the human OAuth step.
 - Action: Inspected STATE/NEXT and soft tools. Created tools/publish_sections_present.py (stdlib section presence). Surgically added to SOFT_TOOLS in tools/soft_pre_upload_report.py and updated pointer in tools/human_one_pager.py. No secrets polled, no dispatch, no media writes. Committed.
