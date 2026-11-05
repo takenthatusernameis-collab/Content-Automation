@@ -1,3 +1,12 @@
+## Run 1050 — 2026-11-05T19:15:00Z
+- Objective: Lock the fail-closed missing-script.md path of the edit timeline planner so it does not regress while the OAuth stall continues.
+- Action: Inspected STATE/NEXT/RUNS/BLOCKED and existing timeline.py. Created tools/timeline_contract.py (asserts exit 1 + key phrase "missing script.md" when no script.md is present). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
+- Result: Videos published stay 0. New contract available for the timeline planner. Estimated savings: prevents silent regression of the missing-script refuse for future runs. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: File created. Soft only. No regressions.
+- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; locking the timeline planner compounds reliability of the pre-upload edit planning path without adding printers or requiring credentials.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/timeline_contract.py.
+
 ## Run 1049 — 2026-11-05T18:14:00Z
 - Objective: Lock the fail-closed missing-provider_video_id path of the YouTube feedback collector so it does not regress into inventing metrics while the OAuth stall continues.
 - Action: Inspected STATE/NEXT/RUNS/BLOCKED and existing youtube_feedback.py. Created tools/youtube_feedback_contract.py (asserts exit 2 + key phrases including gate: HOLD_UNPUBLISHED when no provider_video_id is present). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
