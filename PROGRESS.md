@@ -1,3 +1,5 @@
+2026-11-05 (Run 1051): Added tools/contract_streak_detector.py. Flags consecutive *contract.py addition runs (threshold 5) as saturating so the reliability-lock pattern is machine-visible and future runs prefer the human OAuth step or true new capability. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion. Avoided further contract locks and more status printers.
+
 2026-11-05 (Run 1050): Added tools/timeline_contract.py. Locks the fail-closed missing-script.md path (exit 1 + key phrase "missing script.md") of the edit timeline planner so the refuse behavior does not regress. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion. Avoided tool breakage and more status printers.
 
 2026-11-05 (Run 1049): Added tools/youtube_feedback_contract.py. Locks the fail-closed missing-provider_video_id path (exit 2 + key phrases including gate: HOLD_UNPUBLISHED) of the feedback collector so the unpublished hold does not regress into inventing metrics. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion. Avoided tool breakage and more status printers.
@@ -9,8 +11,6 @@
 2026-11-05 (Run 1046): Added tools/assemble_contract.py. Locks the fail-closed missing-media path (exit 2 + key phrases including gate: HOLD_MEDIA) of the assembly planner so the HOLD_MEDIA refuse does not regress. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion. Avoided tool breakage and more status printers.
 
 2026-11-05 (Run 1045): Added tools/experiment_loop_contract.py. Locks the fail-closed missing-provider_video_id path (exit 2 + key phrases) of the experiment ledger so the unpublished hold does not regress. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion. Avoided tool breakage and more status printers.
-
-2026-11-05 (Run 1044): Added tools/media_qa_contract.py. Locks the fail-closed missing-Selected-VO path (exit 2 + key phrases) of the media QA gate so the refuse behavior does not regress. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion. Avoided tool breakage and more status printers.
 
 (Older progress notes remain in docs/progress_archive.md.)
 
