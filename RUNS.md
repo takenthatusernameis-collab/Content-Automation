@@ -1,3 +1,12 @@
+## Run 1055 — 2026-11-05T23:16:38Z
+- Objective: Reduce rediscovery friction for the human OAuth step by aligning the checklist documentation with the latest human_starter.py sequencing and clarifying the post-id path.
+- Action: Inspected STATE/NEXT/RUNS/BLOCKED/HANDOFF/HUMAN_PRIORITY and tools/human_starter.py. Updated docs/human_oauth_checklist.md Quick start section and Current stall note to list the full sequence (media presence + preflight + long stall + contract streak + readiness + one-pager) and point to post_publish_sequence.py after id. Updated state files. No secrets polled, no dispatch, no media writes. Committed.
+- Result: Videos published stay 0. Human checklist now matches the single entry point more completely. Estimated savings: reduces human confusion about what the starter does and what to do after the first video id appears. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: File updated and committed. Soft documentation only. No regressions.
+- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; documentation alignment compounds the value of the earlier starter improvements without adding new printers or contracts.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or docs/human_oauth_checklist.md then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/contract_streak_detector.py.
+
 ## Run 1054 — 2026-11-05T22:24:19Z
 - Objective: Make the single human entry point robust for fresh clones by surfacing the materialize step when media is absent, reducing rediscovery friction.
 - Action: Inspected STATE/NEXT/RUNS/BLOCKED. Updated tools/human_starter.py to run media_fingerprint.py first (with flush) and print the materialize_q1_release.py command if PRESENT is absent. Updated state files. No secrets polled, no dispatch, no media writes (media remains gitignored). Committed.
@@ -60,14 +69,5 @@
 - Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; locking the uploader compounds reliability of the pre-upload path without adding printers or requiring credentials.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
 - Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/youtube_upload_contract.py.
-
-## Run 1046 — 2026-11-05T14:30:00Z
-- Objective: Lock the fail-closed missing-media path of the assembly planner so it does not regress while the OAuth stall continues.
-- Action: Inspected STATE/NEXT/RUNS/BLOCKED and existing assemble.py. Created tools/assemble_contract.py (asserts exit 2 + key phrases including gate: HOLD_MEDIA when no media is present). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
-- Result: Videos published stay 0. New contract available for the assembly planner. Estimated savings: prevents silent regression of the HOLD_MEDIA refuse for future runs. Pre-upload path unchanged. Gate behavior unchanged.
-- Verification: File created and contract ran PASS locally. Soft only. No regressions.
-- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; locking the assembly planner compounds reliability of the pre-upload path without adding printers or requiring credentials.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
-- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/assemble_contract.py.
 
 (Older run logs remain in docs/runs_archive.md. Do not paste the archive back.)
