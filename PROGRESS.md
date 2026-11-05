@@ -1,3 +1,5 @@
+2026-11-05 (Run 1035): Added tools/human_one_pager_contract.py. Minimal contract verifies the human one-pager surfaces stall flag, dispatch command, and success criteria on the default packet. Improves reliability of the sole remaining human step visibility. Still 0 published. OAuth stall continues and is flagged as suspicious. Avoided tool breakage and more status printers.
+
 2026-11-05 (Run 1034): Added tools/experiment_baseline_scaffold.py and tools/experiment_baseline_scaffold_contract.py. Non-destructive copy of the documented template into a packet with fill instructions. Improves reliability of the post-publish learning path by reducing rediscovery. Still 0 published. OAuth stall continues. Avoided tool breakage and more status printers.
 
 2026-11-05 (Run 1033): Added tools/experiment_baseline_validate.py and tools/experiment_baseline_validate_contract.py. Fail-closed checker for documented experiment baselines (imports load_baseline). Improves reliability of the post-publish learning path. Still 0 published. OAuth stall continues. Avoided tool breakage and more status printers.

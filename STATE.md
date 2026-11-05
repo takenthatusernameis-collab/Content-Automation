@@ -1,3 +1,7 @@
+2026-11-05T03:14:00Z (Run 1035)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/human_one_pager_contract.py (verifies key stall, dispatch, and success phrases surface on the default packet). Confirms pre-upload path complete and long-running STALL_OAUTH_IDLE (1000+ runs). No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and increasingly suspicious. Prefer human OAuth step now.
+
 2026-11-05T02:15:00Z (Run 1034)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/experiment_baseline_scaffold.py (copies template into packet if absent, prints fill instructions) and tools/experiment_baseline_scaffold_contract.py (verifies write + validator reject-on-template / accept-on-filled). Advances post-publish experiment readiness without credentials. Contract verified PASS. No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and long-running (hundreds of runs). Prefer human OAuth step now.

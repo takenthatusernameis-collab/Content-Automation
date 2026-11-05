@@ -1,3 +1,12 @@
+## Run 1035 — 2026-11-05T03:14:00Z
+- Objective: Add a minimal reliability contract for the human one-pager to keep the sole remaining human OAuth step visible and non-breaking across stalled runs.
+- Action: Inspected STATE/NEXT/RUNS/ROADMAP/BLOCKED and human_one_pager.py. Created tools/human_one_pager_contract.py (runs pager on default packet, asserts key phrases). Verified contract PASS. Updated state files. No secrets polled, no dispatch, no media writes. Committed.
+- Result: Videos published stay 0. New contract available for future verification of the human-step summary. Estimated savings: reduces risk of broken one-pager in future runs. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: Contract created and runs PASS. Syntax valid. Soft only. No regressions.
+- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; visibility tools benefit from lightweight contracts.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_one_pager.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/human_one_pager_contract.py.
+
 ## Run 1034 — 2026-11-05T02:15:00Z
 - Objective: Add a reusable scaffold for experiment baselines to advance post-publish readiness without credentials.
 - Action: Inspected STATE/NEXT/RUNS and experiment tools. Created tools/experiment_baseline_scaffold.py (copies template if absent). Created tools/experiment_baseline_scaffold_contract.py (temp packet: writes template, validate rejects, filled accepts). Verified contract PASS. Updated state files. No secrets polled, no dispatch, no media writes. Committed.
