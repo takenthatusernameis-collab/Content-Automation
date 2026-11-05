@@ -1,3 +1,7 @@
+2026-11-05T02:15:00Z (Run 1034)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/experiment_baseline_scaffold.py (copies template into packet if absent, prints fill instructions) and tools/experiment_baseline_scaffold_contract.py (verifies write + validator reject-on-template / accept-on-filled). Advances post-publish experiment readiness without credentials. Contract verified PASS. No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and long-running (hundreds of runs). Prefer human OAuth step now.
+
 2026-11-05T01:20:00Z (Run 1033)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/experiment_baseline_validate.py (fail-closed checker importing load_baseline contract) and tools/experiment_baseline_validate_contract.py (verifies reject missing/null, accept valid stub). Advances post-publish experiment readiness without credentials. No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and long-running (hundreds of runs). Prefer human OAuth step now.
