@@ -1,3 +1,12 @@
+## Run 1047 — 2026-11-05T15:21:00Z
+- Objective: Lock the fail-closed missing-local-media and missing-OAuth path of the YouTube uploader so it does not regress while the OAuth stall continues.
+- Action: Inspected STATE/NEXT/RUNS/BLOCKED and existing youtube_upload.py. Created tools/youtube_upload_contract.py (asserts exit 2 + key phrases including gate: FAIL, action: HOLD_LOCAL, auth: YOUTUBE_AUTH_REQUIRED when no media/OAuth is present). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
+- Result: Videos published stay 0. New contract available for the uploader. Estimated savings: prevents silent regression of the HOLD_LOCAL / AUTH refuse for future runs. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: File created and contract ran PASS locally. Soft only. No regressions.
+- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; locking the uploader compounds reliability of the pre-upload path without adding printers or requiring credentials.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/youtube_upload_contract.py.
+
 ## Run 1046 — 2026-11-05T14:30:00Z
 - Objective: Lock the fail-closed missing-media path of the assembly planner so it does not regress while the OAuth stall continues.
 - Action: Inspected STATE/NEXT/RUNS/BLOCKED and existing assemble.py. Created tools/assemble_contract.py (asserts exit 2 + key phrases including gate: HOLD_MEDIA when no media is present). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
