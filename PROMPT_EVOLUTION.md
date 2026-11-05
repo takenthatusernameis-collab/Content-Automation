@@ -1,5 +1,8 @@
 # PROMPT EVOLUTION
 
+## Run 1051 — 2026-11-05T20:20:00Z
+Evidence: Runs 1044-1050 each added a new *contract.py locking a fail-closed path of an existing tool (timeline, youtube_feedback, complete, youtube_upload, assemble, experiment_loop, media_qa) while videos published stayed 0 and STALL_OAUTH_IDLE continued. The reliability locks are useful but the streak is saturating. Lesson: added tools/contract_streak_detector.py to make the pattern machine-visible (threshold 5). Prefer the human OAuth step or a true new production capability over further pure contract locks. Do not add another consistency printer, aggregator, or contract lock while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
+
 ## Run 1028 — 2026-11-04T20:13:00Z
 Evidence: Runs 1024-1027 successively added and aggregated soft pre-upload checks (length, format, sections, end-screen) while videos published stayed 0 and STALL_OAUTH_IDLE continued. The aggregator is now mature. Adding another soft check would be low-leverage activity. Lesson: soft advisory aggregation has reached practical completeness for pre-upload rediscovery reduction; further printers have diminishing returns. Prefer the human OAuth step or a true post-publish/experiment capability that does not invent data. Do not add another consistency printer while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
 
