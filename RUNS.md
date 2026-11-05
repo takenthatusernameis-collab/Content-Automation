@@ -1,3 +1,12 @@
+## Run 1045 — 2026-11-05T13:26:00Z
+- Objective: Lock the fail-closed missing-provider_video_id path of the experiment ledger so it does not regress while the OAuth stall continues.
+- Action: Inspected STATE/NEXT/RUNS/BLOCKED and existing experiment_loop.py. Created tools/experiment_loop_contract.py (asserts exit 2 + key phrases including gate: HOLD_UNPUBLISHED when no provider_video_id is present). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
+- Result: Videos published stay 0. New contract available for the experiment ledger. Estimated savings: prevents silent regression of the unpublished hold for future runs and after first publish. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: File created and contract ran PASS locally. Soft only. No regressions.
+- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; locking the experiment ledger compounds reliability of the post-publish path without adding printers or requiring credentials.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/experiment_loop_contract.py.
+
 ## Run 1044 — 2026-11-05T14:19:00Z
 - Objective: Lock the fail-closed missing-Selected-VO path of the media QA gate so it does not regress while the OAuth stall continues.
 - Action: Inspected STATE/NEXT/RUNS/BLOCKED and existing media_qa.py. Created tools/media_qa_contract.py (asserts exit 2 + key phrases including gate: FAIL and selected_vo_present when no Selected VO is present). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
@@ -15,23 +24,5 @@
 - Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; locking the setup recipe compounds reliability of the human entry path without adding printers or requiring credentials.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
 - Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/oauth_setup_contract.py.
-
-## Run 1042 — 2026-11-05T10:15:00Z
-- Objective: Lock the fail-closed missing-secrets path of the authenticated-dispatch guard so it does not regress while the OAuth stall continues.
-- Action: Inspected STATE/NEXT/RUNS/BLOCKED and existing oauth_preflight.py. Created tools/oauth_preflight_contract.py (asserts exit 3 + key phrases when OAuth env vars are absent). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
-- Result: Videos published stay 0. New contract available for the preflight guard. Estimated savings: prevents silent regression of the refuse-on-missing-secrets behavior for future authenticated dispatches. Pre-upload path unchanged. Gate behavior unchanged.
-- Verification: File created. Soft only. No regressions.
-- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; locking the preflight compounds reliability of the fail-closed path without adding printers or requiring credentials.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
-- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/oauth_preflight_contract.py.
-
-## Run 1041 — 2026-11-05T09:17:43Z
-- Objective: Lock the fail-closed HOLD path of the post-publish sequence tool so it does not regress while the OAuth stall continues.
-- Action: Inspected STATE/NEXT/RUNS/BLOCKED and existing post_publish_sequence.py. Created tools/post_publish_sequence_contract.py (asserts key phrases on the no-id path). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
-- Result: Videos published stay 0. New contract available for the post-publish reminder. Estimated savings: prevents silent regression of the HOLD guidance for future runs and after first publish. Pre-upload path unchanged. Gate behavior unchanged.
-- Verification: File created. Soft only. No regressions.
-- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; locking post-publish tools compounds reliability without adding printers or requiring credentials.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
-- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/post_publish_sequence_contract.py.
 
 (Older run logs remain in docs/runs_archive.md. Do not paste the archive back.)
