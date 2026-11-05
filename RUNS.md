@@ -1,3 +1,12 @@
+## Run 1048 — 2026-11-05T16:20:00Z
+- Objective: Lock the fail-closed incomplete path of the completion gate so markdown-only packets cannot be claimed COMPLETE while the OAuth stall continues.
+- Action: Inspected STATE/NEXT/RUNS/BLOCKED and existing complete.py. Created tools/complete_contract.py (asserts exit 2 + key phrases including gate: INCOMPLETE_MEDIA, action: HOLD_MEDIA when no media/export/publish/metrics exist). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
+- Result: Videos published stay 0. New contract available for the completion gate. Estimated savings: prevents silent regression of the INCOMPLETE_* refuse for future runs. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: File created and contract ran PASS locally. Soft only. No regressions.
+- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; locking the completion gate compounds reliability of the post-evidence path without adding printers or requiring credentials.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/complete_contract.py.
+
 ## Run 1047 — 2026-11-05T15:21:00Z
 - Objective: Lock the fail-closed missing-local-media and missing-OAuth path of the YouTube uploader so it does not regress while the OAuth stall continues.
 - Action: Inspected STATE/NEXT/RUNS/BLOCKED and existing youtube_upload.py. Created tools/youtube_upload_contract.py (asserts exit 2 + key phrases including gate: FAIL, action: HOLD_LOCAL, auth: YOUTUBE_AUTH_REQUIRED when no media/OAuth is present). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
