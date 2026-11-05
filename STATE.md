@@ -1,3 +1,7 @@
+2026-11-05T23:16:38Z (Run 1055)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Strengthened docs/human_oauth_checklist.md Quick start and Current stall note to reflect the latest human_starter.py sequencing (media presence check + preflight + long stall + contract streak detector + publish readiness + one-pager). After-id pointer to post_publish_sequence.py clarified. No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and increasingly suspicious (1000+ runs). Prefer human OAuth step now (start with python3 tools/human_starter.py or open docs/HUMAN_PRIORITY.md or docs/human_oauth_checklist.md).
+
 2026-11-05T22:24:19Z (Run 1054)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Updated tools/human_starter.py to sequence a soft media presence check (media_fingerprint.py) first so the single human entry point surfaces the materialize_q1_release.py command when media is absent on a fresh clone or machine. Confirmed after materialize: publish_readiness READY_FOR_HUMAN_DISPATCH, media_qa PASS. No secrets polled, no dispatch. Pre-upload path fully verified. STALL_OAUTH_IDLE primary and increasingly suspicious (1000+ runs). Prefer human OAuth step now (start with python3 tools/human_starter.py or open docs/HUMAN_PRIORITY.md or python3 tools/oauth_setup.py).
@@ -29,9 +33,5 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Ad
 2026-11-05T15:21:00Z (Run 1047)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/youtube_upload_contract.py to lock the fail-closed missing-local-media and missing-OAuth path of youtube_upload.py (exit 2 + key phrases including gate: FAIL, action: HOLD_LOCAL, auth: YOUTUBE_AUTH_REQUIRED). Confirms pre-upload uploader cannot regress. No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and increasingly suspicious (1000+ runs). Prefer human OAuth step now (start with python3 tools/human_starter.py or open docs/HUMAN_PRIORITY.md or python3 tools/oauth_setup.py).
-
-2026-11-05T14:30:00Z (Run 1046)
-
-OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/assemble_contract.py to lock the fail-closed missing-media path of assemble.py (exit 2 + key phrases including gate: HOLD_MEDIA). Confirms pre-upload assembly planner cannot regress. No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and increasingly suspicious (1000+ runs). Prefer human OAuth step now (start with python3 tools/human_starter.py or open docs/HUMAN_PRIORITY.md or python3 tools/oauth_setup.py).
 
 (Older state notes remain below or in docs/state_archive.md. Do not paste the archive back.)
