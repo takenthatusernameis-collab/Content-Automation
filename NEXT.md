@@ -1,3 +1,7 @@
+2026-11-05T05:15:00Z (Run 1037)
+
+Run 1037: added tools/human_preflight.py and tools/human_preflight_contract.py for local environment readiness checks before the human OAuth step. Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete. Next: human step (python3 tools/human_preflight.py then docs/human_oauth_checklist.md or python3 tools/human_one_pager.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/human_preflight_contract.py. Do not add another consistency printer or aggregator. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
+
 2026-11-05T04:20:00Z (Run 1036)
 
 Run 1036: added tools/post_publish_sequence_contract.py for reliability of the post-publish reminder path. Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete. Next: human step (docs/human_oauth_checklist.md or python3 tools/human_one_pager.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/post_publish_sequence_contract.py or python3 tools/human_one_pager_contract.py. Do not add another consistency printer or aggregator. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
