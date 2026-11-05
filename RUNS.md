@@ -1,3 +1,12 @@
+## Run 1034 — 2026-11-05T02:15:00Z
+- Objective: Add a reusable scaffold for experiment baselines to advance post-publish readiness without credentials.
+- Action: Inspected STATE/NEXT/RUNS and experiment tools. Created tools/experiment_baseline_scaffold.py (copies template if absent). Created tools/experiment_baseline_scaffold_contract.py (temp packet: writes template, validate rejects, filled accepts). Verified contract PASS. Updated state files. No secrets polled, no dispatch, no media writes. Committed.
+- Result: Videos published stay 0. New scaffold available for future packets after publish. Estimated savings: reduces rediscovery of baseline template structure after first video id appears. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: Contract created and runs PASS. Syntax valid. Soft only. No regressions.
+- Discovery: Scaffolding the documented template compounds reliability for the learning loop by making the human fill step explicit and non-destructive.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_one_pager.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/experiment_baseline_scaffold.py on a packet then fill and validate.
+
 ## Run 1033 — 2026-11-05T01:20:00Z
 - Objective: Add a reusable fail-closed validator for experiment baselines to advance post-publish readiness without credentials.
 - Action: Inspected STATE/NEXT/RUNS/ROADMAP and experiment_loop.py. Created tools/experiment_baseline_validate.py (imports load_baseline). Created tools/experiment_baseline_validate_contract.py (temp packet: rejects missing/null, accepts valid). Verified contract PASS locally. Updated state files. No secrets polled, no dispatch, no media writes. Committed.
