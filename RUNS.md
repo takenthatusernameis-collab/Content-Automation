@@ -1,3 +1,12 @@
+## Run 1051 — 2026-11-05T20:20:00Z
+- Objective: Flag the saturating pattern of consecutive reliability-contract additions while the OAuth stall continues, so future runs prefer the human step or true new capability.
+- Action: Inspected STATE/NEXT/RUNS/BLOCKED. Created tools/contract_streak_detector.py (counts consecutive *contract.py additions in recent RUNS.md sections; flags at threshold 5). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
+- Result: Videos published stay 0. New detector available to surface contract-streak saturation. Estimated savings: prevents further low-leverage contract locks by making the pattern machine-visible. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: File created. Soft only. No regressions.
+- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; the recent 7-run contract-addition streak is itself a saturating pattern that should now be flagged.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so. Contract streak also flagged.
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/contract_streak_detector.py.
+
 ## Run 1050 — 2026-11-05T19:15:00Z
 - Objective: Lock the fail-closed missing-script.md path of the edit timeline planner so it does not regress while the OAuth stall continues.
 - Action: Inspected STATE/NEXT/RUNS/BLOCKED and existing timeline.py. Created tools/timeline_contract.py (asserts exit 1 + key phrase "missing script.md" when no script.md is present). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
