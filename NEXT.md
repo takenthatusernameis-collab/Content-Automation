@@ -1,3 +1,7 @@
+2026-11-05T07:20:00Z (Run 1039)
+
+Run 1039: added tools/human_starter.py and tools/human_starter_contract.py as a single entry point sequencing preflight + long stall report + one-pager. Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete. Next: human step (python3 tools/human_starter.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/human_starter_contract.py. Do not add another consistency printer or aggregator. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
+
 2026-11-05T06:18:42Z (Run 1038)
 
 Run 1038: added tools/long_stall_report.py and tools/long_stall_report_contract.py to surface the long OAuth stall as HIGH suspicion. Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete. Next: human step (python3 tools/human_preflight.py then docs/human_oauth_checklist.md or python3 tools/human_one_pager.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/long_stall_report.py. Do not add another consistency printer or aggregator. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
