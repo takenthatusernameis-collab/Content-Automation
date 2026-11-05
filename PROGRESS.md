@@ -1,3 +1,5 @@
+2026-11-05 (Run 1037): Added tools/human_preflight.py and tools/human_preflight_contract.py. Local environment checks (gh CLI/auth, python, write outside repo, tool presence) for the human OAuth step. Improves reliability of the sole remaining human step by surfacing readiness before minting. Still 0 published. OAuth stall continues and is flagged as suspicious. Avoided tool breakage and more status printers.
+
 2026-11-05 (Run 1036): Added tools/post_publish_sequence_contract.py. Minimal contract verifies the post-publish sequence surfaces the no-id HOLD path and human-step pointer on the default packet. Improves reliability of the after-id reminder. Still 0 published. OAuth stall continues and is flagged as suspicious. Avoided tool breakage and more status printers.
 
 2026-11-05 (Run 1035): Added tools/human_one_pager_contract.py. Minimal contract verifies the human one-pager surfaces stall flag, dispatch command, and success criteria on the default packet. Improves reliability of the sole remaining human step visibility. Still 0 published. OAuth stall continues and is flagged as suspicious. Avoided tool breakage and more status printers.
