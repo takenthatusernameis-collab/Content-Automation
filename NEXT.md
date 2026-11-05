@@ -1,3 +1,7 @@
+2026-11-05T02:15:00Z (Run 1034)
+
+Run 1034: added tools/experiment_baseline_scaffold.py and its contract for post-publish experiment readiness. Confirmed STALL_OAUTH_IDLE long-running (hundreds of runs), published=0, pre-upload complete. Next: human step (docs/human_oauth_checklist.md or python3 tools/human_one_pager.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/experiment_baseline_scaffold.py <packet> then fill and python3 tools/experiment_baseline_validate.py <packet>. Do not add another consistency printer or aggregator. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
+
 2026-11-05T01:20:00Z (Run 1033)
 
 Run 1033: added tools/experiment_baseline_validate.py and its contract for post-publish experiment readiness. Confirmed STALL_OAUTH_IDLE long-running (hundreds of runs), published=0, pre-upload complete. Next: human step (docs/human_oauth_checklist.md or python3 tools/human_one_pager.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/experiment_baseline_validate.py <packet> or python3 tools/experiment_baseline_validate_contract.py. Do not add another consistency printer or aggregator. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
