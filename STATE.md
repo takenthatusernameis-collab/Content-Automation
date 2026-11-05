@@ -1,3 +1,7 @@
+2026-11-05T19:15:00Z (Run 1050)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/timeline_contract.py to lock the fail-closed missing-script.md path of timeline.py (exit 1 + key phrase "missing script.md"). Confirms the edit timeline planner cannot regress into processing incomplete packets. No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and increasingly suspicious (1000+ runs). Prefer human OAuth step now (start with python3 tools/human_starter.py or open docs/HUMAN_PRIORITY.md or python3 tools/oauth_setup.py).
+
 2026-11-05T18:14:00Z (Run 1049)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/youtube_feedback_contract.py to lock the fail-closed missing-provider_video_id path of youtube_feedback.py (exit 2 + key phrases including gate: HOLD_UNPUBLISHED). Confirms post-publish feedback collector cannot regress into inventing metrics. No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and increasingly suspicious (1000+ runs). Prefer human OAuth step now (start with python3 tools/human_starter.py or open docs/HUMAN_PRIORITY.md or python3 tools/oauth_setup.py).
