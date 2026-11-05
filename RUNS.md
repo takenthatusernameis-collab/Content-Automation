@@ -1,3 +1,12 @@
+## Run 1046 — 2026-11-05T14:30:00Z
+- Objective: Lock the fail-closed missing-media path of the assembly planner so it does not regress while the OAuth stall continues.
+- Action: Inspected STATE/NEXT/RUNS/BLOCKED and existing assemble.py. Created tools/assemble_contract.py (asserts exit 2 + key phrases including gate: HOLD_MEDIA when no media is present). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
+- Result: Videos published stay 0. New contract available for the assembly planner. Estimated savings: prevents silent regression of the HOLD_MEDIA refuse for future runs. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: File created and contract ran PASS locally. Soft only. No regressions.
+- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; locking the assembly planner compounds reliability of the pre-upload path without adding printers or requiring credentials.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/assemble_contract.py.
+
 ## Run 1045 — 2026-11-05T13:26:00Z
 - Objective: Lock the fail-closed missing-provider_video_id path of the experiment ledger so it does not regress while the OAuth stall continues.
 - Action: Inspected STATE/NEXT/RUNS/BLOCKED and existing experiment_loop.py. Created tools/experiment_loop_contract.py (asserts exit 2 + key phrases including gate: HOLD_UNPUBLISHED when no provider_video_id is present). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
