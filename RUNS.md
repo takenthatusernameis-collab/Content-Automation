@@ -1,3 +1,12 @@
+## Run 1052 — 2026-11-05T21:15:00Z
+- Objective: Surface the saturating contract-addition pattern in the single human entry point so a human who finally runs the starter sees both the HIGH stall and the CONTRACT_STREAK_SATURATING flag without extra commands.
+- Action: Inspected STATE/NEXT/RUNS/BLOCKED. Updated tools/human_starter.py to sequence tools/contract_streak_detector.py after long_stall_report.py (before human_one_pager.py). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
+- Result: Videos published stay 0. Human starter now prints the streak flag. Estimated savings: reduces rediscovery friction for the human; makes the anti-saturation signal visible at the exact moment the human engages. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: File updated and committed. Soft only. No regressions.
+- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; the recent contract-addition streak is itself a saturating pattern that is now machine-visible and human-visible via the starter.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so. Contract streak also flagged.
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/contract_streak_detector.py.
+
 ## Run 1051 — 2026-11-05T20:20:00Z
 - Objective: Flag the saturating pattern of consecutive reliability-contract additions while the OAuth stall continues, so future runs prefer the human step or true new capability.
 - Action: Inspected STATE/NEXT/RUNS/BLOCKED. Created tools/contract_streak_detector.py (counts consecutive *contract.py additions in recent RUNS.md sections; flags at threshold 5). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
@@ -51,14 +60,5 @@
 - Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; locking the assembly planner compounds reliability of the pre-upload path without adding printers or requiring credentials.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
 - Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/assemble_contract.py.
-
-## Run 1045 — 2026-11-05T13:26:00Z
-- Objective: Lock the fail-closed missing-provider_video_id path of the experiment ledger so it does not regress while the OAuth stall continues.
-- Action: Inspected STATE/NEXT/RUNS/BLOCKED and existing experiment_loop.py. Created tools/experiment_loop_contract.py (asserts exit 2 + key phrases including gate: HOLD_UNPUBLISHED when no provider_video_id is present). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
-- Result: Videos published stay 0. New contract available for the experiment ledger. Estimated savings: prevents silent regression of the unpublished hold for future runs and after first publish. Pre-upload path unchanged. Gate behavior unchanged.
-- Verification: File created and contract ran PASS locally. Soft only. No regressions.
-- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; locking the experiment ledger compounds reliability of the post-publish path without adding printers or requiring credentials.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
-- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/experiment_loop_contract.py.
 
 (Older run logs remain in docs/runs_archive.md. Do not paste the archive back.)
