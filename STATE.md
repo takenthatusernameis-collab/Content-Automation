@@ -1,3 +1,7 @@
+2026-11-05T05:15:00Z (Run 1037)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/human_preflight.py (local environment checks: gh CLI/auth, python, write outside repo, tool presence) and tools/human_preflight_contract.py (verifies key phrases). Reduces friction for the human OAuth step by surfacing environment readiness before minting. Confirms pre-upload path complete and long-running STALL_OAUTH_IDLE (1000+ runs). No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and increasingly suspicious. Prefer human OAuth step now (start with python3 tools/human_preflight.py).
+
 2026-11-05T04:20:00Z (Run 1036)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/post_publish_sequence_contract.py (verifies the no-id HOLD path surfaces key phrases pointing to the human step on the default packet). Confirms pre-upload path complete and long-running STALL_OAUTH_IDLE (1000+ runs). No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and increasingly suspicious. Prefer human OAuth step now.
