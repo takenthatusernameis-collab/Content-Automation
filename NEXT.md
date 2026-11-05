@@ -1,3 +1,7 @@
+2026-11-05T04:20:00Z (Run 1036)
+
+Run 1036: added tools/post_publish_sequence_contract.py for reliability of the post-publish reminder path. Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete. Next: human step (docs/human_oauth_checklist.md or python3 tools/human_one_pager.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/post_publish_sequence_contract.py or python3 tools/human_one_pager_contract.py. Do not add another consistency printer or aggregator. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
+
 2026-11-05T03:14:00Z (Run 1035)
 
 Run 1035: added tools/human_one_pager_contract.py for reliability of the human-step one-pager. Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete. Next: human step (docs/human_oauth_checklist.md or python3 tools/human_one_pager.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/human_one_pager_contract.py or python3 tools/experiment_baseline_scaffold.py <packet>. Do not add another consistency printer or aggregator. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
