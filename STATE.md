@@ -1,3 +1,7 @@
+2026-11-05T01:20:00Z (Run 1033)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/experiment_baseline_validate.py (fail-closed checker importing load_baseline contract) and tools/experiment_baseline_validate_contract.py (verifies reject missing/null, accept valid stub). Advances post-publish experiment readiness without credentials. No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and long-running (hundreds of runs). Prefer human OAuth step now.
+
 2026-11-05T02:30:00Z (Run 1032)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/full_packet_review_contract.py: minimal reliability contract for the Run 1031 aggregator (checks both sections surface on a stub packet). No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and long-running (hundreds of runs). Prefer human OAuth step now.
