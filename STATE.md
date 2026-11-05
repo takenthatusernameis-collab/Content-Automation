@@ -1,3 +1,7 @@
+2026-11-05T04:20:00Z (Run 1036)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/post_publish_sequence_contract.py (verifies the no-id HOLD path surfaces key phrases pointing to the human step on the default packet). Confirms pre-upload path complete and long-running STALL_OAUTH_IDLE (1000+ runs). No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and increasingly suspicious. Prefer human OAuth step now.
+
 2026-11-05T03:14:00Z (Run 1035)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/human_one_pager_contract.py (verifies key stall, dispatch, and success phrases surface on the default packet). Confirms pre-upload path complete and long-running STALL_OAUTH_IDLE (1000+ runs). No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and increasingly suspicious. Prefer human OAuth step now.
