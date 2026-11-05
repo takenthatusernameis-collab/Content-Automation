@@ -1,3 +1,7 @@
+2026-11-05T22:24:19Z (Run 1054)
+
+Run 1054: updated tools/human_starter.py to sequence a soft media presence check first so fresh environments see the materialize step immediately. Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete after materialize. Next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/contract_streak_detector.py. Do not add another consistency printer, aggregator, or contract lock. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
+
 2026-11-05T21:15:00Z (Run 1052)
 
 Run 1052: updated tools/human_starter.py to sequence tools/contract_streak_detector.py so the single human entry point surfaces the CONTRACT_STREAK_SATURATING flag. Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete. Next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/contract_streak_detector.py. Do not add another consistency printer, aggregator, or contract lock. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """One-command starter for the remaining human OAuth step.
 
-Sequences human_preflight.py, long_stall_report.py, contract_streak_detector.py,
+Sequences media check + human_preflight.py, long_stall_report.py, contract_streak_detector.py,
 publish_readiness.py, and human_one_pager.py so the human has a single entry point instead of remembering four commands.
 Does not poll secrets, invent values, dispatch, or write files.
 Soft only; does not change gates.
@@ -24,9 +24,20 @@ def run_tool(script: str) -> int:
 
 
 def main() -> int:
-    print("HUMAN STARTER (single entry for OAuth step; no secrets polled)")
-    print("Sequences preflight + long stall report + contract streak detector + publish readiness + one-pager.")
+    print("HUMAN STARTER (single entry for OAuth step; no secrets polled)", flush=True)
+    print("Sequences media check + preflight + long stall report + contract streak detector + publish readiness + one-pager.", flush=True)
     print()
+
+    # Soft media presence check so fresh clones see the materialize step immediately
+    print("\n=== Media presence check ===\n", flush=True)
+    media_proc = subprocess.run([sys.executable, str(ROOT / "tools" / "media_fingerprint.py")], cwd=ROOT, text=True, capture_output=True)
+    print(media_proc.stdout or media_proc.stderr or "(no output)")
+    if "PRESENT" not in (media_proc.stdout or ""):
+        print("NOTE: Media not present on this machine.", flush=True)
+        print("Run once: python3 tools/materialize_q1_release.py", flush=True)
+        print("(requires gh auth; installs verified VO + cards + r253 master; does not commit media)", flush=True)
+        print("Then re-run this starter. Do not regenerate.", flush=True)
+        print()
 
     codes = []
     for script in ["human_preflight.py", "long_stall_report.py", "contract_streak_detector.py", "publish_readiness.py", "human_one_pager.py"]:
@@ -36,7 +47,7 @@ def main() -> int:
             print(f"\nHUMAN STARTER FAIL: {script} exited {code}")
             return code
 
-    print("\nHUMAN STARTER PASS: environment ready, stall HIGH, contract streak checked, publish readiness shown, one-pager shown.")
+    print("\nHUMAN STARTER PASS: media checked, environment ready, stall HIGH, contract streak checked, publish readiness shown, one-pager shown.")
     print("Next: follow the exact sequence printed above (oauth_exchange then gh secret set then one dispatch).")
     print("Full checklist: docs/human_oauth_checklist.md")
     print("Do not poll secrets from an agent. Do not add another consistency printer or contract lock.")

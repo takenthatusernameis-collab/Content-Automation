@@ -1,3 +1,7 @@
+2026-11-05T22:24:19Z (Run 1054)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Updated tools/human_starter.py to sequence a soft media presence check (media_fingerprint.py) first so the single human entry point surfaces the materialize_q1_release.py command when media is absent on a fresh clone or machine. Confirmed after materialize: publish_readiness READY_FOR_HUMAN_DISPATCH, media_qa PASS. No secrets polled, no dispatch. Pre-upload path fully verified. STALL_OAUTH_IDLE primary and increasingly suspicious (1000+ runs). Prefer human OAuth step now (start with python3 tools/human_starter.py or open docs/HUMAN_PRIORITY.md or python3 tools/oauth_setup.py).
+
 2026-11-06T00:15:00Z (Run 1053)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Confirmed in fresh clone: materialize_q1_release.py installs verified media, media_qa.py prints PASS (VO decodable 308.4s, 7 cards, master ftyp), next_action upload-blocked, publish_readiness READY_FOR_HUMAN_DISPATCH, master SHA MATCH. Updated tools/human_starter.py to sequence publish_readiness.py so the single human entry point surfaces local readiness when media is present. No secrets polled, no dispatch. Pre-upload path fully verified. STALL_OAUTH_IDLE primary and increasingly suspicious (1000+ runs). Prefer human OAuth step now (start with python3 tools/human_starter.py or open docs/HUMAN_PRIORITY.md or python3 tools/oauth_setup.py).
