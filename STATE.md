@@ -1,3 +1,7 @@
+2026-11-05T10:15:00Z (Run 1042)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/oauth_preflight_contract.py to lock the fail-closed missing-secrets path of oauth_preflight.py (exit 3 + key phrases when env vars absent). Confirms authenticated dispatch guard cannot regress. No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and increasingly suspicious (1000+ runs). Prefer human OAuth step now (start with python3 tools/human_starter.py or open docs/HUMAN_PRIORITY.md).
+
 2026-11-05T09:17:43Z (Run 1041)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/post_publish_sequence_contract.py to lock the HOLD path of post_publish_sequence.py (key phrases when no provider_video_id). Confirms pre-upload path complete. No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and increasingly suspicious (1000+ runs). Prefer human OAuth step now (start with python3 tools/human_starter.py or open docs/HUMAN_PRIORITY.md).
