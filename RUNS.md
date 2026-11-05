@@ -1,3 +1,12 @@
+## Run 1037 — 2026-11-05T05:15:00Z
+- Objective: Add a local preflight checker for the human OAuth step to reduce environment friction and surface readiness before minting tokens.
+- Action: Inspected STATE/NEXT/RUNS and OAuth tools. Created tools/human_preflight.py (checks gh CLI/auth, python, write outside repo, tool presence; no secrets). Created tools/human_preflight_contract.py (asserts key phrases). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
+- Result: Videos published stay 0. New preflight available for human to run before OAuth sequence. Estimated savings: reduces failed starts due to missing gh/auth. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: Tools created. Soft only. No regressions. (Contract pattern matches prior.)
+- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; environment preflight compounds reliability of the human step.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
+- Recommended next: human step (python3 tools/human_preflight.py then docs/human_oauth_checklist.md or python3 tools/human_one_pager.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/human_preflight_contract.py.
+
 ## Run 1036 — 2026-11-05T04:20:00Z
 - Objective: Add a minimal reliability contract for the post-publish sequence printer to keep the after-id reminder path visible and non-breaking across stalled runs.
 - Action: Inspected STATE/NEXT/RUNS and post_publish_sequence.py. Created tools/post_publish_sequence_contract.py (runs on default packet with no id, asserts key HOLD phrases). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
