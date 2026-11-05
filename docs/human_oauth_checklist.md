@@ -10,6 +10,16 @@ Videos published: 0. Local Q1 media (VO + cards + r253 master) is ready and gate
 
 Do not poll secrets from an agent run. Do not commit any secret or token file.
 
+## Quick start (recommended)
+
+Run once for environment check + stall status + exact next commands:
+
+```bash
+python3 tools/human_starter.py
+```
+
+Then follow the printed sequence (oauth_exchange, gh secret set, one dispatch).
+
 ## Quick copy-paste sequence (for the human)
 
 **Scopes reminder (must be granted during mint):** youtube.upload + youtube.force-ssl + yt-analytics.readonly (youtube.upload alone is insufficient).
@@ -114,6 +124,6 @@ Do not invent an id. Do not re-upload the master on POST_UPLOAD_INCOMPLETE.
 
 Agents have verified materialize + all local gates on fresh clones across ~181+ runs with no change in the external blocker. The long oauth_idle_without_publish stall continues and is machine-visible via stall_watch.py. The pre-upload path is stable. Further pure-verification agent runs have diminishing returns. The only remaining step that advances the system is completing the three secrets above and the one dispatch. Once a private video id appears, the system can move to feedback collection after the observation window. Preferred agent work while stalled is listed in status_report.py (list complete; prioritize human step or truly new small anti-rediscovery items). HANDOFF.md surfaces the while-stalled guidance. Run 468 restored NEXT.md under the size cap. Run 469–473 keep the banner current with confirmation signals. Banner timestamp intentionally frozen at Run 473 (STALL_BANNER_REFRESH); agents will not refresh it solely for the date.
 
-## Current stall note (Run 1030)
-The STALL_OAUTH_IDLE has persisted across hundreds of runs with videos published remaining 0. This is increasingly suspicious. Complete the three secrets and single dispatch as soon as practical. Run `python3 tools/stall_duration.py` for the consecutive idle count. Do not poll from agents.
+## Current stall note (Run 1039)
+The STALL_OAUTH_IDLE has persisted across 1000+ runs with videos published remaining 0. This is HIGH suspicion. Complete the three secrets and single dispatch as soon as practical. Start with `python3 tools/human_starter.py` (runs preflight + long stall report + one-pager). Do not poll from agents.
 
