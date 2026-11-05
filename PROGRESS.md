@@ -1,3 +1,5 @@
+2026-11-05 (Run 1034): Added tools/experiment_baseline_scaffold.py and tools/experiment_baseline_scaffold_contract.py. Non-destructive copy of the documented template into a packet with fill instructions. Improves reliability of the post-publish learning path by reducing rediscovery. Still 0 published. OAuth stall continues. Avoided tool breakage and more status printers.
+
 2026-11-05 (Run 1033): Added tools/experiment_baseline_validate.py and tools/experiment_baseline_validate_contract.py. Fail-closed checker for documented experiment baselines (imports load_baseline). Improves reliability of the post-publish learning path. Still 0 published. OAuth stall continues. Avoided tool breakage and more status printers.
 
 2026-11-05 (Run 1032): Added tools/full_packet_review_contract.py. Minimal contract verifies the quality+soft aggregator surfaces both sections on a stub packet. Improves reliability of the Run 1031 review command. Still 0 published. OAuth stall continues. Avoided tool breakage and more status printers.
