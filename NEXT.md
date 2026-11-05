@@ -1,3 +1,7 @@
+2026-11-05T14:19:00Z (Run 1044)
+
+Run 1044: added tools/media_qa_contract.py locking the fail-closed missing-Selected-VO path of the media QA gate (exit 2 + key phrases). Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete. Next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/media_qa_contract.py or python3 tools/oauth_setup_contract.py. Do not add another consistency printer or aggregator. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
+
 2026-11-05T11:17:26Z (Run 1043)
 
 Run 1043: added tools/oauth_setup_contract.py locking the fail-closed missing-secrets path and core recipe phrases of the OAuth setup printer. Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete. Next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/oauth_setup_contract.py or python3 tools/oauth_preflight_contract.py. Do not add another consistency printer or aggregator. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
