@@ -1,3 +1,12 @@
+## Run 1033 — 2026-11-05T01:20:00Z
+- Objective: Add a reusable fail-closed validator for experiment baselines to advance post-publish readiness without credentials.
+- Action: Inspected STATE/NEXT/RUNS/ROADMAP and experiment_loop.py. Created tools/experiment_baseline_validate.py (imports load_baseline). Created tools/experiment_baseline_validate_contract.py (temp packet: rejects missing/null, accepts valid). Verified contract PASS locally. Updated state files. No secrets polled, no dispatch, no media writes. Committed.
+- Result: Videos published stay 0. New validator available for future filled baselines. Estimated savings: reduces risk of invalid baseline files blocking experiment_loop after first publish. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: Contract created and runs PASS. Syntax valid. Soft only. No regressions.
+- Discovery: Experiment baseline contract can be checked independently of the full ledger, compounding reliability for the learning loop.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious.
+- Recommended next: human step (docs/human_oauth_checklist.md or python3 tools/human_one_pager.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/experiment_baseline_validate.py on a packet with baseline.
+
 ## Run 1032 — 2026-11-05T02:30:00Z
 - Objective: Add a minimal reliability contract for the recent full_packet_review aggregator to prevent silent breakage and compound reliability of the pre-upload review path.
 - Action: Inspected STATE/NEXT/RUNS and recent aggregator. Created tools/full_packet_review_contract.py (temp stub packet, checks both sections surface, exit 0). Verified it passes. Updated state files. No secrets polled, no dispatch, no media writes. Committed.
