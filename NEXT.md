@@ -1,3 +1,7 @@
+2026-11-05T02:30:00Z (Run 1032)
+
+Run 1032: added tools/full_packet_review_contract.py for reliability of the quality+soft aggregator. Confirmed STALL_OAUTH_IDLE long-running (hundreds of runs), published=0, pre-upload complete. Next: human step (docs/human_oauth_checklist.md or python3 tools/human_one_pager.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/full_packet_review.py <packet> or python3 tools/full_packet_review_contract.py. Do not add another consistency printer or aggregator. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
+
 2026-11-05T01:15:00Z (Run 1031)
 
 Run 1031: added tools/full_packet_review.py (aggregates quality_prep_brief + soft_pre_upload_report) and pointed it from human_one_pager.py. Confirmed STALL_OAUTH_IDLE long-running (hundreds of runs), published=0, pre-upload complete. Next: human step (docs/human_oauth_checklist.md or python3 tools/human_one_pager.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/full_packet_review.py <packet> or stall_duration.py. Do not add another consistency printer. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.

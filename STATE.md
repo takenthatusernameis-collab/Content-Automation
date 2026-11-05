@@ -1,3 +1,7 @@
+2026-11-05T02:30:00Z (Run 1032)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/full_packet_review_contract.py: minimal reliability contract for the Run 1031 aggregator (checks both sections surface on a stub packet). No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and long-running (hundreds of runs). Prefer human OAuth step now.
+
 2026-11-05T01:15:00Z (Run 1031)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/full_packet_review.py: one-command aggregator of quality_prep_brief + soft_pre_upload_report. Surgically updated human_one_pager.py to point to it instead of the soft report alone. Reduces sequential review commands for the human OAuth step. No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and long-running. Prefer human OAuth step now.

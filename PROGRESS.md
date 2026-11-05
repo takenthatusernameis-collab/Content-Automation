@@ -1,3 +1,5 @@
+2026-11-05 (Run 1032): Added tools/full_packet_review_contract.py. Minimal contract verifies the quality+soft aggregator surfaces both sections on a stub packet. Improves reliability of the Run 1031 review command. Still 0 published. OAuth stall continues. Avoided tool breakage and more status printers.
+
 2026-11-05 (Run 1031): Added tools/full_packet_review.py. One-command aggregator of quality_prep_brief + soft_pre_upload_report. Pointed from human_one_pager.py. Reduces sequential quality + soft review commands. Still 0 published. OAuth stall continues. Avoided tool breakage.
 
 2026-11-05 (Run 1030): Strengthened long-stall visibility in human_one_pager.py (LONG STALL SUSPICIOUS + stall_duration pointer) and human_oauth_checklist.md. Still 0 published. OAuth stall continues and is flagged more prominently as suspicious. Avoided tool breakage and low-value soft checks.
