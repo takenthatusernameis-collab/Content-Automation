@@ -1,3 +1,7 @@
+2026-11-05T23:16:38Z (Run 1055)
+
+Run 1055: strengthened docs/human_oauth_checklist.md to document the full human_starter.py sequencing (media check + streak detector + readiness) and clarify post-id next (post_publish_sequence.py). Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete. Next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or docs/human_oauth_checklist.md then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/contract_streak_detector.py. Do not add another consistency printer, aggregator, or contract lock. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
+
 2026-11-05T22:24:19Z (Run 1054)
 
 Run 1054: updated tools/human_starter.py to sequence a soft media presence check first so fresh environments see the materialize step immediately. Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete after materialize. Next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/contract_streak_detector.py. Do not add another consistency printer, aggregator, or contract lock. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
@@ -25,9 +29,5 @@ Run 1048: added tools/complete_contract.py locking the fail-closed incomplete pa
 2026-11-05T15:21:00Z (Run 1047)
 
 Run 1047: added tools/youtube_upload_contract.py locking the fail-closed missing-local-media and missing-OAuth path of the uploader (exit 2 + key phrases including gate: FAIL, action: HOLD_LOCAL, auth: YOUTUBE_AUTH_REQUIRED). Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete. Next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/youtube_upload_contract.py or python3 tools/assemble_contract.py. Do not add another consistency printer or aggregator. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
-
-2026-11-05T14:30:00Z (Run 1046)
-
-Run 1046: added tools/assemble_contract.py locking the fail-closed missing-media path of the assembly planner (exit 2 + key phrases including gate: HOLD_MEDIA). Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete. Next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_setup.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/assemble_contract.py or python3 tools/experiment_loop_contract.py. Do not add another consistency printer or aggregator. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
 
 (Older next actions live in `docs/next_archive.md`. Do not paste the archive back.)
