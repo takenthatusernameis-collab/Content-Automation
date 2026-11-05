@@ -1,3 +1,12 @@
+## Run 1038 — 2026-11-05T06:18:42Z
+- Objective: Make the long-running STALL_OAUTH_IDLE more machine-visible by aggregating known signals into a single HIGH suspicion report, reducing pure-inspection runs.
+- Action: Inspected STATE/NEXT/RUNS and stall tools. Created tools/long_stall_report.py (prints HIGH, 1000+, published 0, human step pointers). Created tools/long_stall_report_contract.py (asserts key phrases). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
+- Result: Videos published stay 0. New report available for future agents to see the stall severity quickly. Estimated savings: reduces low-value restatement runs. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: Tools created and contract PASS. Soft only. No regressions.
+- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker; explicit HIGH flag compounds visibility.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
+- Recommended next: human step (python3 tools/human_preflight.py then docs/human_oauth_checklist.md or python3 tools/human_one_pager.py then secrets + single execute=true dispatch). After id appears: python3 tools/post_publish_sequence.py. Optional: python3 tools/long_stall_report.py.
+
 ## Run 1037 — 2026-11-05T05:15:00Z
 - Objective: Add a local preflight checker for the human OAuth step to reduce environment friction and surface readiness before minting tokens.
 - Action: Inspected STATE/NEXT/RUNS and OAuth tools. Created tools/human_preflight.py (checks gh CLI/auth, python, write outside repo, tool presence; no secrets). Created tools/human_preflight_contract.py (asserts key phrases). Updated state files. No secrets polled, no dispatch, no media writes. Committed.
