@@ -1,3 +1,12 @@
+## Run 1077 — 2026-11-06T22:22:00Z
+- Objective: Re-verify the pre-upload media path on a fresh clone with authenticated gh to confirm materialize + QA suite still produce READY_FOR_HUMAN_DISPATCH without regressions.
+- Action: Inspected STATE/NEXT/RUNS/ROADMAP/BLOCKED. Ran python3 tools/materialize_q1_release.py (succeeded: VO + 7 cards + r253 master). Then media_qa PASS, master_sha_check PASS (target SHA), pre_upload_qa_suite UNIFIED RESULT: PASS (with warnings) / READY_FOR_HUMAN_DISPATCH. No secrets polled, no dispatch, no media commits. Updated state files.
+- Result: Videos published stay 0. Pre-upload path re-confirmed functional. Estimated savings: future runs can trust the materialize + suite path is stable; reduced rediscovery of "is media still good?". Gate behavior unchanged.
+- Verification: materialize exit 0; media_qa gate PASS; master_sha PASS; pre_upload_qa_suite overall PASS / READY_FOR_HUMAN_DISPATCH. Soft documentation only. No regressions.
+- Discovery: Fresh-clone materialize with current auth still installs exact r253 artifacts and full pre-upload suite passes. OAuth stall remains the sole primary blocker.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or docs/human_oauth_checklist.md then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. Optional: python3 tools/observation_window_contract.py.
+
 ## Run 1076 — 2026-11-06T20:20:00Z
 - Objective: Record continued stall and refresh the human checklist stall note for reduced rediscovery of HIGH suspicion status.
 - Action: Inspected STATE/NEXT/RUNS/ROADMAP/BLOCKED/HANDOFF/HUMAN_PRIORITY and key tools. Confirmed STALL_OAUTH_IDLE (1000+ runs), published=0, pre-upload complete. No secrets polled, no dispatch, no media writes. Updated docs/human_oauth_checklist.md current stall note and state files. No new contracts, printers, or aggregators.
