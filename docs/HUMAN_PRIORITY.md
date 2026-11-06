@@ -24,7 +24,7 @@
 
 Full details: `docs/human_oauth_checklist.md`
 
-After the id appears: `python3 tools/post_publish_sequence.py`
+After the id appears: `python3 tools/human_success_check.py` then `python3 tools/post_publish_sequence.py`
 
 Do not poll secrets from agents. Do not scaffold Q2. Do not rematerialize media if present.
 
