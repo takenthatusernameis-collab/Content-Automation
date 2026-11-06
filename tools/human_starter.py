@@ -89,6 +89,14 @@ def main() -> int:
     print("- Verify locally: python3 tools/human_success_check.py")
     print("- After the id appears: python3 tools/post_publish_sequence.py")
     print()
+    print("=== Common pitfalls (avoid these to finish in one pass) ===")
+    print("- Missing scopes: must include youtube.upload + youtube.force-ssl + yt-analytics.readonly (upload alone fails later steps).")
+    print("- Pasting secrets on the command line or into a file instead of the interactive gh secret set prompt.")
+    print("- Dispatching a second execute=true before a private video id appears in both the Actions log and upload_state.json.")
+    print("- Using the truncated r249 master; materialize installs the verified r253 only.")
+    print("- Forgetting to add the channel Google account as a test user when the OAuth consent screen is in Testing mode.")
+    print("Full list: docs/human_oauth_checklist.md#common-pitfalls")
+    print()
     print("Do not poll secrets from an agent. Do not add another consistency printer or contract lock.")
     return 0
 
