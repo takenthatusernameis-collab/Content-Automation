@@ -1,3 +1,12 @@
+## Run 1076 — 2026-11-06T20:20:00Z
+- Objective: Record continued stall and refresh the human checklist stall note for reduced rediscovery of HIGH suspicion status.
+- Action: Inspected STATE/NEXT/RUNS/ROADMAP/BLOCKED/HANDOFF/HUMAN_PRIORITY and key tools. Confirmed STALL_OAUTH_IDLE (1000+ runs), published=0, pre-upload complete. No secrets polled, no dispatch, no media writes. Updated docs/human_oauth_checklist.md current stall note and state files. No new contracts, printers, or aggregators.
+- Result: Videos published stay 0. State files and checklist now reflect Run 1076. Estimated savings: clearer handoff and reduced chance of rediscovery of stall status. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: State files and checklist updated. Soft documentation only. No regressions.
+- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker and is increasingly suspicious; the human starter remains the single preferred entry point.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or docs/human_oauth_checklist.md then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. Optional: python3 tools/observation_window_contract.py.
+
 ## Run 1075 — 2026-11-06T21:14:00Z
 - Objective: Confirm current state and record continued stall without introducing new low-leverage artifacts.
 - Action: Inspected STATE/NEXT/RUNS/ROADMAP/BLOCKED/HANDOFF/HUMAN_PRIORITY and key tools. Confirmed STALL_OAUTH_IDLE (1000+ runs), published=0, pre-upload complete. No secrets polled, no dispatch, no media writes. Updated state files with new run note. No new contracts, printers, or aggregators.
