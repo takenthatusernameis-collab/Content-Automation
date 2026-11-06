@@ -29,6 +29,10 @@ def main() -> int:
     print(f"HUMAN STARTER (single entry for OAuth step; no secrets polled)  [{now}]", flush=True)
     print("Sequences media check + preflight + long stall report + recurring pattern flag + contract streak detector + publish readiness + one-pager.", flush=True)
     print()
+    print("Estimated human time: 10-20 minutes total.")
+    print("Longest part is usually creating the Google Cloud project + OAuth client if none exists yet (~10-15 min).")
+    print("Once Client ID and Client Secret exist, mint + secrets + dispatch is ~5 minutes.")
+    print()
 
     # Soft media presence check so fresh clones see the materialize step immediately
     print("\n=== Media presence check ===\n", flush=True)
