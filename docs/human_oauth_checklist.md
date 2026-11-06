@@ -12,13 +12,13 @@ Do not poll secrets from an agent run. Do not commit any secret or token file.
 
 ## Quick start (recommended)
 
-Run once for environment check + media presence + stall status + contract streak + readiness + exact next commands:
+Run once for environment check + media presence + stall status + recurring pattern flag + contract streak + readiness + exact next commands:
 
 ```bash
 python3 tools/human_starter.py
 ```
 
-It now sequences: media presence check (surfaces materialize if needed) + human_preflight + long_stall_report + contract_streak_detector + publish_readiness + human_one_pager.
+It now sequences: media presence check (surfaces materialize if needed) + human_preflight + long_stall_report + recurring_pattern_flag + contract_streak_detector + publish_readiness + human_one_pager.
 
 Then follow the printed sequence (oauth_exchange, gh secret set, one dispatch).
 
@@ -126,5 +126,5 @@ Do not invent an id. Do not re-upload the master on POST_UPLOAD_INCOMPLETE.
 
 Agents have verified materialize + all local gates on fresh clones across ~181+ runs with no change in the external blocker. The long oauth_idle_without_publish stall continues and is machine-visible via stall_watch.py. The pre-upload path is stable. Further pure-verification agent runs have diminishing returns. The only remaining step that advances the system is completing the three secrets above and the one dispatch. Once a private video id appears, the system can move to feedback collection after the observation window. Preferred agent work while stalled is listed in status_report.py (list complete; prioritize human step or truly new small anti-rediscovery items). HANDOFF.md surfaces the while-stalled guidance. Run 468 restored NEXT.md under the size cap. Run 469–473 keep the banner current with confirmation signals. Banner timestamp intentionally frozen at Run 473 (STALL_BANNER_REFRESH); agents will not refresh it solely for the date.
 
-## Current stall note (Run 1055)
-The STALL_OAUTH_IDLE has persisted across 1000+ runs with videos published remaining 0. This is HIGH suspicion. Complete the three secrets and single dispatch as soon as practical. Start with `python3 tools/human_starter.py` (now sequences media presence check + preflight + long stall report + contract streak detector + publish readiness + one-pager). After a private video id appears: `python3 tools/post_publish_sequence.py`. Do not poll from agents. Do not add further contract locks or printers while stalled.
+## Current stall note (Run 1061)
+The STALL_OAUTH_IDLE has persisted across 1000+ runs with videos published remaining 0. This is HIGH suspicion. Complete the three secrets and single dispatch as soon as practical. Start with `python3 tools/human_starter.py` (now sequences media presence check + preflight + long stall report + recurring pattern flag + contract streak detector + publish readiness + one-pager). After a private video id appears: `python3 tools/post_publish_sequence.py`. Do not poll from agents. Do not add further contract locks or printers while stalled.
