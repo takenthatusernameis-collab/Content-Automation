@@ -27,7 +27,7 @@ def run_tool(script: str) -> int:
 def main() -> int:
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     print(f"HUMAN STARTER (single entry for OAuth step; no secrets polled)  [{now}]", flush=True)
-    print("Sequences media check + preflight + long stall report + recurring pattern flag + contract streak detector + publish readiness + one-pager.", flush=True)
+    print("Sequences media check + preflight + long stall report + recurring pattern flag + contract streak detector + publish readiness + one-pager + observation window reminder.", flush=True)
     print()
     print("Estimated human time: 10-20 minutes total.")
     print("Longest part is usually creating the Google Cloud project + OAuth client if none exists yet (~10-15 min).")
@@ -55,14 +55,20 @@ def main() -> int:
         print()
 
     codes = []
-    for script in ["human_preflight.py", "long_stall_report.py", "recurring_pattern_flag.py", "contract_streak_detector.py", "publish_readiness.py", "human_one_pager.py"]:
-        code = run_tool(script)
+    for script in ["human_preflight.py", "long_stall_report.py", "recurring_pattern_flag.py", "contract_streak_detector.py", "publish_readiness.py", "human_one_pager.py", "observation_window.py"]:
+        # observation_window needs packet arg; special-case it
+        if script == "observation_window.py":
+            print(f"\n=== Running {script} (Q1 packet) ===\n")
+            proc = subprocess.run([sys.executable, str(ROOT / "tools" / script), "videos/002-stop-deciding-what-to-work-on-every-morning"], cwd=ROOT)
+            code = proc.returncode
+        else:
+            code = run_tool(script)
         codes.append(code)
         if code != 0:
             print(f"\nHUMAN STARTER FAIL: {script} exited {code}")
             return code
 
-    print("\nHUMAN STARTER PASS: media checked, environment ready, stall HIGH, recurring pattern flagged, contract streak checked, publish readiness shown, one-pager shown.")
+    print("\nHUMAN STARTER PASS: media checked, environment ready, stall HIGH, recurring pattern flagged, contract streak checked, publish readiness shown, one-pager shown, observation window reminder shown.")
     print("Next: follow the exact sequence printed below (mint then secrets then one dispatch).")
     print("Full checklist: docs/human_oauth_checklist.md")
     print()
@@ -96,6 +102,7 @@ def main() -> int:
     print("- Do not dispatch collect_feedback=true until that due date. Early collect returns OBSERVATION_WINDOW_NOT_DUE.")
     print("- Do not re-dispatch execute=true. Privacy stays private. Do not invent metrics or an id.")
     print("- Studio pin and end screen are manual in YouTube Studio (Data API cannot finish them).")
+    print("- Exact due date calculator: python3 tools/observation_window.py videos/002-stop-deciding-what-to-work-on-every-morning")
     print()
     print("=== Common pitfalls (avoid these to finish in one pass) ===")
     print("- Missing scopes: must include youtube.upload + youtube.force-ssl + yt-analytics.readonly (upload alone fails later steps).")
