@@ -1,6 +1,6 @@
-2026-11-06 (Run 1064): Added tools/human_success_check.py (soft fail-closed presence check for a private provider_video_id) and surfaced the command in the success block of tools/human_starter.py. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion. Avoided further contract locks and more status printers. The check gives the human a clear local confirmation step after dispatch.
+2026-11-06 (Run 1065): Updated docs/human_oauth_checklist.md to reference tools/human_success_check.py in the success verification section and stall note. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion. Avoided further contract locks and more status printers. The checklist now stays consistent with the single entry point for post-dispatch confirmation.
 
-2026-11-06 (Run 1063): Expanded the copy-paste ready block at the end of tools/human_starter.py to include the full mint sequence (oauth_exchange commands) before the three gh secret set and execute=true dispatch. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion. Avoided further contract locks and more status printers. The complete sequence reduces the need to open the checklist for command text.
+2026-11-06 (Run 1064): Added tools/human_success_check.py (soft fail-closed presence check for a private provider_video_id) and surfaced the command in the success block of tools/human_starter.py. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion. Avoided further contract locks and more status printers. The check gives the human a clear local confirmation step after dispatch.
 
 (Older progress notes remain in docs/progress_archive.md.)
 
