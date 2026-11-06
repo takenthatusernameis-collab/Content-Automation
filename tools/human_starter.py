@@ -73,6 +73,7 @@ def main() -> int:
     print("- The same id appears in the packet upload_state.json with privacy=private.")
     print("- Videos published count moves from 0 once the id is persisted.")
     print("- Do not invent an id. Do not re-dispatch execute until the id is visible in both places.")
+    print("- Verify locally: python3 tools/human_success_check.py")
     print("- After the id appears: python3 tools/post_publish_sequence.py")
     print()
     print("Do not poll secrets from an agent. Do not add another consistency printer or contract lock.")
