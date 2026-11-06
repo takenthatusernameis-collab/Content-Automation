@@ -50,6 +50,15 @@ def main() -> int:
     print("\nHUMAN STARTER PASS: media checked, environment ready, stall HIGH, contract streak checked, publish readiness shown, one-pager shown.")
     print("Next: follow the exact sequence printed above (oauth_exchange then gh secret set then one dispatch).")
     print("Full checklist: docs/human_oauth_checklist.md")
+    print()
+    print("=== SUCCESS LOOKS LIKE (after one execute=true dispatch) ===")
+    print("- Actions workflow run completes (or reports POST_UPLOAD_INCOMPLETE after a video id is written).")
+    print("- A private YouTube video id appears in the Actions log under the upload step.")
+    print("- The same id appears in the packet upload_state.json with privacy=private.")
+    print("- Videos published count moves from 0 once the id is persisted.")
+    print("- Do not invent an id. Do not re-dispatch execute until the id is visible in both places.")
+    print("- After the id appears: python3 tools/post_publish_sequence.py")
+    print()
     print("Do not poll secrets from an agent. Do not add another consistency printer or contract lock.")
     return 0
 
