@@ -33,6 +33,15 @@ def main() -> int:
     print("Longest part is usually creating the Google Cloud project + OAuth client if none exists yet (~10-15 min).")
     print("Once Client ID and Client Secret exist, mint + secrets + dispatch is ~5 minutes.")
     print()
+    print("=== Google Cloud setup summary (longest part; do this first if no client exists) ===")
+    print("1. Open https://console.cloud.google.com/ and create or select a project.")
+    print("2. Enable APIs: YouTube Data API v3 and YouTube Analytics API.")
+    print("3. Configure OAuth consent screen. Add the channel Google account as a test user if the app is in Testing mode.")
+    print("4. Create OAuth 2.0 Client ID of type Desktop app. Copy Client ID and Client Secret.")
+    print("5. Set them in your terminal environment (never commit or paste into the repo):")
+    print("   export YOUTUBE_CLIENT_ID=...   # then run the mint commands printed later")
+    print("Full checklist with pitfalls: docs/human_oauth_checklist.md")
+    print()
 
     # Soft media presence check so fresh clones see the materialize step immediately
     print("\n=== Media presence check ===\n", flush=True)
