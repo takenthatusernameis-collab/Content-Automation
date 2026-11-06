@@ -1,6 +1,6 @@
-2026-11-06 (Run 1072): Updated docs/human_oauth_checklist.md to accurately describe the current human_starter.py sequence (includes observation_window.py for Q1 and notes the post-id next steps summary). Still 0 published. OAuth stall continues and is flagged as HIGH suspicion. Avoided further contract locks and more status printers. Checklist now matches the preferred single entry point.
+2026-11-06 (Run 1073): Added tools/observation_window_contract.py minimal self-test lock for the +10 day due-date calculation (parse + timedelta). Still 0 published. OAuth stall continues and is flagged as HIGH suspicion. Avoided further status printers. Contract locks the observation helper used by the starter and post-publish sequence.
 
-2026-11-06 (Run 1071): Updated tools/human_starter.py to sequence observation_window.py for the Q1 packet so the due-date calculator is visible in the preferred single entry point (reports not_uploaded until an id exists). Still 0 published. OAuth stall continues and is flagged as HIGH suspicion. Avoided further contract locks and more status printers. The starter now surfaces the observation window tool without requiring another command first.
+2026-11-06 (Run 1072): Updated docs/human_oauth_checklist.md to accurately describe the current human_starter.py sequence (includes observation_window.py for Q1 and notes the post-id next steps summary). Still 0 published. OAuth stall continues and is flagged as HIGH suspicion. Avoided further contract locks and more status printers. Checklist now matches the preferred single entry point.
 
 (Older progress notes remain in docs/progress_archive.md.)
 
