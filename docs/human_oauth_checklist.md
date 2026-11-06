@@ -116,6 +116,7 @@ Once the three secrets are set and you dispatch with execute=true:
 
 - Watch the Actions run. Look for a private video id in the upload step log.
 - Confirm the packet has upload_state.json with a real provider_video_id and privacy=private.
+- Local one-command check: `python3 tools/human_success_check.py` (reports PRESENT only on a real non-placeholder id; never invents).
 - Videos published in STATE.md should move from 0 only after that id is persisted by the job.
 - If the job fails before any id, check the oauth_preflight step and secret presence. Do not re-dispatch blindly.
 - After the id exists, run `python3 tools/post_publish_sequence.py` for the ordered next steps (observation window, feedback collect, experiment baseline, Studio pin/end-screen).
@@ -126,5 +127,5 @@ Do not invent an id. Do not re-upload the master on POST_UPLOAD_INCOMPLETE.
 
 Agents have verified materialize + all local gates on fresh clones across ~181+ runs with no change in the external blocker. The long oauth_idle_without_publish stall continues and is machine-visible via stall_watch.py. The pre-upload path is stable. Further pure-verification agent runs have diminishing returns. The only remaining step that advances the system is completing the three secrets above and the one dispatch. Once a private video id appears, the system can move to feedback collection after the observation window. Preferred agent work while stalled is listed in status_report.py (list complete; prioritize human step or truly new small anti-rediscovery items). HANDOFF.md surfaces the while-stalled guidance. Run 468 restored NEXT.md under the size cap. Run 469–473 keep the banner current with confirmation signals. Banner timestamp intentionally frozen at Run 473 (STALL_BANNER_REFRESH); agents will not refresh it solely for the date.
 
-## Current stall note (Run 1061)
-The STALL_OAUTH_IDLE has persisted across 1000+ runs with videos published remaining 0. This is HIGH suspicion. Complete the three secrets and single dispatch as soon as practical. Start with `python3 tools/human_starter.py` (now sequences media presence check + preflight + long stall report + recurring pattern flag + contract streak detector + publish readiness + one-pager). After a private video id appears: `python3 tools/post_publish_sequence.py`. Do not poll from agents. Do not add further contract locks or printers while stalled.
+## Current stall note (Run 1065)
+The STALL_OAUTH_IDLE has persisted across 1000+ runs with videos published remaining 0. This is HIGH suspicion. Complete the three secrets and single dispatch as soon as practical. Start with `python3 tools/human_starter.py` (now sequences media presence check + preflight + long stall report + recurring pattern flag + contract streak detector + publish readiness + one-pager, and mentions success check). After dispatch: `python3 tools/human_success_check.py` then `python3 tools/post_publish_sequence.py`. Do not poll from agents. Do not add further contract locks or printers while stalled.
