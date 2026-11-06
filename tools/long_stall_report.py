@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import re
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -42,12 +43,14 @@ def count_zero_publish_runs() -> int:
 
 
 def main() -> int:
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     print("LONG STALL REPORT (OAuth idle; no poll, no invent)")
+    print(f"Report time: {now}")
     print()
     notes = count_recent_notes()
     zero_streak = count_zero_publish_runs()
     print(f"STATE.md mentions of stall/oauth idle (recent notes): {notes}")
-    print(f"Consecutive recent RUNS.md sections with published=0: {zero_streak}")
+    print(f"Consecutive recent RUNS.md sections with published=0: {zero_streak} (main file only; full history in docs/runs_archive.md)")
     print("Known history: STALL_OAUTH_IDLE has persisted across 1000+ runs.")
     print("Videos published: 0")
     print("Pre-upload path: complete")
