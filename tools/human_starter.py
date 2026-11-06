@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,7 +25,8 @@ def run_tool(script: str) -> int:
 
 
 def main() -> int:
-    print("HUMAN STARTER (single entry for OAuth step; no secrets polled)", flush=True)
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    print(f"HUMAN STARTER (single entry for OAuth step; no secrets polled)  [{now}]", flush=True)
     print("Sequences media check + preflight + long stall report + contract streak detector + publish readiness + one-pager.", flush=True)
     print()
 
