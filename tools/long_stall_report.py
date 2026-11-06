@@ -42,6 +42,20 @@ def count_zero_publish_runs() -> int:
     return streak
 
 
+def extract_timestamps(sections: list[str]) -> list[datetime]:
+    """Extract UTC timestamps from run section headers."""
+    ts_re = re.compile(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z")
+    times = []
+    for sec in sections:
+        m = ts_re.search(sec)
+        if m:
+            try:
+                times.append(datetime.strptime(m.group(0), "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc))
+            except ValueError:
+                pass
+    return times
+
+
 def main() -> int:
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     print("LONG STALL REPORT (OAuth idle; no poll, no invent)")
@@ -51,6 +65,18 @@ def main() -> int:
     zero_streak = count_zero_publish_runs()
     print(f"STATE.md mentions of stall/oauth idle (recent notes): {notes}")
     print(f"Consecutive recent RUNS.md sections with published=0: {zero_streak} (main file only; full history in docs/runs_archive.md)")
+    if zero_streak > 0:
+        # Recompute sections to get dates
+        if RUNS.is_file():
+            text = RUNS.read_text(encoding="utf-8")
+            sections = re.split(r"^## Run ", text, flags=re.M)
+            recent = sections[1:zero_streak+1]
+            times = extract_timestamps(recent)
+            if times:
+                oldest = min(times)
+                newest = max(times)
+                delta = (newest - oldest).days
+                print(f"Visible streak date range: {oldest.strftime('%Y-%m-%d')} to {newest.strftime('%Y-%m-%d')} (~{delta} days in main RUNS.md)")
     print("Known history: STALL_OAUTH_IDLE has persisted across 1000+ runs.")
     print("Videos published: 0")
     print("Pre-upload path: complete")
