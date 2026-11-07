@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-07T15:20:50Z (Run 1094)
+
+Cloned repo. Selftest initially FAIL (NEXT.md had 8 notes > max 6). Ran next_compact.py (moved 2 older notes to archive). Selftest now PASS. Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete (no rematerialize). No secrets polled, no dispatch, no media writes. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). State files updated. Selftest PASS.
+
 2026-11-07T14:35:00Z (Run 1093)
 
 Inspected current state (selftest PASS on fresh clone). Fixed tools/stall_watch.py so it parses the live STATE.md timestamp (Run N) format and recognizes common idle phrases ("no secrets polled", "oauth was not polled", "videos published stay 0"). Now reports idle_streak on live state (currently 6). Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete (no rematerialize). No secrets polled, no dispatch, no media writes. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). State files updated. Selftest PASS.

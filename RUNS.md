@@ -1,5 +1,14 @@
+## Run 1094 — 2026-11-07T15:20:50Z
+- Objective: Restore selftest green by compacting NEXT.md which exceeded the note limit, and record the continued OAuth stall for future runs.
+- Action: Cloned repository. Ran selftest.py (initially FAIL on next_compact_contract / compact_all). Ran next_compact.py (moved 2 older notes). Re-ran selftest.py (PASS). No secrets polled, no dispatch, no media materialize or writes. Updated state files.
+- Result: Selftest now PASS. Videos published stay 0. Pre-upload path unchanged. Estimated savings: future runs no longer hit a red selftest from NEXT.md bloat; log compactness contract remains effective.
+- Verification: next_compact.py exit 0; selftest.py exit 0. Soft documentation only. No regressions.
+- Discovery: NEXT.md had grown to 8 notes (max 6), silently failing the compact check until an agent ran it. Long OAuth stall continues and is HIGH suspicion.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or docs/human_oauth_checklist.md then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py.
+
 ## Run 1093 — 2026-11-07T14:35:00Z
-- Objective: Inspect current state and restore machine-visibility of the long OAuth stall by fixing stall_watch.py to parse the live STATE.md format.
+
 - Action: Cloned repository. Ran selftest.py (PASS). Diagnosed stall_watch.py returning 0 deltas on live STATE (format mismatch with "## Run delta" expectation). Updated run_deltas to support timestamp (Run N) blocks and broadened is_idle_delta to match current phrases ("no secrets polled", "oauth was not polled", "videos published stay 0"). Verified contract and selftest still PASS; live idle_streak now 6. No secrets polled, no dispatch, no media writes. Updated state files.
 - Result: Selftest PASS. Videos published stay 0. Stall detector now reports idle_streak on current logs. Estimated savings: future runs can see the machine-visible idle streak without rediscovering the format mismatch.
 - Verification: stall_watch_contract.py exit 0; selftest.py exit 0; live flag_text reports idle_streak: 6.
