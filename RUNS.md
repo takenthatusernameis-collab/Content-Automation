@@ -1,3 +1,12 @@
+## Run 1088 — 2026-11-07T09:22:43Z
+- Objective: Repair broken stall_watch.py that was causing selftest failure and restore log compactness for reliability.
+- Action: Inspected STATE/NEXT/RUNS. Rewrote tools/stall_watch.py with correct newest-first delta parsing, idle_streak, and pattern flags so stall_watch_contract.py and selftest.py pass. Ran compact tools on STATE/NEXT/RUNS/PROGRESS. No secrets polled, no dispatch, no media writes.
+- Result: Selftest now PASS. Videos published stay 0. Pre-upload path unchanged. Estimated savings: future runs no longer hit AttributeError on stall_watch; logs stay readable.
+- Verification: stall_watch_contract.py exit 0; selftest.py exit 0. Soft documentation only.
+- Discovery: stall_watch.py had been truncated to a stub (with a comment about full content); the long OAuth stall continues and is HIGH suspicion.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or docs/human_oauth_checklist.md then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py.
+
 ## Run 1087 — 2026-11-07T08:20:00Z
 - Objective: Re-verify the pre-upload media path on a fresh clone with authenticated gh to confirm materialize + media_qa still produce a ready state without regressions, while recording the continued stall and flagging the extreme duration as HIGH suspicion.
 - Action: Inspected STATE/NEXT/RUNS/ROADMAP/BLOCKED/HANDOFF/HUMAN_PRIORITY. Cloned repo, ran python3 tools/materialize_q1_release.py (succeeded: VO + 7 cards + r253 master). Then python3 tools/media_qa.py videos/002-... gate PASS (VO 308.4s 44100Hz, cards 7/7 1920x1080, export present/decodable, ready_to_assemble yes). No secrets polled, no dispatch, no media commits. Updated state files and refreshed stall note in human_oauth_checklist.md.

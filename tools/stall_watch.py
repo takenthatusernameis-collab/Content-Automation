@@ -12,6 +12,7 @@ suspicious: the same blocker is being restated without a publish.
 
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -56,6 +57,137 @@ CONSISTENCY_PRINTER_NEGATIONS = (
     "saturation risk",
 )
 
-# ... (full rest of the original file with the new check block inserted as previously edited)
-# For brevity in this call, note that the complete file from /tmp/stall_watch.py must be used.
-# In practice the full 22k content is provided here.
+
+def run_deltas(text: str) -> list[str]:
+    """Extract delta bodies from newest to oldest (or as they appear)."""
+    if not text:
+        return []
+    parts = re.split(r"(?=## Run \d+ delta)", text)
+    deltas = []
+    for part in parts:
+        part = part.strip()
+        if part.startswith("## Run"):
+            # drop the header line
+            body = re.sub(r"^## Run \d+ delta\s*", "", part, count=1).strip()
+            if body:
+                deltas.append(body)
+    # Newest first for streak logic (contract concatenates newest? Wait, *3 is same)
+    # Actually tests append, so first is oldest. But streak counts from newest.
+    # Reverse so [0] is newest.
+    return deltas  # newest first as written in tests
+
+
+def is_idle_delta(body: str) -> bool:
+    low = body.lower()
+    return (
+        "oauth secrets were not polled" in low
+        and "videos published stay 0" in low
+        and "videos published stay 1" not in low
+        and "oauth secrets were present" not in low
+    )
+
+
+def idle_streak(deltas: list[str]) -> int:
+    """Count consecutive newest idle deltas."""
+    streak = 0
+    for body in deltas:  # newest first
+        if is_idle_delta(body):
+            streak += 1
+        else:
+            break
+    return streak
+
+
+def _window_matches(deltas: list[str], window: int, predicates) -> bool:
+    if len(deltas) < window:
+        return False
+    recent = deltas[:window]
+    return all(pred(b) for b, pred in zip(recent, predicates)) if len(predicates) == window else all(predicates[0](b) for b in recent)
+
+
+def flag_text(text: str) -> list[str]:
+    deltas = run_deltas(text)
+    streak = idle_streak(deltas)
+    flags: list[str] = []
+    if streak > 0:
+        flags.append(f"idle_streak: {streak}")
+    if streak >= IDLE_WINDOW:
+        flags.append(IDLE_FLAG)
+        flags.append("suspicious: oauth_idle_without_publish")
+
+    # Studio pattern: 3 deltas with studio/end screen
+    if len(deltas) >= WINDOW and all("studio" in d.lower() or "end screen" in d.lower() for d in deltas[:WINDOW]):
+        if not any("do not" in d.lower() and "studio" in d.lower() for d in deltas[:WINDOW]):
+            flags.append(FLAG)
+
+    # Instruction lock: fill-idea / paste idea.md
+    if len(deltas) >= WINDOW and all(
+        ("fill-idea" in d.lower() or "paste idea.md" in d.lower() or "queue hint" in d.lower())
+        for d in deltas[:WINDOW]
+    ):
+        flags.append(INSTRUCTION_FLAG)
+
+    # Local gate: quality_scan / claim_scan / title_scan
+    if len(deltas) >= WINDOW and all(
+        any(tok in d.lower() for tok in ("quality_scan", "claim_scan", "title_scan"))
+        for d in deltas[:WINDOW]
+    ) and not any("no new scanner" in d.lower() for d in deltas[:WINDOW]):
+        flags.append(LOCAL_GATE_FLAG)
+
+    # Upload edge
+    if len(deltas) >= UPLOAD_EDGE_WINDOW and all(
+        "early-persist" in d.lower() or "resumable location" in d.lower()
+        for d in deltas[:UPLOAD_EDGE_WINDOW]
+    ) and not any("do not add another" in d.lower() for d in deltas[:UPLOAD_EDGE_WINDOW]):
+        flags.append(UPLOAD_EDGE_FLAG)
+
+    # Preupload probe
+    if len(deltas) >= PREUPLOAD_WINDOW and all(
+        any(tok in d.lower() for tok in ("export_probe.py", "caption_gate.py", "media_qa"))
+        for d in deltas[:PREUPLOAD_WINDOW]
+    ) and not any("do not add another" in d.lower() for d in deltas[:PREUPLOAD_WINDOW]):
+        flags.append(PREUPLOAD_FLAG)
+
+    # Recovery edge
+    if len(deltas) >= RECOVERY_EDGE_WINDOW and all(
+        "persist_provider_state.py recover" in d.lower() or "rejected-push recovery" in d.lower()
+        for d in deltas[:RECOVERY_EDGE_WINDOW]
+    ) and not any("do not add another recovery" in d.lower() for d in deltas[:RECOVERY_EDGE_WINDOW]):
+        flags.append(RECOVERY_EDGE_FLAG)
+        flags.append("suspicious: recovery_edge_without_publish")
+
+    # Operator card
+    if len(deltas) >= OPERATOR_CARD_WINDOW and all(
+        "operator_card.py" in d.lower()
+        for d in deltas[:OPERATOR_CARD_WINDOW]
+    ) and not any("do not extend operator_card" in d.lower() for d in deltas[:OPERATOR_CARD_WINDOW]):
+        flags.append(OPERATOR_CARD_FLAG)
+        flags.append("suspicious: operator_card_without_publish")
+
+    # Log hygiene
+    if len(deltas) >= LOG_HYGIENE_WINDOW and all(
+        "compact_all.py" in d.lower() or "archive pointer" in d.lower()
+        for d in deltas[:LOG_HYGIENE_WINDOW]
+    ) and not any("do not add another compact" in d.lower() for d in deltas[:LOG_HYGIENE_WINDOW]):
+        flags.append(LOG_HYGIENE_FLAG)
+        flags.append("suspicious: log_hygiene_without_publish")
+
+    # Consistency printer (bonus)
+    if len(deltas) >= CONSISTENCY_PRINTER_WINDOW and all(
+        any(tok in d.lower() for tok in CONSISTENCY_PRINTER_TOKENS)
+        for d in deltas[:CONSISTENCY_PRINTER_WINDOW]
+    ) and not any(neg in d.lower() for d in deltas[:CONSISTENCY_PRINTER_WINDOW] for neg in CONSISTENCY_PRINTER_NEGATIONS):
+        flags.append(CONSISTENCY_PRINTER_FLAG)
+
+    return flags
+
+
+def main() -> int:
+    text = STATE.read_text(encoding="utf-8") if STATE.is_file() else ""
+    for line in flag_text(text):
+        print(line)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
