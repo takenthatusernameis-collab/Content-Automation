@@ -1,3 +1,6 @@
+## Run 1085 — 2026-11-07T06:25:00Z
+Evidence: Fresh-clone materialize + media_qa PASS reconfirmed (VO + 7 cards + r253). STALL_OAUTH_IDLE continues at 1000+ runs with published=0 and no human progress. Pure verification runs remain low-leverage. Lesson: continue treating extreme stall as HIGH suspicion; agents should prefer the human OAuth step over further pure state recording unless a genuine regression or new unblocked capability is identified. Do not add another consistency printer, aggregator, or contract lock while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
+
 # PROMPT EVOLUTION
 
 ## Run 1084 — 2026-11-07T05:20:00Z
