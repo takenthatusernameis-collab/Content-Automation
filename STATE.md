@@ -1,3 +1,7 @@
+2026-11-07T00:20:00Z (Run 1079)
+
+OAuth was not polled and execute was not dispatched. Videos published stay 0. Updated docs/human_oauth_checklist.md current stall note to Run 1079 (HIGH suspicion, sole primary blocker, prefer human starter) and added current Google Cloud UI tip for Clients page / Desktop app to reduce navigation friction. Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete. No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and increasingly suspicious (1000+ runs). Prefer human OAuth step now (start with python3 tools/human_starter.py or open docs/HUMAN_PRIORITY.md or docs/human_oauth_checklist.md). Updated state files to record the continued stall without adding new contracts or printers.
+
 2026-11-06T23:30:00Z (Run 1078)
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Updated docs/human_oauth_checklist.md current stall note to Run 1078 (HIGH suspicion, sole primary blocker, prefer human starter). Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete. No secrets polled, no dispatch, no media writes. Pre-upload path remains complete. STALL_OAUTH_IDLE primary and increasingly suspicious (1000+ runs). Prefer human OAuth step now (start with python3 tools/human_starter.py or open docs/HUMAN_PRIORITY.md or docs/human_oauth_checklist.md). Updated state files to record the continued stall without adding new contracts or printers.
