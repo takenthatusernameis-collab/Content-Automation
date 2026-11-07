@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1101 — 2026-11-07T22:20:00Z
+- Objective: Reduce residual human friction on the OAuth step by aligning the single entry point (human_starter.py) pitfalls section with the preferred scopes clarified in Run 1098.
+- Action: Cloned repository. Confirmed selftest PASS. Updated tools/human_starter.py common pitfalls to match preferred scopes (force-ssl + yt-analytics.readonly; note force-ssl covers upload; avoid overlapping). Committed the change. No secrets polled, no dispatch, no media writes.
+- Result: Scope guidance now consistent across starter, HUMAN_PRIORITY.md, and checklist. Videos published stay 0. Pre-upload path unchanged. Estimated savings: future human setup less likely to hit overlapping-scope consent rejection when following the starter output.
+- Verification: File update committed (SHA 13c8a358ce9dc6d88d6f25f7540d8666a067ae43). Soft documentation only. No regressions. Selftest remained PASS.
+- Discovery: human_starter.py still had the older multi-scope pitfall text despite the Run 1098 clarification. Small consistency fix compounds by making the single entry point accurate. STALL_OAUTH_IDLE persists across 1000+ runs with no human progress on secrets. Pre-upload complete and stable. Further pure verification has diminishing returns.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py.
+
 ## Run 1100 — 2026-11-07T21:20:00Z
 - Objective: Confirm current system health on fresh clone including materialize path and selftest (with compact), record continued OAuth stall for future runs, and leave clear handoff without adding low-leverage artifacts.
 - Action: Cloned repository. Ran materialize_q1_release.py (success). Ran media_qa.py (PASS). Ran next_action.py (upload-blocked). Detected NEXT.md over limit (9 notes). Ran next_compact.py (moved 3 notes). Selftest now PASS. No secrets polled, no dispatch, no media writes beyond materialize. Updated state files via record_run.
