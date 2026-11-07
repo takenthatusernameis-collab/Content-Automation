@@ -59,31 +59,52 @@ CONSISTENCY_PRINTER_NEGATIONS = (
 
 
 def run_deltas(text: str) -> list[str]:
-    """Extract delta bodies from newest to oldest (or as they appear)."""
+    """Extract delta bodies from newest to oldest.
+
+    Supports both the older "## Run N delta" headers and the current
+    "YYYY-MM-DDTHH:MM:SSZ (Run N)" timestamped blocks used in STATE.md.
+    """
     if not text:
         return []
+    # Prefer the live timestamped format; fall back to the ## Run delta form.
+    if re.search(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z \(Run \d+\)", text):
+        parts = re.split(r"(?=\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z \(Run \d+\))", text)
+        deltas = []
+        for part in parts:
+            part = part.strip()
+            if re.match(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z \(Run \d+\)", part):
+                # drop the timestamp header line
+                body = re.sub(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z \(Run \d+\)\s*", "", part, count=1).strip()
+                if body:
+                    deltas.append(body)
+        return deltas  # newest first as written
+    # Legacy path used by the contract fixtures
     parts = re.split(r"(?=## Run \d+ delta)", text)
     deltas = []
     for part in parts:
         part = part.strip()
         if part.startswith("## Run"):
-            # drop the header line
             body = re.sub(r"^## Run \d+ delta\s*", "", part, count=1).strip()
             if body:
                 deltas.append(body)
-    # Newest first for streak logic (contract concatenates newest? Wait, *3 is same)
-    # Actually tests append, so first is oldest. But streak counts from newest.
-    # Reverse so [0] is newest.
-    return deltas  # newest first as written in tests
+    return deltas
 
 
 def is_idle_delta(body: str) -> bool:
     low = body.lower()
-    return (
+    no_poll = (
         "oauth secrets were not polled" in low
-        and "videos published stay 0" in low
+        or "no secrets polled" in low
+        or "oauth was not polled" in low
+        or "oauth not polled" in low
+    )
+    published_zero = "videos published stay 0" in low or "published=0" in low or "published stay 0" in low
+    return (
+        no_poll
+        and published_zero
         and "videos published stay 1" not in low
         and "oauth secrets were present" not in low
+        and "secrets present" not in low
     )
 
 
