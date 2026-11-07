@@ -105,7 +105,7 @@ def main() -> int:
     print("- Exact due date calculator: python3 tools/observation_window.py videos/002-stop-deciding-what-to-work-on-every-morning")
     print()
     print("=== Common pitfalls (avoid these to finish in one pass) ===")
-    print("- Missing scopes: must include youtube.upload + youtube.force-ssl + yt-analytics.readonly (upload alone fails later steps).")
+    print("- Missing or overlapping scopes: preferred are youtube.force-ssl + yt-analytics.readonly (force-ssl covers upload; overlapping youtube + upload + force-ssl can cause consent rejection; upload alone is insufficient for captions).")
     print("- Pasting secrets on the command line or into a file instead of the interactive gh secret set prompt.")
     print("- Dispatching a second execute=true before a private video id appears in both the Actions log and upload_state.json.")
     print("- Using the truncated r249 master; materialize installs the verified r253 only.")
