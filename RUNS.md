@@ -1,3 +1,12 @@
+## Run 1080 — 2026-11-07T01:30:00Z
+- Objective: Re-verify the pre-upload media path on a fresh clone with authenticated gh to confirm materialize + media_qa still produce a ready state without regressions, while recording the continued stall.
+- Action: Inspected STATE/NEXT/RUNS/ROADMAP/BLOCKED/HANDOFF/HUMAN_PRIORITY. Cloned repo, ran python3 tools/materialize_q1_release.py (succeeded: VO + 7 cards + r253 master). Then python3 tools/media_qa.py videos/002-... gate PASS (VO 308.4s 44100Hz, cards 7/7 1920x1080, export present/decodable, ready_to_assemble yes). No secrets polled, no dispatch, no media commits. Updated state files.
+- Result: Videos published stay 0. Pre-upload path re-confirmed functional on this run. Estimated savings: future runs can trust the materialize + media_qa path is stable; reduced rediscovery of "is media still good?". Gate behavior unchanged.
+- Verification: materialize exit 0; media_qa gate PASS. Soft documentation only. No regressions.
+- Discovery: Fresh-clone materialize with current auth still installs exact r253 artifacts and media_qa passes. OAuth stall remains the sole primary blocker and is increasingly suspicious after 1000+ runs.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or docs/human_oauth_checklist.md then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. Optional: python3 tools/observation_window_contract.py.
+
 ## Run 1079 — 2026-11-07T00:20:00Z
 - Objective: Confirm current state and reduce human navigation friction on the Google Cloud OAuth setup by adding a current UI tip, while recording the continued stall.
 - Action: Inspected STATE/NEXT/RUNS/ROADMAP/BLOCKED/HANDOFF/HUMAN_PRIORITY and key tools. Confirmed STALL_OAUTH_IDLE (1000+ runs), published=0, pre-upload complete. No secrets polled, no dispatch, no media writes. Updated docs/human_oauth_checklist.md current stall note to Run 1079 and added Current Google Cloud UI tip (Clients page / Desktop app). Updated state files. No new contracts, printers, or aggregators.
