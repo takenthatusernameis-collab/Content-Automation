@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-07T11:20:00Z (Run 1090)
+
+Inspected current state. Selftest failed on state_compact_contract (newest STATE.md delta missing required "Videos published" string in first 1200 chars after format drift to published=0). Restored the required phrase in the live STATE header so truncated fetches still surface the stall. Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete. No secrets polled, no dispatch, no media writes. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). State files updated. Selftest now expected to PASS.
+
 2026-11-07T10:15:00Z (Run 1089)
 
 Inspected STATE/NEXT/RUNS/ROADMAP/BLOCKED/HANDOFF/HUMAN_PRIORITY/PROGRESS and key tools. Cloned and ran selftest.py: PASS. Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete (media ready after materialize; gates pass). OAuth was not polled and execute was not dispatched. No secrets polled, no dispatch, no media writes. Pre-upload path remains complete and functional. STALL_OAUTH_IDLE primary and increasingly suspicious after 1000+ runs with no human progress on secrets. Prefer human OAuth step now (start with python3 tools/human_starter.py or open docs/HUMAN_PRIORITY.md or docs/human_oauth_checklist.md). Updated state files to record the continued stall without adding new contracts or printers.
