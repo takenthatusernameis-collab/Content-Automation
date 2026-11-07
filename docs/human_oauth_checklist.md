@@ -83,6 +83,18 @@ Then watch the Actions run for a private video id. Do not dispatch again until t
   ```
   Initial privacy stays private. Do not collect_feedback until a video id exists and 7 days have passed.
 
+## Current Google Cloud UI tip (Run 1079)
+
+Navigation may show "Google Auth platform" or "APIs & Services". For the Desktop client:
+
+- Go to https://console.cloud.google.com/apis/credentials or the Clients page under Google Auth platform.
+- Click Create credentials > OAuth client ID (or Create client).
+- Choose Application type: Desktop app.
+- Name it and Create. Copy Client ID and Client Secret immediately.
+- For consent screen: ensure YouTube Data API v3 and YouTube Analytics API are enabled first; add the channel Google account as a test user if status is Testing.
+
+This tip reduces navigation friction if the console labels have shifted. Core steps remain unchanged.
+
 ## Expected outcomes after a successful dispatch
 
 After the single `execute=true` dispatch:
@@ -127,5 +139,5 @@ Do not invent an id. Do not re-upload the master on POST_UPLOAD_INCOMPLETE.
 
 Agents have verified materialize + all local gates on fresh clones across ~181+ runs with no change in the external blocker. The long oauth_idle_without_publish stall continues and is machine-visible via stall_watch.py. The pre-upload path is stable. Further pure-verification agent runs have diminishing returns. The only remaining step that advances the system is completing the three secrets above and the one dispatch. Once a private video id appears, the system can move to feedback collection after the observation window. Preferred agent work while stalled is listed in status_report.py (list complete; prioritize human step or truly new small anti-rediscovery items). HANDOFF.md surfaces the while-stalled guidance. Run 468 restored NEXT.md under the size cap. Run 469–473 keep the banner current with confirmation signals. Banner timestamp intentionally frozen at Run 473 (STALL_BANNER_REFRESH); agents will not refresh it solely for the date.
 
-## Current stall note (Run 1078)
-The STALL_OAUTH_IDLE has persisted across 1000+ runs with videos published remaining 0. This is HIGH suspicion and the sole primary blocker. Complete the three secrets and single dispatch as soon as practical. Start with `python3 tools/human_starter.py` (sequences media presence check + preflight + long stall report + recurring pattern flag + contract streak detector + publish readiness + one-pager + observation_window for Q1, and prints concise post-id next steps summary). After dispatch: `python3 tools/human_success_check.py` then `python3 tools/post_publish_sequence.py`. Do not poll from agents. Do not add further contract locks, aggregators, or soft reports while stalled. Prefer the human step now.
+## Current stall note (Run 1079)
+The STALL_OAUTH_IDLE has persisted across 1000+ runs with videos published remaining 0. This is HIGH suspicion and the sole primary blocker. Complete the three secrets and single dispatch as soon as practical. Start with `python3 tools/human_starter.py` (sequences media presence check + preflight + long stall report + recurring pattern flag + contract streak detector + publish readiness + one-pager + observation_window for Q1, and prints concise post-id next steps summary). After dispatch: `python3 tools/human_success_check.py` then `python3 tools/post_publish_sequence.py`. Do not poll from agents. Do not add further contract locks, aggregators, or soft reports while stalled. Prefer the human step now. Added current UI tip for Google Cloud Clients page / Desktop app to reduce navigation friction.
