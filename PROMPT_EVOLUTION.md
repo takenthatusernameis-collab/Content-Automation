@@ -1,5 +1,8 @@
 # PROMPT EVOLUTION
 
+## Run 1084 — 2026-11-07T05:20:00Z
+Evidence: Runs 1081-1083 (and 1000+ prior) each recorded the same STALL_OAUTH_IDLE with published=0 and pre-upload complete, updating state files without new capabilities while the human OAuth step remained undone. Pure verification and state recording have zero compounding effect at this duration. Lesson: after extreme stall (1000+ runs), treat further pure inspection/recording as low-leverage; agents should flag HIGH suspicion explicitly and prefer any remaining unblocked production capability or stop at the human step. Do not add another consistency printer, aggregator, or contract lock while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
+
 ## Run 1051 — 2026-11-05T20:20:00Z
 Evidence: Runs 1044-1050 each added a new *contract.py locking a fail-closed path of an existing tool (timeline, youtube_feedback, complete, youtube_upload, assemble, experiment_loop, media_qa) while videos published stayed 0 and STALL_OAUTH_IDLE continued. The reliability locks are useful but the streak is saturating. Lesson: added tools/contract_streak_detector.py to make the pattern machine-visible (threshold 5). Prefer the human OAuth step or a true new production capability over further pure contract locks. Do not add another consistency printer, aggregator, or contract lock while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
 
