@@ -1,3 +1,14 @@
+# RUNS
+
+## Run 1099 — 2026-11-07T20:15:00Z
+- Objective: Restore selftest green by compacting NEXT.md (which had exceeded the 6-note cap) and record the continued OAuth stall for future runs without adding low-leverage artifacts.
+- Action: Cloned repository. Detected NEXT.md over limit. Ran next_compact.py (moved 2 notes). Selftest now PASS. No secrets polled, no dispatch, no media writes. Updated state files via record_run.
+- Result: Selftest PASS. Videos published stay 0. Pre-upload path unchanged. Estimated savings: future runs start from green selftest without rediscovering the over-limit state.
+- Verification: next_compact moved notes; selftest.py exit 0. Soft documentation only. No regressions.
+- Discovery: NEXT.md can drift over the selftest note cap between runs; compact_all / next_compact must be part of recording. record_run.py now restores a missing # RUNS header (like other logs) so recording cannot fail partway. STALL_OAUTH_IDLE persists across 1000+ runs with no human progress on secrets. Pre-upload complete and stable. Further pure verification has diminishing returns.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py.
+
 ## Run 1098 — 2026-11-07T19:16:00Z
 - Objective: Reduce human friction on the remaining OAuth step by clarifying preferred scopes based on current Google documentation, while recording the continued stall.
 - Action: Updated docs/HUMAN_PRIORITY.md and docs/human_oauth_checklist.md with preferred scopes (youtube.force-ssl + yt-analytics.readonly; note that force-ssl covers upload and overlapping scopes risk rejection). Updated state files. No secrets polled, no dispatch, no media changes.
