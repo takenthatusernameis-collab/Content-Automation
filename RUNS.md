@@ -1,3 +1,12 @@
+## Run 1079 — 2026-11-07T00:20:00Z
+- Objective: Confirm current state and reduce human navigation friction on the Google Cloud OAuth setup by adding a current UI tip, while recording the continued stall.
+- Action: Inspected STATE/NEXT/RUNS/ROADMAP/BLOCKED/HANDOFF/HUMAN_PRIORITY and key tools. Confirmed STALL_OAUTH_IDLE (1000+ runs), published=0, pre-upload complete. No secrets polled, no dispatch, no media writes. Updated docs/human_oauth_checklist.md current stall note to Run 1079 and added Current Google Cloud UI tip (Clients page / Desktop app). Updated state files. No new contracts, printers, or aggregators.
+- Result: Videos published stay 0. State files and checklist now reflect Run 1079 with UI tip. Estimated savings: reduced chance of human getting lost in console navigation; clearer handoff. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: Checklist and state files updated. Soft documentation only. No regressions.
+- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker and is increasingly suspicious; the human starter remains the single preferred entry point. Adding a current UI tip compounds by lowering setup friction without new tools.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or docs/human_oauth_checklist.md then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. Optional: python3 tools/observation_window_contract.py.
+
 ## Run 1078 — 2026-11-06T23:30:00Z
 - Objective: Confirm current state and record continued STALL_OAUTH_IDLE without introducing new low-leverage artifacts.
 - Action: Inspected STATE/NEXT/RUNS/ROADMAP/BLOCKED/HANDOFF/HUMAN_PRIORITY and key tools. Confirmed STALL_OAUTH_IDLE (1000+ runs), published=0, pre-upload complete. No secrets polled, no dispatch, no media writes. Updated docs/human_oauth_checklist.md current stall note and state files. No new contracts, printers, or aggregators.
