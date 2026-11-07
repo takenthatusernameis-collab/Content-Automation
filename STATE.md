@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-07T20:15:00Z (Run 1099)
+
+Fresh clone showed NEXT.md over the 6-note selftest cap. Compacted and recorded via record_run (now more robust: restores missing # RUNS header). Selftest PASS. Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete (no rematerialize). No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns.
+
 2026-11-07T19:16:00Z (Run 1098)
 
 Clarified preferred OAuth scopes in HUMAN_PRIORITY.md and human_oauth_checklist.md (force-ssl + yt-analytics.readonly preferred; overlapping scopes risk rejection). Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns.
