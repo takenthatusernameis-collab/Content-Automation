@@ -1,5 +1,7 @@
 # FAILURES
 
+None this run. Continued long STALL_OAUTH_IDLE with no progress on secrets.
+
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
 
 ## Run 1099 — 2026-11-07T20:15:00Z
