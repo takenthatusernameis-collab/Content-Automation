@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-07T18:15:00Z
+
+Fresh clone + materialize + media_qa PASS + next_action upload-blocked + selftest PASS. Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete (no rematerialize needed after this confirmation). No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). State files to be updated via record_run. Long stall flagged as increasingly suspicious; further pure verification has diminishing returns.
+
 2026-11-07T17:15:00Z (Run 1096)
 
 Fresh clone + selftest.py PASS. Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete (no rematerialize). No secrets polled, no dispatch, no media writes. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). State files updated. Selftest PASS. No new tools or contracts. Long stall flagged as increasingly suspicious; further pure verification has diminishing returns.
