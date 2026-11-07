@@ -1,3 +1,12 @@
+## Run 1081 — 2026-11-07T02:20:00Z
+- Objective: Confirm current state and record continued STALL_OAUTH_IDLE without introducing new low-leverage artifacts.
+- Action: Inspected STATE/NEXT/RUNS/ROADMAP/BLOCKED/HANDOFF/HUMAN_PRIORITY and key tools. Confirmed STALL_OAUTH_IDLE (1000+ runs), published=0, pre-upload complete. No secrets polled, no dispatch, no media writes. Updated state files with new run note. No new contracts, printers, or aggregators.
+- Result: Videos published stay 0. State files now reflect Run 1081. Estimated savings: clearer handoff for next run; reduced chance of rediscovery. Pre-upload path unchanged. Gate behavior unchanged.
+- Verification: State files updated. Soft documentation only. No regressions.
+- Discovery: The long-running OAuth stall (1000+ runs) remains the sole primary blocker and is increasingly suspicious; the human starter remains the single preferred entry point.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so.
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or docs/human_oauth_checklist.md then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. Optional: python3 tools/observation_window_contract.py.
+
 ## Run 1080 — 2026-11-07T01:30:00Z
 - Objective: Re-verify the pre-upload media path on a fresh clone with authenticated gh to confirm materialize + media_qa still produce a ready state without regressions, while recording the continued stall.
 - Action: Inspected STATE/NEXT/RUNS/ROADMAP/BLOCKED/HANDOFF/HUMAN_PRIORITY. Cloned repo, ran python3 tools/materialize_q1_release.py (succeeded: VO + 7 cards + r253 master). Then python3 tools/media_qa.py videos/002-... gate PASS (VO 308.4s 44100Hz, cards 7/7 1920x1080, export present/decodable, ready_to_assemble yes). No secrets polled, no dispatch, no media commits. Updated state files.
