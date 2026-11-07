@@ -24,7 +24,9 @@ Then follow the printed sequence (oauth_exchange, gh secret set, one dispatch). 
 
 ## Quick copy-paste sequence (for the human)
 
-**Scopes reminder (must be granted during mint):** youtube.upload + youtube.force-ssl + yt-analytics.readonly (youtube.upload alone is insufficient).
+**Scopes reminder (preferred during mint):** `https://www.googleapis.com/auth/youtube.force-ssl` + `https://www.googleapis.com/auth/yt-analytics.readonly`
+
+force-ssl already covers youtube.upload and broader management (videos.insert, captions, comments, etc.). Requesting overlapping scopes (youtube + youtube.upload + force-ssl) is a documented cause of consent rejection. youtube.upload alone is insufficient for captions.
 
 Once Google Cloud client is created and scopes are ready:
 
@@ -53,11 +55,10 @@ Then watch the Actions run for a private video id. Do not dispatch again until t
 - [ ] 2. Enable YouTube Data API v3 and YouTube Analytics API.
 - [ ] 3. Configure the OAuth consent screen. Add the channel Google account as a test user if the app is in testing mode.
 - [ ] 4. Create an OAuth 2.0 client of type Desktop app. Note the Client ID and Client Secret.
-- [ ] 5. Mint a refresh token that includes the required scopes:
-  - https://www.googleapis.com/auth/youtube.upload
+- [ ] 5. Mint a refresh token that includes the preferred scopes:
   - https://www.googleapis.com/auth/youtube.force-ssl
   - https://www.googleapis.com/auth/yt-analytics.readonly
-  - (or the full youtube scope plus yt-analytics.readonly)
+  - (force-ssl covers youtube.upload and more; avoid adding overlapping scopes that can cause rejection)
   - youtube.upload alone is insufficient for later caption steps.
 - [ ] 6. Run locally (do not paste values into the repo):
   ```bash
@@ -108,7 +109,7 @@ After the single `execute=true` dispatch:
 
 ## Common pitfalls
 
-- Wrong scope (missing force-ssl or analytics) causes later caption or analytics failures.
+- Wrong or overlapping scopes (missing force-ssl/analytics, or requesting youtube + upload + force-ssl together) can cause consent rejection or later caption/analytics failures.
 - Pasting secrets into a repo file, commit, or command line instead of the `gh secret set` prompt.
 - Dispatching more than once before a video id appears.
 - Using the truncated r249 master instead of the r253 padded master.
@@ -139,6 +140,5 @@ Do not invent an id. Do not re-upload the master on POST_UPLOAD_INCOMPLETE.
 
 Agents have verified materialize + all local gates on fresh clones across ~181+ runs with no change in the external blocker. The long oauth_idle_without_publish stall continues and is machine-visible via stall_watch.py. The pre-upload path is stable. Further pure-verification agent runs have diminishing returns. The only remaining step that advances the system is completing the three secrets above and the one dispatch. Once a private video id appears, the system can move to feedback collection after the observation window. Preferred agent work while stalled is listed in status_report.py (list complete; prioritize human step or truly new small anti-rediscovery items). HANDOFF.md surfaces the while-stalled guidance. Run 468 restored NEXT.md under the size cap. Run 469–473 keep the banner current with confirmation signals. Banner timestamp intentionally frozen at Run 473 (STALL_BANNER_REFRESH); agents will not refresh it solely for the date.
 
-## Current stall note (Run 1087)
-The STALL_OAUTH_IDLE has persisted across 1000+ runs with videos published remaining 0. This is HIGH suspicion and the sole primary blocker. Complete the three secrets and single dispatch as soon as practical. Start with `python3 tools/human_starter.py` (sequences media presence check + preflight + long stall report + recurring pattern flag + contract streak detector + publish readiness + one-pager + observation_window for Q1, and prints concise post-id next steps summary). After dispatch: `python3 tools/human_success_check.py` then `python3 tools/post_publish_sequence.py`. Do not poll from agents. Do not add further contract locks, aggregators, or soft reports while stalled. Prefer the human step now. Run 1087 re-verified materialize + media_qa PASS on fresh clone; pre-upload path remains stable and ready.
-
+## Current stall note (Run 1098)
+The STALL_OAUTH_IDLE has persisted across 1000+ runs with videos published remaining 0. This is HIGH suspicion and the sole primary blocker. Complete the three secrets and single dispatch as soon as practical. Start with `python3 tools/human_starter.py` (sequences media presence check + preflight + long stall report + recurring pattern flag + contract streak detector + publish readiness + one-pager + observation_window for Q1, and prints concise post-id next steps summary). After dispatch: `python3 tools/human_success_check.py` then `python3 tools/post_publish_sequence.py`. Do not poll from agents. Do not add further contract locks, aggregators, or soft reports while stalled. Prefer the human step now. Run 1098 clarified preferred OAuth scopes (force-ssl + analytics; avoid overlapping) to reduce setup friction. Pre-upload path remains stable and ready.
