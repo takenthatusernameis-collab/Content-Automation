@@ -1,3 +1,7 @@
+2026-11-07T01:30:00Z (Run 1080)
+
+Run 1080: re-verified materialize_q1_release.py + media_qa PASS on fresh clone with authenticated gh (VO + 7 cards + r253 master; gate PASS). Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete and re-verified. No new tools or contracts added. Next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or docs/human_oauth_checklist.md then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. Optional: python3 tools/observation_window_contract.py. Do not add another consistency printer, aggregator, or contract lock. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
+
 2026-11-07T00:20:00Z (Run 1079)
 
 Run 1079: recorded continued STALL_OAUTH_IDLE (1000+ runs), published=0, pre-upload complete. Updated checklist stall note and added current Google Cloud UI tip for Desktop app creation. No new tools or contracts added. Next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or docs/human_oauth_checklist.md then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. Optional: python3 tools/observation_window_contract.py. Do not add another consistency printer, aggregator, or contract lock. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2.
