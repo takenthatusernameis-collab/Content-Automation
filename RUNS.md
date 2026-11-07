@@ -1,3 +1,12 @@
+## Run 1098 — 2026-11-07T19:16:00Z
+- Objective: Reduce human friction on the remaining OAuth step by clarifying preferred scopes based on current Google documentation, while recording the continued stall.
+- Action: Updated docs/HUMAN_PRIORITY.md and docs/human_oauth_checklist.md with preferred scopes (youtube.force-ssl + yt-analytics.readonly; note that force-ssl covers upload and overlapping scopes risk rejection). Updated state files. No secrets polled, no dispatch, no media changes.
+- Result: Scope guidance improved. Videos published stay 0. Pre-upload path unchanged. Estimated savings: future human setup less likely to hit overlapping-scope consent rejection; stall status visible immediately.
+- Verification: File updates committed successfully. Soft documentation only. No regressions.
+- Discovery: Google docs indicate force-ssl covers broader methods including upload; requesting redundant scopes can cause rejection. STALL_OAUTH_IDLE persists across 1000+ runs.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py.
+
 ## Run 1097 — 2026-11-07T18:15:00Z
 - Objective: Confirm current system health on fresh clone including materialize path, record continued OAuth stall for future runs, and leave clear handoff without adding low-leverage artifacts.
 - Action: Cloned repository. Ran materialize_q1_release.py (success). Ran media_qa.py (PASS). Ran next_action.py (upload-blocked). Ran selftest.py (PASS). No secrets polled, no dispatch. Updated state files with concise notes via record_run (partial; RUNS manually completed due to missing header).
@@ -28,4 +37,3 @@
 (Older run logs remain in docs/runs_archive.md. Do not paste the archive back.)
 
 Permanent log. Newest first.
-
