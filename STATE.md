@@ -1,5 +1,13 @@
 # STATE
 
+2026-11-07T22:20:00Z (Run 1101)
+
+Aligned human_starter.py common pitfalls with preferred OAuth scopes (force-ssl + yt-analytics.readonly; force-ssl covers upload; avoid overlapping). Selftest PASS on fresh clone. Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete (no rematerialize). No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns.
+
+2026-11-07T21:20:00Z (Run 1100)
+
+Fresh clone showed NEXT.md over the 6-note selftest cap. Compacted and recorded via record_run (now more robust: restores missing # RUNS header). Selftest PASS. Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete (no rematerialize). No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns.
+
 2026-11-07T20:15:00Z (Run 1099)
 
 Fresh clone showed NEXT.md over the 6-note selftest cap. Compacted and recorded via record_run (now more robust: restores missing # RUNS header). Selftest PASS. Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete (no rematerialize). No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns.
@@ -25,4 +33,3 @@ Fresh clone + selftest.py PASS. Videos published stay 0. STALL_OAUTH_IDLE remain
 Cloned repo. Selftest initially FAIL (NEXT.md had 8 notes > max 6). Ran next_compact.py (moved 2 older notes to archive). Selftest now PASS. Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete (no rematerialize). No secrets polled, no dispatch, no media writes. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). State files updated. Selftest PASS.
 
 (Older state notes remain below or in docs/state_archive.md. Do not paste the archive back.)
-
