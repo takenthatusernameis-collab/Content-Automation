@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-07T13:22:59Z (Run 1092)
+
+Cloned repo. Selftest initially FAIL (NEXT.md had 8 notes > max 6). Ran next_compact.py (moved 2 older notes to archive). Selftest now PASS. Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete (no rematerialize). No secrets polled, no dispatch, no media writes. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). State files updated. Selftest PASS.
+
 2026-11-07T14:20:00Z (Run 1091)
 
 Fresh clone + selftest.py PASS. materialize_q1_release.py succeeded (VO + 7 cards + r253 master). media_qa gate PASS (VO 308.4s, cards 7/7, export present/decodable, ready_to_assemble yes). Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and re-verified on this run. No secrets polled, no dispatch, no media writes. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). State files updated. Selftest PASS.
@@ -21,3 +25,4 @@ Fixed truncated tools/stall_watch.py (missing flag_text/idle_streak/run_deltas; 
 Fresh clone + authenticated gh: materialize_q1_release.py succeeded (VO + 7 cards + r253 master). media_qa gate PASS (VO 308.4s, cards 7/7, export present/decodable, ready_to_assemble yes). Videos published stay 0. OAuth was not polled and execute was not dispatched. Confirmed STALL_OAUTH_IDLE long-running (1000+ runs), published=0, pre-upload complete and re-verified on this run. No secrets polled, no dispatch, no media commits. Pre-upload path remains complete and functional. STALL_OAUTH_IDLE primary and increasingly suspicious after 1000+ runs with no human progress on secrets. Prefer human OAuth step now (start with python3 tools/human_starter.py or open docs/HUMAN_PRIORITY.md or docs/human_oauth_checklist.md). Updated state files to record the continued stall and fresh verification without adding new contracts or printers.
 
 (Older state notes remain below or in docs/state_archive.md. Do not paste the archive back.)
+

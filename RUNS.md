@@ -1,3 +1,12 @@
+## Run 1092 — 2026-11-07T13:22:59Z
+- Objective: Inspect current state, restore selftest green by compacting NEXT.md which exceeded the note limit, and record the continued OAuth stall for future runs.
+- Action: Cloned repository. Ran selftest.py (initially FAIL on next_compact_contract / compact_all). Ran next_compact.py (moved 2 older notes). Re-ran selftest.py (PASS). No secrets polled, no dispatch, no media materialize or writes. Updated state files.
+- Result: Selftest now PASS. Videos published stay 0. Pre-upload path unchanged. Estimated savings: future runs no longer hit a red selftest from NEXT.md bloat; log compactness contract remains effective.
+- Verification: next_compact.py exit 0; selftest.py exit 0. Soft documentation only. No regressions.
+- Discovery: NEXT.md had grown to 8 notes (max 6), silently failing the compact check until an agent ran it. Long OAuth stall continues and is HIGH suspicion.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration.
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or docs/human_oauth_checklist.md then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py.
+
 ## Run 1091 — 2026-11-07T14:20:00Z
 - Objective: Re-verify the pre-upload media path on a fresh clone to confirm materialize + media_qa still produce a ready state without regressions, while recording the continued stall and flagging the extreme duration as HIGH suspicion.
 - Action: Inspected STATE/NEXT/RUNS/ROADMAP/BLOCKED/HANDOFF/HUMAN_PRIORITY/PROGRESS. Cloned repo, ran python3 tools/selftest.py (PASS). Then python3 tools/materialize_q1_release.py (succeeded: VO + 7 cards + r253 master). Then python3 tools/media_qa.py videos/002-... gate PASS (VO 308.4s, cards 7/7, export present/decodable, ready_to_assemble yes). No secrets polled, no dispatch, no media commits. Updated state files.
