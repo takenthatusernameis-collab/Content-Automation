@@ -66,7 +66,11 @@ def prepend_next(text: str, item: str, updated: str = "") -> str:
 
 
 def prepend_runs(text: str, section: str) -> str:
-    return _insert_after_header(text, "# RUNS", section)
+    header = "# RUNS"
+    if not text.startswith(header):
+        # Restore a missing header so compact history does not break recording.
+        text = header + "\n\n" + text.lstrip()
+    return _insert_after_header(text, header, section)
 
 
 def prepend_log(text: str, header: str, section: str) -> str:
