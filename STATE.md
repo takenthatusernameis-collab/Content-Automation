@@ -1,10 +1,14 @@
 # STATE
 
+2026-11-08T08:21:00Z (Run 1111)
+
+Added tools/next_from_decision.py (prints a next-video direction skeleton from a filled experiment_decision.json; keep/discard/retest only; no invent). Updated post_publish_sequence.py to recommend it after validating a decision. Reduces future human labor when starting the next packet after learning. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. New tool reduces rediscovery of next-topic structure after a decision.
+
+# STATE
+
 2026-11-08T07:23:00Z (Run 1110)
 
 Updated post_publish_sequence.py to recommend experiment_template_validator.py after filling baseline and decision files. Reduces future human error on the post-publish experiment step. Fresh clone confirms materialize path still valid. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. Validator now surfaced in the post-publish sequence.
-
-# STATE
 
 2026-11-08T06:30:00Z (Run 1109)
 
