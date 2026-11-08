@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-08T12:25:00Z (Run 1115)
+
+Added tools/oauth_complete_guide.py: single self-contained OAuth guide combining deep links, ordered checklist, copy-paste commands, recovery notes, and success criteria into one output. Referenced from human_starter.py, oauth_step_checklist.py, and docs/HUMAN_PRIORITY.md. Reduces tool-switching and rediscovery on the remaining human step. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/oauth_complete_guide.py or human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. Complete guide further reduces friction by consolidating all steps into one page.
+
 2026-11-08T11:20:00Z (Run 1114)
 
 Added tools/oauth_recovery_hints.py with structured recovery steps for common OAuth failures (scope rejection, test-user block, missing refresh_token, secret-set mistakes, POST_UPLOAD_INCOMPLETE). Referenced from oauth_step_checklist.py and human_starter.py. Reduces time-to-recovery on the remaining human step. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed (materialize + media_qa PASS + next_action=upload-blocked). No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or the checklist or recovery hints or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. Recovery hints further reduce friction if the first attempt hits a pitfall.
