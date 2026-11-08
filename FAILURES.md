@@ -1,5 +1,7 @@
 # FAILURES
 
+None. Validator correctly rejects placeholder templates as expected.
+
 None this run. Continued long STALL_OAUTH_IDLE with no progress on secrets. Materialize + media_qa + selftest PASS.
 
 None. Scope alignment succeeded; no regression.
