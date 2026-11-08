@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1115 — 2026-11-08T12:25:00Z
+- Objective: Reduce tool-switching and rediscovery on the remaining human OAuth step by providing a single self-contained guide.
+- Action: Created tools/oauth_complete_guide.py (deep links + ordered checklist + copy-paste commands + recovery notes + success criteria in one output). Linked from human_starter.py, oauth_step_checklist.py, and docs/HUMAN_PRIORITY.md. No secrets polled, no dispatch. Updated state files.
+- Result: Complete guide available. Starter, checklist, and priority doc now point to it. All local gates remain PASS. Videos published stay 0. Pre-upload path unchanged. Efficiency: local automation 100%; remaining human ~10-20 min + dispatch; complete guide reduces rediscovery and tool-switching.
+- Verification: File created, syntax checked with py_compile, executable, runs cleanly and prints the expected guide. References inserted and syntax-checked. Soft only; no hard gates changed.
+- Discovery: STALL_OAUTH_IDLE persists across 1000+ runs with no human progress on secrets. Pre-upload complete and stable. Prior tools (checklist, recovery, starter) existed but required switching between them.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py.
+
 ## Run 1114 — 2026-11-08T11:20:00Z
 - Objective: Reduce time-to-recovery on the remaining human OAuth step by adding structured hints for common failure modes.
 - Action: Created tools/oauth_recovery_hints.py (prints cause + fix for scope rejection, test-user block, missing refresh_token, secret-set mistakes, incomplete post-upload). Linked from oauth_step_checklist.py and human_starter.py. Confirmed materialize + media_qa PASS + next_action=upload-blocked on this clone. No secrets polled, no dispatch. Updated state files.
