@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1111 — 2026-11-08T08:21:00Z
+- Objective: Reduce future human labor when starting the next video after an experiment decision by adding a reusable direction skeleton tool.
+- Action: Created tools/next_from_decision.py (reads filled experiment_decision.json; prints keep/discard/retest next-topic skeleton; no invent). Updated tools/post_publish_sequence.py to recommend it after validating a decision. No secrets polled, no dispatch. Updated state files.
+- Result: next_from_decision.py available for post-decision use. post_publish_sequence.py now surfaces it. All local gates remain PASS. Videos published stay 0. Pre-upload path unchanged. Efficiency: local automation 100%; remaining human ~10-20 min + dispatch; new tool reduces rediscovery of next-topic structure.
+- Verification: File created and committed; post_publish_sequence.py updated and committed. Soft only; no hard gates changed.
+- Discovery: STALL_OAUTH_IDLE persists across 1000+ runs with no human progress on secrets. Pre-upload complete and stable. Post-publish experiment path now has a next-video bridge.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py (now includes validator + next_from_decision). When a decision exists, run next_from_decision.py before scaffolding the next packet.
+
 ## Run 1110 — 2026-11-08T07:23:00Z
 - Objective: Reduce future human error on the post-publish experiment decision step by surfacing the existing experiment_template_validator.py inside the ordered post-publish sequence.
 - Action: Cloned repository. Updated tools/post_publish_sequence.py to recommend the validator after filling experiment_baseline.json and experiment_decision.json. Confirmed validator still correctly rejects templates. No secrets polled, no dispatch. Updated state files.
