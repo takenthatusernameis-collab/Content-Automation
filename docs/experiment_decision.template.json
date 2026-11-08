@@ -1,6 +1,6 @@
 {
   "_template": true,
-  "_comment": "TEMPLATE ONLY. Do not copy to experiment_decision.json until a real numeric comparison exists in experiment_loop output and a documented human review has been performed. Do not invent keep/discard/retest. experiment_loop.py loads only experiment_decision.json after a comparison and rejects invented/placeholder sources.",
+  "_comment": "TEMPLATE ONLY. Do not copy to experiment_decision.json until a real numeric comparison exists in experiment_loop output and a documented human review has been performed. Do not invent keep/discard/retest. experiment_loop.py loads only experiment_decision.json after a comparison and rejects invented/placeholder sources. Validate a filled copy with: python3 tools/experiment_template_validator.py experiment_decision.json",
   "decision": "TEMPLATE: replace with keep, discard, or retest",
   "reason": "TEMPLATE: replace with a short documented reason from the review, e.g. Average view duration rose 18% above the baseline with no drop in completion rate",
   "source": "TEMPLATE: replace with a documented source such as 'Human review of YouTube Studio analytics on 2026-11-20 after observation window'",
