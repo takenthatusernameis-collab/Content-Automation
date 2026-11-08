@@ -1,5 +1,9 @@
 # PROGRESS
 
+2026-11-08T10:15:28Z (Run 1113): Enhanced tools/oauth_step_checklist.py with direct deep links to Google Cloud console pages (API library, consent screen, credentials). Further reduces navigation friction and rediscovery on the longest part of the remaining human OAuth action. Recorded continued STALL_OAUTH_IDLE (1000+ runs, HIGH suspicion), published=0. State files updated for handoff. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion after extreme duration with no progress. Prefer human starter or the enhanced checklist as entry. Pre-upload path remains complete and stable. Pure verification has diminishing returns.
+
+# PROGRESS
+
 2026-11-08T09:19:06Z (Run 1112): Added tools/oauth_step_checklist.py (checkbox-style printable checklist for the exact human OAuth sequence). Reduces rediscovery of steps and common pitfalls on the remaining human action. Recorded continued STALL_OAUTH_IDLE (1000+ runs, HIGH suspicion), published=0. State files updated for handoff. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion after extreme duration with no progress. Prefer human starter or the new checklist as entry. Pre-upload path remains complete and stable. Pure verification has diminishing returns.
 
 # PROGRESS
