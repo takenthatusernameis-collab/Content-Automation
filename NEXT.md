@@ -1,3 +1,6 @@
+2026-11-08T09:19:06Z (Run 1112)
+Run 1112: added tools/oauth_step_checklist.py as a checkbox-style reminder of the exact human OAuth sequence (complements human_starter.py). STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step (docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or the new checklist, then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2. Pure verification has diminishing returns. Use the checklist when performing the human step.
+
 2026-11-08T08:21:00Z (Run 1111)
 Run 1111: added tools/next_from_decision.py and surfaced it in post_publish_sequence.py after a validated decision. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step (docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2. Pure verification has diminishing returns. After a decision exists, use next_from_decision.py for the next topic skeleton.
 

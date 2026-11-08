@@ -1,5 +1,9 @@
 # PROGRESS
 
+2026-11-08T09:19:06Z (Run 1112): Added tools/oauth_step_checklist.py (checkbox-style printable checklist for the exact human OAuth sequence). Reduces rediscovery of steps and common pitfalls on the remaining human action. Recorded continued STALL_OAUTH_IDLE (1000+ runs, HIGH suspicion), published=0. State files updated for handoff. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion after extreme duration with no progress. Prefer human starter or the new checklist as entry. Pre-upload path remains complete and stable. Pure verification has diminishing returns.
+
+# PROGRESS
+
 2026-11-08T08:21:00Z (Run 1111): Added tools/next_from_decision.py to print a next-video direction skeleton from a filled experiment_decision.json (keep/discard/retest only; no invent). Updated post_publish_sequence.py to recommend it after validating a decision. Reduces future human labor when starting the next packet after learning from the first publish. Recorded continued STALL_OAUTH_IDLE (1000+ runs, HIGH suspicion), published=0. State files updated for handoff. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion after extreme duration with no progress. Prefer human starter as single entry. Pre-upload path remains complete and stable. Pure verification has diminishing returns.
 
 # PROGRESS

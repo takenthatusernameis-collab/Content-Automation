@@ -1,5 +1,15 @@
 # RUNS
 
+## Run 1112 — 2026-11-08T09:19:06Z
+- Objective: Reduce rediscovery and missed steps on the remaining human OAuth action by adding a checkbox-style checklist tool.
+- Action: Created tools/oauth_step_checklist.py (prints ordered checkboxes for Google Cloud setup, mint, secrets, single dispatch, success criteria). No secrets polled, no dispatch. Updated state files.
+- Result: Checklist tool available for the human. Complements existing human_starter.py and human_oauth_checklist.md. All local gates remain PASS. Videos published stay 0. Pre-upload path unchanged. Efficiency: local automation 100%; remaining human ~10-20 min + dispatch; new tool reduces missed pitfalls.
+- Verification: File created, syntax checked with py_compile, executable. Soft only; no hard gates changed.
+- Discovery: STALL_OAUTH_IDLE persists across 1000+ runs with no human progress on secrets. Pre-upload complete and stable. A structured checklist was missing despite detailed docs.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_step_checklist.py then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py.
+
+
 ## Run 1111 — 2026-11-08T08:21:00Z
 - Objective: Reduce future human labor when starting the next video after an experiment decision by adding a reusable direction skeleton tool.
 - Action: Created tools/next_from_decision.py (reads filled experiment_decision.json; prints keep/discard/retest next-topic skeleton; no invent). Updated tools/post_publish_sequence.py to recommend it after validating a decision. No secrets polled, no dispatch. Updated state files.

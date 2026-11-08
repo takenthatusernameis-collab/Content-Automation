@@ -1,5 +1,11 @@
 # STATE
 
+2026-11-08T09:18:57Z (Run 1112)
+
+Added tools/oauth_step_checklist.py (checkbox-style printable checklist for the exact human OAuth sequence; reduces rediscovery of steps and pitfalls). STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or the new checklist or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. New checklist tool reduces missed steps on the remaining human action.
+
+# STATE
+
 2026-11-08T08:21:00Z (Run 1111)
 
 Added tools/next_from_decision.py (prints a next-video direction skeleton from a filled experiment_decision.json; keep/discard/retest only; no invent). Updated post_publish_sequence.py to recommend it after validating a decision. Reduces future human labor when starting the next packet after learning. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. New tool reduces rediscovery of next-topic structure after a decision.

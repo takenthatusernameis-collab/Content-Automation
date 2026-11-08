@@ -113,6 +113,7 @@ def main() -> int:
     print("Full list: docs/human_oauth_checklist.md#common-pitfalls")
     print()
     print("Do not poll secrets from an agent. Do not add another consistency printer or contract lock.")
+    print("Checkbox checklist: python3 tools/oauth_step_checklist.py")
     return 0
 
 
