@@ -22,7 +22,7 @@ REDIRECT_URI = "http://localhost"
 UPLOAD_SCOPE = "https://www.googleapis.com/auth/youtube.upload"
 FORCE_SSL_SCOPE = "https://www.googleapis.com/auth/youtube.force-ssl"
 ANALYTICS_SCOPE = "https://www.googleapis.com/auth/yt-analytics.readonly"
-SCOPES = (UPLOAD_SCOPE, FORCE_SSL_SCOPE, ANALYTICS_SCOPE)
+SCOPES = (FORCE_SSL_SCOPE, ANALYTICS_SCOPE)
 
 
 def consent_url(client_id: str) -> str:
@@ -136,8 +136,7 @@ def main() -> int:
         print("REFUSE: consent URL must not contain the client secret", file=sys.stderr)
         return 3
     sys.stdout.write(url + "\n")
-    print("REQUIRED SCOPES (grant all during consent; youtube.upload alone is insufficient):")
-    print("  - youtube.upload")
+    print("REQUIRED SCOPES (grant both during consent; force-ssl covers upload and captions; overlapping upload scope can cause rejection):")
     print("  - youtube.force-ssl")
     print("  - yt-analytics.readonly")
     print("Full URIs: " + ",".join(SCOPES))

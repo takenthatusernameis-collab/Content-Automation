@@ -1,5 +1,7 @@
 # FAILURES
 
+None. Scope alignment succeeded; no regression.
+
 None this run. Continued long STALL_OAUTH_IDLE with no progress on secrets.
 
 None this run. Continued long STALL_OAUTH_IDLE with no progress on secrets.
