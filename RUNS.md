@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 1110 — 2026-11-08T07:23:00Z
+- Objective: Reduce future human error on the post-publish experiment decision step by surfacing the existing experiment_template_validator.py inside the ordered post-publish sequence.
+- Action: Cloned repository. Updated tools/post_publish_sequence.py to recommend the validator after filling experiment_baseline.json and experiment_decision.json. Confirmed validator still correctly rejects templates. No secrets polled, no dispatch. Updated state files.
+- Result: post_publish_sequence.py now guides the human to validate filled experiment files before committing them. All local gates remain PASS. Videos published stay 0. Pre-upload path unchanged. Efficiency: local automation 100%; remaining human ~10-20 min + dispatch; validator reduces rediscovery of load rules.
+- Verification: post_publish_sequence.py syntax ok; validator FAILs templates as expected (exit 1). No regressions.
+- Discovery: STALL_OAUTH_IDLE persists across 1000+ runs with no human progress on secrets. Pre-upload complete and stable. Sequence printer now points to the validator added in Run 1109.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py (now includes validator step). When metrics exist, fill templates and run the validator before committing.
+
+# RUNS
+
 ## Run 1109 — 2026-11-08T06:30:00Z
 - Objective: Confirm system health on fresh clone and add a reusable validator that reduces future human error when filling experiment baseline/decision files after the first publish.
 - Action: Cloned repository. Ran materialize_q1_release.py (success). Ran media_qa.py (PASS). Confirmed next_action upload-blocked. Created tools/experiment_template_validator.py and updated the two templates with a usage note. No secrets polled, no dispatch. Updated state files via record_run.

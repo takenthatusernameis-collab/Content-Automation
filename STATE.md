@@ -1,5 +1,11 @@
 # STATE
 
+2026-11-08T07:23:00Z (Run 1110)
+
+Updated post_publish_sequence.py to recommend experiment_template_validator.py after filling baseline and decision files. Reduces future human error on the post-publish experiment step. Fresh clone confirms materialize path still valid. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. Validator now surfaced in the post-publish sequence.
+
+# STATE
+
 2026-11-08T06:30:00Z (Run 1109)
 
 Fresh clone + materialize + media_qa PASS + next_action=upload-blocked. Added tools/experiment_template_validator.py (validates filled baseline/decision JSON against load rules; correctly rejects templates). Templates updated with usage note. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. New validator reduces future post-publish human error.

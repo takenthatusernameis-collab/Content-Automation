@@ -122,20 +122,25 @@ def main() -> int:
         print("   experiment_baseline.json: ABSENT")
         print("   Next: python3 tools/experiment_baseline_starter.py", packet)
         print("   Then edit numeric baseline + documented source. Do not invent.")
+        print("   After filling: python3 tools/experiment_template_validator.py", baseline_path)
     else:
         try:
             data = json.loads(baseline_path.read_text(encoding="utf-8"))
             ok, reason = check_baseline(data)
             if ok:
                 print("   experiment_baseline.json: FILLED")
+                print("   Validate: python3 tools/experiment_template_validator.py", baseline_path)
             else:
                 print(f"   experiment_baseline.json: PRESENT but incomplete ({reason})")
                 print("   Next: edit with real numeric baseline and documented source.")
+                print("   Then: python3 tools/experiment_template_validator.py", baseline_path)
         except (OSError, json.JSONDecodeError):
             print("   experiment_baseline.json: INVALID")
     print()
-    print("3. Once baseline is filled and metrics collected:")
+    print("3. Once baseline is filled (and validated) and metrics collected:")
     print("   python3 tools/experiment_loop.py", packet)
+    print("   After a comparison exists, fill experiment_decision.json from the template and validate:")
+    print("   python3 tools/experiment_template_validator.py", packet / "experiment_decision.json")
     print()
     print("4. Studio pin and end screen (Data API cannot finish these):")
     print("   python3 tools/studio_handoff.py", packet)
