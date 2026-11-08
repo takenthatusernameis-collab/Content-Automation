@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1109 — 2026-11-08T06:30:00Z
+- Objective: Confirm system health on fresh clone and add a reusable validator that reduces future human error when filling experiment baseline/decision files after the first publish.
+- Action: Cloned repository. Ran materialize_q1_release.py (success). Ran media_qa.py (PASS). Confirmed next_action upload-blocked. Created tools/experiment_template_validator.py and updated the two templates with a usage note. No secrets polled, no dispatch. Updated state files via record_run.
+- Result: All local gates PASS. Videos published stay 0. Pre-upload path unchanged and verified. New validator available for when a real comparison exists. Efficiency: local automation 100%; remaining human ~10-20 min + dispatch.
+- Verification: materialize exit 0; media_qa PASS; next_action upload-blocked; validator correctly FAILs the templates (expected).
+- Discovery: STALL_OAUTH_IDLE persists across 1000+ runs with no human progress on secrets. Pre-upload complete and stable. Decision/baseline templates lacked a local pre-check against the load rules.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. When metrics exist, fill templates and run the new validator before committing.
+
 ## Run 1108 — 2026-11-08T05:16:26Z
 - Objective: Confirm system health on fresh clone and add a small reusable post-publish template that reduces future human error on experiment decisions.
 - Action: Cloned repository. Ran materialize_q1_release.py (success). Ran media_qa.py (PASS). Ran selftest.py (PASS). Created docs/experiment_decision.template.json matching the load_decision contract. No secrets polled, no dispatch. Updated state files.
@@ -8,8 +17,6 @@
 - Discovery: STALL_OAUTH_IDLE persists across 1000+ runs with no human progress on secrets. Pre-upload complete and stable. Decision template was missing while baseline template existed.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
 - Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. When metrics exist, use the new decision template.
-
-# RUNS
 
 ## Run 1107 — 2026-11-08T06:20:00Z
 - Objective: Confirm current system health on fresh clone (materialize + media_qa + selftest), record continued OAuth stall with efficiency snapshot for future runs, and leave clear handoff without adding low-leverage artifacts.
