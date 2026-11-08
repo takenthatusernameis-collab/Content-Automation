@@ -1,5 +1,11 @@
 # STATE
 
+2026-11-08T10:15:28Z (Run 1113)
+
+Enhanced tools/oauth_step_checklist.py with direct deep links to the exact Google Cloud console pages for API enablement, consent screen, and Desktop client creation. Reduces navigation friction on the longest part of the remaining human OAuth step. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or the enhanced checklist or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. Deep links further reduce rediscovery and missed navigation on the remaining human action.
+
+# STATE
+
 2026-11-08T09:18:57Z (Run 1112)
 
 Added tools/oauth_step_checklist.py (checkbox-style printable checklist for the exact human OAuth sequence; reduces rediscovery of steps and pitfalls). STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or the new checklist or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. New checklist tool reduces missed steps on the remaining human action.
