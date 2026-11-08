@@ -1,6 +1,6 @@
 {
   "_template": true,
-  "_comment": "TEMPLATE ONLY. Do not copy to experiment_baseline.json until a real documented observation and numeric baseline exist. Do not invent metrics, hypothesis outcomes, or source. experiment_loop.py loads only experiment_baseline.json and rejects invented/placeholder sources.",
+  "_comment": "TEMPLATE ONLY. Do not copy to experiment_baseline.json until a real documented observation and numeric baseline exist. Do not invent metrics, hypothesis outcomes, or source. experiment_loop.py loads only experiment_baseline.json and rejects invented/placeholder sources. Validate a filled copy with: python3 tools/experiment_template_validator.py experiment_baseline.json",
   "hypothesis": "TEMPLATE: replace with a testable hypothesis, e.g. A stronger opening hook will raise average view duration on the first 30 seconds",
   "change": "hook",
   "primary_metric": "average_view_duration_seconds",
