@@ -8,6 +8,7 @@ Fail-closed single-command reminder of:
 - experiment_loop
 - Studio pin + end screen (Data API cannot finish)
 - optional playlist membership confirmation
+- next-video direction from a filled decision (next_from_decision.py)
 Does not poll secrets, invent a video id or metrics, dispatch, or write files.
 Reusable for future packets after the first publish.
 """
@@ -141,6 +142,7 @@ def main() -> int:
     print("   python3 tools/experiment_loop.py", packet)
     print("   After a comparison exists, fill experiment_decision.json from the template and validate:")
     print("   python3 tools/experiment_template_validator.py", packet / "experiment_decision.json")
+    print("   Then, for next-video direction: python3 tools/next_from_decision.py", packet / "experiment_decision.json")
     print()
     print("4. Studio pin and end screen (Data API cannot finish these):")
     print("   python3 tools/studio_handoff.py", packet)
