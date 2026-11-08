@@ -41,6 +41,7 @@ def main() -> int:
     print("5. Set them in your terminal environment (never commit or paste into the repo):")
     print("   export YOUTUBE_CLIENT_ID=...   # then run the mint commands printed later")
     print("Full checklist with pitfalls: docs/human_oauth_checklist.md")
+    print("Single self-contained guide (deep links + copy-paste + recovery): python3 tools/oauth_complete_guide.py")
     print()
 
     # Soft media presence check so fresh clones see the materialize step immediately
@@ -71,6 +72,7 @@ def main() -> int:
     print("\nHUMAN STARTER PASS: media checked, environment ready, stall HIGH, recurring pattern flagged, contract streak checked, publish readiness shown, one-pager shown, observation window reminder shown.")
     print("Next: follow the exact sequence printed below (mint then secrets then one dispatch).")
     print("Full checklist: docs/human_oauth_checklist.md")
+    print("Or the single self-contained guide: python3 tools/oauth_complete_guide.py")
     print()
     print("=== COPY-PASTE READY (full sequence; run in a terminal with client id/secret in env for mint) ===")
     print("# 1. Mint (set YOUTUBE_CLIENT_ID and YOUTUBE_CLIENT_SECRET in env first; never print them)")
@@ -114,6 +116,7 @@ def main() -> int:
     print()
     print("Do not poll secrets from an agent. Do not add another consistency printer or contract lock.")
     print("Checkbox checklist: python3 tools/oauth_step_checklist.py")
+    print("Single self-contained guide: python3 tools/oauth_complete_guide.py")
     print("Recovery hints if a step fails: python3 tools/oauth_recovery_hints.py")
     return 0
 
