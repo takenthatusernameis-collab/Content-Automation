@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1113 — 2026-11-08T10:15:28Z
+- Objective: Further reduce navigation friction on the longest part of the remaining human OAuth step by adding direct deep links to Google Cloud console pages inside the existing checklist tool.
+- Action: Updated tools/oauth_step_checklist.py to print exact console URLs for API enablement, consent screen, and credentials/Desktop client creation. No secrets polled, no dispatch. Updated state files.
+- Result: Checklist now includes copy-paste deep links. Complements human_starter.py and human_oauth_checklist.md. All local gates remain PASS. Videos published stay 0. Pre-upload path unchanged. Efficiency: local automation 100%; remaining human ~10-20 min + dispatch; deep links reduce rediscovery of console navigation.
+- Verification: File updated and committed. Soft only; no hard gates changed.
+- Discovery: STALL_OAUTH_IDLE persists across 1000+ runs with no human progress on secrets. Pre-upload complete and stable. Console navigation was the remaining friction point after the basic checklist existed.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_step_checklist.py then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py.
+
 ## Run 1112 — 2026-11-08T09:19:06Z
 - Objective: Reduce rediscovery and missed steps on the remaining human OAuth action by adding a checkbox-style checklist tool.
 - Action: Created tools/oauth_step_checklist.py (prints ordered checkboxes for Google Cloud setup, mint, secrets, single dispatch, success criteria). No secrets polled, no dispatch. Updated state files.
