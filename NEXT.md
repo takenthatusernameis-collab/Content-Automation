@@ -1,5 +1,8 @@
 (Older next actions live in `docs/next_archive.md`. Do not paste the archive back.)
 
+2026-11-08T20:15:00Z (Run 1123)
+Run 1123: added tools/queued_all_overview.py as a single command that prints a compact overview of the entire topic queue (status, titles, one-lines) plus a suggested next queued id for full starter. Complements the full/prep/packaging starters and further reduces rediscovery when choosing what to prepare. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2. Pure verification has diminishing returns. Prefer the complete guide for the human step. For future videos, use queued_all_overview.py then queued_full_starter.py --id QN (or the individual/prep/packaging starters).
+
 2026-11-08T19:16:00Z (Run 1122)
 Run 1122: added tools/queued_full_starter.py as a single command that prints the combined prep pack (idea + research + outline) + packaging pack (titles + thumbnail + description + first-comment) for a queued topic (no packet required). Complements the separate prep and packaging starters and further reduces tool-switching. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2. Pure verification has diminishing returns. Prefer the complete guide for the human step. For future videos, use queued_full_starter.py --id QN (or the individual/prep/packaging starters).
 

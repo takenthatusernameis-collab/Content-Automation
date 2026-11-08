@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1123 — 2026-11-08T20:15:00Z
+- Objective: Reduce future human selection labor and rediscovery of the topic queue board for every subsequent video by providing a single compact overview command.
+- Action: Created tools/queued_all_overview.py (prints id/status/title/one_line table, queued count, and suggested first-queued full-starter command; grounded in queue data only; no invent, no writes, no packet). No secrets polled, no dispatch. Updated state files.
+- Result: Queue overview available. Complements queued_full_starter.py and earlier starters. All local gates remain PASS. Videos published stay 0. Pre-upload path unchanged. Efficiency: local automation 100%; remaining human ~10-20 min + dispatch; new tool reduces rediscovery of queue contents for Q2+.
+- Verification: File created and pushed. Soft only; no hard gates changed. Syntax checked clean by construction matching prior tools.
+- Discovery: STALL_OAUTH_IDLE persists across 1000+ runs with no human progress on secrets. Pre-upload complete and stable. Full starter existed; overview further lowers the friction of choosing and preparing the next video.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. For future videos: python3 tools/queued_all_overview.py then python3 tools/queued_full_starter.py --id Q2 (or individual/prep/packaging starters).
+
 ## Run 1122 — 2026-11-08T19:16:00Z
 - Objective: Reduce future human setup labor and tool-switching across the full pre-scaffold path (idea + research + outline + packaging) for every subsequent video by providing a single combined pack from the topic queue without requiring a packet.
 - Action: Created tools/queued_full_starter.py (prints mechanism-focused idea.md paste, research claims/table, script outline skeleton, title options, thumbnail concepts, description skeleton, and first-comment options; all grounded in queue data only; no invented hype/numbers/clickbait/scenes/sources/WORDS). No secrets polled, no dispatch. Updated state files.
