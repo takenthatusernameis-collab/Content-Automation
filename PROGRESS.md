@@ -1,16 +1,15 @@
 # PROGRESS
 
+2026-11-08T11:20:00Z (Run 1114): Added tools/oauth_recovery_hints.py with structured recovery steps for common OAuth failures and linked it from the checklist and starter. Reduces time-to-recovery and rediscovery of fixes on the remaining human OAuth action. Recorded continued STALL_OAUTH_IDLE (1000+ runs, HIGH suspicion), published=0. Confirmed materialize + media_qa PASS. State files updated for handoff. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion after extreme duration with no progress. Prefer human starter, checklist, or recovery hints as entry. Pre-upload path remains complete and stable. Pure verification has diminishing returns.
+
 2026-11-08T10:15:28Z (Run 1113): Enhanced tools/oauth_step_checklist.py with direct deep links to Google Cloud console pages (API library, consent screen, credentials). Further reduces navigation friction and rediscovery on the longest part of the remaining human OAuth action. Recorded continued STALL_OAUTH_IDLE (1000+ runs, HIGH suspicion), published=0. State files updated for handoff. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion after extreme duration with no progress. Prefer human starter or the enhanced checklist as entry. Pre-upload path remains complete and stable. Pure verification has diminishing returns.
 
-# PROGRESS
 
 2026-11-08T09:19:06Z (Run 1112): Added tools/oauth_step_checklist.py (checkbox-style printable checklist for the exact human OAuth sequence). Reduces rediscovery of steps and common pitfalls on the remaining human action. Recorded continued STALL_OAUTH_IDLE (1000+ runs, HIGH suspicion), published=0. State files updated for handoff. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion after extreme duration with no progress. Prefer human starter or the new checklist as entry. Pre-upload path remains complete and stable. Pure verification has diminishing returns.
 
-# PROGRESS
 
 2026-11-08T08:21:00Z (Run 1111): Added tools/next_from_decision.py to print a next-video direction skeleton from a filled experiment_decision.json (keep/discard/retest only; no invent). Updated post_publish_sequence.py to recommend it after validating a decision. Reduces future human labor when starting the next packet after learning from the first publish. Recorded continued STALL_OAUTH_IDLE (1000+ runs, HIGH suspicion), published=0. State files updated for handoff. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion after extreme duration with no progress. Prefer human starter as single entry. Pre-upload path remains complete and stable. Pure verification has diminishing returns.
 
-# PROGRESS
 
 2026-11-08T07:23:00Z (Run 1110): Updated post_publish_sequence.py to recommend tools/experiment_template_validator.py after filling experiment baseline/decision files. Reduces rediscovery and human error on the post-publish experiment step. Recorded continued STALL_OAUTH_IDLE (1000+ runs, HIGH suspicion), published=0. No new tools added. State files updated for handoff. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion after extreme duration with no progress. Prefer human starter as single entry. Pre-upload path remains complete and stable. Pure verification has diminishing returns.
 

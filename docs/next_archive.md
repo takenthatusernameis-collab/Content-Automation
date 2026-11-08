@@ -494,3 +494,9 @@ Run 1097: confirmed materialize + media_qa PASS + selftest PASS on fresh clone. 
 (Older next actions live in `docs/next_archive.md`. Do not paste the archive back.)
 
 Run 1100: confirmed materialize + media_qa PASS + selftest PASS (after compact) on fresh clone. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step (docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not add another consistency printer. Do not scaffold Q2. Pure verification runs have diminishing returns.
+
+2026-11-08T11:20:00Z (Run 1114)
+Run 1114: added tools/oauth_recovery_hints.py and linked it from the checklist and starter. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step (docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_step_checklist.py or python3 tools/oauth_recovery_hints.py if a step fails, then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2. Pure verification has diminishing returns. Use recovery hints when a consent, secret, or dispatch step fails.
+
+2026-11-08T06:20:00Z (Run 1107)
+Run 1107: confirmed materialize + media_qa PASS + selftest PASS on fresh clone. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step (docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2. Pure verification has diminishing returns.

@@ -37,6 +37,7 @@ def main() -> int:
     print("       Then: python3 tools/human_success_check.py && python3 tools/post_publish_sequence.py")
     print()
     print("Full details and pitfalls: docs/human_oauth_checklist.md")
+    print("Recovery hints if something fails: python3 tools/oauth_recovery_hints.py")
     print("Single entry: python3 tools/human_starter.py")
     print("Do not invent an id. Do not re-dispatch until the id is visible.")
     print("STALL_OAUTH_IDLE remains the primary blocker (1000+ runs).")

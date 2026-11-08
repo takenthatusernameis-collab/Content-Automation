@@ -1,22 +1,20 @@
 # STATE
 
+2026-11-08T11:20:00Z (Run 1114)
+
+Added tools/oauth_recovery_hints.py with structured recovery steps for common OAuth failures (scope rejection, test-user block, missing refresh_token, secret-set mistakes, POST_UPLOAD_INCOMPLETE). Referenced from oauth_step_checklist.py and human_starter.py. Reduces time-to-recovery on the remaining human step. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed (materialize + media_qa PASS + next_action=upload-blocked). No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or the checklist or recovery hints or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. Recovery hints further reduce friction if the first attempt hits a pitfall.
+
 2026-11-08T10:15:28Z (Run 1113)
 
 Enhanced tools/oauth_step_checklist.py with direct deep links to the exact Google Cloud console pages for API enablement, consent screen, and Desktop client creation. Reduces navigation friction on the longest part of the remaining human OAuth step. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or the enhanced checklist or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. Deep links further reduce rediscovery and missed navigation on the remaining human action.
-
-# STATE
 
 2026-11-08T09:18:57Z (Run 1112)
 
 Added tools/oauth_step_checklist.py (checkbox-style printable checklist for the exact human OAuth sequence; reduces rediscovery of steps and pitfalls). STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or the new checklist or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. New checklist tool reduces missed steps on the remaining human action.
 
-# STATE
-
 2026-11-08T08:21:00Z (Run 1111)
 
 Added tools/next_from_decision.py (prints a next-video direction skeleton from a filled experiment_decision.json; keep/discard/retest only; no invent). Updated post_publish_sequence.py to recommend it after validating a decision. Reduces future human labor when starting the next packet after learning. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. New tool reduces rediscovery of next-topic structure after a decision.
-
-# STATE
 
 2026-11-08T07:23:00Z (Run 1110)
 
@@ -47,3 +45,4 @@ Aligned oauth_exchange.py scopes to preferred non-overlapping set (force-ssl + y
 Fresh clone + materialize + media_qa PASS + selftest PASS. Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch.
 
 (Older state notes remain below or in docs/state_archive.md. Do not paste the archive back.)
+

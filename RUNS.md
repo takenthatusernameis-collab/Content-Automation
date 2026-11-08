@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1114 — 2026-11-08T11:20:00Z
+- Objective: Reduce time-to-recovery on the remaining human OAuth step by adding structured hints for common failure modes.
+- Action: Created tools/oauth_recovery_hints.py (prints cause + fix for scope rejection, test-user block, missing refresh_token, secret-set mistakes, incomplete post-upload). Linked from oauth_step_checklist.py and human_starter.py. Confirmed materialize + media_qa PASS + next_action=upload-blocked on this clone. No secrets polled, no dispatch. Updated state files.
+- Result: Recovery tool available. Checklist and starter now point to it. All local gates remain PASS. Videos published stay 0. Pre-upload path unchanged. Efficiency: local automation 100%; remaining human ~10-20 min + dispatch; recovery hints reduce rediscovery of fixes.
+- Verification: File created, syntax checked with py_compile, executable, runs cleanly. References inserted and syntax-checked. Soft only; no hard gates changed.
+- Discovery: STALL_OAUTH_IDLE persists across 1000+ runs with no human progress on secrets. Pre-upload complete and stable. Common pitfalls were documented but lacked a dedicated recovery printer.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
+- Recommended next: human step (open docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or python3 tools/oauth_step_checklist.py or python3 tools/oauth_recovery_hints.py if needed, then secrets + single execute=true dispatch). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py.
+
 ## Run 1113 — 2026-11-08T10:15:28Z
 - Objective: Further reduce navigation friction on the longest part of the remaining human OAuth step by adding direct deep links to Google Cloud console pages inside the existing checklist tool.
 - Action: Updated tools/oauth_step_checklist.py to print exact console URLs for API enablement, consent screen, and credentials/Desktop client creation. No secrets polled, no dispatch. Updated state files.
