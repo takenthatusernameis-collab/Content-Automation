@@ -1,5 +1,8 @@
 (Older next actions live in `docs/next_archive.md`. Do not paste the archive back.)
 
+2026-11-08T16:20:00Z (Run 1119)
+Run 1119: added tools/queued_title_thumbnail_starter.py as grounded title options and thumbnail concepts from the topic queue (no packet required). Complements the prep/research/outline starters and reduces packaging setup labor. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2. Pure verification has diminishing returns. Prefer the complete guide for the human step. For future videos, use queued_title_thumbnail_starter.py --id QN (or queued_prep_starter.py).
+
 2026-11-08T15:25:00Z (Run 1118)
 Run 1118: added tools/queued_prep_starter.py as a single command that prints the combined idea paste + research skeleton + outline skeleton for a queued topic (no packet required). Complements the individual starters and reduces tool-switching. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2. Pure verification has diminishing returns. Prefer the complete guide for the human step. For future videos, use queued_prep_starter.py --id QN (or the individual starters).
 
