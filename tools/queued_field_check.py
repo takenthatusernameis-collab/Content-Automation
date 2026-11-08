@@ -27,30 +27,20 @@ if str(ROOT / "tools") not in sys.path:
 from queue_lib import parse_queue, slugify  # type: ignore
 
 
-def main() -> int:
-    queue_path = ROOT / "docs" / "topic_queue.md"
-    if not queue_path.is_file():
-        print(f"Missing queue: {queue_path}", file=sys.stderr)
-        return 1
-
-    rows = parse_queue(queue_path.read_text(encoding="utf-8"))
-    if not rows:
-        print("No rows in topic queue.")
-        return 0
-
-    issues: list[tuple[str, str, str]] = []  # severity, id, message
+def check_rows(rows: list[dict]) -> list[tuple[str, str, str]]:
+    """Return list of (severity, id, message) issues. Pure; no I/O."""
+    issues: list[tuple[str, str, str]] = []
     ids = set()
     titles = set()
     slugs = set()
-
     valid_status = {"queued", "used", "parked"}
 
     for r in rows:
-        tid = r["id"]
-        status = r["status"]
-        title = r["working_title"] or ""
-        one_line = r["one_line"] or ""
-        problem = r["problem"] or ""
+        tid = r.get("id", "")
+        status = r.get("status", "")
+        title = r.get("working_title") or ""
+        one_line = r.get("one_line") or ""
+        problem = r.get("problem") or ""
 
         if not tid:
             issues.append(("HARD", "?", "Row missing id"))
@@ -83,6 +73,22 @@ def main() -> int:
         if slug in slugs:
             issues.append(("SOFT", tid, f"Slug collision risk: {slug}"))
         slugs.add(slug)
+
+    return issues
+
+
+def main() -> int:
+    queue_path = ROOT / "docs" / "topic_queue.md"
+    if not queue_path.is_file():
+        print(f"Missing queue: {queue_path}", file=sys.stderr)
+        return 1
+
+    rows = parse_queue(queue_path.read_text(encoding="utf-8"))
+    if not rows:
+        print("No rows in topic queue.")
+        return 0
+
+    issues = check_rows(rows)
 
     print("# Topic queue field integrity (read-only)")
     print(f"Rows checked: {len(rows)}")
