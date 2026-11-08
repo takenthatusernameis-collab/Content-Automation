@@ -12,6 +12,11 @@
    ```
    It checks environment, prints the HIGH stall status, and shows the one-pager.
 
+   Or for a single self-contained page with deep links, copy-paste commands, recovery notes, and success criteria:
+   ```bash
+   python3 tools/oauth_complete_guide.py
+   ```
+
 2. Follow the printed sequence exactly:
    - Mint refresh token with preferred scopes: `https://www.googleapis.com/auth/youtube.force-ssl` + `https://www.googleapis.com/auth/yt-analytics.readonly`
      (force-ssl already covers youtube.upload and broader management; requesting overlapping scopes like youtube + youtube.upload + force-ssl can cause consent rejection. youtube.upload alone is insufficient for captions.)
