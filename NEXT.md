@@ -1,3 +1,6 @@
+2026-11-08T10:15:28Z (Run 1113)
+Run 1113: enhanced tools/oauth_step_checklist.py with direct deep links to Google Cloud console pages (API library, consent, credentials). STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step (docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or the enhanced checklist, then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2. Pure verification has diminishing returns. Use the checklist (now with deep links) when performing the human step.
+
 2026-11-08T09:19:06Z (Run 1112)
 Run 1112: added tools/oauth_step_checklist.py as a checkbox-style reminder of the exact human OAuth sequence (complements human_starter.py). STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step (docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py or the new checklist, then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2. Pure verification has diminishing returns. Use the checklist when performing the human step.
 
