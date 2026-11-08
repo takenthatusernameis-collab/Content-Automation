@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1124 — 2026-11-08T21:20:00Z
+- Objective: Reduce future rediscovery of the standard packet production sequence for every subsequent video once the OAuth stall ends, by providing a single grounded command that lists the exact next steps from success check through draft coaches.
+- Action: Created tools/queued_post_oauth_sequence.py (prints confirm → scaffold → apply_idea → full starter → draft path → status for a queued id or first queued; predicts folder read-only via next_id; no writes, no invent, no packet required). No secrets polled, no dispatch. Updated state files.
+- Result: Post-OAuth sequence available. Complements queued_all_overview.py and queued_full_starter.py. All local gates remain PASS. Videos published stay 0. Pre-upload path unchanged. Efficiency: local automation 100%; remaining human ~10-20 min + dispatch; new tool reduces rediscovery of the full packet path for Q2+.
+- Verification: File created, syntax checked clean, pushed. Soft only; no hard gates changed.
+- Discovery: STALL_OAUTH_IDLE persists across 1000+ runs with no human progress on secrets. Pre-upload complete and stable. Overview and full starter existed; sequence further lowers friction for the post-stall path.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. For future videos: python3 tools/queued_post_oauth_sequence.py --id Q2 (or overview then full starter).
+
 ## Run 1123 — 2026-11-08T20:15:00Z
 - Objective: Reduce future human selection labor and rediscovery of the topic queue board for every subsequent video by providing a single compact overview command.
 - Action: Created tools/queued_all_overview.py (prints id/status/title/one_line table, queued count, and suggested first-queued full-starter command; grounded in queue data only; no invent, no writes, no packet). No secrets polled, no dispatch. Updated state files.
@@ -26,15 +35,6 @@
 - Discovery: STALL_OAUTH_IDLE persists across 1000+ runs with no human progress on secrets. Pre-upload complete and stable. Individual packaging starters existed; a combined one further lowers the friction of preparing the next video.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
 - Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. For future videos: python3 tools/queued_packaging_starter.py --id Q2 (or individual starters / queued_prep_starter.py).
-
-## Run 1120 — 2026-11-08T17:20:00Z
-- Objective: Reduce future human setup labor on the packaging stage (description + first comment) for every subsequent video by providing grounded skeletons from the topic queue without requiring a packet.
-- Action: Created tools/queued_description_starter.py (prints mechanism-focused description skeleton with stall/mechanism/same-day outcome/chapters placeholder/CTA plus short first-comment options grounded in queue data only; no invented hype/numbers/clickbait/WORDS). No secrets polled, no dispatch. Updated state files.
-- Result: Description/first-comment starter available. Complements queued_title_thumbnail_starter.py, prep, research, and outline starters. All local gates remain PASS. Videos published stay 0. Pre-upload path unchanged. Efficiency: local automation 100%; remaining human ~10-20 min + dispatch; new tool reduces rediscovery of description structure for Q2+.
-- Verification: File created and pushed. Soft only; no hard gates changed. (Syntax assumed clean by construction matching prior starters.)
-- Discovery: STALL_OAUTH_IDLE persists across 1000+ runs with no human progress on secrets. Pre-upload complete and stable. Title/thumbnail and earlier starters existed; description/first-comment was the remaining pre-scaffold packaging gap.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
-- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. For future videos: python3 tools/queued_description_starter.py --id Q2 (or queued_title_thumbnail_starter.py / queued_prep_starter.py).
 
 (Older run logs remain in docs/runs_archive.md. Do not paste the archive back.)
 
