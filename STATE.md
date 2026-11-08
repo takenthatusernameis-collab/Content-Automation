@@ -1,5 +1,11 @@
 # STATE
 
+2026-11-08T05:16:26Z (Run 1108)
+
+Fresh clone + materialize + media_qa PASS + selftest PASS. Added docs/experiment_decision.template.json (mirrors baseline template; reduces post-publish human error when recording keep/discard/retest). Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch.
+
+# STATE
+
 2026-11-08T06:20:00Z (Run 1107)
 
 Fresh clone + materialize + media_qa PASS + selftest PASS. Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch.
