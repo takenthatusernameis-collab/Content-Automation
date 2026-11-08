@@ -1,52 +1,12 @@
 # STATE
 
+2026-11-08T13:30:00Z (Run 1116)
+
+Added tools/queued_research_starter.py: prints a grounded research.md skeleton for any queued topic id (Q2 etc.) from docs/topic_queue.md without requiring a packet folder or scaffolding. Qualitative claims + fillable source table only; no invented sources/numbers. Reduces future setup labor for every subsequent video while STALL_OAUTH_IDLE persists. Pre-upload remains complete. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/oauth_complete_guide.py). Long stall (1000+ runs) remains HIGH suspicion; further pure verification has diminishing returns.
+
+
 2026-11-08T12:25:00Z (Run 1115)
 
 Added tools/oauth_complete_guide.py: single self-contained OAuth guide combining deep links, ordered checklist, copy-paste commands, recovery notes, and success criteria into one output. Referenced from human_starter.py, oauth_step_checklist.py, and docs/HUMAN_PRIORITY.md. Reduces tool-switching and rediscovery on the remaining human step. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/oauth_complete_guide.py or human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. Complete guide further reduces friction by consolidating all steps into one page.
 
-2026-11-08T11:20:00Z (Run 1114)
-
-Added tools/oauth_recovery_hints.py with structured recovery steps for common OAuth failures (scope rejection, test-user block, missing refresh_token, secret-set mistakes, POST_UPLOAD_INCOMPLETE). Referenced from oauth_step_checklist.py and human_starter.py. Reduces time-to-recovery on the remaining human step. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed (materialize + media_qa PASS + next_action=upload-blocked). No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or the checklist or recovery hints or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. Recovery hints further reduce friction if the first attempt hits a pitfall.
-
-2026-11-08T10:15:28Z (Run 1113)
-
-Enhanced tools/oauth_step_checklist.py with direct deep links to the exact Google Cloud console pages for API enablement, consent screen, and Desktop client creation. Reduces navigation friction on the longest part of the remaining human OAuth step. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or the enhanced checklist or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. Deep links further reduce rediscovery and missed navigation on the remaining human action.
-
-2026-11-08T09:18:57Z (Run 1112)
-
-Added tools/oauth_step_checklist.py (checkbox-style printable checklist for the exact human OAuth sequence; reduces rediscovery of steps and pitfalls). STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or the new checklist or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. New checklist tool reduces missed steps on the remaining human action.
-
-2026-11-08T08:21:00Z (Run 1111)
-
-Added tools/next_from_decision.py (prints a next-video direction skeleton from a filled experiment_decision.json; keep/discard/retest only; no invent). Updated post_publish_sequence.py to recommend it after validating a decision. Reduces future human labor when starting the next packet after learning. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. New tool reduces rediscovery of next-topic structure after a decision.
-
-2026-11-08T07:23:00Z (Run 1110)
-
-Updated post_publish_sequence.py to recommend experiment_template_validator.py after filling baseline and decision files. Reduces future human error on the post-publish experiment step. Fresh clone confirms materialize path still valid. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. Validator now surfaced in the post-publish sequence.
-
-2026-11-08T06:30:00Z (Run 1109)
-
-Fresh clone + materialize + media_qa PASS + next_action=upload-blocked. Added tools/experiment_template_validator.py (validates filled baseline/decision JSON against load rules; correctly rejects templates). Templates updated with usage note. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch. New validator reduces future post-publish human error.
-
-2026-11-08T05:16:26Z (Run 1108)
-
-Fresh clone + materialize + media_qa PASS + selftest PASS. Added docs/experiment_decision.template.json (mirrors baseline template; reduces post-publish human error when recording keep/discard/retest). Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch.
-
-2026-11-08T06:20:00Z (Run 1107)
-
-Fresh clone + materialize + media_qa PASS + selftest PASS. Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch.
-
-2026-11-08T03:15:00Z (Run 1106)
-
-Strengthened oauth_exchange_contract.py to lock SCOPES exactly to preferred non-overlapping set (force-ssl + yt-analytics.readonly) and reject youtube.upload in the consent URL. Prevents future regression that could cause the human mint step to fail on consent. Contract and selftest still PASS. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete. No secrets polled, no dispatch. Prefer human OAuth step with the locked tool.
-
-2026-11-08T02:20:00Z (Run 1105)
-
-Aligned oauth_exchange.py scopes to preferred non-overlapping set (force-ssl + yt-analytics.readonly only). Removes risk of consent rejection from overlapping youtube.upload. Contract and selftest still PASS. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete. No secrets polled, no dispatch. Prefer human OAuth step with the now-aligned tool.
-
-2026-11-08T01:20:00Z (Run 1104)
-
-Fresh clone + materialize + media_qa PASS + selftest PASS. Videos published stay 0. STALL_OAUTH_IDLE remains primary (1000+ runs, HIGH suspicion). Pre-upload complete and reconfirmed. No secrets polled, no dispatch. Prefer human OAuth step (python3 tools/human_starter.py or docs/HUMAN_PRIORITY.md). Long stall flagged as increasingly suspicious; further pure verification has diminishing returns. Efficiency snapshot: local gates 100% automated; human time to first private publish ~10-20 min + one dispatch.
-
 (Older state notes remain below or in docs/state_archive.md. Do not paste the archive back.)
-
