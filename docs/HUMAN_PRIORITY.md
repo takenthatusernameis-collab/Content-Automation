@@ -2,7 +2,7 @@
 
 **Videos published: 0. Pre-upload path complete. Media ready after materialize.**
 
-**STALL_OAUTH_IDLE: 1000+ runs. HIGH suspicion. This is the only blocker.**
+**STALL_OAUTH_IDLE: 1000+ runs. HIGH suspicion. This is the only blocker. Agent pure-confirmation runs have diminishing returns; the suite is green and the path is locked.**
 
 ## Exact next action (10-20 minutes)
 
