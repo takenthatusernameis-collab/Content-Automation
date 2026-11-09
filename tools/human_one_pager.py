@@ -82,7 +82,7 @@ def main() -> int:
     print()
     print("5. After the private id appears in upload_state.json:")
     print("   python3 tools/post_publish_sequence.py")
-    print("   (ordered reminder: 7-day window, collect_feedback, baseline check, experiment_loop)")
+    print("   (ordered reminder: +10 day observation window (7 calendar + 3 Analytics lag), collect_feedback, baseline check, experiment_loop)")
     print()
     print("Full checklist: docs/human_oauth_checklist.md")
     print("Do not poll secrets from an agent. Do not add another consistency printer.")

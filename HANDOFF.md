@@ -1,3 +1,6 @@
+2026-11-09T16:22:00Z (Run 1143)
+
+Standardized remaining imprecise observation-window language in starter tools (experiment_notes_starter.py, feedback_review_starter.py, human_one_pager.py, experiment_package_starter.py) to the precise uploaded_at + 10 days (7 calendar + 3 Analytics lag) formula. Completes consistency across more post-publish starter surfaces. Reduces rediscovery of the exact post-upload collect due date for every future video. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. No secrets polled, no dispatch, no live packet writes. Next remains the human OAuth step.
 2026-11-09T15:35:00Z (Run 1142)
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py` or `python3 tools/contracts_suite.py` or `python3 tools/queued_field_check.py` or `python3 tools/long_stall_report.py`.

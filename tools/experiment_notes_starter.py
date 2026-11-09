@@ -127,7 +127,7 @@ _warning: TEMPLATE. Fill numeric baseline, documented source, and real decision 
 - Source: [REPLACE with documented observation such as YouTube Studio analytics for video XYZ on YYYY-MM-DD; not placeholder/invented/guess]
 
 ## Observation Window
-- Planned: 7 days after upload (youtube_feedback.py requires this)
+- Planned: uploaded_at + 10 days (7 calendar + 3 Analytics lag) (youtube_feedback.py requires this)
 - Actual: [fill after collection]
 
 ## Decision (after comparison)

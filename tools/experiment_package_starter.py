@@ -47,7 +47,7 @@ def recommended_actions(packet: str) -> list[str]:
         f"choose values: select one hypothesis, one primary_metric, and 3-5 guardrails from the SETUP SUGGESTIONS above",
         f"edit baseline: set a real numeric baseline and documented source in the BASELINE SKELETON, then python3 tools/experiment_baseline_starter.py {p} --write",
         f"notes skeleton: paste the NOTES SKELETON into experiment_notes.md and fill sections after real evidence",
-        f"decision later: after publish + 7-day window + collected metrics, edit the DECISION SKELETON then python3 tools/experiment_decision_starter.py {p} --write",
+        f"decision later: after publish + 10 day observation window (7 calendar + 3 Analytics lag) + collected metrics, edit the DECISION SKELETON then python3 tools/experiment_decision_starter.py {p} --write",
         f"full production if needed: python3 tools/full_production_starter.py {p}",
         f"quality scans: python3 tools/quality_scan.py {p} && python3 tools/claim_scan.py {p}",
     ]
@@ -97,7 +97,7 @@ def main() -> int:
     print("1. Choose one hypothesis, one primary_metric, and 3-5 guardrails from the suggestions above.")
     print("2. Edit the printed baseline JSON: set a real numeric baseline and a documented source.")
     print("3. Optionally write with: python3 tools/experiment_baseline_starter.py", packet, "--write")
-    print("4. After publish + 7-day window + collected metrics, edit the decision skeleton then write it.")
+    print("4. After publish + 10 day observation window (7 calendar + 3 Analytics lag) + collected metrics, edit the decision skeleton then write it.")
     print("5. Fill the notes Markdown with the chosen hypothesis/metric/guardrails and real values.")
     print("experiment_loop.py rejects missing numeric baselines, placeholder sources, and multi-variable changes.")
     print("Preferred unblocked path remains human OAuth (secrets + dispatch) before any live metrics exist.")

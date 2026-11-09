@@ -103,7 +103,7 @@ def main() -> int:
     print("- video_id: (from provider after upload)")
     print("- uploaded_at: (ISO timestamp)")
     print("- window_start: (uploaded_at date)")
-    print("- window_end: (uploaded_at + 7 calendar days)")
+    print("- window_end: (uploaded_at + 10 days = 7 calendar + 3 Analytics lag)")
     print("- retrieved_at: (when metrics/comments were fetched)")
     print()
     print("## Analytics (do not invent)")
