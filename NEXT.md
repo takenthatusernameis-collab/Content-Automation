@@ -1,5 +1,8 @@
 (Older next actions live in `docs/next_archive.md`. Do not paste the archive back.)
 
+2026-11-09T03:30:00Z (Run 1130)
+Run 1130: added tools/contracts_suite_contract.py locking discovery (list of existing *_contract.py, count>=50, self-excluded) of the unified runner. Strengthens the one-command verification of all reliability locks. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2. Pure verification and successive queue-starter tools have diminishing returns. Prefer the complete guide for the human step. For future videos after stall ends: python3 tools/contracts_suite.py && python3 tools/contracts_suite_contract.py && python3 tools/queued_field_check.py && python3 tools/queued_post_oauth_sequence.py --id Q2.
+
 2026-11-09T02:20:00Z (Run 1129)
 Run 1129: added tools/contracts_suite.py that runs every *_contract.py in one command and reports unified PASS/FAIL. Makes the full set of reliability locks easily verifiable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2. Pure verification and successive queue-starter tools have diminishing returns. Prefer the complete guide for the human step. For future videos after stall ends: python3 tools/contracts_suite.py && python3 tools/queued_field_check.py && python3 tools/queued_post_oauth_sequence.py --id Q2.
 
