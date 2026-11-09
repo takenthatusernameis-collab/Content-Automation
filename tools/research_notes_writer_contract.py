@@ -28,7 +28,7 @@ def main() -> int:
         "Claim-to-source table",
         "no invent",
         "Preferred current action remains human OAuth",
-        "Dry-run",
+        "research_notes.md",
     ]
     missing = [s for s in required if s not in out]
     if missing:

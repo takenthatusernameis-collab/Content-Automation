@@ -60,15 +60,17 @@ def main() -> int:
     text = idea.read_text(encoding="utf-8")
     mech, problem, topic = extract(text)
     hooks = suggest(mech, problem, topic)
-    print("HOOK SUGGESTIONS (mechanism-aligned; calm; no anti-slop)")
+    print("HOOK SUGGESTION (mechanism-aligned; calm; no anti-slop)")
     print(f"mechanism: {mech}")
     if problem:
         print(f"problem: {problem}")
     print()
+    print("Suggested Hook WORDS")
     for i, h in enumerate(hooks, 1):
         print(f"{i}. {h}")
     print()
-    print("Paste into the ## Hook WORDS of draft.md.")
+    print("paste into draft.md ## Hook")
+    print("Then run python3 tools/quality_scan.py to verify.")
     return 0
 
 if __name__ == "__main__":

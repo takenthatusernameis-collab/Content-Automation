@@ -114,7 +114,7 @@ the source under Sources. See `docs/production_rules.md`.
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("packet", nargs="?", default="videos/002-stop-deciding-what-to-work-on-every-morning")
-    parser.add_argument("--write", action="store_true", help="Write research.md (dry-run default)")
+    parser.add_argument("--dry-run", action="store_true", help="Print only; do not write research_notes.md")
     args = parser.parse_args()
     packet = Path(args.packet)
     if not packet.is_absolute():
@@ -133,12 +133,12 @@ def main() -> int:
     print(f"packet: {packet.relative_to(ROOT) if packet.is_relative_to(ROOT) else packet}")
     print()
     print(skeleton)
-    if args.write:
-        out = packet / "research.md"
+    if not args.dry_run:
+        out = packet / "research_notes.md"
         out.write_text(skeleton, encoding="utf-8")
-        print(f"\nWrote {out.relative_to(ROOT)}")
+        print(f"\nWrote {out.relative_to(ROOT) if out.is_relative_to(ROOT) else out}")
     else:
-        print("\nDry-run. Pass --write to overwrite research.md.")
+        print("\nDry-run. Omit --dry-run to write research_notes.md.")
     print("No invented sources or numbers. Preferred current action remains human OAuth for Q1.")
     return 0
 

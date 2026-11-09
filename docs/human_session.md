@@ -50,7 +50,7 @@ If you still need a first real title:
 python3 tools/next_topic.py
 ```
 
-That command writes nothing. It prints a queued title, a predicted `videos/NNN-slug`, and a dry-run `mark_topic` line. After that predicted folder exists, it also prints `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check`. Prefer the printed title over inventing a new one. Prefer the printed idea_brief lines over scanning this page for the paste.
+That command writes nothing. It prints a queued title, a predicted `videos/NNN-slug`, and a dry-run `mark_topic` line. After that predicted folder exists, it also prints `idea_brief.py PATH --block`, a paste-by-hand line, and `idea_brief.py PATH --check`. Prefer the printed title over inventing a new one. Prefer the printed idea_brief lines over scanning this page for the paste. After idea.md is ready, use `python3 tools/expand_prompt.py PATH` then `python3 tools/apply_script.py --from PATH/draft.md` (dry-run first; draft.md convention).
 
 ## First real video (not the fixture)
 

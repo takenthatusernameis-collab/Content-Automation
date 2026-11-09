@@ -169,7 +169,7 @@ def main() -> int:
         "One file combining spoken structure lines, visual sequence plan, and install full pack.",
         "Channel voice: calm, specific, operational. Assignment, not a reply prompt.",
         "Format: text-card first, short on-screen; hook 8-12 s; payoff before middle; 4-7 beats; CTA as assignment.",
-        "Channel promise: one small default the viewer can install and verify the same day.",
+        "Channel promise: one small default the viewer can install and verify same day.",
         "Not a rewrite of script.md or assets.md. Review and adapt before drafting or card generation.",
         "",
         f"- Topic: {topic or '(none)'}",
