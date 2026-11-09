@@ -2,7 +2,7 @@
 """Print the ordered post-publish sequence once a private provider_video_id exists.
 
 Fail-closed single-command reminder of:
-- 7-day + 3-day lag observation window (prints exact due date when uploaded_at exists)
+- uploaded_at + 10 days (7 calendar + 3 Analytics lag) observation window (prints exact due date when uploaded_at exists)
 - collect_feedback dispatch
 - experiment_baseline completeness check
 - experiment_loop
