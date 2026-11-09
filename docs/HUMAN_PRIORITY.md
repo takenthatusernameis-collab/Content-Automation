@@ -28,9 +28,13 @@
 
 3. Confirm success by a private video id appearing in the Actions log and packet upload_state.json. Do not invent an id. Do not re-dispatch until the id is visible.
 
-Full details: `docs/human_oauth_checklist.md`
+   After the id appears, verify the trusted locks with:
+   ```bash
+   python3 tools/contracts_suite.py && python3 tools/human_success_check.py
+   ```
+   Then: `python3 tools/post_publish_sequence.py`
 
-After the id appears: `python3 tools/human_success_check.py` then `python3 tools/post_publish_sequence.py`
+Full details: `docs/human_oauth_checklist.md`
 
 Do not poll secrets from agents. Do not scaffold Q2. Do not rematerialize media if present.
 
