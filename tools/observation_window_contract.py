@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Contract lock for tools/observation_window.py.
+"""Contract lock for tools/observation_window.py and shared upload_date helpers.
 
-Self-tests that the due date is uploaded_at + 10 days and status is DUE or WAITING.
+Self-tests that the due date is uploaded_at + 10 days via compute_due_date and status is DUE or WAITING.
 Also locks the hardened parse_uploaded_at against common ISO variants and garbage.
 Does not invent dates, call APIs, or write packet files.
 Fails if the helper logic drifts from the documented +10 day window or the parse robustness.
@@ -10,14 +10,14 @@ Fails if the helper logic drifts from the documented +10 day window or the parse
 from __future__ import annotations
 
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "tools") not in sys.path:
     sys.path.insert(0, str(ROOT / "tools"))
 
-from observation_window import parse_uploaded_at  # noqa: E402
+from upload_date import parse_uploaded_at, compute_due_date, OBSERVATION_WINDOW_DAYS  # noqa: E402
 
 
 def test_parse_and_due() -> bool:
@@ -26,11 +26,12 @@ def test_parse_and_due() -> bool:
     if not parsed or parsed.year != 2026:
         print("FAIL: parse_uploaded_at rejected valid ISO")
         return False
-    due = parsed + timedelta(days=10)
-    if due.day != 11:
-        print("FAIL: due date is not uploaded + 10 days")
+    due = compute_due_date(parsed)
+    expected_day = (parsed + __import__("datetime").timedelta(days=OBSERVATION_WINDOW_DAYS)).day
+    if due.day != expected_day or due.day != 11:
+        print("FAIL: due date is not uploaded + OBSERVATION_WINDOW_DAYS")
         return False
-    print("PASS: parse and +10 day due date")
+    print("PASS: parse and shared +10 day due date")
     return True
 
 

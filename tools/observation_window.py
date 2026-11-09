@@ -12,13 +12,13 @@ from __future__ import annotations
 
 import json
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-from upload_date import parse_uploaded_at
+from upload_date import parse_uploaded_at, compute_due_date
 
 
 def main() -> int:
@@ -43,7 +43,7 @@ def main() -> int:
     if not uploaded:
         print(f"OBSERVATION_WINDOW: video_id={vid} but no parseable uploaded_at (do not invent dates)")
         return 0
-    due = uploaded + timedelta(days=10)
+    due = compute_due_date(uploaded)
     now = datetime.now(timezone.utc)
     status = "DUE" if now >= due else "WAITING"
     delta = (due - now).days

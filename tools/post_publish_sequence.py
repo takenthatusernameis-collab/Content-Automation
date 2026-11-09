@@ -17,10 +17,10 @@ from __future__ import annotations
 
 import json
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 
-from upload_date import parse_uploaded_at
+from upload_date import parse_uploaded_at, compute_due_date
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PACKET = ROOT / "videos" / "002-stop-deciding-what-to-work-on-every-morning"
@@ -89,7 +89,7 @@ def main() -> int:
         except (OSError, json.JSONDecodeError):
             pass
     if uploaded:
-        due = uploaded + timedelta(days=10)
+        due = compute_due_date(uploaded)
         now = datetime.now(timezone.utc)
         status = "DUE" if now >= due else "WAITING"
         days = (due - now).days
