@@ -40,7 +40,7 @@ def main() -> int:
     if vid:
         print(f"provider_video_id: {vid} (privacy must stay private)")
         print()
-        print("Observation window: wait at least 7 days after uploaded_at before collect.")
+        print("Observation window: wait at least 10 days (7 calendar + 3 Analytics lag) after uploaded_at before collect.")
         print("Then dispatch once:")
         print("  gh workflow dispatch youtube-production.yml \\")
         print("    --repo takenthatusernameis-collab/Content-Automation \\")
