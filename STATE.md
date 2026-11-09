@@ -1,3 +1,6 @@
+2026-11-09T18:20:00Z (Run 1145)
+
+Standardized remaining imprecise "7-day observation" phrasing in tools/youtube_feedback.py comments and docs/youtube_integration.md list item to the precise first-calendar-days / uploaded_at + 10 days (7 calendar + 3 Analytics lag) formula. Completes consistency across the last core feedback surfaces. Reduces rediscovery of the exact post-upload collect due date for every future video. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. No secrets polled, no dispatch, no live packet writes. Next remains the human OAuth step.
 2026-11-09T17:23:00Z (Run 1144)
 
 Standardized remaining imprecise observation-window comments in tools/post_publish_sequence.py and tools/youtube_feedback.py to the precise uploaded_at + 10 days (7 calendar + 3 Analytics lag) formula. Completes consistency across more post-publish tool surfaces. Reduces rediscovery of the exact post-upload collect due date for every future video. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. No secrets polled, no dispatch, no live packet writes. Next remains the human OAuth step.
