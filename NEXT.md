@@ -1,3 +1,6 @@
+2026-11-09T22:30:00Z (Run 1148)
+
+Removed duplicated parse_uploaded_at implementations from tools/post_publish_sequence.py and tools/post_upload_confirm.py; both now import the shared robust parser from tools/upload_date.py. Eliminates drift risk between the three post-upload tools that compute the exact +10 day observation window. Contracts suite remains UNIFIED RESULT: PASS (90/90). STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. No secrets polled, no dispatch, no live packet writes. Next remains the human OAuth step.
 2026-11-09T20:20:00Z (Run 1147)
 
 Strengthened tools/observation_window_contract.py with additional parse-variant tests (Z, +00:00, space-separated, date-only, garbage rejection) that lock the hardened parse_uploaded_at from Run 1146. Contracts suite remains UNIFIED RESULT: PASS (90/90). Reduces risk that future date-format drift breaks the exact +10 day due date after the first private video id. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. No secrets polled, no dispatch, no live packet writes. Next remains the human OAuth step.
