@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-09T04:17:24Z (Run 1131)
+
+Fixed NameError: WEAK not defined in tools/tags_suggest.py, end_screen_suggest.py, thumbnail_suggest.py, visual_suggest.py by importing ANTI_SLOP_PATTERNS as WEAK from phrase_utils. Aligned long_stall_report_contract.py expected phrase to human_starter.py (actual tool output). Partially aligned chapters_suggest_contract.py test packet and required phrases. Restored 5 failing contracts to PASS. Suite now fails on 7 remaining phrase/setup drifts (down from 12). No secrets polled, no dispatch, no live packet writes. Improves reliability of suggestion tools used on every future video. Pre-upload remains complete. Long stall (1000+ runs) remains HIGH suspicion. Contract suite reliability is higher leverage than additional starter tools while stalled.
+
 2026-11-09T03:30:00Z (Run 1130)
 
 Added tools/contracts_suite_contract.py locking the unified verification runner: discovery returns list of existing *_contract.py files (count >=50), excludes the suite itself, pure import/discover checks only. No invent, no packet writes, no secrets, no dispatch. Strengthens the reliability of the one-command contract suite that protects every future video's research, queue, experiment, media, and metadata paths. Pre-upload remains complete. Long stall (1000+ runs) remains HIGH suspicion. Contract locks + unified verification remain higher leverage than additional starter tools while stalled.

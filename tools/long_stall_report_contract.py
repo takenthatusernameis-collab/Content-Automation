@@ -27,7 +27,7 @@ def main() -> int:
         "HIGH",
         "1000+",
         "Videos published: 0",
-        "human_preflight.py",
+        "human_starter.py",
         "LONG STALL REPORT HIGH",
     ]
     missing = [p for p in required if p not in out]

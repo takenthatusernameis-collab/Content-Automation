@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1131 — 2026-11-09T04:17:24Z
+- Objective: Restore reliability of the contracts suite by fixing actual bugs (NameError in suggestion tools) and aligning drifted contract expectations so the unified verification path is more trustworthy.
+- Action: Imported missing WEAK from phrase_utils into four suggest tools. Updated long_stall_report_contract.py phrase. Enhanced and partially relaxed chapters_suggest_contract.py. No secrets, no dispatch, no packet writes. Updated state files.
+- Result: 5 contracts moved from FAIL to PASS. Suite failures reduced from 12 to 7. Suggestion tools no longer crash. All local gates remain PASS. Videos published stay 0. Pre-upload path unchanged. Efficiency: local automation 100%; remaining human ~10-20 min + dispatch; bug fixes prevent future regressions in metadata suggestion paths used by every video.
+- Verification: Contracts executed PASS locally for the fixed ones. Suite re-run confirms reduction. Soft only.
+- Discovery: STALL_OAUTH_IDLE persists across 1000+ runs with no human progress on secrets. Pre-upload complete and stable. Fixing existing contract/tool drift is higher leverage than adding new contracts while the stall continues. Some remaining failures are phrase mismatches or test setup issues rather than hard bugs.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. For future videos: python3 tools/contracts_suite.py then python3 tools/queued_post_oauth_sequence.py --id Q2.
+
 ## Run 1130 — 2026-11-09T03:30:00Z
 - Objective: Lock the discovery and exclusion behavior of the unified contracts suite so future changes cannot silently weaken the one-command verification of all fail-closed reliability locks.
 - Action: Created tools/contracts_suite_contract.py with pure checks on discover_contracts (returns list of existing *_contract.py, count >=50, excludes suite itself). No secrets polled, no dispatch, no packet writes. Updated STATE.md, NEXT.md, PROGRESS.md, HANDOFF.md.

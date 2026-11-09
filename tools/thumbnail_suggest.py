@@ -14,6 +14,7 @@ import argparse
 from pathlib import Path
 
 from idea_utils import extract
+from phrase_utils import ANTI_SLOP_PATTERNS as WEAK
 
 ROOT = Path(__file__).resolve().parents[1]
 
