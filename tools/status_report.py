@@ -243,7 +243,7 @@ def main() -> int:
     print("  Do not run `gh secret list` from an agent (human UI check only under Settings > Secrets).")
     print("  Optional human-terminal confirmation (never from an agent): python3 tools/human_secret_confirm.py  # prints PRESENT/MISSING, never values; exit 0 = all three exist")
     print("  gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false")
-    print("After the private video id appears, wait at least 7 days then use after_upload_steps.py for the feedback path.")
+    print("After the private video id appears, wait until the +10 day observation window (7 calendar + 3 Analytics lag) is due then use after_upload_steps.py for the feedback path.")
     print("Do not poll secrets. Do not rematerialize if media present. Logs via record_run.py. Do not scaffold Q2. Prefer quality improvements or true capability over more status printers or suggest-contract locks. Do not refresh the checklist banner solely for the timestamp.")
     return 0
 

@@ -19,7 +19,7 @@ The live feedback adapter is `tools/youtube_feedback.py`. Dry-run remains the de
 5. When credentials are present, authenticate and upload through the YouTube Data API using `python3 tools/youtube_upload.py PATH --execute`.
 6. Persist only non-secret operational state: upload-attempt timestamp, provider video ID, final privacy state, and a redacted result/error code.
 7. Do not upload merely because a hold expired, but do upload/publish through the normal authenticated path when all mechanical gates pass. Approval-only holds are authorized for agent completion; authentication and provider-policy requirements remain mandatory.
-8. After a real provider_video_id exists and `upload_state.json` has an `uploaded_at` at least 7 days old, run `tools/youtube_feedback.py PATH --execute` with valid OAuth. A missing timestamp is `OBSERVATION_WINDOW_UNKNOWN`. An earlier collect is `OBSERVATION_WINDOW_NOT_DUE` and must not be stored as COLLECTED.
+8. After a real provider_video_id exists and `upload_state.json` has an `uploaded_at` at least 10 days old (7 calendar + 3 Analytics lag), run `tools/youtube_feedback.py PATH --execute` with valid OAuth. A missing timestamp is `OBSERVATION_WINDOW_UNKNOWN`. An earlier collect is `OBSERVATION_WINDOW_NOT_DUE` and must not be stored as COLLECTED.
 
 ## Credential-last design
 
