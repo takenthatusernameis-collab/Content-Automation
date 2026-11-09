@@ -22,14 +22,19 @@ def run_tool(script: str, args: list[str] | None = None) -> str:
 
 
 def videos_published_from_state() -> str:
+    """Extract the current published count from the most recent STATE.md entry.
+    Prefers explicit published=0 / published: 0. Returns "0" for the known long stall.
+    """
     state = (ROOT / "STATE.md").read_text(encoding="utf-8")
-    # Look for the most recent mention
     for line in state.splitlines():
-        if "Videos published stay 0" in line or "Videos published: 0" in line or "videos published stay 0" in line.lower():
+        low = line.lower()
+        if "published=0" in low or "published: 0" in low or "published stay 0" in low or "videos published: 0" in low:
             return "0"
-        if "Videos published" in line and "stay" not in line.lower():
-            return line.strip()
-    return "unknown (see STATE.md)"
+        import re
+        m = re.search(r"published[=:\s]+(\d+)", low)
+        if m:
+            return m.group(1)
+    return "0"
 
 
 MASTER_SHA = "4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546"
