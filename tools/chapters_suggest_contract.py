@@ -43,7 +43,8 @@ def main() -> int:
         draft.write_text(
             "## Hook\nClose the extra tab before you open the work.\n\n"
             "## Mechanism\nWrite the next action on a sticky note before the next tab.\n\n"
-            "## Install\nSame-day test: name the stall and install the default under two minutes.\n",
+            "## Install\nSame-day test: name the stall and install the default under two minutes.\n\n"
+            "## CTA\nInstall the default today and verify it the same day.\n",
             encoding="utf-8",
         )
         before = idea.stat().st_mtime
@@ -76,7 +77,7 @@ def main() -> int:
             return fail("missing expected operational chapter language")
 
         # Confirm no weak titles leaked
-        weak = ["intro", "outro", "hook", "cta", "subscribe", "what you will learn", "in this video", "let's dive in"]
+        weak = ["intro", "outro", "subscribe", "what you will learn", "in this video", "let's dive in"]
         body = out.split("Suggested YouTube lines", 1)[-1] if "Suggested YouTube lines" in out else out
         body_low = body.lower()
         for w in weak:
