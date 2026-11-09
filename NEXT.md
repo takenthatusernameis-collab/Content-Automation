@@ -1,3 +1,6 @@
+2026-11-09T23:20:00Z (Run 1149)
+
+Centralized the +10 day observation window due date calculation into tools/upload_date.py (OBSERVATION_WINDOW_DAYS constant + compute_due_date). observation_window.py and post_publish_sequence.py now call the shared function instead of hard-coding timedelta(days=10). Eliminates remaining drift risk on the exact collect due date used by every future video. Contract updated to lock the shared helper. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. No secrets polled, no dispatch, no live packet writes. Next remains the human OAuth step.
 2026-11-09T22:30:00Z (Run 1148)
 
 Removed duplicated parse_uploaded_at implementations from tools/post_publish_sequence.py and tools/post_upload_confirm.py; both now import the shared robust parser from tools/upload_date.py. Eliminates drift risk between the three post-upload tools that compute the exact +10 day observation window. Contracts suite remains UNIFIED RESULT: PASS (90/90). STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. No secrets polled, no dispatch, no live packet writes. Next remains the human OAuth step.
