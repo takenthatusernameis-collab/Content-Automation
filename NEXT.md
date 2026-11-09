@@ -1,3 +1,6 @@
+2026-11-09T09:50:00Z (Run 1136)
+Run 1136: fixed status_report published-count parser so it reliably reports 0 from current STATE format. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload complete and stable. Next remains human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2. Pure verification has diminishing returns. Prefer the complete guide for the human step. After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. For future videos after stall ends: python3 tools/contracts_suite.py && python3 tools/queued_post_oauth_sequence.py --id Q2.
+
 (Older next actions live in `docs/next_archive.md`. Do not paste the archive back.)
 
 2026-11-09T08:30:00Z (Run 1135)

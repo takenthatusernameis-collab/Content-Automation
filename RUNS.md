@@ -1,5 +1,15 @@
 # RUNS
 
+## Run 1136 — 2026-11-09T09:50:00Z
+- Objective: Fix a reliability bug in status_report.py so the published count is always correctly extracted as 0 from the current STATE.md format.
+- Action: Updated videos_published_from_state to prefer published=0 / published: 0 patterns and return "0" instead of a long prose line. No secrets polled, no dispatch, no live packet writes. Updated state files.
+- Result: status_report now prints videos_published: 0. All local gates remain PASS. Efficiency: local automation 100%; remaining human ~10-20 min + dispatch; reliable published count reduces future rediscovery on every inspection.
+- Verification: Local function test returns "0". Soft only.
+- Discovery: STALL_OAUTH_IDLE persists across 1000+ runs with no human progress on secrets. Pre-upload complete and stable. Small parser fixes that protect recurring inspection tools are higher leverage than additional starters while stalled.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. For future videos: python3 tools/contracts_suite.py then python3 tools/queued_post_oauth_sequence.py --id Q2.
+
+
 ## Run 1135 — 2026-11-09T08:30:00Z
 - Objective: Confirm the system state after true 90/90 contracts_suite green and record continued stall; make post-OAuth verification clearer by referencing the trusted suite.
 - Action: Inspected STATE/NEXT/ROADMAP/RUNS/BLOCKED/HANDOFF/PROGRESS. Confirmed no change in STALL_OAUTH_IDLE (1000+ runs, HIGH suspicion), videos published=0, pre-upload complete. No secrets polled, no dispatch, no live packet writes. Updated state files and clarified verification path in HUMAN_PRIORITY.md.

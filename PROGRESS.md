@@ -1,3 +1,5 @@
+2026-11-09T09:50:00Z (Run 1136): Fixed status_report.py published-count parser so it reliably returns "0" from live STATE.md (published=0 format). Improves long-term reliability of every status inspection that agents and humans run. Recorded continued STALL_OAUTH_IDLE (1000+ runs, HIGH suspicion), published=0. Pre-upload path remains complete and stable. True full suite green and small parser locks are higher leverage than further new tools while stalled.
+
 # PROGRESS
 
 2026-11-09T08:30:00Z (Run 1135): Inspected after true 90/90 contracts_suite green. Recorded continued STALL_OAUTH_IDLE (1000+ runs, HIGH suspicion), published=0. Clarified post-OAuth verification path by linking contracts_suite.py in HUMAN_PRIORITY.md. Improves long-term clarity of the trusted verification path that protects every future video. Still 0 published. OAuth stall continues and is flagged as HIGH suspicion after extreme duration with no progress. Prefer the complete guide, human starter, or docs/HUMAN_PRIORITY.md as entry. Pre-upload path remains complete and stable. True full suite green is higher leverage than further new tools while stalled.

@@ -1,3 +1,7 @@
+2026-11-09T09:50:00Z (Run 1136)
+
+Fixed reliability bug in tools/status_report.py: videos_published_from_state now correctly detects published=0 / published: 0 in the live timestamped STATE.md format and returns "0" instead of falling through to a long prose sentence. Improves every future status inspection and reduces rediscovery of the published count. No secrets polled, no dispatch, no live packet writes. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2.
+
 # STATE
 
 2026-11-09T08:30:00Z (Run 1135)
