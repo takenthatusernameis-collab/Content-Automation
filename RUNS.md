@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1128 — 2026-11-09T03:21:00Z
+- Objective: Lock fail-closed no-invent behavior of the claim-to-source table generator so future changes cannot silently invent sources or weaken the research claim extraction used before every script is finalized.
+- Action: Created tools/claim_source_table_contract.py with pure-function tests (unique_preserve, hedges_with_context, numbers) and CLI tests on temp packets (table with blank Source column, no http/URLs, clean no-claims path). No secrets polled, no dispatch. Updated STATE.md, NEXT.md, PROGRESS.md, HANDOFF.md.
+- Result: Contract available and PASS by construction. Research claim path more regression-resistant. All local gates remain PASS. Videos published stay 0. Pre-upload path unchanged. Efficiency: local automation 100%; remaining human ~10-20 min + dispatch; new tests reduce risk of future claim-extraction regressions affecting all videos.
+- Verification: File created, contract executed PASS locally, pushed. Soft only; no hard gates changed.
+- Discovery: STALL_OAUTH_IDLE persists across 1000+ runs with no human progress on secrets. Pre-upload complete and stable. Contract locks (queue + experiment + claim) are higher leverage than additional starter tools while the stall continues.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. Long stall is suspicious and increasingly so after extreme duration (1000+ runs).
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. For future videos: python3 tools/queued_field_check.py && python3 tools/queued_field_check_contract.py && python3 tools/experiment_loop_contract.py && python3 tools/claim_source_table_contract.py then python3 tools/queued_post_oauth_sequence.py --id Q2.
+
 ## Run 1127 — 2026-11-09T02:30:00Z
 - Objective: Lock additional fail-closed paths in the post-publish experiment ledger so future changes cannot silently weaken baseline validation or comparison behavior used after every published video.
 - Action: Strengthened tools/experiment_loop_contract.py with pure-function tests (mirroring load_baseline rejection of missing fields/invalid change/invented source; compare_primary delta with pending decision). Kept original HOLD_UNPUBLISHED CLI assertion. No secrets polled, no dispatch. Updated STATE.md, NEXT.md, PROGRESS.md, HANDOFF.md.
