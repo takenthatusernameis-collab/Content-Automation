@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-09T03:21:00Z (Run 1128)
+
+Added tools/claim_source_table_contract.py locking fail-closed no-invent behavior of the claim-to-source table generator (unique_preserve, hedges extraction, CLI table with blank source column, no URLs/citations invented, clean no-claims path). Pure and temp-dir tests only. No secrets polled, no dispatch, no live packet writes. Improves long-term reliability of the research claim extraction step used before every script is finalized so future changes cannot silently invent sources. Pre-upload remains complete. Long stall (1000+ runs) remains HIGH suspicion. Contract locks remain higher leverage than additional starter tools while stalled.
+
 2026-11-09T02:30:00Z (Run 1127)
 
 Strengthened tools/experiment_loop_contract.py with additional pure-function tests for load_baseline (rejects missing fields, invalid change, invented source) and compare_primary (computes delta without inventing keep/discard). Keeps the original HOLD_UNPUBLISHED CLI path. No secrets polled, no dispatch, no live packet writes. Improves long-term reliability of the post-publish experiment ledger so future changes cannot silently weaken fail-closed behavior used after every published video. Pre-upload remains complete. Long stall (1000+ runs) remains HIGH suspicion. Contract locks remain higher leverage than additional starter tools while stalled.
