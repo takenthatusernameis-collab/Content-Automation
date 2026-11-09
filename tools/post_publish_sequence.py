@@ -111,7 +111,7 @@ def main() -> int:
         print("   early collect_feedback returns OBSERVATION_WINDOW_NOT_DUE; do not dispatch until due")
     else:
         print("   uploaded_at not parseable or absent; do not invent a date.")
-        print("   Wait at least 7 days after the real uploaded_at before collect.")
+        print("   Wait at least 10 days (7 calendar + 3 Analytics lag) after the real uploaded_at before collect.")
     print("   Then dispatch once:")
     print("   gh workflow dispatch youtube-production.yml \\")
     print("     --repo takenthatusernameis-collab/Content-Automation \\")
