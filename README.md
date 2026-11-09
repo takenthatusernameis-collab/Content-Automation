@@ -54,7 +54,7 @@ gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Co
 
 After the single execute dispatch, confirm success by a private provider video id appearing in the Actions log and in the packet upload_state.json (see Expected outcomes in docs/human_oauth_checklist.md). Do not invent an id. Do not re-dispatch until that id is visible.
 
-Do not run `gh secret list`. Do not commit the token file. After a provider video id exists and `uploaded_at` is at least 7 days old, a later dispatch with `collect_feedback=true` is allowed.
+Do not run `gh secret list`. Do not commit the token file. After a provider video id exists and `uploaded_at` is at least 10 days old (7 calendar + 3 Analytics lag), a later dispatch with `collect_feedback=true` is allowed.
 
 Parked until that publish happens:
 
