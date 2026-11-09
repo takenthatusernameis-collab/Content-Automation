@@ -60,7 +60,7 @@ def main() -> int:
     print("gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true -f collect_feedback=false")
     print("```")
     print()
-    print("After a private provider_video_id appears in upload_state.json, wait >=7 days then dispatch collect_feedback=true.")
+    print("After a private provider_video_id appears in upload_state.json, wait >=10 days (7 calendar + 3 Analytics lag) then dispatch collect_feedback=true.")
     print("Post-upload sequence (once id exists): python3 tools/after_upload_steps.py")
     print("Do not poll secrets from an agent run. Full checklist: docs/human_oauth_checklist.md")
     print("Operator card and escalation: docs/operator_escalation.md")
