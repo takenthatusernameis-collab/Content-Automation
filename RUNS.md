@@ -1,3 +1,6 @@
+2026-11-09T18:20:00Z (Run 1145)
+
+Standardized remaining imprecise "7-day observation" phrasing in tools/youtube_feedback.py comments and docs/youtube_integration.md list item to the precise first-calendar-days / uploaded_at + 10 days (7 calendar + 3 Analytics lag) formula. Completes consistency across the last core feedback surfaces. Reduces rediscovery of the exact post-upload collect due date for every future video. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. No secrets polled, no dispatch, no live packet writes. Next remains the human OAuth step.
 2026-11-09T17:23:00Z (Run 1144)
 
 Standardized remaining imprecise observation-window comments in tools/post_publish_sequence.py and tools/youtube_feedback.py to the precise uploaded_at + 10 days (7 calendar + 3 Analytics lag) formula. Completes consistency across more post-publish tool surfaces. Reduces rediscovery of the exact post-upload collect due date for every future video. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. No secrets polled, no dispatch, no live packet writes. Next remains the human OAuth step.
@@ -10,20 +13,20 @@ Standardized remaining observation-window language in live tools and docs (next_
 
 # RUNS
 
+## Run 1145 — 2026-11-09T18:20:00Z
+- Objective: Complete observation-window language consistency in the last core feedback surfaces so the precise +10 day rule is the only stated formula.
+- Action: Updated remaining imprecise "7-day observation" phrases in tools/youtube_feedback.py comments and docs/youtube_integration.md to first-calendar-days / uploaded_at + 10 days (7 calendar + 3 Analytics lag). Recorded the change in state files. No secrets polled, no dispatch, no live packet writes.
+- Result: Last core feedback surfaces now match the precise formula. Reduces rediscovery for every future post-publish path. STALL_OAUTH_IDLE continues.
+- Verification: Local grep confirms old imprecise phrasing removed from the two files; no new contract failures expected. Soft only.
+- Discovery: Documentation consistency on the observation window compounds reliability for the feedback path that will run after the first private video id. Long stall remains HIGH suspicion after 1000+ runs. Prefer the human step or a true post-publish capability over further pure confirmation.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py.
+
 ## Run 1144 — 2026-11-09T17:23:00Z
 - Objective: Complete observation-window language consistency in remaining post-publish tool comments so the precise +10 day rule is the only stated formula.
 - Action: Updated imprecise "7-day" phrases in comments of tools/post_publish_sequence.py and tools/youtube_feedback.py to uploaded_at + 10 days (7 calendar + 3 Analytics lag). Recorded the change in state files. No secrets polled, no dispatch, no live packet writes.
 - Result: Tool comments now match the precise formula used in observation_window.py and other surfaces. Reduces rediscovery for every future post-publish path. STALL_OAUTH_IDLE continues.
 - Verification: Local grep confirms old imprecise phrasing removed from the two files; no new contract failures expected. Soft only.
-- Discovery: Documentation consistency on the observation window compounds reliability for the feedback path that will run after the first private video id. Long stall remains HIGH suspicion after 1000+ runs. Prefer fixing remaining consistency locks over pure confirmation.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
-- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py.
-
-## Run 1143 — 2026-11-09T16:22:00Z
-- Objective: Complete observation-window language consistency in remaining post-publish starter tools so the precise +10 day rule is the only stated formula.
-- Action: Updated imprecise "7 days" / "7-day window" phrases in tools/experiment_notes_starter.py, tools/feedback_review_starter.py, tools/human_one_pager.py, and tools/experiment_package_starter.py to uploaded_at + 10 days (7 calendar + 3 Analytics lag). Recorded the change in state files. No secrets polled, no dispatch, no live packet writes.
-- Result: Starter tools now match the precise formula used in observation_window.py, status_report, BLOCKED, and human checklist. Reduces rediscovery for every future post-publish path. STALL_OAUTH_IDLE continues.
-- Verification: Local grep confirms old imprecise phrasing removed from the four files; no new contract failures expected. Soft only.
 - Discovery: Documentation consistency on the observation window compounds reliability for the feedback path that will run after the first private video id. Long stall remains HIGH suspicion after 1000+ runs. Prefer fixing remaining consistency locks over pure confirmation.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
 - Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py.
