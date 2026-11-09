@@ -500,3 +500,9 @@ Run 1114: added tools/oauth_recovery_hints.py and linked it from the checklist a
 
 2026-11-08T06:20:00Z (Run 1107)
 Run 1107: confirmed materialize + media_qa PASS + selftest PASS on fresh clone. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step (docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2. Pure verification has diminishing returns.
+
+2026-11-09T06:25:36Z (Run 1133)
+Run 1133: completed alignment of remaining contract drifts; contracts_suite.py now PASS (90/90). Full unified verification path is green. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2. Pure verification and successive queue-starter tools have diminishing returns. Prefer the complete guide for the human step. For future videos after stall ends: python3 tools/contracts_suite.py && python3 tools/queued_post_oauth_sequence.py --id Q2.
+
+2026-11-09T07:25:00Z (Run 1134)
+Run 1134: fixed remaining state_compact_contract failure; contracts_suite.py now truly PASS (90/90). Full unified verification path is green. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2. Pure verification and successive queue-starter tools have diminishing returns. Prefer the complete guide for the human step. For future videos after stall ends: python3 tools/contracts_suite.py && python3 tools/queued_post_oauth_sequence.py --id Q2.

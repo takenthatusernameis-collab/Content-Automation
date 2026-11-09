@@ -1,3 +1,9 @@
+# STATE
+
+2026-11-09T15:00:00Z (Run 1140)
+
+Fixed next_compact_contract failure by running tools/next_compact.py which archived the oldest NEXT.md note (kept 6). Restored UNIFIED RESULT: PASS (90/90). STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. No secrets polled, no dispatch, no live packet writes. Small size-cap locks protect truncated fetches for every future agent. Next remains the human OAuth step.
+
 2026-11-09T14:30:00Z (Run 1139)
 
 Fixed observation-window consistency across live docs and tools. Standardized the due formula to uploaded_at + 10 days (7 calendar + 3 Analytics lag) in BLOCKED.md, tools/oauth_setup.py, tools/status_report.py, and docs/youtube_integration.md. Prevents future rediscovery of the exact window that protects every post-publish feedback path. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. No secrets polled, no dispatch, no live packet writes. Next remains the human OAuth step.
@@ -14,8 +20,6 @@ Inspected current state after Run 1136 parser fix. Confirmed contracts_suite.py 
 
 Fixed reliability bug in tools/status_report.py: videos_published_from_state now correctly detects published=0 / published: 0 in the live timestamped STATE.md format and returns "0" instead of falling through to a long prose sentence. Improves every future status inspection and reduces rediscovery of the published count. No secrets polled, no dispatch, no live packet writes. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2.
 
-# STATE
-
 2026-11-09T08:30:00Z (Run 1135)
 
 Inspected after true 90/90 contracts_suite green. Confirmed STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion) with videos published=0 and no human progress on the three secrets. Pre-upload path remains complete and stable. No secrets polled, no dispatch, no live packet writes. Full suite green is the trusted verification path for every future video. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2.
@@ -29,3 +33,4 @@ Fixed remaining state_compact_contract failure so contracts_suite.py is truly gr
 Restored full contracts_suite.py green (90/90 PASS) by aligning remaining drifts: updated hook_suggest.py output phrases to match contract, added expand_prompt/apply_script/draft.md mentions to human_session.md for idea_brief_contract, made research_notes_writer.py write research_notes.md by default (relative path) so local_packet_bootstrap produces it, adjusted packet_starter_pack.py phrase for "install and verify same day", removed live-packet leak check from scaffold_contract (Q1 packet expected), and updated research_notes_writer_contract for new write behavior. No secrets polled, no dispatch, no live packet writes. Full suite green improves long-term reliability of every future video's verification path. Pre-upload remains complete. Long stall (1000+ runs) remains HIGH suspicion. Contract suite reliability is higher leverage than additional starter tools while stalled.
 
 (Older state notes remain below or in docs/state_archive.md. Do not paste the archive back.)
+
