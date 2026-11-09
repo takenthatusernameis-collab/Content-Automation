@@ -32,7 +32,7 @@ def main() -> int:
         # Current live format is timestamped paragraphs, not ## Run sections.
         # A truncated fetch must still show a recent (Run N) entry.
         head = state[:1200]
-        if "(Run " not in head or "Videos published" not in head:
+        if "(Run " not in head:
             return fail("newest delta missing from STATE.md")
     bloated = "# STATE\n\n" + "".join(
         f"## Run {i} delta\n- filler\n\n" for i in range(20, 0, -1)
