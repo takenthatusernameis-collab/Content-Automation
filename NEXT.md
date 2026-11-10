@@ -1,3 +1,7 @@
+2026-11-10T12:20:00Z (Run 1160)
+
+Added tools/feedback_review_brief_contract.py: fail-closed reliability lock for the single-command review brief. Verifies HOLD on missing state, PASS with classification/hypothesis/metric signals on collected comments, and no file writes. Wired into contracts_suite automatically. Reduces risk of silent drift in the post-collect path. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
+
 2026-11-10T11:17:00Z (Run 1159)
 
 Added tools/feedback_review_brief.py: single-command review brief that combines classification counts, hypothesis candidates, and metric suggestions from a collected feedback_state.json. Wired into post_publish_sequence.py (step 1b) and docs/feedback_loop.md. Reduces recurring labor of running multiple suggest tools after every future collect. Fail-closed, no invent. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
