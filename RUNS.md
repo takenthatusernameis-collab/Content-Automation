@@ -1,8 +1,17 @@
-2026-11-10T11:17:00Z (Run 1159)
+2026-11-10T12:20:00Z (Run 1160)
 
-Added tools/feedback_review_brief.py: single-command review brief that combines classification counts, hypothesis candidates, and metric suggestions from a collected feedback_state.json. Wired into post_publish_sequence.py (step 1b) and docs/feedback_loop.md. Reduces recurring labor of running multiple suggest tools after every future collect. Fail-closed, no invent. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
+Added tools/feedback_review_brief_contract.py: fail-closed reliability lock for the single-command review brief. Verifies HOLD on missing state, PASS with classification/hypothesis/metric signals on collected comments, and no file writes. Wired into contracts_suite automatically. Reduces risk of silent drift in the post-collect path. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
 
 # RUNS
+
+## Run 1160 — 2026-11-10T12:20:00Z
+- Objective: Lock the new feedback review brief so future changes cannot silently break the post-collect signal path.
+- Action: Added tools/feedback_review_brief_contract.py covering absent-state HOLD and collected-comments PASS (classification, hypotheses, metrics, no writes, no invent). Recorded in state files. No secrets polled, no dispatch, no live packet writes.
+- Result: The combined review brief is now under the contracts_suite lock. Compounds reliability for every future collected feedback_state.json. STALL_OAUTH_IDLE continues.
+- Verification: Contract exercises the tool on temp packets; expected phrases present; no side effects. Soft only.
+- Discovery: Explicit contract closes the reliability gap for the brief added in Run 1159. Long stall remains HIGH suspicion after 1000+ runs.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. After collect: python3 tools/feedback_review_brief.py.
 
 ## Run 1159 — 2026-11-10T11:17:00Z
 - Objective: Reduce rediscovery labor in the post-collect path by adding a single combined review brief that surfaces classification, hypotheses, and metric suggestions together.
