@@ -1,3 +1,7 @@
+2026-11-10T16:30:00Z (Run 1165)
+
+Added tools/feedback_topic_suggest.py: fail-closed printable candidate topic queue rows from request-class comments in collected feedback_state.json. Reuses classification rules. Prints source comments plus simple working_title/one_line candidates for human review before adding to docs/topic_queue.md. Does not invent topics, write the queue, or call APIs. Reduces recurring labor of manually scanning requests for next-video ideas after every future collect. Wired into post_publish_sequence.py (step 1b) and docs/feedback_loop.md. Contracts suite remains 92/92 PASS (no new contract added). STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
+
 2026-11-10T15:27:12Z (Run 1164)
 
 Added tools/feedback_to_baseline_suggest.py: fail-closed printable candidate experiment_baseline.json stub from collected feedback_state.json. Reuses classification and hypothesis rules from feedback_hypothesis_suggest / feedback_review_brief. Fills hypothesis + preferred change + suggested metric; leaves baseline null and source PENDING for human. Does not invent numbers, write files, or call APIs. Reduces recurring labor of manually translating review signals into the baseline template after every future collect. Contracts suite remains 92/92 PASS. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
