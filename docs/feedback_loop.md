@@ -93,3 +93,11 @@ After the review brief (or directly), run:
 python3 tools/feedback_to_baseline_suggest.py videos/<packet>
 ```
 It prints a candidate experiment_baseline.json skeleton with hypothesis and preferred change filled from the strongest repeated signal (count >= 2), a suggested primary_metric, and baseline/source left pending human documentation. Copy, fill the real numeric baseline and documented source, then validate. Fail-closed if no collected comments. Does not invent numbers or write files. Reduces the translation step from signals to the baseline template.
+
+## Candidate topic queue rows
+
+After the review brief (or directly on collected comments), run:
+```bash
+python3 tools/feedback_topic_suggest.py videos/<packet>
+```
+It classifies comments and, when request signals exist, prints the source comments plus simple candidate working_title / one_line rows suitable for review before adding to docs/topic_queue.md. Fail-closed if no collected comments. Does not invent topics or write the queue. Reduces the labor of scanning request comments for next-video ideas after every future collect.
