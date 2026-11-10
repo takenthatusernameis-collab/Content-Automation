@@ -1,3 +1,7 @@
+2026-11-10T20:15:00Z (Run 1169)
+
+Added tools/feedback_to_baseline_suggest_contract.py: fail-closed reliability lock for the printable candidate experiment_baseline.json stub from collected feedback signals. Verifies HOLD (exit 2) on missing state, candidate stub with required phrases on strong signals (count >= 2), NO_STRONG_SIGNAL on weak comments, and no file writes. Auto-wired into contracts_suite. Reduces risk of silent drift in the post-collect to baseline handoff. Contracts suite expected 96/96 after discovery. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
+
 2026-11-10T19:20:00Z (Run 1168)
 
 Added tools/next_from_decision_contract.py: fail-closed reliability lock for the next-video direction skeleton from a filled experiment_decision.json. Verifies FAIL on missing file, HOLD on invalid/incomplete decision, and required direction phrases on a valid keep. Auto-wired into contracts_suite. Reduces risk of silent drift in the post-decision to next-packet handoff. Contracts suite expected 95/95 after discovery. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
