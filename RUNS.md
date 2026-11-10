@@ -1,8 +1,17 @@
-2026-11-10T10:21:00Z (Run 1158)
+2026-11-10T11:17:00Z (Run 1159)
 
-Enhanced tools/post_publish_sequence.py to include the new comment_class_suggest.py and feedback_hypothesis_suggest.py steps after collect. Now the single ordered sequence surfaces the full path from observation window through classification/hypothesis signals to baseline and loop. Reduces recurring labor of rediscovering the feedback review commands for every future video. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
+Added tools/feedback_review_brief.py: single-command review brief that combines classification counts, hypothesis candidates, and metric suggestions from a collected feedback_state.json. Wired into post_publish_sequence.py (step 1b) and docs/feedback_loop.md. Reduces recurring labor of running multiple suggest tools after every future collect. Fail-closed, no invent. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
 
 # RUNS
+
+## Run 1159 — 2026-11-10T11:17:00Z
+- Objective: Reduce rediscovery labor in the post-collect path by adding a single combined review brief that surfaces classification, hypotheses, and metric suggestions together.
+- Action: Added tools/feedback_review_brief.py (reuses keyword rules and thresholds from the two suggest tools + metric map). Updated post_publish_sequence.py step 1b and docs/feedback_loop.md. Recorded in state files. No secrets polled, no dispatch, no live packet writes.
+- Result: One command now produces a full reviewable brief from any future collected feedback_state.json. Fail-closed if no real comments. Compounds the feedback loop readiness for every video. STALL_OAUTH_IDLE continues.
+- Verification: Source inspects feedback_state gate and comments list, applies matching rules, thresholds on counts, extracts candidate changes, and prints metric suggestions. Soft only.
+- Discovery: Combining the recent signal tools into one brief closes the remaining sequential-invocation gap after collect. Long stall remains HIGH suspicion after 1000+ runs.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. After collect: python3 tools/feedback_review_brief.py.
 
 ## Run 1158 — 2026-11-10T10:21:00Z
 - Objective: Reduce rediscovery labor in the post-publish path by integrating the new feedback suggest tools into the ordered sequence.
@@ -12,15 +21,6 @@ Enhanced tools/post_publish_sequence.py to include the new comment_class_suggest
 - Discovery: Explicitly sequencing the new signal tools after collect closes a small gap between recent helpers and the canonical sequence. Long stall remains HIGH suspicion after 1000+ runs.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
 - Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. After collect: the sequence now reminds of the suggest tools.
-
-## Run 1157 — 2026-11-10T09:21:00Z
-- Objective: Advance post-publish experiment readiness by adding a reusable hypothesis candidate suggester that operates only on real collected and classifiable comments.
-- Action: Added tools/feedback_hypothesis_suggest.py (keyword classification + repeated-signal hypothesis candidates tied to ALLOWED_CHANGES). Updated docs/feedback_loop.md with usage. Recorded in state files. No secrets polled, no dispatch, no live packet writes.
-- Result: One command now produces reviewable hypothesis signals from any future collected feedback_state.json when repeated question/confusion/request/objection patterns exist. Fail-closed if no real comments. Compounds the path from collect to experiment baseline without inventing data. STALL_OAUTH_IDLE continues.
-- Verification: Tool source inspects feedback_state gate and comments list, applies matching rules, and thresholds on counts before suggesting. Soft only.
-- Discovery: Turning repeated comment classes into explicit change candidates reduces the manual step between classification and writing an experiment_baseline.json. Long stall remains HIGH suspicion after 1000+ runs.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
-- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. After collect: python3 tools/comment_class_suggest.py then python3 tools/feedback_hypothesis_suggest.py.
 
 (Older run logs remain in docs/runs_archive.md. Do not paste the archive back.)
 

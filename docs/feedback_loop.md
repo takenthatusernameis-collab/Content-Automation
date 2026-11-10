@@ -77,3 +77,11 @@ After classification, or directly on collected comments, run:
 python3 tools/feedback_hypothesis_suggest.py videos/<packet>
 ```
 It counts the same keyword classes and, when repeated question/confusion/request/objection signals exist (count >= 2), prints grounded hypothesis candidates tied to ALLOWED_CHANGES. Suggestions are signals only for the experiment loop; review before recording a baseline. Fail-closed if no collected comments. Does not invent data or decisions.
+
+## Combined review brief
+
+For a single command that surfaces classification counts, hypothesis candidates, and aligned metric suggestions:
+```bash
+python3 tools/feedback_review_brief.py videos/<packet>
+```
+It reuses the same keyword rules and thresholds. Prints a reviewable brief only from real collected comments. Fail-closed otherwise. Does not invent data, metrics, or decisions. Reduces the number of sequential commands after every future collect.
