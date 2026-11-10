@@ -1,3 +1,6 @@
+2026-11-10T01:26:00Z (Run 1151)
+
+Centralized the 7-calendar-day query length and 3-day Analytics lag into tools/upload_date.py (CALENDAR_DAYS + DATA_LAG_DAYS = OBSERVATION_WINDOW_DAYS). youtube_feedback.py now imports the shared constants instead of maintaining local duplicates. Completes the single source of truth for the entire observation window formula used by every future video. Contracts suite remains UNIFIED RESULT: PASS (90/90). STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. No secrets polled, no dispatch, no live packet writes. Next remains the human OAuth step.
 2026-11-10T00:35:00Z (Run 1150)
 
 Updated tools/youtube_feedback.py to use shared upload_date.compute_due_date for the observation window due date and parse_uploaded_at for uploaded_at parsing (including nested video_upload). Eliminates the last hard-coded timedelta(days=7+3) and duplicate parser in the core feedback adapter that every future video will use. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. No secrets polled, no dispatch, no live packet writes. Next remains the human OAuth step.
