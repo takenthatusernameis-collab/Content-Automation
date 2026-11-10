@@ -69,3 +69,11 @@ After a real collect produces feedback_state.json with comments, run:
 python3 tools/comment_class_suggest.py videos/<packet>
 ```
 It prints keyword-based suggestions matching the COMMENT_CLASSES used by youtube_feedback.py. Suggestions are revision signals only; review before recording in feedback.md. Fail-closed if no collected comments exist. Does not invent data.
+
+## Hypothesis candidate helper
+
+After classification, or directly on collected comments, run:
+```bash
+python3 tools/feedback_hypothesis_suggest.py videos/<packet>
+```
+It counts the same keyword classes and, when repeated question/confusion/request/objection signals exist (count >= 2), prints grounded hypothesis candidates tied to ALLOWED_CHANGES. Suggestions are signals only for the experiment loop; review before recording a baseline. Fail-closed if no collected comments. Does not invent data or decisions.
