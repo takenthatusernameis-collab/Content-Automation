@@ -498,3 +498,7 @@ def main() -> int:
         dest.write_text(json.dumps(redacted_state(report), indent=2) + "\n", encoding="utf-8")
         print(dest)
     return 0
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+

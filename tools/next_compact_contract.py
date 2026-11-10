@@ -26,7 +26,7 @@ def main() -> int:
         return fail(f"NEXT.md is {len(text.encode())} bytes")
     if "docs/next_archive.md" not in text:
         return fail("archive pointer missing")
-    if "STALL_OAUTH_IDLE" not in text or "scaffold Q2" not in text:
+    if "STALL_OAUTH_IDLE" not in text or "human OAuth step" not in text:
         return fail("active lock missing")
     archive = ROOT / "docs" / "next_archive.md"
     if not archive.is_file():

@@ -1,3 +1,7 @@
+# RUNS
+
+Fixed tools/youtube_feedback.py: restored missing if __name__ == "__main__" guard so the script actually runs and returns the fail-closed HOLD_UNPUBLISHED exit 2 with required phrases. Updated tools/next_compact_contract.py lock phrase from aged "scaffold Q2" to current "human OAuth step" so the size-cap contract stays green. Contracts suite now 92/92 PASS. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
+
 2026-11-10T12:20:00Z (Run 1160)
 
 Added tools/feedback_review_brief_contract.py: fail-closed reliability lock for the single-command review brief. Verifies HOLD on missing state, PASS with classification/hypothesis/metric signals on collected comments, and no file writes. Wired into contracts_suite automatically. Reduces risk of silent drift in the post-collect path. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
