@@ -1,3 +1,7 @@
+2026-11-10T17:20:00Z (Run 1166)
+
+Added tools/feedback_topic_suggest_contract.py: fail-closed reliability lock for candidate topic rows from request comments. Verifies HOLD exit 2, candidate output, NO_REQUEST_SIGNALS, no writes. Auto-wired into contracts_suite. Reduces risk of silent drift in post-collect topic suggestions for every future video. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
+
 2026-11-10T16:30:00Z (Run 1165)
 
 Added tools/feedback_topic_suggest.py: printable candidate topic queue rows from request comments in collected feedback. Prints source texts and simple working_title/one_line candidates for human review before queue edit. Fail-closed, no invent, no writes. Reduces labor of scanning requests for next-video ideas after every future collect. Wired into sequence and docs. Contracts suite 92/92. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
