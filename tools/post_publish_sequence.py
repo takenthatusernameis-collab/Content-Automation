@@ -9,6 +9,7 @@ Fail-closed single-command reminder of:
 - candidate baseline stub and topic queue rows from feedback signals
 - experiment_baseline completeness check
 - experiment_loop
+- candidate decision stubs once comparison exists
 - Studio pin + end screen (Data API cannot finish)
 - optional playlist membership confirmation
 - next-video direction from a filled decision (next_from_decision.py)
@@ -138,7 +139,9 @@ def main() -> int:
     print()
     print("3. Once baseline is filled (and validated) and metrics collected:")
     print("   python3 tools/experiment_loop.py", packet)
-    print("   After a comparison exists, fill experiment_decision.json from the template and validate:")
+    print("   After a comparison exists:")
+    print("   python3 tools/feedback_to_decision_suggest.py", packet)
+    print("   Then fill experiment_decision.json from a chosen stub and validate:")
     print("   python3 tools/experiment_template_validator.py", packet / "experiment_decision.json")
     print("   Then, for next-video direction: python3 tools/next_from_decision.py", packet / "experiment_decision.json")
     print()
