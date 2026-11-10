@@ -101,3 +101,11 @@ After the review brief (or directly on collected comments), run:
 python3 tools/feedback_topic_suggest.py videos/<packet>
 ```
 It classifies comments and, when request signals exist, prints the source comments plus simple candidate working_title / one_line rows suitable for review before adding to docs/topic_queue.md. Fail-closed if no collected comments. Does not invent topics or write the queue. Reduces the labor of scanning request comments for next-video ideas after every future collect.
+
+## Candidate decision stubs
+
+After experiment_loop.py produces a numeric comparison, run:
+```bash
+python3 tools/feedback_to_decision_suggest.py videos/<packet>
+```
+It prints candidate experiment_decision.json skeletons for keep / discard / retest with the observed direction and delta noted. Reason and source left pending human documentation. Copy the chosen stub, fill real reason and documented source, then validate. Fail-closed if no comparison. Does not invent a decision or write files. Reduces the formatting step from comparison to the decision template.
