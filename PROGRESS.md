@@ -1,3 +1,7 @@
+2026-11-10T16:30:00Z (Run 1165)
+
+Added tools/feedback_topic_suggest.py: printable candidate topic queue rows from request comments in collected feedback. Prints source texts and simple working_title/one_line candidates for human review before queue edit. Fail-closed, no invent, no writes. Reduces labor of scanning requests for next-video ideas after every future collect. Wired into sequence and docs. Contracts suite 92/92. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
+
 2026-11-10T15:27:12Z (Run 1164)
 
 Added tools/feedback_to_baseline_suggest.py: printable candidate baseline stub from collected feedback. Fills hypothesis and change from repeated signals; leaves numeric baseline and source for human. Fail-closed, no invent, no writes. Reduces labor of forming the experiment_baseline.json after every future collect. Contracts suite 92/92. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
