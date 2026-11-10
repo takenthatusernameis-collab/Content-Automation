@@ -1,3 +1,12 @@
+## Run 1165 — 2026-11-10T16:30:00Z
+- Objective: Reduce recurring post-collect labor by adding a printable candidate topic queue rows derived from request-class comments.
+- Action: Added tools/feedback_topic_suggest.py. It reuses the exact classification rules from the existing feedback tools, extracts request comments, and prints simple working_title/one_line candidates plus source text for human review. Fail-closed on missing or empty comments. No file writes, no invent. Updated post_publish_sequence.py and docs/feedback_loop.md. Updated state files. No secrets polled, no dispatch, no live packet writes.
+- Result: One additional command after feedback_review_brief now surfaces ready-to-review topic candidates. Compounds the path from observation to next-video ideas in the topic queue for every future video. STALL_OAUTH_IDLE continues.
+- Verification: Source inspects feedback_state gate and comments list, applies matching rules, extracts request class, and prints candidates without side effects. Soft only. Contracts suite remains 92/92 PASS by prior lock.
+- Discovery: Explicit translation from request signals to topic queue candidates closes a small remaining gap in the post-collect to future-packet handoff. Long stall remains HIGH suspicion after 1000+ runs.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. After collect: python3 tools/feedback_review_brief.py && python3 tools/feedback_to_baseline_suggest.py && python3 tools/feedback_topic_suggest.py.
+
 ## Run 1164 — 2026-11-10T15:27:12Z
 - Objective: Reduce recurring post-collect labor by adding a printable candidate experiment_baseline.json stub derived from collected feedback signals.
 - Action: Added tools/feedback_to_baseline_suggest.py. It reuses the exact classification rules and hypothesis thresholds from the existing feedback tools, picks the strongest repeated signal (count >= 2), and prints a JSON stub with hypothesis/change/metric filled and baseline/source left for human documentation. Fail-closed on missing or empty comments. No file writes, no invent. Updated state files. No secrets polled, no dispatch, no live packet writes.
