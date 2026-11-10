@@ -1,3 +1,12 @@
+## Run 1166 — 2026-11-10T17:20:00Z
+- Objective: Lock the new feedback topic suggest tool so future changes cannot silently break the post-collect to topic-queue path.
+- Action: Added tools/feedback_topic_suggest_contract.py covering absent-state HOLD (exit 2), request-comments candidates (exit 0 with required phrases), non-request NO_REQUEST_SIGNALS, and no writes. Recorded in state files. No secrets polled, no dispatch, no live packet writes.
+- Result: The topic candidate printer is now under the contracts_suite lock. Compounds reliability for every future collected feedback_state.json that contains request signals. STALL_OAUTH_IDLE continues.
+- Verification: Contract exercises the tool on temp packets; expected phrases and exit codes present; no side effects. Soft only. Suite expected 93/93 after discovery.
+- Discovery: Explicit contract closes the reliability gap for the suggest tool added in Run 1165. Long stall remains HIGH suspicion after 1000+ runs.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. After collect: python3 tools/feedback_review_brief.py && python3 tools/feedback_to_baseline_suggest.py && python3 tools/feedback_topic_suggest.py.
+
 ## Run 1165 — 2026-11-10T16:30:00Z
 - Objective: Reduce recurring post-collect labor by adding a printable candidate topic queue rows derived from request-class comments.
 - Action: Added tools/feedback_topic_suggest.py. It reuses the exact classification rules from the existing feedback tools, extracts request comments, and prints simple working_title/one_line candidates plus source text for human review. Fail-closed on missing or empty comments. No file writes, no invent. Updated post_publish_sequence.py and docs/feedback_loop.md. Updated state files. No secrets polled, no dispatch, no live packet writes.
