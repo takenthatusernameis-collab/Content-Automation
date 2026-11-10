@@ -1,3 +1,12 @@
+## Run 1169 — 2026-11-10T20:15:00Z
+- Objective: Lock the feedback-to-baseline suggest tool so future changes cannot silently break the post-collect to experiment-baseline handoff.
+- Action: Added tools/feedback_to_baseline_suggest_contract.py covering absent-state HOLD (exit 2), strong-signal candidate stub (exit 0 with required phrases), weak-signal NO_STRONG_SIGNAL, and no writes. Recorded in state files. No secrets polled, no dispatch, no live packet writes.
+- Result: The baseline candidate printer is now under the contracts_suite lock. Compounds reliability for every future collected feedback_state.json that contains strong signals. STALL_OAUTH_IDLE continues.
+- Verification: Contract exercises the tool on temp packets; expected phrases and exit codes present; no side effects. Soft only. Suite expected 96/96 after discovery.
+- Discovery: Explicit contract closes the reliability gap for the suggest tool added in Run 1164. Long stall remains HIGH suspicion after 1000+ runs.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. After collect: python3 tools/feedback_review_brief.py && python3 tools/feedback_to_baseline_suggest.py && python3 tools/feedback_topic_suggest.py. After comparison: python3 tools/feedback_to_decision_suggest.py. After decision: python3 tools/next_from_decision.py.
+
 ## Run 1168 — 2026-11-10T19:20:00Z
 - Objective: Lock the next-from-decision tool so future changes cannot silently break the post-decision to next-packet direction path.
 - Action: Added tools/next_from_decision_contract.py covering missing-file FAIL (exit 1), invalid/incomplete HOLD (exit 0), and valid keep with required direction phrases. Recorded in state files. No secrets polled, no dispatch, no live packet writes.
