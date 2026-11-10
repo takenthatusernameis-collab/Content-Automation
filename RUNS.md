@@ -1,3 +1,12 @@
+## Run 1167 — 2026-11-10T18:17:00Z
+- Objective: Reduce recurring post-comparison labor by adding a printable candidate experiment_decision.json stubs once a numeric comparison exists.
+- Action: Added tools/feedback_to_decision_suggest.py (reuses inspect_experiment; prints keep/discard/retest stubs with direction noted; reason/source pending). Added contract for HOLD path. Wired into post_publish_sequence.py step 3 and docs/feedback_loop.md. Updated state files. No secrets polled, no dispatch, no live packet writes.
+- Result: One additional command after experiment_loop now surfaces ready-to-copy decision skeletons. Compounds the path from comparison to recorded decision for every future video. STALL_OAUTH_IDLE continues.
+- Verification: Source reuses experiment_loop inspect, fail-closes on missing comparison (exit 2), prints stubs without side effects. Soft only. Contract locks the HOLD path; suite expected 94/94 after discovery.
+- Discovery: Explicit translation from comparison to decision file format closes a small remaining gap in the experiment loop handoff. Long stall remains HIGH suspicion after 1000+ runs.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. After collect: python3 tools/feedback_review_brief.py && python3 tools/feedback_to_baseline_suggest.py && python3 tools/feedback_topic_suggest.py. After comparison: python3 tools/feedback_to_decision_suggest.py.
+
 ## Run 1166 — 2026-11-10T17:20:00Z
 - Objective: Lock the new feedback topic suggest tool so future changes cannot silently break the post-collect to topic-queue path.
 - Action: Added tools/feedback_topic_suggest_contract.py covering absent-state HOLD (exit 2), request-comments candidates (exit 0 with required phrases), non-request NO_REQUEST_SIGNALS, and no writes. Recorded in state files. No secrets polled, no dispatch, no live packet writes.
