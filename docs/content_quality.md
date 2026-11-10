@@ -44,7 +44,7 @@ Goal: specific, original, useful editorial writing. Prefer concrete mechanisms, 
 
 ## Related tools
 
-- `tools/quality_prep_brief.py` — unified aggregator of quality_scan, claim_scan, cadence_repetition_scan, mechanism_align_scan, title_scan, thumbnail_scan, description_scan, and chapters_scan. Prints one brief. No rewrites. Reduces sequential invocation labor before script promotion.
+- `tools/quality_prep_brief.py` — unified aggregator of quality_scan, claim_scan, cadence_repetition_scan, mechanism_align_scan, title_scan, thumbnail_scan, description_scan, chapters_scan, end_screen_scan, and first_comment_scan. Prints one brief. No rewrites. Reduces sequential invocation labor before script promotion.
 - `tools/quality_scan.py` — reports hits with context snippets. Uses shared spoken_words, normalize, context_snippet, compile_word_boundary_patterns, and ANTI_SLOP_PATTERNS.
 - `tools/claim_scan.py` — factual/hedge signals. Uses shared spoken_words, normalize, context_snippet, compile_word_boundary_patterns, and HEDGE_PATTERNS so one hedge entry covers common variants.
 - `tools/cadence_repetition_scan.py` — cadence and repetition signals. Uses shared spoken_words.
