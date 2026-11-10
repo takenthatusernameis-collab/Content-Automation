@@ -1,3 +1,7 @@
+2026-11-10T17:20:00Z (Run 1166)
+
+Added tools/feedback_topic_suggest_contract.py (fail-closed lock for topic candidate rows from request comments). Advances post-publish reliability by protecting the request-to-topic-queue path. Contracts suite expected 93/93 PASS. Pre-upload path complete. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. After collect: python3 tools/feedback_review_brief.py then python3 tools/feedback_to_baseline_suggest.py && python3 tools/feedback_topic_suggest.py.
+
 2026-11-10T16:30:00Z (Run 1165)
 
 Added tools/feedback_topic_suggest.py (print-only candidate topic queue rows from request comments). Advances post-publish readiness by making the handoff from collected feedback to reviewable next-video ideas for the topic queue one command. Contracts suite remains 92/92 PASS. Pre-upload path complete. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. After collect: python3 tools/feedback_review_brief.py then python3 tools/feedback_to_baseline_suggest.py && python3 tools/feedback_topic_suggest.py.
