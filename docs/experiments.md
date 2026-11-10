@@ -12,6 +12,12 @@ For a grounded starting skeleton, run `python3 tools/experiment_baseline_starter
 
 For primary metric suggestions aligned to the change type, run `python3 tools/experiment_metric_suggest.py videos/<packet>`. It detects the change and prints candidate Analytics fields. Choose one, then document a real numeric baseline.
 
+## JSON decision template
+
+A ready-to-copy template lives at `docs/experiment_decision.template.json`. Copy it to `videos/<packet>/experiment_decision.json` only after a real numeric comparison exists and a documented review has been performed. Fill decision (keep/discard/retest), reason, and non-invented source. The ledger rejects placeholder sources and non-recorded decisions.
+
+For a grounded starting skeleton that leaves the decision as TEMPLATE, run `python3 tools/experiment_decision_starter.py videos/<packet>`. It prints a contract-compliant JSON. Edit the decision, reason, and source before use. Do not invent a decision.
+
 ## Template
 - ID:
 - Video / packet:
