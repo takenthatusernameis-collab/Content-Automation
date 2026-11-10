@@ -1,3 +1,7 @@
+2026-11-10T16:30:00Z (Run 1165)
+
+Added tools/feedback_topic_suggest.py (soft, print-only candidate topic queue rows from request comments). Compounds post-publish readiness by reducing the step from collected feedback to reviewable next-video ideas for docs/topic_queue.md. Contracts remain 92/92. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. After collect: python3 tools/feedback_review_brief.py then python3 tools/feedback_to_baseline_suggest.py && python3 tools/feedback_topic_suggest.py.
+
 2026-11-10T15:27:12Z (Run 1164)
 
 Added tools/feedback_to_baseline_suggest.py (soft, print-only candidate baseline stub from collected comments). Compounds post-publish readiness by reducing the step from feedback_review_brief signals to a fillable experiment_baseline.json. Contracts remain 92/92. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. After collect: python3 tools/feedback_review_brief.py then python3 tools/feedback_to_baseline_suggest.py.
