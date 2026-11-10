@@ -4,6 +4,7 @@
 Fail-closed single-command reminder of:
 - uploaded_at + 10 days (7 calendar + 3 Analytics lag) observation window (prints exact due date when uploaded_at exists)
 - collect_feedback dispatch
+- comment classification and hypothesis candidate suggestions (after collect)
 - experiment_baseline completeness check
 - experiment_loop
 - Studio pin + end screen (Data API cannot finish)
@@ -103,6 +104,11 @@ def main() -> int:
     print("   gh workflow dispatch youtube-production.yml \\")
     print("     --repo takenthatusernameis-collab/Content-Automation \\")
     print("     -f execute=false -f collect_feedback=true")
+    print()
+    print("1b. After collect produces feedback_state.json with comments:")
+    print("   python3 tools/comment_class_suggest.py", packet)
+    print("   python3 tools/feedback_hypothesis_suggest.py", packet)
+    print("   Review the signals before forming an experiment_baseline. Do not invent comments or decisions.")
     print()
     print("2. After metrics exist, check experiment baseline:")
     baseline_path = packet / "experiment_baseline.json"
