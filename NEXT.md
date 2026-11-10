@@ -1,3 +1,6 @@
+2026-11-10T05:20:00Z (Run 1153)
+
+Enhanced tools/experiment_readiness.py to also report experiment_decision.json status (absent/template/recorded/incomplete) after a filled baseline. Expanded recommended_actions in experiment_decision_starter.py to include notes, package, and readiness commands for consistency with other starters. Advances post-publish readiness and reduces human rediscovery of next steps for every future video without credentials or invented results. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. No secrets polled, no dispatch, no live packet writes. Next remains the human OAuth step.
 2026-11-10T04:20:00Z (Run 1152)
 
 Added tools/experiment_decision_starter.py: prints a fail-closed experiment_decision.json skeleton that leaves the decision as TEMPLATE and requires a documented review after a numeric comparison. Complements the existing baseline starter. Advances post-publish readiness for every future video without credentials or invented results. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. No secrets polled, no dispatch, no live packet writes. Next remains the human OAuth step.
