@@ -49,7 +49,10 @@ def recommended_actions(packet: str) -> list[str]:
         "fill decision: set decision to keep/discard/retest, add real reason and non-placeholder source after reviewing the comparison",
         f"write template: python3 tools/experiment_decision_starter.py {p} --write",
         f"validate: python3 tools/experiment_template_validator.py {p}/experiment_decision.json",
+        f"notes if needed: python3 tools/experiment_notes_starter.py {p}",
+        f"full package: python3 tools/experiment_package_starter.py {p}",
         f"loop: python3 tools/experiment_loop.py {p}",
+        f"readiness: python3 tools/experiment_readiness.py {p}",
         "do not invent a decision; only record after a documented review of real metrics",
     ]
 
