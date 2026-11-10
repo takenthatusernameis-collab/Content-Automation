@@ -3,7 +3,7 @@
 
 Single source for robust ISO and fallback parsing and the exact +10 day due date
 so the observation window stays consistent across observation_window,
-post_publish_sequence, post_upload_confirm, and any future consumers.
+post_publish_sequence, post_upload_confirm, youtube_feedback, and any future consumers.
 Does not invent dates.
 """
 
@@ -11,7 +11,13 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 
-OBSERVATION_WINDOW_DAYS = 10
+CALENDAR_DAYS = 7
+"""First calendar days of the video for the Analytics query range."""
+
+DATA_LAG_DAYS = 3
+"""Additional Analytics lag before the collect is due."""
+
+OBSERVATION_WINDOW_DAYS = CALENDAR_DAYS + DATA_LAG_DAYS
 """Days after uploaded_at before collect_feedback is due (7 calendar + 3 Analytics lag)."""
 
 
