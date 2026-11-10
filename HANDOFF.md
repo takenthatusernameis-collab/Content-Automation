@@ -1,3 +1,6 @@
+2026-11-10T05:20:00Z (Run 1153)
+
+Enhanced tools/experiment_readiness.py to also report experiment_decision.json status (absent/template/recorded/incomplete) after a filled baseline. Expanded recommended_actions in experiment_decision_starter.py to include notes, package, and readiness commands for consistency with other starters. Advances post-publish readiness and reduces human rediscovery of next steps for every future video without credentials or invented results. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. No secrets polled, no dispatch, no live packet writes. Next remains the human OAuth step.
 2026-11-10T04:20:00Z (Run 1152)
 
 Added tools/experiment_decision_starter.py: prints a fail-closed experiment_decision.json skeleton that leaves the decision as TEMPLATE and requires a documented review after a numeric comparison. Complements the existing baseline starter. Advances post-publish readiness for every future video without credentials or invented results. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. No secrets polled, no dispatch, no live packet writes. Next remains the human OAuth step.
@@ -12,7 +15,7 @@ Operator and agent entry point. Primary status: `python3 tools/status_report.py`
 - Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Issue #1. Do not poll. HIGH suspicion after 1000+ runs with no progress.
 - Media: Q1 VO + cards + r253 master ready after materialize (verified working; media_qa PASS; master_sha_check PASS; pre_upload_qa_suite overall PASS / READY_FOR_HUMAN_DISPATCH). Do not rematerialize if present. Do not regenerate.
 - Metadata path: tools/metadata_bundle.py consolidates title/desc/tags/thumb + (when script exists) chapters/end-screen/first-comment into one reviewable file. Preferred unblocked list: complete.
-- New this run: experiment_decision_starter.py for fail-closed decision scaffolding. Improves reliability of the experiment loop after the first private video id. Successive pure confirmation has diminishing returns; prefer the human step or a true post-publish capability.
+- New this run: experiment readiness now covers decision file status; decision starter recommendations made consistent. Improves reliability of the experiment loop after the first private video id. Successive pure confirmation has diminishing returns; prefer the human step or a true post-publish capability.
 - Next is the human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. For future videos: python3 tools/contracts_suite.py then python3 tools/queued_post_oauth_sequence.py --id Q2.
 
 Master sha256: 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546 (q1-media-r253; do not rematerialize if present).
