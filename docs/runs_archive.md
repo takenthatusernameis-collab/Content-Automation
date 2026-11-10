@@ -1831,3 +1831,14 @@ Older run logs live in `docs/runs_archive.md`. Do not paste the archive back.
 - Recommended next: human step (docs/human_oauth_checklist.md or tools/oauth_exchange.py / human_next_action.py / operator_card.py, then secrets + single execute=true dispatch). The new suite can be run anytime after materialize. Prefer another truly new production capability if it does not require credentials. Avoid more sequence printers, briefs, candidates tools, or pure confirmation entries.
 
 # RUNS
+
+## Run 1158 — 2026-11-10T10:21:00Z
+- Objective: Reduce rediscovery labor in the post-publish path by integrating the new feedback suggest tools into the ordered sequence.
+- Action: Updated tools/post_publish_sequence.py to print comment_class_suggest and feedback_hypothesis_suggest after collect. Recorded in state files. No secrets polled, no dispatch, no live packet writes.
+- Result: The single post_publish_sequence command now covers the full ordered path including feedback review signals. Fail-closed elsewhere. Compounds the feedback loop readiness for every future video. STALL_OAUTH_IDLE continues.
+- Verification: Source now includes the 1b step with the two suggest commands. Soft only.
+- Discovery: Explicitly sequencing the new signal tools after collect closes a small gap between recent helpers and the canonical sequence. Long stall remains HIGH suspicion after 1000+ runs.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. After collect: the sequence now reminds of the suggest tools.
+
+(Older run logs remain in docs/runs_archive.md. Do not paste the archive back.)

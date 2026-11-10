@@ -506,3 +506,12 @@ Run 1133: completed alignment of remaining contract drifts; contracts_suite.py n
 
 2026-11-09T07:25:00Z (Run 1134)
 Run 1134: fixed remaining state_compact_contract failure; contracts_suite.py now truly PASS (90/90). Full unified verification path is green. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll. Do not rematerialize if present. Do not scaffold Q2. Pure verification and successive queue-starter tools have diminishing returns. Prefer the complete guide for the human step. For future videos after stall ends: python3 tools/contracts_suite.py && python3 tools/queued_post_oauth_sequence.py --id Q2.
+
+2026-11-10T13:32:00Z (Run 1162)
+
+2026-11-10T13:25:00Z (Run 1161)
+2026-11-10T12:20:00Z (Run 1160)
+
+2026-11-10T11:17:00Z (Run 1159)
+
+2026-11-10T10:21:00Z (Run 1158)

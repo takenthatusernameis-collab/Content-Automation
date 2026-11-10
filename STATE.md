@@ -1,3 +1,7 @@
+2026-11-10T19:20:00Z (Run 1168)
+
+Added tools/next_from_decision_contract.py: fail-closed reliability lock for the next-video direction skeleton from a filled experiment_decision.json. Verifies FAIL on missing file, HOLD on invalid/incomplete decision, and required direction phrases on a valid keep. Auto-wired into contracts_suite. Reduces risk of silent drift in the post-decision to next-packet handoff. Contracts suite expected 95/95 after discovery. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
+
 2026-11-10T18:17:00Z (Run 1167)
 
 Added tools/feedback_to_decision_suggest.py and its contract: fail-closed printable candidate experiment_decision.json stubs (keep/discard/retest) once a numeric comparison exists from experiment_loop. Reuses inspect_experiment. Prints stubs with direction/delta noted; reason and source left for human. No invent, no writes. Wired into post_publish_sequence.py (step 3) and docs/feedback_loop.md. Reduces recurring labor of manually formatting the decision file after every future comparison. Contracts suite expected 94/94 after discovery. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.

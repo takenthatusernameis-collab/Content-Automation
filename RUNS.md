@@ -1,3 +1,12 @@
+## Run 1168 — 2026-11-10T19:20:00Z
+- Objective: Lock the next-from-decision tool so future changes cannot silently break the post-decision to next-packet direction path.
+- Action: Added tools/next_from_decision_contract.py covering missing-file FAIL (exit 1), invalid/incomplete HOLD (exit 0), and valid keep with required direction phrases. Recorded in state files. No secrets polled, no dispatch, no live packet writes.
+- Result: The next-video direction printer is now under the contracts_suite lock. Compounds reliability for every future filled experiment_decision.json. STALL_OAUTH_IDLE continues.
+- Verification: Contract exercises the tool on temp files; expected phrases and exit codes present; no side effects. Soft only. Suite expected 95/95 after discovery.
+- Discovery: Explicit contract closes the reliability gap for the direction tool already present in the post-publish sequence. Long stall remains HIGH suspicion after 1000+ runs.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. After collect: python3 tools/feedback_review_brief.py && python3 tools/feedback_to_baseline_suggest.py && python3 tools/feedback_topic_suggest.py. After comparison: python3 tools/feedback_to_decision_suggest.py. After decision: python3 tools/next_from_decision.py.
+
 ## Run 1167 — 2026-11-10T18:17:00Z
 - Objective: Reduce recurring post-comparison labor by adding a printable candidate experiment_decision.json stubs once a numeric comparison exists.
 - Action: Added tools/feedback_to_decision_suggest.py (reuses inspect_experiment; prints keep/discard/retest stubs with direction noted; reason/source pending). Added contract for HOLD path. Wired into post_publish_sequence.py step 3 and docs/feedback_loop.md. Updated state files. No secrets polled, no dispatch, no live packet writes.
@@ -81,15 +90,6 @@ Added tools/feedback_review_brief_contract.py: fail-closed reliability lock for 
 - Discovery: Combining the recent signal tools into one brief closes the remaining sequential-invocation gap after collect. Long stall remains HIGH suspicion after 1000+ runs.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
 - Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. After collect: python3 tools/feedback_review_brief.py.
-
-## Run 1158 — 2026-11-10T10:21:00Z
-- Objective: Reduce rediscovery labor in the post-publish path by integrating the new feedback suggest tools into the ordered sequence.
-- Action: Updated tools/post_publish_sequence.py to print comment_class_suggest and feedback_hypothesis_suggest after collect. Recorded in state files. No secrets polled, no dispatch, no live packet writes.
-- Result: The single post_publish_sequence command now covers the full ordered path including feedback review signals. Fail-closed elsewhere. Compounds the feedback loop readiness for every future video. STALL_OAUTH_IDLE continues.
-- Verification: Source now includes the 1b step with the two suggest commands. Soft only.
-- Discovery: Explicitly sequencing the new signal tools after collect closes a small gap between recent helpers and the canonical sequence. Long stall remains HIGH suspicion after 1000+ runs.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
-- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. After collect: the sequence now reminds of the suggest tools.
 
 (Older run logs remain in docs/runs_archive.md. Do not paste the archive back.)
 

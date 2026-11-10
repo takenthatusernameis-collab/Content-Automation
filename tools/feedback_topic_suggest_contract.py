@@ -54,8 +54,8 @@ def main() -> int:
             "gate": "COLLECTED",
             "attempted_fetch": True,
             "comments": [
-                {"text": "Please make a video on how to automate this next."},
-                {"text": "Can you make a follow-up covering the edge cases?"},
+                {"text": "Please make a video on automating the morning start."},
+                {"text": "Can you make a follow-up on the edge cases."},
             ],
         }
         state_path = packet / "feedback_state.json"
