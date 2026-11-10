@@ -1,3 +1,7 @@
+2026-11-10T18:17:00Z (Run 1167)
+
+Added tools/feedback_to_decision_suggest.py + contract (fail-closed printable candidate decision stubs once comparison exists). Compounds post-publish readiness by reducing the step from experiment_loop comparison to a fillable experiment_decision.json. Contracts expected 94/94. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. After collect: python3 tools/feedback_review_brief.py then python3 tools/feedback_to_baseline_suggest.py && python3 tools/feedback_topic_suggest.py. After comparison: python3 tools/feedback_to_decision_suggest.py.
+
 2026-11-10T17:20:00Z (Run 1166)
 
 Added tools/feedback_topic_suggest_contract.py (fail-closed lock for topic candidate rows). Compounds post-publish reliability by protecting the request-to-topic-queue path against silent drift. Contracts now 93/93 expected. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. After collect: python3 tools/feedback_review_brief.py then python3 tools/feedback_to_baseline_suggest.py && python3 tools/feedback_topic_suggest.py.
