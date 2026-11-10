@@ -6,6 +6,7 @@ Fail-closed single-command reminder of:
 - collect_feedback dispatch
 - comment classification and hypothesis candidate suggestions (after collect)
 - combined feedback review brief (classification + hypotheses + metrics)
+- candidate baseline stub and topic queue rows from feedback signals
 - experiment_baseline completeness check
 - experiment_loop
 - Studio pin + end screen (Data API cannot finish)
@@ -110,7 +111,9 @@ def main() -> int:
     print("   python3 tools/comment_class_suggest.py", packet)
     print("   python3 tools/feedback_hypothesis_suggest.py", packet)
     print("   python3 tools/feedback_review_brief.py", packet)
-    print("   Review the signals before forming an experiment_baseline. Do not invent comments or decisions.")
+    print("   python3 tools/feedback_to_baseline_suggest.py", packet)
+    print("   python3 tools/feedback_topic_suggest.py", packet)
+    print("   Review the signals before forming an experiment_baseline or adding topics. Do not invent comments, baselines, or topics.")
     print()
     print("2. After metrics exist, check experiment baseline:")
     baseline_path = packet / "experiment_baseline.json"
