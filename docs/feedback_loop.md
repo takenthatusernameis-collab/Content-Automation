@@ -6,8 +6,8 @@ After publication, the pipeline should learn from observed audience response wit
 
 ## Sources
 
-YouTube Analytics can provide metrics such as views, likes/dislikes, estimated minutes watched, average view duration, and average view percentage. citeturn562536search5turn562536search7
-YouTube comment threads can be retrieved by video ID; full replies may require comments.list. citeturn562536search0turn562536search2
+YouTube Analytics can provide metrics such as views, likes/dislikes, estimated minutes watched, average view duration, and average view percentage. 
+YouTube comment threads can be retrieved by video ID; full replies may require comments.list.
 
 ## Feedback record
 
@@ -61,3 +61,11 @@ Do not train the writer to copy commenter phrasing blindly. Extract the underlyi
 - topic_queue.md: future topics informed by repeated audience needs
 
 Each record must distinguish observation from interpretation and interpretation from the next test.
+
+## Comment classification helper
+
+After a real collect produces feedback_state.json with comments, run:
+```bash
+python3 tools/comment_class_suggest.py videos/<packet>
+```
+It prints keyword-based suggestions matching the COMMENT_CLASSES used by youtube_feedback.py. Suggestions are revision signals only; review before recording in feedback.md. Fail-closed if no collected comments exist. Does not invent data.
