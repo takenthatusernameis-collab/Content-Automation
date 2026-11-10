@@ -2,7 +2,8 @@
 """Aggregate script quality scans into one brief.
 
 Runs the existing no-write script scanners plus key publish-metadata scanners
-(title, thumbnail, description, chapters) and prints a unified quality prep brief.
+(title, thumbnail, description, chapters, end-screen, first-comment) and prints
+a unified quality prep brief.
 Reduces the recurring labor of invoking multiple separate scanners and
 collecting their outputs before promoting a script or locking spoken WORDS.
 Does not rewrite scripts, invent claims, or call external services.
@@ -27,6 +28,8 @@ SECTIONS = [
     ("THUMBNAIL SCAN", "thumbnail_scan.py"),
     ("DESCRIPTION SCAN", "description_scan.py"),
     ("CHAPTERS SCAN", "chapters_scan.py"),
+    ("END SCREEN / CTA SCAN", "end_screen_scan.py"),
+    ("FIRST COMMENT SCAN", "first_comment_scan.py"),
 ]
 
 
@@ -81,7 +84,7 @@ def main() -> int:
 
     print("=" * 72)
     print("Next: revise spoken WORDS in script.md and publish metadata if hits remain, then re-run this brief or the individual scanners.")
-    print("Promote only after clear quality, claim, cadence, mechanism, title, thumbnail, description, and chapter signals. See docs/content_quality.md.")
+    print("Promote only after clear quality, claim, cadence, mechanism, title, thumbnail, description, chapter, end-screen, and first-comment signals. See docs/content_quality.md.")
     if not any_ok:
         print("No section produced useful output. Ensure script.md exists.")
         return 1
