@@ -85,3 +85,11 @@ For a single command that surfaces classification counts, hypothesis candidates,
 python3 tools/feedback_review_brief.py videos/<packet>
 ```
 It reuses the same keyword rules and thresholds. Prints a reviewable brief only from real collected comments. Fail-closed otherwise. Does not invent data, metrics, or decisions. Reduces the number of sequential commands after every future collect.
+
+## Candidate baseline stub
+
+After the review brief (or directly), run:
+```bash
+python3 tools/feedback_to_baseline_suggest.py videos/<packet>
+```
+It prints a candidate experiment_baseline.json skeleton with hypothesis and preferred change filled from the strongest repeated signal (count >= 2), a suggested primary_metric, and baseline/source left pending human documentation. Copy, fill the real numeric baseline and documented source, then validate. Fail-closed if no collected comments. Does not invent numbers or write files. Reduces the translation step from signals to the baseline template.

@@ -1,3 +1,12 @@
+## Run 1164 — 2026-11-10T15:27:12Z
+- Objective: Reduce recurring post-collect labor by adding a printable candidate experiment_baseline.json stub derived from collected feedback signals.
+- Action: Added tools/feedback_to_baseline_suggest.py. It reuses the exact classification rules and hypothesis thresholds from the existing feedback tools, picks the strongest repeated signal (count >= 2), and prints a JSON stub with hypothesis/change/metric filled and baseline/source left for human documentation. Fail-closed on missing or empty comments. No file writes, no invent. Updated state files. No secrets polled, no dispatch, no live packet writes.
+- Result: One additional command after feedback_review_brief now surfaces a ready-to-copy baseline skeleton. Compounds the path from observation to recorded experiment baseline for every future video. STALL_OAUTH_IDLE continues.
+- Verification: Manual test on mock feedback_state.json with 2+ confusion signals produced the expected stub; HOLD on missing/empty; contracts_suite still 92/92 PASS.
+- Discovery: Explicit translation from review signals to baseline fields closes a small remaining gap in the post-collect to experiment-loop handoff. Long stall remains HIGH suspicion after 1000+ runs.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. After collect: python3 tools/feedback_review_brief.py && python3 tools/feedback_to_baseline_suggest.py.
+
 ## Run 1163 — 2026-11-10T14:30:00Z
 - Objective: Inspect current state after Run 1162 and confirm reliability locks remain green while stall continues.
 - Action: Reviewed key state files, HANDOFF, BLOCKED, production capabilities, and recent feedback tools. No code changes to production tools. Recorded inspection. No secrets polled, no dispatch, no live packet writes.

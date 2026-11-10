@@ -1,3 +1,7 @@
+2026-11-10T15:27:12Z (Run 1164)
+
+Added tools/feedback_to_baseline_suggest.py: fail-closed printable candidate experiment_baseline.json stub from collected feedback_state.json. Reuses classification and hypothesis rules from feedback_hypothesis_suggest / feedback_review_brief. Fills hypothesis + preferred change + suggested metric; leaves baseline null and source PENDING for human. Does not invent numbers, write files, or call APIs. Reduces recurring labor of manually translating review signals into the baseline template after every future collect. Contracts suite remains 92/92 PASS. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload remains complete. Do not poll secrets, no dispatch, no live packet writes. Next remains the human OAuth step.
+
 2026-11-10T14:30:00Z (Run 1163)
 
 Inspected repository state after Run 1162. Confirmed contracts_suite remains UNIFIED RESULT: PASS (92/92). Pre-upload path complete (Q1 media ready after materialize). STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No new low-leverage aggregator, printer, or contract added. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes.

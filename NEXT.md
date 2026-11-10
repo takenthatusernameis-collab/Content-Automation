@@ -1,3 +1,7 @@
+2026-11-10T15:27:12Z (Run 1164)
+
+Added tools/feedback_to_baseline_suggest.py (soft, print-only candidate baseline stub from collected comments). Compounds post-publish readiness by reducing the step from feedback_review_brief signals to a fillable experiment_baseline.json. Contracts remain 92/92. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. After collect: python3 tools/feedback_review_brief.py then python3 tools/feedback_to_baseline_suggest.py.
+
 2026-11-10T14:30:00Z (Run 1163)
 
 Inspected repository state after Run 1162. Confirmed contracts_suite remains UNIFIED RESULT: PASS (92/92). Pre-upload path complete (Q1 media ready after materialize). STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No new low-leverage aggregator, printer, or contract added. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes.
