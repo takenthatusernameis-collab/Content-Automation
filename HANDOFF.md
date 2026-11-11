@@ -1,3 +1,7 @@
+2026-11-11T04:16:18Z (Run 1177)
+
+Added tools/caption_quality_summary.py (combines speed + timeline reports for human caption spot-check). Pre-upload path complete. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
+
 2026-11-11T03:15:17Z (Run 1176)
 
 Fixed STATE.md stacked headers (duplicate header string) so contracts_suite is again UNIFIED RESULT: PASS (96/96). Reliability lock restored. Pre-upload path complete. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No new tools. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.

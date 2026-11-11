@@ -1,3 +1,7 @@
+Added tools/caption_quality_summary.py to reduce human tool-switching during caption spot-check. STALL_OAUTH_IDLE continues. Human OAuth remains highest leverage.
+
+# PROGRESS
+
 Restored contracts_suite to PASS (96/96) by compacting STATE.md headers. Reliability improved. STALL_OAUTH_IDLE continues. Human OAuth remains highest leverage.
 
 # PROGRESS

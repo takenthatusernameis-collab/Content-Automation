@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-11T04:16:18Z (Run 1177)
+
+Inspected after Run 1176. Pre-upload path remains reliable (contracts expected 96/96, media QA PASS on prior materialize). STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Added tools/caption_quality_summary.py as a small reusable aggregator for human caption spot-check (combines speed + timeline reports). No new hard gates. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
+
 2026-11-11T03:15:17Z (Run 1176)
 
 Inspected after Run 1175. contracts_suite was FAIL (1/96) due to duplicate STATE header in STATE.md (from successive prepends). Removed the second header so live format has exactly 1. Verified UNIFIED RESULT: PASS (96/96). Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No new tools. Reliability lock restored by compacting stacked headers. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.

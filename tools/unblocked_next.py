@@ -21,6 +21,7 @@ def main() -> int:
     print("  1. Strengthen experiment prep: run python3 tools/experiment_baseline_scaffold.py on a future packet after id exists;")
     print("     then fill from real feedback via tools/feedback_to_baseline_suggest.py (already built, fail-closed).")
     print("  2. Caption quality: human spot-check of silence-proportional aligner (tools/caption_align.py);")
+    print("     then python3 tools/caption_quality_summary.py <packet> for combined speed + timeline view.")
     print("     do not treat as uploaded. Improve if a clear mechanical gap appears.")
     print("  3. Media QA for non-Q1: ensure card_generator.py + media_qa.py work on a dry-run new packet")
     print("     without committing pngs. Test via tempfile if needed.")

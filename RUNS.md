@@ -1,6 +1,15 @@
 # RUNS
 
-## Run 1176 — 2026-11-11T03:15:17Z
+## Run 1177 — 2026-11-11T04:16:18Z
+- Objective: Reduce future human labor on caption spot-check by adding a single-command quality summary aggregator while stalled on OAuth.
+- Action: Inspected state. Created tools/caption_quality_summary.py that combines caption_speed_report.py and caption_timeline_consistency.py. Updated state files. No secrets polled, no dispatch, no media writes.
+- Result: New soft reusable tool added for caption quality review. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (HIGH suspicion).
+- Verification: Tool created and executable; runs without error on missing captions (reports absence). contracts_suite not re-run this session (prior PASS).
+- Discovery: Caption tools exist individually; a combined summary reduces tool-switching for the human spot-check step remaining in ROADMAP.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Or python3 tools/unblocked_next.py. After captions.srt exists: python3 tools/caption_quality_summary.py <packet>.
+
+un 1176 — 2026-11-11T03:15:17Z
 - Objective: Restore contracts_suite after detecting a regression from stacked headers in STATE.md, and record the reliability fix.
 - Action: Inspected STATE.md, found duplicate # STATE header causing state_compact_contract FAIL. Removed the second header and reworded the new entry to avoid literal header string in body. Verified UNIFIED RESULT: PASS (96/96). No media rematerialize, no secrets polled.
 - Result: Reliability lock green again (96/96). Pre-upload path unchanged. STALL_OAUTH_IDLE continues (HIGH suspicion).
