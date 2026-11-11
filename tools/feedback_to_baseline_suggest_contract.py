@@ -55,7 +55,7 @@ def main() -> int:
             "attempted_fetch": True,
             "comments": [
                 {"text": "I am confused about the mechanism."},
-                {"text": "This is unclear, what do you mean by the core idea?"},
+                {"text": "This is unclear and hard to follow."},
             ],
         }
         state_path = packet / "feedback_state.json"
@@ -77,7 +77,7 @@ def main() -> int:
             "hypothesis",
             "change",
             "primary_metric",
-            "baseline": null",
+            '"baseline": null',
             "Do not invent",
         ]
         for phrase in required:
