@@ -13,6 +13,7 @@ COMMANDS = [
     ("stall_summary", "python3 tools/stall_summary.py", "Concise one-command STALL_OAUTH_IDLE status: published=0, HIGH suspicion, exact human OAuth commands, unblocked pointers. Preferred entry during long stall."),
     ("unblocked_next", "python3 tools/unblocked_next.py", "Concrete unblocked next actions while stalled (experiment prep, caption quality, metadata polish, etc.). Prefer over new printers."),
     ("post_publish_prep_summary", "python3 tools/post_publish_prep_summary.py [PACKET]", "One-command aggregator of experiment_prep + feedback_review_starter + fixed post-collect sequence. Use after first private id or for readiness."),
+    ("feedback_ingestion_readiness", "python3 tools/feedback_ingestion_readiness.py", "Structural readiness check for the post-publish feedback ingestion path (adapter, window helpers, review/suggest tools present). Fail-closed sequence printer. No invent."),
     ("experiment_loop_readiness", "python3 tools/experiment_loop_readiness.py", "Structural readiness check for the post-publish experiment/learning loop (key templates, starters, validators present). Fail-closed sequence printer. No invent."),
     ("status_report", "python3 tools/status_report.py", "Primary current-system status (stall, media, next, all one-liners)"),
     ("run_history_summary", "python3 tools/run_history_summary.py [N]", "Concise last-N runs from RUNS.md (default 3)"),
