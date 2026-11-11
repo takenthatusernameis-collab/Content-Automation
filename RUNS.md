@@ -1,3 +1,14 @@
+# RUNS
+
+## Run 1174 — 2026-11-11T01:25:00Z
+- Objective: Verify the pre-upload media path remains reliable after previous contract fixes, by materializing and running media_qa on Q1.
+- Action: Cloned repo, ran materialize_q1_release.py (installed VO, 7 cards, r253 master), ran media_qa.py (all PASS), confirmed contracts_suite still 96/96. Recorded verification. No secrets polled, no dispatch, no packet writes.
+- Result: Media path confirmed reliable (materialize + QA PASS). Pre-upload complete. STALL_OAUTH_IDLE unchanged (HIGH suspicion).
+- Verification: Local materialize succeeded, media_qa exit 0 with all checks PASS, contracts_suite PASS.
+- Discovery: Release-based materialize remains stable; no regression in media gates.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id appears: python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py.
+
 ## Run 1173 — 2026-11-11T00:24:35Z
 - Objective: Inspect after Run 1172 and fix reliability regressions in the contracts suite (previously expected PASS but was FAIL 2/96).
 - Action: Cloned repo, ran contracts_suite.py, identified syntax error in feedback_to_baseline_suggest_contract.py (unterminated string) and header mismatch in state_compact_contract.py. Fixed syntax, adjusted test comments to produce strong confusion signal without question-keyword overlap, and updated header check to accept current live timestamped format (0 headers). Verified full suite PASS (96/96). Updated state files.

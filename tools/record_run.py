@@ -29,6 +29,8 @@ def _insert_after_header(text: str, header: str, block: str) -> str:
 
 def prepend_state(text: str, updated: str, delta: str) -> str:
     block = updated.strip() + "\n\n" + delta.strip()
+    if not text.startswith("# STATE"):
+        text = "# STATE\n\n" + text.lstrip()
     return _insert_after_header(text, "# STATE", block)
 
 
