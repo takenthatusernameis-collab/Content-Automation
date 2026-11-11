@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """One-command caption quality summary for human spot-check.
 
-Aggregates caption_speed_report.py and caption_timeline_consistency.py
+Aggregates caption_speed_report.py, caption_timeline_consistency.py, and caption_gate.py
 into a concise view. Soft only. Does not rewrite, upload, or invent media.
-Exit 0 if both tools are present and packet has captions.srt (or reports absence).
+Exit 0 if tools are present and packet has captions.srt (or reports absence).
 """
 
 from __future__ import annotations
@@ -49,10 +49,17 @@ def main() -> int:
     print("--- Timeline consistency ---")
     print(out2 or "(no output)")
     print()
-    if code1 == 0 and code2 == 0:
-        print("SUMMARY: both reports available. Review flagged cues before any upload.")
+    code3, out3 = run_tool("caption_gate.py", packet)
+    print("--- Gate (empty/overlap/reversed/line length/past wav) ---")
+    print(out3 or "(no output)")
+    print()
+    codes = [code1, code2, code3]
+    if all(c == 0 for c in codes):
+        print("SUMMARY: all reports available and gate PASS. Review flagged cues before any upload.")
+    elif any(c == 2 for c in codes):  # absent
+        print("SUMMARY: captions.srt absent (expected for draft until aligned).")
     else:
-        print("SUMMARY: one or more reports incomplete. Check individual tools.")
+        print("SUMMARY: one or more reports incomplete or gate issues. Check individual tools.")
     print("Do not treat captions.srt as approved for upload until human spot-check.")
     return 0
 
