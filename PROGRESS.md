@@ -1,5 +1,7 @@
 # PROGRESS
 
+Added tools/upload_path_readiness.py and updated the reusable commands index. Reduces rediscovery labor for the pre-upload / YouTube upload path structure and fail-closed human+dispatch sequence across future agent runs. Advances upload readiness without credentials. Human OAuth remains highest leverage.
+
 Added tools/feedback_ingestion_readiness.py and updated the reusable commands index. Reduces rediscovery labor for the post-publish feedback ingestion structure and fail-closed sequence across future agent runs. Advances post-publish readiness without credentials. Human OAuth remains highest leverage.
 
 Added tools/experiment_loop_readiness.py and updated the reusable commands index. Reduces rediscovery labor for the post-publish experiment/learning loop structure and fail-closed sequence across future agent runs. Advances post-publish readiness without credentials. Human OAuth remains highest leverage.
