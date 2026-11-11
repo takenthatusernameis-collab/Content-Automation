@@ -1,3 +1,7 @@
+2026-11-11T08:20:00Z (Run 1181)
+
+Inspected after Run 1180. Added tools/title_metrics_suggest.py as a soft reusable tool that reports title length/metrics and soft notes on numbers/questions/power words for human title polishing. Reduces future human review labor on titles for any packet. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No new hard gates. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
+
 # STATE
 
 2026-11-11T07:22:00Z (Run 1180)
