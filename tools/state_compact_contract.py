@@ -63,8 +63,12 @@ def main() -> int:
         return fail(f"stacked compact moved {stacked_moved}")
     if "Updated: run 15" not in stacked_state or "## Run 3 delta" not in stacked_archive:
         return fail("stacked compact kept the wrong end")
-    if state.count("# STATE") != 1:
-        return fail(f"STATE.md has {state.count('# STATE')} headers; compact before commit")
+    # Live STATE.md uses timestamped paragraphs without a # STATE header.
+    # Compact logic still collapses stacked headers in the ## Run style.
+    # Accept 0 (current live) or 1 (legacy / compacted).
+    header_count = state.count("# STATE")
+    if header_count > 1:
+        return fail(f"STATE.md has {header_count} headers; compact before commit")
     print("STATE COMPACT CONTRACT PASS")
     return 0
 
