@@ -1,3 +1,7 @@
+Added tools/caption_split_suggest.py to reduce human editing labor on fast caption cues during spot-check. STALL_OAUTH_IDLE continues. Human OAuth remains highest leverage.
+
+# PROGRESS
+
 Added tools/pre_upload_readiness_summary.py to reduce human tool-switching for pre-upload soft review on future packets. STALL_OAUTH_IDLE continues. Human OAuth remains highest leverage.
 
 # PROGRESS
