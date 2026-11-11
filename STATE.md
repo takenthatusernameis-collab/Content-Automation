@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-11T06:20:00Z (Run 1179)
+
+Inspected after Run 1178. Added tools/pre_upload_readiness_summary.py as a reusable one-command soft aggregator of quality_scan, claim_scan, title_scan, description_scan, and caption_quality_summary (when present). Reduces future human tool-switching for pre-upload review on any packet. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No new hard gates. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
+
 2026-11-11T05:20:00Z (Run 1178)
 
 Inspected after Run 1177. Enhanced tools/caption_quality_summary.py to also include caption_gate.py output (empty/overlap/reversed/line length/past wav) for a more complete one-command human spot-check. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No new hard gates. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
