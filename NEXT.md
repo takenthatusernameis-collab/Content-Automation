@@ -1,3 +1,7 @@
+2026-11-11T11:20:00Z (Run 1184)
+
+Added tools/tags_metrics_suggest.py (soft count/length/total-chars notes for tags). Pre-upload path complete. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. Or run python3 tools/unblocked_next.py for unblocked guidance. For tags: python3 tools/tags_metrics_suggest.py <packet>.
+
 2026-11-11T10:16:00Z (Run 1183)
 
 Added tools/description_metrics_suggest.py (soft length/structure notes for descriptions: search snippet, timestamps, links, CTAs). Pre-upload path complete. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. Or run python3 tools/unblocked_next.py for unblocked guidance. For descriptions: python3 tools/description_metrics_suggest.py <packet>.
