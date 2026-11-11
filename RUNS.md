@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1195 — 2026-11-11T23:20:00Z
+- Objective: Reduce manual research planning labor for uncovered claims while stalled.
+- Action: Inspected state. Created tools/uncovered_claims_suggest.py that reuses claim extraction/coverage logic and prints soft research direction suggestions (categories + example query styles) for uncovered digits/hedges. Updated tools/reusable_commands_index.py to surface it. No secrets polled, no dispatch, no media writes.
+- Result: New soft reusable tool added for research direction guidance. Reduces future sequential planning of where to look for sources across packets. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (HIGH suspicion).
+- Verification: File created and committed. Index updated. Syntax is valid. Produces expected informational output without inventing sources or performing searches.
+- Discovery: Coverage reporting exists, but deciding research directions for each uncovered claim is still manual; soft suggestions reduce that rediscovery.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Or python3 tools/stall_summary.py / python3 tools/uncovered_claims_suggest.py / python3 tools/sources_validator.py / python3 tools/upload_path_readiness.py / python3 tools/reusable_commands_index.py.
+
 ## Run 1194 — 2026-11-11T22:20:00Z
 - Objective: Reduce manual cross-check labor for claim-to-source coverage while stalled.
 - Action: Inspected state. Created tools/sources_validator.py that extracts digits and hedges from script/draft and reports coverage against non-placeholder sources in sources.md or research.md. Updated tools/reusable_commands_index.py to surface it. No secrets polled, no dispatch, no media writes.
