@@ -1,3 +1,7 @@
+2026-11-11T11:20:00Z (Run 1184)
+
+Inspected after Run 1183. Added tools/tags_metrics_suggest.py as a soft reusable tool that reports tag count, individual lengths, approximate total characters (YouTube ~500 limit), and soft notes on count range or long/short tags for human tags polishing. Reduces future human review labor on tags for any packet. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No new hard gates. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
+
 2026-11-11T10:16:00Z (Run 1183)
 
 Inspected after Run 1182. Added tools/description_metrics_suggest.py as a soft reusable tool that reports description length/metrics (chars/words, first-125 search priority) and soft notes on timestamps/links/CTAs/questions for human description polishing. Reduces future human review labor on descriptions for any packet. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No new hard gates. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
