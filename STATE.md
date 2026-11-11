@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-11T07:22:00Z (Run 1180)
+
+Inspected after Run 1179. Added tools/caption_split_suggest.py as a soft reusable tool that proposes simple mid-text split ideas for the fastest caption cues (above ~21 cps). Reduces future human editing labor on caption speed during spot-check for any packet. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No new hard gates. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
+
 2026-11-11T06:20:00Z (Run 1179)
 
 Inspected after Run 1178. Added tools/pre_upload_readiness_summary.py as a reusable one-command soft aggregator of quality_scan, claim_scan, title_scan, description_scan, and caption_quality_summary (when present). Reduces future human tool-switching for pre-upload review on any packet. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No new hard gates. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
