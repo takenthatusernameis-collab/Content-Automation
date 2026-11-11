@@ -1,3 +1,5 @@
+Restored contracts_suite to PASS (96/96) by compacting STATE.md headers. Reliability improved. STALL_OAUTH_IDLE continues. Human OAuth remains highest leverage.
+
 # PROGRESS
 
 Added tools/unblocked_next.py to compound guidance for stalled runs (lists concrete unblocked experiment/caption/media-QA advances). Media path reconfirmed (materialize + QA PASS). STALL_OAUTH_IDLE continues. Human OAuth remains highest leverage.
@@ -13,5 +15,3 @@ Fixed regressions in contracts suite (syntax error in feedback_to_baseline_sugge
 (Older progress notes remain in docs/progress_archive.md.)
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
-
-
