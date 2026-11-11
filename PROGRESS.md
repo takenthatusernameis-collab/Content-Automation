@@ -1,3 +1,7 @@
+Enhanced caption_quality_summary.py to include gate check, further reducing human tool-switching for caption spot-check. STALL_OAUTH_IDLE continues. Human OAuth remains highest leverage.
+
+# PROGRESS
+
 Added tools/caption_quality_summary.py to reduce human tool-switching during caption spot-check. STALL_OAUTH_IDLE continues. Human OAuth remains highest leverage.
 
 # PROGRESS
