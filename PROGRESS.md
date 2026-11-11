@@ -1,3 +1,7 @@
+Added tools/tags_metrics_suggest.py to reduce human labor on tags count/length/total-chars review during polishing. STALL_OAUTH_IDLE continues. Human OAuth remains highest leverage.
+
+# PROGRESS
+
 Added tools/description_metrics_suggest.py to reduce human labor on description length and structure review during polishing. STALL_OAUTH_IDLE continues. Human OAuth remains highest leverage.
 
 # PROGRESS
