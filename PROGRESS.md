@@ -1,3 +1,7 @@
+Added tools/pre_upload_readiness_summary.py to reduce human tool-switching for pre-upload soft review on future packets. STALL_OAUTH_IDLE continues. Human OAuth remains highest leverage.
+
+# PROGRESS
+
 Enhanced caption_quality_summary.py to include gate check, further reducing human tool-switching for caption spot-check. STALL_OAUTH_IDLE continues. Human OAuth remains highest leverage.
 
 # PROGRESS
