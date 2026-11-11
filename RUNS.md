@@ -1,5 +1,15 @@
 # RUNS
 
+## Run 1176 — 2026-11-11T03:15:17Z
+- Objective: Restore contracts_suite after detecting a regression from stacked headers in STATE.md, and record the reliability fix.
+- Action: Inspected STATE.md, found duplicate # STATE header causing state_compact_contract FAIL. Removed the second header and reworded the new entry to avoid literal header string in body. Verified UNIFIED RESULT: PASS (96/96). No media rematerialize, no secrets polled.
+- Result: Reliability lock green again (96/96). Pre-upload path unchanged. STALL_OAUTH_IDLE continues (HIGH suspicion).
+- Verification: state_compact_contract PASS, contracts_suite PASS after fix.
+- Discovery: Successive prepends without compacting headers can reintroduce multi-header state, tripping the contract. Body text must also avoid the exact header string.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Or python3 tools/unblocked_next.py for guidance.
+
+
 ## Run 1175 — 2026-11-11T02:21:22Z
 - Objective: Verify media path after Run 1174 and add a small reusable tool to guide future stalled runs toward concrete unblocked capabilities instead of pure confirmation.
 - Action: Cloned, materialized Q1, ran media_qa (PASS), contracts_suite (96/96 PASS). Created tools/unblocked_next.py listing experiment prep, caption spot-check, and non-Q1 media QA as high-leverage unblocked work. Updated state files.
@@ -9,7 +19,6 @@
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
 - Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Or run python3 tools/unblocked_next.py for guidance.
 
-# RUNS
 
 ## Run 1174 — 2026-11-11T01:25:00Z
 - Objective: Verify the pre-upload media path remains reliable after previous contract fixes, by materializing and running media_qa on Q1.
