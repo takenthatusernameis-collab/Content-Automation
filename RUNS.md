@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1178 — 2026-11-11T05:20:00Z
+- Objective: Further reduce human labor on caption spot-check by expanding the one-command quality summary to include the gate check.
+- Action: Inspected state. Enhanced tools/caption_quality_summary.py to also run and display caption_gate.py output. Updated state files. No secrets polled, no dispatch, no media writes.
+- Result: Caption quality summary now covers speed, timeline consistency, and gate issues in one view. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (HIGH suspicion).
+- Verification: File updated and committed; logic inspects correctly for absent or present captions.
+- Discovery: Including the gate makes the spot-check aggregator more complete, reducing further tool-switching for the remaining human review step.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Or python3 tools/unblocked_next.py. After captions.srt exists: python3 tools/caption_quality_summary.py <packet>.
+
 ## Run 1177 — 2026-11-11T04:16:18Z
 - Objective: Reduce future human labor on caption spot-check by adding a single-command quality summary aggregator while stalled on OAuth.
 - Action: Inspected state. Created tools/caption_quality_summary.py that combines caption_speed_report.py and caption_timeline_consistency.py. Updated state files. No secrets polled, no dispatch, no media writes.
