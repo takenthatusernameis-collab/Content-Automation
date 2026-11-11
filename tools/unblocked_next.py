@@ -22,6 +22,7 @@ def main() -> int:
     print("     then fill from real feedback via tools/feedback_to_baseline_suggest.py (already built, fail-closed).")
     print("  2. Caption quality: human spot-check of silence-proportional aligner (tools/caption_align.py);")
     print("     then python3 tools/caption_quality_summary.py <packet> for combined speed + timeline view.")
+    print("     For fast cues: python3 tools/caption_split_suggest.py <packet> (soft split ideas).")
     print("     do not treat as uploaded. Improve if a clear mechanical gap appears.")
     print("  3. Pre-upload soft readiness: python3 tools/pre_upload_readiness_summary.py <packet>")
     print("     for one-command quality/claim/title/description + caption view (soft only).")
