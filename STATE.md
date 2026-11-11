@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-11T05:20:00Z (Run 1178)
+
+Inspected after Run 1177. Enhanced tools/caption_quality_summary.py to also include caption_gate.py output (empty/overlap/reversed/line length/past wav) for a more complete one-command human spot-check. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No new hard gates. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
+
 2026-11-11T04:16:18Z (Run 1177)
 
 Inspected after Run 1176. Pre-upload path remains reliable (contracts expected 96/96, media QA PASS on prior materialize). STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Added tools/caption_quality_summary.py as a small reusable aggregator for human caption spot-check (combines speed + timeline reports). No new hard gates. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
