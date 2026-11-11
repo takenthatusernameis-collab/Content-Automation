@@ -1,5 +1,11 @@
 # STATE
 
+2026-11-11T02:21:22Z (Run 1175)
+
+Inspected after Run 1174. Materialized Q1 (VO 308.4s, 7 cards, r253 master), media_qa PASS, contracts_suite PASS (96/96). Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Added tools/unblocked_next.py as a small reusable guidance tool that lists concrete high-leverage unblocked actions (experiment prep, caption spot-check, non-Q1 media QA) while stalled, to reduce pure-confirmation runs. No new hard gates. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
+
+# STATE
+
 2026-11-11T01:25:00Z (Run 1174)
 
 Inspected and verified live path after Run 1173. Materialized Q1 media from releases (r249 VO+cards + r253 master). media_qa.py PASS (vo_decodable 308.4s, cards 7/7, export ftyp present, ready_to_assemble). contracts_suite remains PASS (96/96). Pre-upload path confirmed complete and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, no human progress). No new tools. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.

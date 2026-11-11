@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 1175 — 2026-11-11T02:21:22Z
+- Objective: Verify media path after Run 1174 and add a small reusable tool to guide future stalled runs toward concrete unblocked capabilities instead of pure confirmation.
+- Action: Cloned, materialized Q1, ran media_qa (PASS), contracts_suite (96/96 PASS). Created tools/unblocked_next.py listing experiment prep, caption spot-check, and non-Q1 media QA as high-leverage unblocked work. Updated state files.
+- Result: Media path reconfirmed reliable. New soft guidance tool added. STALL_OAUTH_IDLE unchanged (HIGH suspicion).
+- Verification: materialize succeeded, media_qa exit 0 all PASS, contracts_suite PASS, new tool executes cleanly.
+- Discovery: Successive confirmation runs have diminishing returns; a focused unblocked-next hint reduces rediscovery.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Or run python3 tools/unblocked_next.py for guidance.
+
+# RUNS
+
 ## Run 1174 — 2026-11-11T01:25:00Z
 - Objective: Verify the pre-upload media path remains reliable after previous contract fixes, by materializing and running media_qa on Q1.
 - Action: Cloned repo, ran materialize_q1_release.py (installed VO, 7 cards, r253 master), ran media_qa.py (all PASS), confirmed contracts_suite still 96/96. Recorded verification. No secrets polled, no dispatch, no packet writes.
