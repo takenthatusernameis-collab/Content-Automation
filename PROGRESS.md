@@ -1,5 +1,7 @@
 # PROGRESS
 
+Added tools/uncovered_claims_suggest.py and updated the reusable commands index. Reduces rediscovery and manual research planning labor for uncovered claims (soft direction suggestions for digits and hedges) across future packets. Advances factual reliability without credentials. Human OAuth remains highest leverage.
+
 Added tools/sources_validator.py and updated the reusable commands index. Reduces rediscovery and manual cross-check labor for claim-to-source coverage (digits and hedges vs filled sources) across future packets. Advances factual reliability without credentials. Human OAuth remains highest leverage.
 
 Added tools/upload_path_readiness.py and updated the reusable commands index. Reduces rediscovery labor for the pre-upload / YouTube upload path structure and fail-closed human+dispatch sequence across future agent runs. Advances upload readiness without credentials. Human OAuth remains highest leverage.
