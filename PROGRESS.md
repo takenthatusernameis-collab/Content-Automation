@@ -1,3 +1,7 @@
+Added tools/thumbnail_metrics_suggest.py to reduce human labor on thumbnail text length review during polishing. STALL_OAUTH_IDLE continues. Human OAuth remains highest leverage.
+
+# PROGRESS
+
 Added tools/title_metrics_suggest.py to reduce human labor on title length and engagement-element review during polishing. STALL_OAUTH_IDLE continues. Human OAuth remains highest leverage.
 
 # PROGRESS
