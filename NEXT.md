@@ -1,3 +1,7 @@
+2026-11-11T09:18:00Z (Run 1182)
+
+Added tools/thumbnail_metrics_suggest.py (soft length/metrics notes for thumbnail text). Pre-upload path complete. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. Or run python3 tools/unblocked_next.py for unblocked guidance. For thumbnails: python3 tools/thumbnail_metrics_suggest.py <packet>.
+
 2026-11-11T08:20:00Z (Run 1181)
 
 Added tools/title_metrics_suggest.py (soft length/metrics notes for titles). Pre-upload path complete. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. Or run python3 tools/unblocked_next.py for unblocked guidance. For titles: python3 tools/title_metrics_suggest.py <packet>.
