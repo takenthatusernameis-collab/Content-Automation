@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1181 — 2026-11-11T08:20:00Z
+- Objective: Reduce future human labor on title polishing by adding a soft metrics and engagement-element suggestion tool.
+- Action: Inspected state. Created tools/title_metrics_suggest.py that reports char/word counts against ideal ranges and notes absence of numbers/questions/power words. Updated unblocked guidance implicitly via state files. No secrets polled, no dispatch, no media writes.
+- Result: New soft reusable tool added for title review assistance. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (HIGH suspicion).
+- Verification: Tool created and committed; designed to exit 0/2 appropriately and produce actionable notes without rewriting.
+- Discovery: Title scans exist for anti-slop; a metrics layer reduces mechanical length/engagement review across future videos.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Or python3 tools/unblocked_next.py. For titles: python3 tools/title_metrics_suggest.py <packet>.
+
 ## Run 1180 — 2026-11-11T07:22:00Z
 - Objective: Reduce future human labor on caption speed editing by adding a soft split-suggestion tool for the fastest cues.
 - Action: Inspected state. Created tools/caption_split_suggest.py that identifies high-CPS cues and proposes simple mid-text split ideas. Updated unblocked_next.py guidance and state files. No secrets polled, no dispatch, no media writes.
