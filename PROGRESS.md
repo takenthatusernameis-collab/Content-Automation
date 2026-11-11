@@ -1,3 +1,7 @@
+Added tools/title_metrics_suggest.py to reduce human labor on title length and engagement-element review during polishing. STALL_OAUTH_IDLE continues. Human OAuth remains highest leverage.
+
+# PROGRESS
+
 Added tools/caption_split_suggest.py to reduce human editing labor on fast caption cues during spot-check. STALL_OAUTH_IDLE continues. Human OAuth remains highest leverage.
 
 # PROGRESS
