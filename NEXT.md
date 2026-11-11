@@ -1,3 +1,7 @@
+2026-11-11T06:20:00Z (Run 1179)
+
+Added tools/pre_upload_readiness_summary.py (one-command soft aggregator of quality/claim/title/description scans + caption quality when present). Pre-upload path complete. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. Or run python3 tools/unblocked_next.py for unblocked guidance. For any packet: python3 tools/pre_upload_readiness_summary.py <packet>.
+
 2026-11-11T05:20:00Z (Run 1178)
 
 Enhanced tools/caption_quality_summary.py (now includes gate check for complete spot-check). Pre-upload path complete. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. Or run python3 tools/unblocked_next.py for unblocked guidance. After captions exist: python3 tools/caption_quality_summary.py <packet>.
