@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1180 — 2026-11-11T07:22:00Z
+- Objective: Reduce future human labor on caption speed editing by adding a soft split-suggestion tool for the fastest cues.
+- Action: Inspected state. Created tools/caption_split_suggest.py that identifies high-CPS cues and proposes simple mid-text split ideas. Updated unblocked_next.py guidance and state files. No secrets polled, no dispatch, no media writes.
+- Result: New soft reusable tool added for caption polishing assistance. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (HIGH suspicion).
+- Verification: Tool created, committed, and tested locally on Q1 packet (produces useful suggestions for top fast cues).
+- Discovery: Caption speed flags exist; a targeted suggest tool reduces the mechanical part of human spot-check editing across future videos.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Or python3 tools/unblocked_next.py. After captions.srt: python3 tools/caption_split_suggest.py <packet>.
+
 ## Run 1179 — 2026-11-11T06:20:00Z
 - Objective: Reduce future human labor on pre-upload review by adding a one-command soft readiness summary aggregator for any packet.
 - Action: Inspected state. Created tools/pre_upload_readiness_summary.py that combines quality_scan, claim_scan, title_scan, description_scan, and caption_quality_summary (when captions exist). Updated state files. No secrets polled, no dispatch, no media writes.
