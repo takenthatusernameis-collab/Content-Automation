@@ -1,3 +1,9 @@
+# STATE
+
+2026-11-12T08:30:00Z (Run 1204)
+
+Inspected after Run 1203. Pre-upload path remains reliable. Updated tools/stall_summary.py recommended-unblocked list to include experiment_json_examples.py, baseline_source_example.py, and decision_source_example.py so the primary stall entry point surfaces the latest experiment-prep tools. No new hard gates. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
+
 2026-11-12T07:22:00Z (Run 1203)
 
 Inspected after Run 1202. Pre-upload path remains reliable. Added tools/experiment_json_examples.py (complete ready-to-adapt example JSON for both baseline and decision with valid source phrasing). Updated reusable_commands_index.py. Reduces sequential lookup and adaptation labor for experiment files after a numeric comparison. No new hard gates. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
@@ -5,8 +11,6 @@ Inspected after Run 1202. Pre-upload path remains reliable. Added tools/experime
 2026-11-12T06:20:00Z (Run 1202)
 
 Inspected after Run 1201. Pre-upload path remains reliable. Added tools/decision_source_example.py (soft examples of documented source phrasing for experiment_decision.json that pass experiment_loop.py's rejected-words check). Updated reusable_commands_index.py. Reduces future labor of writing a valid source field in experiment_decision.json after a numeric comparison across packets. No new hard gates. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
-
-# STATE
 
 2026-11-12T05:17:05Z (Run 1201)
 
@@ -21,3 +25,4 @@ Inspected after Run 1199. Pre-upload path remains reliable and saturated. Update
 Inspected after Run 1198. Pre-upload path remains reliable. Added tools/first_experiment_suggest.py (soft grounded first-experiment hypothesis suggestion extracted from idea.md mechanism via idea_utils; prefers hook for this niche; points to baseline starter). Updated reusable_commands_index.py to surface it. Reduces post-publish experiment-planning labor across future videos without inventing metrics or baselines. No new hard gates. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
 
 (Older state notes remain below or in docs/state_archive.md. Do not paste the archive back.)
+

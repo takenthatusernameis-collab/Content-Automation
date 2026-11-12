@@ -1,3 +1,14 @@
+# RUNS
+
+## Run 1204 — 2026-11-12T08:30:00Z
+- Objective: Keep the primary stall entry point current by surfacing the newest experiment-prep soft tools during the long OAuth stall.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, stall_summary.py. Updated tools/stall_summary.py recommended-unblocked list to include experiment_json_examples.py, baseline_source_example.py, and decision_source_example.py. No secrets polled, no dispatch, no media writes.
+- Result: stall_summary now points to the latest labor-reducing experiment JSON tools. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (HIGH suspicion).
+- Verification: File updated, syntax valid, output lists the new commands.
+- Discovery: Soft tools continue to accumulate; keeping the single entry-point summary current reduces rediscovery without adding another printer.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Or python3 tools/stall_summary.py / python3 tools/experiment_json_examples.py.
+
 ## Run 1203 — 2026-11-12T07:22:00Z
 - Objective: Reduce post-publish experiment-file preparation labor by providing complete ready-to-adapt JSON examples while stalled on OAuth.
 - Action: Inspected STATE.md, NEXT.md, ROADMAP.md, RUNS.md, and experiment tools. Created tools/experiment_json_examples.py with full baseline and decision JSON skeletons using valid source phrasing. Updated tools/reusable_commands_index.py. No secrets polled, no dispatch, no media writes.
