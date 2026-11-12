@@ -32,6 +32,7 @@ def main() -> int:
     print("Recommended unblocked (while stalled):")
     print("  python3 tools/unblocked_next.py")
     print("  python3 tools/niche_metric_bridge.py videos/002-stop-deciding-what-to-work-on-every-morning")
+    print("  python3 tools/same_day_install_observability.py videos/002-stop-deciding-what-to-work-on-every-morning")
     print("  python3 tools/niche_consistency_scan.py")
     print("  python3 tools/metric_focus_suggest.py videos/002-stop-deciding-what-to-work-on-every-morning")
     print("  python3 tools/feedback_to_topic_suggest.py videos/002-stop-deciding-what-to-work-on-every-morning")
