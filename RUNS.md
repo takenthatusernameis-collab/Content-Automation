@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1197 — 2026-11-12T01:20:00Z
+- Objective: Reduce rediscovery and sequential invocation labor for the soft pre-upload quality checks (sources coverage, research directions, mechanism alignment) while stalled.
+- Action: Inspected state. Created tools/packet_prep_summary.py that subprocess-runs sources_validator.py, uncovered_claims_suggest.py, and metadata_mechanism_align_suggest.py for a packet and prints sectioned output. Updated tools/reusable_commands_index.py to surface it. No secrets polled, no dispatch, no media writes.
+- Result: New soft reusable aggregator added. Reduces future sequential tool runs for packet prep across packets. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (HIGH suspicion).
+- Verification: File created and committed. Index updated. Syntax follows existing post_publish_prep_summary pattern. Produces expected informational output without inventing sources or text.
+- Discovery: Individual soft checks exist, but agents and humans still rediscover the sequence; a single entry point compounds the labor reduction from Runs 1194-1196.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Or python3 tools/stall_summary.py / python3 tools/packet_prep_summary.py / python3 tools/reusable_commands_index.py.
+
 ## Run 1196 — 2026-11-12T00:22:00Z
 - Objective: Reduce manual labor of verifying mechanism consistency across title, description, and thumbnail while stalled.
 - Action: Inspected state. Created tools/metadata_mechanism_align_suggest.py that extracts mechanism from idea.md (via idea_utils) and reports soft overlap of key words in titles.md / publish.md / assets.md. Updated tools/reusable_commands_index.py to surface it. No secrets polled, no dispatch, no media writes.

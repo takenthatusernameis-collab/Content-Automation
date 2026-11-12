@@ -1,5 +1,7 @@
 # PROGRESS
 
+Added tools/packet_prep_summary.py and updated the reusable commands index. Reduces rediscovery and sequential invocation labor for the soft pre-upload quality checks (sources coverage + research directions + mechanism alignment) across future packets. Advances packaging and factual reliability without credentials. Human OAuth remains highest leverage.
+
 Added tools/metadata_mechanism_align_suggest.py and updated the reusable commands index. Reduces rediscovery and manual consistency verification labor for mechanism language across title, description, and thumbnail (soft key-word overlap from idea.md) across future packets. Advances packaging quality without credentials. Human OAuth remains highest leverage.
 
 Added tools/uncovered_claims_suggest.py and updated the reusable commands index. Reduces rediscovery and manual research planning labor for uncovered claims (soft direction suggestions for digits and hedges) across future packets. Advances factual reliability without credentials. Human OAuth remains highest leverage.
