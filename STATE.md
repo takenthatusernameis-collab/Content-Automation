@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-12T13:30:00Z (Run 1209)
+
+Inspected after Run 1208. Pre-upload path remains reliable. Added tools/metric_focus_suggest.py (soft primary-metric and guardrail suggestion grounded from idea.md mechanism via idea_utils; operational focus on start/stall for the niche; no invented numbers). Updated stall_summary.py and reusable_commands_index.py to surface it. Reduces post-publish labor of choosing what to measure for the first experiment across future packets. No new hard gates. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
+
 2026-11-12T12:21:00Z (Run 1208)
 
 Inspected after Run 1207. Pre-upload path remains reliable. Added tools/niche_consistency_scan.py (soft combined niche-alignment scan of topic queue + all non-template video packets using shared operational keywords and idea_utils/queue_lib). Updated stall_summary.py and reusable_commands_index.py to surface it. Reduces sequential separate checks as packet count grows. No new hard gates. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
