@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-12T23:19:00Z (Run 1219)
+
+Inspected after Run 1218. Pre-upload path remains reliable. Enhanced tools/oauth_credential_format_check.py to strip and warn on leading/trailing whitespace (never prints values). Reduces another common copy-paste failure mode before gh secret set. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, increasingly so with published=0 and no human progress). Pure inspection/recording has low compounding value at this extreme duration. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, use improved format checker, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. Prefer human progress; successive pure-confirmation runs are flagged as low-leverage.
+
 2026-11-12T22:19:00Z (Run 1218)
 
 Inspected after Run 1217. Pre-upload path remains reliable. oauth_credential_format_check.py is in place. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, increasingly so with published=0 and no human progress). Pure inspection/recording has low compounding value at this extreme duration. No new tools added. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, use format checker, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. Prefer human progress; successive pure-confirmation runs are flagged as low-leverage.
@@ -15,9 +19,5 @@ Inspected after Run 1215. Pre-upload path remains reliable. Added tools/oauth_cr
 2026-11-12T19:20:00Z (Run 1215)
 
 Inspected after Run 1214. Pre-upload path remains reliable (materialize + media_qa + contracts). No new capabilities added. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, increasingly so with published=0). Pure inspection has low compounding value at this duration. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. Prefer human progress over further soft tools.
-
-2026-11-12T18:20:00Z (Run 1214)
-
-Inspected after Run 1213. Pre-upload path remains reliable. Enhanced tools/after_upload_steps.py to include optional pre-collect learning prep pointer (post_publish_learning_prep.py) and post-decision topic loop (feedback_to_topic_suggest + topic_queue_mechanism_check). Reduces sequential rediscovery of the full post-publish sequence once a private video id exists. No new hard gates. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
 
 (Older state notes remain below or in docs/state_archive.md. Do not paste the archive back.)
