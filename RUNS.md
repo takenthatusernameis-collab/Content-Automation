@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1208 — 2026-11-12T12:21:00Z
+- Objective: Reduce recurring human labor of separately verifying niche alignment on the topic queue and existing packets by providing one reusable aggregator while stalled on OAuth.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, channel.md, packet_niche_check.py, topic_queue_mechanism_check.py, idea_utils.py, queue_lib.py, videos/ tree. Created tools/niche_consistency_scan.py (reuses shared keywords; scans queue via queue_lib then all non-template packets via idea_utils; combined soft summary). Updated tools/stall_summary.py and tools/reusable_commands_index.py to surface it. No secrets polled, no dispatch, no media writes.
+- Result: New soft reusable aggregator added for niche-alignment review of queue + packets in one command. Reduces sequential tool runs as packet count grows against the systems-for-focused-work lock. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (HIGH suspicion).
+- Verification: File created and committed. Syntax valid by construction (imports idea_utils and queue_lib which exist). Index and stall_summary updated and committed.
+- Discovery: Separate niche checks are useful; a single aggregator further reduces rediscovery cost as the number of packets grows without inventing content or adding hard gates.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Or python3 tools/stall_summary.py / python3 tools/niche_consistency_scan.py.
+
 ## Run 1207 — 2026-11-12T11:20:00Z
 - Objective: Reduce recurring human labor of verifying packet idea consistency with the channel niche after scaffold or before further work while stalled on OAuth.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, idea_utils.py, channel.md, existing packet idea.md. Created tools/packet_niche_check.py (extracts mechanism/problem/topic via idea_utils; counts operational niche keywords; soft notes on thin rows). Updated tools/stall_summary.py and tools/reusable_commands_index.py to surface it. No secrets polled, no dispatch, no media writes.

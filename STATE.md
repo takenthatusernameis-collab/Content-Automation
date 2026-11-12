@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-12T12:21:00Z (Run 1208)
+
+Inspected after Run 1207. Pre-upload path remains reliable. Added tools/niche_consistency_scan.py (soft combined niche-alignment scan of topic queue + all non-template video packets using shared operational keywords and idea_utils/queue_lib). Updated stall_summary.py and reusable_commands_index.py to surface it. Reduces sequential separate checks as packet count grows. No new hard gates. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
+
 2026-11-12T11:20:00Z (Run 1207)
 
 Inspected after Run 1206. Pre-upload path remains reliable. Added tools/packet_niche_check.py (soft niche-alignment scan of a packet's idea.md mechanism/problem/topic via idea_utils against operational channel keywords; prints notes for thin rows). Updated stall_summary.py and reusable_commands_index.py to surface it. Reduces recurring human labor of manually verifying packet idea consistency with docs/channel.md after scaffold or before further work. No new hard gates. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
@@ -37,4 +41,3 @@ Inspected after Run 1199. Pre-upload path remains reliable and saturated. Update
 Inspected after Run 1198. Pre-upload path remains reliable. Added tools/first_experiment_suggest.py (soft grounded first-experiment hypothesis suggestion extracted from idea.md mechanism via idea_utils; prefers hook for this niche; points to baseline starter). Updated reusable_commands_index.py to surface it. Reduces post-publish experiment-planning labor across future videos without inventing metrics or baselines. No new hard gates. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
 
 (Older state notes remain below or in docs/state_archive.md. Do not paste the archive back.)
-

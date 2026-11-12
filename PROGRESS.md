@@ -1,5 +1,7 @@
 # PROGRESS
 
+Run 1208: Added tools/niche_consistency_scan.py (soft combined niche-keyword scan of topic queue + all non-template video packets via shared keywords, queue_lib, and idea_utils) and updated stall_summary + reusable_commands_index. Reduces sequential separate checks as packet count grows. Advances pre-upload/pre-scaffold reliability without credentials. Human OAuth remains highest leverage.
+
 Run 1207: Added tools/packet_niche_check.py (soft niche-keyword scan of a packet's idea.md mechanism/problem/topic via idea_utils) and updated stall_summary + reusable_commands_index. Reduces recurring human labor of manually verifying packet idea consistency with the channel operational focus after scaffold or before further work. Advances pre-upload reliability without credentials. Human OAuth remains highest leverage.
 
 Run 1206: Added tools/topic_queue_mechanism_check.py (soft niche-keyword scan of topic_queue.md one_line/problem) and updated stall_summary + reusable_commands_index. Reduces recurring human labor of manually verifying queue consistency with the channel operational focus before scaffolding future packets. Advances pre-scaffold reliability without credentials. Human OAuth remains highest leverage.
