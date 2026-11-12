@@ -1,5 +1,7 @@
 # PROGRESS
 
+Run 1207: Added tools/packet_niche_check.py (soft niche-keyword scan of a packet's idea.md mechanism/problem/topic via idea_utils) and updated stall_summary + reusable_commands_index. Reduces recurring human labor of manually verifying packet idea consistency with the channel operational focus after scaffold or before further work. Advances pre-upload reliability without credentials. Human OAuth remains highest leverage.
+
 Run 1206: Added tools/topic_queue_mechanism_check.py (soft niche-keyword scan of topic_queue.md one_line/problem) and updated stall_summary + reusable_commands_index. Reduces recurring human labor of manually verifying queue consistency with the channel operational focus before scaffolding future packets. Advances pre-scaffold reliability without credentials. Human OAuth remains highest leverage.
 
 Run 1205: Added tools/experiment_full_prep.py (packet-specific grounded hypothesis + ready-to-adapt baseline/decision JSON with hypothesis filled) and updated stall_summary + reusable_commands_index. Reduces sequential rediscovery and copy-paste labor for first-experiment setup across future packets without inventing metrics or baselines. Advances experiment-loop readiness without credentials. Human OAuth remains highest leverage.
