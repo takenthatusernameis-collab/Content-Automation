@@ -12,6 +12,7 @@ from __future__ import annotations
 COMMANDS = [
     ("stall_summary", "python3 tools/stall_summary.py", "Concise one-command STALL_OAUTH_IDLE status: published=0, HIGH suspicion, exact human OAuth commands, unblocked pointers. Preferred entry during long stall."),
     ("unblocked_next", "python3 tools/unblocked_next.py", "Concrete unblocked next actions while stalled (experiment prep, caption quality, metadata polish, etc.). Prefer over new printers."),
+    ("post_publish_learning_prep", "python3 tools/post_publish_learning_prep.py [PACKET]", "One-command soft aggregator of metric focus + niche bridge + same-day observability + feedback-to-topic + experiment pointer. Reduces sequential post-publish prep. No invent."),
     ("niche_consistency_scan", "python3 tools/niche_consistency_scan.py", "Soft combined niche-alignment scan of topic queue + all non-template video packets. Reduces sequential separate checks as packet count grows. No invent."),
     ("niche_metric_bridge", "python3 tools/niche_metric_bridge.py [PACKET]", "Soft bridge from channel promise (install default same day) to measurable signals (comment mentions + proxies). Complements generic Analytics for this niche. No invent."),
     ("same_day_install_observability", "python3 tools/same_day_install_observability.py [PACKET]", "Soft suggestor for making the channel promise more observable in comments via reportable cues and phrasing. Grounded in niche. No invent or scaffold."),
