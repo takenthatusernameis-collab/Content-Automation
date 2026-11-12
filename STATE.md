@@ -1,3 +1,7 @@
+2026-11-12T07:22:00Z (Run 1203)
+
+Inspected after Run 1202. Pre-upload path remains reliable. Added tools/experiment_json_examples.py (complete ready-to-adapt example JSON for both baseline and decision with valid source phrasing). Updated reusable_commands_index.py. Reduces sequential lookup and adaptation labor for experiment files after a numeric comparison. No new hard gates. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
+
 2026-11-12T06:20:00Z (Run 1202)
 
 Inspected after Run 1201. Pre-upload path remains reliable. Added tools/decision_source_example.py (soft examples of documented source phrasing for experiment_decision.json that pass experiment_loop.py's rejected-words check). Updated reusable_commands_index.py. Reduces future labor of writing a valid source field in experiment_decision.json after a numeric comparison across packets. No new hard gates. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Do not poll secrets, no dispatch, no live packet writes.

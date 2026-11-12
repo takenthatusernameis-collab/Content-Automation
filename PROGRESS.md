@@ -1,3 +1,5 @@
+Run 1203: Added tools/experiment_json_examples.py and updated the reusable commands index. Reduces rediscovery and sequential adaptation labor for complete valid experiment_baseline.json and experiment_decision.json structures (valid sources, clear placeholders). Advances experiment-loop readiness without credentials. Human OAuth remains highest leverage.
+
 Run 1202: Added tools/decision_source_example.py and updated the reusable commands index. Reduces rediscovery and manual phrasing labor for a valid documented source in experiment_decision.json (avoids rejected words). Advances experiment-loop readiness without credentials. Human OAuth remains highest leverage.
 
 # PROGRESS

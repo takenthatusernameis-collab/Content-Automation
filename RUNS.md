@@ -1,3 +1,12 @@
+## Run 1203 — 2026-11-12T07:22:00Z
+- Objective: Reduce post-publish experiment-file preparation labor by providing complete ready-to-adapt JSON examples while stalled on OAuth.
+- Action: Inspected STATE.md, NEXT.md, ROADMAP.md, RUNS.md, and experiment tools. Created tools/experiment_json_examples.py with full baseline and decision JSON skeletons using valid source phrasing. Updated tools/reusable_commands_index.py. No secrets polled, no dispatch, no media writes.
+- Result: New soft reusable tool added for complete experiment JSON examples. Reduces sequential tool runs and adaptation labor across packets after comparison. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (HIGH suspicion).
+- Verification: File created, syntax valid, output correct. Index updated.
+- Discovery: Separate source-example tools are useful but a single complete JSON printer further reduces rediscovery of structure.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Or python3 tools/stall_summary.py / python3 tools/experiment_json_examples.py.
+
 ## Run 1202 — 2026-11-12T06:20:00Z
 - Objective: Reduce post-publish experiment-decision labor by providing valid source-phrasing examples while stalled on OAuth.
 - Action: Inspected STATE.md, NEXT.md, ROADMAP.md, RUNS.md, and experiment tools. Created tools/decision_source_example.py with example documented source strings that avoid REJECTED_SOURCES. Updated tools/reusable_commands_index.py. No secrets polled, no dispatch, no media writes.
