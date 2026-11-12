@@ -18,6 +18,7 @@ COMMANDS = [
     ("upload_path_readiness", "python3 tools/upload_path_readiness.py", "Structural readiness check for the pre-upload / YouTube upload path. Fail-closed human+dispatch sequence. No invent."),
     ("sources_validator", "python3 tools/sources_validator.py [PACKET]", "Claim-to-source coverage report: detects digits/hedges in script and checks non-placeholder sources in sources.md/research.md. Soft signal; reduces manual cross-check. No invent."),
     ("uncovered_claims_suggest", "python3 tools/uncovered_claims_suggest.py [PACKET]", "Soft research direction suggestions for uncovered claims (digits/hedges). Reuses coverage logic; no invented sources or searches. Reduces research planning labor."),
+    ("metadata_mechanism_align_suggest", "python3 tools/metadata_mechanism_align_suggest.py [PACKET]", "Soft check that title/description/thumbnail surface key words from the packet mechanism (from idea.md). Reduces manual consistency verification. No invent."),
     ("status_report", "python3 tools/status_report.py", "Primary current-system status (stall, media, next, all one-liners)"),
     ("run_history_summary", "python3 tools/run_history_summary.py [N]", "Concise last-N runs from RUNS.md (default 3)"),
     ("observation_window", "python3 tools/observation_window.py videos/002-stop-deciding-what-to-work-on-every-morning", "DUE/WAITING for +10d post-upload window from upload_state.json"),
