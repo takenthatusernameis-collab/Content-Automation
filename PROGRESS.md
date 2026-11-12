@@ -1,3 +1,5 @@
+Run 1201: Added tools/baseline_source_example.py and updated the reusable commands index. Reduces rediscovery and manual phrasing labor for a valid documented source in experiment_baseline.json (avoids rejected words). Advances experiment-loop readiness without credentials. Human OAuth remains highest leverage.
+
 # PROGRESS
 
 Run 1200: Updated tools/stall_summary.py recommended-unblocked list to include first_experiment_suggest.py and packet_prep_summary.py. Keeps the single stall entry point current so agents and humans rediscover the newest labor-reducing soft tools less often during the long OAuth stall. Advances guidance reliability without credentials. Human OAuth remains highest leverage.

@@ -1,3 +1,12 @@
+## Run 1201 — 2026-11-12T05:17:05Z
+- Objective: Reduce post-publish experiment-setup labor by providing valid source-phrasing examples while stalled on OAuth.
+- Action: Inspected STATE.md, NEXT.md, ROADMAP.md, RUNS.md, and experiment tools. Created tools/baseline_source_example.py with example documented source strings that avoid REJECTED_SOURCES. Updated tools/reusable_commands_index.py. No secrets polled, no dispatch, no media writes.
+- Result: New soft reusable tool added for baseline source examples. Reduces future sequential phrasing of the source field across packets. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (HIGH suspicion).
+- Verification: File created, syntax valid, output correct. Index updated.
+- Discovery: experiment_loop rejects only a small set of placeholder words; concrete example phrasings still required manual invention.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). Or python3 tools/stall_summary.py / python3 tools/baseline_source_example.py.
+
 # RUNS
 
 ## Run 1200 — 2026-11-12T06:20:00Z

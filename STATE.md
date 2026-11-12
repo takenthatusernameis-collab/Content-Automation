@@ -1,3 +1,7 @@
+2026-11-12T05:17:05Z (Run 1201)
+
+Inspected after Run 1200. Pre-upload path remains reliable. Added tools/baseline_source_example.py (soft examples of documented source phrasing that pass experiment_loop.py's rejected-words check). Updated reusable_commands_index.py. Reduces future labor of writing a valid source field in experiment_baseline.json across packets. No new hard gates. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
+
 # STATE
 
 2026-11-12T06:20:00Z (Run 1200)
