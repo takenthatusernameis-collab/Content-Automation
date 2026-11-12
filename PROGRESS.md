@@ -1,5 +1,7 @@
 # PROGRESS
 
+Run 1209: Added tools/metric_focus_suggest.py (soft primary-metric and guardrail suggestion grounded from idea.md mechanism via idea_utils; operational start/stall focus for the niche) and updated stall_summary + reusable_commands_index. Reduces post-publish labor of choosing what to measure for the first experiment across future packets without inventing numbers. Advances experiment-loop readiness without credentials. Human OAuth remains highest leverage.
+
 Run 1208: Added tools/niche_consistency_scan.py (soft combined niche-keyword scan of topic queue + all non-template video packets via shared keywords, queue_lib, and idea_utils) and updated stall_summary + reusable_commands_index. Reduces sequential separate checks as packet count grows. Advances pre-upload/pre-scaffold reliability without credentials. Human OAuth remains highest leverage.
 
 Run 1207: Added tools/packet_niche_check.py (soft niche-keyword scan of a packet's idea.md mechanism/problem/topic via idea_utils) and updated stall_summary + reusable_commands_index. Reduces recurring human labor of manually verifying packet idea consistency with the channel operational focus after scaffold or before further work. Advances pre-upload reliability without credentials. Human OAuth remains highest leverage.
