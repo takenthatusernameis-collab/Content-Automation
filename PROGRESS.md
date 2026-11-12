@@ -1,5 +1,7 @@
 # PROGRESS
 
+Run 1212: Added tools/same_day_install_observability.py (soft suggestor for making the channel promise more observable in comments via reportable cues and phrasing, grounded in niche via idea_utils when packet given) and updated stall_summary + reusable_commands_index. Reduces post-publish labor of designing mechanisms that yield clearer operational signals across future packets without inventing data or scaffolding. Advances learning-loop readiness without credentials. Human OAuth remains highest leverage.
+
 Run 1211: Added tools/feedback_to_topic_suggest.py (soft guidance for feeding observed operational feedback or weak points back into topic queue candidates, grounded in niche promise via idea_utils when packet given) and updated stall_summary + reusable_commands_index. Reduces post-publish labor of translating experiment results into next topics across future packets without inventing data or scaffolding. Advances learning-loop readiness without credentials. Human OAuth remains highest leverage.
 
 Run 1210: Added tools/niche_metric_bridge.py (soft bridge from channel promise 'install one small default the same day' to measurable signals via comment mentions and proxy Analytics, grounded from idea.md via idea_utils) and updated stall_summary + reusable_commands_index. Reduces post-publish labor of translating the operational niche into experiment-relevant signals across future packets without inventing numbers. Advances experiment-loop readiness without credentials. Human OAuth remains highest leverage.
