@@ -1,5 +1,7 @@
 # PROGRESS
 
+Run 1213: Added tools/post_publish_learning_prep.py (one-command soft aggregator of metric focus + niche bridge + same-day observability + feedback-to-topic + experiment pointer, grounded via idea_utils when packet given) and updated stall_summary + reusable_commands_index. Reduces sequential post-publish learning-loop prep labor across future packets without inventing data or scaffolding. Advances learning-loop readiness without credentials. Human OAuth remains highest leverage.
+
 Run 1212: Added tools/same_day_install_observability.py (soft suggestor for making the channel promise more observable in comments via reportable cues and phrasing, grounded in niche via idea_utils when packet given) and updated stall_summary + reusable_commands_index. Reduces post-publish labor of designing mechanisms that yield clearer operational signals across future packets without inventing data or scaffolding. Advances learning-loop readiness without credentials. Human OAuth remains highest leverage.
 
 Run 1211: Added tools/feedback_to_topic_suggest.py (soft guidance for feeding observed operational feedback or weak points back into topic queue candidates, grounded in niche promise via idea_utils when packet given) and updated stall_summary + reusable_commands_index. Reduces post-publish labor of translating experiment results into next topics across future packets without inventing data or scaffolding. Advances learning-loop readiness without credentials. Human OAuth remains highest leverage.
