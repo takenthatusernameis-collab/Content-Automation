@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-12T09:20:00Z (Run 1205)
+
+Inspected after Run 1204. Pre-upload path remains reliable. Added tools/experiment_full_prep.py (packet-specific: extracts mechanism, suggests hypothesis, prints ready-to-adapt baseline+decision JSON with hypothesis filled; no invented numbers). Updated stall_summary.py and reusable_commands_index.py to surface it. Reduces sequential experiment-prep labor across future packets. No new hard gates. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
+
 2026-11-12T08:30:00Z (Run 1204)
 
 Inspected after Run 1203. Pre-upload path remains reliable. Updated tools/stall_summary.py recommended-unblocked list to include experiment_json_examples.py, baseline_source_example.py, and decision_source_example.py so the primary stall entry point surfaces the latest experiment-prep tools. No new hard gates. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
