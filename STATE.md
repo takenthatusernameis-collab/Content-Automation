@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-12T16:24:00Z (Run 1212)
+
+Inspected after Run 1211. Pre-upload path remains reliable. Added tools/same_day_install_observability.py (soft suggestor for making the channel promise more observable in comments via reportable cues and phrasing; grounded in niche via idea_utils when packet given; no invent or scaffold). Updated stall_summary.py and reusable_commands_index.py to surface it. Reduces post-publish labor of translating the operational niche promise into more actionable feedback signals across future packets. No new hard gates. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
+
 2026-11-12T15:24:00Z (Run 1211)
 
 Inspected after Run 1210. Pre-upload path remains reliable. Added tools/feedback_to_topic_suggest.py (soft guidance for feeding observed operational feedback or weak points back into topic queue candidates; grounded in niche promise via idea_utils when packet given; no invent or scaffold). Updated stall_summary.py and reusable_commands_index.py to surface it. Reduces post-publish labor of translating experiment results into next topics across future packets. No new hard gates. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
