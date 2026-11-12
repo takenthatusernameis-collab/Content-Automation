@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1217 — 2026-11-12T21:20:00Z
+- Objective: Inspect current state after Run 1216 and record continued STALL_OAUTH_IDLE without adding low-leverage soft tools.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, ROADMAP.md, BLOCKED.md, HANDOFF.md, HUMAN_PRIORITY.md, oauth_credential_format_check.py, oauth_complete_guide.py, human_success_check.py, PROGRESS.md, PROMPT_EVOLUTION.md, workflow. Confirmed pre-upload path reliable and format checker in place. No new tools or contracts. No secrets polled, no dispatch, no media writes. Updated state files.
+- Result: State recorded. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pure inspection has diminishing returns as previously noted.
+- Verification: Files updated via commit. No functional changes to tools.
+- Discovery: Soft tools for OAuth guidance and post-publish readiness are mature; further additions risk saturation. Human OAuth is the sole high-leverage remaining action.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, use python3 tools/oauth_credential_format_check.py, then secrets + single execute=true). Avoid additional soft printers while stall persists.
+
 ## Run 1216 — 2026-11-12T20:20:00Z
 - Objective: Reduce human friction on the sole remaining OAuth setup step by adding a soft local format checker for the three credential values.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, ROADMAP.md, BLOCKED.md, HANDOFF.md, HUMAN_PRIORITY.md, oauth_complete_guide.py, human_starter.py, oauth_recovery_hints.py, PROGRESS.md. Added tools/oauth_credential_format_check.py (checks Client ID suffix, lengths; never prints values). Updated oauth_complete_guide.py, human_starter.py, HUMAN_PRIORITY.md, STATE.md, NEXT.md, PROGRESS.md with pointers. No secrets polled, no dispatch, no media writes.
