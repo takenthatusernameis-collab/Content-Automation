@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-12T03:16:00Z (Run 1199)
+
+Inspected after Run 1198. Pre-upload path remains reliable. Added tools/first_experiment_suggest.py (soft grounded first-experiment hypothesis suggestion extracted from idea.md mechanism via idea_utils; prefers hook for this niche; points to baseline starter). Updated reusable_commands_index.py to surface it. Reduces post-publish experiment-planning labor across future videos without inventing metrics or baselines. No new hard gates. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
+
 2026-11-12T04:15:00Z (Run 1198)
 
 Inspected after Run 1197. Pre-upload path remains reliable and saturated with soft quality tools (packet_prep_summary, sources_validator, uncovered_claims_suggest, metadata_mechanism_align_suggest). No new capability added this run to avoid diminishing returns on aggregators/soft reports while STALL_OAUTH_IDLE is primary (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Do not poll secrets, no dispatch, no live packet writes. Prefer human progress or a truly novel post-publish capability if any gap appears.
@@ -15,9 +19,5 @@ Inspected after Run 1195. Pre-upload path remains reliable. Added tools/metadata
 2026-11-11T23:20:00Z (Run 1195)
 
 Inspected after Run 1194. Pre-upload path remains reliable. Added tools/uncovered_claims_suggest.py (soft research direction suggestions for uncovered digit/hedge claims, reusing coverage logic from sources_validator). Updated reusable_commands_index.py to surface it. Reduces manual research planning labor for filling sources before claim_scan across future packets. No new hard gates. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
-
-2026-11-11T22:20:00Z (Run 1194)
-
-Inspected after Run 1193. Pre-upload path remains reliable. Added tools/sources_validator.py (extracts digits/hedges from script and reports coverage against non-placeholder sources in sources.md/research.md). Updated reusable_commands_index.py to surface it. Reduces manual cross-check labor for factual claims before claim_scan across future packets. No new hard gates. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes.
 
 (Older state notes remain below or in docs/state_archive.md. Do not paste the archive back.)
