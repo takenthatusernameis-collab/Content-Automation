@@ -42,6 +42,7 @@ def main() -> int:
     print("   export YOUTUBE_CLIENT_ID=...   # then run the mint commands printed later")
     print("Full checklist with pitfalls: docs/human_oauth_checklist.md")
     print("Single self-contained guide (deep links + copy-paste + recovery): python3 tools/oauth_complete_guide.py")
+    print("Soft format check (after export; never prints values): python3 tools/oauth_credential_format_check.py")
     print()
 
     # Soft media presence check so fresh clones see the materialize step immediately
@@ -70,7 +71,7 @@ def main() -> int:
             return code
 
     print("\nHUMAN STARTER PASS: media checked, environment ready, stall HIGH, recurring pattern flagged, contract streak checked, publish readiness shown, one-pager shown, observation window reminder shown.")
-    print("Next: follow the exact sequence printed below (mint then secrets then one dispatch).")
+    print("Next: follow the exact sequence printed below (mint then optional format check then secrets then one dispatch).")
     print("Full checklist: docs/human_oauth_checklist.md")
     print("Or the single self-contained guide: python3 tools/oauth_complete_guide.py")
     print()
@@ -79,6 +80,8 @@ def main() -> int:
     print("python3 tools/oauth_exchange.py")
     print("python3 tools/oauth_exchange.py --exchange --out /tmp/youtube-refresh-token")
     print("# Paste the full localhost address-bar URL on stdin for the second command.")
+    print("# Optional: export YOUTUBE_REFRESH_TOKEN=$(cat /tmp/youtube-refresh-token)")
+    print("# python3 tools/oauth_credential_format_check.py   # soft format check; never prints values")
     print()
     print("# 2. Set secrets (paste values into the interactive prompts; never on the command line)")
     print("gh secret set YOUTUBE_CLIENT_ID --repo takenthatusernameis-collab/Content-Automation")
@@ -117,6 +120,7 @@ def main() -> int:
     print("Do not poll secrets from an agent. Do not add another consistency printer or contract lock.")
     print("Checkbox checklist: python3 tools/oauth_step_checklist.py")
     print("Single self-contained guide: python3 tools/oauth_complete_guide.py")
+    print("Soft format check (before secrets): python3 tools/oauth_credential_format_check.py")
     print("Recovery hints if a step fails: python3 tools/oauth_recovery_hints.py")
     return 0
 
