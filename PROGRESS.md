@@ -1,5 +1,7 @@
 # PROGRESS
 
+Run 1205: Added tools/experiment_full_prep.py (packet-specific grounded hypothesis + ready-to-adapt baseline/decision JSON with hypothesis filled) and updated stall_summary + reusable_commands_index. Reduces sequential rediscovery and copy-paste labor for first-experiment setup across future packets without inventing metrics or baselines. Advances experiment-loop readiness without credentials. Human OAuth remains highest leverage.
+
 Run 1204: Updated tools/stall_summary.py recommended-unblocked list to include experiment_json_examples.py, baseline_source_example.py, and decision_source_example.py. Keeps the single stall entry point current so agents and humans rediscover the newest labor-reducing experiment-prep tools less often during the long OAuth stall. Advances guidance reliability without credentials. Human OAuth remains highest leverage.
 
 Run 1203: Added tools/experiment_json_examples.py and updated the reusable commands index. Reduces rediscovery and sequential adaptation labor for complete valid experiment_baseline.json and experiment_decision.json structures (valid sources, clear placeholders). Advances experiment-loop readiness without credentials. Human OAuth remains highest leverage.
