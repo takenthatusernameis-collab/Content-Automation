@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-12T22:19:00Z (Run 1218)
+
+Inspected after Run 1217. Pre-upload path remains reliable. oauth_credential_format_check.py is in place. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, increasingly so with published=0 and no human progress). Pure inspection/recording has low compounding value at this extreme duration. No new tools added. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, use format checker, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. Prefer human progress; successive pure-confirmation runs are flagged as low-leverage.
+
 2026-11-12T21:20:00Z (Run 1217)
 
 Inspected after Run 1216. Pre-upload path remains reliable. oauth_credential_format_check.py is in place as a soft local checker. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No new tools added (diminishing returns noted). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, use format checker, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes.

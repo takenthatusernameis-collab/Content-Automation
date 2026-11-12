@@ -1,3 +1,6 @@
+## Run 1218 — 2026-11-12T22:19:00Z
+Evidence: Inspected after Run 1217. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues at 1000+ runs with published=0 and no human progress. Successive pure verification and state recording have low compounding effect at this extreme duration. Lesson: after extreme stall (1000+ runs), treat further pure inspection/recording as low-leverage; agents should flag HIGH suspicion explicitly and prefer the human OAuth step or any remaining unblocked production capability. Do not add another consistency printer, aggregator, or contract lock while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
+
 ## Run 1217 — 2026-11-12T21:20:00Z
 Evidence: Inspected after Run 1216 (format checker added). Pre-upload path remains reliable. STALL_OAUTH_IDLE continues at 1000+ runs with published=0 and no human progress. Pure verification and state recording have low compounding effect at this duration. Lesson: after extreme stall (1000+ runs), treat further pure inspection/recording as low-leverage; agents should flag HIGH suspicion explicitly and prefer the human OAuth step or any remaining unblocked production capability. Do not add another consistency printer, aggregator, or contract lock while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
 
