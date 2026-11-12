@@ -1,14 +1,10 @@
 # PROGRESS
 
+Run 1215: Pure inspection and state recording of continued STALL_OAUTH_IDLE (1000+ runs, HIGH suspicion). No new tools. Confirmed pre-upload path reliable. Highlights diminishing returns of pure confirmation and soft-tool addition while human OAuth remains undone. Human OAuth remains highest leverage.
+
 Run 1214: Enhanced tools/after_upload_steps.py to surface pre-collect learning prep (post_publish_learning_prep.py) and post-decision topic loop (feedback_to_topic_suggest + topic_queue_mechanism_check). Reduces sequential rediscovery of the complete post-publish path once a private video id exists, without inventing data or adding gates. Advances learning-loop readiness without credentials. Human OAuth remains highest leverage.
 
 Run 1213: Added tools/post_publish_learning_prep.py (one-command soft aggregator of metric focus + niche bridge + same-day observability + feedback-to-topic + experiment pointer, grounded via idea_utils when packet given) and updated stall_summary + reusable_commands_index. Reduces sequential post-publish learning-loop prep labor across future packets without inventing data or scaffolding. Advances learning-loop readiness without credentials. Human OAuth remains highest leverage.
-
-Run 1212: Added tools/same_day_install_observability.py (soft suggestor for making the channel promise more observable in comments via reportable cues and phrasing, grounded in niche via idea_utils when packet given) and updated stall_summary + reusable_commands_index. Reduces post-publish labor of designing mechanisms that yield clearer operational signals across future packets without inventing data or scaffolding. Advances learning-loop readiness without credentials. Human OAuth remains highest leverage.
-
-Run 1211: Added tools/feedback_to_topic_suggest.py (soft guidance for feeding observed operational feedback or weak points back into topic queue candidates, grounded in niche promise via idea_utils when packet given) and updated stall_summary + reusable_commands_index. Reduces post-publish labor of translating experiment results into next topics across future packets without inventing data or scaffolding. Advances learning-loop readiness without credentials. Human OAuth remains highest leverage.
-
-Run 1210: Added tools/niche_metric_bridge.py (soft bridge from channel promise 'install one small default the same day' to measurable signals via comment mentions and proxy Analytics, grounded from idea.md via idea_utils) and updated stall_summary + reusable_commands_index. Reduces post-publish labor of translating the operational niche into experiment-relevant signals across future packets without inventing numbers. Advances experiment-loop readiness without credentials. Human OAuth remains highest leverage.
 
 (Older progress notes remain in docs/progress_archive.md.)
 
