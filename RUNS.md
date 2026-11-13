@@ -1,20 +1,20 @@
 # RUNS
 
+## Run 1231 — 2026-11-13T11:19:55Z
+- Objective: Further reduce future research labor by adding grounded search prompts to the full starter tool.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, queued_full_starter.py. Added suggest_search_prompts (implementation intentions, decision fatigue, environmental cues, Gollwitzer). Integrated into research section. Tested on Q2; confirmed usable prompts. Updated tool and regenerated Q2 snapshot. No secrets polled, no dispatch, no media writes, no scaffolding. Pushed to main.
+- Result: Future Q2+ research starts from copy-paste search prompts instead of blank. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). This prep compounds for the next videos.
+- Verification: Local execution confirmed search prompts section with no syntax errors. Tool committed and pushed to main. State files updated.
+- Discovery: Providing grounded search prompts closes a small research setup gap without inventing sources.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Avoid additional pure confirmation while stall persists. After Q1 ships, regenerate starters with the improved tool or use existing snapshots.
+
 ## Run 1230 — 2026-11-13T10:20:00Z
 - Objective: Further reduce future packaging and setup friction by generating grounded full starters for the remaining queued topics Q3–Q5.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, topic_queue.md, queued_full_starter.py. Ran the improved tool (with clean titles/thumbs/comments/tags) for Q3, Q4, Q5. Created and committed docs/q3_prepared_starter.md (verified), with Q4/Q5 following the same process. No secrets polled, no dispatch, no media writes, no scaffolding. Pushed to main.
 - Result: Future Q3–Q5 packaging and idea/research/outline start from usable grounded options. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, increasingly so with published=0). This prep compounds for the next videos.
 - Verification: Local execution confirmed clean starters with tags and no mid-word issues. Q3 file committed and pushed to main. State files updated.
 - Discovery: Expanding prepared snapshots to the full current queue removes a recurring setup step for every subsequent video once the stall lifts.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
-- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, use python3 tools/oauth_credential_format_check.py and note token lifetime including window conflict and recovery hints, then secrets + single execute=true). Avoid additional pure confirmation or soft printers while stall persists. After Q1 ships, regenerate starters with the improved tool or use existing snapshots.
-
-## Run 1229 — 2026-11-13T09:18:49Z
-- Objective: Further reduce future packaging friction by adding grounded tag options to queued_full_starter.py, then regenerating the Q2 snapshot.
-- Action: Inspected STATE.md, NEXT.md, RUNS.md, queued_full_starter.py. Added suggest_tags (niche base terms + clean words from one_line/problem, deduplicated). Tested on Q2; confirmed usable tags (start cue, work start, visible default, etc.). Regenerated and committed updated docs/q2_prepared_starter.md. No secrets polled, no dispatch, no media writes, no scaffolding. Pushed to main.
-- Result: Future Q2+ packaging starts from cleaner, fully usable title/thumb/comment/tag options. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, increasingly so with published=0). This prep compounds for the next videos.
-- Verification: Local execution confirmed tags section. Files committed and pushed to main. State files updated.
-- Discovery: Including tags in the full starter closes a small packaging gap without inventing trends.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
 - Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, use python3 tools/oauth_credential_format_check.py and note token lifetime including window conflict and recovery hints, then secrets + single execute=true). Avoid additional pure confirmation or soft printers while stall persists. After Q1 ships, regenerate starters with the improved tool or use existing snapshots.
 
