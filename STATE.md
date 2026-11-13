@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-13T00:23:09Z (Run 1220)
+
+Inspected after Run 1219. Pre-upload path remains reliable. oauth_credential_format_check.py includes whitespace detection. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, increasingly so with published=0 and no human progress). Pure inspection/recording has low compounding value at this extreme duration. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, use improved format checker, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. Prefer human progress; successive pure-confirmation runs are flagged as low-leverage.
+
 2026-11-12T23:19:00Z (Run 1219)
 
 Inspected after Run 1218. Pre-upload path remains reliable. Enhanced tools/oauth_credential_format_check.py to strip and warn on leading/trailing whitespace (never prints values). Reduces another common copy-paste failure mode before gh secret set. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, increasingly so with published=0 and no human progress). Pure inspection/recording has low compounding value at this extreme duration. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, use improved format checker, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. Prefer human progress; successive pure-confirmation runs are flagged as low-leverage.
