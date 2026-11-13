@@ -1,10 +1,12 @@
 # STATE
 
+2026-11-13T04:17:55Z (Run 1224)
+
+Inspected after Run 1223. Pre-upload path remains reliable. Added recovery hint #7 in tools/oauth_recovery_hints.py covering Testing-mode 7-day refresh token expiry and its conflict with the 10-day observation window, including exact fix steps and console link. Surfaces the pitfall in the structured recovery tool for failed later dispatches. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, increasingly so with published=0 and no human progress). Pure inspection/recording has low compounding value at this extreme duration. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, use improved format checker and token-lifetime note including window conflict and recovery hints, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. Prefer human progress; successive pure-confirmation runs are flagged as low-leverage.
+
 2026-11-13T03:17:11Z (Run 1223)
 
 Inspected after Run 1222. Pre-upload path remains reliable. Added explicit warning in tools/post_publish_sequence.py and strengthened it in tools/human_starter.py that Testing-mode 7-day refresh tokens expire before the 10-day observation window, so the app must be published to Production (or Internal) and a long-lived token minted before collect_feedback. Prevents a common silent failure after the first publish. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, increasingly so with published=0 and no human progress). Pure inspection/recording has low compounding value at this extreme duration. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, use improved format checker and token-lifetime note including window conflict, then secrets + single execute=true). Do not poll secrets, no dispatch, no live packet writes. Prefer human progress; successive pure-confirmation runs are flagged as low-leverage.
-
-
 
 2026-11-13T02:16:00Z (Run 1222)
 
