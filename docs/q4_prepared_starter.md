@@ -85,23 +85,23 @@
 The stall is this: the extra tab is still open.
 
 **Expansion prompts (grounded; use while drafting to hit word target):**
-- Name the concrete missing cue that causes the extra tab is still open.
+- Name the concrete missing cue that produces the stall 'the extra tab is still open'.
 - Show the reopen cycle in one sentence the viewer recognizes.
 - Land the mechanism name before the sting.
 
 ### Payoff (40-70 words)
-Install this today: A shutdown default.
+The install you finish today is this: A shutdown default.
 
 **Expansion prompts:**
-- State the under-two-minute action that places A shutdown default.
+- State the under-two-minute action that places 'A shutdown default'.
 - Name the same-day outcome (first two minutes without reopening).
 - Keep it operational; no pep talk.
 
 ### Beat 1 — where the cue lives (140-220 words)
-Place the cue on the work itself: A shutdown default.
+Place the cue on the work itself. The cue is: A shutdown default.
 
 **Expansion prompts:**
-- Describe exactly where the cue lives (physical object, file, tab, desk edge).
+- Describe exactly where the cue 'A shutdown default' lives (physical object, file, tab, desk edge).
 - Contrast with a cue that lives in a separate system the viewer never opens.
 - Include one concrete example the viewer can copy today.
 
@@ -117,7 +117,7 @@ The under-two-minute step is placing that cue before the list reopens.
 Without that cue, the stall returns: the extra tab is still open.
 
 **Expansion prompts:**
-- Show the failure mode when the extra tab is still open has nothing to hit.
+- Show the failure mode when the stall 'the extra tab is still open' has nothing to hit.
 - Name the reopen trigger that appears instead of the first action.
 - Keep the contrast operational, not motivational.
 

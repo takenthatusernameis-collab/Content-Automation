@@ -85,23 +85,23 @@
 The stall is this: competing lists each claim a next action, so none of them starts.
 
 **Expansion prompts (grounded; use while drafting to hit word target):**
-- Name the concrete missing cue that causes competing lists each claim a next action.
+- Name the concrete missing cue that produces the stall 'competing lists each claim a next action'.
 - Show the reopen cycle in one sentence the viewer recognizes.
 - Land the mechanism name before the sting.
 
 ### Payoff (40-70 words)
-Install this today: Collapse competing lists into a single next verb the viewer.
+The install you finish today is this: Collapse competing lists into a single next verb the.
 
 **Expansion prompts:**
-- State the under-two-minute action that places Collapse competing lists into a single.
+- State the under-two-minute action that places 'Collapse competing lists into a single'.
 - Name the same-day outcome (first two minutes without reopening).
 - Keep it operational; no pep talk.
 
 ### Beat 1 — where the cue lives (140-220 words)
-Place the cue on the work itself: Collapse competing lists into a single next verb.
+Place the cue on the work itself. The cue is: Collapse competing lists into a single next.
 
 **Expansion prompts:**
-- Describe exactly where the cue lives (physical object, file, tab, desk edge).
+- Describe exactly where the cue 'Collapse competing lists into a single' lives (physical object, file, tab, desk edge).
 - Contrast with a cue that lives in a separate system the viewer never opens.
 - Include one concrete example the viewer can copy today.
 
@@ -117,7 +117,7 @@ The under-two-minute step is placing that cue before the list reopens.
 Without that cue, the stall returns: competing lists each claim a next action.
 
 **Expansion prompts:**
-- Show the failure mode when competing lists each claim a next action has nothing to hit.
+- Show the failure mode when the stall 'competing lists each claim a next action' has nothing to hit.
 - Name the reopen trigger that appears instead of the first action.
 - Keep the contrast operational, not motivational.
 

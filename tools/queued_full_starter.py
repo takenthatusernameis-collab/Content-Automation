@@ -182,19 +182,19 @@ def generate_full(row: dict) -> str:
     pr_short = shorten(problem, 40).rstrip('.')
     hook_open = f"The stall is this: {shorten(problem, 70).rstrip('.')}."
     hook_exp = [
-        f"- Name the concrete missing cue that causes {pr_short}.",
+        f"- Name the concrete missing cue that produces the stall '{pr_short}'.",
         "- Show the reopen cycle in one sentence the viewer recognizes.",
         "- Land the mechanism name before the sting.",
     ]
-    payoff_open = f"Install this today: {shorten(one_line, 60).rstrip('.')}."
+    payoff_open = f"The install you finish today is this: {shorten(one_line, 55).rstrip('.')}."
     payoff_exp = [
-        f"- State the under-two-minute action that places {ol_short}.",
+        f"- State the under-two-minute action that places '{ol_short}'.",
         "- Name the same-day outcome (first two minutes without reopening).",
         "- Keep it operational; no pep talk.",
     ]
-    beat1_open = f"Place the cue on the work itself: {shorten(one_line, 50).rstrip('.')}."
+    beat1_open = f"Place the cue on the work itself. The cue is: {shorten(one_line, 45).rstrip('.')}."
     beat1_exp = [
-        f"- Describe exactly where the cue lives (physical object, file, tab, desk edge).",
+        f"- Describe exactly where the cue '{ol_short}' lives (physical object, file, tab, desk edge).",
         "- Contrast with a cue that lives in a separate system the viewer never opens.",
         "- Include one concrete example the viewer can copy today.",
     ]
@@ -206,7 +206,7 @@ def generate_full(row: dict) -> str:
     ]
     beat3_open = f"Without that cue, the stall returns: {shorten(problem, 50).rstrip('.')}."
     beat3_exp = [
-        f"- Show the failure mode when {pr_short} has nothing to hit.",
+        f"- Show the failure mode when the stall '{pr_short}' has nothing to hit.",
         "- Name the reopen trigger that appears instead of the first action.",
         "- Keep the contrast operational, not motivational.",
     ]
