@@ -4,6 +4,9 @@ Pre-upload path verified reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH 
 
 (Older next actions live in `docs/next_archive.md`. Do not paste the archive back.)
 
+2026-11-13T00:23:09Z (Run 1220)
+Pre-upload path verified reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, increasingly so). Next remains the human OAuth step (use improved format checker then secrets + single execute=true). Prefer human progress; further soft tools have diminishing returns.
+
 2026-11-12T23:19:00Z (Run 1219)
 Pre-upload path verified reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, increasingly so). Next remains the human OAuth step (use improved format checker then secrets + single execute=true). Prefer human progress; further soft tools have diminishing returns.
 
