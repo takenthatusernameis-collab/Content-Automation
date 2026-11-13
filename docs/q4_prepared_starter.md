@@ -72,6 +72,7 @@
 # Script outline starter for Q4: Close the extra tab before you open the work
 # (no invented scenes or WORDS)
 # Aligns with production_rules: Hook 20-35, Payoff 40-70, body 140-220 each, CTA 40-80, total 900-1500.
+# Opening sentences are complete and copy-pasteable as first lines of each section.
 
 ## Overview
 - Topic: Close the extra tab before you open the work
@@ -81,27 +82,28 @@
 ## Structure (preserve these headings after scaffold)
 
 ### Hook (20-35 words)
-Name the stall: the extra tab is still open.
+The stall is the extra tab is still open.
 
 ### Payoff (40-70 words)
-The same-day install: A shutdown default.
+Install this today: A shutdown default.
 
 ### Beat 1 — where the cue lives (140-220 words)
-Focus: the cue must be on the work itself. A shutdown default.
+The cue lives on the work itself: A shutdown default.
 
 ### Beat 2 — the under-two-minute step (140-220 words)
-Focus: the concrete install that ends the reopen.
+The under-two-minute step is placing that cue before the list reopens.
 
 ### Beat 3 — what reopens the list when the cue is missing (140-220 words)
-Focus: the extra tab is still open returns without the cue.
+Without the cue, the extra tab is still open returns.
 
 ### CTA (40-80 words)
-Do the install now. Report the exact cue used.
+Place the cue now and start the first two minutes.
 
 ## Alignment notes
 - Keep every section mechanism-focused (the system, not the pep talk).
 - No invented numbers, testimonials, or scene descriptions.
 - Word targets are ranges; stay inside them after drafting.
+- Opening sentences above are grounded only in topic_queue fields; expand from research claims.
 
 ========================================================================
 ## 4. TITLE OPTIONS (pick one or adapt; no shouted words)
