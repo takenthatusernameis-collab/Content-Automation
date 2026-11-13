@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1236 — 2026-11-13T16:22:00Z
+- Objective: Restore reliability of the full starter generator so future Q2–Q5 packets can be regenerated from a real tool instead of a placeholder.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, topic_queue.md, phrase_utils.py, and individual starters. Replaced the placeholder tools/queued_full_starter.py with a working implementation that uses queue_lib.parse_queue and phrase_utils.shorten for consistent whole-word truncation across titles, claims, search prompts, beats, descriptions, comments, and thumbs. Regenerated docs/q2_prepared_starter.md through docs/q5_prepared_starter.md. No secrets polled, no dispatch, no media writes, no scaffolding. Pushed to main.
+- Result: Future Q2–Q5 packaging, research, and outlines start from higher-quality complete phrases produced by a real, regenerable tool. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). This prep compounds for the next videos by eliminating the risk of a non-functional generator and reducing cleanup labor on generated skeletons.
+- Verification: Local execution confirmed complete phrases (e.g. full short claims and titles without mid-word cuts) with no syntax errors or import failures. Tool and all four starter files updated. State files updated.
+- Discovery: The generator had been reduced to a placeholder while snapshots claimed to be tool-generated; restoring the tool fixes a reliability gap that would have forced manual recreation later.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Avoid additional pure confirmation while stall persists. After Q1 ships, use the regenerated starters or re-run the tool.
+
 ## Run 1235 — 2026-11-13T17:25:00Z
 - Objective: Reduce future editing friction by making all generated phrases in the full starter consistently complete and grammatical.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, queued_full_starter.py, prepared starters. Extracted duplicated clean_short into a shared top-level helper and applied it to titles, claims, beats, descriptions, comments, thumbs, and outline focus lines. Regenerated docs/q2_prepared_starter.md through docs/q5_prepared_starter.md. No secrets polled, no dispatch, no media writes, no scaffolding. Pushed to main.
