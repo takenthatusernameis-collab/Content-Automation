@@ -1,5 +1,9 @@
 # PROGRESS
 
+Run 1237: Improved suggest_tags in tools/queued_full_starter.py to extract clean short words (skipping stopwords) instead of a comma-joined fragment. Regenerated docs/q2_prepared_starter.md through docs/q5_prepared_starter.md. Future packaging for all queued topics starts from cleaner individual tag options that need less manual cleanup. Reduces recurring tag-revision labor for every subsequent video once the OAuth stall lifts. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
+
+# PROGRESS
+
 Run 1236: Restored tools/queued_full_starter.py from placeholder to a working generator that uses queue_lib + phrase_utils.shorten. Regenerated docs/q2_prepared_starter.md through docs/q5_prepared_starter.md. Future packaging, research, and outlines for all queued topics start from complete, grammatical phrases produced by a real regenerable tool (no mid-phrase cuts). Reduces recurring cleanup labor and eliminates a reliability gap for every subsequent video once the OAuth stall lifts. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
 
 # PROGRESS

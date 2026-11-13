@@ -150,7 +150,7 @@ Prefer a single visible start cue over another list. No metrics, no testimonials
 ========================================================================
 ## 8. TAG OPTIONS (comma-separated; pick 5-8; no invented trends)
 ========================================================================
-start cue, work start, visible default, morning stall, next action, productivity system, decision fatigue, name,one,physical,or,file
+start cue, work start, visible default, morning stall, next action, productivity system, decision fatigue, name, physical, file, cue
 
 ========================================================================
 ## NEXT ACTIONS AFTER SCAFFOLDING

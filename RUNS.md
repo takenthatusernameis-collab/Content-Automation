@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 1237 — 2026-11-13T18:16:22Z
+- Objective: Reduce future tag-editing friction by making tag options cleaner individual terms instead of a single comma-joined fragment.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, queued_full_starter.py, prepared starters. Updated suggest_tags to extract short meaningful words from one_line (skipping stopwords) and join them as separate tags. Regenerated docs/q2_prepared_starter.md through docs/q5_prepared_starter.md. No secrets polled, no dispatch, no media writes, no scaffolding. Pushed to main.
+- Result: Future Q2–Q5 packaging starts from cleaner, immediately usable tag lists. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). This prep compounds for the next videos by reducing tag cleanup labor.
+- Verification: Local execution confirmed tags such as "name, physical, file, cue" (separate usable terms) with no syntax errors. Tool and all four starter files updated. State files updated.
+- Discovery: Previous extra tag was a single string with internal commas from space-to-comma replace; word extraction produces better options.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Avoid additional pure confirmation while stall persists. After Q1 ships, use the regenerated starters.
+
+# RUNS
+
 ## Run 1236 — 2026-11-13T16:22:00Z
 - Objective: Restore reliability of the full starter generator so future Q2–Q5 packets can be regenerated from a real tool instead of a placeholder.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, topic_queue.md, phrase_utils.py, and individual starters. Replaced the placeholder tools/queued_full_starter.py with a working implementation that uses queue_lib.parse_queue and phrase_utils.shorten for consistent whole-word truncation across titles, claims, search prompts, beats, descriptions, comments, and thumbs. Regenerated docs/q2_prepared_starter.md through docs/q5_prepared_starter.md. No secrets polled, no dispatch, no media writes, no scaffolding. Pushed to main.

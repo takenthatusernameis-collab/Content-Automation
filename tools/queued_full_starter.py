@@ -113,7 +113,9 @@ def suggest_comments(one_line: str, problem: str) -> list[str]:
 
 
 def suggest_tags(title: str, one_line: str, problem: str) -> str:
-    """Comma-separated tag options. No invented trends."""
+    """Comma-separated tag options. No invented trends.
+    Pulls short meaningful words from one_line (skipping stopwords) so extras stay usable.
+    """
     base = [
         "start cue",
         "work start",
@@ -123,8 +125,10 @@ def suggest_tags(title: str, one_line: str, problem: str) -> str:
         "productivity system",
         "decision fatigue",
     ]
-    extra = shorten(one_line, 25).lower().replace(" ", ",")
-    return ", ".join(base + [extra])
+    stop = {"the", "a", "an", "one", "that", "this", "is", "to", "of", "and", "or", "for", "on", "in", "with", "by"}
+    words = [w.lower() for w in one_line.split() if w.lower() not in stop and len(w) > 2]
+    extras = words[:4]  # keep short
+    return ", ".join(base + extras)
 
 
 def generate_full(row: dict) -> str:

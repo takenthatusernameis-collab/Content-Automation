@@ -1,5 +1,11 @@
 # STATE
 
+2026-11-13T18:16:22Z (Run 1237)
+
+Inspected after Run 1236. Pre-upload path remains reliable. Improved suggest_tags in tools/queued_full_starter.py to extract clean short words from one_line (skipping stopwords) instead of a single comma-joined fragment. Regenerated docs/q2_prepared_starter.md through docs/q5_prepared_starter.md so tag options are now usable individual terms (e.g. name, physical, file, cue). Future packaging for Q2–Q5 starts with cleaner tag lists that need less manual cleanup. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pure inspection/recording has low compounding value. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Do not poll secrets, no dispatch, no live packet writes.
+
+# STATE
+
 2026-11-13T16:22:00Z (Run 1236)
 
 Inspected after Run 1235. Pre-upload path remains reliable. Restored tools/queued_full_starter.py from placeholder to a working generator that uses queue_lib + phrase_utils.shorten for consistent whole-word truncation. Regenerated docs/q2_prepared_starter.md through docs/q5_prepared_starter.md so all queued topics now have complete, grammatical phrases produced by the real tool. Future packaging, research, and outlines for Q2–Q5 start from higher-quality skeletons that can be regenerated on demand. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pure inspection/recording has low compounding value. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Do not poll secrets, no dispatch, no live packet writes.
