@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 1223 — 2026-11-13T03:17:11Z
+- Objective: Reduce residual post-publish failure risk by documenting that Testing-mode 7-day refresh tokens expire before the 10-day observation window required for feedback collection.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, human_starter.py, post_publish_sequence.py, human_oauth_checklist.md. Added the window-conflict warning to the observation window section in tools/post_publish_sequence.py and strengthened the common pitfalls note in tools/human_starter.py. No secrets polled, no dispatch, no media writes. Updated state files.
+- Result: Primary human entry points and the post-publish sequence now surface the token-lifetime vs observation-window pitfall. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, increasingly so with published=0). Pure inspection has low compounding value.
+- Verification: Files updated. Logic preserves soft-only contracts. State files updated.
+- Discovery: A 7-day Testing-mode token is insufficient for the documented 10-day observation window; publishing the app is required for reliable later collect_feedback.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, use python3 tools/oauth_credential_format_check.py and note token lifetime including window conflict, then secrets + single execute=true). Avoid additional pure confirmation or soft printers while stall persists.
+
+
+
 ## Run 1222 — 2026-11-13T02:16:00Z
 - Objective: Reduce residual human friction on the sole remaining OAuth setup step by making the Testing-mode 7-day refresh token warning consistent across all primary human entry points.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, human_starter.py, oauth_complete_guide.py, human_oauth_checklist.md. Added the Testing-mode token lifetime note (7-day expiry; recommend Production or Internal) to the Google Cloud setup summary and common pitfalls section in tools/human_starter.py. No secrets polled, no dispatch, no media writes. Updated state files.

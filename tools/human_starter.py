@@ -117,7 +117,7 @@ def main() -> int:
     print("- Dispatching a second execute=true before a private video id appears in both the Actions log and upload_state.json.")
     print("- Using the truncated r249 master; materialize installs the verified r253 only.")
     print("- Forgetting to add the channel Google account as a test user when the OAuth consent screen is in Testing mode.")
-    print("- Leaving the OAuth app in Testing mode (refresh tokens expire after ~7 days). Publish to Production or Internal for long-lived tokens.")
+    print("- Leaving the OAuth app in Testing mode (refresh tokens expire after ~7 days). Publish to Production or Internal for long-lived tokens. The observation window is +10 days, so a 7-day token will expire before feedback collection unless the app is published.")
     print("Full list: docs/human_oauth_checklist.md#common-pitfalls")
     print()
     print("Do not poll secrets from an agent. Do not add another consistency printer or contract lock.")

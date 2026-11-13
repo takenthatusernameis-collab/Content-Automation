@@ -85,6 +85,10 @@ def main() -> int:
     print(f"provider_video_id: {vid} (privacy must stay private)")
     print()
     print("1. Observation window (7 calendar days + 3 days Analytics lag = due at +10 days):")
+    print("   NOTE: If the OAuth app is still in Testing mode, the refresh token expires after ~7 days.")
+    print("   The 10-day window exceeds that lifetime. Publish the app to Production (or Internal) and re-mint")
+    print("   a long-lived token before the collect step, or the later dispatch will fail with auth errors.")
+    print("   See docs/human_oauth_checklist.md for the exact console steps.")
     uploaded = None
     if state_path.is_file():
         try:
