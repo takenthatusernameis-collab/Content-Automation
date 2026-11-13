@@ -53,6 +53,14 @@ def main() -> int:
     print("Full sequence and deep links: python3 tools/oauth_step_checklist.py")
     print("Single entry: python3 tools/human_starter.py")
     print("STALL_OAUTH_IDLE remains primary until the three secrets exist and one execute=true succeeds.")
+    print()
+    print("7. Refresh token stops working after ~7 days (invalid_grant or auth errors on later dispatch):")
+    print("   Cause: OAuth consent screen still in Testing mode. Testing apps issue 7-day refresh tokens.")
+    print("   The observation window for feedback is uploaded_at + 10 days, so a 7-day token expires before collect_feedback.")
+    print("   Fix: Publish the OAuth app to Production (or Internal for Workspace) in Google Cloud Console.")
+    print("   Direct: https://console.cloud.google.com/apis/credentials/consent")
+    print("   Then re-mint a new long-lived refresh token with python3 tools/oauth_exchange.py and update the YOUTUBE_REFRESH_TOKEN secret.")
+    print("   Do not re-dispatch execute=true if a video id already exists.")
     return 0
 
 
