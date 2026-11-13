@@ -72,6 +72,7 @@
 # Script outline starter for Q5: Keep the checklist where the stall happens
 # (no invented scenes or WORDS)
 # Aligns with production_rules: Hook 20-35, Payoff 40-70, body 140-220 each, CTA 40-80, total 900-1500.
+# Opening sentences are complete and copy-pasteable as first lines of each section.
 
 ## Overview
 - Topic: Keep the checklist where the stall happens
@@ -81,27 +82,28 @@
 ## Structure (preserve these headings after scaffold)
 
 ### Hook (20-35 words)
-Name the stall: the constraint lives away from the stall.
+The stall is the constraint lives away from the stall.
 
 ### Payoff (40-70 words)
-The same-day install: Put the constraint on the desk.
+Install this today: Put the constraint on the desk.
 
 ### Beat 1 — where the cue lives (140-220 words)
-Focus: the cue must be on the work itself. Put the constraint on the desk.
+The cue lives on the work itself: Put the constraint on the desk.
 
 ### Beat 2 — the under-two-minute step (140-220 words)
-Focus: the concrete install that ends the reopen.
+The under-two-minute step is placing that cue before the list reopens.
 
 ### Beat 3 — what reopens the list when the cue is missing (140-220 words)
-Focus: the constraint lives away from the stall returns without the cue.
+Without the cue, the constraint lives away from the stall returns.
 
 ### CTA (40-80 words)
-Do the install now. Report the exact cue used.
+Place the cue now and start the first two minutes.
 
 ## Alignment notes
 - Keep every section mechanism-focused (the system, not the pep talk).
 - No invented numbers, testimonials, or scene descriptions.
 - Word targets are ranges; stay inside them after drafting.
+- Opening sentences above are grounded only in topic_queue fields; expand from research claims.
 
 ========================================================================
 ## 4. TITLE OPTIONS (pick one or adapt; no shouted words)
