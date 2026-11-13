@@ -150,7 +150,9 @@ Prefer a single visible start cue over another list. No metrics, no testimonials
 ========================================================================
 ## 8. TAG OPTIONS (comma-separated; pick 5-8; no invented trends)
 ========================================================================
-start cue, work start, visible default, morning stall, next action, productivity system, decision fatigue, shutdown, default, removes, stall
+start cue, work start, visible default, morning stall, next action, productivity system, decision fatigue, shutdown, default, removes, stall, just
+
+Soft note: prefer 5-12 mechanism-aligned tags; keep each under ~30 chars and total under ~500. Run tools/tags_metrics_suggest.py after pasting into publish.md.
 
 ========================================================================
 ## NEXT ACTIONS AFTER SCAFFOLDING

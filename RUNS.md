@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 1238 — 2026-11-13T19:17:15Z
+- Objective: Reduce future tag-editing friction further by making tag options cleaner (unique, punctuation-stripped, length-capped) and adding a soft metrics reminder.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, queued_full_starter.py, prepared starters. Updated suggest_tags to clean words, expand stopwords, deduplicate, limit phrases, and cap lengths. Added soft ideal tag note in generate_full. Regenerated docs/q2_prepared_starter.md through docs/q5_prepared_starter.md. No secrets polled, no dispatch, no media writes, no scaffolding. Pushed to main.
+- Result: Future Q2–Q5 packaging starts from cleaner, immediately usable tag lists with a reminder to check metrics. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). This prep compounds for the next videos by reducing tag cleanup labor.
+- Verification: Local execution confirmed cleaner tags (e.g. unique terms without punctuation) with no syntax errors. Tool and all four starter files updated. State files updated.
+- Discovery: Previous word extraction could include punctuation or duplicates; cleaning and uniqueness improves usability.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Avoid additional pure confirmation while stall persists. After Q1 ships, use the regenerated starters.
+
+# RUNS
+
 ## Run 1237 — 2026-11-13T18:16:22Z
 - Objective: Reduce future tag-editing friction by making tag options cleaner individual terms instead of a single comma-joined fragment.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, queued_full_starter.py, prepared starters. Updated suggest_tags to extract short meaningful words from one_line (skipping stopwords) and join them as separate tags. Regenerated docs/q2_prepared_starter.md through docs/q5_prepared_starter.md. No secrets polled, no dispatch, no media writes, no scaffolding. Pushed to main.
