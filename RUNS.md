@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1225 — 2026-11-13T05:18:00Z
+- Objective: Reduce future packet setup labor by verifying and snapshotting a grounded full starter for the next queued topic (Q2) while the OAuth stall persists.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, topic_queue.md, queued_full_starter.py, queue_lib.py. Ran the starter tool in isolation on Q2; confirmed output is grounded in queue data only (no invented hype, numbers, scenes, or WORDS). Committed the verified snapshot as docs/q2_prepared_starter.md. No secrets polled, no dispatch, no media writes, no scaffolding. Updated state files.
+- Result: Future scaffold of Q2 can start from ready idea.md paste, research claims table, script outline, title/thumbnail/description/first-comment options instead of blank. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, increasingly so with published=0). Pure inspection has low compounding value; this prep compounds for the next video.
+- Verification: Tool executed successfully in sandbox (output 165 lines, grounded). File committed to main. State files updated.
+- Discovery: queued_full_starter.py is deterministic and safe to snapshot; having the prepared materials in-repo reduces tool-switching and blank-start friction for every subsequent video once the stall lifts.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, use python3 tools/oauth_credential_format_check.py and note token lifetime including window conflict and recovery hints, then secrets + single execute=true). Avoid additional pure confirmation or soft printers while stall persists. After Q1 ships, use docs/q2_prepared_starter.md or regenerate with the tool.
+
 ## Run 1224 — 2026-11-13T04:17:55Z
 - Objective: Reduce residual post-setup and post-publish recovery friction by adding a structured recovery hint for the Testing-mode 7-day token expiry that conflicts with the 10-day observation window.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, oauth_recovery_hints.py, post_publish_sequence.py. Added hint #7 to tools/oauth_recovery_hints.py with cause, window conflict, exact console link, and re-mint steps. No secrets polled, no dispatch, no media writes. Updated state files.
@@ -8,33 +17,6 @@
 - Discovery: Structured recovery hints are a good place for this pitfall because it typically appears after the first successful publish, when the human returns for feedback collection.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
 - Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, use python3 tools/oauth_credential_format_check.py and note token lifetime including window conflict and recovery hints, then secrets + single execute=true). Avoid additional pure confirmation or soft printers while stall persists.
-
-## Run 1223 — 2026-11-13T03:17:11Z
-- Objective: Reduce residual post-publish failure risk by documenting that Testing-mode 7-day refresh tokens expire before the 10-day observation window required for feedback collection.
-- Action: Inspected STATE.md, NEXT.md, RUNS.md, human_starter.py, post_publish_sequence.py, human_oauth_checklist.md. Added the window-conflict warning to the observation window section in tools/post_publish_sequence.py and strengthened the common pitfalls note in tools/human_starter.py. No secrets polled, no dispatch, no media writes. Updated state files.
-- Result: Primary human entry points and the post-publish sequence now surface the token-lifetime vs observation-window pitfall. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, increasingly so with published=0). Pure inspection has low compounding value.
-- Verification: Files updated. Logic preserves soft-only contracts. State files updated.
-- Discovery: A 7-day Testing-mode token is insufficient for the documented 10-day observation window; publishing the app is required for reliable later collect_feedback.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
-- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, use python3 tools/oauth_credential_format_check.py and note token lifetime including window conflict, then secrets + single execute=true). Avoid additional pure confirmation or soft printers while stall persists.
-
-## Run 1222 — 2026-11-13T02:16:00Z
-- Objective: Reduce residual human friction on the sole remaining OAuth setup step by making the Testing-mode 7-day refresh token warning consistent across all primary human entry points.
-- Action: Inspected STATE.md, NEXT.md, RUNS.md, human_starter.py, oauth_complete_guide.py, human_oauth_checklist.md. Added the Testing-mode token lifetime note (7-day expiry; recommend Production or Internal) to the Google Cloud setup summary and common pitfalls section in tools/human_starter.py. No secrets polled, no dispatch, no media writes. Updated state files.
-- Result: All primary human OAuth entry points (starter, complete guide, checklist) now surface the token-lifetime pitfall. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, increasingly so with published=0). Pure inspection has low compounding value.
-- Verification: File updated and committed. Logic preserves soft-only contracts. State files updated.
-- Discovery: Consistency across human entry points reduces the chance a user misses the Testing-mode expiry warning depending on which starter they use.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
-- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, use python3 tools/oauth_credential_format_check.py and note token lifetime, then secrets + single execute=true). Avoid additional pure confirmation or soft printers while stall persists.
-
-## Run 1221 — 2026-11-13T01:22:00Z
-- Objective: Reduce residual human friction and future failures on the sole remaining OAuth setup step by documenting the Testing-mode 7-day refresh token expiry.
-- Action: Inspected STATE.md, NEXT.md, RUNS.md, ROADMAP.md, BLOCKED.md, HANDOFF.md, HUMAN_PRIORITY.md, oauth_complete_guide.py, human_oauth_checklist.md. Added explicit warnings in tools/oauth_complete_guide.py and docs/human_oauth_checklist.md about Testing-mode apps issuing 7-day tokens and the need to publish to Production (or Internal) for long-lived tokens. No secrets polled, no dispatch, no media writes. Updated state files.
-- Result: Guides now surface the common token-lifetime pitfall. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion, increasingly so with published=0). Pure inspection has low compounding value.
-- Verification: Files updated and committed. Logic preserves never-print-values and soft-only contracts. State files updated.
-- Discovery: Testing-mode token expiry is a frequent silent post-setup failure mode for YouTube OAuth automations; documenting it early reduces failed human attempts without adding a new tool or gate.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
-- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, use python3 tools/oauth_credential_format_check.py and note token lifetime, then secrets + single execute=true). Avoid additional pure confirmation or soft printers while stall persists.
 
 (Older run logs remain in docs/runs_archive.md. Do not paste the archive back.)
 
