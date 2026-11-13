@@ -176,6 +176,14 @@ def generate_full(row: dict) -> str:
     comments = suggest_comments(one_line, problem)
     tags = suggest_tags(title, one_line, problem)
 
+    # Richer outline starters (complete opening sentences, still grounded)
+    hook_open = f"The stall is {shorten(problem, 55).rstrip('.')}."
+    payoff_open = f"Install this today: {shorten(one_line, 55).rstrip('.')}."
+    beat1_open = f"The cue lives on the work itself: {shorten(one_line, 50).rstrip('.')}."
+    beat2_open = "The under-two-minute step is placing that cue before the list reopens."
+    beat3_open = f"Without the cue, {shorten(problem, 50).rstrip('.')} returns."
+    cta_open = "Place the cue now and start the first two minutes."
+
     lines = [
         f"# {tid} Prepared Full Starter (regenerated with shared phrase_utils.shorten)",
         "",
@@ -250,6 +258,7 @@ def generate_full(row: dict) -> str:
         f"# Script outline starter for {tid}: {title}",
         "# (no invented scenes or WORDS)",
         "# Aligns with production_rules: Hook 20-35, Payoff 40-70, body 140-220 each, CTA 40-80, total 900-1500.",
+        "# Opening sentences are complete and copy-pasteable as first lines of each section.",
         "",
         "## Overview",
         f"- Topic: {title}",
@@ -259,27 +268,28 @@ def generate_full(row: dict) -> str:
         "## Structure (preserve these headings after scaffold)",
         "",
         "### Hook (20-35 words)",
-        f"Name the stall: {shorten(problem, 50)}.",
+        hook_open,
         "",
         "### Payoff (40-70 words)",
-        f"The same-day install: {shorten(one_line, 60)}.",
+        payoff_open,
         "",
         "### Beat 1 — where the cue lives (140-220 words)",
-        f"Focus: the cue must be on the work itself. {shorten(one_line, 50)}.",
+        beat1_open,
         "",
         "### Beat 2 — the under-two-minute step (140-220 words)",
-        "Focus: the concrete install that ends the reopen.",
+        beat2_open,
         "",
         "### Beat 3 — what reopens the list when the cue is missing (140-220 words)",
-        f"Focus: {shorten(problem, 50)} returns without the cue.",
+        beat3_open,
         "",
         "### CTA (40-80 words)",
-        "Do the install now. Report the exact cue used.",
+        cta_open,
         "",
         "## Alignment notes",
         "- Keep every section mechanism-focused (the system, not the pep talk).",
         "- No invented numbers, testimonials, or scene descriptions.",
         "- Word targets are ranges; stay inside them after drafting.",
+        "- Opening sentences above are grounded only in topic_queue fields; expand from research claims.",
         "",
         "========================================================================",
         "## 4. TITLE OPTIONS (pick one or adapt; no shouted words)",
