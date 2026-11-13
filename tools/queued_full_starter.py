@@ -46,6 +46,19 @@ def suggest_claims(one_line: str, problem: str, title: str) -> list[str]:
     ]
 
 
+def suggest_search_prompts(one_line: str, problem: str, title: str) -> list[str]:
+    """Grounded search prompts for finding real sources. No invented results."""
+    ol = one_line[:60] or title[:60]
+    pr = problem[:60] or "morning stall"
+    return [
+        f'"{pr}" "start cue" OR "implementation intention" OR "if-then plan"',
+        f'"decision fatigue" OR "choice overload" morning routine OR "task initiation"',
+        f'"{ol}" physical cue OR environmental design OR "default action"',
+        'implementation intentions Gollwitzer OR "if then plans" productivity',
+        'environmental cues behavior change OR "nudge" start task',
+    ]
+
+
 def suggest_beats(one_line: str, problem: str, title: str) -> list[str]:
     """Grounded beat suggestions. No invented examples."""
     ol = one_line[:60] or title[:60]
@@ -259,6 +272,7 @@ def main() -> int:
     problem = row["problem"] or "unspecified problem from queue"
 
     claims = suggest_claims(one_line, problem, title)
+    search_prompts = suggest_search_prompts(one_line, problem, title)
     beats = suggest_beats(one_line, problem, title)
     titles = suggest_titles(title, one_line, problem)
     thumbs = suggest_thumb_concepts(title, one_line, problem)
@@ -302,6 +316,10 @@ def main() -> int:
     print("|-------|--------------------------|-------|")
     for c in claims:
         print(f"| {c} |  |  |")
+    print()
+    print("## Suggested search prompts (copy into search engines; verify sources yourself)")
+    for sp in search_prompts:
+        print(f"- {sp}")
     print()
     print("=" * 72)
     print("## 3. SCRIPT OUTLINE STARTER")
