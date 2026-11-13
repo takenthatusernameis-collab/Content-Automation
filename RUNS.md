@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 1232 — 2026-11-13T12:22:43Z
+- Objective: Reduce future research friction by making search prompts cleaner and regenerating all queued starters.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, queued_full_starter.py, prepared starters. Improved suggest_search_prompts to use word-boundary clean_short truncation (avoids mid-phrase cuts). Regenerated docs/q2_prepared_starter.md through docs/q5_prepared_starter.md with the cleaner prompts. No secrets polled, no dispatch, no media writes, no scaffolding. Pushed to main.
+- Result: Future Q2–Q5 research starts from readable copy-paste search prompts instead of truncated phrases. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). This prep compounds for the next videos.
+- Verification: Local execution confirmed clean prompts (e.g. full short phrases, no mid-word cuts) with no syntax errors. Tool and all four starter files updated. State files updated.
+- Discovery: Crude string slicing produced unusable prompts; word-boundary clean makes the research starter immediately usable.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Avoid additional pure confirmation while stall persists. After Q1 ships, use the regenerated starters.
+
+# RUNS
+
 ## Run 1231 — 2026-11-13T11:19:55Z
 - Objective: Further reduce future research labor by adding grounded search prompts to the full starter tool.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, queued_full_starter.py. Added suggest_search_prompts (implementation intentions, decision fatigue, environmental cues, Gollwitzer). Integrated into research section. Tested on Q2; confirmed usable prompts. Updated tool and regenerated Q2 snapshot. No secrets polled, no dispatch, no media writes, no scaffolding. Pushed to main.

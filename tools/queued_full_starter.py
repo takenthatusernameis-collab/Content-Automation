@@ -47,9 +47,26 @@ def suggest_claims(one_line: str, problem: str, title: str) -> list[str]:
 
 
 def suggest_search_prompts(one_line: str, problem: str, title: str) -> list[str]:
-    """Grounded search prompts for finding real sources. No invented results."""
-    ol = one_line[:60] or title[:60]
-    pr = problem[:60] or "morning stall"
+    """Grounded search prompts for finding real sources. No invented results.
+    Uses clean word-boundary truncation so prompts stay readable.
+    """
+    def clean_short(text: str, max_len: int = 50) -> str:
+        if not text:
+            return ""
+        core = text.split(",")[0].split(".")[0].strip()
+        if len(core) <= max_len:
+            return core
+        words = core.split()
+        acc = []
+        for w in words:
+            trial = " ".join(acc + [w])
+            if len(trial) > max_len:
+                break
+            acc.append(w)
+        return " ".join(acc).rstrip(".")
+
+    ol = clean_short(one_line, 55) or clean_short(title, 55) or "start cue"
+    pr = clean_short(problem, 50) or "morning stall"
     return [
         f'"{pr}" "start cue" OR "implementation intention" OR "if-then plan"',
         f'"decision fatigue" OR "choice overload" morning routine OR "task initiation"',

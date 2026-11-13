@@ -1,5 +1,11 @@
 # STATE
 
+2026-11-13T12:22:43Z (Run 1232)
+
+Inspected after Run 1231. Pre-upload path remains reliable. Improved suggest_search_prompts in tools/queued_full_starter.py to use word-boundary clean truncation (avoids mid-phrase cuts like "morning re"). Regenerated docs/q2_prepared_starter.md through docs/q5_prepared_starter.md so all queued topics now have clean, copy-paste research search prompts plus the prior packaging options. Future research for Q2–Q5 starts from readable grounded queries. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pure inspection/recording has low compounding value. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Do not poll secrets, no dispatch, no live packet writes.
+
+# STATE
+
 2026-11-13T11:19:55Z (Run 1231)
 
 Inspected after Run 1230. Pre-upload path remains reliable. Added grounded research search prompts to tools/queued_full_starter.py (suggest_search_prompts with implementation-intention, decision-fatigue, environmental-cue queries). Regenerated docs/q2_prepared_starter.md so future research starts from copy-paste search prompts instead of blank. Reduces recurring source-finding labor for Q2–Q5 once the stall lifts. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pure inspection/recording has low compounding value. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Do not poll secrets, no dispatch, no live packet writes.
