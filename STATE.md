@@ -1,5 +1,11 @@
 # STATE
 
+2026-11-13T17:25:00Z (Run 1235)
+
+Inspected after Run 1234. Pre-upload path remains reliable. Extracted duplicated clean_short logic into a shared top-level helper in tools/queued_full_starter.py and applied it consistently across titles, claims, search prompts, beats, descriptions, comments, thumbs, and outline focus lines. Regenerated docs/q2_prepared_starter.md through docs/q5_prepared_starter.md so all queued topics now have complete, grammatical phrases without mid-phrase cuts. Future packaging and outlines for Q2–Q5 start from higher-quality, less-edited skeletons. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pure inspection/recording has low compounding value. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Do not poll secrets, no dispatch, no live packet writes.
+
+# STATE
+
 2026-11-13T16:45:00Z (Run 1234)
 
 Inspected after Run 1233. Pre-upload path remains reliable. Tightened clean_short max_len in suggest_titles of tools/queued_full_starter.py (from 48 to 30) to produce more complete, usable title options without incomplete trailing phrases. Regenerated docs/q2_prepared_starter.md through docs/q5_prepared_starter.md so all queued topics now have cleaner title lists. Future packaging for Q2–Q5 starts with more immediately usable title choices. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pure inspection/recording has low compounding value. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Do not poll secrets, no dispatch, no live packet writes.
