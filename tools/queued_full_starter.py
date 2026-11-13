@@ -111,7 +111,7 @@ def suggest_titles(title: str, one_line: str, problem: str) -> list[str]:
     Prefer short, grammatical options grounded in queue data only.
     Use clean short phrases from queue fields; avoid concatenating full clauses.
     """
-    def clean_short(text: str, max_len: int = 50) -> str:
+    def clean_short(text: str, max_len: int = 32) -> str:
         if not text:
             return ""
         core = text.split(",")[0].split(".")[0].strip()
@@ -126,12 +126,12 @@ def suggest_titles(title: str, one_line: str, problem: str) -> list[str]:
             acc.append(w)
         return " ".join(acc).rstrip(".")
 
-    ol_short = clean_short(one_line, 48)
-    # Safe, distinct, grounded options that stay grammatical
+    ol_short = clean_short(one_line, 30)
+    # Safe, distinct, grounded options that stay grammatical and complete
     options = [
         title,
         "Install one visible start cue",
-        ol_short if ol_short and len(ol_short) > 10 else "Name the start cue on the work",
+        ol_short if ol_short and len(ol_short) > 8 else "Name the start cue on the work",
         "One start cue ends the reopen",
         "Put the start cue on the work",
     ]
