@@ -78,30 +78,41 @@ def idea_paste(title: str, one_line: str, problem: str) -> str:
 
 def suggest_titles(title: str, one_line: str, problem: str) -> list[str]:
     """Mechanism-focused titles. No shouted words, no weak patterns, no numbers.
-    Prefer short, grammatical options grounded in queue data only. Truncate on word boundaries.
+    Prefer short, grammatical options grounded in queue data only.
+    Use clean short phrases from queue fields; avoid concatenating full clauses.
     """
-    def short_phrase(text: str, max_len: int) -> str:
+    def clean_short(text: str, max_len: int = 50) -> str:
         if not text:
             return ""
-        # Prefer first sentence or clause
-        core = text.split(".")[0].split(",")[0].strip()
+        core = text.split(",")[0].split(".")[0].strip()
         if len(core) <= max_len:
             return core
-        # Truncate on last space before max_len
-        cut = core[:max_len]
-        if " " in cut:
-            cut = cut.rsplit(" ", 1)[0]
-        return cut.rstrip(".")
+        words = core.split()
+        acc = []
+        for w in words:
+            trial = " ".join(acc + [w])
+            if len(trial) > max_len:
+                break
+            acc.append(w)
+        return " ".join(acc).rstrip(".")
 
-    pr_core = short_phrase(problem, 50) or "the stall"
-    ol_short = short_phrase(one_line, 55) or title
-    return [
+    ol_short = clean_short(one_line, 48)
+    # Safe, distinct, grounded options that stay grammatical
+    options = [
         title,
-        f"A start cue for {pr_core}",
-        ol_short if len(ol_short) <= 55 else title,
-        "Put the start cue on the work itself",
-        "One visible default ends the reopen",
+        "Install one visible start cue",
+        ol_short if ol_short and len(ol_short) > 10 else "Name the start cue on the work",
+        "One start cue ends the reopen",
+        "Put the start cue on the work",
     ]
+    seen = set()
+    result = []
+    for o in options:
+        key = o.lower().strip()
+        if o and key not in seen:
+            seen.add(key)
+            result.append(o)
+    return result[:5]
 
 
 def suggest_thumb_concepts(title: str, one_line: str, problem: str) -> list[str]:
@@ -298,4 +309,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
