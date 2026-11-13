@@ -72,6 +72,7 @@
 # Script outline starter for Q2: Put the start cue on the work itself
 # (no invented scenes or WORDS)
 # Aligns with production_rules: Hook 20-35, Payoff 40-70, body 140-220 each, CTA 40-80, total 900-1500.
+# Opening sentences are complete and copy-pasteable as first lines of each section.
 
 ## Overview
 - Topic: Put the start cue on the work itself
@@ -81,27 +82,28 @@
 ## Structure (preserve these headings after scaffold)
 
 ### Hook (20-35 words)
-Name the stall: the planned task has no visible start cue.
+The stall is the planned task has no visible start cue.
 
 ### Payoff (40-70 words)
-The same-day install: Name one physical or file cue.
+Install this today: Name one physical or file cue.
 
 ### Beat 1 — where the cue lives (140-220 words)
-Focus: the cue must be on the work itself. Name one physical or file cue.
+The cue lives on the work itself: Name one physical or file cue.
 
 ### Beat 2 — the under-two-minute step (140-220 words)
-Focus: the concrete install that ends the reopen.
+The under-two-minute step is placing that cue before the list reopens.
 
 ### Beat 3 — what reopens the list when the cue is missing (140-220 words)
-Focus: the planned task has no visible start cue returns without the cue.
+Without the cue, the planned task has no visible start cue returns.
 
 ### CTA (40-80 words)
-Do the install now. Report the exact cue used.
+Place the cue now and start the first two minutes.
 
 ## Alignment notes
 - Keep every section mechanism-focused (the system, not the pep talk).
 - No invented numbers, testimonials, or scene descriptions.
 - Word targets are ranges; stay inside them after drafting.
+- Opening sentences above are grounded only in topic_queue fields; expand from research claims.
 
 ========================================================================
 ## 4. TITLE OPTIONS (pick one or adapt; no shouted words)
