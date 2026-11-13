@@ -54,6 +54,7 @@ Then watch the Actions run for a private video id. Do not dispatch again until t
 - [ ] 1. Open Google Cloud Console and create or select a project.
 - [ ] 2. Enable YouTube Data API v3 and YouTube Analytics API.
 - [ ] 3. Configure the OAuth consent screen. Add the channel Google account as a test user if the app is in testing mode.
+  - **Token lifetime:** Leaving the app in Testing mode causes refresh tokens to expire after 7 days. For long-lived tokens required by this automation, publish the OAuth app to Production status (or use Internal for Workspace accounts). Re-mint the token after the change if needed.
 - [ ] 4. Create an OAuth 2.0 client of type Desktop app. Note the Client ID and Client Secret.
 - [ ] 5. Mint a refresh token that includes the preferred scopes:
   - https://www.googleapis.com/auth/youtube.force-ssl
@@ -93,6 +94,7 @@ Navigation may show "Google Auth platform" or "APIs & Services". For the Desktop
 - Choose Application type: Desktop app.
 - Name it and Create. Copy Client ID and Client Secret immediately.
 - For consent screen: ensure YouTube Data API v3 and YouTube Analytics API are enabled first; add the channel Google account as a test user if status is Testing.
+- Publish the app to Production (or Internal) to avoid 7-day refresh token expiry.
 
 This tip reduces navigation friction if the console labels have shifted. Core steps remain unchanged.
 
@@ -114,6 +116,7 @@ After the single `execute=true` dispatch:
 - Dispatching more than once before a video id appears.
 - Using the truncated r249 master instead of the r253 padded master.
 - Forgetting to add the channel account as a test user when the OAuth app is in Testing status.
+- **Leaving the OAuth app in Testing mode:** Refresh tokens expire after 7 days. Publish to Production (or use Internal for Workspace) for long-lived tokens before relying on the automation. Re-mint if the token has already expired.
 
 ## Success criteria
 
@@ -140,5 +143,5 @@ Do not invent an id. Do not re-upload the master on POST_UPLOAD_INCOMPLETE.
 
 Agents have verified materialize + all local gates on fresh clones across ~181+ runs with no change in the external blocker. The long oauth_idle_without_publish stall continues and is machine-visible via stall_watch.py. The pre-upload path is stable. Further pure-verification agent runs have diminishing returns. The only remaining step that advances the system is completing the three secrets above and the one dispatch. Once a private video id appears, the system can move to feedback collection after the observation window. Preferred agent work while stalled is listed in status_report.py (list complete; prioritize human step or truly new small anti-rediscovery items). HANDOFF.md surfaces the while-stalled guidance. Run 468 restored NEXT.md under the size cap. Run 469–473 keep the banner current with confirmation signals. Banner timestamp intentionally frozen at Run 473 (STALL_BANNER_REFRESH); agents will not refresh it solely for the date.
 
-## Current stall note (Run 1098)
-The STALL_OAUTH_IDLE has persisted across 1000+ runs with videos published remaining 0. This is HIGH suspicion and the sole primary blocker. Complete the three secrets and single dispatch as soon as practical. Start with `python3 tools/human_starter.py` (sequences media presence check + preflight + long stall report + recurring pattern flag + contract streak detector + publish readiness + one-pager + observation_window for Q1, and prints concise post-id next steps summary). After dispatch: `python3 tools/human_success_check.py` then `python3 tools/post_publish_sequence.py`. Do not poll from agents. Do not add further contract locks, aggregators, or soft reports while stalled. Prefer the human step now. Run 1098 clarified preferred OAuth scopes (force-ssl + analytics; avoid overlapping) to reduce setup friction. Pre-upload path remains stable and ready.
+## Current stall note (Run 1221)
+The STALL_OAUTH_IDLE has persisted across 1000+ runs with videos published remaining 0. This is HIGH suspicion and the sole primary blocker. Complete the three secrets and single dispatch as soon as practical. Start with `python3 tools/human_starter.py` (sequences media presence check + preflight + long stall report + recurring pattern flag + contract streak detector + publish readiness + one-pager + observation_window for Q1, and prints concise post-id next steps summary). After dispatch: `python3 tools/human_success_check.py` then `python3 tools/post_publish_sequence.py`. Do not poll from agents. Do not add further contract locks, aggregators, or soft reports while stalled. Prefer the human step now. Run 1221 added explicit warning on Testing-mode 7-day refresh token expiry and the need to publish to Production (or Internal) for long-lived tokens. Pre-upload path remains stable and ready.
