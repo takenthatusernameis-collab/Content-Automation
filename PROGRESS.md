@@ -1,8 +1,8 @@
 # PROGRESS
 
+Run 1224: Added recovery hint #7 to tools/oauth_recovery_hints.py documenting Testing-mode 7-day refresh token expiry and its conflict with the 10-day observation window, including exact fix (publish app + re-mint). Surfaces the pitfall for later failed dispatches. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
+
 Run 1223: Added explicit warning linking Testing-mode 7-day refresh token expiry to the 10-day observation window in tools/post_publish_sequence.py and strengthened the note in tools/human_starter.py. Prevents a common post-publish failure where the token expires before feedback collection. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
-
-
 
 Run 1222: Added Testing-mode 7-day refresh token lifetime warning to tools/human_starter.py (Google Cloud summary and common pitfalls) for consistency with oauth_complete_guide.py and docs/human_oauth_checklist.md. Ensures the common post-setup failure mode is surfaced regardless of which human entry point is used. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
 
