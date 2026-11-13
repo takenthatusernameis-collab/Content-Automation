@@ -1,7 +1,7 @@
-Pre-upload path verified reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Script outline starters enriched with complete copy-pasteable opening sentences; Q2–Q5 snapshots updated. Prefer human progress; further soft tools have diminishing returns.
+Pre-upload path verified reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Outline opening sentences made more grammatically complete and resilient; tool updated. Prefer human progress; further soft tools have diminishing returns.
 
-2026-11-13T20:21:00Z (Run 1239)
-Pre-upload path verified reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Outline opening sentences made more complete and copy-pasteable in queued_full_starter.py; Q2–Q5 regenerated. Prefer human progress.
+2026-11-13T21:20:00Z (Run 1240)
+Pre-upload path verified reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Outline openings improved for grammar and completeness in queued_full_starter.py. Prefer human progress.
 
 Pre-upload path verified reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step (use improved format checker and Testing-mode 7-day token warning including the 10-day observation window conflict and the recovery hint #7, then secrets + single execute=true). Pure confirmation runs have diminishing returns; prefer human progress. Do not poll secrets, no dispatch, no live packet writes. Or run python3 tools/oauth_complete_guide.py / python3 tools/human_starter.py / python3 tools/oauth_recovery_hints.py / python3 tools/stall_summary.py.
 
