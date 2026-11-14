@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1249 — 2026-11-14T06:20:00Z
+- Objective: Make stall detection more reliable by expanding is_idle_delta to catch common wording variants of the long OAuth idle, so pure-confirmation runs correctly surface the HIGH suspicion flag.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md, BLOCKED.md, ROADMAP.md, HUMAN_PRIORITY.md, stall_watch.py. Cloned repo, confirmed contracts_suite.py PASS (96/96) and selftest PASS. Expanded no_poll and published_zero predicates in tools/stall_watch.py. Verified the change detects the recent notes as idle (streak now reported). No secrets polled, no dispatch, no media writes, no scaffolding.
+- Result: Stall detection is more robust. Contracts remain 96/96. Selftest PASS. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Long stall is increasingly suspicious.
+- Verification: Local contracts 96/96; selftest PASS; stall_watch now reports idle_streak on current STATE.md. Files updated with single newest-first entries.
+- Discovery: Exact phrase matching for idle detection was fragile to normal status-note paraphrasing; broader but still fail-closed predicates prevent silent under-detection of the sole blocker.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
+
 ## Run 1248 — 2026-11-14T05:15:00Z
 - Objective: Confirm current reliable state after the refuse-guard addition and record continued stall without introducing new low-value changes.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md, BLOCKED.md, ROADMAP.md, HUMAN_PRIORITY.md, NEXT_RUN_PROMPT.md. Cloned repo, confirmed contracts_suite.py PASS (96/96) and selftest PASS. Reviewed record_run.py guard. No secrets polled, no dispatch, no media writes, no scaffolding, no new status printers.
