@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1248 — 2026-11-14T05:15:00Z
+- Objective: Confirm current reliable state after the refuse-guard addition and record continued stall without introducing new low-value changes.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md, BLOCKED.md, ROADMAP.md, HUMAN_PRIORITY.md, NEXT_RUN_PROMPT.md. Cloned repo, confirmed contracts_suite.py PASS (96/96) and selftest PASS. Reviewed record_run.py guard. No secrets polled, no dispatch, no media writes, no scaffolding, no new status printers.
+- Result: System remains green and pre-upload path reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Refuse-guard protects against known exact-string regression.
+- Verification: Local contracts 96/96; selftest PASS. Files will be updated with single newest-first entries via record_run.
+- Discovery: The combination of exact-string compact checks and status notes is fragile; the writer-side refuse is the correct fix. Pure confirmation runs continue to have diminishing returns while the sole blocker is human OAuth.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
+
 ## Run 1247 — 2026-11-14T04:15:00Z
 - Objective: Prevent recurrence of the exact-string archive pointer failure that broke selftest in Runs 1245-1246 by adding a refuse-guard in the recording path.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md. Cloned repo, confirmed contracts_suite.py PASS (96/96) and selftest PASS. Patched tools/record_run.py to refuse any progress/failures note that contains the exact archive pointer string before writing. Verified syntax. No secrets polled, no dispatch, no media writes, no scaffolding.
