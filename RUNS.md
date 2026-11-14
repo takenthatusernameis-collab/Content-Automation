@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1253 — 2026-11-14T10:20:00Z
+- Objective: Make the remaining human OAuth step clearer by adding a phased action plan early in human_starter.py.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md, BLOCKED.md, ROADMAP.md, HUMAN_PRIORITY.md, human_starter.py, long_stall_report.py. Cloned repo, confirmed contracts_suite.py PASS (96/96) and selftest PASS. Added PHASED ACTION PLAN (A: Cloud setup, B: mint, C: secrets, D: dispatch+confirm) near the top of human_starter.py. No secrets polled, no dispatch, no media writes, no scaffolding.
+- Result: Human starter now surfaces the ordered phases immediately. Contracts remain 96/96. Selftest PASS. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion). Long stall is increasingly suspicious.
+- Verification: Local contracts 96/96; selftest PASS; human_starter_contract PASS; human_starter prints the new plan. Files updated with single newest-first entries.
+- Discovery: Explicit early phased plan reduces chance a human skips the Production publish step or mixes phases.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
+
 ## Run 1252 — 2026-11-14T09:20:00Z
 - Objective: Make long-stall consecutive evidence clearer by counting recent RUNS.md sections that contain STALL_OAUTH_IDLE.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md, BLOCKED.md, ROADMAP.md, HUMAN_PRIORITY.md, long_stall_report.py. Cloned repo, confirmed contracts_suite.py PASS (96/96) and selftest PASS. Updated count_zero_publish_runs to also match STALL_OAUTH_IDLE. No secrets polled, no dispatch, no media writes, no scaffolding.

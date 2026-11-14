@@ -1,5 +1,7 @@
 # PROGRESS
 
+Run 1253: Enhanced human_starter.py with an early PHASED ACTION PLAN (Cloud setup including Production publish, mint preferred scopes, interactive secrets, one dispatch + id confirm). Contracts remain 96/96. Selftest PASS. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
+
 Run 1252: Improved long_stall_report.py to count consecutive recent RUNS.md sections containing STALL_OAUTH_IDLE, making the live-file idle streak visible (now 8). Contracts remain 96/96. Selftest PASS. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
 
 Run 1251: Enhanced long_stall_report.py to report the highest run number from live RUNS.md, making the scale of the STALL_OAUTH_IDLE more concrete. Contracts remain 96/96. Selftest PASS. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.

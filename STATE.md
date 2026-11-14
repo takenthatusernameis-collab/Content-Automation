@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-14T10:20:00Z (Run 1253)
+
+Inspected after Run 1252. Contracts suite PASS (96/96). Selftest PASS. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (highest run ~1252, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress over agent restatement. Enhanced human_starter.py with an early PHASED ACTION PLAN (A-D) so the remaining human OAuth step is clearer and less prone to skipped phases.
+
 2026-11-14T09:20:00Z (Run 1252)
 
 Inspected after Run 1251. Contracts suite PASS (96/96). Selftest PASS. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (highest run ~1251, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress over agent restatement. Improved long_stall_report.py consecutive idle detection to count sections containing STALL_OAUTH_IDLE (now reports 8 recent consecutive in main RUNS.md).

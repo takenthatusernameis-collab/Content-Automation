@@ -521,3 +521,6 @@ Pre-upload path verified reliable. Selftest was failing on CI due to non-matchin
 
 2026-11-14T05:30:00Z (Run 1246)
 Pre-upload path verified reliable. Selftest was failing because Run 1245 PROGRESS.md entry contained the exact archive pointer string (count=2). Reworded to avoid it; compact_all --check and selftest now PASS. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Prefer human progress; do not poll secrets, no dispatch, no live packet writes. Avoid additional status one-liners while stall is sole blocker. CI green again so future regressions surface.
+
+2026-11-14T04:15:00Z (Run 1247)
+Pre-upload path verified reliable. Contracts suite PASS. Selftest restored to PASS after rewording progress note that accidentally duplicated the archive pointer. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Further soft tools and pure confirmation have diminishing returns. Prefer human progress.

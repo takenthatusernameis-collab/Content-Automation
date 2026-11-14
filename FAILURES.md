@@ -1,5 +1,7 @@
 # FAILURES
 
+None. Phased plan addition only; no new failure modes. STALL_OAUTH_IDLE continues as sole blocker (1000+ runs, HIGH suspicion).
+
 No new failures. Exact-string compact checks remain sensitive to status notes; refuse-guard in record_run.py continues to protect them.
 
 None. The long OAuth stall continues as the sole external blocker.
