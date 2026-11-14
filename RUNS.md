@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1259 — 2026-11-14T16:20:00Z
+- Objective: Confirm the verified Q1 media materialize path works end-to-end in a fresh clone, producing evidence of SHA match and gate PASS without regenerating assets.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, status_report, long_stall_report. Cloned repo. Ran materialize_q1_release.py (installed VO, 7 cards, r253 master; ignored truncated r249). Confirmed media_qa PASS, next_action upload-blocked, master SHA exact match to target 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546. Contracts 96/96 and selftest PASS. No secrets polled, no dispatch, no media writes to git, no scaffolding.
+- Result: Fresh materialize succeeds and gates pass with correct SHA. Contracts 96/96. Selftest PASS. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion). Long stall is increasingly suspicious.
+- Verification: Local contracts 96/96; selftest PASS; media_qa PASS; master SHA MATCH; next_action upload-blocked.
+- Discovery: Materialize from private releases remains the reliable way to restore gitignored media for local verification; the path is stable across clones.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
+
 ## Run 1258 — 2026-11-14T17:25:00Z
 - Objective: Strengthen long-stall evidence by reporting approximate duration from the earliest archive mention of the OAuth idle.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, long_stall_report.py. Cloned repo. Confirmed contracts 96/96 and selftest PASS. Added earliest_stall_date helper that scans docs/runs_archive.md (fail-closed) and prints start date + days elapsed. Verified report now shows ~43 days. No secrets polled, no dispatch, no media writes, no scaffolding.
@@ -78,24 +87,6 @@
 - Result: Stall detection is more robust. Contracts remain 96/96. Selftest PASS. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Long stall is increasingly suspicious.
 - Verification: Local contracts 96/96; selftest PASS; stall_watch now reports idle_streak on current STATE.md. Files updated with single newest-first entries.
 - Discovery: Exact phrase matching for idle detection was fragile to normal status-note paraphrasing; broader but still fail-closed predicates prevent silent under-detection of the sole blocker.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
-- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
-
-## Run 1248 — 2026-11-14T05:15:00Z
-- Objective: Confirm current reliable state after the refuse-guard addition and record continued stall without introducing new low-value changes.
-- Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md, BLOCKED.md, ROADMAP.md, HUMAN_PRIORITY.md, NEXT_RUN_PROMPT.md. Cloned repo, confirmed contracts_suite.py PASS (96/96) and selftest PASS. Reviewed record_run.py guard. No secrets polled, no dispatch, no media writes, no scaffolding, no new status printers.
-- Result: System remains green and pre-upload path reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Refuse-guard protects against known exact-string regression.
-- Verification: Local contracts 96/96; selftest PASS. Files will be updated with single newest-first entries via record_run.
-- Discovery: The combination of exact-string compact checks and status notes is fragile; the writer-side refuse is the correct fix. Pure confirmation runs continue to have diminishing returns while the sole blocker is human OAuth.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
-- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
-
-## Run 1247 — 2026-11-14T04:15:00Z
-- Objective: Prevent recurrence of the exact-string archive pointer failure that broke selftest in Runs 1245-1246 by adding a refuse-guard in the recording path.
-- Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md. Cloned repo, confirmed contracts_suite.py PASS (96/96) and selftest PASS. Patched tools/record_run.py to refuse any progress/failures note that contains the exact archive pointer string before writing. Verified syntax. No secrets polled, no dispatch, no media writes, no scaffolding.
-- Result: Guard in place. Future runs using record_run.py cannot accidentally reintroduce the count!=1 failure. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload path unchanged and reliable.
-- Verification: Local contracts 96/96; selftest PASS; py_compile OK on patched file. Files will be updated with single newest-first entries.
-- Discovery: Exact-string checks in compact_all are fragile to self-referential notes; a writer-side refuse is more reliable than post-hoc rewording.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
 - Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
 
