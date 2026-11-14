@@ -171,17 +171,27 @@ def main() -> int:
         [(n, cls) for cls, n in counts.items() if n >= 2 and cls in ("confusion", "question", "request", "objection")],
         reverse=True,
     )
-    print("## Top prioritized focus (strongest repeated signal)")
+    print("## Top prioritized focus (strongest repeated signals)")
     if priority:
-        n, cls = priority[0]
-        print(f"- Highest: {cls} ({n} comments). Start hypothesis review here.")
-        exs = examples.get(cls, [])
-        if exs:
-            print("  Example comments (truncated):")
-            for i, ex in enumerate(exs, 1):
-                print(f"  {i}. {ex}")
+        for rank, (n, cls) in enumerate(priority[:2], 1):
+            label = "Highest" if rank == 1 else "Second"
+            print(f"- {label}: {cls} ({n} comments).")
+            exs = examples.get(cls, [])
+            if exs:
+                print("  Example comments (truncated):")
+                for i, ex in enumerate(exs, 1):
+                    print(f"  {i}. {ex}")
+        print("  Start hypothesis review with the highest signal.")
     else:
         print("- No repeated (count >= 2) question/confusion/request/objection signals. Manual review of isolated comments recommended.")
+    print()
+    print("## Quick next action")
+    if priority:
+        print("- Review the example comments above for the top signal(s).")
+        print("- If a candidate change is clear, document a real numeric baseline:")
+        print(f"  python3 tools/experiment_baseline_starter.py {path}")
+    else:
+        print("- No strong repeated signals. Manual review of individual comments recommended before any experiment.")
     print()
 
     candidates = extract_candidate_changes(hyps)

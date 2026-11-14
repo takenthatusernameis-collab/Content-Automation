@@ -1,3 +1,7 @@
+2026-11-14T22:20:00Z (Run 1266)
+
+feedback_review_brief now surfaces top two signals with examples and clearer next action. Pre-upload path confirmed reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No new media work. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes. Prefer human progress or one post-publish compounder over pure confirmation.
+
 2026-11-14T19:35:00Z (Run 1263)
 
 stall_pattern_detector consecutive-idle matching strengthened (STALL_OAUTH_IDLE + confirmation phrases). Pre-upload path confirmed reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No new media work. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes. Prefer human progress or one post-publish compounder over pure confirmation.
