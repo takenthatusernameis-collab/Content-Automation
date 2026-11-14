@@ -27,15 +27,15 @@ def count_recent_notes() -> int:
 
 
 def count_zero_publish_runs() -> int:
-    """Count consecutive recent runs in RUNS.md that report videos published stay 0."""
+    """Count consecutive recent runs in RUNS.md that report the OAuth stall (STALL_OAUTH_IDLE or published=0)."""
     if not RUNS.is_file():
         return 0
     text = RUNS.read_text(encoding="utf-8")
     sections = re.split(r"^## Run ", text, flags=re.M)
     streak = 0
-    zero_re = re.compile(r"Videos published stay 0|published stay 0|Videos published: 0", re.I)
+    idle_re = re.compile(r"STALL_OAUTH_IDLE|Videos published stay 0|published stay 0|Videos published: 0", re.I)
     for sec in sections[1:]:
-        if zero_re.search(sec):
+        if idle_re.search(sec):
             streak += 1
         else:
             break
@@ -74,7 +74,7 @@ def main() -> int:
     zero_streak = count_zero_publish_runs()
     max_run = max_run_number()
     print(f"STATE.md mentions of stall/oauth idle (recent notes): {notes}")
-    print(f"Consecutive recent RUNS.md sections with published=0: {zero_streak} (main file only; full history in docs/runs_archive.md)")
+    print(f"Consecutive recent RUNS.md sections with STALL_OAUTH_IDLE or published=0: {zero_streak} (main file only; full history in docs/runs_archive.md)")
     print(f"Highest run number in live RUNS.md: {max_run} (total runs approximately this or higher; stall has persisted for the large majority)")
     if zero_streak > 0:
         # Recompute sections to get dates
