@@ -1,5 +1,7 @@
 # FAILURES
 
+None this run. Guard added to prevent known exact-string failure mode.
+
 None. Guidance update only; no failures.
 
 None this run. Materialize and media_qa succeeded. No repeated failure patterns observed.
@@ -16,4 +18,3 @@ None. Quality brief enhancement completed and verified locally on Q1 packet (cle
 (Older failures remain in docs/failures_archive.md.)
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
-
