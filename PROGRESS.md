@@ -1,5 +1,7 @@
 # PROGRESS
 
+Run 1256: Actually compacted RUNS.md (moved Run 1244 to archive) after prior claim left it at 16026 bytes. Contracts suite PASS (96/96). Selftest PASS. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
+
 Run 1255: Compacted RUNS.md (moved one older entry to archive) to restore the 16000-byte size cap enforced by runs_compact_contract.py. Contracts suite restored to PASS (96/96). Selftest remains PASS. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
 
 Run 1254: Elevated OAuth consent-screen Production publish to a hard CRITICAL step in human_starter.py phased plan and oauth_complete_guide.py so Testing-mode 7-day token expiry cannot prevent the +10-day feedback observation window. Contracts remain 96/96. Selftest PASS. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.

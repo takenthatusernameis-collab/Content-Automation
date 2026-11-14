@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1256 — 2026-11-14T15:30:00Z
+- Objective: Restore RUNS.md hard size cap after prior compaction left the file over the 16000-byte limit.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md. Cloned repo. Confirmed runs_compact_contract FAIL (16026 bytes). Extracted oldest section (Run 1244) and prepended to docs/runs_archive.md. Truncated live RUNS.md. Verified contracts_suite.py PASS (96/96) and selftest PASS. No secrets polled, no dispatch, no media writes, no scaffolding.
+- Result: Live run log under size cap. Contracts 96/96. Selftest PASS. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion). Long stall is increasingly suspicious.
+- Verification: Local contracts 96/96; selftest PASS; runs_compact_contract PASS. Files updated via record_run.
+- Discovery: Prior compaction claim left residual overflow; exact size check is sensitive to trailing content. Compaction must leave clear margin.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
+
 ## Run 1254 — 2026-11-14T11:25:00Z
 - Objective: Reduce a recurring post-publish failure mode by making the OAuth consent-screen Production publish a hard critical step (Testing-mode tokens expire after 7 days; feedback window is +10 days).
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md, BLOCKED.md, ROADMAP.md, HUMAN_PRIORITY.md, human_starter.py, oauth_complete_guide.py. Cloned repo, confirmed contracts_suite.py PASS (96/96) and selftest PASS. Updated phased plan in human_starter.py and section 1 of oauth_complete_guide.py to call out the Production publish as CRITICAL with the exact lifetime reason. No secrets polled, no dispatch, no media writes, no scaffolding.
@@ -87,15 +96,6 @@
 - Result: Selftest now PASS. Contracts remain green. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload path unchanged and reliable. Restoring the selftest lock prevents future regressions from being masked by a permanent CI failure.
 - Verification: Local selftest PASS; compact_all --check OK; contracts 96/96. Files updated with single newest-first entries.
 - Discovery: A small wording drift in an archive pointer can cause the entire selftest (and thus CI) to fail permanently, hiding other issues. Exact-string checks need exact text.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
-- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
-
-## Run 1244 — 2026-11-14T01:20:00Z
-- Objective: Confirm current state and record continued stall without adding low-value tools.
-- Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md, BLOCKED.md, ROADMAP.md, HUMAN_PRIORITY.md, status_report.py, oauth_complete_guide.py, production_capabilities.md, after_upload_steps.py, feedback_review_brief.py. Pre-upload path reliable. No secrets polled, no dispatch, no media writes, no scaffolding, no new status printers.
-- Result: STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). System remains better positioned for post-publish via existing tools. Pure confirmation runs have diminishing returns.
-- Verification: Files updated with single newest-first entries. No contract failures introduced.
-- Discovery: Recurring stall pattern is stable; additional agent runs without human progress do not compound capability. Post-publish learning tools (feedback_review_brief, post_publish_learning_prep, etc.) are already present and ready once a private video id exists.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
 - Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
 

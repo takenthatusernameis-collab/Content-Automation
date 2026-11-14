@@ -527,3 +527,6 @@ Pre-upload path verified reliable. Contracts suite PASS. Selftest restored to PA
 
 2026-11-14T05:15:00Z (Run 1248)
 For future packets after Q1 ships: docs/q2_prepared_starter.md through docs/q5_prepared_starter.md have verified grounded full starters with cleaner titles (complete phrases via phrase_utils.shorten), cleaner individual tags, thumbs, comments, clean research search prompts (word-boundary truncated), a source verification checklist, consistently complete phrases, richer copy-pasteable outline opening sentences, and grounded expansion prompts under each section. The generator tools/queued_full_starter.py is real and can regenerate them anytime. Do not scaffold Q2+ now.
+
+2026-11-14T06:20:00Z (Run 1249)
+Pre-upload path verified reliable. Contracts and selftest PASS. Improved stall_watch detection robustness so long OAuth idle is correctly flagged across wording variants. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Further soft tools and pure confirmation have diminishing returns. Prefer human progress. After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.

@@ -1,5 +1,7 @@
 # FAILURES
 
+None. Size-cap regression fixed. No new failure modes.
+
 None. No regressions. Suites remain green.
 
 None. Phased plan addition only; no new failure modes. STALL_OAUTH_IDLE continues as sole blocker (1000+ runs, HIGH suspicion).
