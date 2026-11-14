@@ -1,5 +1,7 @@
 # PROGRESS
 
+Added quick-path note to oauth_complete_guide.py for humans who already have a Google Cloud project (skip to mint while still requiring Production publish). Contracts remain 96/96. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
+
 Fresh clone materialize of verified Q1 media (VO + cards + r253 master) succeeds with exact SHA match and media_qa PASS. Provides concrete evidence the release-to-local path is reliable across successive runs. No change to human gate or published count (still 0). Pre-upload reliability reinforced. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
 
 2026-11-14T16:20:00Z (Run 1259)

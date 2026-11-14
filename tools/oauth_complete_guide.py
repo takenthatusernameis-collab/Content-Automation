@@ -15,6 +15,7 @@ def main() -> int:
     print(f"OAUTH COMPLETE GUIDE (single self-contained page; human only)  [{now}]")
     print()
     print("Estimated time: 10-20 minutes (mostly first-time Google Cloud setup).")
+    print("Quick path: if you already have a Google Cloud project with YouTube APIs enabled and a Desktop OAuth client, skip to section 2 (mint). Still publish the consent screen to Production before minting.")
     print("STALL_OAUTH_IDLE: 1000+ runs, HIGH suspicion. This is the only remaining blocker.")
     print("Pre-upload is complete (materialize + media_qa PASS). Do not rematerialize if present.")
     print()

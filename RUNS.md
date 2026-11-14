@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1261 — 2026-11-14T18:17:00Z
+- Objective: Reduce human friction on the remaining OAuth step by adding a quick-path note for users who already have a Google Cloud project.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, oauth_complete_guide.py. Cloned repo. Confirmed contracts 96/96. Added a quick-path sentence to oauth_complete_guide.py that points existing-project users to section 2 while reiterating the Production-publish requirement. Verified the tool prints the new line. No secrets polled, no dispatch, no media writes, no scaffolding.
+- Result: OAuth guide now surfaces a faster path for returning humans. Contracts remain 96/96. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion). Long stall is increasingly suspicious.
+- Verification: Local contracts 96/96; oauth_complete_guide prints the new quick-path line.
+- Discovery: Many humans may already have a Cloud project; explicitly offering the skip reduces rediscovery cost without weakening the critical Production-publish warning.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
+
 ## Run 1260 — 2026-11-14T19:20:00Z
 - Objective: Confirm the verified Q1 media materialize path works end-to-end in a fresh clone after prior runs, producing evidence of SHA match and gate PASS without regenerating assets, and leave a clear record.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, status_report, long_stall_report. Cloned repo. Ran materialize_q1_release.py (installed VO, 7 cards, r253 master; ignored truncated r249). Confirmed media_qa PASS, next_action upload-blocked, master SHA exact match to target 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546. Contracts 96/96 and selftest PASS. No secrets polled, no dispatch, no media writes to git, no scaffolding.
@@ -78,15 +87,6 @@
 - Result: Stall report now surfaces approximate total runs (~1250). Contracts remain 96/96. Selftest PASS. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion). Long stall is increasingly suspicious.
 - Verification: Local contracts 96/96; selftest PASS; long_stall_report runs and prints highest run. Files updated with single newest-first entries.
 - Discovery: Reporting the concrete highest run number makes the duration of the stall more immediately visible without relying solely on the "1000+" label.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
-- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
-
-## Run 1250 — 2026-11-14T09:20:00Z
-- Objective: Improve long_stall_report clarity on streak duration and reinforce diminishing returns of pure-confirmation runs while STALL_OAUTH_IDLE is the sole blocker.
-- Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md, BLOCKED.md, ROADMAP.md, HUMAN_PRIORITY.md, stall_watch.py, long_stall_report.py. Cloned repo, confirmed contracts_suite.py PASS (96/96) and selftest PASS. Enhanced long_stall_report.py to print clearer date range and suspicion note. No secrets polled, no dispatch, no media writes, no scaffolding.
-- Result: Stall report more actionable for humans. Contracts remain 96/96. Selftest PASS. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Long stall is increasingly suspicious.
-- Verification: Local contracts 96/96; selftest PASS. Files updated with single newest-first entries.
-- Discovery: Visible streak in main RUNS.md is short; full history is in archive. Pure confirmation continues to have diminishing returns.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
 - Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
 

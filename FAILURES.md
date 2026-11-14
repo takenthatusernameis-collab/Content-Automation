@@ -1,5 +1,7 @@
 # FAILURES
 
+None. Small documentation improvement only.
+
 None. Materialize, media_qa, SHA match, and contracts all succeeded as expected. STALL_OAUTH_IDLE continues as sole blocker.
 
 None. Materialize, media_qa, SHA match, and contracts all succeeded as expected.
