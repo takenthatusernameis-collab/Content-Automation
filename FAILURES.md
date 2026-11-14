@@ -1,5 +1,7 @@
 # FAILURES
 
+None. The long OAuth stall continues as the sole external blocker.
+
 No new failures. STALL_OAUTH_IDLE continues as sole blocker (1000+ runs, HIGH suspicion).
 
 None this run. Stall detection predicates expanded for robustness; no new failure modes introduced.

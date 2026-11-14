@@ -515,3 +515,6 @@ Run 1134: fixed remaining state_compact_contract failure; contracts_suite.py now
 2026-11-10T11:17:00Z (Run 1159)
 
 2026-11-10T10:21:00Z (Run 1158)
+
+2026-11-14T04:30:00Z (Run 1245)
+Pre-upload path verified reliable. Selftest was failing on CI due to non-matching archive pointer in PROGRESS.md; corrected to exact expected text so compact_all --check and selftest now PASS. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Prefer human progress; do not poll secrets, no dispatch, no live packet writes. Avoid additional status one-liners while stall is sole blocker. CI green again so future regressions surface.

@@ -56,6 +56,15 @@ def extract_timestamps(sections: list[str]) -> list[datetime]:
     return times
 
 
+def max_run_number() -> int:
+    """Return the highest Run N found in the live RUNS.md (approximate total runs)."""
+    if not RUNS.is_file():
+        return 0
+    text = RUNS.read_text(encoding="utf-8")
+    nums = [int(n) for n in re.findall(r"## Run (\d+)", text)]
+    return max(nums) if nums else 0
+
+
 def main() -> int:
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     print("LONG STALL REPORT (OAuth idle; no poll, no invent)")
@@ -63,8 +72,10 @@ def main() -> int:
     print()
     notes = count_recent_notes()
     zero_streak = count_zero_publish_runs()
+    max_run = max_run_number()
     print(f"STATE.md mentions of stall/oauth idle (recent notes): {notes}")
     print(f"Consecutive recent RUNS.md sections with published=0: {zero_streak} (main file only; full history in docs/runs_archive.md)")
+    print(f"Highest run number in live RUNS.md: {max_run} (total runs approximately this or higher; stall has persisted for the large majority)")
     if zero_streak > 0:
         # Recompute sections to get dates
         if RUNS.is_file():
