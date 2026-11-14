@@ -1,5 +1,7 @@
 # PROGRESS
 
+Fresh clone materialize of verified Q1 media (VO + cards + r253 master) succeeds with exact SHA match and media_qa PASS. Provides concrete evidence the release-to-local path is reliable across successive runs. No change to human gate or published count (still 0). Pre-upload reliability reinforced. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
+
 2026-11-14T16:20:00Z (Run 1259)
 Fresh clone materialize of verified Q1 media (VO + cards + r253 master) succeeds with exact SHA match and media_qa PASS. Provides concrete evidence the release-to-local path is reliable. No change to human gate or published count (still 0). Pre-upload reliability reinforced.
 

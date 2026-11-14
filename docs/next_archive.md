@@ -533,3 +533,6 @@ Pre-upload path verified reliable. Contracts and selftest PASS. Improved stall_w
 
 2026-11-14T09:20:00Z (Run 1250)
 (Older next actions live in `docs/next_archive.md`. Do not paste the archive back.)
+
+2026-11-14T08:25:00Z (Run 1251)
+Pre-upload path verified reliable. Contracts and selftest PASS. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Further soft tools and pure confirmation have diminishing returns. Prefer human progress. After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.

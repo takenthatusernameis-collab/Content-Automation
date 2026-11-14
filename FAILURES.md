@@ -1,5 +1,7 @@
 # FAILURES
 
+None. Materialize, media_qa, SHA match, and contracts all succeeded as expected. STALL_OAUTH_IDLE continues as sole blocker.
+
 None. Materialize, media_qa, SHA match, and contracts all succeeded as expected.
 
 Run 1257: No new failures. Prior size-cap overflow (Run 1255/1256) addressed by size-aware compaction to prevent recurrence.
