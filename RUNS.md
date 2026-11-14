@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1258 — 2026-11-14T17:25:00Z
+- Objective: Strengthen long-stall evidence by reporting approximate duration from the earliest archive mention of the OAuth idle.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, long_stall_report.py. Cloned repo. Confirmed contracts 96/96 and selftest PASS. Added earliest_stall_date helper that scans docs/runs_archive.md (fail-closed) and prints start date + days elapsed. Verified report now shows ~43 days. No secrets polled, no dispatch, no media writes, no scaffolding.
+- Result: Stall report now surfaces concrete duration evidence from archive. Contracts 96/96. Selftest PASS. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion). Long stall is increasingly suspicious.
+- Verification: Local contracts 96/96; selftest PASS; long_stall_report_contract PASS; report prints earliest date and days.
+- Discovery: Archive contains mentions back to ~2026-10-02; scanning it gives a better sense of multi-week duration than the live file alone (which only shows same-day recent runs).
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
+
 ## Run 1257 — 2026-11-14T16:45:00Z
 - Objective: Prevent recurring RUNS.md size-cap overflows by making compaction size-aware.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md. Cloned repo. Confirmed contracts 96/96 and selftest PASS. Patched tools/runs_compact.py to enforce a 15500-byte soft target (in addition to max 12 entries) by moving additional older sections when needed. Ran compact; it moved 1 entry. Verified contracts_suite.py PASS (96/96) and selftest PASS. No secrets polled, no dispatch, no media writes, no scaffolding.
