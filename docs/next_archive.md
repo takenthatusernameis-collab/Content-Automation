@@ -539,3 +539,6 @@ Pre-upload path verified reliable. Contracts and selftest PASS. STALL_OAUTH_IDLE
 
 2026-11-14T09:20:00Z (Run 1252)
 Pre-upload path verified reliable. Contracts and selftest PASS. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Further soft tools and pure confirmation have diminishing returns. Prefer human progress. After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
+
+2026-11-14T10:20:00Z (Run 1253)
+Pre-upload path verified reliable. Contracts and selftest PASS. Added record_run guard against embedding archive pointer text. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Further soft tools and pure confirmation have diminishing returns. Prefer human progress.

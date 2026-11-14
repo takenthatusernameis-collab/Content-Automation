@@ -160,6 +160,19 @@ def main() -> int:
         print(f"- {h}")
     print()
 
+    # Prioritized focus: surface the strongest repeated signal first to reduce human scan time
+    priority = sorted(
+        [(n, cls) for cls, n in counts.items() if n >= 2 and cls in ("confusion", "question", "request", "objection")],
+        reverse=True,
+    )
+    print("## Top prioritized focus (strongest repeated signal)")
+    if priority:
+        n, cls = priority[0]
+        print(f"- Highest: {cls} ({n} comments). Start hypothesis review here.")
+    else:
+        print("- No repeated (count >= 2) question/confusion/request/objection signals. Manual review of isolated comments recommended.")
+    print()
+
     candidates = extract_candidate_changes(hyps)
     print("## Metric suggestions for candidate changes")
     for ch in candidates:

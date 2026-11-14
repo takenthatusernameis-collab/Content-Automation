@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1262 — 2026-11-14T19:30:00Z
+- Objective: Reduce human analysis time after feedback collection by prioritizing the strongest repeated comment signal in the review brief.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, feedback_review_brief.py. Cloned repo. Added prioritized top-focus section to feedback_review_brief.py (surfaces highest count >=2 among confusion/question/request/objection). Verified tool still runs (HOLD without feedback_state as expected). No secrets polled, no dispatch, no media writes, no scaffolding.
+- Result: Feedback review brief now guides human attention to the strongest signal first. Contracts unchanged. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion). Long stall is increasingly suspicious.
+- Verification: Local py_compile OK; tool prints HOLD correctly on missing feedback_state.
+- Discovery: Explicit top-priority signal reduces the chance a human scans all hypotheses equally when one signal dominates.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
+
 ## Run 1261 — 2026-11-14T18:17:00Z
 - Objective: Reduce human friction on the remaining OAuth step by adding a quick-path note for users who already have a Google Cloud project.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, oauth_complete_guide.py. Cloned repo. Confirmed contracts 96/96. Added a quick-path sentence to oauth_complete_guide.py that points existing-project users to section 2 while reiterating the Production-publish requirement. Verified the tool prints the new line. No secrets polled, no dispatch, no media writes, no scaffolding.
@@ -78,15 +87,6 @@
 - Result: Stall report now surfaces consecutive recent idle sections (8 in main file). Contracts remain 96/96. Selftest PASS. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion). Long stall is increasingly suspicious.
 - Verification: Local contracts 96/96; selftest PASS; long_stall_report runs and prints streak of 8. Files updated with single newest-first entries.
 - Discovery: Exact published=0 phrase matching missed recent sections that use STALL_OAUTH_IDLE in the blocker line; broader matching gives accurate consecutive streak in the live file.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
-- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
-
-## Run 1251 — 2026-11-14T08:25:00Z
-- Objective: Make long-stall evidence clearer by reporting the highest run number from live RUNS.md, reinforcing the scale of the sole human OAuth blocker.
-- Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md, BLOCKED.md, ROADMAP.md, HUMAN_PRIORITY.md, long_stall_report.py. Cloned repo, confirmed contracts_suite.py PASS (96/96) and selftest PASS. Added max_run_number helper and print to long_stall_report.py. No secrets polled, no dispatch, no media writes, no scaffolding.
-- Result: Stall report now surfaces approximate total runs (~1250). Contracts remain 96/96. Selftest PASS. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion). Long stall is increasingly suspicious.
-- Verification: Local contracts 96/96; selftest PASS; long_stall_report runs and prints highest run. Files updated with single newest-first entries.
-- Discovery: Reporting the concrete highest run number makes the duration of the stall more immediately visible without relying solely on the "1000+" label.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
 - Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
 

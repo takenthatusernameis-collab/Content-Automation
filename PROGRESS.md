@@ -1,5 +1,7 @@
 # PROGRESS
 
+Enhanced feedback_review_brief.py with Top prioritized focus section so the strongest repeated comment signal is surfaced first after collect. Reduces human review labor for every future video. Contracts remain green. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
+
 Added quick-path note to oauth_complete_guide.py for humans who already have a Google Cloud project (skip to mint while still requiring Production publish). Contracts remain 96/96. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
 
 Fresh clone materialize of verified Q1 media (VO + cards + r253 master) succeeds with exact SHA match and media_qa PASS. Provides concrete evidence the release-to-local path is reliable across successive runs. No change to human gate or published count (still 0). Pre-upload reliability reinforced. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.

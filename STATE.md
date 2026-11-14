@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-14T19:30:00Z (Run 1262)
+
+Inspected after Run 1261. Contracts suite not re-run (no gate change). Enhanced feedback_review_brief.py with a Top prioritized focus section that surfaces the strongest repeated comment signal (confusion/question/request/objection with count >= 2) first. Reduces human scan time after every future collect. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress over agent restatement.
+
 2026-11-14T18:17:00Z (Run 1261)
 
 Inspected after Run 1260. Contracts suite PASS (96/96). Selftest not re-run (no change to gates). Added quick-path note to oauth_complete_guide.py so humans with an existing Google Cloud project can skip straight to minting while still being reminded of the Production-publish requirement. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress over agent restatement.
@@ -43,8 +47,4 @@ Inspected after Run 1251. Contracts suite PASS (96/96). Selftest PASS. Pre-uploa
 2026-11-14T08:25:00Z (Run 1251)
 
 Inspected after Run 1250. Contracts suite PASS (96/96). Selftest PASS. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (highest run ~1250, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress over agent restatement. Enhanced long_stall_report.py to report the highest run number from live RUNS.md for clearer evidence of total scale.
-
-2026-11-14T09:20:00Z (Run 1250)
-
-Inspected after Run 1249. Contracts suite PASS (96/96). Selftest PASS. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress over agent restatement. Improved long_stall_report.py to report visible streak duration more clearly and reinforce that pure-confirmation runs have diminishing returns while the sole blocker is human OAuth.
 
