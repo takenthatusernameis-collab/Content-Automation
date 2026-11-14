@@ -1,5 +1,7 @@
 # PROGRESS
 
+Run 1258: Enhanced long_stall_report.py to scan the runs archive for the earliest date near STALL_OAUTH_IDLE / secrets mentions and print approximate start + days elapsed (~43 days). Contracts remain 96/96. Selftest PASS. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
+
 Run 1257: Made runs_compact.py size-aware (TARGET_BYTES=15500) so normal prepends leave margin under the 16000-byte hard cap. Compacted one entry; contracts remain 96/96. Selftest PASS. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
 
 Run 1256: Actually compacted RUNS.md (moved Run 1244 to archive) after prior claim left it at 16026 bytes. Contracts suite PASS (96/96). Selftest PASS. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
