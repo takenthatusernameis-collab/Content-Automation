@@ -1,5 +1,7 @@
 # FAILURES
 
+None this run. Stall detection predicates expanded for robustness; no new failure modes introduced.
+
 None this run. Refuse-guard remains active to prevent known archive-pointer quote failure mode.
 
 None this run. Guard added to prevent known exact-string failure mode.
