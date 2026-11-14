@@ -77,10 +77,11 @@ def main() -> int:
                 newest = max(times)
                 delta = (newest - oldest).days
                 print(f"Visible streak date range: {oldest.strftime('%Y-%m-%d')} to {newest.strftime('%Y-%m-%d')} (~{delta} days in main RUNS.md)")
-    print("Known history: STALL_OAUTH_IDLE has persisted across 1000+ runs.")
+    print("Known history: STALL_OAUTH_IDLE has persisted across 1000+ runs (full history in docs/runs_archive.md).")
     print("Videos published: 0")
     print("Pre-upload path: complete")
     print("Suspicion level: HIGH (long consecutive idle with no human progress on secrets)")
+    print("Agent note: Pure-confirmation runs have diminishing returns while this is the sole blocker. Prefer human progress.")
     print()
     print("Primary remaining action: complete the three GitHub Actions secrets and dispatch once.")
     print("Start with: python3 tools/human_starter.py")

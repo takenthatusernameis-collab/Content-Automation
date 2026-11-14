@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1250 — 2026-11-14T09:20:00Z
+- Objective: Improve long_stall_report clarity on streak duration and reinforce diminishing returns of pure-confirmation runs while STALL_OAUTH_IDLE is the sole blocker.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md, BLOCKED.md, ROADMAP.md, HUMAN_PRIORITY.md, stall_watch.py, long_stall_report.py. Cloned repo, confirmed contracts_suite.py PASS (96/96) and selftest PASS. Enhanced long_stall_report.py to print clearer date range and suspicion note. No secrets polled, no dispatch, no media writes, no scaffolding.
+- Result: Stall report more actionable for humans. Contracts remain 96/96. Selftest PASS. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Long stall is increasingly suspicious.
+- Verification: Local contracts 96/96; selftest PASS. Files updated with single newest-first entries.
+- Discovery: Visible streak in main RUNS.md is short; full history is in archive. Pure confirmation continues to have diminishing returns.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
+
 ## Run 1249 — 2026-11-14T06:20:00Z
 - Objective: Make stall detection more reliable by expanding is_idle_delta to catch common wording variants of the long OAuth idle, so pure-confirmation runs correctly surface the HIGH suspicion flag.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md, BLOCKED.md, ROADMAP.md, HUMAN_PRIORITY.md, stall_watch.py. Cloned repo, confirmed contracts_suite.py PASS (96/96) and selftest PASS. Expanded no_poll and published_zero predicates in tools/stall_watch.py. Verified the change detects the recent notes as idle (streak now reported). No secrets polled, no dispatch, no media writes, no scaffolding.

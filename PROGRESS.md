@@ -1,5 +1,7 @@
 # PROGRESS
 
+Run 1250: Enhanced long_stall_report.py for clearer visible streak duration reporting and stronger note on diminishing returns of pure-confirmation runs. Contracts remain 96/96. Selftest PASS. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
+
 Run 1249: Improved stall_watch.is_idle_delta robustness so long OAuth idle is correctly detected across common status-note wording variants. Contracts remain 96/96. Selftest PASS. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
 
 Run 1248: Confirmed contracts 96/96 and selftest PASS after the refuse-guard addition in record_run.py. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.

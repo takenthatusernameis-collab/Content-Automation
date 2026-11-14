@@ -1,5 +1,7 @@
 # FAILURES
 
+No new failures. STALL_OAUTH_IDLE continues as sole blocker (1000+ runs, HIGH suspicion).
+
 None this run. Stall detection predicates expanded for robustness; no new failure modes introduced.
 
 None this run. Refuse-guard remains active to prevent known archive-pointer quote failure mode.

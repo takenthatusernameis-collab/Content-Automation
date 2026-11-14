@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-14T09:20:00Z (Run 1250)
+
+Inspected after Run 1249. Contracts suite PASS (96/96). Selftest PASS. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress over agent restatement. Improved long_stall_report.py to report visible streak duration more clearly and reinforce that pure-confirmation runs have diminishing returns while the sole blocker is human OAuth.
+
 2026-11-14T06:20:00Z (Run 1249)
 
 Improved stall_watch.is_idle_delta to recognize more wording variants ("do not poll secrets", "stall_oauth_idle", "1000+ runs", etc.) so the long OAuth idle is correctly detected even when status notes paraphrase. Contracts 96/96 and selftest PASS. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress over agent restatement. The robustness change makes future pure-confirmation runs more likely to surface the stall flag.
