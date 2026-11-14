@@ -1,5 +1,8 @@
 (Older next actions live in `docs/next_archive.md`. Do not paste the archive back.)
 
+2026-11-14T06:20:00Z (Run 1249)
+Pre-upload path verified reliable. Contracts and selftest PASS. Improved stall_watch detection robustness so long OAuth idle is correctly flagged across wording variants. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Further soft tools and pure confirmation have diminishing returns. Prefer human progress. After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
+
 Pre-upload path verified reliable. Contracts and selftest PASS. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Further soft tools and pure confirmation have diminishing returns. Prefer human progress. After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
 
 Pre-upload path verified reliable. Contracts and selftest PASS. Added record_run guard against embedding archive pointer text. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Further soft tools and pure confirmation have diminishing returns. Prefer human progress.
