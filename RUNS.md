@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1247 — 2026-11-14T04:15:00Z
+- Objective: Prevent recurrence of the exact-string archive pointer failure that broke selftest in Runs 1245-1246 by adding a refuse-guard in the recording path.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md. Cloned repo, confirmed contracts_suite.py PASS (96/96) and selftest PASS. Patched tools/record_run.py to refuse any progress/failures note that contains the exact archive pointer string before writing. Verified syntax. No secrets polled, no dispatch, no media writes, no scaffolding.
+- Result: Guard in place. Future runs using record_run.py cannot accidentally reintroduce the count!=1 failure. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload path unchanged and reliable.
+- Verification: Local contracts 96/96; selftest PASS; py_compile OK on patched file. Files will be updated with single newest-first entries.
+- Discovery: Exact-string checks in compact_all are fragile to self-referential notes; a writer-side refuse is more reliable than post-hoc rewording.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
+
 ## Run 1246 — 2026-11-14T05:30:00Z
 - Objective: Restore CI selftest reliability after Run 1245 progress note accidentally quoted the exact archive pointer, causing count=2 and SELFTEST FAIL.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md. Cloned repo, confirmed contracts_suite.py PASS (96/96). Ran selftest.py: FAIL due to PROGRESS.md having 2 matching archive pointers (the real one plus a quote in the Run 1245 description). Reworded the Run 1245 entry to describe the fix without embedding the exact string, re-ran compact_all.py --check (OK) and selftest.py (PASS). No secrets polled, no dispatch, no media writes, no scaffolding, no new status printers.
