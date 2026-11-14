@@ -16,6 +16,30 @@ ROOT = Path(__file__).resolve().parents[1]
 RUNS = ROOT / "RUNS.md"
 
 
+def is_idle_section(sec: str, result: str) -> bool:
+    """True when the section indicates continued OAuth/publish idle."""
+    low = sec.lower()
+    rlow = result.lower()
+    if "stall_oauth_idle" in low:
+        return True
+    if "oauth" in low and ("secrets" in low or "blocker" in low):
+        return True
+    if any(
+        p in rlow
+        for p in (
+            "stay 0",
+            "published stay 0",
+            "videos published: 0",
+            "published: 0",
+            "no change to human gate",
+            "pre-upload path unchanged",
+            "pre-upload path remains reliable",
+        )
+    ):
+        return True
+    return False
+
+
 def extract_run_headers_and_results(text: str, max_runs: int = 20) -> list[dict]:
     sections = []
     current = []
@@ -37,11 +61,11 @@ def extract_run_headers_and_results(text: str, max_runs: int = 20) -> list[dict]
             if l.strip().startswith("- Result:"):
                 result = l.strip()[9:].strip()
                 break
-        published_zero = "stay 0" in result.lower() or "published stay 0" in result.lower() or "videos published: 0" in result.lower()
+        idle = is_idle_section(sec, result)
         oauth_mention = "oauth" in sec.lower() or "secrets" in sec.lower() or "stall" in sec.lower()
         parsed.append({
             "header": header,
-            "published_zero": published_zero,
+            "published_zero": idle,  # kept key name for compatibility
             "oauth_related": oauth_mention,
             "result": result[:120],
         })
@@ -64,21 +88,25 @@ def main() -> int:
         else:
             break
     suspicion = "LOW"
-    if zero_streak >= 10:
-        suspicion = "HIGH (oauth_idle_without_publish recurring across many runs; prefer new reusable capability over further restatement)"
-    elif zero_streak >= 5:
+    if zero_streak >= 8:
+        suspicion = (
+            "HIGH (oauth_idle_without_publish recurring; pure confirmation has diminishing returns; "
+            "prefer human step or one small post-publish compounder; do not re-verify materialize/contracts solely for confirmation)"
+        )
+    elif zero_streak >= 4:
         suspicion = "MEDIUM (repeated no-publish; continue anti-rediscovery only if it compounds)"
     else:
         suspicion = "LOW"
     print("STALL PATTERN DETECTOR (from recent RUNS.md; do not invent)")
     print(f"recent_runs_checked: {len(runs)}")
-    print(f"consecutive_published_zero: {zero_streak}")
+    print(f"consecutive_idle: {zero_streak}")
     print(f"suspicion_level: {suspicion}")
     print("Most recent headers:")
     for r in runs[:5]:
         print(f"  {r['header']}")
     print()
-    print("If HIGH, do not spend the run only restating the stall. Add a small reusable tool or clarify a real gap.")
+    print("If HIGH, do not spend the run only restating the stall or re-running materialize/contracts for confirmation.")
+    print("Preferred: human OAuth step, or one small reusable tool that compounds after the first publish.")
     print("Full history in RUNS.md and docs/runs_archive.md.")
     return 0
 
