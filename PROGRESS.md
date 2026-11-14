@@ -1,5 +1,7 @@
 # PROGRESS
 
+Run 1249: Improved stall_watch.is_idle_delta robustness so long OAuth idle is correctly detected across common status-note wording variants. Contracts remain 96/96. Selftest PASS. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
+
 Run 1248: Confirmed contracts 96/96 and selftest PASS after the refuse-guard addition in record_run.py. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
 
 Run 1247: Added refuse-guard in tools/record_run.py that blocks progress/failures notes containing the exact archive pointer string, preventing the selftest regression seen in the two prior runs. Contracts remain 96/96. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
