@@ -141,12 +141,18 @@ def main() -> int:
 
     counts = {c: 0 for c in COMMENT_CLASSES}
     counts["unclassified"] = 0
+    examples = {c: [] for c in COMMENT_CLASSES}
+    examples["unclassified"] = []
     for c in comments:
         text = str(c.get("text") or "").strip()
         if not text:
             continue
         cls = classify(text)
         counts[cls] = counts.get(cls, 0) + 1
+        if len(examples.get(cls, [])) < 3:
+            # Truncate long comments for the brief
+            snippet = text[:180] + ("..." if len(text) > 180 else "")
+            examples.setdefault(cls, []).append(snippet)
 
     print(f"Classified {sum(counts.values())} comment(s). Counts:")
     for cls, n in counts.items():
@@ -169,6 +175,11 @@ def main() -> int:
     if priority:
         n, cls = priority[0]
         print(f"- Highest: {cls} ({n} comments). Start hypothesis review here.")
+        exs = examples.get(cls, [])
+        if exs:
+            print("  Example comments (truncated):")
+            for i, ex in enumerate(exs, 1):
+                print(f"  {i}. {ex}")
     else:
         print("- No repeated (count >= 2) question/confusion/request/objection signals. Manual review of isolated comments recommended.")
     print()
