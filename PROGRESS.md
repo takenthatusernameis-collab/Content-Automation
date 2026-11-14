@@ -1,5 +1,7 @@
 # PROGRESS
 
+Run 1254: Elevated OAuth consent-screen Production publish to a hard CRITICAL step in human_starter.py phased plan and oauth_complete_guide.py so Testing-mode 7-day token expiry cannot prevent the +10-day feedback observation window. Contracts remain 96/96. Selftest PASS. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
+
 Run 1253: Enhanced human_starter.py with an early PHASED ACTION PLAN (Cloud setup including Production publish, mint preferred scopes, interactive secrets, one dispatch + id confirm). Contracts remain 96/96. Selftest PASS. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
 
 Run 1252: Improved long_stall_report.py to count consecutive recent RUNS.md sections containing STALL_OAUTH_IDLE, making the live-file idle streak visible (now 8). Contracts remain 96/96. Selftest PASS. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.

@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1254 — 2026-11-14T11:25:00Z
+- Objective: Reduce a recurring post-publish failure mode by making the OAuth consent-screen Production publish a hard critical step (Testing-mode tokens expire after 7 days; feedback window is +10 days).
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md, BLOCKED.md, ROADMAP.md, HUMAN_PRIORITY.md, human_starter.py, oauth_complete_guide.py. Cloned repo, confirmed contracts_suite.py PASS (96/96) and selftest PASS. Updated phased plan in human_starter.py and section 1 of oauth_complete_guide.py to call out the Production publish as CRITICAL with the exact lifetime reason. No secrets polled, no dispatch, no media writes, no scaffolding.
+- Result: Human guides now surface the token-lifetime pitfall more prominently before minting. Contracts remain 96/96. Selftest PASS. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion). Long stall is increasingly suspicious.
+- Verification: Local contracts 96/96; selftest PASS; human_starter and oauth_complete_guide print the new CRITICAL lines. Files updated with single newest-first entries.
+- Discovery: The 7-day vs 10-day mismatch is a silent failure mode that pure confirmation runs cannot catch; elevating it in the primary human entry points reduces the chance the first feedback collect fails for token expiry.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
+
 ## Run 1253 — 2026-11-14T10:20:00Z
 - Objective: Make the remaining human OAuth step clearer by adding a phased action plan early in human_starter.py.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, PROGRESS.md, BLOCKED.md, ROADMAP.md, HUMAN_PRIORITY.md, human_starter.py, long_stall_report.py. Cloned repo, confirmed contracts_suite.py PASS (96/96) and selftest PASS. Added PHASED ACTION PLAN (A: Cloud setup, B: mint, C: secrets, D: dispatch+confirm) near the top of human_starter.py. No secrets polled, no dispatch, no media writes, no scaffolding.

@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-14T11:25:00Z (Run 1254)
+
+Inspected after Run 1253. Contracts suite PASS (96/96). Selftest PASS. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (highest run ~1253, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress over agent restatement. Elevated the OAuth app Production-publish step to a hard critical item in the phased plan (human_starter.py) and complete guide (oauth_complete_guide.py) so the 7-day Testing-mode token expiry cannot silently prevent the +10-day feedback window.
+
 2026-11-14T10:20:00Z (Run 1253)
 
 Inspected after Run 1252. Contracts suite PASS (96/96). Selftest PASS. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (highest run ~1252, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress over agent restatement. Enhanced human_starter.py with an early PHASED ACTION PLAN (A-D) so the remaining human OAuth step is clearer and less prone to skipped phases.

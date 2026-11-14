@@ -1,5 +1,7 @@
 # FAILURES
 
+None. No regressions. Suites remain green.
+
 None. Phased plan addition only; no new failure modes. STALL_OAUTH_IDLE continues as sole blocker (1000+ runs, HIGH suspicion).
 
 No new failures. Exact-string compact checks remain sensitive to status notes; refuse-guard in record_run.py continues to protect them.

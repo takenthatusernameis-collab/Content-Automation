@@ -1,8 +1,11 @@
-Pre-upload path verified reliable. Contracts and selftest PASS. Enhanced long_stall_report with highest-run-number reporting. STALL_OAUTH_IDLE continues (highest run ~1250, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Further soft tools and pure confirmation have diminishing returns. Prefer human progress. After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
-
 Pre-upload path verified reliable. Contracts and selftest PASS. Enhanced long_stall_report consecutive idle streak detection. STALL_OAUTH_IDLE continues (highest run ~1251, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Further soft tools and pure confirmation have diminishing returns. Prefer human progress. After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
 
 Pre-upload path verified reliable. Contracts and selftest PASS. Enhanced human_starter.py with phased action plan for clearer human guidance. STALL_OAUTH_IDLE continues (highest run ~1252, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Further soft tools and pure confirmation have diminishing returns. Prefer human progress. After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
+
+Pre-upload path verified reliable. Contracts and selftest PASS. Elevated Production-publish critical step in human OAuth guides to prevent 7-day token expiry before the 10-day observation window. STALL_OAUTH_IDLE continues (highest run ~1253, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Further soft tools and pure confirmation have diminishing returns. Prefer human progress. After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
+
+2026-11-14T11:25:00Z (Run 1254)
+Pre-upload path verified reliable. Contracts and selftest PASS. Enhanced long_stall_report with highest-run-number reporting. STALL_OAUTH_IDLE continues (highest run ~1250, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Further soft tools and pure confirmation have diminishing returns. Prefer human progress. After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
 
 2026-11-14T10:20:00Z (Run 1253)
 Pre-upload path verified reliable. Contracts and selftest PASS. Added record_run guard against embedding archive pointer text. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Further soft tools and pure confirmation have diminishing returns. Prefer human progress.
@@ -18,6 +21,3 @@ Pre-upload path verified reliable. Contracts and selftest PASS. STALL_OAUTH_IDLE
 
 2026-11-14T06:20:00Z (Run 1249)
 Pre-upload path verified reliable. Contracts and selftest PASS. Improved stall_watch detection robustness so long OAuth idle is correctly flagged across wording variants. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Next remains the human OAuth step. Further soft tools and pure confirmation have diminishing returns. Prefer human progress. After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py.
-
-2026-11-14T05:15:00Z (Run 1248)
-For future packets after Q1 ships: docs/q2_prepared_starter.md through docs/q5_prepared_starter.md have verified grounded full starters with cleaner titles (complete phrases via phrase_utils.shorten), cleaner individual tags, thumbs, comments, clean research search prompts (word-boundary truncated), a source verification checklist, consistently complete phrases, richer copy-pasteable outline opening sentences, and grounded expansion prompts under each section. The generator tools/queued_full_starter.py is real and can regenerate them anytime. Do not scaffold Q2+ now.
