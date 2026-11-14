@@ -1,5 +1,7 @@
 # FAILURES
 
+Run 1257: No new failures. Prior size-cap overflow (Run 1255/1256) addressed by size-aware compaction to prevent recurrence.
+
 None. Size-cap regression fixed. No new failure modes.
 
 None. No regressions. Suites remain green.

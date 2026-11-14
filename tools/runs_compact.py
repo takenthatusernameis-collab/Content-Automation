@@ -39,14 +39,40 @@ def split_runs(text: str) -> tuple[str, list[str], str]:
     return preamble, entries, footer
 
 
+TARGET_BYTES = 15500  # leave margin under the 16000 hard cap
+
 def compact_text(text: str, archive_text: str, max_runs: int = MAX_RUNS) -> tuple[str, str, int]:
-    """Return new RUNS, new archive, and how many entries were moved."""
+    """Return new RUNS, new archive, and how many entries were moved.
+    
+    Enforces both count and a soft byte target so a single long entry cannot
+    push the live file over the hard size contract after a normal prepend.
+    """
     preamble, entries, footer = split_runs(text)
+    # First pass: respect max_runs
     if len(entries) <= max_runs:
+        kept = entries
+        older = []
+    else:
+        kept = entries[:max_runs]
+        older = entries[max_runs:]
+    # Size-aware second pass: drop more from the oldest end of kept until under target
+    def current_size(k):
+        body = preamble + "\n".join(part.strip() + "\n" for part in k)
+        if footer:
+            body = body.rstrip() + "\n\n" + footer.strip() + "\n"
+        if not body.endswith("\n"):
+            body += "\n"
+        return len(body.encode()), body
+    size, body = current_size(kept)
+    extra_moved = []
+    while size > TARGET_BYTES and len(kept) > 4:  # never go below 4 newest
+        extra = kept.pop()  # remove oldest of the kept set
+        extra_moved.append(extra)
+        size, body = current_size(kept)
+    older = older + extra_moved
+    if not older:
         out = text if text.endswith("\n") else text + "\n"
         return out, archive_text, 0
-    kept = entries[:max_runs]
-    older = entries[max_runs:]
     moved: list[str] = []
     for part in older:
         marker = part[:64]

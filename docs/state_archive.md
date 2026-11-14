@@ -1208,3 +1208,9 @@ OAuth was not polled and execute was not dispatched. Videos published stay 0. Ad
 
 OAuth was not polled and execute was not dispatched. Videos published stay 0. Added tools/pipeline_entry_contract.py — a lock that verifies stage selection by file presence (scaffold/idea/draft/script/upload) using tempfile packets. No invent, no write. Improves reliability of the stage guide for every future packet. Materialize + media_qa PASS confirmed locally with authenticated gh. No packet content edits, no secrets polled. Text stays local. STALL_OAUTH_IDLE primary blocker. Prefer human OAuth step or another truly new production capability.
 
+2026-11-14T04:30:00Z (Run 1245)
+
+Inspected after Run 1244. Contracts suite PASS (96/96). Selftest was FAILING on CI because PROGRESS.md archive pointer text did not match the exact string required by compact_all.py. Corrected the pointer; local selftest now PASS. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No new soft tools. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Do not poll secrets, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress over agent restatement. Restoring CI green prevents masked regressions.
+
+(Older state notes remain in docs/state_archive.md. Do not paste the archive back.)
+
