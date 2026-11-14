@@ -97,14 +97,31 @@ def is_idle_delta(body: str) -> bool:
         or "no secrets polled" in low
         or "oauth was not polled" in low
         or "oauth not polled" in low
+        or "do not poll secrets" in low
+        or "do not poll" in low and "secret" in low
+        or "secrets absent" in low
+        or "no poll" in low
+        or "stall_oauth_idle" in low
     )
-    published_zero = "videos published stay 0" in low or "published=0" in low or "published stay 0" in low
+    published_zero = (
+        "videos published stay 0" in low
+        or "published=0" in low
+        or "published stay 0" in low
+        or "videos published: 0" in low
+        or "videos_published: 0" in low
+        or "published stay 0" in low
+        or "videos published stay 0" in low
+        or "1000+ runs" in low
+        or "stall_oauth_idle" in low
+        or "published: 0" in low
+    )
     return (
         no_poll
         and published_zero
         and "videos published stay 1" not in low
         and "oauth secrets were present" not in low
         and "secrets present" not in low
+        and "published=1" not in low
     )
 
 
