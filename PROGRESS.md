@@ -1,5 +1,9 @@
 # PROGRESS
 
+2026-11-14T23:20:00Z (Run 1267)
+
+Enhanced tools/feedback_to_baseline_suggest.py to collect and surface up to 2 truncated example comments for the driving signal class inside the candidate stub notes and as a printed section. Further reduces human labor translating review signals into a baseline after every future collect by providing grounding examples without switching tools. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
+
 Enhanced feedback_review_brief.py to show the top two prioritized repeated signals (with truncated examples) and a clearer quick next-action pointing to experiment_baseline_starter.py. Further reduces human review labor after every future collect. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
 
 

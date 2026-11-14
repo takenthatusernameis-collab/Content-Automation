@@ -6,9 +6,10 @@ Uses the same keyword classification and hypothesis rules as feedback_hypothesis
 and feedback_review_brief.py. Picks the strongest repeated signal (confusion/question/request/objection
 with count >= 2) and emits a printable JSON stub with hypothesis and change filled,
 primary_metric suggested from the map, baseline null, and source marked pending human documentation.
-Does not invent numeric baselines, metrics, or decisions. Does not write files or call APIs.
-Fail-closed if no real collected comments. Reduces labor of manually translating review signals
-into the baseline template fields after every future collect.
+Also surfaces up to 2 truncated example comments for the chosen signal so the human can review
+grounding without switching tools. Does not invent numeric baselines, metrics, or decisions.
+Does not write files or call APIs. Fail-closed if no real collected comments.
+Reduces labor of manually translating review signals into the baseline template fields after every future collect.
 """
 
 from __future__ import annotations
@@ -115,11 +116,19 @@ def main() -> int:
         return 2
 
     counts: dict[str, int] = {cls: 0 for cls in COMMENT_CLASSES}
+    examples: dict[str, list[str]] = {cls: [] for cls in COMMENT_CLASSES}
+    examples["unclassified"] = []
     for c in comments:
         text = (c.get("text") or "") if isinstance(c, dict) else str(c)
+        text = text.strip()
+        if not text:
+            continue
         cls = classify(text)
         if cls in counts:
             counts[cls] += 1
+        if len(examples.get(cls, [])) < 2:
+            snippet = text[:160] + ("..." if len(text) > 160 else "")
+            examples.setdefault(cls, []).append(snippet)
 
     hypotheses = suggest_hypotheses(counts)
     if not hypotheses:
@@ -135,6 +144,17 @@ def main() -> int:
 
     suggested_metric = METRIC_MAP.get(preferred_change, ["average_view_duration_seconds"])[0]
 
+    # Determine the signal class that drove this hypothesis for example lookup
+    signal_cls = None
+    for cls in ("confusion", "question", "request", "objection"):
+        if counts.get(cls, 0) >= 2 and cls in hyp_text.lower():
+            signal_cls = cls
+            break
+    if not signal_cls:
+        signal_cls = next((cls for cls, n in counts.items() if n >= 2 and cls in ("confusion", "question", "request", "objection")), "confusion")
+
+    exs = examples.get(signal_cls, [])
+
     stub = {
         "_suggested_from_feedback": True,
         "_comment": "SUGGESTION ONLY. Copy to experiment_baseline.json, replace baseline with a real numeric value from documented analytics, replace source with a real documented observation, then validate. Do not invent numbers.",
@@ -143,12 +163,21 @@ def main() -> int:
         "primary_metric": suggested_metric,
         "baseline": None,
         "source": "PENDING: replace with documented source from human review of analytics or Studio after the observation window",
-        "notes": f"Auto-suggested from collected comments (counts: {counts}). Preferred change {preferred_change}. Fill baseline (numeric) and source before using with experiment_loop.py. Other candidates exist; see feedback_review_brief.py."
+        "notes": (
+            f"Auto-suggested from collected comments (counts: {counts}). Preferred change {preferred_change}. "
+            f"Top signal class: {signal_cls}. Example comments (truncated): {exs or 'none collected'}. "
+            "Fill baseline (numeric) and source before using with experiment_loop.py. Other candidates exist; see feedback_review_brief.py."
+        )
     }
 
     print("CANDIDATE BASELINE STUB (print only; do not auto-write)")
     print(json.dumps(stub, indent=2))
     print()
+    if exs:
+        print(f"Example comments for the driving signal ({signal_cls}, truncated):")
+        for i, ex in enumerate(exs, 1):
+            print(f"  {i}. {ex}")
+        print()
     print("Next human steps:")
     print("1. Review with python3 tools/feedback_review_brief.py", packet)
     print("2. Copy the stub above into", packet / "experiment_baseline.json")
