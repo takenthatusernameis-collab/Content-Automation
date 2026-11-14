@@ -1,6 +1,8 @@
+Run 1246: Restored selftest green by rewording the Run 1245 PROGRESS.md entry that had quoted the exact archive pointer string, causing count=2 and COMPACT ALL / SELFTEST FAIL. Contracts remain 96/96. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns. Exact-string checks require care in status notes.
+
 # PROGRESS
 
-Run 1245: Restored selftest green by correcting the archive pointer wording in PROGRESS.md to the exact string expected by compact_all.py ("Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back."). Prior non-matching text caused COMPACT ALL FAIL and SELFTEST FAIL on every push. Contracts remain 96/96. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
+Run 1245: Restored selftest green by correcting the archive pointer wording in PROGRESS.md to the exact string expected by compact_all.py. Prior non-matching text caused COMPACT ALL FAIL and SELFTEST FAIL on every push. Contracts remain 96/96. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
 
 Run 1244: Recorded continued STALL_OAUTH_IDLE (1000+ runs, HIGH suspicion). No new tools or contracts. Pre-upload path unchanged and reliable. Post-publish readiness tools already exist (feedback_review_brief.py, post_publish_learning_prep.py, after_upload_steps.py). Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns. Avoid adding more status one-liners.
 
