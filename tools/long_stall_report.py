@@ -65,6 +65,27 @@ def max_run_number() -> int:
     return max(nums) if nums else 0
 
 
+def earliest_stall_date() -> str | None:
+    """Scan docs/runs_archive.md for the earliest date near a stall mention. Soft, fail-closed."""
+    archive = ROOT / "docs" / "runs_archive.md"
+    if not archive.is_file():
+        return None
+    text = archive.read_text(encoding="utf-8")
+    lines = text.splitlines()
+    earliest = None
+    date_re = re.compile(r"(20\d{2}-\d{2}-\d{2})")
+    for i, line in enumerate(lines):
+        if any(k in line for k in ("STALL_OAUTH_IDLE", "secrets absent", "YOUTUBE_CLIENT_ID")):
+            for j in range(max(0, i - 8), min(len(lines), i + 2)):
+                m = date_re.search(lines[j])
+                if m:
+                    d = m.group(1)
+                    if earliest is None or d < earliest:
+                        earliest = d
+                    break
+    return earliest
+
+
 def main() -> int:
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     print("LONG STALL REPORT (OAuth idle; no poll, no invent)")
@@ -76,6 +97,16 @@ def main() -> int:
     print(f"STATE.md mentions of stall/oauth idle (recent notes): {notes}")
     print(f"Consecutive recent RUNS.md sections with STALL_OAUTH_IDLE or published=0: {zero_streak} (main file only; full history in docs/runs_archive.md)")
     print(f"Highest run number in live RUNS.md: {max_run} (total runs approximately this or higher; stall has persisted for the large majority)")
+    earliest = earliest_stall_date()
+    if earliest:
+        try:
+            start = datetime.strptime(earliest, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+            days = (datetime.now(timezone.utc) - start).days
+            print(f"Approximate stall start (earliest archive mention): {earliest} (~{days} days ago)")
+        except ValueError:
+            print(f"Approximate stall start (earliest archive mention): {earliest}")
+    else:
+        print("Approximate stall start: not found in archive (or file missing)")
     if zero_streak > 0:
         # Recompute sections to get dates
         if RUNS.is_file():
