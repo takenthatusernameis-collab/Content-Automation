@@ -1,5 +1,8 @@
 # PROGRESS
 
+2026-11-14T16:20:00Z (Run 1259)
+Fresh clone materialize of verified Q1 media (VO + cards + r253 master) succeeds with exact SHA match and media_qa PASS. Provides concrete evidence the release-to-local path is reliable. No change to human gate or published count (still 0). Pre-upload reliability reinforced.
+
 Run 1258: Enhanced long_stall_report.py to scan the runs archive for the earliest date near STALL_OAUTH_IDLE / secrets mentions and print approximate start + days elapsed (~43 days). Contracts remain 96/96. Selftest PASS. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
 
 Run 1257: Made runs_compact.py size-aware (TARGET_BYTES=15500) so normal prepends leave margin under the 16000-byte hard cap. Compacted one entry; contracts remain 96/96. Selftest PASS. Pre-upload path reliable. Human OAuth remains highest leverage. Pure confirmation runs have diminishing returns.
