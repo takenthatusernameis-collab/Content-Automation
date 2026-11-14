@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-14T12:22:24Z (Run 1255)
+
+Inspected after Run 1254. Contracts suite was FAIL (1/96) on runs_compact_contract.py (RUNS.md 16026 bytes > 16000). Compacted one older run to archive, restored pointer, suite now PASS (96/96). Selftest PASS. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (highest run ~1254, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress over agent restatement. Restored the hard size lock on the live run log so truncated fetches still show the newest entries.
+
 2026-11-14T11:25:00Z (Run 1254)
 
 Inspected after Run 1253. Contracts suite PASS (96/96). Selftest PASS. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (highest run ~1253, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress over agent restatement. Elevated the OAuth app Production-publish step to a hard critical item in the phased plan (human_starter.py) and complete guide (oauth_complete_guide.py) so the 7-day Testing-mode token expiry cannot silently prevent the +10-day feedback window.
@@ -41,4 +45,3 @@ Inspected after Run 1245. Contracts suite PASS (96/96). Selftest was FAILING aga
 Inspected after Run 1244. Contracts suite PASS (96/96). Selftest was FAILING on CI because PROGRESS.md archive pointer text did not match the exact string required by compact_all.py. Corrected the pointer; local selftest now PASS. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (1000+ runs, HIGH suspicion). No new soft tools. Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Do not poll secrets, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress over agent restatement. Restoring CI green prevents masked regressions.
 
 (Older state notes remain in docs/state_archive.md. Do not paste the archive back.)
-
