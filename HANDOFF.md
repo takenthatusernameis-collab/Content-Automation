@@ -1,3 +1,7 @@
+2026-11-15T17:20:00Z (Run 1284)
+
+Enhanced tools/feedback_to_topic_suggest.py to scan docs/topic_queue.md and emit ready-to-paste markdown table rows using a concrete suggested next queue id (e.g. Q6) instead of a QN placeholder, for keep/discard/retest. Further reduces human labor adding the next queued topic after every future decision by eliminating the manual id lookup/replacement step. after_upload_steps.py updated to mention the suggested id. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
+
 2026-11-15T16:23:00Z (Run 1283)
 
 Enhanced tools/feedback_to_topic_suggest.py to emit ready-to-paste markdown table rows (QN placeholder) for docs/topic_queue.md alongside the field snippets, for keep/discard/retest. Further reduces human labor adding the next queued topic after every future decision by providing a complete table row that can be pasted directly. after_upload_steps.py updated to mention the table rows. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
@@ -9,10 +13,6 @@ Enhanced tools/feedback_to_topic_suggest.py to emit complete copy-paste-ready id
 2026-11-15T14:31:12Z (Run 1281)
 
 Enhanced tools/feedback_to_topic_suggest.py to dynamically adapt ready working_title / one_line / problem / full queue_row / idea.md paste snippets to the packet's extracted mechanism and problem when present. Further reduces human labor editing the starter language after every future decision by making the paste blocks more relevant out of the box. after_upload_steps.py updated to mention the dynamic adaptation. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
-
-2026-11-15T13:31:33Z (Run 1280)
-
-Enhanced tools/feedback_to_topic_suggest.py to include ready idea.md paste snippets for keep/discard/retest. Further reduces human labor filling idea.md after the next topic queue row by providing a ready paste block inline. after_upload_steps.py updated to mention them. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py` or `python3 tools/contracts_suite.py` or `python3 tools/queued_field_check.py` or `python3 tools/long_stall_report.py` or `python3 tools/stall_pattern_detector.py`.
 
