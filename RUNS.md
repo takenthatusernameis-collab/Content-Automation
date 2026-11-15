@@ -1,3 +1,12 @@
+## Run 1277 — 2026-11-15T10:25:00Z
+- Objective: Further reduce human labor drafting the problem field in the topic queue after a decision by including short ready problem_snippets for keep/discard/retest in the feedback_to_topic_suggest output, grounded in the channel niche.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, feedback_to_topic_suggest.py, after_upload_steps.py. Enhanced feedback_to_topic_suggest.py to print ready problem_snippets. Updated after_upload_steps.py to mention the problem snippets in the learning loop step. Verified by construction (no live packet). Updated STATE, NEXT, PROGRESS, RUNS, HANDOFF. No secrets polled, no dispatch, no media writes, no scaffolding.
+- Result: Feedback-to-topic suggest now provides ready problem language inline so humans can draft the next queue row faster without inventing phrasing. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion, ~43 days). Long stall is increasingly suspicious.
+- Verification: Changes committed via GitHub API. Tool logic preserves soft guidance and no-invent rules.
+- Discovery: Adding problem snippets compounds the prior one_line topic snippets; reduces remaining phrasing labor for every future decision-to-topic-queue step.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py then feedback_to_baseline_suggest.py then feedback_to_decision_suggest.py then next_from_decision.py then feedback_to_topic_suggest.py (now with one_line + problem snippets).
+
 ## Run 1276 — 2026-11-15T09:18:42Z
 - Objective: Further reduce human labor documenting the observation source in the experiment decision after a numeric comparison by including a ready source_snippet grounded in the comparison metrics and direction.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, feedback_to_decision_suggest.py. Enhanced feedback_to_decision_suggest.py to print a ready source_snippet after each candidate stub. Updated after_upload_steps.py to mention the source_snippet. Verified by construction (no live packet). Updated STATE, NEXT, PROGRESS, RUNS, HANDOFF. No secrets polled, no dispatch, no media writes, no scaffolding.
