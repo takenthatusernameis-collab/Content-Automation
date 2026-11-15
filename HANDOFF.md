@@ -1,3 +1,7 @@
+2026-11-15T05:18:00Z (Run 1273)
+
+Enhanced tools/feedback_to_topic_suggest.py to include ready one_line topic snippets for keep/discard/retest. Further reduces human labor drafting the next topic after every future decision by providing ready language inline. after_upload_steps.py updated to mention them. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
+
 2026-11-15T03:14:58Z (Run 1271)
 
 Enhanced tools/next_from_decision.py to include a short ready direction_snippet for the chosen decision (keep/discard/retest), grounded in the primary metric. Further reduces human labor formulating the next topic direction after every future decision by providing ready language inline. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
