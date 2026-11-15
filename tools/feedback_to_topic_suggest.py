@@ -6,8 +6,12 @@ the same day). Prints guidance on turning operational comment signals or
 measured weak points into queue candidates without inventing topics or results.
 Uses idea_utils when a packet is given. Complements experiment tools.
 Does not write files, poll, invent data, or scaffold. Exit 0.
-Also surfaces ready working_title, one_line, problem, full queue_row, and idea.md paste snippets (dynamically adapted to the packet's mechanism/problem when present) so the human can start the next queue row and idea.md faster without inventing phrasing.
-The idea.md section now emits a complete copy-paste-ready markdown block.
+Also surfaces ready working_title, one_line, problem, full queue_row, ready-to-paste
+markdown table rows for docs/topic_queue.md, and complete idea.md paste snippets
+(dynamically adapted to the packet's mechanism/problem when present) so the human
+can start the next queue row and idea.md faster without inventing phrasing.
+The idea.md section emits a complete copy-paste-ready markdown block.
+The queue section now also emits a complete markdown table row (QN placeholder).
 """
 
 from __future__ import annotations
@@ -51,7 +55,7 @@ def main() -> int:
     print("  - problem: The stall that reopens the list or prevents starting.")
     print("  - Prefer topics that can be observed the same day via comment language.")
     print()
-        # Dynamic snippets when packet idea is present; fall back to generic. Keep language natural.
+    # Dynamic snippets when packet idea is present; fall back to generic. Keep language natural.
     short_mech = (mech.split(" so ")[0] if mech and " so " in mech else (mech or "the installable default")).strip()
     if short_mech.lower().startswith("install "):
         short_mech = short_mech[8:].strip() or short_mech
@@ -84,6 +88,7 @@ def main() -> int:
         print(f"  {dec}: {snip}")
     print()
     print("Ready full queue_row snippets (copy/edit as a complete starter row for docs/topic_queue.md; adapt working_title, one_line, and problem to the actual decision):")
+    print("Also ready-to-paste markdown table rows (replace QN with the next id from python3 tools/next_topic.py or queue_status.py):")
     for dec in ("keep", "discard", "retest"):
         title = title_snippets.get(dec, "")
         one = topic_snippets.get(dec, "")
@@ -92,6 +97,7 @@ def main() -> int:
         print(f"    working_title: {title}")
         print(f"    one_line: {one}")
         print(f"    problem: {prob}")
+        print(f"    table_row: | QN | queued | {title} | {one} | {prob} |")
         print()
     print("Ready idea.md paste snippets (complete copy-paste-ready markdown blocks; adapt to actual decision):")
     idea_why_now = {
@@ -118,8 +124,8 @@ def main() -> int:
         print()
     print("How to use with existing tools:")
     print("  1. After experiment_decision.json records keep/discard/retest with documented source.")
-    print("  2. Use a ready full queue_row snippet above (or edit the separate working_title/one_line/problem) as the starting row.")
-    print("  3. Manually add one queued row in docs/topic_queue.md following the pattern.")
+    print("  2. Use a ready full queue_row snippet or the table_row above (replace QN) as the starting row.")
+    print("  3. Manually add one queued row in docs/topic_queue.md following the pattern (paste the table_row).")
     print("  4. Use a ready idea.md paste snippet above when filling idea.md (or python3 tools/apply_idea.py PACKET --write).")
     print("  5. python3 tools/topic_queue_mechanism_check.py  # soft alignment")
     print("  6. python3 tools/next_topic.py  # confirm next scaffold candidate")
