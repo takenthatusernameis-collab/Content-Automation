@@ -173,6 +173,13 @@ def main() -> int:
     print("CANDIDATE BASELINE STUB (print only; do not auto-write)")
     print(json.dumps(stub, indent=2))
     print()
+    # Ready source snippet so the human can start documenting the observation without inventing phrasing
+    source_snippet = (
+        f"Documented after observation window from collected comments (signal class {signal_cls}, count >=2) "
+        f"and analytics for {suggested_metric}. Hypothesis grounded in repeated viewer language; baseline filled from Studio/Analytics export."
+    )
+    print(f"Ready source_snippet (copy/edit into the source field): {source_snippet}")
+    print()
     if exs:
         print(f"Example comments for the driving signal ({signal_cls}, truncated):")
         for i, ex in enumerate(exs, 1):
