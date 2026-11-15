@@ -1,6 +1,6 @@
-2026-11-15T19:20:00Z (Run 1286)
+2026-11-15T20:17:40Z (Run 1287)
 
-Enhanced tools/human_starter.py to surface a SATURATION NOTE at the top: recent agent runs (1281-1285) saturated on polishing tools/feedback_to_topic_suggest.py while videos published remain 0; saturation_guard flags SATURATED_ANTI_REDISCOVERY; further soft-tool polishing has diminishing returns until after first private video id. The only advancing action is the human OAuth step. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress.
+Enhanced tools/oauth_complete_guide.py to surface a SATURATION NOTE at the top: recent agent runs (1281-1286) saturated on polishing tools/feedback_to_topic_suggest.py and status tools (human_starter.py) while videos published remain 0; saturation_guard flags SATURATED_ANTI_REDISCOVERY; further soft-tool polishing has diminishing returns until after first private video id. The only advancing action is the human OAuth step. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress.
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py` or `python3 tools/contracts_suite.py` or `python3 tools/queued_field_check.py` or `python3 tools/long_stall_report.py` or `python3 tools/stall_pattern_detector.py`.
 
