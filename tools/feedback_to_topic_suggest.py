@@ -7,11 +7,12 @@ measured weak points into queue candidates without inventing topics or results.
 Uses idea_utils when a packet is given. Complements experiment tools.
 Does not write files, poll, invent data, or scaffold. Exit 0.
 Also surfaces ready working_title, one_line, problem, full queue_row, ready-to-paste
-markdown table rows for docs/topic_queue.md, and complete idea.md paste snippets
+markdown table rows for docs/topic_queue.md (with suggested next id from current queue),
+and complete idea.md paste snippets
 (dynamically adapted to the packet's mechanism/problem when present) so the human
 can start the next queue row and idea.md faster without inventing phrasing.
 The idea.md section emits a complete copy-paste-ready markdown block.
-The queue section now also emits a complete markdown table row (QN placeholder).
+The queue section now also emits a complete markdown table row using a suggested next Q id.
 """
 
 from __future__ import annotations
@@ -36,6 +37,22 @@ def main() -> int:
     if idea_path.is_file():
         idea_text = idea_path.read_text(encoding="utf-8")
         mech, problem, topic = extract(idea_text)
+    # Suggest next queue id by scanning existing Q numbers in docs/topic_queue.md (read-only)
+    next_qid = "QN"
+    queue_path = ROOT / "docs" / "topic_queue.md"
+    if queue_path.is_file():
+        qids = []
+        for line in queue_path.read_text(encoding="utf-8").splitlines():
+            if line.startswith("| Q"):
+                parts = [p.strip() for p in line.split("|")]
+                if len(parts) > 1 and parts[1].startswith("Q") and parts[1][1:].isdigit():
+                    qids.append(parts[1])
+        if qids:
+            try:
+                max_num = max(int(q[1:]) for q in qids)
+                next_qid = f"Q{max_num + 1}"
+            except (ValueError, IndexError):
+                pass
     print("FEEDBACK TO TOPIC SUGGEST (soft; no invent, no scaffold)")
     print(f"packet (optional): {packet.name if idea_path.is_file() else 'none'}")
     print(f"channel niche: Systems for doing focused work. Promise: install one small default the same day.")
@@ -43,6 +60,7 @@ def main() -> int:
         print(f"mechanism: {mech}")
     if problem:
         print(f"problem: {problem}")
+    print(f"Suggested next queue id (scanned from docs/topic_queue.md; verify with python3 tools/next_topic.py or queue_status.py): {next_qid}")
     print()
     print("When real feedback arrives (comments or metrics after observation window):")
     print("  - Prefer operational signals: mentions of installing/trying/starting the named default.")
@@ -88,7 +106,7 @@ def main() -> int:
         print(f"  {dec}: {snip}")
     print()
     print("Ready full queue_row snippets (copy/edit as a complete starter row for docs/topic_queue.md; adapt working_title, one_line, and problem to the actual decision):")
-    print("Also ready-to-paste markdown table rows (replace QN with the next id from python3 tools/next_topic.py or queue_status.py):")
+    print(f"Also ready-to-paste markdown table rows (suggested next id {next_qid}; verify before pasting):")
     for dec in ("keep", "discard", "retest"):
         title = title_snippets.get(dec, "")
         one = topic_snippets.get(dec, "")
@@ -97,7 +115,7 @@ def main() -> int:
         print(f"    working_title: {title}")
         print(f"    one_line: {one}")
         print(f"    problem: {prob}")
-        print(f"    table_row: | QN | queued | {title} | {one} | {prob} |")
+        print(f"    table_row: | {next_qid} | queued | {title} | {one} | {prob} |")
         print()
     print("Ready idea.md paste snippets (complete copy-paste-ready markdown blocks; adapt to actual decision):")
     idea_why_now = {
@@ -124,7 +142,7 @@ def main() -> int:
         print()
     print("How to use with existing tools:")
     print("  1. After experiment_decision.json records keep/discard/retest with documented source.")
-    print("  2. Use a ready full queue_row snippet or the table_row above (replace QN) as the starting row.")
+    print(f"  2. Use a ready full queue_row snippet or the table_row above (with suggested {next_qid}; verify id) as the starting row.")
     print("  3. Manually add one queued row in docs/topic_queue.md following the pattern (paste the table_row).")
     print("  4. Use a ready idea.md paste snippet above when filling idea.md (or python3 tools/apply_idea.py PACKET --write).")
     print("  5. python3 tools/topic_queue_mechanism_check.py  # soft alignment")
