@@ -6,6 +6,7 @@ Reuses inspect_experiment from experiment_loop.py. When a comparison is present
 with the observed delta and direction noted. Source and reason left for human documentation.
 Does not invent a decision, write files, or call APIs. Fail-closed if no comparison.
 Reduces recurring labor of manually formatting the decision file after every future comparison.
+Also surfaces a ready source_snippet so the human can document the observation source without inventing phrasing.
 """
 
 from __future__ import annotations
@@ -64,6 +65,13 @@ def main() -> int:
         "retest": f"The observed {metric} change is small or ambiguous ({direction}, delta={delta}). Retest with a clearer metric, larger sample, or refined change before deciding.",
     }
 
+    # Ready source snippet grounded in the comparison so the human can document the observation without inventing phrasing
+    source_snippet = (
+        f"Documented after observation window from experiment comparison of {metric} "
+        f"(observed {observed} vs baseline {baseline}, {direction}, delta={delta}). "
+        "Filled from Studio/Analytics export and full comment review."
+    )
+
     for decision in ("keep", "discard", "retest"):
         snippet = reason_snippets.get(decision, "Review the full comparison and comments before deciding.")
         stub = {
@@ -79,12 +87,13 @@ def main() -> int:
         print(f"--- Candidate for {decision} ---")
         print(json.dumps(stub, indent=2))
         print(f"  suggested_reason_snippet: {snippet}")
+        print(f"  ready source_snippet (copy/edit into the source field): {source_snippet}")
         print()
 
     print("Next human steps:")
     print("1. Review the full comparison with: python3 tools/experiment_loop.py", packet)
     print("2. Choose one stub above, copy to", packet / "experiment_decision.json")
-    print("3. Fill real reason and documented source.")
+    print("3. Fill real reason (use suggested_reason_snippet) and documented source (use ready source_snippet).")
     print("4. python3 tools/experiment_template_validator.py", packet / "experiment_decision.json")
     print("5. python3 tools/next_from_decision.py", packet / "experiment_decision.json")
     print("Do not invent decisions or results.")
