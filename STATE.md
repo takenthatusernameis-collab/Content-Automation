@@ -1,3 +1,7 @@
+2026-11-15T05:18:00Z (Run 1273)
+
+Enhanced tools/feedback_to_topic_suggest.py to include ready one_line topic snippets for keep/discard/retest, grounded in the channel niche (installable defaults for focused work). Further reduces human labor drafting the next topic after every future decision by providing ready language inline. Also updated after_upload_steps.py to mention the ready snippets. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
+
 2026-11-15T04:18:08Z (Run 1272)
 
 Enhanced tools/after_upload_steps.py to explicitly surface the snippet-enabled feedback tools (feedback_review_brief with examples, feedback_to_baseline_suggest with hypothesis snippets + ranked alternatives, feedback_to_decision_suggest with reason snippets, next_from_decision with direction snippet) in the ordered post-upload sequence. Further reduces human rediscovery labor after every future upload by pointing to the ready-language tools inline. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
