@@ -1,3 +1,7 @@
+2026-11-15T04:18:08Z (Run 1272)
+
+Enhanced tools/after_upload_steps.py to explicitly surface the snippet-enabled feedback tools (feedback_review_brief with examples, feedback_to_baseline_suggest with hypothesis snippets + ranked alternatives, feedback_to_decision_suggest with reason snippets, next_from_decision with direction snippet) in the ordered post-upload sequence. Further reduces human rediscovery labor after every future upload by pointing to the ready-language tools inline. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
+
 2026-11-15T03:14:58Z (Run 1271)
 
 Enhanced tools/next_from_decision.py to include a short ready direction_snippet for the chosen decision (keep/discard/retest), grounded in the primary metric. Further reduces human labor formulating the next topic direction after every future decision by providing ready language inline. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
