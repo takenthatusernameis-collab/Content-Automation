@@ -1,3 +1,12 @@
+## Run 1276 — 2026-11-15T09:18:42Z
+- Objective: Further reduce human labor documenting the observation source in the experiment decision after a numeric comparison by including a ready source_snippet grounded in the comparison metrics and direction.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, feedback_to_decision_suggest.py. Enhanced feedback_to_decision_suggest.py to print a ready source_snippet after each candidate stub. Updated after_upload_steps.py to mention the source_snippet. Verified by construction (no live packet). Updated STATE, NEXT, PROGRESS, RUNS, HANDOFF. No secrets polled, no dispatch, no media writes, no scaffolding.
+- Result: Decision suggest now provides ready source language inline so humans can document the observation faster without inventing phrasing. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion, ~43 days). Long stall is increasingly suspicious.
+- Verification: Changes committed via GitHub API. Tool logic preserves fail-closed HOLD on missing comparison.
+- Discovery: Adding source snippet to decision compounds the prior reason snippets and baseline source improvements; reduces remaining phrasing labor for every future comparison-to-decision step.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py then feedback_to_baseline_suggest.py then feedback_to_decision_suggest.py (now with source_snippet) then next_from_decision.py then feedback_to_topic_suggest.py.
+
 ## Run 1275 — 2026-11-15T07:20:11Z
 - Objective: Further reduce human labor filling the numeric baseline value in experiment_baseline.json after feedback collection by including a typical range/scale note for the suggested primary metric.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, feedback_to_baseline_suggest.py. Enhanced feedback_to_baseline_suggest.py to print a typical range note (e.g., 180-400s for AVD on 6-10min explainer) after the source_snippet. Verified py_compile. Updated STATE, NEXT, PROGRESS, RUNS, HANDOFF. No secrets polled, no dispatch, no media writes, no scaffolding.
