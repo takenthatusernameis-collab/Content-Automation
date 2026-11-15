@@ -59,6 +59,12 @@ def main() -> int:
     print(f"reason: {reason[:120]}{'...' if len(reason) > 120 else ''}")
     print()
     print("Suggested next direction (edit before scaffolding; do not copy as-is):")
+    direction_snippets = {
+        "keep": "Apply the same winning change (that improved {metric}) to a closely related viewer problem while testing one new constraint. Preserve the mechanism that moved the metric in the desirable direction.",
+        "discard": "Return to the prior baseline and avoid the tested change that moved {metric} in an undesirable direction. Document the failed variable so future packets do not repeat it.",
+        "retest": "Retest the same change on a different but comparable topic to isolate the variable more cleanly or gather a second observation window before deciding keep or discard.",
+    }
+    snippet = direction_snippets.get(decision, "Review the decision and reason before choosing a next topic.")
     if decision == "keep":
         print("- Keep the tested change and apply the same mechanism to a closely related viewer problem.")
         print("- Next topic should preserve the winning variable while testing one new constraint.")
@@ -68,6 +74,9 @@ def main() -> int:
     else:  # retest
         print("- Retest the same change on a different but comparable topic.")
         print("- Next topic should isolate the variable more cleanly or collect a second observation window.")
+    print()
+    print("Ready direction snippet (copy/edit as starting language):")
+    print(snippet.format(metric=metric or "the primary metric"))
     print()
     print("Next commands (after you write a one-line topic):")
     print("  python3 tools/new_idea.py 'your one-line topic here'")
