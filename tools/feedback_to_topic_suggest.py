@@ -6,7 +6,7 @@ the same day). Prints guidance on turning operational comment signals or
 measured weak points into queue candidates without inventing topics or results.
 Uses idea_utils when a packet is given. Complements experiment tools.
 Does not write files, poll, invent data, or scaffold. Exit 0.
-Also surfaces ready working_title, one_line, problem, and full queue_row snippets so the human can start the next queue row faster without inventing phrasing.
+Also surfaces ready working_title, one_line, problem, full queue_row, and idea.md paste snippets so the human can start the next queue row and idea.md faster without inventing phrasing.
 """
 
 from __future__ import annotations
@@ -87,13 +87,31 @@ def main() -> int:
         print(f"    one_line: {one}")
         print(f"    problem: {prob}")
         print()
+    print("Ready idea.md paste snippets (after queue row is added; copy into idea.md or use with apply_idea.py; adapt to actual decision):")
+    idea_why_now = {
+        "keep": "The winning mechanism produced same-day install mentions; the related stall is still present for many viewers.",
+        "discard": "The tested change reduced install mentions; the simpler prior default is the more reliable same-day install.",
+        "retest": "One observation window is not enough to confirm the mechanism; a second comparable stall will isolate the variable.",
+    }
+    for dec in ("keep", "discard", "retest"):
+        title = title_snippets.get(dec, "")
+        one = topic_snippets.get(dec, "")
+        prob = problem_snippets.get(dec, "")
+        why = idea_why_now.get(dec, "")
+        print(f"  {dec}:")
+        print(f"    - topic: {title}")
+        print(f"    - problem: {prob}")
+        print(f"    - mechanism (the system, not the pep talk): {one}")
+        print(f"    - why now: {why}")
+        print()
     print("How to use with existing tools:")
     print("  1. After experiment_decision.json records keep/discard/retest with documented source.")
     print("  2. Use a ready full queue_row snippet above (or edit the separate working_title/one_line/problem) as the starting row.")
     print("  3. Manually add one queued row in docs/topic_queue.md following the pattern.")
-    print("  4. python3 tools/topic_queue_mechanism_check.py  # soft alignment")
-    print("  5. python3 tools/next_topic.py  # confirm next scaffold candidate")
-    print("  6. Only scaffold with explicit human instruction via new_packet.py")
+    print("  4. Use a ready idea.md paste snippet above when filling idea.md (or python3 tools/apply_idea.py PACKET --write).")
+    print("  5. python3 tools/topic_queue_mechanism_check.py  # soft alignment")
+    print("  6. python3 tools/next_topic.py  # confirm next scaffold candidate")
+    print("  7. Only scaffold with explicit human instruction via new_packet.py")
     print()
     print("Do not invent topics, metrics, or decisions. Human OAuth remains the blocker for first publish.")
     print("FEEDBACK TO TOPIC SUGGEST complete.")
