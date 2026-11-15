@@ -6,7 +6,7 @@ the same day). Prints guidance on turning operational comment signals or
 measured weak points into queue candidates without inventing topics or results.
 Uses idea_utils when a packet is given. Complements experiment tools.
 Does not write files, poll, invent data, or scaffold. Exit 0.
-Also surfaces ready one_line and problem snippets so the human can start the next queue row faster without inventing phrasing.
+Also surfaces ready one_line, problem, and full queue_row snippets so the human can start the next queue row faster without inventing phrasing.
 """
 
 from __future__ import annotations
@@ -67,9 +67,17 @@ def main() -> int:
     for dec, snip in problem_snippets.items():
         print(f"  {dec}: {snip}")
     print()
+    print("Ready full queue_row snippets (copy/edit as a complete starter row for docs/topic_queue.md; adapt one_line and problem to the actual decision):")
+    for dec in ("keep", "discard", "retest"):
+        one = topic_snippets.get(dec, "")
+        prob = problem_snippets.get(dec, "")
+        print(f"  {dec}:")
+        print(f"    one_line: {one}")
+        print(f"    problem: {prob}")
+        print()
     print("How to use with existing tools:")
     print("  1. After experiment_decision.json records keep/discard/retest with documented source.")
-    print("  2. Use a ready one_line snippet above (or edit) as one_line; use a ready problem snippet (or edit) as problem.")
+    print("  2. Use a ready full queue_row snippet above (or edit the separate one_line/problem) as the starting row.")
     print("  3. Manually add one queued row in docs/topic_queue.md following the pattern.")
     print("  4. python3 tools/topic_queue_mechanism_check.py  # soft alignment")
     print("  5. python3 tools/next_topic.py  # confirm next scaffold candidate")
