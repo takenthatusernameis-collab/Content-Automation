@@ -1,3 +1,14 @@
+# RUNS
+
+## Run 1285 — 2026-11-15T18:14:00Z
+- Objective: Strengthen saturation detection so future agents stop iterating on the same post-publish suggestor (feedback_to_topic_suggest.py) while the long OAuth stall continues.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, saturation_guard.py, feedback_to_topic_suggest.py. Expanded ZERO_PUBLISH_RE and added SUGGEST_POLISH_RE to catch 'Enhanced ... feedback_to_topic_suggest'. Lowered saturation threshold to 4. Verified locally: now reports SATURATED_ANTI_REDISCOVERY on the last 4 runs. Updated the recommendation text. No secrets polled, no dispatch, no media writes, no scaffolding.
+- Result: saturation_guard.py now reliably flags repeated polish of the same suggest tool as saturated. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion, ~43 days). Long stall is increasingly suspicious.
+- Verification: Local run of saturation_guard.py produced SATURATED_ANTI_REDISCOVERY with the new message. Syntax and logic checked. Changes staged for commit.
+- Discovery: Prior regex required literal 'tools/' after Enhanced, missing the actual Action phrasing; zero-publish phrase also did not match recent RUNS entries. Fix compounds by making the guard catch the current loop.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py then feedback_to_baseline_suggest.py then feedback_to_decision_suggest.py then next_from_decision.py then feedback_to_topic_suggest.py. Do not further polish feedback_to_topic_suggest until after first publish.
+
 ## Run 1284 — 2026-11-15T17:20:00Z
 - Objective: Further reduce human labor adding the next queued topic after a decision by emitting ready-to-paste markdown table rows with a concrete suggested next queue id (scanned from docs/topic_queue.md) in feedback_to_topic_suggest.
 - Action: Inspected STATE.md, NEXT.md, feedback_to_topic_suggest.py, after_upload_steps.py, topic_queue.md. Enhanced the queue section to scan existing Q ids and print table rows with suggested next id (e.g. Q6). Updated after_upload_steps.py mention. Verified by construction (no live packet writes). Updated STATE, NEXT, PROGRESS, RUNS, HANDOFF. No secrets polled, no dispatch, no media writes, no scaffolding.

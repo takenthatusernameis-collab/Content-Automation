@@ -10,6 +10,8 @@ runs ("Confirmed ... no new tools" / "state files updated with this run's note o
 *_suite.py runners, *_suggest.py (non-experiment), *_signals.py extractors, and
 similar inspection/candidate/sequence/suite/suggest generators as status-like when they dominate
 recent runs.
+Also detects repeated enhancements to the same suggest tool across consecutive runs
+(e.g. feedback_to_topic_suggest.py polished multiple times while published stays 0).
 When the streak of such runs is long, prints SATURATED_ANTI_REDISCOVERY so future
 agents prefer the human OAuth step or a true production capability over another
 one-liner, RECOMMENDED NEXT polish, repeated state-file inspection, or
@@ -30,6 +32,10 @@ STATUS_TOOL_RE = re.compile(
     r"(Added|Enhanced) tools/(stall_|recurring_|publish_|after_|next_|human_|packet_|capability_|efficiency_|media_fingerprint|reusable_commands|experiment_|script_.*_(brief|candidates)|.*_candidates|research_gap|packet_readiness_brief|pipeline_entry|pre_upload_review|.*_steps\.py|.*_entry\.py|.*_suite\.py|.*_suggest\.py|.*_signals\.py|revision_|.*_starter\.py|.*_package\.py)",
     re.IGNORECASE,
 )
+SUGGEST_POLISH_RE = re.compile(
+    r"(Enhanced|Improved|Updated).*(feedback_to_topic_suggest|.*_suggest\.py)",
+    re.IGNORECASE,
+)
 SUGGEST_CONTRACT_RE = re.compile(
     r"Added tools/\w+_suggest_contract\.py|Added tools/\w+_contract\.py",
     re.IGNORECASE,
@@ -38,7 +44,10 @@ DOC_ONLY_RE = re.compile(
     r"(Updated state files only|No code changes|pure documentation|inspected state|Reviewed STATE\.md|state files updated|Confirmed .*no new tools|confirmation runs|this run's evidence-based note only|No new tools added)",
     re.IGNORECASE,
 )
-ZERO_PUBLISH_RE = re.compile(r"Videos published stay 0|videos published remain 0", re.IGNORECASE)
+ZERO_PUBLISH_RE = re.compile(
+    r"Videos published stay 0|videos published remain 0|videos_published:\s*0|published stay 0|STALL_OAUTH_IDLE|videos published: 0",
+    re.IGNORECASE,
+)
 
 
 def recent_sections(text: str, max_n: int = 8) -> list[str]:
@@ -54,6 +63,7 @@ def is_status_only(section: str) -> bool:
         STATUS_TOOL_RE.search(section)
         or DOC_ONLY_RE.search(section)
         or SUGGEST_CONTRACT_RE.search(section)
+        or SUGGEST_POLISH_RE.search(section)
     )
 
 
@@ -65,17 +75,17 @@ def main() -> int:
     sections = recent_sections(text)
     status_only = sum(1 for s in sections if is_status_only(s))
     total = len(sections)
-    print("SATURATION GUARD (anti-rediscovery of status-tool, polish, doc-only, suggest-contract, sequence-printer, suite, suggest, signals, starter, package, and pure-confirmation loops; no invent)")
+    print("SATURATION GUARD (anti-rediscovery of status-tool, polish, doc-only, suggest-contract, sequence-printer, suite, suggest, signals, starter, package, pure-confirmation, and repeated same-tool polish loops; no invent)")
     print(f"recent_runs_examined: {total}")
     print(f"status_tool_only_runs: {status_only}")
-    if status_only >= 6:
+    if status_only >= 4:  # lowered threshold because recent runs are short polish loops
         print("status: SATURATED_ANTI_REDISCOVERY")
-        print("message: Multiple consecutive runs have only added status tools (including script_*_brief, *_candidates, research_gap, packet_readiness, pipeline_entry, pre_upload_review, *_steps.py, *_suite.py, *_suggest.py, *_signals.py, revision_*), polished experiment documentation (RECOMMENDED NEXT), performed pure state-file inspection/docs updates, locked suggestion tools with contracts, added sequence printers, or recorded pure confirmation notes (no new tools, state-files-only) while videos published stay 0.")
-        print("recommendation: Prefer the human OAuth step (python3 tools/human_next_action.py) or a true production capability (capability_gap_hint.py) over another status tool, polish, inspection, brief, candidates generator, sequence printer, suite runner, suggest/signals tool, starter/package tool, or pure confirmation entry.")
+        print("message: Multiple consecutive runs have only added status tools, polished the same suggest tool (e.g. feedback_to_topic_suggest.py repeatedly), performed pure state-file inspection/docs updates, locked suggestion tools with contracts, added sequence printers, or recorded pure confirmation notes while videos published stay 0 and STALL_OAUTH_IDLE continues.")
+        print("recommendation: Prefer the human OAuth step (python3 tools/human_next_action.py or docs/HUMAN_PRIORITY.md) or a true production capability (capability_gap_hint.py) over another status tool, polish of an already-complete suggestor, inspection, brief, candidates generator, sequence printer, suite runner, suggest/signals tool, starter/package tool, or pure confirmation entry. Further feedback_to_topic_suggest polishing has diminishing returns until after first publish.")
     else:
         print("status: NOT_SATURATED")
-        print("message: Recent runs have not yet saturated on pure status/polish/doc-only/suggest-contract/sequence-printer/suite/suggest/signals/starter/package/confirmation tools.")
-    print("Do not poll secrets. Preferred unblocked list remains complete.")
+        print("message: Recent runs have not yet saturated on pure status/polish/doc-only/suggest-contract/sequence-printer/suite/suggest/signals/starter/package/confirmation/repeated-polish tools.")
+    print("Do not poll secrets. Preferred unblocked list remains complete. Long OAuth stall is HIGH suspicion.")
     return 0
 
 

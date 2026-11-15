@@ -1,3 +1,7 @@
+# PROGRESS
+
+Enhanced tools/saturation_guard.py to detect repeated enhancements to the same suggest tool (e.g. feedback_to_topic_suggest.py) and expanded zero-publish detection. Now flags SATURATED_ANTI_REDISCOVERY on recent polish runs. Explicitly notes that further feedback_to_topic_suggest polishing has diminishing returns until after first publish. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation or repeated suggest polishing.
+
 2026-11-15T17:20:00Z (Run 1284)
 
 Enhanced tools/feedback_to_topic_suggest.py to scan docs/topic_queue.md and emit ready-to-paste markdown table rows using a concrete suggested next queue id (e.g. Q6) instead of a QN placeholder, for keep/discard/retest. Further reduces human labor adding the next queued topic after every future decision by eliminating the manual id lookup/replacement step. after_upload_steps.py updated to mention the suggested id. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
@@ -14,6 +18,5 @@ Enhanced tools/feedback_to_topic_suggest.py to emit complete copy-paste-ready id
 
 Enhanced tools/feedback_to_topic_suggest.py to dynamically adapt ready working_title / one_line / problem / full queue_row / idea.md paste snippets to the packet's extracted mechanism and problem when present. Further reduces human labor editing the starter language after every future decision by making the paste blocks more relevant out of the box. after_upload_steps.py updated to mention the dynamic adaptation. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
 
-# PROGRESS
 
 Older progress notes live in `docs/progress_archive.md`. Do not paste the archive back.
