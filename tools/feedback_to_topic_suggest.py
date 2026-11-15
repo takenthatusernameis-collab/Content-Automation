@@ -6,7 +6,7 @@ the same day). Prints guidance on turning operational comment signals or
 measured weak points into queue candidates without inventing topics or results.
 Uses idea_utils when a packet is given. Complements experiment tools.
 Does not write files, poll, invent data, or scaffold. Exit 0.
-Also surfaces ready one_line, problem, and full queue_row snippets so the human can start the next queue row faster without inventing phrasing.
+Also surfaces ready working_title, one_line, problem, and full queue_row snippets so the human can start the next queue row faster without inventing phrasing.
 """
 
 from __future__ import annotations
@@ -45,9 +45,19 @@ def main() -> int:
     print("  - Strong install mentions on a mechanism support keeping similar defaults; do not invent new ones.")
     print()
     print("Suggested queue refinement pattern (adapt, do not invent):")
+    print("  - working_title: Short operational title naming the installable default or stall.")
     print("  - one_line: Name one concrete installable default (cue, constraint, checklist) tied to a specific stall.")
     print("  - problem: The stall that reopens the list or prevents starting.")
     print("  - Prefer topics that can be observed the same day via comment language.")
+    print()
+    print("Ready working_title snippets (copy/edit as starting language; adapt to actual decision and mechanism):")
+    title_snippets = {
+        "keep": "Install a written next-action default for related morning stalls",
+        "discard": "Return to the simpler cue that increased same-day installs",
+        "retest": "Retest the same installable default on a comparable stall",
+    }
+    for dec, snip in title_snippets.items():
+        print(f"  {dec}: {snip}")
     print()
     print("Ready one_line topic snippets (copy/edit as starting language; adapt to actual decision and mechanism):")
     topic_snippets = {
@@ -67,17 +77,19 @@ def main() -> int:
     for dec, snip in problem_snippets.items():
         print(f"  {dec}: {snip}")
     print()
-    print("Ready full queue_row snippets (copy/edit as a complete starter row for docs/topic_queue.md; adapt one_line and problem to the actual decision):")
+    print("Ready full queue_row snippets (copy/edit as a complete starter row for docs/topic_queue.md; adapt working_title, one_line, and problem to the actual decision):")
     for dec in ("keep", "discard", "retest"):
+        title = title_snippets.get(dec, "")
         one = topic_snippets.get(dec, "")
         prob = problem_snippets.get(dec, "")
         print(f"  {dec}:")
+        print(f"    working_title: {title}")
         print(f"    one_line: {one}")
         print(f"    problem: {prob}")
         print()
     print("How to use with existing tools:")
     print("  1. After experiment_decision.json records keep/discard/retest with documented source.")
-    print("  2. Use a ready full queue_row snippet above (or edit the separate one_line/problem) as the starting row.")
+    print("  2. Use a ready full queue_row snippet above (or edit the separate working_title/one_line/problem) as the starting row.")
     print("  3. Manually add one queued row in docs/topic_queue.md following the pattern.")
     print("  4. python3 tools/topic_queue_mechanism_check.py  # soft alignment")
     print("  5. python3 tools/next_topic.py  # confirm next scaffold candidate")
