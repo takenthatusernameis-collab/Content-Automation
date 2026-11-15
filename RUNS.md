@@ -1,3 +1,12 @@
+## Run 1274 — 2026-11-15T06:18:34Z
+- Objective: Further reduce human labor documenting the observation source in the experiment baseline after feedback collection by including a ready source_snippet grounded in the driving signal class and suggested metric.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, feedback_to_baseline_suggest.py. Enhanced feedback_to_baseline_suggest.py to print a ready source_snippet after the candidate stub. Verified py_compile and basic invocation (HOLD on missing packet). Updated STATE, NEXT, PROGRESS, RUNS, HANDOFF. No secrets polled, no dispatch, no media writes, no scaffolding.
+- Result: Baseline suggest now provides ready source language inline so humans can document the observation faster without inventing phrasing. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion, ~43 days). Long stall is increasingly suspicious.
+- Verification: Local py_compile OK; tool prints expected HOLD on missing directory. Changes committed via GitHub API.
+- Discovery: Adding source snippet compounds the prior hypothesis and alternative improvements; reduces remaining phrasing labor for every future collect-to-baseline step.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py then feedback_to_baseline_suggest.py then feedback_to_decision_suggest.py then next_from_decision.py then feedback_to_topic_suggest.py.
+
 ## Run 1273 — 2026-11-15T05:18:00Z
 - Objective: Further reduce human labor drafting the next topic after a decision by including short ready one_line topic snippets for keep/discard/retest in the feedback_to_topic_suggest output.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, feedback_to_topic_suggest.py, after_upload_steps.py. Enhanced feedback_to_topic_suggest.py to print ready one_line snippets grounded in the channel niche. Updated after_upload_steps.py to mention the ready snippets in the learning loop step. Verified py_compile and basic invocation. Updated STATE, NEXT, PROGRESS, RUNS, HANDOFF. No secrets polled, no dispatch, no media writes, no scaffolding.
