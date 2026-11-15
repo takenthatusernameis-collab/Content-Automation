@@ -1,3 +1,7 @@
+2026-11-15T02:30:00Z (Run 1270)
+
+feedback_to_decision_suggest now surfaces ready reason snippets for keep/discard/retest. Pre-upload path confirmed reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No new media work. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes. Prefer human progress or one post-publish compounder over pure confirmation.
+
 2026-11-15T01:20:00Z (Run 1269)
 
 feedback_to_baseline_suggest now surfaces ranked alternative strong signals with preferred changes, metrics, and short hypothesis snippets. Pre-upload path confirmed reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No new media work. Next remains human OAuth step. Do not poll secrets, no dispatch, no live packet writes. Prefer human progress or one post-publish compounder over pure confirmation.

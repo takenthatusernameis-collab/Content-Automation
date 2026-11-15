@@ -1,5 +1,10 @@
 # PROGRESS
 
+2026-11-15T02:30:00Z (Run 1270)
+
+Enhanced tools/feedback_to_decision_suggest.py to include a short suggested_reason_snippet for each keep/discard/retest candidate. Further reduces human labor documenting decision reasons after every future comparison by providing ready language inline. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
+
+
 2026-11-15T01:20:00Z (Run 1269)
 
 Enhanced tools/feedback_to_baseline_suggest.py to include a short hypothesis_snippet for each ranked alternative strong signal. Further reduces human labor evaluating alternative signals after every future collect by providing ready hypothesis language inline without switching to the review brief. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.

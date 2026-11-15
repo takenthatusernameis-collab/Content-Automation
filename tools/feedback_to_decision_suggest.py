@@ -57,7 +57,15 @@ def main() -> int:
         "Do not invent."
     )
 
+    # Short ready reason snippets so the human can start from grounded language
+    reason_snippets = {
+        "keep": f"The observed {metric} moved in a desirable direction ({direction}, delta={delta}). Keep the change for future packets unless a larger sample contradicts it.",
+        "discard": f"The observed {metric} moved in an undesirable direction ({direction}, delta={delta}). Discard the change and revert or try a different intervention.",
+        "retest": f"The observed {metric} change is small or ambiguous ({direction}, delta={delta}). Retest with a clearer metric, larger sample, or refined change before deciding.",
+    }
+
     for decision in ("keep", "discard", "retest"):
+        snippet = reason_snippets.get(decision, "Review the full comparison and comments before deciding.")
         stub = {
             "_suggested_from_comparison": True,
             "_comment": "SUGGESTION ONLY. Copy the chosen stub to experiment_decision.json, replace reason and source with documented human review, then validate. Do not invent.",
@@ -66,9 +74,11 @@ def main() -> int:
             "reason": f"PENDING: document why {decision} based on the {direction} result and full review",
             "source": "PENDING: replace with documented source from human review of analytics or Studio after the observation window",
             "notes": note,
+            "_suggested_reason_snippet": snippet,
         }
         print(f"--- Candidate for {decision} ---")
         print(json.dumps(stub, indent=2))
+        print(f"  suggested_reason_snippet: {snippet}")
         print()
 
     print("Next human steps:")
