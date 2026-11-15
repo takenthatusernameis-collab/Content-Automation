@@ -48,12 +48,22 @@ def main() -> int:
     print("  - problem: The stall that reopens the list or prevents starting.")
     print("  - Prefer topics that can be observed the same day via comment language.")
     print()
+    print("Ready one_line topic snippets (copy/edit as starting language; adapt to actual decision and mechanism):")
+    topic_snippets = {
+        "keep": "Install a written next-action default for a related morning stall so the list does not reopen before starting the focused block.",
+        "discard": "Return to a simpler cue or constraint default that viewers can install the same day without the failed change that reduced install mentions.",
+        "retest": "Retest the same installable default on a different but comparable stall to isolate whether the mechanism drives same-day start comments.",
+    }
+    for dec, snip in topic_snippets.items():
+        print(f"  {dec}: {snip}")
+    print()
     print("How to use with existing tools:")
     print("  1. After experiment_decision.json records keep/discard/retest with documented source.")
-    print("  2. Manually draft one queued row in docs/topic_queue.md following the pattern above.")
-    print("  3. python3 tools/topic_queue_mechanism_check.py  # soft alignment")
-    print("  4. python3 tools/next_topic.py  # confirm next scaffold candidate")
-    print("  5. Only scaffold with explicit human instruction via new_packet.py")
+    print("  2. Use a ready snippet above (or edit) as one_line; draft problem from observed stall.")
+    print("  3. Manually add one queued row in docs/topic_queue.md following the pattern.")
+    print("  4. python3 tools/topic_queue_mechanism_check.py  # soft alignment")
+    print("  5. python3 tools/next_topic.py  # confirm next scaffold candidate")
+    print("  6. Only scaffold with explicit human instruction via new_packet.py")
     print()
     print("Do not invent topics, metrics, or decisions. Human OAuth remains the blocker for first publish.")
     print("FEEDBACK TO TOPIC SUGGEST complete.")
