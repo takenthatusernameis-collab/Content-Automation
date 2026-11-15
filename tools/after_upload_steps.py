@@ -54,7 +54,7 @@ def main() -> int:
     print()
     print("7. Suggest baseline from signals (with hypothesis snippets + ranked alternatives):")
     print(f"   python3 tools/feedback_to_baseline_suggest.py {packet}")
-    print("   Ready language for hypothesis and preferred changes.")
+    print("   Ready language for hypothesis, preferred changes, source_snippet, and typical range notes for the metric.")
     print()
     print("8. Suggest decision stubs once comparison exists (with reason snippets):")
     print(f"   python3 tools/feedback_to_decision_suggest.py {packet}")

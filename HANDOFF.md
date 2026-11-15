@@ -1,3 +1,7 @@
+2026-11-15T07:20:11Z (Run 1275)
+
+Enhanced tools/feedback_to_baseline_suggest.py to include a typical range / scale note for the suggested primary_metric. Further reduces human labor filling the numeric baseline after every future collect by providing scale context (e.g., expected seconds for AVD) without inventing a specific number. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
+
 2026-11-15T06:18:34Z (Run 1274)
 
 Enhanced tools/feedback_to_baseline_suggest.py to include a ready source_snippet for the baseline source field. Further reduces human labor documenting the observation source after every future collect by providing ready language inline. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.

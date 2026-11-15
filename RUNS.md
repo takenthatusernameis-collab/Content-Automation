@@ -1,3 +1,12 @@
+## Run 1275 — 2026-11-15T07:20:11Z
+- Objective: Further reduce human labor filling the numeric baseline value in experiment_baseline.json after feedback collection by including a typical range/scale note for the suggested primary metric.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, feedback_to_baseline_suggest.py. Enhanced feedback_to_baseline_suggest.py to print a typical range note (e.g., 180-400s for AVD on 6-10min explainer) after the source_snippet. Verified py_compile. Updated STATE, NEXT, PROGRESS, RUNS, HANDOFF. No secrets polled, no dispatch, no media writes, no scaffolding.
+- Result: Baseline suggest now provides scale context so humans can locate the correct number in Analytics faster without guessing units or typical values. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion, ~43 days). Long stall is increasingly suspicious.
+- Verification: Local py_compile OK. Changes ready to commit.
+- Discovery: Scale notes compound the prior source and hypothesis snippets; reduces remaining lookup labor for every future collect-to-baseline step.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py then feedback_to_baseline_suggest.py (now with range notes) then feedback_to_decision_suggest.py then next_from_decision.py then feedback_to_topic_suggest.py.
+
 ## Run 1274 — 2026-11-15T06:18:34Z
 - Objective: Further reduce human labor documenting the observation source in the experiment baseline after feedback collection by including a ready source_snippet grounded in the driving signal class and suggested metric.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, feedback_to_baseline_suggest.py. Enhanced feedback_to_baseline_suggest.py to print a ready source_snippet after the candidate stub. Verified py_compile and basic invocation (HOLD on missing packet). Updated STATE, NEXT, PROGRESS, RUNS, HANDOFF. No secrets polled, no dispatch, no media writes, no scaffolding.
