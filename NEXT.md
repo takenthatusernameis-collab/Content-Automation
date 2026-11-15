@@ -1,3 +1,7 @@
+2026-11-15T10:25:00Z (Run 1277)
+
+Enhanced tools/feedback_to_topic_suggest.py to include ready problem_snippets for keep/discard/retest. Further reduces human labor drafting the problem field in the topic queue after every future decision by providing ready language inline. after_upload_steps.py updated to mention them. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
+
 2026-11-15T09:18:42Z (Run 1276)
 
 Enhanced tools/feedback_to_decision_suggest.py to include a ready source_snippet for the decision source field, grounded in the comparison. Further reduces human labor documenting the observation source after every future comparison by providing ready language inline. after_upload_steps.py updated to mention it. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
@@ -22,7 +26,7 @@ Enhanced tools/after_upload_steps.py to explicitly surface the snippet-enabled f
 
 Enhanced tools/next_from_decision.py to include a short ready direction_snippet for the chosen decision (keep/discard/retest), grounded in the primary metric. Further reduces human labor formulating the next topic direction after every future decision by providing ready language inline. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
 
-Pre-upload path verified reliable. Feedback-to-decision suggest now surfaces ready source snippet. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Further soft tools and pure confirmation have diminishing returns. Prefer human progress. After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py then feedback_to_baseline_suggest.py then feedback_to_decision_suggest.py (now with source_snippet) then next_from_decision.py then feedback_to_topic_suggest.py.
+Pre-upload path verified reliable. Feedback-to-topic suggest now surfaces ready problem snippets. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Further soft tools and pure confirmation have diminishing returns. Prefer human progress. After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py then feedback_to_baseline_suggest.py then feedback_to_decision_suggest.py (now with source_snippet) then next_from_decision.py then feedback_to_topic_suggest.py (now with one_line + problem snippets).
 
 2026-11-15T02:30:00Z (Run 1270)
 
