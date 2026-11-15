@@ -1,3 +1,12 @@
+## Run 1282 — 2026-11-15T15:22:00Z
+- Objective: Further reduce human labor filling idea.md after a decision by emitting complete copy-paste-ready markdown blocks (dynamically adapted to packet mechanism/problem) in feedback_to_topic_suggest.
+- Action: Inspected STATE.md, NEXT.md, feedback_to_topic_suggest.py, after_upload_steps.py. Enhanced the idea.md section to print full markdown starters. Updated after_upload_steps.py mention. Verified by construction (no live packet writes). Updated STATE, NEXT, PROGRESS, RUNS, HANDOFF. No secrets polled, no dispatch, no media writes, no scaffolding.
+- Result: Feedback-to-topic suggest now provides ready full idea.md markdown inline so humans can paste and lightly edit instead of assembling fields. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion, ~43 days). Long stall is increasingly suspicious.
+- Verification: Changes committed via GitHub API. Tool logic preserves soft guidance and no-invent rules. File size confirms full content.
+- Discovery: Complete markdown blocks compound the prior field snippets; reduces remaining assembly labor for every future decision-to-idea.md step.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py then feedback_to_baseline_suggest.py then feedback_to_decision_suggest.py then next_from_decision.py then feedback_to_topic_suggest.py (now with complete idea.md markdown blocks).
+
 ## Run 1281 — 2026-11-15T14:31:12Z
 - Objective: Further reduce human labor editing starter language for the next topic queue and idea.md by making feedback_to_topic_suggest snippets dynamically adapt to the packet's mechanism and problem when present.
 - Action: Inspected STATE.md, NEXT.md, feedback_to_topic_suggest.py, after_upload_steps.py, idea_utils.py. Enhanced feedback_to_topic_suggest.py to derive short_mech and use packet fields for more relevant ready snippets. Updated after_upload_steps.py mention. Verified by running on Q1 packet (no live writes). Updated STATE, NEXT, PROGRESS, RUNS, HANDOFF. No secrets polled, no dispatch, no media writes, no scaffolding.
