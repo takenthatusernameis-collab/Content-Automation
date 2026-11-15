@@ -6,7 +6,7 @@ the same day). Prints guidance on turning operational comment signals or
 measured weak points into queue candidates without inventing topics or results.
 Uses idea_utils when a packet is given. Complements experiment tools.
 Does not write files, poll, invent data, or scaffold. Exit 0.
-Also surfaces ready working_title, one_line, problem, full queue_row, and idea.md paste snippets so the human can start the next queue row and idea.md faster without inventing phrasing.
+Also surfaces ready working_title, one_line, problem, full queue_row, and idea.md paste snippets (dynamically adapted to the packet's mechanism/problem when present) so the human can start the next queue row and idea.md faster without inventing phrasing.
 """
 
 from __future__ import annotations
@@ -50,29 +50,34 @@ def main() -> int:
     print("  - problem: The stall that reopens the list or prevents starting.")
     print("  - Prefer topics that can be observed the same day via comment language.")
     print()
-    print("Ready working_title snippets (copy/edit as starting language; adapt to actual decision and mechanism):")
+        # Dynamic snippets when packet idea is present; fall back to generic. Keep language natural.
+    short_mech = (mech.split(" so ")[0] if mech and " so " in mech else (mech or "the installable default")).strip()
+    if short_mech.lower().startswith("install "):
+        short_mech = short_mech[8:].strip() or short_mech
+    short_prob = (problem or "the morning stall that reopens the list").strip()
+    print("Ready working_title snippets (copy/edit as starting language; adapted to packet mechanism when present):")
     title_snippets = {
-        "keep": "Install a written next-action default for related morning stalls",
-        "discard": "Return to the simpler cue that increased same-day installs",
-        "retest": "Retest the same installable default on a comparable stall",
+        "keep": f"Install {short_mech.lower()} for related stalls" if mech else "Install a written next-action default for related morning stalls",
+        "discard": "Return to the simpler prior default that increased same-day installs",
+        "retest": f"Retest {short_mech.lower()} on a comparable stall" if mech else "Retest the same installable default on a comparable stall",
     }
     for dec, snip in title_snippets.items():
         print(f"  {dec}: {snip}")
     print()
-    print("Ready one_line topic snippets (copy/edit as starting language; adapt to actual decision and mechanism):")
+    print("Ready one_line topic snippets (copy/edit as starting language; adapted to packet when present):")
     topic_snippets = {
-        "keep": "Install a written next-action default for a related morning stall so the list does not reopen before starting the focused block.",
+        "keep": f"Install {short_mech} for a related stall so the list does not reopen before starting the focused block." if mech else "Install a written next-action default for a related morning stall so the list does not reopen before starting the focused block.",
         "discard": "Return to a simpler cue or constraint default that viewers can install the same day without the failed change that reduced install mentions.",
-        "retest": "Retest the same installable default on a different but comparable stall to isolate whether the mechanism drives same-day start comments.",
+        "retest": f"Retest {short_mech} on a different but comparable stall to isolate whether the mechanism drives same-day start comments." if mech else "Retest the same installable default on a different but comparable stall to isolate whether the mechanism drives same-day start comments.",
     }
     for dec, snip in topic_snippets.items():
         print(f"  {dec}: {snip}")
     print()
-    print("Ready problem snippets (copy/edit as starting language for the problem field; grounded in the stall the decision addresses):")
+    print("Ready problem snippets (copy/edit as starting language for the problem field; adapted to packet stall when present):")
     problem_snippets = {
-        "keep": "The list reopens before the focused block starts because there is no written next-action default tied to the morning stall; viewers mention starting the installable default the same day.",
+        "keep": f"{short_prob.capitalize()} because there is no written next-action default tied to it; viewers mention starting the installable default the same day." if problem else "The list reopens before the focused block starts because there is no written next-action default tied to the morning stall; viewers mention starting the installable default the same day.",
         "discard": "Viewers struggled to install the tested change the same day or reported fewer start mentions; the simpler prior cue or constraint reduced the stall more reliably.",
-        "retest": "The same installable default needs a second observation on a comparable stall to confirm whether the mechanism reliably produces same-day start comments.",
+        "retest": f"The same {short_mech.lower()} needs a second observation on a comparable stall to confirm whether the mechanism reliably produces same-day start comments." if mech else "The same installable default needs a second observation on a comparable stall to confirm whether the mechanism reliably produces same-day start comments.",
     }
     for dec, snip in problem_snippets.items():
         print(f"  {dec}: {snip}")

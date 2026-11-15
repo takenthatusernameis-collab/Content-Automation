@@ -67,7 +67,7 @@ def main() -> int:
     print("10. Learning loop after decision (with ready working_title + one_line + problem + full queue_row + idea.md paste snippets):")
     print(f"   python3 tools/feedback_to_topic_suggest.py {packet}")
     print(f"   python3 tools/topic_queue_mechanism_check.py")
-    print("   Ready working_title, one_line, problem, full queue_row, and idea.md paste snippets for keep/discard/retest to start the next queue row and idea.md.")
+    print("   Ready working_title, one_line, problem, full queue_row, and idea.md paste snippets (dynamically adapted to packet mechanism/problem when present) for keep/discard/retest to start the next queue row and idea.md.")
     print("   Then scaffold next packet if aligned.")
     print()
     print("Privacy stays private. Do not re-upload the master if POST_UPLOAD_INCOMPLETE. Do not invent any id or metric.")
