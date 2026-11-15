@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1268 — 2026-11-15T00:25:00Z
+- Objective: Further reduce human labor choosing among multiple repeated feedback signals by surfacing ranked alternative strong signals (with preferred changes and metrics) directly in the baseline suggest output.
+- Action: Inspected STATE.md, NEXT.md, RUNS.md, feedback_to_baseline_suggest.py. Enhanced feedback_to_baseline_suggest.py to print a ranked list of other strong signals after the candidate stub, mapping each to preferred_change and suggested_metric. Verified py_compile and HOLD behavior on missing packet. Updated STATE, NEXT, PROGRESS, RUNS, HANDOFF. No secrets polled, no dispatch, no media writes, no scaffolding.
+- Result: Baseline suggest now provides ranked alternatives inline so humans can consider other signals without opening the review brief. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion, ~43 days). Long stall is increasingly suspicious.
+- Verification: Local py_compile OK; tool prints expected HOLD on missing directory. Changes ready to commit.
+- Discovery: Ranking other strong signals compounds the prior example improvements; reduces tool-switching for every future collect-to-baseline step when multiple classes exceed threshold.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py then feedback_to_baseline_suggest.py.
+
 ## Run 1267 — 2026-11-14T23:20:00Z
 - Objective: Further reduce human labor translating feedback signals into an experiment baseline by embedding truncated example comments for the driving signal directly in the baseline suggest output and notes.
 - Action: Inspected STATE.md, NEXT.md, RUNS.md, feedback_to_baseline_suggest.py. Cloned repo. Enhanced feedback_to_baseline_suggest.py to collect and surface up to 2 truncated examples for the chosen signal class, including them in the printed stub notes and a dedicated section. Verified py_compile and HOLD behavior. Updated STATE, NEXT, PROGRESS, RUNS. No secrets polled, no dispatch, no media writes, no scaffolding.

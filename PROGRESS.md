@@ -1,5 +1,9 @@
 # PROGRESS
 
+2026-11-15T00:25:00Z (Run 1268)
+
+Enhanced tools/feedback_to_baseline_suggest.py to print a ranked list of other strong signals (with preferred_change and suggested_metric) after the candidate stub. Further reduces human labor choosing among multiple repeated signals after every future collect by providing alternatives inline without switching to the review brief. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
+
 2026-11-14T23:20:00Z (Run 1267)
 
 Enhanced tools/feedback_to_baseline_suggest.py to collect and surface up to 2 truncated example comments for the driving signal class inside the candidate stub notes and as a printed section. Further reduces human labor translating review signals into a baseline after every future collect by providing grounding examples without switching tools. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.

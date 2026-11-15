@@ -178,6 +178,28 @@ def main() -> int:
         for i, ex in enumerate(exs, 1):
             print(f"  {i}. {ex}")
         print()
+
+    # Ranked alternatives so the human can consider other strong signals without switching tools
+    strong = [
+        (n, cls)
+        for cls, n in counts.items()
+        if n >= 2 and cls in ("confusion", "question", "request", "objection")
+    ]
+    strong.sort(reverse=True)
+    if len(strong) > 1:
+        print("Other strong signals (ranked; consider if the top hypothesis does not fit):")
+        for n, cls in strong[1:]:
+            # Map class to a preferred change (same order as suggest_hypotheses)
+            pref = {
+                "confusion": "mechanism_framing",
+                "question": "mechanism_framing",
+                "request": "topic_selection",
+                "objection": "mechanism_framing",
+            }.get(cls, "mechanism_framing")
+            metric = METRIC_MAP.get(pref, ["average_view_duration_seconds"])[0]
+            print(f"  - {cls} ({n}): preferred_change={pref}, suggested_metric={metric}")
+        print()
+
     print("Next human steps:")
     print("1. Review with python3 tools/feedback_review_brief.py", packet)
     print("2. Copy the stub above into", packet / "experiment_baseline.json")
