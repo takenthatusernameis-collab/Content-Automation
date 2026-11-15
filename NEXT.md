@@ -1,4 +1,8 @@
-Pre-upload path verified reliable. Feedback-to-baseline suggest now surfaces ranked alternative strong signals with preferred changes and metrics. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Further soft tools and pure confirmation have diminishing returns. Prefer human progress. After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py then feedback_to_baseline_suggest.py.
+Pre-upload path verified reliable. Feedback-to-baseline suggest now surfaces ranked alternative strong signals with preferred changes, metrics, and short hypothesis snippets. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). Next remains the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Further soft tools and pure confirmation have diminishing returns. Prefer human progress. After Q1 ships and window due, use after_upload_steps.py then feedback_review_brief.py then feedback_to_baseline_suggest.py.
+
+2026-11-15T01:20:00Z (Run 1269)
+
+Enhanced tools/feedback_to_baseline_suggest.py to include a short hypothesis_snippet for each ranked alternative strong signal. Further reduces human labor evaluating alternative signals after every future collect by providing ready hypothesis language inline without switching to the review brief. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
 
 2026-11-15T00:25:00Z (Run 1268)
 

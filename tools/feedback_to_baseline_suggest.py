@@ -188,6 +188,12 @@ def main() -> int:
     strong.sort(reverse=True)
     if len(strong) > 1:
         print("Other strong signals (ranked; consider if the top hypothesis does not fit):")
+        hyp_snippets = {
+            "confusion": "Repeated confusion: clearer mechanism_framing or higher example_density may reduce lost viewers.",
+            "question": "Repeated questions: viewers want specifics; mechanism_framing, example_density, or visual_explanation are candidates.",
+            "request": "Repeated requests: audience names next topics or depth; topic_selection or stronger cta are candidates.",
+            "objection": "Repeated objections: claim or framing meets pushback; tighter mechanism_framing or added counter-examples may address it.",
+        }
         for n, cls in strong[1:]:
             # Map class to a preferred change (same order as suggest_hypotheses)
             pref = {
@@ -197,7 +203,9 @@ def main() -> int:
                 "objection": "mechanism_framing",
             }.get(cls, "mechanism_framing")
             metric = METRIC_MAP.get(pref, ["average_view_duration_seconds"])[0]
+            snippet = hyp_snippets.get(cls, "Review comments for this class before forming a hypothesis.")
             print(f"  - {cls} ({n}): preferred_change={pref}, suggested_metric={metric}")
+            print(f"    hypothesis_snippet: {snippet}")
         print()
 
     print("Next human steps:")
