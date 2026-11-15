@@ -1,3 +1,7 @@
+2026-11-15T10:25:00Z (Run 1277)
+
+Enhanced tools/feedback_to_topic_suggest.py to include ready problem_snippets for keep/discard/retest. Further reduces human labor drafting the problem field in the topic queue after every future decision by providing ready language inline. after_upload_steps.py updated to mention them. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
+
 2026-11-15T09:18:42Z (Run 1276)
 
 Enhanced tools/feedback_to_decision_suggest.py to include a ready source_snippet for the decision source field. Further reduces human labor documenting the observation source after every future comparison by providing ready language inline. after_upload_steps.py updated to mention it. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; prefer human progress or one post-publish compounder over pure confirmation.
