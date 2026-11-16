@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1304 — 2026-11-16T13:38:46Z
+- Objective: Inspect current state after Run 1303, verify contracts still green, record stall without adding soft tools or pure confirmation saturation.
+- Action: Shallow-cloned repo, ran contracts_suite.py (96/96 PASS), long_stall_report.py (INCREASINGLY_SUSPICIOUS, ~45 days). No code changes to production tools. Updated permanent records.
+- Result: Contracts remain locked green. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (~45 days, HIGH / INCREASINGLY_SUSPICIOUS after >40 days and 1300+ runs with published=0).
+- Verification: contracts_suite UNIFIED RESULT: PASS (96 / 96). long_stall_report HIGH / INCREASINGLY_SUSPICIOUS.
+- Discovery: System has been stable for many runs; further agent-side confirmation has diminishing returns. The stall is the sole advancing blocker and increasingly suspicious.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use post_publish_path_ready.py then after_upload_steps.py. Avoid more pure-confirmation runs.
+
 ## Run 1303 — 2026-11-16T12:29:15Z
 - Objective: Inspect current state after Run 1302, verify contracts still green, record stall without adding soft tools or pure confirmation saturation.
 - Action: Cloned repo, ran contracts_suite.py (96/96 PASS), checked media_fingerprint (MISSING locally, expected without gh release auth), reviewed human guidance tools. No code changes to production tools. Updated permanent records.

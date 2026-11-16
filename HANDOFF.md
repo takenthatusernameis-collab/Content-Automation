@@ -1,3 +1,7 @@
+2026-11-16T13:38:46Z (Run 1304)
+
+Inspected and verified contracts suite remains 96/96 green. Recorded the ongoing STALL_OAUTH_IDLE (~45 days, HIGH / INCREASINGLY_SUSPICIOUS) without adding tools or soft printers. Pre-upload path remains reliable. Long stall is increasingly suspicious; the only advancing action is the human OAuth step. After first private video id, run the path ready check then after_upload_steps.py.
+
 2026-11-16T10:19:26Z (Run 1301)
 
 Restored contracts suite to 96/96 green by fixing compact footer formats and adding HUMAN STARTER PASS print. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious after 1300+ runs). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; the only advancing action is the human OAuth step. After first private video id, run the path ready check then after_upload_steps.py.
