@@ -98,6 +98,7 @@ def main() -> int:
     print(f"Consecutive recent RUNS.md sections with STALL_OAUTH_IDLE or published=0: {zero_streak} (main file only; full history in docs/runs_archive.md)")
     print(f"Highest run number in live RUNS.md: {max_run} (total runs approximately this or higher; stall has persisted for the large majority)")
     earliest = earliest_stall_date()
+    days = 0
     if earliest:
         try:
             start = datetime.strptime(earliest, "%Y-%m-%d").replace(tzinfo=timezone.utc)
@@ -107,6 +108,8 @@ def main() -> int:
             print(f"Approximate stall start (earliest archive mention): {earliest}")
     else:
         print("Approximate stall start: not found in archive (or file missing)")
+    if days > 40:
+        print("INCREASINGLY_SUSPICIOUS: Stall exceeds 40 days with no human progress on secrets. Flag as possible problem requiring direct human intervention (outside pure agent confirmation). Do not continue pure confirmation runs.")
     if zero_streak > 0:
         # Recompute sections to get dates
         if RUNS.is_file():
