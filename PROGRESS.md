@@ -1,5 +1,9 @@
 # PROGRESS
 
+2026-11-16T08:30:00Z (Run 1299)
+
+Updated tools/long_stall_report.py to mention tools/post_publish_path_ready.py in the after-private-id section. This makes the soft path-ready check discoverable from the stall report as well as human entry points, reducing one rediscovery step after first publish. Pre-upload path remains reliable and locked. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious). No secrets polled, no dispatch, no live packet writes. Long stall is the sole advancing blocker; prefer human OAuth progress. The pointer update compounds by linking existing infrastructure more tightly into additional status entry points.
+
 2026-11-16T09:21:00Z (Run 1298)
 
 Updated tools/human_starter.py and tools/oauth_complete_guide.py to mention tools/post_publish_path_ready.py in the after-private-id sections. This makes the soft path-ready check immediately discoverable from the primary human entry points, reducing one rediscovery step after first publish. Pre-upload path remains reliable and locked. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious). No secrets polled, no dispatch, no live packet writes. Long stall is the sole advancing blocker; prefer human OAuth progress. The pointer update compounds by linking existing infrastructure more tightly into the human path.
