@@ -1,3 +1,12 @@
+## Run 1299 — 2026-11-16T08:30:00Z
+- Objective: Make the post-publish path-ready check discoverable from the stall report and record the inspection.
+- Action: Updated tools/long_stall_report.py to mention python3 tools/post_publish_path_ready.py in the after-private-id section. Updated STATE.md, RUNS.md, NEXT.md, PROGRESS.md, HANDOFF.md. No secrets polled, no dispatch, no media writes, no scaffolding.
+- Result: Stall report now points to the path ready check. Pre-upload path unchanged and reliable. STALL_OAUTH_IDLE continues (HIGH suspicion, ~45 days, increasingly suspicious after >40 days). Post-publish verification is more discoverable from additional entry points.
+- Verification: Tool updated and committed. State files updated with this run. No new complexity.
+- Discovery: The long OAuth stall continues as the single external dependency; surrounding infrastructure remains locked and ready. Linking the existing path-ready check into the stall report compounds by reducing one rediscovery step after first publish.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use post_publish_path_ready.py then after_upload_steps.py then the feedback sequence. Do not further polish any suggestor, status tool, or confirmation note until after first publish.
+
 ## Run 1298 — 2026-11-16T09:21:00Z
 - Objective: Make the post-publish path-ready check discoverable from primary human entry points and record the inspection.
 - Action: Updated tools/human_starter.py and tools/oauth_complete_guide.py to mention python3 tools/post_publish_path_ready.py in the after-private-id sections. Updated STATE.md, RUNS.md, NEXT.md, PROGRESS.md, HANDOFF.md. No secrets polled, no dispatch, no media writes, no scaffolding.
