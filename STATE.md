@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-16T09:19:00Z (Run 1300)
+
+Inspected after Run 1299. Confirmed pre-upload path remains reliable and locked (materialize + media_qa + contracts). STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious after >40 days and 1300 runs with published=0). No secrets polled, no dispatch, no live packet or media writes. Long stall remains the sole blocker; the only advancing action is the human OAuth step (three secrets + one execute=true dispatch). Recent soft linking of post_publish_path_ready.py into entry points is complete. Further pure confirmation or soft polishing has diminishing returns and is flagged as low-leverage. This run records the inspection to keep the permanent timestamped record current and avoid rediscovery saturation.
+
 2026-11-16T08:30:00Z (Run 1299)
 
 Inspected after Run 1298. Updated tools/long_stall_report.py to mention tools/post_publish_path_ready.py in the after-private-id section for consistency with human entry points. This makes the soft path-ready check discoverable from the stall report as well. Pre-upload path remains reliable and locked. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious after >40 days). No secrets polled, no dispatch, no live packet or media writes. Long stall remains the sole blocker; the only advancing action is the human OAuth step (three secrets + one execute=true dispatch). The pointer update compounds by further reducing rediscovery of the post-publish verification step once a video id exists. Avoid further pure confirmation or soft polishing until human progress.
