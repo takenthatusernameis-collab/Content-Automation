@@ -87,6 +87,7 @@ def main() -> int:
 
     print("\n=== After the private video id appears (do this next; observation window is +10 days) ===")
     print("- Confirm with: python3 tools/human_success_check.py (reports PRESENT only on a real id).")
+    print("- Verify post-publish path: python3 tools/post_publish_path_ready.py")
     print("- Then run: python3 tools/post_publish_sequence.py for the ordered steps.")
     print("- Observation window: first 7 calendar days of the video + 3 days Analytics lag = due at uploaded_at + 10 days.")
     print("- Do not dispatch collect_feedback=true until that due date. Early collect returns OBSERVATION_WINDOW_NOT_DUE.")
