@@ -109,6 +109,7 @@ def main() -> int:
     print("Single self-contained guide: python3 tools/oauth_complete_guide.py")
     print("Soft format check (before secrets): python3 tools/oauth_credential_format_check.py")
     print("Recovery hints if a step fails: python3 tools/oauth_recovery_hints.py")
+    print("HUMAN STARTER PASS")
     return 0
 
 
