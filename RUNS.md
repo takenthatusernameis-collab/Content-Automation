@@ -1,3 +1,14 @@
+# RUNS
+
+## Run 1302 — 2026-11-16T11:22:00Z
+- Objective: Verify locked pre-upload path remains reliable and record current stall status.
+- Action: Cloned repo, ran contracts_suite.py (96/96 PASS), long_stall_report.py (INCREASINGLY_SUSPICIOUS, ~45 days), materialize_q1_release.py (succeeded), media_qa.py (PASS), media_fingerprint.py (PRESENT + SHA MATCH). No code changes.
+- Result: Pre-upload path confirmed reliable and locked. STALL_OAUTH_IDLE continues (HIGH / increasingly suspicious).
+- Verification: contracts_suite UNIFIED RESULT: PASS (96 / 96). media_qa all relevant checks PASS. media_fingerprint master_sha_match: True.
+- Discovery: Materialize and media gates still function correctly after 1300+ runs; no regression.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use post_publish_path_ready.py then after_upload_steps.py.
+
 ## Run 1301 — 2026-11-16T10:19:26Z
 - Objective: Restore contracts suite to green by fixing compact footer formats and human_starter reliability print.
 - Action: Corrected STATE.md archive pointer (removed leading ## Run), added Permanent log. footer to RUNS.md, lowercased human OAuth step phrase in NEXT.md for contract match, added print("HUMAN STARTER PASS") to tools/human_starter.py. Verified contracts_suite.py now 96/96 PASS. Updated state files.

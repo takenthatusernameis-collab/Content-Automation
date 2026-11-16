@@ -1,5 +1,7 @@
 # FAILURES
 
+None. Verification of existing locked path succeeded as expected. STALL_OAUTH_IDLE continues as sole blocker.
+
 None. Small reusable enhancement to saturation detection completed without regression. STALL_OAUTH_IDLE continues as sole blocker.
 
 None. Small reusable enhancement completed without regression.
