@@ -1,3 +1,7 @@
+## Run 1299 — 2026-11-16T08:30:00Z
+Evidence: Inspected after Run 1298. Pre-upload path remains reliable. Linked post_publish_path_ready.py into long_stall_report.py after-id section for consistency with human starters. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious after >40 days) with published=0 and no human progress. Successive soft linking and pure verification have low compounding effect at this extreme duration.
+Lesson: after extreme stall (1000+ runs), treat further pure inspection/recording or minor pointer updates as low-leverage; agents should flag HIGH suspicion explicitly and prefer the human OAuth step or any remaining unblocked production capability. Small consistency links across entry points are acceptable if they reduce rediscovery but should not continue indefinitely. Do not add another consistency printer, aggregator, or contract lock while STALL_OAUTH_IDLE is primary. Do not modify ORIGINAL_MASTER_PROMPT.md.
+
 ## Run 1247 — 2026-11-14T04:15:00Z
 Evidence: Exact archive-pointer string embedded in prior progress notes broke compact_all count==1 check (Runs 1245-1246). Added refuse-guard in tools/record_run.py. Contracts and selftest remain green.
 Lesson: When status notes must describe a fix involving an exact-string check, never quote the protected string itself. Prefer a writer-side refuse over repeated post-hoc rewording. Do not modify ORIGINAL_MASTER_PROMPT.md.
