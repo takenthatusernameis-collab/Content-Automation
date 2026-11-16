@@ -1,10 +1,10 @@
+2026-11-16T07:16:00Z (Run 1296)
+
+Inspected and confirmed long_stall_report.py dynamic flag and escalation section. Recorded state without further soft-tool polishing to avoid saturation. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; the only advancing action is the human OAuth step.
+
 2026-11-16T04:20:00Z (Run 1295)
 
 Enhanced long_stall_report.py with copy-paste human escalation section for the ~45-day OAuth stall. Recorded state. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; the only advancing action is the human OAuth step.
-
-2026-11-16T03:15:00Z (Run 1294)
-
-Inspected and confirmed dynamic INCREASINGLY_SUSPICIOUS flag in long_stall_report.py. Recorded state without further soft-tool polishing to avoid saturation. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~44 days, HIGH suspicion, increasingly suspicious). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; the only advancing action is the human OAuth step.
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py` or `python3 tools/contracts_suite.py` or `python3 tools/queued_field_check.py` or `python3 tools/long_stall_report.py` or `python3 tools/stall_pattern_detector.py`.
 
