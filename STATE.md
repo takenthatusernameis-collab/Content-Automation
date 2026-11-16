@@ -1,5 +1,9 @@
 # STATE
 
+2026-11-16T09:21:00Z (Run 1298)
+
+Inspected after Run 1297. Updated tools/human_starter.py and tools/oauth_complete_guide.py to mention tools/post_publish_path_ready.py in the after-private-id sections. This makes the soft path-ready check immediately discoverable from the primary human entry points without adding a new tool. Pre-upload path remains reliable and locked. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious after >40 days). No secrets polled, no dispatch, no live packet or media writes. Long stall remains the sole blocker; the only advancing action is the human OAuth step (three secrets + one execute=true dispatch). The pointer update compounds by reducing rediscovery of the post-publish verification step once a video id exists.
+
 2026-11-16T08:20:00Z (Run 1297)
 
 Added tools/post_publish_path_ready.py: soft presence check for core post-publish experiment/learning tools and templates (experiment_loop, validator, after_upload_steps, observation_window, feedback_* suggestors, templates). Reduces rediscovery of whether the learning path is ready after first private video id. Pre-upload path remains reliable and locked. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious after >40 days). No secrets polled, no dispatch, no live packet or media writes. Long stall remains the sole blocker; the only advancing action is the human OAuth step (three secrets + one execute=true dispatch). The new check compounds by making post-publish readiness immediately verifiable without opening multiple files.
