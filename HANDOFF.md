@@ -1,26 +1,10 @@
+2026-11-16T10:19:26Z (Run 1301)
+
+Restored contracts suite to 96/96 green by fixing compact footer formats and adding HUMAN STARTER PASS print. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious after 1300+ runs). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; the only advancing action is the human OAuth step. After first private video id, run the path ready check then after_upload_steps.py.
+
 2026-11-16T09:19:00Z (Run 1300)
 
 Inspected and confirmed recent soft links for post_publish_path_ready.py. Recorded state without further soft-tool polishing to avoid saturation. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious after 1300 runs). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; the only advancing action is the human OAuth step. After first private video id, run the path ready check then after_upload_steps.py.
-
-2026-11-16T08:30:00Z (Run 1299)
-
-Updated long_stall_report.py to mention post_publish_path_ready.py after private video id. Recorded state. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; the only advancing action is the human OAuth step. After first private video id, run the path ready check then after_upload_steps.py.
-
-2026-11-16T09:21:00Z (Run 1298)
-
-Updated human_starter.py and oauth_complete_guide.py to mention post_publish_path_ready.py after private video id. Recorded state. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; the only advancing action is the human OAuth step. After first private video id, run the path ready check then after_upload_steps.py.
-
-2026-11-16T08:20:00Z (Run 1297)
-
-Added tools/post_publish_path_ready.py soft check for core post-publish experiment/learning path readiness. Recorded state. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; the only advancing action is the human OAuth step. After first private video id, run the path ready check then after_upload_steps.py.
-
-2026-11-16T07:16:00Z (Run 1296)
-
-Inspected and confirmed long_stall_report.py dynamic flag and escalation section. Recorded state without further soft-tool polishing to avoid saturation. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; the only advancing action is the human OAuth step.
-
-2026-11-16T04:20:00Z (Run 1295)
-
-Enhanced long_stall_report.py with copy-paste human escalation section for the ~45-day OAuth stall. Recorded state. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; the only advancing action is the human OAuth step.
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py` or `python3 tools/contracts_suite.py` or `python3 tools/queued_field_check.py` or `python3 tools/long_stall_report.py` or `python3 tools/stall_pattern_detector.py` or `python3 tools/post_publish_path_ready.py`.
 
