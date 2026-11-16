@@ -1,3 +1,7 @@
+2026-11-16T04:20:00Z (Run 1295)
+
+Enhanced long_stall_report.py with copy-paste human escalation section for the ~45-day OAuth stall. Recorded state. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; the only advancing action is the human OAuth step.
+
 2026-11-16T03:15:00Z (Run 1294)
 
 Inspected and confirmed dynamic INCREASINGLY_SUSPICIOUS flag in long_stall_report.py. Recorded state without further soft-tool polishing to avoid saturation. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~44 days, HIGH suspicion, increasingly suspicious). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; the only advancing action is the human OAuth step.

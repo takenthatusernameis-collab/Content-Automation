@@ -135,6 +135,13 @@ def main() -> int:
     print()
     print("After a private video id appears: python3 tools/post_publish_sequence.py")
     print("Do not add another consistency printer, aggregator, or soft check while stalled.")
+    print()
+    print("=== COPY-PASTE HUMAN ESCALATION (if this report is seen by operator) ===")
+    print(f"The YouTube OAuth secrets have been the sole blocker for ~{days} days (~{max_run} agent runs).")
+    print("Please complete the three GitHub Actions secrets and one execute=true dispatch.")
+    print("Start: python3 tools/human_starter.py   or open docs/HUMAN_PRIORITY.md")
+    print("This is increasingly suspicious after >40 days with no progress. Direct human intervention is the only path that advances the system.")
+    print("=== END ESCALATION ===")
     print("LONG STALL REPORT HIGH")
     return 0
 
