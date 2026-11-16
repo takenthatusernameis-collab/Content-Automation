@@ -1,5 +1,7 @@
 # FAILURES
 
+Run 1304: No new failures. Contracts 96/96 PASS. STALL_OAUTH_IDLE continues (~45 days, HIGH / INCREASINGLY_SUSPICIOUS after >40 days and 1300+ runs with published=0). This long stall without human progress is flagged as increasingly suspicious; it may indicate a process or engagement issue outside the agent’s control. Do not retry failed approaches (pure confirmation).
+
 Run 1303: No new failures. Contracts 96/96 PASS. STALL_OAUTH_IDLE continues (~45 days, HIGH / INCREASINGLY_SUSPICIOUS after >40 days and 1300+ runs with published=0). This long stall without human progress is flagged as increasingly suspicious; it may indicate a process or engagement issue outside the agent’s control. Do not retry failed approaches (pure confirmation).
 
 None. Verification of existing locked path succeeded as expected. STALL_OAUTH_IDLE continues as sole blocker.
