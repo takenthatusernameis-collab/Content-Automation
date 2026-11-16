@@ -1,5 +1,9 @@
 # PROGRESS
 
+2026-11-16T00:23:00Z (Run 1291)
+
+Updated saturation notes in human_starter.py and oauth_complete_guide.py to include runs 1281-1290. Pre-upload path remains reliable and locked. STALL_OAUTH_IDLE continues (~44 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is the sole advancing blocker; prefer human OAuth progress. Further agent saturation notes or pure confirmation have diminishing returns.
+
 2026-11-15T23:22:00Z (Run 1290)
 
 Updated saturation notes in human_starter.py and oauth_complete_guide.py to include runs 1286-1289 and pure confirmation diminishing returns. Pre-upload path remains reliable and locked. STALL_OAUTH_IDLE continues (~43 days, HIGH suspicion). No secrets polled, no dispatch, no live packet writes. Long stall is the sole advancing blocker; prefer human OAuth progress. Further agent saturation notes or pure confirmation have diminishing returns.

@@ -30,7 +30,7 @@ def main() -> int:
     print("Sequences media check + preflight + long stall report + recurring pattern flag + contract streak detector + publish readiness + one-pager + observation window reminder + saturation guard.", flush=True)
     print()
     print("=== SATURATION NOTE ===")
-    print("Recent agent runs (1281-1289) saturated on polishing tools/feedback_to_topic_suggest.py and status tools, plus pure confirmation/state updates, while videos published remain 0.")
+    print("Recent agent runs (1281-1290) saturated on polishing tools/feedback_to_topic_suggest.py and status tools, plus pure confirmation/state updates, while videos published remain 0.")
     print("saturation_guard.py flags SATURATED_ANTI_REDISCOVERY. Further soft-tool polishing or pure confirmation runs have diminishing returns until after first private video id exists.")
     print("The only advancing action is the human OAuth step below. Do not spend more runs on suggestor polish or confirmation notes.")
     print()
