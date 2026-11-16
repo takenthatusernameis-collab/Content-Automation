@@ -133,7 +133,7 @@ def main() -> int:
     print("Then: python3 tools/human_one_pager.py or docs/human_oauth_checklist.md")
     print("Then set secrets and: gh workflow dispatch youtube-production.yml --repo takenthatusernameis-collab/Content-Automation -f execute=true")
     print()
-    print("After a private video id appears: python3 tools/post_publish_sequence.py")
+    print("After a private video id appears: python3 tools/post_publish_path_ready.py && python3 tools/post_publish_sequence.py")
     print("Do not add another consistency printer, aggregator, or soft check while stalled.")
     print()
     print("=== COPY-PASTE HUMAN ESCALATION (if this report is seen by operator) ===")
