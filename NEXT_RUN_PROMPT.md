@@ -1,3 +1,5 @@
+Run 1309 note: OAuth idle continues across 1300+ runs with published=0 (~46 days, HIGH / INCREASINGLY_SUSPICIOUS). Contracts 96/96 green. Pre-upload path complete. Recorded inspection only. No new tools added. Do not add another aggregator, soft report, consistency printer, or contract lock while STALL_OAUTH_IDLE is primary. Prefer the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py then three secrets + single execute=true dispatch) or a truly new production capability that advances post-publish readiness without credentials. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2. Long stall is HIGH suspicion and increasingly so; flag if no human progress. Successive pure-confirmation or minor pointer runs have diminishing returns and should be avoided when the stall is the sole blocker. After first private video id: python3 tools/post_publish_path_ready.py then after_upload_steps.py. Pure inspection runs should be minimized going forward.
+
 Run 1307 note: OAuth idle continues across 1300+ runs with published=0 (~46 days, HIGH / INCREASINGLY_SUSPICIOUS). Contracts 96/96 green. Pre-upload path complete. Recorded inspection only. No new tools added. Do not add another aggregator, soft report, consistency printer, or contract lock while STALL_OAUTH_IDLE is primary. Prefer the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py then three secrets + single execute=true dispatch) or a truly new production capability that advances post-publish readiness without credentials. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2. Long stall is HIGH suspicion and increasingly so; flag if no human progress. Successive pure-confirmation or minor pointer runs have diminishing returns and should be avoided when the stall is the sole blocker. After first private video id: python3 tools/post_publish_path_ready.py then after_upload_steps.py.
 
 Run 1305 note: OAuth idle continues across 1300+ runs with published=0 (~45 days, HIGH / INCREASINGLY_SUSPICIOUS). Contracts 96/96 green. Pre-upload path complete. Cleaned broken mid-sentence archive pointer in PROGRESS.md for record hygiene. No new tools added. Do not add another aggregator, soft report, consistency printer, or contract lock while STALL_OAUTH_IDLE is primary. Prefer the human OAuth step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py then three secrets + single execute=true dispatch) or a truly new production capability that advances post-publish readiness without credentials. Do not poll secrets. Do not rematerialize media if present. Do not scaffold Q2. Long stall is HIGH suspicion and increasingly so; flag if no human progress. Successive pure-confirmation or minor pointer runs have diminishing returns and should be avoided when the stall is the sole blocker. After first private video id: python3 tools/post_publish_path_ready.py then after_upload_steps.py.
@@ -29,26 +31,4 @@ This authorization includes, when the underlying artifact and evidence are avail
 - selecting an already-authorized generated fallback;
 - completing the normal publish step after all mechanical gates pass.
 
-Do not fabricate evidence. For a sensory or artifact-based check, perform the check when the artifact is actually accessible to the agent; do not claim to have listened to audio, watched video, or inspected an inaccessible binary. An evidence boundary is still a real blocker even though a “human approval” label is no longer a blocker.
-
-Third-party authentication/authorization, payment, safety, and provider-policy boundaries remain hard constraints. The agent may not bypass them or invent credentials. Once valid credentials are available, approval-only holds must not stop the normal production/publish path.
-
-**Hard-stop addition from Run 184:**
-
-- If `OPERATOR_HOLD.md` is active and the packet-relative Selected VO file is still missing, the run must be **read-only**: inspect state, report the blocker, and make **no repository changes and no commit**. Do not refresh `STATE.md`, `NEXT.md`, `RUNS.md`, or any other hold-status snapshot merely to record that the hold still exists.
-- A new commit is permitted only when the hold condition changes (for example, a real selected VO file is supplied), a genuine regression prevents the already-defined next action, or a human explicitly changes the policy.
-- Repeatedly re-asserting the same hold is non-productive churn and must be treated as a failed run, not as progress.
-
-## Production-first freeze after authorized fallback
-
-The selected-VO escalation has elapsed and generated narration is authorized. Do not add capability scaffolding while the live packet can be advanced through the existing production path.
-
-The first action for a missing Q1 packet media set is `tools/materialize_q1_release.py` when authenticated `gh` access and the durable releases exist. Only when that source is unavailable should the run stop for the external media-access blocker.
-
-Do not treat `vo_origin.md kind: generated` as proof that a file is on disk; the materializer or another verified copy operation must create the packet-relative files first.
-
-Once the files are present, resume the existing narration, card, timeline, media-QA, and assembly gates in order.
-
-**This freeze supersedes broad capability progression while the existing packet can be advanced through its defined production path.**
-
-(Older targeted additions and full prompt body remain below or are preserved from prior version. Do not expand scope.)
+Do not use this authorization to invent media, invent credentials, invent analytics, or bypass a real external dependency. Do not poll secrets. Do not rematerialize if media is present.
