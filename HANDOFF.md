@@ -1,18 +1,10 @@
-2026-11-17T10:20:00Z (Run 1306)
+2026-11-17T12:26:00Z (Run 1307)
 
 Inspected and verified contracts suite remains 96/96 green. Recorded the ongoing STALL_OAUTH_IDLE (~46 days, HIGH / INCREASINGLY_SUSPICIOUS) without adding tools or soft printers. Pre-upload path remains reliable. Long stall is increasingly suspicious; the only advancing action is the human OAuth step. After first private video id, run the path ready check then after_upload_steps.py.
 
-2026-11-16T14:40:00Z (Run 1305)
+2026-11-17T10:20:00Z (Run 1306)
 
-Inspected and verified contracts suite remains 96/96 green. Cleaned broken mid-sentence archive pointer in PROGRESS.md. Recorded the ongoing STALL_OAUTH_IDLE (~45 days, HIGH / INCREASINGLY_SUSPICIOUS) without adding tools or soft printers. Pre-upload path remains reliable. Long stall is increasingly suspicious; the only advancing action is the human OAuth step. After first private video id, run the path ready check then after_upload_steps.py.
-
-2026-11-16T13:38:46Z (Run 1304)
-
-Inspected and verified contracts suite remains 96/96 green. Recorded the ongoing STALL_OAUTH_IDLE (~45 days, HIGH / INCREASINGLY_SUSPICIOUS) without adding tools or soft printers. Pre-upload path remains reliable. Long stall is increasingly suspicious; the only advancing action is the human OAuth step. After first private video id, run the path ready check then after_upload_steps.py.
-
-2026-11-16T10:19:26Z (Run 1301)
-
-Restored contracts suite to 96/96 green by fixing compact footer formats and adding HUMAN STARTER PASS print. Pre-upload path remains reliable. STALL_OAUTH_IDLE continues (~45 days, HIGH suspicion, increasingly suspicious after 1300+ runs). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious; the only advancing action is the human OAuth step. After first private video id, run the path ready check then after_upload_steps.py.
+Inspected and verified contracts suite remains 96/96 green. Recorded the ongoing STALL_OAUTH_IDLE (~46 days, HIGH / INCREASINGLY_SUSPICIOUS) without adding tools or soft printers. Pre-upload path remains reliable. Long stall is increasingly suspicious; the only advancing action is the human OAuth step. After first private video id, run the path ready check then after_upload_steps.py.
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py` or `python3 tools/contracts_suite.py` or `python3 tools/queued_field_check.py` or `python3 tools/long_stall_report.py` or `python3 tools/stall_pattern_detector.py` or `python3 tools/post_publish_path_ready.py`.
 
