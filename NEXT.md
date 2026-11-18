@@ -1,5 +1,10 @@
 (Older next actions live in `docs/next_archive.md`. Do not paste the archive back.)
 
+2026-11-18T11:50:00Z
+human OAuth step remains the sole advancing action (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Recent runs saturated on pure confirmation (SATURATED_ANTI_REDISCOVERY). Pre-upload path verified reliable (media_qa PASS after materialize). STALL_OAUTH_IDLE continues (~47 days, HIGH suspicion, increasingly suspicious after >40 days and 1300+ runs with published=0). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious. After Q1 ships and window due, use docs/q1_post_publish_prep.md then after_upload_steps.py then the feedback sequence; verify path with python3 tools/post_publish_path_ready.py. Consult docs/labor_reduction_map.md for prioritized remaining human minutes. Do not continue pure confirmation or minor soft additions until after first private video id exists. Prefer truly new unblocked capabilities that reduce future labor. Saturation notes in human tools are range-agnostic (1281+).
+
+(Older next actions live in `docs/next_archive.md`. Do not paste the archive back.)
+
 2026-11-17T17:26:00Z
 human OAuth step remains the sole advancing action (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). Recent runs saturated on pure confirmation (SATURATED_ANTI_REDISCOVERY). Pre-upload path verified reliable. STALL_OAUTH_IDLE continues (~46 days, HIGH suspicion, increasingly suspicious after >40 days and 1300+ runs with published=0). No secrets polled, no dispatch, no live packet writes. Long stall is increasingly suspicious. After Q1 ships and window due, use docs/q1_post_publish_prep.md then after_upload_steps.py then the feedback sequence; verify path with python3 tools/post_publish_path_ready.py. Do not continue pure confirmation or minor soft additions until after first private video id exists. Prefer truly new unblocked capabilities that reduce future labor. Saturation notes in human tools are range-agnostic (1281+).
 
