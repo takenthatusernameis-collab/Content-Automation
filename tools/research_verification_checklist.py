@@ -2,16 +2,19 @@
 """Generate a grounded research verification checklist for a packet.
 
 Reads idea.md and research.md (if present). Prints a concrete checklist
-of verification steps for any sources or claims. Does not invent sources,
-URLs, numbers, or citations. Does not write files.
+of verification steps for any sources or claims. Extracts potential quantitative
+items (digit tokens in non-heading content) from the files for targeted review.
+Does not invent sources, URLs, numbers, or citations. Does not write files.
 
-Reduces recurring human verification minutes by standardizing the process.
+Reduces recurring human verification minutes by standardizing the process and
+listing specific items that may need sourcing.
 Use before claim_scan and before promoting research.md from stub.
 """
 
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 from pathlib import Path
 
@@ -26,6 +29,25 @@ except ImportError:
         return "", "", ""
 
 
+def extract_potential_claims(text: str, source_label: str) -> list[str]:
+    """Return lines with digit tokens that are not obvious headings/timestamps."""
+    claims = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+        # Skip pure headings and common structural lines
+        if stripped.startswith("#") or re.match(r"^(Hook|Beat)\s+\d", stripped, re.I):
+            continue
+        if re.search(r"\(0:\d+–0:\d+\)", stripped) or re.search(r"Beat\s+\d+\s+—", stripped):
+            continue
+        if re.search(r"\b\d+(?:[.,]\d+)?%?", stripped):
+            # Truncate
+            display = stripped if len(stripped) <= 140 else stripped[:137] + "..."
+            claims.append(f"({source_label}) {display}")
+    return claims[:12]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Print a research verification checklist grounded in the packet (no invented sources)."
@@ -35,6 +57,8 @@ def main() -> int:
     packet = Path(args.packet)
     idea_path = packet / "idea.md"
     research_path = packet / "research.md"
+    script_path = packet / "script.md"
+    draft_path = packet / "draft.md"
 
     if not idea_path.is_file():
         print(f"No idea.md in {packet}")
@@ -48,6 +72,7 @@ def main() -> int:
 
     has_research = research_path.is_file()
     research_status = "present" if has_research else "absent"
+    research_text = research_path.read_text(encoding="utf-8", errors="replace") if has_research else ""
 
     print("RESEARCH VERIFICATION CHECKLIST")
     print(f"Packet: {packet}")
@@ -74,6 +99,27 @@ def main() -> int:
         print("- research.md exists; review its Sources and Facts sections against the checklist above.")
     else:
         print("- No research.md yet. Use python3 tools/research_sources_starter.py to generate a template, then fill and verify.")
+    print()
+
+    # Targeted extraction
+    potential = []
+    if has_research:
+        potential.extend(extract_potential_claims(research_text, "research.md"))
+    potential.extend(extract_potential_claims(idea_text, "idea.md"))
+    for pth in (script_path, draft_path):
+        if pth.is_file():
+            txt = pth.read_text(encoding="utf-8", errors="replace")
+            potential.extend(extract_potential_claims(txt, pth.name))
+
+    if potential:
+        print("Potential quantitative items found (verify each or qualitative-ize):")
+        for i, item in enumerate(potential, 1):
+            print(f"  {i}. {item}")
+        print()
+        print("These are non-heading lines containing digits. Confirm sources exist or remove the numbers.")
+    else:
+        print("No non-heading digit tokens found in idea.md / research.md / script.md / draft.md.")
+        print("Keep it that way, or cite before adding any number to spoken WORDS.")
     print()
     print("This checklist standardizes verification so future packets spend fewer human minutes on source checking.")
     print("Do not treat this output as verified sources. Human confirmation is still required.")
