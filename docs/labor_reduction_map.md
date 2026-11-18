@@ -7,7 +7,7 @@ Created 2026-11-18T11:50:00Z (Run 1311). Tracks recurring human work and automat
 | Stage | Current status | Remaining human minutes (est. per video) | Automation notes | Next reduction opportunity |
 |-------|----------------|------------------------------------------|------------------|----------------------------|
 | Topic / idea | queued in topic_queue.md; starters exist | 5-10 | next_topic.py, queued_full_starter.py, idea_brief.py | Feed post-publish feedback into topic ranking |
-| Research | claim_source_table.py, research starters | 15-30 | Tools generate tables and search prompts; human verifies sources | Better source suggestion + verification checklist automation |
+| Research | claim_source_table.py, research starters, research_verification_checklist.py | 15-30 | Tools generate tables and search prompts; human verifies sources | Standardized verification checklist (new tool reduces recurring check time) |
 | Script | script_writer.md + many suggest/coach tools | 20-40 | draft_starter, expansion coaches, words.py, claim/originality scans | Stronger anti-slop enforcement in apply_script |
 | Narration | generated fallback authorized for Q1; human recording option | 0 (gen) or 15-30 (record) | media_qa validates; local TTS not default | Pluggable TTS adapter when policy allows |
 | Cards / visuals | card_generator.py READY_FOR_MEDIA | 5 | Deterministic from assets.md; size/text checks | B-roll optional adapter |
