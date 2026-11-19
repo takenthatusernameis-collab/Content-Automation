@@ -1,58 +1,7 @@
 # FAILURES
 
+Run 1317: Prior Run 1316 updated STATE.md, RUNS.md, and labor_reduction_map.md claiming that originality_notes had been added to tools/apply_script.py and verified, but the actual Python function and report() integration were absent from the file. The code change was never committed. This run added the missing function and integration, verified the dry-run output, and updated records. Lesson: after claiming an edit, verify the target file contents (grep/py_compile/dry-run) before updating documentation. Similar to the Run 1313 placeholder overwrite. STALL_OAUTH_IDLE continues (~48 days).
+
 Run 1315: Restored tools/apply_script.py which had been overwritten with a placeholder string during Run 1313 (intended anti-slop enhancement). The file was reduced from 283 lines of working code to a 28-byte placeholder, breaking dry-run/apply for scripts. Restored from prior commit ea516e1 and added the non-blocking anti-slop INFO notes properly. Verified compiles and dry-run produces expected idea-lock + anti-slop INFO without blocking. This was a regression that reduced reliability; fixed without affecting other tools. STALL_OAUTH_IDLE continues (~48 days).
-
-Run 1305: No new failures. Contracts 96/96 PASS. Cleaned broken mid-sentence archive pointer in PROGRESS.md. STALL_OAUTH_IDLE continues (~45 days, HIGH / INCREASINGLY_SUSPICIOUS after >40 days and 1300+ runs with published=0). This long stall without human progress is flagged as increasingly suspicious; it may indicate a process or engagement issue outside the agent’s control. Do not retry failed approaches (pure confirmation).
-
-Run 1304: No new failures. Contracts 96/96 PASS. STALL_OAUTH_IDLE continues (~45 days, HIGH / INCREASINGLY_SUSPICIOUS after >40 days and 1300+ runs with published=0). This long stall without human progress is flagged as increasingly suspicious; it may indicate a process or engagement issue outside the agent’s control. Do not retry failed approaches (pure confirmation).
-
-Run 1303: No new failures. Contracts 96/96 PASS. STALL_OAUTH_IDLE continues (~45 days, HIGH / INCREASINGLY_SUSPICIOUS after >40 days and 1300+ runs with published=0). This long stall without human progress is flagged as increasingly suspicious; it may indicate a process or engagement issue outside the agent’s control. Do not retry failed approaches (pure confirmation).
-
-None. Verification of existing locked path succeeded as expected. STALL_OAUTH_IDLE continues as sole blocker.
-
-None. Small reusable enhancement to saturation detection completed without regression. STALL_OAUTH_IDLE continues as sole blocker.
-
-None. Small reusable enhancement completed without regression.
-
-None. Small documentation improvement only.
-
-None. Materialize, media_qa, SHA match, and contracts all succeeded as expected. STALL_OAUTH_IDLE continues as sole blocker.
-
-None. Materialize, media_qa, SHA match, and contracts all succeeded as expected.
-
-Run 1257: No new failures. Prior size-cap overflow (Run 1255/1256) addressed by size-aware compaction to prevent recurrence.
-
-None. Size-cap regression fixed. No new failure modes.
-
-None. No regressions. Suites remain green.
-
-None. Phased plan addition only; no new failure modes. STALL_OAUTH_IDLE continues as sole blocker (1000+ runs, HIGH suspicion).
-
-No new failures. Exact-string compact checks remain sensitive to status notes; refuse-guard in record_run.py continues to protect them.
-
-None. The long OAuth stall continues as the sole external blocker.
-
-No new failures. STALL_OAUTH_IDLE continues as sole blocker (1000+ runs, HIGH suspicion).
-
-None this run. Stall detection predicates expanded for robustness; no new failure modes introduced.
-
-None this run. Refuse-guard remains active to prevent known archive-pointer quote failure mode.
-
-None this run. Guard added to prevent known exact-string failure mode.
-
-None. Guidance update only; no failures.
-
-None this run. Materialize and media_qa succeeded. No repeated failure patterns observed.
-
-none this run
-
-none this run
-
-2026-11-10T06:20:00Z (Run 1154)
-
-None. Quality brief enhancement completed and verified locally on Q1 packet (clear script scans; metadata scans ran).
-
-
-(Older failures remain in docs/failures_archive.md.)
 
 Older failure notes live in `docs/failures_archive.md`. Do not paste the archive back.
