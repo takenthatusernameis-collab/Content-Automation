@@ -37,7 +37,7 @@ def extract_potential_claims(text: str, source_label: str) -> list[str]:
         if not stripped:
             continue
         # Skip pure headings and common structural lines
-        if stripped.startswith("#") or re.match(r"^(Hook|Beat)\s+\d", stripped, re.I):
+        if stripped.startswith("#") or stripped.startswith("<!--") or re.match(r"^(Hook|Beat)\s+\d", stripped, re.I):
             continue
         if re.search(r"\(0:\d+–0:\d+\)", stripped) or re.search(r"Beat\s+\d+\s+—", stripped):
             continue
@@ -117,6 +117,16 @@ def main() -> int:
             print(f"  {i}. {item}")
         print()
         print("These are non-heading lines containing digits. Confirm sources exist or remove the numbers.")
+        print()
+        print("Fillable claim-to-source table (paste into sources.md / research.md; fill only Source):")
+        print("| Claim excerpt | Source (fill) | Notes |")
+        print("|---------------|---------------|-------|")
+        for item in potential[:8]:  # limit for readability
+            excerpt = item.split(") ", 1)[-1] if ") " in item else item
+            excerpt = excerpt[:80].replace("|", "/") + ("..." if len(excerpt) > 80 else "")
+            print(f"| {excerpt} |  |  |")
+        print()
+        print("For spoken WORDS claims specifically, also run: python3 tools/claim_source_table.py PATH")
     else:
         print("No non-heading digit tokens found in idea.md / research.md / script.md / draft.md.")
         print("Keep it that way, or cite before adding any number to spoken WORDS.")
