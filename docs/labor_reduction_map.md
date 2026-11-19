@@ -7,7 +7,7 @@ Created 2026-11-18T11:50:00Z (Run 1311). Tracks recurring human work and automat
 | Stage | Current status | Remaining human minutes (est. per video) | Automation notes | Next reduction opportunity |
 |-------|----------------|------------------------------------------|------------------|----------------------------|
 | Topic / idea | queued in topic_queue.md; starters exist | 5-10 | next_topic.py, queued_full_starter.py, idea_brief.py | Feed post-publish feedback into topic ranking |
-| Research | claim_source_table.py, research starters, research_verification_checklist.py (enhanced Run 1312 to list non-heading digit lines) | 10-20 | Tools generate tables and search prompts; enhanced checklist extracts potential quantitative items for targeted review | Further: auto-link extracted claims to sources.md templates |
+| Research | claim_source_table.py, research starters, research_verification_checklist.py (enhanced Run 1314: skip HTML comments + fillable claim table) | 8-15 | Tools generate tables and search prompts; enhanced checklist extracts potential quantitative items and prints pasteable table for targeted review | Further: auto-link extracted claims to sources.md templates |
 | Script | script_writer.md + many suggest/coach tools | 15-35 | draft_starter, expansion coaches, words.py, claim/originality scans; enhanced Run 1313: apply_script dry-run prints non-blocking anti-slop INFO hits from shared ANTI_SLOP_PATTERNS | Further: integrate originality checks into dry-run |
 | Narration | generated fallback authorized for Q1; human recording option | 0 (gen) or 15-30 (record) | media_qa validates; local TTS not default | Pluggable TTS adapter when policy allows |
 | Cards / visuals | card_generator.py READY_FOR_MEDIA | 5 | Deterministic from assets.md; size/text checks | B-roll optional adapter |
@@ -18,7 +18,7 @@ Created 2026-11-18T11:50:00Z (Run 1311). Tracks recurring human work and automat
 | Publish | youtube_upload.py READY_FOR_CREDENTIAL | 5 (secrets + dispatch) | Dry-run ready; live videos.insert needs OAuth | Reduce to one-click after first success |
 | Feedback | youtube_feedback.py READY_FOR_CREDENTIAL | 5 (dispatch after window) | Observation window enforced | Auto-collect + summarize for experiment |
 | Experiment | experiment_loop.py PLAN_BUILT | 10-15 | Baseline/decision templates; no invented metrics | Auto-propose next hypothesis from feedback |
-| **Total remaining (after OAuth)** | | **~85-175** | Pre-upload path largely automated | First publish unlocks feedback loop |
+| **Total remaining (after OAuth)** | | **~83-170** | Pre-upload path largely automated | First publish unlocks feedback loop |
 
 ## Compounding notes
 
