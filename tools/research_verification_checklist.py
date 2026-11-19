@@ -131,7 +131,31 @@ def main() -> int:
         print("No non-heading digit tokens found in idea.md / research.md / script.md / draft.md.")
         print("Keep it that way, or cite before adding any number to spoken WORDS.")
     print()
-    print("This checklist standardizes verification so future packets spend fewer human minutes on source checking.")
+    # Cross-check against sources.md if present (reduces linking labor)
+    sources_path = packet / "sources.md"
+    if sources_path.is_file():
+        sources_text = sources_path.read_text(encoding="utf-8", errors="replace").lower()
+        linked = []
+        unlinked = []
+        for item in potential:
+            excerpt = item.split(") ", 1)[-1] if ") " in item else item
+            key = excerpt[:60].lower().strip()
+            if key and key in sources_text:
+                linked.append(item)
+            else:
+                unlinked.append(item)
+        print(f"sources.md present. Linked (excerpt found): {len(linked)} / {len(potential)}")
+        if unlinked:
+            print("Unlinked potential items (add source or qualitative-ize):")
+            for u in unlinked[:6]:
+                print(f"  - {u}")
+        else:
+            print("All extracted potential items appear referenced in sources.md (still verify content).")
+    else:
+        print("No sources.md yet. Paste the table above into a new sources.md, then fill the Source column.")
+        print("Or run: python3 tools/claim_source_table.py PATH for a spoken-WORDS-focused table.")
+    print()
+    print("This checklist standardizes verification and surfaces linking status so future packets spend fewer human minutes on source checking.")
     print("Do not treat this output as verified sources. Human confirmation is still required.")
     return 0
 

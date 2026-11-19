@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1318 — 2026-11-19T18:30:00Z
+- Objective: After originality integration and regression lessons, reduce research linking labor by enhancing the verification checklist with sources.md cross-check.
+- Action: Cloned repo, added sources.md presence check and excerpt matching to tools/research_verification_checklist.py (reports linked vs unlinked potential claims; prompts table paste if absent). Verified py_compile and dry-run. Updated docs/labor_reduction_map.md (research stage 6-12 min). Updated permanent records.
+- Result: Research stage now surfaces linking status for extracted claims, compounding efficiency for future packets. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~48 days, HIGH / INCREASINGLY_SUSPICIOUS).
+- Verification: python3 -m py_compile tools/research_verification_checklist.py OK. Dry-run on videos/002-... produces the new sources.md status lines.
+- Discovery: Cross-checking extracted claims against an optional sources.md is a low-risk, non-writing enhancement that further reduces recurring human minutes without new complexity.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection.
+
 ## Run 1317 — 2026-11-19T17:10:00Z
 - Objective: After Run 1316 documentation of originality_notes, verify the code actually landed. Complete the missing function and integration if absent. Verify dry-run. Record the discrepancy.
 - Action: Cloned repo, confirmed tools/apply_script.py lacked originality_notes despite STATE/RUNS claims. Added the function (pointer to originality_checklist.py + mechanism presence check) and called it from report(). Verified py_compile and dry-run on videos/002-... produces the expected new INFO lines without blocking. Updated STATE, RUNS, PROGRESS. Noted the documentation-without-code as a failure pattern to avoid.
