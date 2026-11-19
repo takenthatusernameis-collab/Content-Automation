@@ -1,5 +1,7 @@
 # FAILURES
 
+Run 1315: Restored tools/apply_script.py which had been overwritten with a placeholder string during Run 1313 (intended anti-slop enhancement). The file was reduced from 283 lines of working code to a 28-byte placeholder, breaking dry-run/apply for scripts. Restored from prior commit ea516e1 and added the non-blocking anti-slop INFO notes properly. Verified compiles and dry-run produces expected idea-lock + anti-slop INFO without blocking. This was a regression that reduced reliability; fixed without affecting other tools. STALL_OAUTH_IDLE continues (~48 days).
+
 Run 1305: No new failures. Contracts 96/96 PASS. Cleaned broken mid-sentence archive pointer in PROGRESS.md. STALL_OAUTH_IDLE continues (~45 days, HIGH / INCREASINGLY_SUSPICIOUS after >40 days and 1300+ runs with published=0). This long stall without human progress is flagged as increasingly suspicious; it may indicate a process or engagement issue outside the agent’s control. Do not retry failed approaches (pure confirmation).
 
 Run 1304: No new failures. Contracts 96/96 PASS. STALL_OAUTH_IDLE continues (~45 days, HIGH / INCREASINGLY_SUSPICIOUS after >40 days and 1300+ runs with published=0). This long stall without human progress is flagged as increasingly suspicious; it may indicate a process or engagement issue outside the agent’s control. Do not retry failed approaches (pure confirmation).
