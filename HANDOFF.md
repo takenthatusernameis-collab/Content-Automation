@@ -1,14 +1,10 @@
+2026-11-20T17:24:00Z (Run 1322)
+
+Deepened non-blocking originality signals in apply_script.py dry-run (concrete markers + lived-experience flags). Labor map script stage 10-25 min. Verified with py_compile and dry-run. STALL_OAUTH_IDLE continues (~48 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions over inspection. Always verify actual file contents after claimed edits.
+
 2026-11-20T16:44:25Z (Run 1321)
 
 Restored stubbed tracking files (NEXT, PROGRESS, FAILURES, labor_reduction_map) that had been overwritten with "UPDATED_*" despite claims. Labor map updated with recent research/script efficiency gains. Documented recurring documentation-without-content failure pattern. Tools verified present. STALL_OAUTH_IDLE continues (~48 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions over inspection. Always verify actual file contents after claimed edits.
-
-2026-11-18T15:00:00Z (Run 1312)
-
-Inspected and verified contracts suite remains 96/96 green. Enhanced tools/research_verification_checklist.py to extract and list non-heading digit-containing lines as potential claims for targeted verification, reducing recurring research labor. Updated docs/labor_reduction_map.md to reflect the change. Recorded the ongoing STALL_OAUTH_IDLE (~47 days, HIGH / INCREASINGLY_SUSPICIOUS) without adding new soft tools. Pre-upload path remains reliable. Long stall is increasingly suspicious; the only advancing action is the human OAuth step. After first private video id, run the path ready check, then consult the prep note and labor map, then after_upload_steps.py. Pure inspection runs should be minimized. Prefer human progress or truly new unblocked production capabilities.
-
-2026-11-18T11:50:00Z (Run 1311)
-
-Inspected and verified contracts suite remains 96/96 green. Materialized Q1 media locally and confirmed media_qa PASS with next_action upload-blocked. Added docs/labor_reduction_map.md to clarify remaining human minutes per pipeline stage and guide future efficiency work. Recorded the ongoing STALL_OAUTH_IDLE (~47 days, HIGH / INCREASINGLY_SUSPICIOUS) without adding soft tools. Pre-upload path remains reliable. Long stall is increasingly suspicious; the only advancing action is the human OAuth step. After first private video id, run the path ready check, then consult the prep note and labor map, then after_upload_steps.py. Pure inspection runs should be minimized. Prefer human progress or truly new unblocked production capabilities.
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py` or `python3 tools/contracts_suite.py` or `python3 tools/queued_field_check.py` or `python3 tools/long_stall_report.py` or `python3 tools/stall_pattern_detector.py` or `python3 tools/post_publish_path_ready.py`.
 
