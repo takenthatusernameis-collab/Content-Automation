@@ -1,21 +1,17 @@
 # PROGRESS
 
-Updated: 2026-11-20T16:50:00Z (Run 1321)
+Updated: 2026-11-20T17:24:00Z (Run 1322)
 
 ## Latest measurable delta
-- Tracking files (NEXT.md, PROGRESS.md, FAILURES.md, docs/labor_reduction_map.md) were stubbed ("UPDATED_*") despite prior claims of updates. Restored labor map from historical good version (Run 1316) and updated with Run 1318-1320 gains (sources cross-check, skeleton writer, apply_script reliability).
-- Research stage human minutes est. reduced to 6-12 (from 8-15). Script stage dry-run reliability restored after multiple placeholder regressions.
+- Deepened non-blocking originality signals in tools/apply_script.py dry-run (concrete marker density + lived-experience flags). Script stage human minutes est. reduced to 10-25 (from 12-28). Signals surface automatically in every dry-run.
 - Videos published: 0. STALL_OAUTH_IDLE continues (~48 days). No provider write. Pre-upload path unchanged.
 - Automated steps: many local gates + research/script helpers. Remaining recurring human: OAuth secrets + dispatch (one-time), then post-publish review.
 
-## Run 1320 (prior)
-Restored tools/apply_script.py from placeholder regression. Properly integrated non-blocking originality_notes + anti-slop. Verified dry-run. Documentation-without-code and placeholder patterns recurred; agents must verify file contents after edits.
+## Run 1321 (prior)
+Restored stubbed tracking files (NEXT, PROGRESS, FAILURES, labor_reduction_map). Documented recurring documentation-without-content pattern. Verified key tool enhancements present.
 
-## Run 1319
-Added --write-skeleton to research_verification_checklist.py (non-destructive). Compounds research linking efficiency.
-
-## Run 1318
-Added sources.md cross-check to research checklist. Reduced research stage minutes estimate.
+## Run 1320
+Restored tools/apply_script.py from placeholder regression. Properly integrated non-blocking originality_notes + anti-slop. Verified dry-run.
 
 ## Compounding notes
 - Pre-upload path (idea -> master after materialize) is reliable. Primary blocker remains human OAuth setup.
