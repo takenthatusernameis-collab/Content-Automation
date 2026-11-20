@@ -1,5 +1,11 @@
 # STATE
 
+2026-11-20T12:23:34Z (Run 1319)
+
+Inspected after Run 1318. Enhanced tools/research_verification_checklist.py with optional --write-skeleton flag: if sources.md is absent and potential claims exist, writes a fillable Markdown skeleton with the claim table (never overwrites; no invented sources). Directly implements the labor map "auto-generate sources.md skeleton on demand" opportunity. Verified py_compile and dry-run on sample and Q1 packets (writes only when claims present). Updated labor_reduction_map. STALL_OAUTH_IDLE continues (~48 days from ~2026-10-02, HIGH / INCREASINGLY_SUSPICIOUS after >40 days and 1300+ runs with published=0). No secrets polled, no dispatch, no live packet or media commits. Long stall remains the sole blocker; the only advancing action is the human OAuth step (three secrets + one execute=true dispatch). Pure inspection runs should be minimized. Prefer human progress or truly new unblocked capabilities that compound. Skeleton writer further reduces research linking labor.
+
+# STATE
+
 2026-11-19T18:30:00Z (Run 1318)
 
 Inspected after Run 1317. Enhanced tools/research_verification_checklist.py with non-blocking sources.md cross-check: reports how many extracted potential claims are already referenced in sources.md (or prompts creation of the file with the table). Reduces research linking labor (labor map research stage now 6-12 min). Verified py_compile and dry-run on sample packets. Updated labor_reduction_map. STALL_OAUTH_IDLE continues (~48 days from ~2026-10-02, HIGH / INCREASINGLY_SUSPICIOUS after >40 days and 1300+ runs with published=0). No secrets polled, no dispatch, no live packet or media commits. Long stall remains the sole blocker; the only advancing action is the human OAuth step (three secrets + one execute=true dispatch). Pure inspection runs should be minimized. Prefer human progress or truly new unblocked capabilities that compound. Sources linking status compounds research efficiency.

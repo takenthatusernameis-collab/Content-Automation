@@ -1,5 +1,11 @@
 # PROGRESS
 
+2026-11-20T12:23:34Z (Run 1319)
+
+Added optional --write-skeleton to tools/research_verification_checklist.py: creates sources.md with fillable claim table if absent (never overwrites, no invented sources). Implements labor map next opportunity for research stage. Verified dry-run. Research linking minutes further reduced. Updated records. STALL_OAUTH_IDLE continues (~48 days from ~2026-10-02, HIGH / INCREASINGLY_SUSPICIOUS after >40 days and 1300+ runs with published=0). No secrets polled, no dispatch, no live packet or media commits. Long stall remains the sole blocker; the only advancing action is the human OAuth step (three secrets + one execute=true dispatch). Pure inspection runs should be minimized. Prefer human progress or truly new unblocked capabilities that compound. Skeleton writer compounds research efficiency.
+
+# PROGRESS
+
 2026-11-19T18:30:00Z (Run 1318)
 
 Enhanced tools/research_verification_checklist.py with sources.md cross-check (reports linked/unlinked status for potential quantitative items; prompts creation if absent). Research stage human linking minutes reduced (labor map now 6-12). Verified dry-run. Updated records. STALL_OAUTH_IDLE continues (~48 days from ~2026-10-02, HIGH / INCREASINGLY_SUSPICIOUS after >40 days and 1300+ runs with published=0). No secrets polled, no dispatch, no live packet or media commits. Long stall remains the sole blocker; the only advancing action is the human OAuth step (three secrets + one execute=true dispatch). Pure inspection runs should be minimized. Prefer human progress or truly new unblocked capabilities that compound. Linking status compounds research efficiency.

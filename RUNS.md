@@ -1,5 +1,16 @@
 # RUNS
 
+## Run 1319 — 2026-11-20T12:23:34Z
+- Objective: After sources.md linking status, implement the next labor map opportunity: auto-generate sources.md skeleton on demand.
+- Action: Cloned repo, added --write-skeleton flag to tools/research_verification_checklist.py (writes fillable table to sources.md only if absent and claims exist; never overwrites). Verified py_compile and dry-runs. Updated docs/labor_reduction_map.md. Updated permanent records.
+- Result: Research stage now can materialize the claim table skeleton with one flag, further reducing recurring human minutes for linking. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~48 days, HIGH / INCREASINGLY_SUSPICIOUS).
+- Verification: python3 -m py_compile tools/research_verification_checklist.py OK. Dry-run with flag on Q1 packet wrote skeleton (then cleaned); no write when no claims. Code contents verified.
+- Discovery: Optional non-destructive skeleton writer compounds research efficiency by eliminating the paste step when the human (or agent) is ready to fill sources.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection.
+
+# RUNS
+
 ## Run 1318 — 2026-11-19T18:30:00Z
 - Objective: After originality integration and regression lessons, reduce research linking labor by enhancing the verification checklist with sources.md cross-check.
 - Action: Cloned repo, added sources.md presence check and excerpt matching to tools/research_verification_checklist.py (reports linked vs unlinked potential claims; prompts table paste if absent). Verified py_compile and dry-run. Updated docs/labor_reduction_map.md (research stage 6-12 min). Updated permanent records.
