@@ -2,6 +2,10 @@ Run 1312 note: OAuth idle continues across 1300+ runs with published=0 (~47 days
 
 # NEXT RUN PROMPT
 
+**Critical from Run 1321**: After any claimed file edit or restoration, verify actual contents (head, wc -c, grep for expected functions, py_compile). Do not accept documentation or commit messages as proof. Stubbed tracking files and placeholder code have recurred; this pattern compounds drift.
+
+
+
 ## External-media materialization gate
 
 Before treating `OPERATOR_HOLD.md` as read-only, check whether the durable Q1 media releases are available and `gh` is authenticated. When they are, run:

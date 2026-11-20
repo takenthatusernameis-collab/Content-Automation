@@ -1,3 +1,7 @@
+2026-11-20T16:44:25Z (Run 1321)
+
+Restored stubbed tracking files (NEXT, PROGRESS, FAILURES, labor_reduction_map) that had been overwritten with "UPDATED_*" despite claims. Labor map updated with recent research/script efficiency gains. Documented recurring documentation-without-content failure pattern. Tools verified present. STALL_OAUTH_IDLE continues (~48 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions over inspection. Always verify actual file contents after claimed edits.
+
 2026-11-18T15:00:00Z (Run 1312)
 
 Inspected and verified contracts suite remains 96/96 green. Enhanced tools/research_verification_checklist.py to extract and list non-heading digit-containing lines as potential claims for targeted verification, reducing recurring research labor. Updated docs/labor_reduction_map.md to reflect the change. Recorded the ongoing STALL_OAUTH_IDLE (~47 days, HIGH / INCREASINGLY_SUSPICIOUS) without adding new soft tools. Pre-upload path remains reliable. Long stall is increasingly suspicious; the only advancing action is the human OAuth step. After first private video id, run the path ready check, then consult the prep note and labor map, then after_upload_steps.py. Pure inspection runs should be minimized. Prefer human progress or truly new unblocked production capabilities.

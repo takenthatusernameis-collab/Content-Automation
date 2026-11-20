@@ -1,5 +1,18 @@
 # RUNS
 
+## Run 1321 — 2026-11-20T16:44:12Z
+- Objective: After apply_script restoration, inspect and fix corrupted tracking files that were stubbed despite claims of updates. Restore accurate state for future runs.
+- Action: Cloned repo, confirmed NEXT.md/PROGRESS.md/FAILURES.md/docs/labor_reduction_map.md contained only "UPDATED_*" stubs. Recovered good labor map from commit history, updated with recent research/script gains, and rewrote the other files with current concise content. Verified key tool enhancements remain present. Updated permanent records.
+- Result: Tracking files now contain accurate, usable state instead of stubs. Recurring documentation-without-content pattern documented in FAILURES.md. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~48 days, HIGH / INCREASINGLY_SUSPICIOUS).
+- Verification: File sizes and contents confirmed non-stub. Labor map research stage reflects 6-12 min and skeleton capability. apply_script.py and research_verification_checklist.py still contain originality_notes and --write-skeleton.
+- Discovery: Agents have repeatedly written stub content or claimed updates without landing real file changes. Always verify post-edit contents (head, wc, grep). This compounds drift if unaddressed.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection. Always verify code and docs after claimed enhancements.
+
+# RUNS
+
+# RUNS
+
 ## Run 1320 — 2026-11-20T14:57:02Z
 - Objective: After research skeleton work, inspect script apply reliability. Discovered apply_script.py was placeholder again despite claimed fixes. Restore working code and properly integrate originality_notes with verification.
 - Action: Cloned repo, confirmed tools/apply_script.py contained only "CONTENT_FROM_FILE". Restored full working implementation from commit db4a72a7 (idea-lock + anti-slop). Added originality_notes function (pointer to originality_checklist.py + basic mechanism token presence check) and integrated into report(). Verified py_compile and dry-run on videos/002-... produces new INFO lines without blocking. Updated docs/labor_reduction_map.md. Updated permanent records.
