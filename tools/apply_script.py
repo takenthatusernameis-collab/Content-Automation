@@ -147,15 +147,17 @@ def anti_slop_notes(incoming: str) -> list[str]:
 
 
 def originality_notes(packet: Path, incoming: str) -> list[str]:
-    """Non-blocking INFO pointer to originality checklist + basic mechanism presence + concrete markers & lived-experience flags. Never blocks write."""
+    """Non-blocking INFO pointer to originality checklist + basic mechanism presence + concrete markers & lived-experience flags + sentence density + problem echo. Never blocks write."""
     notes = ["INFO originality: run python3 tools/originality_checklist.py on draft.md for the full 7-item review before promotion"]
     idea_path = packet / "idea.md"
     body_lower = incoming.lower()
+    mech = ""
+    problem = ""
     if idea_path.is_file():
         idea_text = idea_path.read_text(encoding="utf-8", errors="replace")
         try:
             from idea_utils import extract as idea_extract
-            mech, _, _ = idea_extract(idea_text)
+            mech, problem, _ = idea_extract(idea_text)
             if mech and mech.lower() not in ("", "(blank)", "template-default", "generic", "tbd", "todo"):
                 if mech.lower()[:40] in body_lower or any(w in body_lower for w in mech.lower().split()[:3] if len(w) > 4):
                     notes.append("INFO originality: mechanism token appears present in incoming draft")
@@ -185,6 +187,17 @@ def originality_notes(packet: Path, incoming: str) -> list[str]:
         notes.append("INFO originality deeper: no lived-experience claims detected")
     else:
         notes.append(f"INFO originality deeper: review {len(fake)} potential lived-experience claims")
+    # Sentence density / cuttable signal (from originality_report #5)
+    sentences = [s.strip() for s in re.split(r"[.!?]", incoming) if s.strip()]
+    if len(sentences) > 40:
+        notes.append(f"INFO originality deeper: long draft ({len(sentences)} sentences) — look for repeated conclusions")
+    else:
+        notes.append(f"INFO originality deeper: compact draft ({len(sentences)} sentences)")
+    # Problem language echo (from originality_report #4)
+    if problem and any(w in body_lower for w in problem.lower().split() if len(w) > 4):
+        notes.append("INFO originality deeper: problem language echoed in draft")
+    elif problem:
+        notes.append("INFO originality deeper: problem language not clearly echoed (check consistency)")
     return notes
 
 
@@ -323,4 +336,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
