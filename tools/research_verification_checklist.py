@@ -7,7 +7,7 @@ items (digit tokens in non-heading content) from the files for targeted review.
 Does not invent sources, URLs, numbers, or citations. Optionally writes a sources.md skeleton if --write-skeleton is given and the file is absent.
 Also prints suggested search queries grounded in the extracted claim excerpts (human use only).
 Queries for statistical or research-like claims automatically append primary-source site operators (site:gov OR site:edu OR site:org).
-When sources.md is present, classifies and ranks source candidates by type (primary / secondary / unknown) using domain and keyword heuristics. No invented sources.
+When sources.md is present, classifies and ranks source candidates by type (primary / secondary / unknown) using domain and keyword heuristics. Prints type counts and warns if secondary dominate. No invented sources.
 
 Reduces recurring human verification minutes by standardizing the process,
 listing specific items that may need sourcing, surfacing ready-to-paste search queries, and ranking existing sources by preference.
@@ -257,9 +257,14 @@ def main() -> int:
             ranked.sort(key=lambda x: order.get(x[0], 9))
             print()
             print("Source candidates ranked by type (primary preferred; heuristic only; human must still verify):")
+            counts = {"primary": 0, "primary-likely": 0, "unknown": 0, "secondary": 0}
             for kind, c in ranked:
+                counts[kind] = counts.get(kind, 0) + 1
                 display = c if len(c) <= 100 else c[:97] + "..."
                 print(f"  [{kind}] {display}")
+            print(f"Type summary: primary={counts['primary']} primary-likely={counts['primary-likely']} secondary={counts['secondary']} unknown={counts['unknown']}")
+            if counts["secondary"] > counts["primary"] + counts["primary-likely"]:
+                print("WARNING: More secondary than primary/primary-likely candidates. Prefer replacing secondary with primary sources where possible.")
             print("Prefer primary / primary-likely. Secondary or unknown still require human confirmation of exact support.")
         else:
             print("No extractable source candidates found in sources.md (URLs or filled Source cells).")

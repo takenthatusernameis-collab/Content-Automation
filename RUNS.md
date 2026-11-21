@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1326 — 2026-11-21T17:21:00Z
+- Objective: After source ranking, implement the next small labor map opportunity for research stage: type summary counts and secondary-dominance warning on ranked candidates.
+- Action: Enhanced the ranking section in tools/research_verification_checklist.py to print Type summary (primary/primary-likely/secondary/unknown counts) and a non-blocking WARNING if secondary > primary + primary-likely. Verified py_compile and synthetic sources.md test (summary appears, ranking preserved). Updated docs/labor_reduction_map.md (research 3-7 min). Updated permanent records.
+- Result: Research checklist now surfaces source-type balance immediately, compounding efficiency for future packets by reducing preference judgment time. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~49 days, HIGH / INCREASINGLY_SUSPICIOUS).
+- Verification: python3 -m py_compile tools/research_verification_checklist.py OK. Synthetic test with mixed sources prints "Type summary: primary=2 ..." and ranking. No overwrites of prior logic.
+- Discovery: Explicit type counts + imbalance warning further reduces recurring human minutes on source quality assessment without inventing sources.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection. Always verify code after claimed enhancements.
+
 ## Run 1325 — 2026-11-21T15:23:00Z
 - Objective: After primary-source operators, implement the next labor map opportunity for research stage: auto-classify and rank existing source candidates by type (primary vs secondary).
 - Action: Added classify_source() (domain + keyword heuristics) and extract_source_candidates() to tools/research_verification_checklist.py. When sources.md is present, prints ranked list (primary first). Verified py_compile and synthetic tests (cdc.gov → primary, wikipedia → secondary, study text → primary-likely). Updated docs/labor_reduction_map.md (research 3-8 min). Updated permanent records.

@@ -1,17 +1,14 @@
 # PROGRESS
 
-Updated: 2026-11-21T15:23:00Z (Run 1325)
+Updated: 2026-11-21T17:21:00Z (Run 1326)
 
 ## Latest measurable delta
-- Added classify_source() + extract_source_candidates() to tools/research_verification_checklist.py. When sources.md exists, checklist now ranks candidates by type (primary preferred). Research stage human minutes est. reduced to 3-8 (from 4-9). Heuristic only; no invented sources.
+- Enhanced ranking in tools/research_verification_checklist.py with type summary counts and secondary-dominance WARNING. Research stage human minutes est. reduced to 3-7 (from 3-8). Heuristic only; no invented sources.
 - Videos published: 0. STALL_OAUTH_IDLE continues (~49 days). No provider write. Pre-upload path unchanged.
 - Automated steps: many local gates + research/script helpers. Remaining recurring human: OAuth secrets + dispatch (one-time), then post-publish review.
 
-## Run 1324 (prior)
-Enhanced suggested_search_queries in tools/research_verification_checklist.py to append primary-source site operators (site:gov OR site:edu OR site:org) for statistical/research-like claims. Research stage human minutes est. reduced to 4-9 (from 5-10). Operators surface automatically for matching excerpts.
-
-## Run 1323 (prior)
-Added non-blocking grounded search query suggestions to tools/research_verification_checklist.py (from extracted claim excerpts; human use only; no invented sources). Research stage human minutes est. reduced to 5-10 (from 6-12). Queries surface automatically when quantitative items exist.
+## Run 1325 (prior)
+Added classify_source() + extract_source_candidates() to tools/research_verification_checklist.py. When sources.md exists, checklist now ranks candidates by type (primary preferred). Research stage human minutes est. reduced to 3-8 (from 4-9). Heuristic only; no invented sources.
 
 ## Compounding notes
 - Pre-upload path (idea -> master after materialize) is reliable. Primary blocker remains human OAuth setup.
