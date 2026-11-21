@@ -7,9 +7,10 @@ items (digit tokens in non-heading content) from the files for targeted review.
 Does not invent sources, URLs, numbers, or citations. Optionally writes a sources.md skeleton if --write-skeleton is given and the file is absent.
 Also prints suggested search queries grounded in the extracted claim excerpts (human use only).
 Queries for statistical or research-like claims automatically append primary-source site operators (site:gov OR site:edu OR site:org).
+When sources.md is present, classifies and ranks source candidates by type (primary / secondary / unknown) using domain and keyword heuristics. No invented sources.
 
 Reduces recurring human verification minutes by standardizing the process,
-listing specific items that may need sourcing, and surfacing ready-to-paste search queries.
+listing specific items that may need sourcing, surfacing ready-to-paste search queries, and ranking existing sources by preference.
 Use before claim_scan and before promoting research.md from stub.
 """
 
@@ -73,6 +74,59 @@ def suggested_search_queries(claims: list[str]) -> list[str]:
             query += " site:gov OR site:edu OR site:org"
         queries.append(query)
     return queries
+
+def classify_source(url_or_text: str) -> str:
+    """Heuristic classification of a source candidate. No invented sources.
+    Returns: primary / primary-likely / secondary / unknown.
+    """
+    text = (url_or_text or "").lower()
+    if not text.strip():
+        return "unknown"
+    primary_domains = (
+        ".gov", ".edu", ".mil", "arxiv.org", "pubmed", "nih.gov", "who.int",
+        "oecd.org", "worldbank.org", "imf.org", "nature.com", "science.org",
+        "ieee.org", "acm.org", "ssrn.com"
+    )
+    secondary_hints = (
+        "wikipedia.org", "reddit.com", "youtube.com", "medium.com", "blogspot",
+        "wordpress", "substack", "news", "blog", "article", "opinion"
+    )
+    if any(d in text for d in primary_domains):
+        return "primary"
+    if any(h in text for h in secondary_hints):
+        return "secondary"
+    if any(k in text for k in ("study", "report", "paper", "survey", "data", "official", "government", "university")):
+        return "primary-likely"
+    return "unknown"
+
+def extract_source_candidates(sources_text: str) -> list[str]:
+    """Pull potential source lines (URLs or non-empty Source cells). No invention."""
+    candidates = []
+    for line in sources_text.splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#") or stripped.startswith("|---"):
+            continue
+        # URL anywhere
+        if "http://" in stripped or "https://" in stripped:
+            candidates.append(stripped)
+            continue
+        # Table row with possible source
+        if stripped.startswith("|") and "|" in stripped[1:]:
+            parts = [p.strip() for p in stripped.split("|")]
+            # Prefer later columns as Source
+            for part in parts[2:]:
+                if part and part.lower() not in ("", "source (fill)", "notes"):
+                    candidates.append(part)
+                    break
+    # Dedup preserve order
+    seen = set()
+    out = []
+    for c in candidates:
+        key = c.lower()[:120]
+        if key not in seen:
+            seen.add(key)
+            out.append(c)
+    return out[:12]
 
 def main() -> int:
     parser = argparse.ArgumentParser(
@@ -173,13 +227,14 @@ def main() -> int:
     # Cross-check against sources.md if present (reduces linking labor)
     sources_path = packet / "sources.md"
     if sources_path.is_file():
-        sources_text = sources_path.read_text(encoding="utf-8", errors="replace").lower()
+        sources_text = sources_path.read_text(encoding="utf-8", errors="replace")
+        sources_lower = sources_text.lower()
         linked = []
         unlinked = []
         for item in potential:
             excerpt = item.split(") ", 1)[-1] if ") " in item else item
             key = excerpt[:60].lower().strip()
-            if key and key in sources_text:
+            if key and key in sources_lower:
                 linked.append(item)
             else:
                 unlinked.append(item)
@@ -190,6 +245,24 @@ def main() -> int:
                 print(f"  - {u}")
         else:
             print("All extracted potential items appear referenced in sources.md (still verify content).")
+        # New: classify and rank source candidates
+        candidates = extract_source_candidates(sources_text)
+        if candidates:
+            ranked = []
+            for c in candidates:
+                kind = classify_source(c)
+                ranked.append((kind, c))
+            # Prefer primary first
+            order = {"primary": 0, "primary-likely": 1, "unknown": 2, "secondary": 3}
+            ranked.sort(key=lambda x: order.get(x[0], 9))
+            print()
+            print("Source candidates ranked by type (primary preferred; heuristic only; human must still verify):")
+            for kind, c in ranked:
+                display = c if len(c) <= 100 else c[:97] + "..."
+                print(f"  [{kind}] {display}")
+            print("Prefer primary / primary-likely. Secondary or unknown still require human confirmation of exact support.")
+        else:
+            print("No extractable source candidates found in sources.md (URLs or filled Source cells).")
     else:
         print("No sources.md yet. Paste the table above into a new sources.md, then fill the Source column.")
         print("Or run: python3 tools/claim_source_table.py PATH for a spoken-WORDS-focused table.")
@@ -214,7 +287,7 @@ def main() -> int:
         elif args.write_skeleton:
             print("--write-skeleton requested but no potential claims found; no file written.")
     print()
-    print("This checklist standardizes verification and surfaces linking status so future packets spend fewer human minutes on source checking.")
+    print("This checklist standardizes verification, surfaces linking status, and ranks source candidates so future packets spend fewer human minutes on source checking.")
     print("Do not treat this output as verified sources. Human confirmation is still required.")
     return 0
 
