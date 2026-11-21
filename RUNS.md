@@ -1,5 +1,14 @@
 # RUNS
 
+## Run 1325 — 2026-11-21T15:23:00Z
+- Objective: After primary-source operators, implement the next labor map opportunity for research stage: auto-classify and rank existing source candidates by type (primary vs secondary).
+- Action: Added classify_source() (domain + keyword heuristics) and extract_source_candidates() to tools/research_verification_checklist.py. When sources.md is present, prints ranked list (primary first). Verified py_compile and synthetic tests (cdc.gov → primary, wikipedia → secondary, study text → primary-likely). Updated docs/labor_reduction_map.md (research 3-8 min). Updated permanent records.
+- Result: Research checklist now ranks source candidates by preference, compounding efficiency for future packets. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~49 days, HIGH / INCREASINGLY_SUSPICIOUS).
+- Verification: python3 -m py_compile tools/research_verification_checklist.py OK. Synthetic classify tests pass. Functions present in fetched file; no overwrites of prior logic.
+- Discovery: Heuristic ranking of already-present sources reduces human preference judgment time and surfaces primary candidates first without inventing anything.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection. Always verify code after claimed enhancements.
+
 ## Run 1324 — 2026-11-21T13:25:00Z
 - Objective: After grounded search queries, implement the next labor map opportunity for research stage: primary-source preference operators on statistical claims.
 - Action: Enhanced suggested_search_queries() in tools/research_verification_checklist.py to append "site:gov OR site:edu OR site:org" when claim excerpt matches statistical keywords (%, percent, study, research, etc.). Verified py_compile and synthetic test produces enhanced query. Updated docs/labor_reduction_map.md (research 4-9 min). Updated permanent records.
