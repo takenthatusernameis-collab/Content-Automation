@@ -6,6 +6,7 @@ of verification steps for any sources or claims. Extracts potential quantitative
 items (digit tokens in non-heading content) from the files for targeted review.
 Does not invent sources, URLs, numbers, or citations. Optionally writes a sources.md skeleton if --write-skeleton is given and the file is absent.
 Also prints suggested search queries grounded in the extracted claim excerpts (human use only).
+Queries for statistical or research-like claims automatically append primary-source site operators (site:gov OR site:edu OR site:org).
 
 Reduces recurring human verification minutes by standardizing the process,
 listing specific items that may need sourcing, and surfacing ready-to-paste search queries.
@@ -49,9 +50,12 @@ def extract_potential_claims(text: str, source_label: str) -> list[str]:
     return claims[:12]
 
 def suggested_search_queries(claims: list[str]) -> list[str]:
-    """Grounded search queries from claim excerpts. No invented sources or URLs."""
+    """Grounded search queries from claim excerpts. No invented sources or URLs.
+    Appends primary-source preference operators when the claim looks statistical or research-like.
+    """
     queries = []
     seen = set()
+    primary_keywords = re.compile(r"\b(%|percent|percentage|study|studies|research|survey|data|statistic|average|median)\b", re.I)
     for item in claims[:8]:
         excerpt = item.split(") ", 1)[-1] if ") " in item else item
         # Clean for search: drop leading parenthetical label already handled, keep first ~8 words
@@ -64,6 +68,9 @@ def suggested_search_queries(claims: list[str]) -> list[str]:
         if query.lower() in seen:
             continue
         seen.add(query.lower())
+        # Prefer primary sources for quantitative/research claims
+        if primary_keywords.search(excerpt):
+            query += " site:gov OR site:edu OR site:org"
         queries.append(query)
     return queries
 
@@ -155,6 +162,7 @@ def main() -> int:
         if queries:
             print()
             print("Suggested search queries (human use only; paste into search engine; no invented sources):")
+            print("  Queries for statistical/research-like claims include site:gov OR site:edu OR site:org preference.")
             for q in queries:
                 print(f"  - {q}")
             print("Prefer primary sources (site:edu, site:gov, official reports) or operational claims the viewer can test.")
