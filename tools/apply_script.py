@@ -147,7 +147,7 @@ def anti_slop_notes(incoming: str) -> list[str]:
 
 
 def originality_notes(packet: Path, incoming: str) -> list[str]:
-    """Non-blocking INFO pointer to originality checklist + basic mechanism presence + concrete markers & lived-experience flags + sentence density + problem echo + CTA mechanism alignment. Never blocks write."""
+    """Non-blocking INFO pointer to originality checklist + basic mechanism presence + concrete markers & lived-experience flags + sentence density + problem echo + CTA mechanism alignment + mechanism one-sentence length. Never blocks write."""
     notes = ["INFO originality: run python3 tools/originality_checklist.py on draft.md for the full 7-item review before promotion"]
     idea_path = packet / "idea.md"
     body_lower = incoming.lower()
@@ -169,6 +169,13 @@ def originality_notes(packet: Path, incoming: str) -> list[str]:
             notes.append("INFO originality: could not extract mechanism for basic check")
     else:
         notes.append("INFO originality: no idea.md for mechanism check")
+    # Mechanism one-sentence explainable (from originality_report #1)
+    if mech and len(mech.split()) <= 25:
+        notes.append("INFO originality deeper: mechanism is one-sentence explainable (<=25 words)")
+    elif mech:
+        notes.append("INFO originality deeper: mechanism longer than one sentence — consider tightening in idea.md")
+    else:
+        notes.append("INFO originality deeper: no mechanism to check length")
     # Concrete markers (mirroring originality_report.py patterns)
     concrete_patterns = [
         r"\b(write|put|open|start|send|record|reply|close|hide|cover|rewrite|pick|name)\b",
