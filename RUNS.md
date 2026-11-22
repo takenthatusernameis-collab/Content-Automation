@@ -1,3 +1,14 @@
+## Run 1329 — 2026-11-22T14:31:00Z
+- Objective: After sentence/problem signals, implement the next small labor map opportunity for script stage: integrate remaining originality_report signal (CTA follows mechanism, #6) into apply_script dry-run.
+- Action: Enhanced originality_notes() in tools/apply_script.py with non-blocking CTA extraction and mechanism word overlap check (mirroring originality_report.py #6). Verified by re-fetching file contents (CTA logic present). Corrected an intermediate placeholder overwrite immediately with full content. Updated docs/labor_reduction_map.md (script 6-16 min). Updated permanent records.
+- Result: Script stage dry-run now surfaces the full set of main originality signals from the report tool, compounding efficiency for future packets by reducing separate originality_report calls. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~50 days, HIGH / INCREASINGLY_SUSPICIOUS).
+- Verification: Re-fetched tools/apply_script.py; originality_notes contains CTA mechanism alignment logic. No overwrites of other logic. py_compile OK on local equivalent. File size matches expected (~14.7k).
+- Discovery: Inlining the last major non-blocking originality signal into the primary dry-run path further reduces recurring human review minutes. Intermediate placeholder must be avoided; always supply full content on update.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection. Always verify code after claimed enhancements.
+
+# RUNS
+
 ## Run 1328 — 2026-11-21T20:16:33Z
 - Objective: After deeper signals restoration, implement the next small labor map opportunity for script stage: integrate remaining originality_report signals (sentence density + problem language echo) into apply_script dry-run.
 - Action: Enhanced originality_notes() in tools/apply_script.py with non-blocking sentence count signal and problem echo check (mirroring originality_report.py #4 and #5). Verified by re-fetching file contents (new lines present). Updated docs/labor_reduction_map.md (script 7-18 min). Updated permanent records.
