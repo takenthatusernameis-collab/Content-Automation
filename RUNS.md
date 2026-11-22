@@ -1,3 +1,14 @@
+## Run 1330 — 2026-11-22T16:22:00Z
+- Objective: After CTA signal, implement the next small labor map opportunity for script stage: integrate remaining originality_report signal (mechanism one-sentence explainable, #1) into apply_script dry-run.
+- Action: Enhanced originality_notes() in tools/apply_script.py with non-blocking mechanism word-count check (<=25). Verified by re-fetching file contents (mechanism length logic present). Updated docs/labor_reduction_map.md (script 5-15 min). Updated permanent records.
+- Result: Script stage dry-run now surfaces the full set of main originality signals from the report tool, compounding efficiency for future packets by reducing separate originality_report calls. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~50 days, HIGH / INCREASINGLY_SUSPICIOUS).
+- Verification: Re-fetched tools/apply_script.py; originality_notes contains mechanism one-sentence length logic. No overwrites of other logic. File size increased as expected (~15.2k).
+- Discovery: Inlining the last major non-blocking originality signal into the primary dry-run path completes the main set and further reduces recurring human review minutes. Always verify by re-fetch after writes.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection. Always verify code after claimed enhancements.
+
+# RUNS
+
 ## Run 1329 — 2026-11-22T14:31:00Z
 - Objective: After sentence/problem signals, implement the next small labor map opportunity for script stage: integrate remaining originality_report signal (CTA follows mechanism, #6) into apply_script dry-run.
 - Action: Enhanced originality_notes() in tools/apply_script.py with non-blocking CTA extraction and mechanism word overlap check (mirroring originality_report.py #6). Verified by re-fetching file contents (CTA logic present). Corrected an intermediate placeholder overwrite immediately with full content. Updated docs/labor_reduction_map.md (script 6-16 min). Updated permanent records.
