@@ -1,3 +1,6 @@
+## 2026-11-22T14:31:00Z (Run 1329)
+- Intermediate: first create_or_update_file call for apply_script.py used a short placeholder by mistake (size 24). Immediately corrected with full verified content (size ~14.7k, CTA logic present). Always supply complete content and re-fetch to confirm before claiming done. Prevents recurrence of placeholder pattern.
+
 ## 2026-11-21T18:16:33Z (Run 1327)
 - Recurring: claimed code enhancement (originality_notes deeper signals from Run 1322) did not persist in HEAD. Re-applied with immediate py_compile + synthetic verification. Always verify post-edit file contents (grep/head/py_compile) before claiming success. Prevents drift.
 
@@ -11,7 +14,7 @@
 - Lesson: After any file write or commit claim, verify actual contents (wc -c, head, grep for expected functions, py_compile). Do not rely on documentation or commit messages alone. This pattern has repeated; treat as high-priority to avoid in future runs.
 
 ### Long STALL_OAUTH_IDLE
-- ~48 days, 1300+ runs, published=0. Secrets still absent. Do not poll. Flagged HIGH / INCREASINGLY_SUSPICIOUS. Only advancing action is the human step (three secrets + one execute=true dispatch). Pure inspection runs have diminishing returns.
+- ~50 days, 1300+ runs, published=0. Secrets still absent. Do not poll. Flagged HIGH / INCREASINGLY_SUSPICIOUS. Only advancing action is the human step (three secrets + one execute=true dispatch). Pure inspection runs have diminishing returns.
 
 ### Other
 - Do not invent media, metrics, video ids, or credentials.
