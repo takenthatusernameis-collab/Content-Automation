@@ -33,6 +33,22 @@ def run_tool(script: str, packet: str) -> tuple[int, str]:
         return 1, f"EXCEPTION {script}: {exc}"
 
 
+def extract_priority_cues(speed_out: str) -> list[str]:
+    """Pull high-CPS flagged cues for prioritized human attention."""
+    lines = []
+    in_flagged = False
+    for line in speed_out.splitlines():
+        if "flagged_cues:" in line:
+            in_flagged = True
+            continue
+        if in_flagged and line.strip().startswith("cue "):
+            if "fast" in line:
+                lines.append(line.strip())
+        if in_flagged and not line.strip():
+            break
+    return lines[:5]  # top 5 fast ones
+
+
 def main() -> int:
     if len(sys.argv) < 2:
         print("Usage: python3 tools/caption_quality_summary.py <packet>", file=sys.stderr)
@@ -45,6 +61,12 @@ def main() -> int:
     print("--- Speed / readability ---")
     print(out1 or "(no output)")
     print()
+    priority = extract_priority_cues(out1)
+    if priority:
+        print("--- Priority review: high CPS cues (focus first) ---")
+        for p in priority:
+            print(p)
+        print()
     code2, out2 = run_tool("caption_timeline_consistency.py", packet)
     print("--- Timeline consistency ---")
     print(out2 or "(no output)")
@@ -60,6 +82,8 @@ def main() -> int:
         print("SUMMARY: captions.srt absent (expected for draft until aligned).")
     else:
         print("SUMMARY: one or more reports incomplete or gate issues. Check individual tools.")
+    if priority:
+        print(f"PRIORITY: {len(priority)} high-CPS cues listed above for first attention.")
     print("Do not treat captions.srt as approved for upload until human spot-check.")
     return 0
 
