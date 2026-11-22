@@ -1,3 +1,14 @@
+## Run 1331 — 2026-11-22T17:30:00Z
+- Objective: After full originality signals in script dry-run, implement the next small labor map opportunity for research stage: non-blocking auto-link suggestions for unlinked claims.
+- Action: Added suggest_auto_links() (Jaccard word-overlap on long tokens) to tools/research_verification_checklist.py. Prints top suggestions when sources.md present and unlinked items exist. Verified py_compile and synthetic packet test (suggestions appear with scores). Corrected intermediate placeholder commit with full content. Updated docs/labor_reduction_map.md (research 2-6 min). Updated permanent records.
+- Result: Research checklist now surfaces heuristic claim-to-source matches, compounding efficiency for future packets by reducing manual linking time. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~50 days, HIGH / INCREASINGLY_SUSPICIOUS).
+- Verification: python3 -m py_compile tools/research_verification_checklist.py OK. Synthetic test with matching claims/sources prints "Suggested auto-links" section with scores. File size ~16.8k after full update. No overwrites of prior ranking logic.
+- Discovery: Simple overlap heuristics further reduce recurring human minutes on source linking without inventing content. Always verify with local test after edits; avoid placeholders.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection. Always verify code after claimed enhancements.
+
+# RUNS
+
 ## Run 1330 — 2026-11-22T16:22:00Z
 - Objective: After CTA signal, implement the next small labor map opportunity for script stage: integrate remaining originality_report signal (mechanism one-sentence explainable, #1) into apply_script dry-run.
 - Action: Enhanced originality_notes() in tools/apply_script.py with non-blocking mechanism word-count check (<=25). Verified by re-fetching file contents (mechanism length logic present). Updated docs/labor_reduction_map.md (script 5-15 min). Updated permanent records.
