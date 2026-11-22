@@ -1,3 +1,7 @@
+2026-11-22T16:22:00Z (Run 1330)
+
+Integrated final remaining originality signal (mechanism one-sentence length) into apply_script.py dry-run. Labor map script stage 5-15 min. Verified by re-fetch (logic present). STALL_OAUTH_IDLE continues (~50 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions over inspection. Always verify actual file contents after claimed edits.
+
 2026-11-21T18:16:33Z (Run 1327)
 
 Re-applied and verified deeper non-blocking originality signals in apply_script.py dry-run (concrete markers count + lived-experience flags), correcting non-persistence from prior claim. Labor map script stage 8-20 min. Verified with py_compile and synthetic. STALL_OAUTH_IDLE continues (~49 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions over inspection. Always verify actual file contents after claimed edits.
