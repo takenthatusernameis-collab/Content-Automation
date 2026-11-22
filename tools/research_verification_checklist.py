@@ -7,7 +7,7 @@ items (digit tokens in non-heading content) from the files for targeted review.
 Does not invent sources, URLs, numbers, or citations. Optionally writes a sources.md skeleton if --write-skeleton is given and the file is absent.
 Also prints suggested search queries grounded in the extracted claim excerpts (human use only).
 Queries for statistical or research-like claims automatically append primary-source site operators (site:gov OR site:edu OR site:org).
-When sources.md is present, classifies and ranks source candidates by type (primary / secondary / unknown) using domain and keyword heuristics. Prints type counts and warns if secondary dominate. No invented sources.
+When sources.md is present, classifies and ranks source candidates by type (primary / secondary / unknown) using domain and keyword heuristics. Prints type counts and warns if secondary dominate. Also prints non-blocking quality hints (study/report/official stronger; blog/opinion lower; year notes). No invented sources.
 
 Reduces recurring human verification minutes by standardizing the process,
 listing specific items that may need sourcing, surfacing ready-to-paste search queries, and ranking existing sources by preference.
@@ -161,6 +161,25 @@ def extract_source_candidates(sources_text: str) -> list[str]:
             out.append(c)
     return out[:12]
 
+
+def source_quality_hints(candidates: list[str]) -> list[str]:
+    """Non-blocking quality signals for source candidates. No invention.
+    Flags blog/opinion-like as low priority; study/report/official as stronger; notes years.
+    """
+    hints = []
+    for c in candidates[:6]:
+        low = c.lower()
+        years = re.findall(r"20[0-2][0-9]", c)
+        year_note = f" (~{years[0]})" if years else ""
+        display = (c[:70] + "...") if len(c) > 70 else c
+        if any(b in low for b in ("blog", "opinion", "reddit.com", "medium.com", "substack")):
+            hints.append(f"Low priority (blog/opinion-like){year_note}: {display}")
+        elif any(s in low for s in ("study", "report", "official", "government", "peer-reviewed", "survey data")):
+            hints.append(f"Stronger candidate (study/report/official){year_note}: {display}")
+        elif years:
+            hints.append(f"Dated candidate{year_note}: {display}")
+    return hints
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Print a research verification checklist grounded in the packet (no invented sources)."
@@ -307,6 +326,13 @@ def main() -> int:
             if counts["secondary"] > counts["primary"] + counts["primary-likely"]:
                 print("WARNING: More secondary than primary/primary-likely candidates. Prefer replacing secondary with primary sources where possible.")
             print("Prefer primary / primary-likely. Secondary or unknown still require human confirmation of exact support.")
+            # Quality hints (non-blocking)
+            hints = source_quality_hints(candidates)
+            if hints:
+                print()
+                print("Source quality hints (heuristic only; human must still verify exact support; no invention):")
+                for h in hints:
+                    print(f"  - {h}")
         else:
             print("No extractable source candidates found in sources.md (URLs or filled Source cells).")
     else:

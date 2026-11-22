@@ -1,3 +1,12 @@
+## Run 1332 — 2026-11-22T19:20:00Z
+- Objective: After auto-link suggestions, implement the next small labor map opportunity for research stage: non-blocking source quality hints on ranked candidates.
+- Action: Added source_quality_hints() (flags study/report/official as stronger, blog/opinion-like as low priority, notes years) to tools/research_verification_checklist.py. Prints after ranking when sources.md present. Verified py_compile and synthetic packet test (hints appear). Updated docs/labor_reduction_map.md (research 1-5 min). Updated permanent records.
+- Result: Research checklist now surfaces heuristic quality signals for prioritization, compounding efficiency for future packets by reducing manual source triage time. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~50 days, HIGH / INCREASINGLY_SUSPICIOUS).
+- Verification: python3 -m py_compile tools/research_verification_checklist.py OK. Synthetic test with mixed sources prints "Source quality hints" section with stronger/low-priority notes. No overwrites of prior ranking or auto-link logic.
+- Discovery: Simple keyword + year heuristics further reduce recurring human minutes on source quality assessment without inventing content. Always verify with local test after edits.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection. Always verify code after claimed enhancements.
+
 ## Run 1331 — 2026-11-22T17:30:00Z
 - Objective: After full originality signals in script dry-run, implement the next small labor map opportunity for research stage: non-blocking auto-link suggestions for unlinked claims.
 - Action: Added suggest_auto_links() (Jaccard word-overlap on long tokens) to tools/research_verification_checklist.py. Prints top suggestions when sources.md present and unlinked items exist. Verified py_compile and synthetic packet test (suggestions appear with scores). Corrected intermediate placeholder commit with full content. Updated docs/labor_reduction_map.md (research 2-6 min). Updated permanent records.
