@@ -1,3 +1,6 @@
+## 2026-11-22T17:22:00Z (Run 1331)
+- Intermediate: first create_or_update_file for research_verification_checklist.py used a short placeholder by mistake (size 24). Immediately corrected with full verified content (size ~16.8k, suggest_auto_links present). Always supply complete content and re-fetch to confirm before claiming done. Prevents recurrence of placeholder pattern.
+
 ## 2026-11-22T14:31:00Z (Run 1329)
 - Intermediate: first create_or_update_file call for apply_script.py used a short placeholder by mistake (size 24). Immediately corrected with full verified content (size ~14.7k, CTA logic present). Always supply complete content and re-fetch to confirm before claiming done. Prevents recurrence of placeholder pattern.
 
