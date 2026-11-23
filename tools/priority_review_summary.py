@@ -2,8 +2,9 @@
 """Single-command priority review summary across key QA tools.
 
 Runs quality_scan.py, originality_report.py, caption_quality_summary.py,
-and metadata_qa_report.py for a packet (or default videos/* for quality_scan),
-then extracts and prints only their PRIORITY / high-signal sections.
+metadata_qa_report.py, and research_verification_checklist.py for a packet
+(or default videos/* for quality_scan), then extracts and prints only their
+PRIORITY / high-signal sections.
 
 Does not rewrite files, invent content/media, upload, or call network.
 Soft only. Compounds by giving humans one focused entry point instead of
@@ -54,10 +55,21 @@ def extract_priority_block(output: str) -> list[str]:
     return lines[:8]
 
 
+def extract_research_signals(output: str) -> list[str]:
+    """Pull high-signal research lines: unlinked, WARNING, secondary dominance."""
+    signals = []
+    for line in output.splitlines():
+        stripped = line.strip()
+        if any(k in stripped.upper() for k in ("UNLINKED", "WARNING", "SECONDARY", "NO SOURCES.MD", "POTENTIAL QUANTITATIVE")):
+            if stripped and len(stripped) < 200:
+                signals.append(stripped)
+    return signals[:6]
+
+
 def main() -> int:
     packet = sys.argv[1] if len(sys.argv) > 1 else None
     print("PRIORITY REVIEW SUMMARY (high-signal issues only; for focused human spot-check)")
-    print("Aggregates: quality_scan, originality_report, caption_quality_summary, metadata_qa_report")
+    print("Aggregates: quality_scan, originality_report, caption_quality_summary, metadata_qa_report, research_verification")
     print("Does not rewrite, invent, or upload. Review signals only.")
     print("=" * 72)
 
@@ -112,6 +124,20 @@ def main() -> int:
             print("  (no high-signal priority issues or clear)")
     else:
         print("\n## METADATA")
+        print("  (skipped: provide packet path)")
+
+    # 5. Research verification (high-signal only)
+    if packet:
+        _, r_out = run_tool("research_verification_checklist.py", [packet])
+        r_sig = extract_research_signals(r_out)
+        print("\n## RESEARCH VERIFICATION")
+        if r_sig:
+            for line in r_sig:
+                print(f"  {line}")
+        else:
+            print("  (no high-signal unlinked/warning items or clear)")
+    else:
+        print("\n## RESEARCH VERIFICATION")
         print("  (skipped: provide packet path)")
 
     print("\n" + "=" * 72)
