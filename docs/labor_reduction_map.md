@@ -13,7 +13,7 @@ Created 2026-11-18T11:50:00Z (Run 1311). Tracks recurring human work and automat
 | Cards / visuals | card_generator.py READY_FOR_MEDIA | 5 | Deterministic from assets.md; size/text checks | B-roll optional adapter |
 | Assembly | timeline.py + assemble.py PLAN_BUILT | 2-5 | Dry-run ffmpeg; --execute after media_qa PASS | Full local encode on gate machine |
 | Captions | caption tools + aligner draft (Run 1333: priority high-CPS cues surfaced first in quality summary) | 8-18 | Silence-proportional draft; human spot-check; quality summary now highlights top fast CPS cues for focused review | ASR-based timing when available |
-| Metadata / thumb | title/desc/tags/thumb suggest tools | 5-10 | metadata_bundle.py consolidates | Auto-approve after quality gates |
+| Metadata / thumb | title/desc/tags/thumb suggest tools (Run 1334: priority high-signal issues in metadata_qa_report) | 4-8 | metadata_bundle.py consolidates; QA report now highlights priority hits first for focused review | Auto-approve after quality gates |
 | QA / gates | media_qa, complete.py, contracts_suite | 5 | Fail-closed local gates | Live provider checks after credentials |
 | Publish | youtube_upload.py READY_FOR_CREDENTIAL | 5 (secrets + dispatch) | Dry-run ready; live videos.insert needs OAuth | Reduce to one-click after first success |
 | Feedback | youtube_feedback.py READY_FOR_CREDENTIAL | 5 (dispatch after window) | Observation window enforced | Auto-collect + summarize for experiment |

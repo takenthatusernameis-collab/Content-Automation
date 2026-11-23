@@ -45,6 +45,18 @@ def run_tool(script: str, packet: str, extra: list[str] | None = None) -> tuple[
         return 1, f"EXCEPTION {script}: {e}"
 
 
+def extract_priority_issues(all_outputs: list[tuple[str, str]]) -> list[str]:
+    """Pull high-signal issue lines (hits >0, shout, weak, missing sections) for prioritized review."""
+    priority = []
+    for header, out in all_outputs:
+        for line in out.splitlines():
+            low = line.lower()
+            if ("hits:" in low and "hits: 0" not in low and "hits:0" not in low) or \
+               "shout:" in low or "weak:" in low or "missing:" in low or "malformed" in low:
+                priority.append(f"{header}: {line.strip()}")
+    return priority[:8]  # top priority signals
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Aggregate core metadata QA scans for a packet.")
     parser.add_argument("packet", help="Packet folder containing publish.md / titles.md / chapters.md / etc.")
@@ -60,11 +72,13 @@ def main() -> int:
     print("=" * 72)
 
     issues = 0
+    collected = []
 
     for script, header in SCANNERS:
         rc, out = run_tool(script, packet)
         print(f"\n## {header}")
         print(out or "(no output)")
+        collected.append((header, out))
         # Detect issue signals: most scanners print "clear" when clean; non-clear or hits indicate revision.
         low = out.lower()
         if "clear" not in low and out and "missing" not in low:
@@ -72,8 +86,16 @@ def main() -> int:
         elif "hits" in low or "weak" in low or "shout" in low or "malformed" in low:
             issues += 1
 
+    priority = extract_priority_issues(collected)
     print("\n" + "=" * 72)
+    if priority:
+        print("--- Priority review: high-signal metadata issues (focus first) ---")
+        for p in priority:
+            print(p)
+        print()
     print(f"summary_issues_detected: {issues}")
+    if priority:
+        print(f"PRIORITY: {len(priority)} high-signal issues listed above for first attention.")
     print("Next: revise the corresponding publish.md / titles.md / chapters.md sections for any signals, then re-run this report.")
     print("Metadata is not locked until the relevant scans pass and apply or promotion steps complete.")
     if args.strict and issues:
