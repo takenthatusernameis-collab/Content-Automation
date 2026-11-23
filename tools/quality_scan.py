@@ -9,6 +9,7 @@ set_status.py refuses ready_for_vo while a hit remains.
 Output includes a short context snippet around the first match of each phrase so the revision signal is immediately actionable.
 Text is normalized (curly apostrophes/quotes/dashes -> straight) so one pattern covers common variants.
 Spoken WORDS extraction uses shared phrase_utils.spoken_words.
+Priority high-signal hits (multiple occurrences or common weak phrases) are surfaced first for focused review.
 """
 
 from __future__ import annotations
@@ -45,6 +46,19 @@ def hits(text: str) -> list[tuple[str, int, str]]:
     return found
 
 
+def extract_priority_hits(found: list[tuple[str, int, str]]) -> list[tuple[str, int, str]]:
+    """Surface high-signal anti-slop hits first (count > 1 or known weak phrases)."""
+    priority = []
+    weak_phrases = {"in today's", "let's dive", "game changer", "unlock", "leverage", "synergy", "deep dive", "at the end of the day"}
+    for phrase, count, ctx in found:
+        low = phrase.lower()
+        if count > 1 or any(w in low for w in weak_phrases):
+            priority.append((phrase, count, ctx))
+    # Sort by count descending, then phrase
+    priority.sort(key=lambda x: (-x[1], x[0]))
+    return priority[:5]
+
+
 def scan_path(path: Path) -> list[tuple[str, int, str]]:
     script = path / "script.md"
     if not script.is_file():
@@ -65,9 +79,11 @@ def main() -> int:
     print("QUALITY SCAN")
     print(f"patterns checked: {len(PATTERNS)}")
     total = 0
+    all_found = []
     for folder in folders:
         found = scan_path(folder)
         total += sum(count for _, count, _ in found)
+        all_found.extend(found)
         if not found:
             print(f"{folder.name}: clear")
             continue
@@ -78,6 +94,14 @@ def main() -> int:
         print(f"{folder.name}: hits {detail}")
     print(f"hits: {total}")
     print("rewrites: 0")
+    # Priority section
+    priority = extract_priority_hits(all_found)
+    if priority:
+        print()
+        print("--- Priority review: high-signal anti-slop hits (focus first) ---")
+        for phrase, count, ctx in priority:
+            print(f"  {phrase} x{count} [{ctx}]")
+        print(f"PRIORITY: {len(priority)} high-signal issues listed above for first attention.")
     if args.strict and total:
         return 1
     return 0
