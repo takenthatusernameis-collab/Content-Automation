@@ -51,6 +51,16 @@ def extract_mechanism(idea_text: str) -> str:
     return mech
 
 
+def extract_priority_signals(lines: list[str]) -> list[str]:
+    """Surface high-signal weak/missing/check lines first for focused review."""
+    priority = []
+    for line in lines:
+        low = line.lower()
+        if any(k in low for k in ("weak", "missing", "check", "long", "review", "no idea")):
+            priority.append(line.strip())
+    return priority[:6]
+
+
 def main() -> int:
     if len(sys.argv) < 2:
         print("usage: python3 tools/originality_report.py <packet-folder>")
@@ -77,12 +87,17 @@ def main() -> int:
     print(f"WORDS length: {len(words.split())} words")
     print()
 
+    report_lines = []
+
     # 1. Could the mechanism be explained in one sentence?
     print("1. Mechanism one-sentence explainable?")
     if mechanism and len(mechanism.split()) <= 25:
-        print("  signal: yes (idea mechanism is already short)")
+        sig = "  signal: yes (idea mechanism is already short)"
+        print(sig)
     else:
-        print("  signal: check idea.md mechanism length")
+        sig = "  signal: check idea.md mechanism length"
+        print(sig)
+    report_lines.append(sig)
 
     # 2. Each beat contains at least one concrete action/example?
     print("\n2. Concrete actions / examples present?")
@@ -92,11 +107,13 @@ def main() -> int:
     ]
     hits = sum(len(re.findall(p, words, re.IGNORECASE)) for p in concrete_patterns)
     if hits >= 8:
-        print(f"  signal: strong ({hits} concrete markers)")
+        sig = f"  signal: strong ({hits} concrete markers)"
     elif hits >= 4:
-        print(f"  signal: moderate ({hits} concrete markers)")
+        sig = f"  signal: moderate ({hits} concrete markers)"
     else:
-        print(f"  signal: weak ({hits} concrete markers) — add specific verbs/objects")
+        sig = f"  signal: weak ({hits} concrete markers) — add specific verbs/objects"
+    print(sig)
+    report_lines.append(sig)
 
     # 3. At least one detail that belongs to this packet?
     print("\n3. Packet-specific detail present?")
@@ -104,49 +121,67 @@ def main() -> int:
         key = mechanism.split()[0:4]
         key_phrase = " ".join(key).lower()
         if key_phrase in words.lower() or any(k.lower() in words.lower() for k in key if len(k) > 3):
-            print("  signal: yes (mechanism language appears in WORDS)")
+            sig = "  signal: yes (mechanism language appears in WORDS)"
         else:
-            print("  signal: weak — mechanism terms not clearly in WORDS")
+            sig = "  signal: weak — mechanism terms not clearly in WORDS"
     else:
-        print("  signal: no idea mechanism to check against")
+        sig = "  signal: no idea mechanism to check against"
+    print(sig)
+    report_lines.append(sig)
 
     # 4. Examples internally consistent?
     print("\n4. Examples consistent with viewer/problem?")
     _mech, problem, _topic = idea_extract(idea_text) if idea_text else ("", "", "")
     if problem and any(w in words.lower() for w in problem.lower().split() if len(w) > 4):
-        print("  signal: yes (problem language echoed)")
+        sig = "  signal: yes (problem language echoed)"
     else:
-        print("  signal: check manually")
+        sig = "  signal: check manually"
+    print(sig)
+    report_lines.append(sig)
 
     # 5. Can any paragraph be deleted without losing information?
     print("\n5. Cuttable paragraphs / repetition?")
     sentences = [s.strip() for s in re.split(r"[.!?]", words) if s.strip()]
     if len(sentences) > 40:
-        print(f"  signal: long ({len(sentences)} sentences) — look for repeated conclusions")
+        sig = f"  signal: long ({len(sentences)} sentences) — look for repeated conclusions"
     else:
-        print(f"  signal: compact ({len(sentences)} sentences)")
+        sig = f"  signal: compact ({len(sentences)} sentences)"
+    print(sig)
+    report_lines.append(sig)
 
     # 6. Final CTA naturally follows from the mechanism?
     print("\n6. CTA follows mechanism?")
     cta_match = re.search(r"## CTA.*?WORDS:\s*(.+?)(?=##|\Z)", script_text, re.DOTALL | re.IGNORECASE)
     cta = cta_match.group(1).strip() if cta_match else ""
     if cta and mechanism and any(w.lower() in cta.lower() for w in mechanism.split() if len(w) > 4):
-        print("  signal: yes")
+        sig = "  signal: yes"
     else:
-        print("  signal: check CTA vs mechanism")
+        sig = "  signal: check CTA vs mechanism"
+    print(sig)
+    report_lines.append(sig)
 
     # 7. Avoids pretending generated prose is lived experience?
     print("\n7. No fake lived experience claims?")
     fake = re.findall(r"\b(i tried|i tested|my clients|users reported|in my experience)\b", words, re.IGNORECASE)
     if not fake:
-        print("  signal: clear (no personal-experience claims detected)")
+        sig = "  signal: clear (no personal-experience claims detected)"
     else:
-        print(f"  signal: review ({len(fake)} potential claims)")
+        sig = f"  signal: review ({len(fake)} potential claims)"
+    print(sig)
+    report_lines.append(sig)
 
+    priority = extract_priority_signals(report_lines)
     print()
     print("=" * 60)
+    if priority:
+        print("--- Priority review: high-signal originality issues (focus first) ---")
+        for p in priority:
+            print(p)
+        print()
     print("ORIGINALITY REPORT DONE (no files written)")
     print("Use as revision signals. Re-run quality_scan / claim_scan after edits.")
+    if priority:
+        print(f"PRIORITY: {len(priority)} high-signal issues listed above for first attention.")
     return 0
 
 
