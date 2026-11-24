@@ -5,7 +5,7 @@ Runs quality_scan.py, originality_report.py, caption_quality_summary.py,
 metadata_qa_report.py, research_verification_checklist.py, and (when packet
 given) labor_estimate.py for a packet (or default videos/* for quality_scan),
 then extracts and prints only their PRIORITY / high-signal sections plus a
-short remaining-minutes line, a suggested focus (with estimated clear minutes from labor map), and recommended next commands.
+short remaining-minutes line, a suggested focus (with estimated clear minutes from labor map), cumulative high-signal clear time, and recommended next commands.
 
 Does not rewrite files, invent content/media, upload, or call network.
 Soft only. Compounds by giving humans one focused entry point instead of
@@ -21,6 +21,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TOOLS = ROOT / "tools"
+
+# Rough minutes ranges for high-signal categories (from labor map)
+CATEGORY_MINUTES = {
+    "quality": (5, 15),
+    "originality": (5, 15),
+    "captions": (8, 18),
+    "metadata": (4, 8),
+    "research": (1, 5),
+    "none": (0, 0),
+}
 
 
 def run_tool(script: str, args: list[str]) -> tuple[int, str]:
@@ -127,7 +137,6 @@ def recommend_next_commands(top: str, packet: str | None) -> list[str]:
     return mapping.get(top, [f"# No specific command mapped for {top}"])
 
 
-
 def estimate_focus_minutes(top: str) -> str:
     """Rough minutes to clear the top category, from labor map ranges."""
     estimates = {
@@ -139,6 +148,23 @@ def estimate_focus_minutes(top: str) -> str:
         "none": "0 (clear; proceed to OAuth or next stage)",
     }
     return estimates.get(top, "see labor_reduction_map.md")
+
+
+def estimate_cumulative_minutes(signals: dict[str, list[str]]) -> str:
+    """Sum rough min-max for all categories that have high-signal items."""
+    low = 0
+    high = 0
+    active = []
+    for cat, items in signals.items():
+        if items and cat in CATEGORY_MINUTES:
+            lo, hi = CATEGORY_MINUTES[cat]
+            low += lo
+            high += hi
+            active.append(cat)
+    if not active:
+        return "0 (no high-signal categories)"
+    return f"{low}-{high} across {len(active)} categories ({', '.join(active)})"
+
 
 def main() -> int:
     packet = sys.argv[1] if len(sys.argv) > 1 else None
@@ -247,6 +273,8 @@ def main() -> int:
     print("  (based on highest number of high-signal items; still review all sections)")
     est = estimate_focus_minutes(top_cat)
     print(f"  Estimated minutes to clear: {est}")
+    cum = estimate_cumulative_minutes(signals)
+    print(f"  Rough cumulative high-signal clear time: {cum}")
 
     # Recommended next commands
     next_cmds = recommend_next_commands(top_cat, packet)
