@@ -1,3 +1,12 @@
+## Run 1340 — 2026-11-24T17:30:00Z
+- Objective: After labor estimate in aggregator, add suggested focus so one command also recommends which high-signal category to address first.
+- Action: Enhanced tools/priority_review_summary.py with suggest_focus() that counts high-signal items per category and prints a SUGGESTED FOCUS recommendation. Verified by re-fetch of committed content (function and SUGGESTED FOCUS section present). Updated permanent records and labor map note.
+- Result: Priority summary now covers research + script + caption + metadata high-signal issues + rough remaining minutes + recommended focus area in one command, compounding efficiency for future packets by reducing time spent deciding where to look first. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS).
+- Verification: Re-fetched tools/priority_review_summary.py after commit; suggest_focus and SUGGESTED FOCUS section confirmed in content. Size 7890 bytes. No overwrites.
+- Discovery: Adding a signal-count-based suggested focus further reduces recurring human minutes on multi-stage spot-check by making the single entry point more actionable without inventing content, media, or new gates.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection. Always verify code after claimed enhancements.
+
 ## Run 1339 — 2026-11-24T15:30:00Z
 - Objective: After research high-signal items in the aggregator, add remaining-labor estimate so one command also supports planning.
 - Action: Enhanced tools/priority_review_summary.py with extract_labor_minutes() that surfaces the "Estimated remaining human minutes" line from labor_estimate.py (packet required). Verified by re-fetch of committed content (function and LABOR ESTIMATE section present). Updated permanent records and labor map note.
