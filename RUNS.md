@@ -1,3 +1,12 @@
+## Run 1339 — 2026-11-24T15:30:00Z
+- Objective: After research high-signal items in the aggregator, add remaining-labor estimate so one command also supports planning.
+- Action: Enhanced tools/priority_review_summary.py with extract_labor_minutes() that surfaces the "Estimated remaining human minutes" line from labor_estimate.py (packet required). Verified by re-fetch of committed content (function and LABOR ESTIMATE section present). Updated permanent records and labor map note.
+- Result: Priority summary now covers research + script + caption + metadata high-signal issues + rough remaining minutes in one command, compounding efficiency for future packets by reducing time spent opening multiple reports and estimating remaining work. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS).
+- Verification: Re-fetched tools/priority_review_summary.py after commit; extract_labor_minutes and LABOR ESTIMATE section confirmed in content. Size ~6401 bytes. No overwrites.
+- Discovery: Including a remaining-labor estimate in the single priority entry point further reduces recurring human minutes on multi-stage spot-check + planning without inventing content, media, or new gates.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection. Always verify code after claimed enhancements.
+
 ## Run 1338 — 2026-11-23T22:18:50Z
 - Objective: After priority aggregator, extend it to include high-signal research verification items for even more focused cross-stage human review.
 - Action: Enhanced tools/priority_review_summary.py with extract_research_signals() that surfaces unlinked, WARNING, secondary, no sources.md lines from research_verification_checklist.py. Verified by re-fetch of committed content (function and research section present). Updated permanent records and labor map note.
