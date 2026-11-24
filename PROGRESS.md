@@ -1,18 +1,16 @@
 # PROGRESS
 
-Updated: 2026-11-24T20:30:00Z (Run 1332)
+Updated: 2026-11-24T20:45:00Z (Run 1342)
 
-## Current efficiency snapshot
-- Videos published: 0
-- Human minutes per video (estimate at publish gate): ~0.5 once secrets exist (secret entry + one dispatch); remaining recurring human step is the three OAuth secrets.
-- Automated steps: high (media materialize, media_qa, assemble planner, export probe, upload dry-run, feedback dry-run, experiment ledger, completion gate, many anti-rediscovery printers and locks).
-- Primary remaining bottleneck: STALL_OAUTH_IDLE (external credentials).
-- Pre-upload path verified reliable. Media fingerprint + master SHA locked for Q1 (r253).
+## Latest measurable delta
+- Enhanced tools/priority_review_summary.py to include estimated minutes-to-clear for the suggested focus category (mapped from labor_reduction_map ranges). Cross-stage review + planning + focus-decision + next-command-decision + effort-planning human minutes further reduced via one command covering research+script+caption+metadata priorities + rough remaining minutes + actionable focus + exact next tools + effort estimate. No invented content. Verified by py_compile and file re-read; pushed (commit 69ea9af7).
+- Videos published: 0. STALL_OAUTH_IDLE continues (~51 days). No provider write. Pre-upload path unchanged.
+- Automated steps: many local gates + research/script/caption/metadata helpers + priority aggregator (now with research + labor estimate + suggested focus + recommended next commands + effort estimate). Remaining recurring human: OAuth secrets + dispatch (one-time), then post-publish review.
 
-## Run 1332
-- Restored empty tracking files (STATE.md, PROGRESS.md, RUNS.md, docs/labor_reduction_map.md) that had been left as zero-byte stubs.
-- Purpose: stop tools that read STATE/PROGRESS (status_report, record_run, etc.) from operating on blank history; re-establish durable run memory.
-- Estimated impact: reduces future agent rediscovery and prevents recurrence of the documentation-without-content failure class.
-- Videos published stay 0. OAuth secrets remain the publish gate. No media regenerated. No secrets polled.
+## Compounding notes
+- Pre-upload path (idea -> master after materialize) is reliable. Primary blocker remains human OAuth setup.
+- Prefer tools that reduce minutes in the labor map over pure inspection or status restatement.
+- Recurring failure pattern: claiming code/docs updates without verifying actual file contents (placeholders or stubs). Always check wc/head/grep after writes. This run verified by py_compile and local re-read.
+- After first private video id: follow post_publish path (docs/q1_post_publish_prep.md, after_upload_steps.py).
 
-Older progress notes live in docs/progress_archive.md. Do not paste the archive back.
+See docs/labor_reduction_map.md for stage-by-stage minutes. Older history in docs/progress_archive.md.
