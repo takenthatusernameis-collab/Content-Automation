@@ -2,9 +2,10 @@
 """Single-command priority review summary across key QA tools.
 
 Runs quality_scan.py, originality_report.py, caption_quality_summary.py,
-metadata_qa_report.py, and research_verification_checklist.py for a packet
-(or default videos/* for quality_scan), then extracts and prints only their
-PRIORITY / high-signal sections.
+metadata_qa_report.py, research_verification_checklist.py, and (when packet
+given) labor_estimate.py for a packet (or default videos/* for quality_scan),
+then extracts and prints only their PRIORITY / high-signal sections plus a
+short remaining-minutes line.
 
 Does not rewrite files, invent content/media, upload, or call network.
 Soft only. Compounds by giving humans one focused entry point instead of
@@ -13,6 +14,7 @@ multiple sequential reports. Exit 0 always (individual tools may signal issues).
 
 from __future__ import annotations
 
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -66,12 +68,36 @@ def extract_research_signals(output: str) -> list[str]:
     return signals[:6]
 
 
+def extract_labor_minutes(output: str) -> str:
+    """Pull the estimated remaining minutes line from labor_estimate output."""
+    for line in output.splitlines():
+        if "Estimated remaining human minutes:" in line:
+            return line.strip()
+    m = re.search(r"Estimated remaining human minutes:\s*(\d+)", output)
+    if m:
+        return f"Estimated remaining human minutes: {m.group(1)}"
+    return "(labor estimate unavailable)"
+
+
 def main() -> int:
     packet = sys.argv[1] if len(sys.argv) > 1 else None
     print("PRIORITY REVIEW SUMMARY (high-signal issues only; for focused human spot-check)")
     print("Aggregates: quality_scan, originality_report, caption_quality_summary, metadata_qa_report, research_verification")
+    if packet:
+        print("+ labor_estimate (remaining minutes)")
     print("Does not rewrite, invent, or upload. Review signals only.")
     print("=" * 72)
+
+    # 0. Labor estimate (when packet given) — surface first for planning
+    if packet:
+        _, l_out = run_tool("labor_estimate.py", [packet])
+        labor_line = extract_labor_minutes(l_out)
+        print(f"\n## LABOR ESTIMATE")
+        print(f"  {labor_line}")
+        print("  (rough planning number; see full table via labor_estimate.py if needed)")
+    else:
+        print("\n## LABOR ESTIMATE")
+        print("  (skipped: provide packet path)")
 
     # 1. Quality scan (anti-slop)
     q_args = [packet] if packet else []
