@@ -5,7 +5,7 @@ Runs quality_scan.py, originality_report.py, caption_quality_summary.py,
 metadata_qa_report.py, research_verification_checklist.py, and (when packet
 given) labor_estimate.py for a packet (or default videos/* for quality_scan),
 then extracts and prints only their PRIORITY / high-signal sections plus a
-short remaining-minutes line.
+short remaining-minutes line, a suggested focus, and recommended next commands.
 
 Does not rewrite files, invent content/media, upload, or call network.
 Soft only. Compounds by giving humans one focused entry point instead of
@@ -79,11 +79,11 @@ def extract_labor_minutes(output: str) -> str:
     return "(labor estimate unavailable)"
 
 
-def suggest_focus(signals: dict[str, list[str]]) -> str:
-    """Suggest primary focus area based on which category has most high-signal items."""
+def suggest_focus(signals: dict[str, list[str]]) -> tuple[str, str]:
+    """Suggest primary focus area and the top category key based on which has most high-signal items."""
     counts = {k: len(v) for k, v in signals.items() if v}
     if not counts:
-        return "No high-signal issues detected. Proceed to next stage or OAuth dispatch when ready."
+        return "No high-signal issues detected. Proceed to next stage or OAuth dispatch when ready.", "none"
     top = max(counts, key=counts.get)
     suggestions = {
         "quality": "Focus script anti-slop review first (rephrase multi-count weak phrases).",
@@ -92,7 +92,39 @@ def suggest_focus(signals: dict[str, list[str]]) -> str:
         "metadata": "Focus metadata QA (fix high-signal title/desc/tag issues).",
         "research": "Focus research verification (link unlinked claims or strengthen sources).",
     }
-    return suggestions.get(top, f"Focus {top} signals first.")
+    return suggestions.get(top, f"Focus {top} signals first."), top
+
+
+def recommend_next_commands(top: str, packet: str | None) -> list[str]:
+    """Return concrete next tool invocations for the suggested focus."""
+    pkt = packet if packet else "<packet>"
+    mapping = {
+        "quality": [
+            f"python3 tools/quality_scan.py {pkt}",
+            "# Rephrase the multi-count / known-weak phrases listed above, then re-scan.",
+        ],
+        "originality": [
+            f"python3 tools/originality_report.py {pkt}",
+            "# Add concrete markers, lived-experience, or mechanism specificity, then re-run.",
+        ],
+        "captions": [
+            f"python3 tools/caption_quality_summary.py {pkt}",
+            "# Slow the high-CPS cues or verify alignment; do not treat draft as final.",
+        ],
+        "metadata": [
+            f"python3 tools/metadata_qa_report.py {pkt}",
+            "# Fix title/description/tag high-signal issues, then re-run the report.",
+        ],
+        "research": [
+            f"python3 tools/research_verification_checklist.py {pkt}",
+            "# Link unlinked claims or strengthen secondary-dominated sources, then re-check.",
+        ],
+        "none": [
+            "python3 tools/labor_estimate.py" + (f" {pkt}" if packet else ""),
+            "# No high-signal issues. Proceed toward OAuth dispatch or next production stage.",
+        ],
+    }
+    return mapping.get(top, [f"# No specific command mapped for {top}"])
 
 
 def main() -> int:
@@ -196,10 +228,17 @@ def main() -> int:
         print("  (skipped: provide packet path)")
 
     # Suggested focus based on signal counts
-    focus = suggest_focus(signals)
+    focus, top_cat = suggest_focus(signals)
     print("\n## SUGGESTED FOCUS")
     print(f"  {focus}")
     print("  (based on highest number of high-signal items; still review all sections)")
+
+    # Recommended next commands
+    next_cmds = recommend_next_commands(top_cat, packet)
+    print("\n## RECOMMENDED NEXT COMMANDS")
+    for cmd in next_cmds:
+        print(f"  {cmd}")
+    print("  (copy-paste ready; re-run this summary after edits to confirm signals clear)")
 
     print("\n" + "=" * 72)
     print("PRIORITY REVIEW SUMMARY DONE.")
