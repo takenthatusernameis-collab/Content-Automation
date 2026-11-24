@@ -1,14 +1,14 @@
 # PROGRESS
 
-Updated: 2026-11-24T15:30:00Z (Run 1339)
+Updated: 2026-11-24T17:30:00Z (Run 1340)
 
 ## Latest measurable delta
-- Enhanced tools/priority_review_summary.py to include remaining-labor estimate (labor_estimate.py) at the top of the single focused entry point. Cross-stage review + planning human minutes further reduced via one command covering research+script+caption+metadata priorities + rough remaining minutes. No invented content. Verified by re-fetch of committed file contents.
+- Enhanced tools/priority_review_summary.py to include SUGGESTED FOCUS recommendation (based on highest high-signal count across categories). Cross-stage review + planning + focus-decision human minutes further reduced via one command covering research+script+caption+metadata priorities + rough remaining minutes + actionable focus. No invented content. Verified by re-fetch of committed file contents.
 - Videos published: 0. STALL_OAUTH_IDLE continues (~51 days). No provider write. Pre-upload path unchanged.
-- Automated steps: many local gates + research/script/caption/metadata helpers + priority aggregator (now with research + labor estimate). Remaining recurring human: OAuth secrets + dispatch (one-time), then post-publish review.
+- Automated steps: many local gates + research/script/caption/metadata helpers + priority aggregator (now with research + labor estimate + suggested focus). Remaining recurring human: OAuth secrets + dispatch (one-time), then post-publish review.
 
-## Run 1338 (prior)
-Enhanced tools/priority_review_summary.py to include high-signal research verification items (unlinked claims, secondary warnings). Cross-stage review human minutes further reduced via single focused entry point covering research+script+caption+metadata. No invented content. Verified by re-fetch of committed file contents.
+## Run 1339 (prior)
+Enhanced tools/priority_review_summary.py to include remaining-labor estimate (labor_estimate.py) at the top of the single focused entry point. Cross-stage review + planning human minutes further reduced via one command covering research+script+caption+metadata priorities + rough remaining minutes. No invented content. Verified by re-fetch of committed file contents.
 
 ## Compounding notes
 - Pre-upload path (idea -> master after materialize) is reliable. Primary blocker remains human OAuth setup.
