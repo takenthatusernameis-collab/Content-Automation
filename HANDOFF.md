@@ -1,3 +1,7 @@
+2026-11-24T23:20:00Z (Run 1343)
+
+Enhanced tools/priority_review_summary.py with rough cumulative high-signal clear-time total (summed ranges across active categories). Verified by re-fetch (function and print present). Further reduces recurring review+planning minutes. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions over inspection. Always verify actual file contents after claimed edits.
+
 2026-11-24T20:30:00Z (Run 1332)
 
 Restored empty tracking files (STATE.md, PROGRESS.md, RUNS.md, docs/labor_reduction_map.md) that were zero-byte stubs, breaking tools that read history and erasing durable run memory. Verified post-write contents. STALL_OAUTH_IDLE continues (~52 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions over inspection. Always verify actual file contents after claimed edits.
