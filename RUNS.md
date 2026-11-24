@@ -1,9 +1,9 @@
-## Run 1342 — 2026-11-24T20:45:00Z
-- Objective: After recommended next commands, add estimated minutes-to-clear for the suggested focus so the single priority entry point also supports quick effort planning.
-- Action: Enhanced tools/priority_review_summary.py with estimate_focus_minutes() mapping category to labor-map ranges (script 5-15, captions 8-18, etc.). Prints "Estimated minutes to clear" under SUGGESTED FOCUS. Verified by py_compile and re-read of local content (function and print present; size 10389). 
-- Result: Priority summary now covers research + script + caption + metadata high-signal issues + rough remaining minutes + recommended focus + exact next commands + effort estimate in one command, compounding efficiency for future packets by reducing time spent estimating fix effort. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS).
-- Verification: py_compile succeeded; function definition and print statement confirmed in file contents. Pushed to main (69ea9af7).
-- Discovery: Adding a rough minutes-to-clear estimate further reduces recurring human minutes on multi-stage spot-check + planning without inventing content, media, or new gates.
+## Run 1343 — 2026-11-24T23:20:00Z
+- Objective: After per-category estimate, add a cumulative high-signal clear-time total so the single priority entry point also supports overall effort planning across stages.
+- Action: Enhanced tools/priority_review_summary.py with CATEGORY_MINUTES dict and estimate_cumulative_minutes() that sums min-max for categories with signals. Prints "Rough cumulative high-signal clear time" under SUGGESTED FOCUS. Verified by re-fetch of file contents (function, dict, and print present; size 11311).
+- Result: Priority summary now covers research + script + caption + metadata high-signal issues + rough remaining minutes + recommended focus + exact next commands + effort estimate + cumulative total in one command, compounding efficiency for future packets by reducing time spent estimating multi-stage fix effort. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS).
+- Verification: post-update get_file_contents confirms new function definition, CATEGORY_MINUTES, and print statement. Pushed to main (a4f68c9a).
+- Discovery: Adding a rough cumulative minutes total further reduces recurring human minutes on multi-stage spot-check + planning without inventing content, media, or new gates.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
 - Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection. Always verify code after claimed enhancements.
 
