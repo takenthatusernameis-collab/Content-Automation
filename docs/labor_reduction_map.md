@@ -30,3 +30,4 @@ Created 2026-11-18T11:50:00Z (Run 1311). Tracks recurring human work and automat
 - Run 1339: priority_review_summary.py now also surfaces remaining-labor estimate (from labor_estimate.py) for single-command planning + review.
 
 See docs/production_capabilities.md for capability states and ROADMAP.md for ordered next steps.
+- Run 1340: priority_review_summary.py now also surfaces a SUGGESTED FOCUS recommendation based on highest high-signal count, making the single entry point more actionable.
