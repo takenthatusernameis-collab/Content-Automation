@@ -1,11 +1,11 @@
 # PROGRESS
 
-Updated: 2026-11-24T23:20:00Z (Run 1343)
+Updated: 2026-11-25T16:30:00Z (Run 1344)
 
 ## Latest measurable delta
-- Enhanced tools/priority_review_summary.py to include rough cumulative high-signal clear time (summed min-max ranges from labor map for all active categories). Cross-stage review + planning + focus-decision + next-command-decision + effort-planning + cumulative-planning human minutes further reduced via one command covering research+script+caption+metadata priorities + rough remaining minutes + actionable focus + exact next tools + effort estimate + total high-signal minutes. No invented content. Verified by file re-fetch; pushed (commit a4f68c9a).
+- Enhanced tools/labor_estimate.py to include SUGGESTED NEXT LOCAL STEP (first missing artifact + recommended command). Cross-stage triage + decision human minutes further reduced via one command covering presence table + rough remaining minutes + exact next local action. No invented content. Verified by file re-fetch; pushed (commit 48c6062f).
 - Videos published: 0. STALL_OAUTH_IDLE continues (~51 days). No provider write. Pre-upload path unchanged.
-- Automated steps: many local gates + research/script/caption/metadata helpers + priority aggregator (now with research + labor estimate + suggested focus + recommended next commands + effort estimate + cumulative). Remaining recurring human: OAuth secrets + dispatch (one-time), then post-publish review.
+- Automated steps: many local gates + research/script/caption/metadata helpers + priority aggregator + labor estimate with next step. Remaining recurring human: OAuth secrets + dispatch (one-time), then post-publish review.
 
 ## Compounding notes
 - Pre-upload path (idea -> master after materialize) is reliable. Primary blocker remains human OAuth setup.

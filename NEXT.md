@@ -20,6 +20,6 @@ Do not poll secrets. Do not rematerialize media if already present. Do not scaff
 
 After private video id appears: `python3 tools/post_publish_path_ready.py` then follow docs/q1_post_publish_prep.md and tools/after_upload_steps.py.
 
-For agents: Prefer small reusable unblocked improvements that reduce human minutes in docs/labor_reduction_map.md. Always verify actual file contents after claimed edits (not just docs or commit messages). Minimize pure inspection runs while STALL_OAUTH_IDLE persists. Recent: priority_review_summary.py now also includes remaining-labor estimate + SUGGESTED FOCUS + RECOMMENDED NEXT COMMANDS.
+For agents: Prefer small reusable unblocked improvements that reduce human minutes in docs/labor_reduction_map.md. Always verify actual file contents after claimed edits (not just docs or commit messages). Minimize pure inspection runs while STALL_OAUTH_IDLE persists. Recent: labor_estimate.py now includes suggested next local step + command; priority_review_summary.py includes cumulative high-signal minutes.
 
 See docs/HUMAN_PRIORITY.md and tools/human_next_action.py.

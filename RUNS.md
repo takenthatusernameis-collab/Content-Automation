@@ -1,9 +1,9 @@
-## Run 1343 — 2026-11-24T23:20:00Z
-- Objective: After per-category estimate, add a cumulative high-signal clear-time total so the single priority entry point also supports overall effort planning across stages.
-- Action: Enhanced tools/priority_review_summary.py with CATEGORY_MINUTES dict and estimate_cumulative_minutes() that sums min-max for categories with signals. Prints "Rough cumulative high-signal clear time" under SUGGESTED FOCUS. Verified by re-fetch of file contents (function, dict, and print present; size 11311).
-- Result: Priority summary now covers research + script + caption + metadata high-signal issues + rough remaining minutes + recommended focus + exact next commands + effort estimate + cumulative total in one command, compounding efficiency for future packets by reducing time spent estimating multi-stage fix effort. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS).
-- Verification: post-update get_file_contents confirms new function definition, CATEGORY_MINUTES, and print statement. Pushed to main (a4f68c9a).
-- Discovery: Adding a rough cumulative minutes total further reduces recurring human minutes on multi-stage spot-check + planning without inventing content, media, or new gates.
+## Run 1344 — 2026-11-25T16:30:00Z
+- Objective: After priority cumulative estimate, make labor_estimate.py also recommend the single next local step and command so humans/agents spend less time deciding what to do on a packet.
+- Action: Enhanced tools/labor_estimate.py to compute and print ## SUGGESTED NEXT LOCAL STEP (based on first missing: script band, VO, cards, timeline, export, publish). Includes exact command. Verified by re-fetch of file contents (logic and print present).
+- Result: Labor estimate now covers minutes table + remaining total + actionable next local step + command in one run, compounding efficiency for future packets by reducing decision time. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS).
+- Verification: post-update get_file_contents confirms new next_step if-chain and ## SUGGESTED NEXT LOCAL STEP print. Pushed to main (48c6062f).
+- Discovery: Explicit next-local-step in the labor tool further reduces recurring human minutes on packet triage without inventing content, media, or new gates.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
 - Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection. Always verify code after claimed enhancements.
 

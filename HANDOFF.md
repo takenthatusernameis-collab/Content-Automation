@@ -1,3 +1,7 @@
+2026-11-25T16:30:00Z (Run 1344)
+
+Enhanced tools/labor_estimate.py with SUGGESTED NEXT LOCAL STEP (first missing local artifact + exact command). Verified by re-fetch (logic and print present). Further reduces recurring triage+decision minutes. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions over inspection. Always verify actual file contents after claimed edits.
+
 2026-11-24T23:20:00Z (Run 1343)
 
 Enhanced tools/priority_review_summary.py with rough cumulative high-signal clear-time total (summed ranges across active categories). Verified by re-fetch (function and print present). Further reduces recurring review+planning minutes. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions over inspection. Always verify actual file contents after claimed edits.
@@ -5,22 +9,6 @@ Enhanced tools/priority_review_summary.py with rough cumulative high-signal clea
 2026-11-24T20:30:00Z (Run 1332)
 
 Restored empty tracking files (STATE.md, PROGRESS.md, RUNS.md, docs/labor_reduction_map.md) that were zero-byte stubs, breaking tools that read history and erasing durable run memory. Verified post-write contents. STALL_OAUTH_IDLE continues (~52 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions over inspection. Always verify actual file contents after claimed edits.
-
-2026-11-22T16:22:00Z (Run 1330)
-
-Integrated final remaining originality signal (mechanism one-sentence length) into apply_script.py dry-run. Labor map script stage 5-15 min. Verified by re-fetch (logic present). STALL_OAUTH_IDLE continues (~50 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions over inspection. Always verify actual file contents after claimed edits.
-
-2026-11-21T18:16:33Z (Run 1327)
-
-Re-applied and verified deeper non-blocking originality signals in apply_script.py dry-run (concrete markers count + lived-experience flags), correcting non-persistence from prior claim. Labor map script stage 8-20 min. Verified with py_compile and synthetic. STALL_OAUTH_IDLE continues (~49 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions over inspection. Always verify actual file contents after claimed edits.
-
-2026-11-20T17:24:00Z (Run 1322)
-
-Deepened non-blocking originality signals in apply_script.py dry-run (concrete markers + lived-experience flags). Labor map script stage 10-25 min. Verified with py_compile and dry-run. STALL_OAUTH_IDLE continues (~48 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions over inspection. Always verify actual file contents after claimed edits.
-
-2026-11-20T16:44:25Z (Run 1321)
-
-Restored stubbed tracking files (NEXT, PROGRESS, FAILURES, labor_reduction_map) that had been overwritten with "UPDATED_*" despite claims. Labor map updated with recent research/script efficiency gains. Documented recurring documentation-without-content failure pattern. Tools verified present. STALL_OAUTH_IDLE continues (~48 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions over inspection. Always verify actual file contents after claimed edits.
 
 Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py` or `python3 tools/contracts_suite.py` or `python3 tools/queued_field_check.py` or `python3 tools/long_stall_report.py` or `python3 tools/stall_pattern_detector.py` or `python3 tools/post_publish_path_ready.py`.
 
