@@ -1,3 +1,12 @@
+## Run 1347 — 2026-11-25T21:20:00Z
+- Objective: Compound reliability of durable run memory by enforcing the new tracking_integrity_check on every CI run.
+- Action: Added a step to .github/workflows/selftest.yml that runs python3 tools/tracking_integrity_check.py after other locks. Verified by re-fetch of the workflow (new step present, size 979).
+- Result: Stub/placeholder risk on STATE/NEXT/RUNS/PROGRESS/FAILURES/HANDOFF/labor_reduction_map is now caught automatically on push and PR. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS).
+- Verification: post-update get_file_contents confirms the new step in selftest.yml. Commit 706f134a.
+- Discovery: Wiring the check into existing selftest workflow makes the mitigation automatic and non-optional for future changes, without adding new status printers.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection. Always verify code after claimed enhancements. Tracking integrity now runs in CI.
+
 ## Run 1346 — 2026-11-25T19:20:00Z
 - Objective: Address recurring documentation-without-content / stub overwrite pattern by adding a dedicated integrity check for tracking files.
 - Action: Created tools/tracking_integrity_check.py that verifies size, keywords, and absence of placeholders on STATE.md NEXT.md RUNS.md PROGRESS.md FAILURES.md HANDOFF.md docs/labor_reduction_map.md. Verified by re-fetch of full content (size 2564, TRACKING list and check function present).
