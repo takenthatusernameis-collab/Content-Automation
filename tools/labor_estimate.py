@@ -118,6 +118,35 @@ def main() -> int:
     print("This is a rough planning number only. Actual time varies.")
     print("Upload step stays blocked until the three GitHub Actions secrets exist.")
     print("This tool writes nothing.")
+
+    # Suggested next local step (reduces decision time on every packet)
+    next_step = "All local steps present; proceed to OAuth dispatch when ready."
+    next_cmd = "python3 tools/oauth_complete_guide.py  # human only"
+    if not in_band:
+        next_step = "Bring script into 900-1500 spoken-word band."
+        next_cmd = f"python3 tools/script_expander.py {path.name}  # or edit script.md then re-check"
+    elif not vo_present:
+        next_step = "Obtain Selected VO (record or materialize authorized generated)."
+        next_cmd = "python3 tools/materialize_q1_release.py  # if Q1; else record to vo/"
+    elif not cards_present:
+        next_step = "Generate or materialize cards."
+        next_cmd = f"python3 tools/card_generator.py {path}  # or materialize"
+    elif not timeline_present:
+        next_step = "Build timeline."
+        next_cmd = f"python3 tools/timeline.py {path} --write"
+    elif not export_present:
+        next_step = "Assemble master after media_qa PASS."
+        next_cmd = f"python3 tools/media_qa.py {path} && python3 tools/assemble.py {path}"
+    elif not publish_ready:
+        next_step = "Prepare publish metadata."
+        next_cmd = f"python3 tools/publish_brief.py {path}"
+
+    print()
+    print("## SUGGESTED NEXT LOCAL STEP")
+    print(f"  {next_step}")
+    print(f"  Recommended command: {next_cmd}")
+    print("  (informational; still review labor map and priority_review_summary for high-signal issues)")
+
     return 0
 
 
