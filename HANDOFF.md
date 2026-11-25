@@ -1,3 +1,7 @@
+2026-11-25T19:20:00Z (Run 1346)
+
+Added tools/tracking_integrity_check.py to flag stub/placeholder/empty risk on durable memory files. Verified by re-fetch (full content present; size 2564). Addresses recurring documentation-without-content failure pattern. Further compounds reliability of run history. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions or reliability improvements over inspection. Always verify actual file contents after claimed edits.
+
 2026-11-25T18:19:00Z (Run 1345)
 
 Enhanced tools/priority_review_summary.py to surface SUGGESTED NEXT LOCAL STEP from labor_estimate (minutes + next step + QA signals in one command). Verified by re-fetch (function and print present; size 12140). Intermediate stub overwrite corrected immediately. Further reduces recurring triage+decision minutes. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions over inspection. Always verify actual file contents after claimed edits.
@@ -10,7 +14,7 @@ Enhanced tools/labor_estimate.py with SUGGESTED NEXT LOCAL STEP (first missing l
 
 Enhanced tools/priority_review_summary.py with rough cumulative high-signal clear-time total (summed ranges across active categories). Verified by re-fetch (function and print present). Further reduces recurring review+planning minutes. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions over inspection. Always verify actual file contents after claimed edits.
 
-Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py` or `python3 tools/contracts_suite.py` or `python3 tools/queued_field_check.py` or `python3 tools/long_stall_report.py` or `python3 tools/stall_pattern_detector.py` or `python3 tools/post_publish_path_ready.py`.
+Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py` or `python3 tools/contracts_suite.py` or `python3 tools/queued_field_check.py` or `python3 tools/long_stall_report.py` or `python3 tools/stall_pattern_detector.py` or `python3 tools/post_publish_path_ready.py` or `python3 tools/tracking_integrity_check.py`.
 
 **Current state**
 - Videos published: 0
