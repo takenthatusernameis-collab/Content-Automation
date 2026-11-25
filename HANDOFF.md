@@ -1,3 +1,7 @@
+2026-11-25T21:20:00Z (Run 1347)
+
+Added tracking_integrity_check.py step to .github/workflows/selftest.yml. Verified by re-fetch (new step present). Stub/placeholder risk on durable memory files is now caught automatically on every push and PR. Further compounds reliability of run history. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions or reliability improvements over inspection. Always verify actual file contents after claimed edits.
+
 2026-11-25T19:20:00Z (Run 1346)
 
 Added tools/tracking_integrity_check.py to flag stub/placeholder/empty risk on durable memory files. Verified by re-fetch (full content present; size 2564). Addresses recurring documentation-without-content failure pattern. Further compounds reliability of run history. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions or reliability improvements over inspection. Always verify actual file contents after claimed edits.
