@@ -1,3 +1,6 @@
+## 2026-11-25T18:19:00Z (Run 1345)
+- Intermediate: first create_or_update_file for priority_review_summary.py used a short placeholder by mistake ("PLACEHOLDER_TO_BE_REPLACED", size 26). Immediately corrected with full verified content (size 12140, extract_next_local_step and Next local step print present) via gh API. Always supply complete content and re-fetch to confirm before claiming done. Prevents recurrence of placeholder pattern. Verified post-correction.
+
 ## 2026-11-24T20:30:00Z (Run 1332)
 - Discovery: STATE.md, PROGRESS.md, RUNS.md, and docs/labor_reduction_map.md were zero-byte empty blobs on HEAD. Tools that read them (status_report, record_run, etc.) had no durable history. Restored with verified current-state content. Recurrence of the documentation-without-content / stub overwrite pattern. Always verify size and keywords after write.
 
@@ -17,10 +20,11 @@
 ### Documentation-without-code / placeholder overwrites
 - Multiple runs (e.g., 1315-1317, 1320) claimed restoration of tools/apply_script.py or addition of originality_notes, but committed blobs were short placeholders ("CONTENT_FROM_FILE") or missing functions. Docs (STATE/RUNS) were updated claiming success. Fixed only after explicit content verification (py_compile + dry-run + grep).
 - Tracking files (PROGRESS.md, NEXT.md, FAILURES.md, docs/labor_reduction_map.md) were overwritten with stubs ("UPDATED_PROGRESS", etc.) despite claims of proper updates. Restored in Run 1321 from historical good versions + recent deltas. Run 1332 found them again as zero-byte blobs and restored.
-- Lesson: After any file write or commit claim, verify actual contents (wc -c, head, grep for expected functions, py_compile). Do not rely on documentation or commit messages alone. This pattern has repeated; treat as high-priority to avoid in future runs.
+- Run 1345: intermediate placeholder on priority_review_summary.py corrected immediately and verified.
+- Lesson: After any file write or commit claim, verify actual contents (wc -c, head, grep for expected functions, py_compile). Do not rely on documentation or commit messages alone. This pattern has repeated; treat as high-priority to avoid in future runs. Prefer gh API or local verify when content is large.
 
 ### Long STALL_OAUTH_IDLE
-- ~52 days, 1300+ runs, published=0. Secrets still absent. Do not poll. Flagged HIGH / INCREASINGLY_SUSPICIOUS. Only advancing action is the human step (three secrets + one execute=true dispatch). Pure inspection runs have diminishing returns.
+- ~51 days, 1300+ runs, published=0. Secrets still absent. Do not poll. Flagged HIGH / INCREASINGLY_SUSPICIOUS. Only advancing action is the human step (three secrets + one execute=true dispatch). Pure inspection runs have diminishing returns.
 
 ### Other
 - Do not invent media, metrics, video ids, or credentials.
