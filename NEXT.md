@@ -20,6 +20,6 @@ Do not poll secrets. Do not rematerialize media if already present. Do not scaff
 
 After private video id appears: `python3 tools/post_publish_path_ready.py` then follow docs/q1_post_publish_prep.md and tools/after_upload_steps.py.
 
-For agents: Prefer small reusable unblocked improvements that reduce human minutes in docs/labor_reduction_map.md or improve reliability (e.g. tracking_integrity_check.py). Always verify actual file contents after claimed edits (not just docs or commit messages). Minimize pure inspection runs while STALL_OAUTH_IDLE persists. Recent: tracking_integrity_check.py for stub detection; labor_estimate.py includes suggested next local step + command; priority_review_summary.py includes that next step + cumulative high-signal minutes.
+For agents: Prefer small reusable unblocked improvements that reduce human minutes in docs/labor_reduction_map.md or improve reliability (e.g. tracking_integrity_check.py now enforced in selftest.yml). Always verify actual file contents after claimed edits (not just docs or commit messages). Minimize pure inspection runs while STALL_OAUTH_IDLE persists. Recent: tracking integrity now runs on every CI push/PR; labor_estimate.py includes suggested next local step + command; priority_review_summary.py includes that next step + cumulative high-signal minutes.
 
 See docs/HUMAN_PRIORITY.md and tools/human_next_action.py.
