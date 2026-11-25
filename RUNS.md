@@ -1,3 +1,12 @@
+## Run 1348 — 2026-11-26T00:18:00Z
+- Objective: Compound reliability of durable run memory by detecting drift in the latest Run number across key tracking files and enforcing it in CI.
+- Action: Created tools/run_number_consistency_check.py that extracts max Run N from STATE.md RUNS.md PROGRESS.md HANDOFF.md and fails on mismatch. Added the step to .github/workflows/selftest.yml. Verified by re-fetch of the new tool (full content, extract_max_run present) and workflow (new step present).
+- Result: Inconsistent latest-Run history is now caught automatically on push and PR. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS).
+- Verification: post-update get_file_contents confirms the new tool and the new step in selftest.yml. Commit da7413e4 (tool) + this update.
+- Discovery: Explicit run-number consistency check directly targets potential history drift without adding status printers or labor tools.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection. Always verify code after claimed enhancements. Run-number consistency now runs in CI.
+
 ## Run 1347 — 2026-11-25T21:20:00Z
 - Objective: Compound reliability of durable run memory by enforcing the new tracking_integrity_check on every CI run.
 - Action: Added a step to .github/workflows/selftest.yml that runs python3 tools/tracking_integrity_check.py after other locks. Verified by re-fetch of the workflow (new step present, size 979).
@@ -15,15 +24,6 @@
 - Discovery: Explicit tracking integrity check directly targets the flagged high-priority failure class without adding status printers or labor tools.
 - Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
 - Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection. Always verify code after claimed enhancements. Run tracking_integrity_check.py after future writes.
-
-## Run 1345 — 2026-11-25T18:19:00Z
-- Objective: After labor_estimate next-step addition, integrate the SUGGESTED NEXT LOCAL STEP into priority_review_summary.py so one command surfaces both high-signal QA and the exact next local action/command.
-- Action: Added extract_next_local_step function and printed it under LABOR ESTIMATE section. Intermediate stub overwrite corrected immediately via gh API with full content. Verified by re-fetch of file contents (function, print, size 12140).
-- Result: Priority review summary now covers QA high-signals + remaining minutes + next local step + recommended commands in one run, compounding efficiency for future packets by reducing triage+decision time. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS).
-- Verification: post-update get_file_contents confirms extract_next_local_step, Next local step print, and full enhanced docstring. Pushed to main (b0f2901f).
-- Discovery: Explicit next-local-step in the aggregator further reduces recurring human minutes on packet triage without inventing content, media, or new gates. Recurring stub risk mitigated by immediate correction + verification.
-- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
-- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection. Always verify code after claimed enhancements.
 
 # RUNS
 

@@ -1,3 +1,6 @@
+## 2026-11-26T00:18:00Z (Run 1348)
+- Added tools/run_number_consistency_check.py and wired it into selftest.yml as proactive mitigation for potential run-history drift. No intermediate stub. Verified by re-fetch of tool and workflow.
+
 ## 2026-11-25T21:20:00Z (Run 1347)
 - Added tracking_integrity_check.py step to .github/workflows/selftest.yml so the mitigation from Run 1346 runs automatically on every push and PR. No intermediate stub. Verified by re-fetch of workflow.
 
@@ -29,6 +32,7 @@
 - Run 1345: intermediate placeholder on priority_review_summary.py corrected immediately and verified.
 - Run 1346: added tracking_integrity_check.py as mitigation. Lesson: After any file write or commit claim, verify actual contents (wc -c, head, grep for expected functions, py_compile). Do not rely on documentation or commit messages alone. This pattern has repeated; treat as high-priority to avoid in future runs. Prefer gh API or local verify when content is large. Run the new check after updates.
 - Run 1347: wired the check into selftest.yml so it is enforced automatically on CI. Further reduces risk of silent history loss.
+- Run 1348: added run_number_consistency_check.py and wired it into selftest.yml. Further reduces risk of silent run-history drift.
 
 ### Long STALL_OAUTH_IDLE
 - ~51 days, 1300+ runs, published=0. Secrets still absent. Do not poll. Flagged HIGH / INCREASINGLY_SUSPICIOUS. Only advancing action is the human step (three secrets + one execute=true dispatch). Pure inspection runs have diminishing returns.

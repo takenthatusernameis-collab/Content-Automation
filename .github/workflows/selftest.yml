@@ -32,3 +32,5 @@ jobs:
         run: python3 tools/phrase_utils_contract.py
       - name: Tracking integrity (stub/placeholder risk)
         run: python3 tools/tracking_integrity_check.py
+      - name: Run number consistency (drift risk)
+        run: python3 tools/run_number_consistency_check.py
