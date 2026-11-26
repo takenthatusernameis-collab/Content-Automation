@@ -1,3 +1,6 @@
+## 2026-11-26T17:30:00Z (Run 1349)
+- Added tools/status_one_pager.py as a concise status aggregator. No intermediate stub. Verified by re-fetch of full content.
+
 ## 2026-11-26T00:18:00Z (Run 1348)
 - Added tools/run_number_consistency_check.py and wired it into selftest.yml as proactive mitigation for potential run-history drift. No intermediate stub. Verified by re-fetch of tool and workflow.
 
@@ -33,6 +36,7 @@
 - Run 1346: added tracking_integrity_check.py as mitigation. Lesson: After any file write or commit claim, verify actual contents (wc -c, head, grep for expected functions, py_compile). Do not rely on documentation or commit messages alone. This pattern has repeated; treat as high-priority to avoid in future runs. Prefer gh API or local verify when content is large. Run the new check after updates.
 - Run 1347: wired the check into selftest.yml so it is enforced automatically on CI. Further reduces risk of silent history loss.
 - Run 1348: added run_number_consistency_check.py and wired it into selftest.yml. Further reduces risk of silent run-history drift.
+- Run 1349: added status_one_pager.py. Verified full content by re-fetch. No stub.
 
 ### Long STALL_OAUTH_IDLE
 - ~51 days, 1300+ runs, published=0. Secrets still absent. Do not poll. Flagged HIGH / INCREASINGLY_SUSPICIOUS. Only advancing action is the human step (three secrets + one execute=true dispatch). Pure inspection runs have diminishing returns.
