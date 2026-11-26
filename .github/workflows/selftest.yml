@@ -38,3 +38,5 @@ jobs:
         run: python3 tools/human_guidance_integrity_check.py
       - name: Post-publish integrity (next-stage path consistency)
         run: python3 tools/post_publish_integrity_check.py
+      - name: Production path integrity (pre-upload workflow consistency)
+        run: python3 tools/production_path_integrity_check.py
