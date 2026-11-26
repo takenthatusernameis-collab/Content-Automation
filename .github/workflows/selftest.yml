@@ -34,3 +34,5 @@ jobs:
         run: python3 tools/tracking_integrity_check.py
       - name: Run number consistency (drift risk)
         run: python3 tools/run_number_consistency_check.py
+      - name: Human guidance integrity (OAuth path consistency)
+        run: python3 tools/human_guidance_integrity_check.py
