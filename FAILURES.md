@@ -1,3 +1,6 @@
+## 2026-11-26T20:20:00Z (Run 1351)
+- Added tools/post_publish_integrity_check.py and wired it into selftest.yml as proactive mitigation for potential breakage of the post-publish learning path. No intermediate stub. Verified by re-fetch after push.
+
 ## 2026-11-26T20:45:00Z (Run 1350)
 - Added tools/human_guidance_integrity_check.py and wired it into selftest.yml as proactive mitigation for potential breakage of the critical human OAuth guidance path. No intermediate stub. Verified by local py_compile before push.
 
@@ -41,6 +44,7 @@
 - Run 1348: added run_number_consistency_check.py and wired it into selftest.yml. Further reduces risk of silent run-history drift.
 - Run 1349: added status_one_pager.py. Verified full content by re-fetch. No stub.
 - Run 1350: added human_guidance_integrity_check.py and wired into selftest.yml. Verified by local py_compile. Protects the critical human path.
+- Run 1351: added post_publish_integrity_check.py and wired into selftest.yml. Verified by re-fetch. Protects the next-stage path.
 
 ### Long STALL_OAUTH_IDLE
 - ~51 days, 1300+ runs, published=0. Secrets still absent. Do not poll. Flagged HIGH / INCREASINGLY_SUSPICIOUS. Only advancing action is the human step (three secrets + one execute=true dispatch). Pure inspection runs have diminishing returns.
