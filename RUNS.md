@@ -1,3 +1,12 @@
+## Run 1349 — 2026-11-26T17:30:00Z
+- Objective: Reduce recurring orientation labor for humans and agents by providing a concise one-page status summary that aggregates key signals without inventing data.
+- Action: Created tools/status_one_pager.py that reads STATE.md NEXT.md HANDOFF.md and labor_reduction_map.md to print blocker, next action, published count, and labor estimates. Verified by re-fetch of the new tool (full content, size 2831, extract_latest_run and key prints present).
+- Result: New reusable tool compounds clarity of system state. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS).
+- Verification: post-create get_file_contents confirms full script and expected logic. Commit 9c51bfc4 (tool) + this update.
+- Discovery: Explicit one-pager reduces time to understand current blocker and next step without adding status printers or labor tools beyond the summary.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection. Always verify code after claimed enhancements. Status one-pager available as python3 tools/status_one_pager.py.
+
 ## Run 1348 — 2026-11-26T00:18:00Z
 - Objective: Compound reliability of durable run memory by detecting drift in the latest Run number across key tracking files and enforcing it in CI.
 - Action: Created tools/run_number_consistency_check.py that extracts max Run N from STATE.md RUNS.md PROGRESS.md HANDOFF.md and fails on mismatch. Added the step to .github/workflows/selftest.yml. Verified by re-fetch of the new tool (full content, extract_max_run present) and workflow (new step present).
