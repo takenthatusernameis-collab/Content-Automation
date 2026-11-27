@@ -1,3 +1,7 @@
+2026-11-27T21:20:00Z (Run 1356)
+
+Added tools/metadata_spotcheck_assistant.py. Verified by re-fetch (full content present, size 5394). Structured metadata review list with soft flags reduces recurring human spot-check minutes. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions or reliability improvements over inspection. Always verify actual file contents after claimed edits.
+
 2026-11-27T17:28:00Z (Run 1354)
 
 Added tools/thumbnail_spotcheck_assistant.py. Verified by re-fetch (full content present, size 4347). Structured thumbnail review list with soft flags reduces recurring human spot-check minutes. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions or reliability improvements over inspection. Always verify actual file contents after claimed edits.
@@ -6,17 +10,13 @@ Added tools/thumbnail_spotcheck_assistant.py. Verified by re-fetch (full content
 
 Added tools/caption_spotcheck_assistant.py. Verified by re-fetch (full content present, size 4060). Structured captions review list with soft flags reduces recurring human spot-check minutes. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions or reliability improvements over inspection. Always verify actual file contents after claimed edits.
 
-2026-11-26T22:20:00Z (Run 1352)
-
-Added tools/production_path_integrity_check.py and wired it into .github/workflows/selftest.yml. Verified by re-fetch (full content present, size 2856; new step present). Critical production workflow and supporting tools/keywords are now checked automatically on every push and PR. Further compounds reliability of the pre-upload path that runs after OAuth. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions or reliability improvements over inspection. Always verify actual file contents after claimed edits.
-
-Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py` or `python3 tools/contracts_suite.py` or `python3 tools/queued_field_check.py` or `python3 tools/long_stall_report.py` or `python3 tools/stall_pattern_detector.py` or `python3 tools/post_publish_path_ready.py` or `python3 tools/tracking_integrity_check.py` or `python3 tools/run_number_consistency_check.py` or `python3 tools/status_one_pager.py` or `python3 tools/human_guidance_integrity_check.py` or `python3 tools/post_publish_integrity_check.py` or `python3 tools/production_path_integrity_check.py` or `python3 tools/caption_spotcheck_assistant.py PATH` or `python3 tools/thumbnail_spotcheck_assistant.py PATH`.
+Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py` or `python3 tools/contracts_suite.py` or `python3 tools/queued_field_check.py` or `python3 tools/long_stall_report.py` or `python3 tools/stall_pattern_detector.py` or `python3 tools/post_publish_path_ready.py` or `python3 tools/tracking_integrity_check.py` or `python3 tools/run_number_consistency_check.py` or `python3 tools/status_one_pager.py` or `python3 tools/human_guidance_integrity_check.py` or `python3 tools/post_publish_integrity_check.py` or `python3 tools/production_path_integrity_check.py` or `python3 tools/caption_spotcheck_assistant.py PATH` or `python3 tools/thumbnail_spotcheck_assistant.py PATH` or `python3 tools/script_spotcheck_assistant.py PATH` or `python3 tools/metadata_spotcheck_assistant.py PATH`.
 
 **Current state**
 - Videos published: 0
 - Primary blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Issue #1. Do not poll. HIGH suspicion after 1000+ runs with no progress; increasingly suspicious after >40 days. Flagged as possible problem.
 - Media: Q1 VO + cards + r253 master ready after materialize (verified working; media_qa PASS; master_sha_check PASS; pre_upload_qa_suite overall PASS / READY_FOR_HUMAN_DISPATCH). Do not rematerialize if present. Do not regenerate.
-- Metadata path: tools/metadata_bundle.py consolidates title/desc/tags/thumb + (when script exists) chapters/end-screen/first-comment into one reviewable file. Preferred unblocked list: complete.
+- Metadata path: tools/metadata_bundle.py consolidates title/desc/tags/thumb + (when script exists) chapters/end-screen/first-comment into one reviewable file. Preferred unblocked list: complete. metadata_spotcheck_assistant.py now available for structured review.
 - Next is the human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py, then secrets + single execute=true). After id: python3 tools/post_publish_path_ready.py && python3 tools/contracts_suite.py && python3 tools/human_success_check.py then python3 tools/post_publish_sequence.py. For future videos: python3 tools/contracts_suite.py then python3 tools/queued_post_oauth_sequence.py --id Q2.
 
 Master sha256: 4ff4c0e80ac6b5719aa1b8b5acc70b2845820208f56e83881f6e7bad30101546 (q1-media-r253; do not rematerialize if present).
