@@ -1,3 +1,7 @@
+2026-11-27T17:28:00Z (Run 1354)
+
+Added tools/thumbnail_spotcheck_assistant.py. Verified by re-fetch (full content present, size 4347). Structured thumbnail review list with soft flags reduces recurring human spot-check minutes. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions or reliability improvements over inspection. Always verify actual file contents after claimed edits.
+
 2026-11-27T00:20:00Z (Run 1353)
 
 Added tools/caption_spotcheck_assistant.py. Verified by re-fetch (full content present, size 4060). Structured captions review list with soft flags reduces recurring human spot-check minutes. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions or reliability improvements over inspection. Always verify actual file contents after claimed edits.
@@ -6,7 +10,7 @@ Added tools/caption_spotcheck_assistant.py. Verified by re-fetch (full content p
 
 Added tools/production_path_integrity_check.py and wired it into .github/workflows/selftest.yml. Verified by re-fetch (full content present, size 2856; new step present). Critical production workflow and supporting tools/keywords are now checked automatically on every push and PR. Further compounds reliability of the pre-upload path that runs after OAuth. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS). Pre-upload path reliable. Only advancing action is human OAuth (three secrets + execute=true). Prefer reusable labor reductions or reliability improvements over inspection. Always verify actual file contents after claimed edits.
 
-Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py` or `python3 tools/contracts_suite.py` or `python3 tools/queued_field_check.py` or `python3 tools/long_stall_report.py` or `python3 tools/stall_pattern_detector.py` or `python3 tools/post_publish_path_ready.py` or `python3 tools/tracking_integrity_check.py` or `python3 tools/run_number_consistency_check.py` or `python3 tools/status_one_pager.py` or `python3 tools/human_guidance_integrity_check.py` or `python3 tools/post_publish_integrity_check.py` or `python3 tools/production_path_integrity_check.py` or `python3 tools/caption_spotcheck_assistant.py PATH`.
+Operator and agent entry point. Primary status: `python3 tools/status_report.py` or `python3 tools/next_suggestion.py` or `python3 tools/contracts_suite.py` or `python3 tools/queued_field_check.py` or `python3 tools/long_stall_report.py` or `python3 tools/stall_pattern_detector.py` or `python3 tools/post_publish_path_ready.py` or `python3 tools/tracking_integrity_check.py` or `python3 tools/run_number_consistency_check.py` or `python3 tools/status_one_pager.py` or `python3 tools/human_guidance_integrity_check.py` or `python3 tools/post_publish_integrity_check.py` or `python3 tools/production_path_integrity_check.py` or `python3 tools/caption_spotcheck_assistant.py PATH` or `python3 tools/thumbnail_spotcheck_assistant.py PATH`.
 
 **Current state**
 - Videos published: 0
