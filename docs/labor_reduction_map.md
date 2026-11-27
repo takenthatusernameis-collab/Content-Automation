@@ -5,8 +5,8 @@ Estimated remaining human minutes per stage for a typical packet (after Q1 patte
 | Stage | Est. human min | Automation state | Notes |
 |-------|----------------|------------------|-------|
 | Research / idea lock | 5–15 | assisted | Queue + apply_idea; claim-source table helps | 
-| Script draft + originality | 10–25 | assisted | apply_script dry-run + originality signals; anti-slop scanners |
-| Script final / expand | 5–15 | assisted | script_expander + quality_scan |
+| Script draft + originality | 8–20 | assisted | apply_script dry-run + originality signals; anti-slop scanners + script_spotcheck_assistant.py structured list |
+| Script final / expand | 4–12 | assisted | script_expander + quality_scan + script_spotcheck_assistant.py |
 | Metadata (title/desc/tags/chapters/comment) | 2–5 | assisted | metadata_bundle + publish_brief locks |
 | Narration (Selected VO) | 0 (Q1 generated) / 15–40 (future human) | READY_FOR_MEDIA | Generated take authorized for Q1; human recording optional later |
 | Cards / visuals | 0–5 | READY_FOR_MEDIA | Deterministic card_generator; gitignored |
@@ -24,4 +24,4 @@ Estimated remaining human minutes per stage for a typical packet (after Q1 patte
 
 **Current system human minutes to first private video:** ~10–20 (OAuth only).
 
-Updated: 2026-11-27T17:28:00Z (Run 1354). Thumbnail spot-check reduced via assistant. Caption spot-check reduced via assistant. Prefer reductions that compound across many videos.
+Updated: 2026-11-27T18:25:00Z (Run 1355). Script spot-check reduced via assistant. Thumbnail spot-check reduced via assistant. Caption spot-check reduced via assistant. Prefer reductions that compound across many videos.
