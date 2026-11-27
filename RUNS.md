@@ -1,3 +1,12 @@
+## Run 1354 — 2026-11-27T17:28:00Z
+- Objective: Reduce recurring human minutes on thumbnail spot-check by providing a structured review list instead of raw file inspection.
+- Action: Created tools/thumbnail_spotcheck_assistant.py that looks for common thumbnail files and prints size, dimensions/aspect (when Pillow available), and soft flags (too_large, too_small, not_16_9, non_preferred_size, below_min). Does not invent content or write files. Hard gates remain elsewhere. Verified by re-fetch after push (full content, size 4347).
+- Result: Future packets can run the assistant for faster human review. Estimated reduction in thumbnail stage from 2–5 to ~1–3 minutes. Pre-upload path unchanged. STALL_OAUTH_IDLE continues (~51 days, HIGH / INCREASINGLY_SUSPICIOUS).
+- Verification: post-push get_file_contents confirms full tool content.
+- Discovery: Structured soft-flag list for visual properties directly targets the remaining manual thumbnail review labor without adding another hard gate or status printer.
+- Blocker: STALL_OAUTH_IDLE (three GitHub Actions secrets absent). Do not poll. HIGH suspicion; increasingly suspicious after >40 days and 1300+ runs with published=0.
+- Recommended next: human step (python3 tools/oauth_complete_guide.py or docs/HUMAN_PRIORITY.md or python3 tools/human_starter.py). After Q1 ships and window due, use docs/q1_post_publish_prep.md then post_publish_path_ready.py. Prefer truly new unblocked capabilities that reduce minutes in the labor map over pure inspection. Always verify code after claimed enhancements. Thumbnail spot-check assistant available.
+
 ## Run 1353 — 2026-11-27T00:20:00Z
 - Objective: Reduce recurring human minutes on captions spot-check by providing a structured review list instead of raw SRT scanning.
 - Action: Created tools/caption_spotcheck_assistant.py that parses captions.srt and prints cue index, timing, duration, line char counts, and soft flags (near_max, long, short, large gap). Does not invent content or write files. Hard gate remains caption_gate.py. Verified by re-fetch after push (full content, size 4060).
