@@ -1,16 +1,16 @@
 # PROGRESS
 
-Updated: 2026-11-27T21:20:00Z (Run 1356)
+Updated: 2026-11-28T00:00:00Z (Run 1357)
 
 ## Latest measurable delta
-- Added tools/metadata_spotcheck_assistant.py that prints a structured metadata review list with lengths, counts, and soft flags. Reduces estimated human metadata review minutes (labor map). Verified by re-fetch. No invented content.
+- Added tools/idea_spotcheck_assistant.py that prints a structured idea review list with field presence, lengths, and soft flags (empty/short/long, channel-alignment). Reduces estimated human research/idea review minutes (labor map). Verified by re-fetch. No invented content.
 - Videos published: 0. STALL_OAUTH_IDLE continues (~51 days). No provider write. Pre-upload path unchanged.
-- Automated steps: many local gates + research/script/caption/metadata helpers + priority aggregator (with next step) + labor estimate with next step + tracking integrity check (CI-enforced) + run-number consistency check (CI-enforced) + status one-pager + human guidance integrity check (CI-enforced) + post-publish integrity check (CI-enforced) + production path integrity check (CI-enforced) + caption spot-check assistant + thumbnail spot-check assistant + script spot-check assistant + metadata spot-check assistant. Remaining recurring human: OAuth secrets + dispatch (one-time), then post-publish review.
+- Automated steps: many local gates + research/script/caption/metadata/idea helpers + priority aggregator (with next step) + labor estimate with next step + tracking integrity check (CI-enforced) + run-number consistency check (CI-enforced) + status one-pager + human guidance integrity check (CI-enforced) + post-publish integrity check (CI-enforced) + production path integrity check (CI-enforced) + caption spot-check assistant + thumbnail spot-check assistant + script spot-check assistant + metadata spot-check assistant + idea spot-check assistant. Remaining recurring human: OAuth secrets + dispatch (one-time), then post-publish review.
 
 ## Compounding notes
 - Pre-upload path (idea -> master after materialize) is reliable. Primary blocker remains human OAuth setup.
 - Prefer tools that reduce minutes in the labor map or improve reliability over pure inspection or status restatement.
-- Recurring failure pattern: claiming code/docs updates without verifying actual file contents (placeholders or stubs). Always check wc/head/grep after writes. This run verified by re-fetch after push. Script, thumbnail, caption, and metadata spot-check assistance available.
+- Recurring failure pattern: claiming code/docs updates without verifying actual file contents (placeholders or stubs). Always check wc/head/grep after writes. This run verified by re-fetch after push. Script, thumbnail, caption, metadata, and idea spot-check assistance available.
 - After first private video id: follow post_publish path (docs/q1_post_publish_prep.md, after_upload_steps.py).
 - Tracking integrity, run-number consistency, human guidance integrity, post-publish integrity, and production path integrity are enforced on every selftest run.
 
