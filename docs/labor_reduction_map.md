@@ -10,7 +10,7 @@ Estimated remaining human minutes per stage for a typical packet (after Q1 patte
 | Metadata (title/desc/tags/chapters/comment) | 2–5 | assisted | metadata_bundle + publish_brief locks |
 | Narration (Selected VO) | 0 (Q1 generated) / 15–40 (future human) | READY_FOR_MEDIA | Generated take authorized for Q1; human recording optional later |
 | Cards / visuals | 0–5 | READY_FOR_MEDIA | Deterministic card_generator; gitignored |
-| Captions spot-check | 5–10 | draft | silence-proportional srt exists; 5 checkpoints |
+| Captions spot-check | 3–6 | assisted | caption_spotcheck_assistant.py structured list + soft flags; hard gate caption_gate.py |
 | Thumbnail review | 2–5 | draft | PNG present; sensory review |
 | Assembly / encode | 0 | PLAN_BUILT / READY_FOR_MEDIA | assemble --execute gated on media_qa PASS |
 | Media QA | 0 | READY_FOR_MEDIA | media_qa + export_probe fail-closed |
@@ -24,4 +24,4 @@ Estimated remaining human minutes per stage for a typical packet (after Q1 patte
 
 **Current system human minutes to first private video:** ~10–20 (OAuth only).
 
-Updated: 2026-11-24T20:30:00Z (Run 1332). Restored from stub. Prefer reductions that compound across many videos.
+Updated: 2026-11-27T00:20:00Z (Run 1353). Caption spot-check reduced via assistant. Prefer reductions that compound across many videos.
