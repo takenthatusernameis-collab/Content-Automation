@@ -15,7 +15,7 @@ Estimated remaining human minutes per stage for a typical packet (after Q1 patte
 | Assembly / encode | 0 | PLAN_BUILT / READY_FOR_MEDIA | assemble --execute gated on media_qa PASS |
 | Media QA | 0 | READY_FOR_MEDIA | media_qa + export_probe fail-closed |
 | Upload + captions + thumb | 0 once secrets set | READY_FOR_CREDENTIAL | youtube_upload dry-run ready; execute needs OAuth |
-| Studio pin / end-screen | 2–5 | manual | Data API cannot finish; studio_pin.md helps |
+| Studio pin / end-screen | 1–3 | assisted | studio_pin_end_screen_spotcheck_assistant.py structured list + soft flags + Studio reminder; Data API cannot finish clicks |
 | Feedback collect (after +10d) | 0 once secrets set | READY_FOR_CREDENTIAL | youtube_feedback dry-run ready |
 | Experiment decide | 5–10 | PLAN_BUILT | experiment_loop + decision file; needs real metrics |
 | **OAuth secrets (one-time)** | **10–20** | **BLOCKED** | **Sole remaining publish gate; STALL_OAUTH_IDLE** |
@@ -24,4 +24,4 @@ Estimated remaining human minutes per stage for a typical packet (after Q1 patte
 
 **Current system human minutes to first private video:** ~10–20 (OAuth only).
 
-Updated: 2026-11-28T00:00:00Z (Run 1357). Idea spot-check reduced via assistant. Metadata spot-check reduced via assistant. Script spot-check reduced via assistant. Thumbnail spot-check reduced via assistant. Caption spot-check reduced via assistant. Prefer reductions that compound across many videos.
+Updated: 2026-11-28T00:23:00Z (Run 1358). Studio pin / end-screen spot-check reduced via assistant. Idea spot-check reduced via assistant. Metadata spot-check reduced via assistant. Script spot-check reduced via assistant. Thumbnail spot-check reduced via assistant. Caption spot-check reduced via assistant. Prefer reductions that compound across many videos.
